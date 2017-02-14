@@ -29,7 +29,7 @@
             android:value="testDB.db"/>
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.rcl.data.entity.ItemEntity"
+            android:value="com.rcl.excalibur.data.entity.ItemEntity"
             />
     </application>
 
