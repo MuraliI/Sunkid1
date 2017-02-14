@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+
+
+android {
+    defaultPublishConfig "debug"
+
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
+}
+
+dependencies {
+    def domainDependencies = rootProject.ext.domainDependencies
+    def domainTestDependencies = rootProject.ext.domainTestDependencies
+
+    provided domainDependencies.javaxAnnotation
+
+    compile domainDependencies.javaxInject
+    compile domainDependencies.rxJava
+    compile domainDependencies.arrow
+
+    testCompile domainTestDependencies.junit
+    testCompile domainTestDependencies.mockito
+    testCompile domainTestDependencies.assertj
+}
+
+apply plugin: 'checkstyle'
+
+task checkstyle(type: Checkstyle) {
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/R.java'
+    exclude '**/BuildConfig.java'
+
+    def configProps = ['proj.module.dir': projectDir.absolutePath]
+    configProperties configProps
+
+    classpath = files()
+
+}
+
+preBuild.dependsOn('checkstyle')
