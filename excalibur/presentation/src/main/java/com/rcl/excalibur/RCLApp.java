@@ -20,6 +20,7 @@ public class RCLApp extends Application {
         ActiveAndroid.initialize(this);
         this.initializeInjector();
         this.initializeLeakDetection();
+        this.initCalligraphy();
     }
 
     private void initializeInjector() {
