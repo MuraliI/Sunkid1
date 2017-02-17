@@ -7,4 +7,16 @@
         <item name="android:colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.TextViewExample" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_light</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
+    <style name="AppTheme.TextViewSecondExample" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
 </resources>

@@ -4,9 +4,11 @@ import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
 import com.rcl.excalibur.internal.di.component.ApplicationComponent;
-import com.rcl.excalibur.internal.di.module.ApplicationModule;
 import com.rcl.excalibur.internal.di.component.DaggerApplicationComponent;
+import com.rcl.excalibur.internal.di.module.ApplicationModule;
 import com.squareup.leakcanary.LeakCanary;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class RCLApp extends Application {
 
@@ -26,6 +28,14 @@ public class RCLApp extends Application {
                 .build();
     }
 
+
+    private void initCalligraphy() {
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath(getString(R.string.roboto_regular))
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+    }
 
     public ApplicationComponent getApplicationComponent() {
         return this.applicationComponent;
