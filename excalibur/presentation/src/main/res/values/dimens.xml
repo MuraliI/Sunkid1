@@ -7,4 +7,9 @@
     <dimen name="fowrard_btn_button">60dp</dimen>
     <dimen name="left_margin_forward">100dp</dimen>
     <dimen name="top_image_margin">20dp</dimen>
+
+    <!--Ribbon ship time-->
+    <dimen name="ribbon_ship_time_margin_top">40dp</dimen>
+    <dimen name="ribbon_ship_height">30dp</dimen>
+
 </resources>

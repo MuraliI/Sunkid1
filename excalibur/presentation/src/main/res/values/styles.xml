@@ -1,10 +1,23 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:colorAccent">@color/colorAccent</item>
+
+    </style>
+    <!--android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >-->
+
+    <style name="AppTheme.Home" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!--<item name="android:statusBarColor">@color/transparent</item>-->
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+
+    <style name="ShipTime" parent="@android:style/Widget.TextView">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

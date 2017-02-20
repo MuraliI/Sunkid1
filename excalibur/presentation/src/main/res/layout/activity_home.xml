@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/sea">
+
+    <include layout="@layout/ribbon_ship_time"/>
+
+
+    <!--Header-->
+    <ImageView
+        android:id="@+id/home_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ribbon_ship_time_container"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/arrow"/>
+
+    <RelativeLayout
+        android:id="@+id/home_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/home_arrow"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/transparent">
+
+        <ImageView
+            android:id="@+id/home_fanny_packs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/user_icon"/>
+
+        <TextView
+            android:id="@+id/home_destination_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/hardcoded_destination_place"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/home_destination_place_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_destination_place"
+            android:layout_centerHorizontal="true"
+            android:text="@string/hardcoded_destination_time"
+            android:textColor="@color/white"
+            android:textSize="10sp"/>
+
+
+        <ImageView
+            android:id="@+id/home_deck_plans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/chat_icon"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/home_boat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/card_view"
+        android:layout_below="@+id/home_header"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/boat"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+</RelativeLayout>
+

@@ -65,6 +65,7 @@ dependencies {
     compile presentationDependencies.appSupport
     compile presentationDependencies.rxAndroid
     compile presentationDependencies.picasso
+    compile presentationDependencies.cardView
 
     testCompile presentationTestDependencies.junit
     testCompile presentationTestDependencies.mockito

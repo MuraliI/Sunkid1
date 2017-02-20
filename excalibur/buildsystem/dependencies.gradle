@@ -26,6 +26,7 @@ ext {
   okHttpVersion = '2.5.0'
   androidAnnotationsVersion = '21.0.3'
   picassoVersion = "2.5.2"
+  cardViewVersion = "25.0.0"
 
 
   //Testing
@@ -49,6 +50,7 @@ ext {
       appSupport:         "com.android.support:appcompat-v7:${appSupportVersion}",
       rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
+      cardView:           "com.android.support:cardview-v7:${cardViewVersion}"
 
   ]
 
