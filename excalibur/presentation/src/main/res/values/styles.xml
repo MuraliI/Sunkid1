@@ -6,18 +6,26 @@
         <item name="android:colorAccent">@color/colorAccent</item>
 
     </style>
-    <!--android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >-->
-
     <style name="AppTheme.Home" parent="Theme.AppCompat.Light.NoActionBar">
-
-        <!--<item name="android:statusBarColor">@color/transparent</item>-->
         <item name="android:windowTranslucentStatus">true</item>
     </style>
-
 
     <style name="ShipTime" parent="@android:style/Widget.TextView">
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="AppTheme.TextViewExample" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_light</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
+    <style name="AppTheme.TextViewSecondExample" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
 </resources>

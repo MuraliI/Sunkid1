@@ -29,7 +29,7 @@ public class HomeView extends ActivityView<HomeActivity> {
         if (activity == null) {
             return;
         }
-        adapter = new PlanAdapter();
+        adapter = new PlanAdapter(adapterObserver);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
     }

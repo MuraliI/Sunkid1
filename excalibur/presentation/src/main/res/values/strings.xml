@@ -7,6 +7,13 @@
     <string name="ship_time_label">ship time&#160;</string>
     <string name="next_up">next up</string>
 
+    <!-- Font source -->
+    <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
+    <string name="roboto_regular">fonts/Roboto-Regular.ttf</string>
+    <string name="roboto_bold">fonts/Roboto-Bold.ttf</string>
+    <string name="roboto_medium_italic">fonts/Roboto-MediumItalic.ttf</string>
+    <string name="roboto_light">fonts/Roboto-Light.ttf</string>
+
 
     <!--TODO hardcoded values-->
     <string name="hardcoded_ship_time">14:07</string>

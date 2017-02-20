@@ -26,6 +26,10 @@
 
         <activity android:name="com.rcl.excalibur.activity.LoadFromDBActivity"/>
         <activity android:name="com.rcl.excalibur.activity.MainActivity"/>
+        <activity
+            android:name=".activity.PlansActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Home"/>
 
         <meta-data
             android:name="AA_DB_NAME"

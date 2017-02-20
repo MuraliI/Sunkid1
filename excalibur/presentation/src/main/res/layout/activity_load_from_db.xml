@@ -13,11 +13,27 @@
         android:layout_height="wrap_content"
         android:text="Press"/>
 
+    <TextView
+        android:id="@+id/txt_example"
+        android:text="This is a test of a text view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn"
+        style="@style/AppTheme.TextViewExample"/>
+
+    <TextView
+        android:id="@+id/txt_second_example"
+        android:text="This is a test of a text view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_example"
+        style="@style/AppTheme.TextViewSecondExample"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn"
+        android:layout_below="@+id/txt_second_example"
         android:layout_marginTop="30dp"/>
 
 </RelativeLayout>

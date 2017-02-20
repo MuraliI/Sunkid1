@@ -1,18 +1,17 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import android.database.Cursor;
-import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-
+import com.rcl.excalibur.activity.HomeActivity;
+import com.rcl.excalibur.activity.PlansActivity;
 import com.rcl.excalibur.model.PlanModel;
 import com.rcl.excalibur.mvp.view.HomeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePresenter implements BasePresenter, LoaderManager.LoaderCallbacks<Cursor> {
+import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
+
+public class HomePresenter implements BasePresenter {
     private HomeView view;
 
     public HomePresenter(HomeView view) {
@@ -21,26 +20,29 @@ public class HomePresenter implements BasePresenter, LoaderManager.LoaderCallbac
     }
 
     private void init() {
+        view.setAdapterObserver(new AdapterObserver(this));
         view.init();
-//        TODO hard
+//        TODO hard. waiting mock service
         List<PlanModel> planModels = new ArrayList();
-        planModels.add(new PlanModel());
         planModels.add(new PlanModel());
         view.addAll(planModels);
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+    public class AdapterObserver extends DefaultPresentObserver<PlanModel, HomePresenter> {
+
+        public AdapterObserver(HomePresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(PlanModel value) {
+            final HomeActivity activity = getPresenter().view.getActivity();
+            if (activity == null) {
+                return;
+            }
+
+            startActivity(activity, PlansActivity.getStartIntent(activity));
+        }
     }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
 }

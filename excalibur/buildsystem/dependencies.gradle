@@ -27,6 +27,7 @@ ext {
   androidAnnotationsVersion = '21.0.3'
   picassoVersion = "2.5.2"
   cardViewVersion = "25.0.0"
+  calligraphyVersion = "2.2.0"
 
 
   //Testing
@@ -50,8 +51,8 @@ ext {
       appSupport:         "com.android.support:appcompat-v7:${appSupportVersion}",
       rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
-      cardView:           "com.android.support:cardview-v7:${cardViewVersion}"
-
+      cardView:           "com.android.support:cardview-v7:${cardViewVersion}",
+      calligraphy:        "uk.co.chrisjenx:calligraphy:${calligraphyVersion}"
   ]
 
   presentationTestDependencies = [

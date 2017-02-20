@@ -9,18 +9,23 @@ import android.view.ViewGroup;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.model.PlanModel;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.reactivex.Observer;
 
 import static com.rcl.excalibur.utils.CollectionUtils.isEmpty;
+import static io.reactivex.Observable.just;
 
-public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHoldel> {
+public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHoldel> {
 
     private List<PlanModel> plans;
 
-    public PlanAdapter() {
+    public PlanAdapter(final Observer observer) {
+        super(observer);
         this.plans = new ArrayList();
     }
 
@@ -45,15 +50,17 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHoldel
 
     @Override
     public PlanViewHoldel onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_card, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_plan, parent, false);
         return new PlanViewHoldel(view);
     }
 
     @Override
     public void onBindViewHolder(PlanViewHoldel holder, int position) {
-//TODO        final PlanModel planModel = plans.get(position);
-
-
+        final PlanModel planModel = plans.get(position);
+        holder.planModel = planModel;
+        if (hasObserver()) {
+            holder.observerRef = new WeakReference(getObserver());
+        }
     }
 
     @Override
@@ -63,9 +70,21 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHoldel
 
     static class PlanViewHoldel extends RecyclerView.ViewHolder {
 
+        private PlanModel planModel;
+        private WeakReference<Observer> observerRef;
+
         public PlanViewHoldel(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @OnClick(R.id.card_view)
+        public void onImageClick() {
+            if (observerRef == null) {
+                return;
+            }
+            just(planModel).subscribe(observerRef.get());
+
         }
     }
 }
