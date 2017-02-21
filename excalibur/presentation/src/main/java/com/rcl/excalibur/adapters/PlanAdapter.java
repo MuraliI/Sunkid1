@@ -65,7 +65,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHoldel> {
 
     @Override
     public int getItemCount() {
-        return plans != null ? plans.size() : 0;
+        return plans.size();
     }
 
     static class PlanViewHoldel extends RecyclerView.ViewHolder {

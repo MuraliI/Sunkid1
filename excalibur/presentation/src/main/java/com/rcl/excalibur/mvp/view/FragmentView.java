@@ -20,7 +20,6 @@ public class FragmentView<T extends Fragment> {
     private WeakReference<T> fragmentRef;
     private CompositeDisposable compositeSubscription;
 
-
     public FragmentView(T fragment) {
         fragmentRef = new WeakReference(fragment);
     }
@@ -39,7 +38,6 @@ public class FragmentView<T extends Fragment> {
     public Context getContext() {
         return getActivity();
     }
-
 
     public void showMessage(@StringRes int message) {
         final Activity activity = getActivity();

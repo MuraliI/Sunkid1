@@ -6,7 +6,6 @@
 
     <include layout="@layout/ribbon_ship_time"/>
 
-
     <!--Header-->
     <ImageView
         android:id="@+id/home_arrow"
@@ -71,7 +70,6 @@
         android:layout_below="@+id/home_header"
         android:layout_centerHorizontal="true"
         android:src="@drawable/boat"/>
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

@@ -12,4 +12,12 @@
     <dimen name="ribbon_ship_time_margin_top">40dp</dimen>
     <dimen name="ribbon_ship_height">30dp</dimen>
 
+    <!--home item plan-->
+    <dimen name="item_plan_container_height">130dp</dimen>
+    <dimen name="item_plan_corner_radius">7dp</dimen>
+    <dimen name="item_plan_container_margin">20dp</dimen>
+    <dimen name="item_plan_line_top_width">30dp</dimen>
+    <dimen name="item_plan_line_top_height">2dp</dimen>
+    <dimen name="item_plan_image_margin_right">20dp</dimen>
+    <dimen name="item_plan_line_bottom_height">1dp</dimen>
 </resources>
