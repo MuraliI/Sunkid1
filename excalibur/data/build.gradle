@@ -45,6 +45,7 @@ android {
 }
 
 dependencies {
+    def generalDependencies = rootProject.ext.generalDependencies
     def dataDependencies = rootProject.ext.dataDependencies
     def testDependencies = rootProject.ext.dataTestDependencies
 
@@ -57,6 +58,7 @@ dependencies {
     compile dataDependencies.rxAndroid
     compile dataDependencies.androidAnnotations
     compile dataDependencies.activeAndroid
+    compile generalDependencies.timber
 
     testCompile testDependencies.junit
     testCompile testDependencies.assertj
