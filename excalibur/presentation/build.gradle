@@ -50,6 +50,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
+    def generalDependencies = rootProject.ext.generalDependencies
     def presentationDependencies = rootProject.ext.presentationDependencies
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
@@ -66,6 +67,7 @@ dependencies {
     compile presentationDependencies.rxAndroid
     compile presentationDependencies.picasso
     compile presentationDependencies.calligraphy
+    compile generalDependencies.timber
 
     testCompile presentationTestDependencies.junit
     testCompile presentationTestDependencies.mockito

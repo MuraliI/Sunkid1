@@ -8,6 +8,7 @@ import com.rcl.excalibur.internal.di.component.DaggerApplicationComponent;
 import com.rcl.excalibur.internal.di.module.ApplicationModule;
 import com.squareup.leakcanary.LeakCanary;
 
+import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class RCLApp extends Application {
@@ -21,6 +22,11 @@ public class RCLApp extends Application {
         this.initializeInjector();
         this.initializeLeakDetection();
         this.initCalligraphy();
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+            Timber.d("RCL Timber is: %s", "ON");
+        }
     }
 
     private void initializeInjector() {
