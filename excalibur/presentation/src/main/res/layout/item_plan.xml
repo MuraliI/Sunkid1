@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
+    style="@style/AppTheme.PlanCardView"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_plan_container_height"
-    card_view:cardBackgroundColor="@color/white"
-    card_view:cardCornerRadius="@dimen/item_plan_corner_radius">
+    android:layout_height="@dimen/item_plan_container_height">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,31 +29,30 @@
 
         <TextView
             android:id="@+id/card_next"
+            style="@style/AppTheme.PlanNextTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/card_image"
             android:layout_toRightOf="@+id/card_image"
-            android:text="@string/next_up"
-            android:textAllCaps="true"
-            android:textColor="@color/grey"/>
+            android:text="@string/next_up"/>
 
         <TextView
             android:id="@+id/card_next_title"
+            style="@style/AppTheme.PlanTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/card_next"
             android:layout_toRightOf="@+id/card_image"
-            android:text="@string/hardcoded_place"
-            android:textColor="@color/black"/>
+            android:text="@string/hardcoded_place"/>
 
         <TextView
             android:id="@+id/card_next_time"
+            style="@style/AppTheme.PlanTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/card_next_title"
             android:layout_toRightOf="@+id/card_image"
-            android:text="@string/hardcoded_time"
-            android:textColor="@color/grey"/>
+            android:text="@string/hardcoded_time"/>
 
         <LinearLayout
             android:layout_width="match_parent"

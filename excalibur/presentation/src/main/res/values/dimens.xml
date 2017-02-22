@@ -8,9 +8,12 @@
     <dimen name="left_margin_forward">100dp</dimen>
     <dimen name="top_image_margin">20dp</dimen>
 
+    <dimen name="home_arrow_margin_bottom">5dp</dimen>
+    <dimen name="home_arrow_margin_top">20dp</dimen>
+
     <!--Ribbon ship time-->
-    <dimen name="ribbon_ship_time_margin_top">40dp</dimen>
-    <dimen name="ribbon_ship_height">30dp</dimen>
+    <dimen name="ribbon_ship_time_padding_top">30dp</dimen>
+    <dimen name="ribbon_ship_time_margin_bottom">6dp</dimen>
 
     <!--home item plan-->
     <dimen name="item_plan_container_height">130dp</dimen>

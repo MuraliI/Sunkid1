@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ribbon_ship_time_container"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="@dimen/home_arrow_margin_bottom"
+        android:layout_marginTop="@dimen/home_arrow_margin_top"
         android:src="@drawable/arrow"/>
 
     <RelativeLayout
@@ -35,22 +35,20 @@
 
         <TextView
             android:id="@+id/home_destination_place"
+            style="@style/AppTheme.PlaceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="@string/hardcoded_destination_place"
-            android:textColor="@color/white"
-            android:textSize="20sp"/>
+            android:text="@string/hardcoded_destination_place"/>
 
         <TextView
             android:id="@+id/home_destination_place_time"
+            style="@style/AppTheme.TimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/home_destination_place"
             android:layout_centerHorizontal="true"
-            android:text="@string/hardcoded_destination_time"
-            android:textColor="@color/white"
-            android:textSize="10sp"/>
+            android:text="@string/hardcoded_destination_time"/>
 
 
         <ImageView

@@ -4,8 +4,9 @@
     <LinearLayout
         android:id="@+id/ribbon_ship_time_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ribbon_ship_height"
-        android:layout_marginTop="@dimen/ribbon_ship_time_margin_top"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/ribbon_ship_time_padding_top"
+        android:paddingBottom="@dimen/ribbon_ship_time_margin_bottom"
         android:background="@color/ribbon_ship_time"
         android:gravity="center"
         android:orientation="horizontal">
