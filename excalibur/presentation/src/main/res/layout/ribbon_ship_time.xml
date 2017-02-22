@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/ribbon_ship_time_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/ribbon_ship_time_padding_top"
+        android:paddingBottom="@dimen/ribbon_ship_time_margin_bottom"
+        android:background="@color/ribbon_ship_time"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ship_time_label"
+            style="@style/ShipTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ship_time_label"/>
+
+        <TextView
+            android:id="@+id/ship_time"
+            style="@style/ShipTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hardcoded_ship_time"/>
+
+    </LinearLayout>
+</merge>

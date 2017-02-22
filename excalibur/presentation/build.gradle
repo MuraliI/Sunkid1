@@ -66,6 +66,7 @@ dependencies {
     compile presentationDependencies.appSupport
     compile presentationDependencies.rxAndroid
     compile presentationDependencies.picasso
+    compile presentationDependencies.cardView
     compile presentationDependencies.calligraphy
     compile generalDependencies.timber
 

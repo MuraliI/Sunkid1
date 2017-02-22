@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/sea">
+
+    <include layout="@layout/ribbon_ship_time"/>
+
+    <!--Header-->
+    <ImageView
+        android:id="@+id/home_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ribbon_ship_time_container"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/home_arrow_margin_bottom"
+        android:layout_marginTop="@dimen/home_arrow_margin_top"
+        android:src="@drawable/arrow"/>
+
+    <RelativeLayout
+        android:id="@+id/home_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/home_arrow"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/transparent">
+
+        <ImageView
+            android:id="@+id/home_fanny_packs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/user_icon"/>
+
+        <TextView
+            android:id="@+id/home_destination_place"
+            style="@style/AppTheme.PlaceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/hardcoded_destination_place"/>
+
+        <TextView
+            android:id="@+id/home_destination_place_time"
+            style="@style/AppTheme.TimeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_destination_place"
+            android:layout_centerHorizontal="true"
+            android:text="@string/hardcoded_destination_time"/>
+
+
+        <ImageView
+            android:id="@+id/home_deck_plans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/chat_icon"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/home_boat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/card_view"
+        android:layout_below="@+id/home_header"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/boat"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+</RelativeLayout>
+

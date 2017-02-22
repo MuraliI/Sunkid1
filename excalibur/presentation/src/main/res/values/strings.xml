@@ -3,6 +3,9 @@
     <string name="action_settings">Settings</string>
     <string name="load_from_db">Load from DB</string>
     <string name="message">Item clicked</string>
+    <string name="search_hint">Search for anything</string>
+    <string name="ship_time_label">ship time&#160;</string>
+    <string name="next_up">next up</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
@@ -10,4 +13,13 @@
     <string name="roboto_bold">fonts/Roboto-Bold.ttf</string>
     <string name="roboto_medium_italic">fonts/Roboto-MediumItalic.ttf</string>
     <string name="roboto_light">fonts/Roboto-Light.ttf</string>
+
+
+    <!--TODO hardcoded values-->
+    <string name="hardcoded_ship_time">14:07</string>
+    <string name="hardcoded_place">Masquerade Theater</string>
+    <string name="hardcoded_time">In 15 min</string>
+    <string name="hardcoded_destination_place">ST MARTIN</string>
+    <string name="hardcoded_destination_time">in 1:40 hours</string>
+
 </resources>
