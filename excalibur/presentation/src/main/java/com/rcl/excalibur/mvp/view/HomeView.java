@@ -8,6 +8,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.HomeActivity;
 import com.rcl.excalibur.adapters.PlanAdapter;
 import com.rcl.excalibur.model.PlanModel;
+import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import java.util.List;
 

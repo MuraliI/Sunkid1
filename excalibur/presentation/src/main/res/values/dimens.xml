@@ -8,6 +8,10 @@
     <dimen name="left_margin_forward">100dp</dimen>
     <dimen name="top_image_margin">20dp</dimen>
 
+    <!-- General Margin -->
+    <dimen name="margin_large">20dp</dimen>
+    <dimen name="margin_normal">10dp</dimen>
+
     <dimen name="home_arrow_margin_bottom">5dp</dimen>
     <dimen name="home_arrow_margin_top">20dp</dimen>
 
@@ -23,4 +27,10 @@
     <dimen name="item_plan_line_top_height">2dp</dimen>
     <dimen name="item_plan_image_margin_right">20dp</dimen>
     <dimen name="item_plan_line_bottom_height">1dp</dimen>
+    
+    <!-- detail screen -->
+    <dimen name="detail_plan_inset_margin_side">20dp</dimen>
+    <dimen name="detail_plan_reservation_message_container_size">60dp</dimen>
+    <dimen name="detail_plan_reservation_message_container_elevation">12dp</dimen>
+    <dimen name="detail_plan_reservation_title_drawable_padding">10dp</dimen>
 </resources>

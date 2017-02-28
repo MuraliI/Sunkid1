@@ -11,6 +11,7 @@ import com.rcl.excalibur.activity.LoadFromDBActivity;
 import com.rcl.excalibur.adapters.ItemsAdapter;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.model.ItemModel;
+import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import java.util.Collection;
 import java.util.List;
