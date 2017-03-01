@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn"
-        style="@style/AppTheme.TextViewExample"/>
+        style="@style/AppTheme.RobotoLightWhiteNormal"/>
 
     <TextView
         android:id="@+id/txt_second_example"
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_example"
-        style="@style/AppTheme.TextViewSecondExample"/>
+        style="@style/AppTheme.RobotoBoldWhiteNormal"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

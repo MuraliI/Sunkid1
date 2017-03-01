@@ -29,6 +29,7 @@
     <dimen name="item_plan_line_bottom_height">1dp</dimen>
     
     <!-- detail screen -->
+    <dimen name="detail_plan_app_bar_size">320dp</dimen>
     <dimen name="detail_plan_inset_margin_side">20dp</dimen>
     <dimen name="detail_plan_reservation_message_container_size">60dp</dimen>
     <dimen name="detail_plan_reservation_message_container_elevation">12dp</dimen>

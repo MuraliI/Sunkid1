@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/ab_layout_detail"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="@dimen/detail_plan_app_bar_size"
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true">
 
@@ -49,13 +49,13 @@
 
                     <TextView
                         android:id="@+id/tv_plan_name"
-                        style="@style/White.Bold.Xlarge"
+                        style="@style/AppTheme.RobotoBoldWhiteXlarge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="@string/hardcoded_activity_title"/>
 
                     <TextView
-                        style="@style/White"
+                        style="@style/AppTheme.RobotoLightWhiteNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hardcoded_detail_activity_location"
@@ -67,14 +67,14 @@
                     android:id="@+id/fl_reservation_container"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/detail_plan_reservation_message_container_size"
-                    android:background="#33FFFFFF"
+                    android:background="@color/transparent_white"
                     android:elevation="@dimen/detail_plan_reservation_message_container_elevation"
                     android:paddingBottom="@dimen/margin_normal"
                     android:paddingEnd="@dimen/detail_plan_inset_margin_side"
                     android:paddingStart="@dimen/detail_plan_inset_margin_side">
 
                     <TextView
-                        style="@style/White.Bold"
+                        style="@style/AppTheme.RobotoBoldWhiteNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
