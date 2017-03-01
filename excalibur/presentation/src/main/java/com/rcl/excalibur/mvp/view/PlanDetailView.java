@@ -32,9 +32,7 @@ public class PlanDetailView extends ActivityView {
     public PlanDetailView(AppCompatActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
-        if (activity != null) {
-            activity.setSupportActionBar(detailToolbar);
-        }
+        activity.setSupportActionBar(detailToolbar);
     }
 
     public void setDetailTitle(String title) {

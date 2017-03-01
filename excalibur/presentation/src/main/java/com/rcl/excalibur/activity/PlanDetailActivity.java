@@ -11,12 +11,12 @@ import com.rcl.excalibur.mvp.view.PlanDetailView;
 
 public class PlanDetailActivity extends BaseActivity {
 
-    private static final String PLAN_EXTRA = "PLAN_EXTRA";
+    private static final String EXTRA_PLAN_MODEL = "EXTRA_PLAN_MODEL";
 
     public static Intent createIntent(Context context, PlanModel planModel) {
         Intent intent = new Intent(context, PlanDetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(PLAN_EXTRA, planModel);
+        intent.putExtra(EXTRA_PLAN_MODEL, planModel);
         return intent;
     }
 
@@ -27,8 +27,8 @@ public class PlanDetailActivity extends BaseActivity {
 
         PlanModel planModel = null;
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra(PLAN_EXTRA)) {
-            planModel = getIntent().getExtras().getParcelable(PLAN_EXTRA);
+        if (intent != null && intent.hasExtra(EXTRA_PLAN_MODEL)) {
+            planModel = getIntent().getExtras().getParcelable(EXTRA_PLAN_MODEL);
         }
 
         PlanDetailPresenter planDetailPresenter = new PlanDetailPresenter(new PlanDetailView(this), planModel);
