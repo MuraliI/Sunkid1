@@ -12,5 +12,5 @@ public interface DetailModuleFactory {
 
     SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray();
 
-    List<RecyclerViewType> getListOfDetailModules();
+    List<RecyclerViewType> getListOfDetailViewTypes();
 }

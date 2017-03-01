@@ -22,8 +22,6 @@ import butterknife.ButterKnife;
 
 public class PlanDetailView extends ActivityView {
 
-    public static final String EMPTY_STRING = "";
-
     @Bind(R.id.rv_plan_details) RecyclerView planDetailRecycler;
     @Bind(R.id.ct_detail) CollapsingToolbarLayout detailCoordinator;
     @Bind(R.id.at_detail) Toolbar detailToolbar;
@@ -36,7 +34,6 @@ public class PlanDetailView extends ActivityView {
         ButterKnife.bind(this, activity);
         if (activity != null) {
             activity.setSupportActionBar(detailToolbar);
-            activity.setTitle(EMPTY_STRING);
         }
     }
 

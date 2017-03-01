@@ -11,7 +11,7 @@ import com.rcl.excalibur.mvp.view.PlanDetailView;
 
 public class PlanDetailActivity extends BaseActivity {
 
-    public static final String PLAN_EXTRA = "PLAN_EXTRA";
+    private static final String PLAN_EXTRA = "PLAN_EXTRA";
 
     public static Intent createIntent(Context context, PlanModel planModel) {
         Intent intent = new Intent(context, PlanDetailActivity.class);
@@ -26,7 +26,8 @@ public class PlanDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_plan_detail);
 
         PlanModel planModel = null;
-        if (getIntent().getExtras() != null) {
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(PLAN_EXTRA)) {
             planModel = getIntent().getExtras().getParcelable(PLAN_EXTRA);
         }
 

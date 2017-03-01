@@ -14,11 +14,14 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
 
     @Override
     public SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray() {
+        /*FIXME this will return the Array of Delegate adapters that will process the different view types (modules) that the detail
+        will have*/
         return new SparseArrayCompat<>(VIEW_TYPES_COUNT);
     }
 
     @Override
-    public List<RecyclerViewType> getListOfDetailModules() {
+    public List<RecyclerViewType> getListOfDetailViewTypes() {
+        //FIXME this will return the list of view types (modules) that the detail view must render
         return new ArrayList<>();
     }
 }

@@ -28,7 +28,7 @@ public class PlanDetailPresenter implements BasePresenter {
             view.setDetailTitle(view.getActivity().getString(R.string.hardcoded_activity_title)); //FIXME get the plan title
         }
         view.setAdapterObserver(new DetailAdapterObserver(this));
-        view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailModules());
+        view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes());
     }
 
 
