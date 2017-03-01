@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.HomeActivity;
 import com.rcl.excalibur.adapters.PlanAdapter;
-import com.rcl.excalibur.model.PlanModel;
+import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class HomeView extends ActivityView<HomeActivity> {
         recyclerView.setAdapter(adapter);
     }
 
-    public void addAll(List<PlanModel> list) {
+    public void addAll(List<DiscoverItemModel> list) {
         adapter.addAll(list);
     }
 }

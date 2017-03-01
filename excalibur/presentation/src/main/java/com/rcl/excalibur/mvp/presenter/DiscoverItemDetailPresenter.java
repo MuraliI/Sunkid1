@@ -4,22 +4,22 @@ package com.rcl.excalibur.mvp.presenter;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
 import com.rcl.excalibur.adapters.delegate.factory.DinningDetailModuleFactory;
-import com.rcl.excalibur.model.PlanModel;
-import com.rcl.excalibur.mvp.view.PlanDetailView;
+import com.rcl.excalibur.model.DiscoverItemModel;
+import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
 
-public class PlanDetailPresenter implements BasePresenter {
+public class DiscoverItemDetailPresenter implements BasePresenter {
 
-    private PlanDetailView view;
+    private DiscoverItemDetailView view;
     private DetailModuleFactory moduleFactory;
 
-    public PlanDetailPresenter(PlanDetailView view, PlanModel planModel) {
+    public DiscoverItemDetailPresenter(DiscoverItemDetailView view, DiscoverItemModel discoverItemModel) {
         this.view = view;
-        initModuleFactory(planModel);
+        initModuleFactory(discoverItemModel);
         initView();
     }
 
     //TODO check what kind of plan was passed by the activity
-    private void initModuleFactory(PlanModel planModel) {
+    private void initModuleFactory(DiscoverItemModel discoverItemModel) {
         moduleFactory = new DinningDetailModuleFactory();
     }
 
@@ -33,14 +33,14 @@ public class PlanDetailPresenter implements BasePresenter {
 
 
 
-    public class DetailAdapterObserver extends DefaultPresentObserver<PlanModel, PlanDetailPresenter> {
+    public class DetailAdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemDetailPresenter> {
 
-        public DetailAdapterObserver(PlanDetailPresenter presenter) {
+        public DetailAdapterObserver(DiscoverItemDetailPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(PlanModel value) {
+        public void onNext(DiscoverItemModel value) {
             //TODO do something when a detail item is clicked.
         }
     }

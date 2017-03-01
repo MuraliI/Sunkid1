@@ -20,16 +20,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class PlanDetailView extends ActivityView {
+public class DiscoverItemDetailView extends ActivityView {
 
-    @Bind(R.id.rv_plan_details) RecyclerView planDetailRecycler;
+    @Bind(R.id.rv_discover_item_details) RecyclerView planDetailRecycler;
     @Bind(R.id.ct_detail) CollapsingToolbarLayout detailCoordinator;
     @Bind(R.id.at_detail) Toolbar detailToolbar;
-    @Bind(R.id.tv_plan_name) TextView planName;
+    @Bind(R.id.tv_discover_item_name) TextView planName;
 
     private DetailViewCoordinatorAdapter adapter;
 
-    public PlanDetailView(AppCompatActivity activity) {
+    public DiscoverItemDetailView(AppCompatActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
         activity.setSupportActionBar(detailToolbar);

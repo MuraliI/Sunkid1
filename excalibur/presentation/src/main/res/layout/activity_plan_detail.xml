@@ -5,12 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rcl.excalibur.activity.PlanDetailActivity">
+    tools:context="com.rcl.excalibur.activity.DiscoverItemDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/ab_layout_detail"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/detail_plan_app_bar_size"
+        android:layout_height="@dimen/detail_discover_item_app_bar_size"
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true">
 
@@ -21,7 +21,7 @@
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
             app:contentScrim="@color/colorPrimary"
-            app:expandedTitleMarginStart="@dimen/detail_plan_inset_margin_side"
+            app:expandedTitleMarginStart="@dimen/detail_discover_item_inset_margin_side"
             app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -44,18 +44,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_normal"
                     android:orientation="vertical"
-                    android:paddingEnd="@dimen/detail_plan_inset_margin_side"
-                    android:paddingStart="@dimen/detail_plan_inset_margin_side">
+                    android:paddingEnd="@dimen/detail_discover_item_inset_margin_side"
+                    android:paddingStart="@dimen/detail_discover_item_inset_margin_side">
 
                     <TextView
-                        android:id="@+id/tv_plan_name"
+                        android:id="@+id/tv_discover_item_name"
                         style="@style/AppTheme.PlanTitleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="@string/hardcoded_activity_title"/>
 
                     <TextView
-                        style="@style/AppTheme.PlanLocationText"
+                        style="@style/AppTheme.DiscoverItemLocationText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hardcoded_detail_activity_location"
@@ -66,19 +66,19 @@
                 <FrameLayout
                     android:id="@+id/fl_reservation_container"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_plan_reservation_message_container_size"
+                    android:layout_height="@dimen/detail_discover_item_reservation_message_container_size"
                     android:background="@color/transparent_white"
-                    android:elevation="@dimen/detail_plan_reservation_message_container_elevation"
+                    android:elevation="@dimen/detail_discover_item_reservation_message_container_elevation"
                     android:paddingBottom="@dimen/margin_normal"
-                    android:paddingEnd="@dimen/detail_plan_inset_margin_side"
-                    android:paddingStart="@dimen/detail_plan_inset_margin_side">
+                    android:paddingEnd="@dimen/detail_discover_item_inset_margin_side"
+                    android:paddingStart="@dimen/detail_discover_item_inset_margin_side">
 
                     <TextView
-                        style="@style/AppTheme.PlanReservationText"
+                        style="@style/AppTheme.DiscoverItemReservationText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:drawablePadding="@dimen/detail_plan_reservation_title_drawable_padding"
+                        android:drawablePadding="@dimen/detail_discover_item_reservation_title_drawable_padding"
                         android:drawableStart="@drawable/reserve_activity"
                         android:gravity="center_vertical"
                         android:text="@string/hardcoded_reservation_required"
@@ -95,7 +95,7 @@
                 android:layout_height="?android:actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 android:title="@string/hardcoded_activity_title"
-                app:contentInsetStart="@dimen/detail_plan_inset_margin_side"
+                app:contentInsetStart="@dimen/detail_discover_item_inset_margin_side"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|snap"
                 app:navigationIcon="@drawable/arrow_left"/>
@@ -105,7 +105,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_plan_details"
+        android:id="@+id/rv_discover_item_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"

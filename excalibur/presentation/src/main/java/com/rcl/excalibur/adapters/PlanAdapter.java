@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.model.PlanModel;
+import com.rcl.excalibur.model.DiscoverItemModel;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import static io.reactivex.Observable.just;
 
 public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHoldel> {
 
-    private List<PlanModel> plans;
+    private List<DiscoverItemModel> plans;
 
     public PlanAdapter(final Observer observer) {
         super(observer);
@@ -34,7 +34,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHoldel> {
         notifyDataSetChanged();
     }
 
-    public void addAll(List<PlanModel> list) {
+    public void addAll(List<DiscoverItemModel> list) {
         if (isEmpty(list)) {
             return;
         }
@@ -43,8 +43,8 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHoldel> {
         notifyDataSetChanged();
     }
 
-    public void add(PlanModel planModel) {
-        plans.add(planModel);
+    public void add(DiscoverItemModel discoverItemModel) {
+        plans.add(discoverItemModel);
         notifyItemInserted(plans.size() - 1);
     }
 
@@ -56,10 +56,10 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHoldel> {
 
     @Override
     public void onBindViewHolder(PlanViewHoldel holder, int position) {
-        final PlanModel planModel = plans.get(position);
-        holder.planModel = planModel;
+        final DiscoverItemModel discoverItemModel = plans.get(position);
+        holder.discoverItemModel = discoverItemModel;
         if (hasObserver()) {
-            holder.observerRef = new WeakReference(getObserver());
+            holder.observerRef = new WeakReference<>(getObserver());
         }
     }
 
@@ -70,7 +70,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHoldel> {
 
     static class PlanViewHoldel extends RecyclerView.ViewHolder {
 
-        private PlanModel planModel;
+        private DiscoverItemModel discoverItemModel;
         private WeakReference<Observer> observerRef;
 
         public PlanViewHoldel(View itemView) {
@@ -83,7 +83,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHoldel> {
             if (observerRef == null) {
                 return;
             }
-            just(planModel).subscribe(observerRef.get());
+            just(discoverItemModel).subscribe(observerRef.get());
 
         }
     }
