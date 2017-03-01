@@ -49,13 +49,13 @@
 
                     <TextView
                         android:id="@+id/tv_plan_name"
-                        style="@style/AppTheme.RobotoBoldWhiteXlarge"
+                        style="@style/AppTheme.PlanTitleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="@string/hardcoded_activity_title"/>
 
                     <TextView
-                        style="@style/AppTheme.RobotoLightWhiteNormal"
+                        style="@style/AppTheme.PlanLocationText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hardcoded_detail_activity_location"
@@ -74,7 +74,7 @@
                     android:paddingStart="@dimen/detail_plan_inset_margin_side">
 
                     <TextView
-                        style="@style/AppTheme.RobotoBoldWhiteNormal"
+                        style="@style/AppTheme.PlanReservationText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

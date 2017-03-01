@@ -22,20 +22,17 @@
     </style>
 
     <!-- Fonts -->
-    <style name="AppTheme.RobotoBoldWhiteXlarge" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_bold</item>
+    <style name="AppTheme.PlanTitleText" parent="@android:style/Widget.TextView">
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="AppTheme.RobotoBoldWhiteNormal" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_bold</item>
+    <style name="AppTheme.PlanReservationText" parent="@android:style/Widget.TextView">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="AppTheme.RobotoLightWhiteNormal" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_light</item>
+    <style name="AppTheme.PlanLocationText" parent="@android:style/Widget.TextView">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
