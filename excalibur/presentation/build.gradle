@@ -69,6 +69,7 @@ dependencies {
     compile presentationDependencies.cardView
     compile presentationDependencies.calligraphy
     compile generalDependencies.timber
+    compile presentationDependencies.supportDesign
 
     testCompile presentationTestDependencies.junit
     testCompile presentationTestDependencies.mockito

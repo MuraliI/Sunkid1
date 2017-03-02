@@ -8,7 +8,7 @@ import java.lang.ref.WeakReference;
 import io.reactivex.Observer;
 
 
-public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
+public abstract class BaseAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
     private WeakReference<Observer> observerRef;
 
     public BaseAdapter(final Observer observer) {
