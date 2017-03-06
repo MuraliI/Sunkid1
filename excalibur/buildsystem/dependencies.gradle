@@ -10,6 +10,8 @@ ext {
     androidMinSdkVersion = 21
     androidTargetSdkVersion = 25
     androidCompileSdkVersion = 25
+    renderScriptTargetApiVersion = 21
+    rederScriptEnabledFlag = true
 
     //Libraries
     butterKnifeVersion = '7.0.1'
@@ -29,7 +31,8 @@ ext {
     cardViewVersion = "25.1.1"
     calligraphyVersion = "2.2.0"
     timberVersion = "4.5.1"
-    designSupportLibrary = "25.1.1"
+    designSupportLibraryVersion = "25.1.1"
+    realTimeBlurLibVersion = "1.1.0"
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -48,17 +51,18 @@ ext {
     ]
 
     presentationDependencies = [
-            butterKnife   : "com.jakewharton:butterknife:${butterKnifeVersion}",
-            recyclerView  : "com.android.support:recyclerview-v7:${recyclerViewVersion}",
-            daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
-            dagger        : "com.google.dagger:dagger:${daggerVersion}",
-            activeAndroid : "com.michaelpardo:activeandroid:${activeAndroidVersion}",
-            appSupport    : "com.android.support:appcompat-v7:${appSupportVersion}",
-            rxAndroid     : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            picasso       : "com.squareup.picasso:picasso:${picassoVersion}",
-            cardView      : "com.android.support:cardview-v7:${cardViewVersion}",
-            calligraphy   : "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
-            supportDesign : "com.android.support:design:${designSupportLibrary}"
+            butterKnife     : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            recyclerView    : "com.android.support:recyclerview-v7:${recyclerViewVersion}",
+            daggerCompiler  : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger          : "com.google.dagger:dagger:${daggerVersion}",
+            activeAndroid   : "com.michaelpardo:activeandroid:${activeAndroidVersion}",
+            appSupport      : "com.android.support:appcompat-v7:${appSupportVersion}",
+            rxAndroid       : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            picasso         : "com.squareup.picasso:picasso:${picassoVersion}",
+            cardView        : "com.android.support:cardview-v7:${cardViewVersion}",
+            calligraphy     : "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
+            supportDesign   : "com.android.support:design:${designSupportLibraryVersion}",
+            realTimeBlurView: "com.github.mmin18:realtimeblurview:${realTimeBlurLibVersion}"
     ]
 
     presentationTestDependencies = [

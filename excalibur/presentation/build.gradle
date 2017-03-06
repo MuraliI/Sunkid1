@@ -18,6 +18,8 @@ android {
         versionName globalConfiguration.getAt("androidVersionName")
         testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
         testApplicationId globalConfiguration.getAt("testApplicationId")
+        renderscriptTargetApi globalConfiguration.getAt("renderScriptTargetApiVersion")
+        renderscriptSupportModeEnabled globalConfiguration.getAt("rederScriptEnabledFlag")
     }
 
     lintOptions {
@@ -45,6 +47,10 @@ android {
             }
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -70,6 +76,7 @@ dependencies {
     compile presentationDependencies.calligraphy
     compile generalDependencies.timber
     compile presentationDependencies.supportDesign
+    compile presentationDependencies.realTimeBlurView
 
     testCompile presentationTestDependencies.junit
     testCompile presentationTestDependencies.mockito
