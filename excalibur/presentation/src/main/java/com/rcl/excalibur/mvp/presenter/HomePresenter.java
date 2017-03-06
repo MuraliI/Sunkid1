@@ -2,7 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 
 import com.rcl.excalibur.activity.HomeActivity;
-import com.rcl.excalibur.activity.PlansActivity;
+import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.model.PlanModel;
 import com.rcl.excalibur.mvp.view.HomeView;
 
@@ -41,7 +41,7 @@ public class HomePresenter implements BasePresenter {
                 return;
             }
 
-            startActivity(activity, PlansActivity.getStartIntent(activity));
+            startActivity(activity, PlanListActivity.getStartIntent(activity));
         }
     }
 

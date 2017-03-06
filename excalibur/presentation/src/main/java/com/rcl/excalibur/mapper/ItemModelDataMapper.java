@@ -1,22 +1,14 @@
 package com.rcl.excalibur.mapper;
 
 import com.rcl.excalibur.domain.Item;
-import com.rcl.excalibur.internal.di.PerActivity;
 import com.rcl.excalibur.model.ItemModel;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+public class ItemModelDataMapper extends BaseModelDataMapper<ItemModel, Item> {
 
-import javax.inject.Inject;
-
-@PerActivity
-public class ItemModelDataMapper {
-
-    @Inject
     public ItemModelDataMapper() {
     }
 
+    @Override
     public ItemModel transform(Item item) {
         if (item == null) {
             throw new IllegalArgumentException("Cannot transform a null value");
@@ -26,21 +18,5 @@ public class ItemModelDataMapper {
         itemModel.setImageUrl(item.getImageUrl());
 
         return itemModel;
-    }
-
-
-    public Collection<ItemModel> transform(Collection<Item> itemsCollection) {
-        Collection<ItemModel> itemModelsCollection;
-
-        if (itemsCollection != null && !itemsCollection.isEmpty()) {
-            itemModelsCollection = new ArrayList<>();
-            for (Item item : itemsCollection) {
-                itemModelsCollection.add(transform(item));
-            }
-        } else {
-            itemModelsCollection = Collections.emptyList();
-        }
-
-        return itemModelsCollection;
     }
 }

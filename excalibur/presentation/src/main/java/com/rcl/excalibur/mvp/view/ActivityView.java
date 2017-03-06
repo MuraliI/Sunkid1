@@ -1,10 +1,10 @@
 package com.rcl.excalibur.mvp.view;
 
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -39,7 +39,7 @@ public class ActivityView<T extends AppCompatActivity> {
     @Nullable
     public FragmentManager getFragmentManager() {
         T activity = getActivity();
-        return (activity != null) ? activity.getFragmentManager() : null;
+        return (activity != null) ? activity.getSupportFragmentManager() : null;
     }
 
     public void showMessage(@StringRes int message) {

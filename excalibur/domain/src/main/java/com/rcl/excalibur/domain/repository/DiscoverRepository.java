@@ -1,0 +1,13 @@
+package com.rcl.excalibur.domain.repository;
+
+
+import com.rcl.excalibur.domain.Discover;
+
+import java.util.List;
+
+import io.reactivex.Observable;
+
+public interface DiscoverRepository {
+
+    Observable<List<Discover>> listBy(String type);
+}

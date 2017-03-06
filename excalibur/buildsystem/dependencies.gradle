@@ -29,6 +29,8 @@ ext {
   cardViewVersion = "25.0.0"
   calligraphyVersion = "2.2.0"
   timberVersion = "4.5.1"
+  appcompatVersion = "25.0.0"
+  designVersion = "25.0.0"
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -56,7 +58,9 @@ ext {
       rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
       cardView:           "com.android.support:cardview-v7:${cardViewVersion}",
-      calligraphy:        "uk.co.chrisjenx:calligraphy:${calligraphyVersion}"
+      calligraphy:        "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
+      appcompat:          "com.android.support:appcompat-v7:${appcompatVersion}",
+      design:             "com.android.support:design:${designVersion}"
   ]
 
     presentationTestDependencies = [

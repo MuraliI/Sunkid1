@@ -6,6 +6,8 @@
     <string name="search_hint">Search for anything</string>
     <string name="ship_time_label">ship time&#160;</string>
     <string name="next_up">next up</string>
+    <string name="discover">Discover</string>
+    <string name="my_plans">My Plans</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
@@ -14,6 +16,13 @@
     <string name="roboto_medium_italic">fonts/Roboto-MediumItalic.ttf</string>
     <string name="roboto_light">fonts/Roboto-Light.ttf</string>
 
+    <!--TABS-->
+    <string name="royal_activity">Activity</string>
+    <string name="spa">Spa</string>
+    <string name="dining">Dining</string>
+    <string name="shopping">Shopping</string>
+    <string name="shorex">Shorex</string>
+    <string name="entertainment">Entertainment</string>
 
     <!--TODO hardcoded values-->
     <string name="hardcoded_ship_time">14:07</string>
@@ -21,5 +30,13 @@
     <string name="hardcoded_time">In 15 min</string>
     <string name="hardcoded_destination_place">ST MARTIN</string>
     <string name="hardcoded_destination_time">in 1:40 hours</string>
+    <string name="hardcoded_today">Today</string>
 
+<!--Categories-->
+    <string name="category_royal_activity">Activities</string>
+    <string name="category_spa">Spa</string>
+    <string name="category_dining">Dining</string>
+    <string name="category_shopping">Shopping</string>
+    <string name="category_shorex">Shorex</string>
+    <string name="category_entertainment">Entertainment</string>
 </resources>

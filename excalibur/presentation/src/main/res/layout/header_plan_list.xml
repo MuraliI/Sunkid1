@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/plans_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/plan_list_padding_bottom_header"
+        android:paddingLeft="@dimen/plan_list_padding_left_header"
+        android:paddingRight="@dimen/plan_list_padding_right_header"
+        android:paddingTop="@dimen/plan_list_padding_top_header">
+
+        <RelativeLayout
+            android:id="@+id/plans_header_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/plans_header_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/arrow_up"
+                android:tint="@color/plan_list_lightblue" />
+
+            <TextView
+                android:id="@+id/plans_header_day"
+                style="@style/PlanListDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/hardcoded_today" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/plans_header_day"
+                android:src="@drawable/arrow"
+                android:tint="@color/black" />
+
+            <ImageView
+                android:id="@+id/plans_header_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/magnifier"
+                android:tint="@color/plan_list_lightblue" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/plans_header_top"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/PlanListSectionSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:text="@string/discover" />
+
+            <TextView
+                style="@style/PlanListSectionUnselected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="@string/my_plans" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</merge>
+
