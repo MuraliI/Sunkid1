@@ -10,6 +10,7 @@
     
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>
+    <string name="discover_item_detail_age_restriction_title">Ages</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
@@ -28,5 +29,7 @@
     <string name="hardcoded_detail_activity_location">2nd floor restaurant</string>
     <string name="hardcoded_activity_title">Sams\'s BBQ Wild House</string>
     <string name="hardcoded_reservation_required">Reservation required</string>
+    <string name="hardcoded_age_restriction_title">Ages</string>
+    <string name="hardcoded_age_restriction_description">All Ages</string>
 
 </resources>
