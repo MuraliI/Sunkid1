@@ -14,4 +14,10 @@ public final class ActivityUtils {
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
+
+    public static void onBackActivity(BaseActivity activity) {
+        activity.finish();
+        activity.overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
+    }
+
 }

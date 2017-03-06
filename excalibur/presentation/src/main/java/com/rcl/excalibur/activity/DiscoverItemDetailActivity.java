@@ -1,6 +1,5 @@
 package com.rcl.excalibur.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,12 +12,6 @@ public class DiscoverItemDetailActivity extends BaseActivity {
 
     private static final String EXTRA_DISCOVER_ITEM_MODEL = "EXTRA_DISCOVER_ITEM_MODEL";
 
-    public static Intent createIntent(Context context, DiscoverItemModel discoverItemModel) {
-        Intent intent = new Intent(context, DiscoverItemDetailActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(EXTRA_DISCOVER_ITEM_MODEL, discoverItemModel);
-        return intent;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
