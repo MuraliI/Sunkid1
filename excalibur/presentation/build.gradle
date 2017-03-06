@@ -54,16 +54,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     def generalDependencies = rootProject.ext.generalDependencies
     def presentationDependencies = rootProject.ext.presentationDependencies
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
-
     compile project(':domain')
     compile project(':data')
-
     apt presentationDependencies.daggerCompiler
     compile presentationDependencies.dagger
     compile presentationDependencies.butterKnife
@@ -81,15 +78,14 @@ dependencies {
     testCompile presentationTestDependencies.junit
     testCompile presentationTestDependencies.mockito
     testCompile presentationTestDependencies.assertj
-
     androidTestCompile presentationTestDependencies.mockito
     androidTestCompile presentationTestDependencies.dexmaker
     androidTestCompile presentationTestDependencies.dexmakerMockito
     androidTestCompile presentationTestDependencies.espresso
     androidTestCompile presentationTestDependencies.testingSupportLib
-
     //Development
     compile developmentDependencies.leakCanary
+    compile files('libs/adobeMobileLibrary-4.13.4.jar')
 }
 
 apply plugin: 'checkstyle'
