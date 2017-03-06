@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-public class DiscoverItemItemEntityDataMapperTest {
+public class DiscoverItemEntityDataMapperTest {
     DiscoverEntityDataMapper discoverEntityDataMapper;
     @Mock DiscoverItemEntity entity1;
     @Mock DiscoverItemEntity entity2;
