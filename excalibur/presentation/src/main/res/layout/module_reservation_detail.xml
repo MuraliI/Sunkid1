@@ -8,8 +8,8 @@
         android:id="@+id/realtime_blur_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:realtimeBlurRadius="5dp"
-        app:realtimeOverlayColor="#1fff"/>
+        app:realtimeBlurRadius="@dimen/detail_discover_item_blur_radius"
+        app:realtimeOverlayColor="@color/blur_layout_overlay_color"/>
 
     <TextView
         android:id="@+id/text_icon_plus_reservation_text"
