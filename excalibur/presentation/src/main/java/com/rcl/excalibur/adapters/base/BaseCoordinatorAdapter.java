@@ -43,6 +43,11 @@ public class BaseCoordinatorAdapter<VH extends RecyclerView.ViewHolder> extends 
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return items.get(position).getViewType();
+    }
+
+    @Override
     public int getItemCount() {
         return items.size();
     }
