@@ -2,9 +2,9 @@ package com.rcl.excalibur.data.repository;
 
 
 import com.activeandroid.query.Select;
-import com.rcl.excalibur.data.entity.DiscoverEntity;
+import com.rcl.excalibur.data.entity.DiscoverItemEntity;
 import com.rcl.excalibur.data.entity.mapper.DiscoverEntityDataMapper;
-import com.rcl.excalibur.domain.Discover;
+import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.repository.DiscoverRepository;
 
 import java.util.List;
@@ -28,10 +28,10 @@ public class DiscoverDataRepository implements DiscoverRepository {
 
 
     @Override
-    public Observable<List<Discover>> listBy(String type) {
-        final List<DiscoverEntity> entities = new Select()
-                .from(DiscoverEntity.class)
-                .where(eq(DiscoverEntity.COLUMN_TYPE, type))
+    public Observable<List<DiscoverItem>> listBy(String type) {
+        final List<DiscoverItemEntity> entities = new Select()
+                .from(DiscoverItemEntity.class)
+                .where(eq(DiscoverItemEntity.COLUMN_TYPE, type))
                 .execute();
 
         return Observable.create(e -> {

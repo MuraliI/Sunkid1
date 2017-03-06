@@ -1,26 +1,26 @@
 package com.rcl.excalibur.mapper;
 
-import com.rcl.excalibur.domain.Discover;
-import com.rcl.excalibur.model.DiscoverModel;
+import com.rcl.excalibur.domain.DiscoverItem;
+import com.rcl.excalibur.model.DiscoverItemModel;
 
-public class DiscoverModelDataMapper extends BaseModelDataMapper<DiscoverModel, Discover> {
+public class DiscoverModelDataMapper extends BaseModelDataMapper<DiscoverItemModel, DiscoverItem> {
 
     public DiscoverModelDataMapper() {
     }
 
     @Override
-    public DiscoverModel transform(Discover discover) {
-        if (discover == null) {
+    public DiscoverItemModel transform(DiscoverItem discoverItem) {
+        if (discoverItem == null) {
             throw new IllegalArgumentException("Cannot transform a null value");
         }
-        final DiscoverModel discoverModel = new DiscoverModel();
-        discoverModel.setImageUrl(discover.getImageUrl());
-        discoverModel.setCategory(discover.getCategory());
-        discoverModel.setDiscoverId(discover.getDiscoverId());
-        discoverModel.setHours(discover.getHours());
-        discoverModel.setPromotionTextActitity(discover.getPromotionTextActitity());
-        discoverModel.setTitle(discover.getTitle());
-        discoverModel.setType(discover.getType());
+        final DiscoverItemModel discoverModel = new DiscoverItemModel();
+        discoverModel.setImageUrl(discoverItem.getImageUrl());
+        discoverModel.setCategory(discoverItem.getCategory());
+        discoverModel.setDiscoverId(discoverItem.getDiscoverId());
+        discoverModel.setHours(discoverItem.getHours());
+        discoverModel.setPromotionText(discoverItem.getPromotionText());
+        discoverModel.setTitle(discoverItem.getTitle());
+        discoverModel.setType(discoverItem.getType());
 
         return discoverModel;
     }

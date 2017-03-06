@@ -3,12 +3,12 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.domain.Discover;
+import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetDiscoverList;
 import com.rcl.excalibur.fragments.DiscoverFragment;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
-import com.rcl.excalibur.model.DiscoverModel;
+import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverView;
 
 import java.util.Collection;
@@ -71,25 +71,25 @@ public class DiscoverPresenter implements BasePresenter {
         activity.getApplicationComponent().inject(this);
     }
 
-    protected void showCollectionInView(List<Discover> discovers) {
-        final Collection<DiscoverModel> models = discoverModelDataMapper.transform(discovers);
+    protected void showCollectionInView(List<DiscoverItem> discoverItems) {
+        final Collection<DiscoverItemModel> models = discoverModelDataMapper.transform(discoverItems);
         view.addAll(models);
 
     }
 
-    public class AdapterObserver extends DefaultPresentObserver<DiscoverModel, DiscoverPresenter> {
+    public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverPresenter> {
 
         public AdapterObserver(DiscoverPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(DiscoverModel value) {
+        public void onNext(DiscoverItemModel value) {
             //TODO open Details Screen
         }
     }
 
-    public final class DiscoverListObserver extends DefaultObserver<List<Discover>> {
+    public final class DiscoverListObserver extends DefaultObserver<List<DiscoverItem>> {
 
         @Override
         public void onComplete() {
@@ -100,8 +100,8 @@ public class DiscoverPresenter implements BasePresenter {
         }
 
         @Override
-        public void onNext(List<Discover> discovers) {
-            showCollectionInView(discovers);
+        public void onNext(List<DiscoverItem> discoverItems) {
+            showCollectionInView(discoverItems);
         }
     }
 }

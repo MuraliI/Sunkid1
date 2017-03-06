@@ -10,10 +10,11 @@
         android:id="@+id/plan_list_tab_layout"
         style="@style/AppTabLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/plan_list_height_tab_layout"
         android:layout_below="@+id/plans_header_container"
-        android:elevation="@dimen/plan_list_elevation_tab_layout"
         android:minHeight="?attr/actionBarSize"
+        android:paddingLeft="@dimen/plan_list_padding_left_header"
+        android:paddingRight="@dimen/plan_list_padding_right_header"
         app:tabTextAppearance="@style/AppTabTextAppearance" />
 
     <android.support.v4.view.ViewPager
@@ -28,12 +29,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_margin="@dimen/plan_list_margin_fab"
-        android:elevation="@dimen/plan_list_elevation_fab"
         android:scaleType="center"
+        android:layout_margin="@dimen/plan_list_margin_fab"
         android:src="@drawable/filters"
-        app:borderWidth="0dp" />
+        app:backgroundTint="@android:color/transparent"
+        app:useCompatPadding="true" />
 
 </RelativeLayout>
 

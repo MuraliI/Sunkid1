@@ -36,7 +36,7 @@
         <meta-data
             android:name="AA_MODELS"
             android:value="com.rcl.excalibur.data.entity.ItemEntity,
-            com.rcl.excalibur.data.entity.DiscoverEntity"
+            com.rcl.excalibur.data.entity.DiscoverItemEntity"
             />
     </application>
 

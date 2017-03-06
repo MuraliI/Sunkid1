@@ -3,12 +3,12 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.domain.Discover;
+import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.interactor.GetDiscoverList;
 import com.rcl.excalibur.fragments.DiscoverFragment;
 import com.rcl.excalibur.internal.di.component.ApplicationComponent;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
-import com.rcl.excalibur.model.DiscoverModel;
+import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverView;
 
 import org.junit.Assert;
@@ -79,8 +79,8 @@ public class DiscoverPresenterTest {
 
     @Ignore
     public void showCollectionInView() throws Exception {
-        List<Discover> list = new ArrayList();
-        Collection<DiscoverModel> listResult = new ArrayList();
+        List<DiscoverItem> list = new ArrayList();
+        Collection<DiscoverItemModel> listResult = new ArrayList();
         when(discoverModelDataMapper.transform(list)).thenReturn(listResult);
 
         presenter.showCollectionInView(list);

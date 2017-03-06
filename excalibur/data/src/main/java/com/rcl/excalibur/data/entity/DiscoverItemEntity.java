@@ -5,20 +5,20 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = DiscoverEntity.TABLE_NAME)
-public class DiscoverEntity extends Model {
+@Table(name = DiscoverItemEntity.TABLE_NAME)
+public class DiscoverItemEntity extends Model {
 
-    public static final String TABLE_NAME = "discover";
-    public static final String COLUMN_DISCOVER_ID = "discover_id";
+    public static final String TABLE_NAME = "discover_item";
+    public static final String COLUMN_DISCOVER_ITEM_ID = "discover_item_id";
     public static final String COLUMN_IMAGE_URL = "image_url";
     public static final String COLUMN_CATEGORY = "category";
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_HOURS = "hours";
-    public static final String COLUMN_PROMOTION_TEXT_ACTITITY = "promotion_text_actitity";
+    public static final String COLUMN_PROMOTION_TEXT = "promotion_text";
 
-    @Column(name = COLUMN_DISCOVER_ID)
-    private String discoverId;
+    @Column(name = COLUMN_DISCOVER_ITEM_ID)
+    private String discoverItemId;
     @Column(name = COLUMN_IMAGE_URL)
     private String imageUrl;
     @Column(name = COLUMN_CATEGORY)
@@ -29,15 +29,15 @@ public class DiscoverEntity extends Model {
     private String title;
     @Column(name = COLUMN_HOURS)
     private String hours;
-    @Column(name = COLUMN_PROMOTION_TEXT_ACTITITY)
-    private String promotionTextActitity;
+    @Column(name = COLUMN_PROMOTION_TEXT)
+    private String promotionText;
 
-    public DiscoverEntity() {
+    public DiscoverItemEntity() {
         super();
     }
 
-    public String getDiscoverId() {
-        return discoverId;
+    public String getDiscoverItemId() {
+        return discoverItemId;
     }
 
     public String getImageUrl() {
@@ -56,8 +56,8 @@ public class DiscoverEntity extends Model {
         return hours;
     }
 
-    public String getPromotionTextActitity() {
-        return promotionTextActitity;
+    public String getPromotionText() {
+        return promotionText;
     }
 
     public String getType() {

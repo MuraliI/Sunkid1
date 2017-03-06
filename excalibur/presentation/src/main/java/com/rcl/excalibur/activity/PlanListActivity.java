@@ -8,6 +8,9 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.mvp.presenter.PlanListPresenter;
 import com.rcl.excalibur.mvp.view.PlanListView;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class PlanListActivity extends BaseActivity {
 
     private PlanListPresenter presenter;
@@ -20,7 +23,14 @@ public class PlanListActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan_list);
+        ButterKnife.bind(this);
         presenter = new PlanListPresenter(new PlanListView(this));
+    }
+
+
+    @OnClick(R.id.plans_header_back)
+    public void onHeaderBackOnClick() {
+        presenter.onHeaderBackOnClick();
     }
 
 }

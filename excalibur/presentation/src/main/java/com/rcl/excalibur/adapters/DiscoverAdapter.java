@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.model.DiscoverModel;
+import com.rcl.excalibur.model.DiscoverItemModel;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -29,7 +29,7 @@ import static io.reactivex.Observable.just;
 
 public class DiscoverAdapter extends BaseAdapter<DiscoverAdapter.DiscoverViewHoldel> {
 
-    private List<DiscoverModel> plans;
+    private List<DiscoverItemModel> plans;
 
     public DiscoverAdapter(final Observer observer) {
         super(observer);
@@ -41,7 +41,7 @@ public class DiscoverAdapter extends BaseAdapter<DiscoverAdapter.DiscoverViewHol
         notifyDataSetChanged();
     }
 
-    public void addAll(Collection<DiscoverModel> collection) {
+    public void addAll(Collection<DiscoverItemModel> collection) {
         if (isEmpty(collection)) {
             return;
         }
@@ -50,7 +50,7 @@ public class DiscoverAdapter extends BaseAdapter<DiscoverAdapter.DiscoverViewHol
         notifyDataSetChanged();
     }
 
-    public void add(DiscoverModel discoverModel) {
+    public void add(DiscoverItemModel discoverModel) {
         plans.add(discoverModel);
         notifyItemInserted(plans.size() - 1);
     }
@@ -63,7 +63,7 @@ public class DiscoverAdapter extends BaseAdapter<DiscoverAdapter.DiscoverViewHol
 
     @Override
     public void onBindViewHolder(DiscoverViewHoldel holder, int position) {
-        final DiscoverModel discoverModel = plans.get(position);
+        final DiscoverItemModel discoverModel = plans.get(position);
         holder.model = discoverModel;
         holder.categoryTextView.setText(discoverModel.getCategory());
         holder.titleTextView.setText(discoverModel.getTitle());
@@ -89,7 +89,7 @@ public class DiscoverAdapter extends BaseAdapter<DiscoverAdapter.DiscoverViewHol
         @Bind(R.id.card_title) TextView titleTextView;
         @Bind(R.id.card_range) TextView rangeTextView;
         @Bind(R.id.card_category) TextView categoryTextView;
-        private DiscoverModel model;
+        private DiscoverItemModel model;
         private WeakReference<Observer> observerRef;
 
         public DiscoverViewHoldel(View itemView) {

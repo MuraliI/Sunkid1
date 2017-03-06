@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.verify;
 
-public class GetDiscoverListTest {
+public class GetDiscoverItemListTest {
     @Mock DiscoverRepository discoverRepository;
     @Mock ThreadExecutor threadExecutor;
     @Mock PostExecutionThread postExecutionThread;

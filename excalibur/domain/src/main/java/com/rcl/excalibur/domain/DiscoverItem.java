@@ -1,13 +1,12 @@
-package com.rcl.excalibur.model;
+package com.rcl.excalibur.domain;
 
-
-public class DiscoverModel {
+public class DiscoverItem {
     private String discoverId;
     private String imageUrl;
     private String category;
     private String title;
     private String hours;
-    private String promotionTextActitity;
+    private String promotionText;
     private String type;
 
     public String getType() {
@@ -58,12 +57,11 @@ public class DiscoverModel {
         this.hours = hours;
     }
 
-    public String getPromotionTextActitity() {
-        return promotionTextActitity;
+    public String getPromotionText() {
+        return promotionText;
     }
 
-    public void setPromotionTextActitity(String promotionTextActitity) {
-        this.promotionTextActitity = promotionTextActitity;
+    public void setPromotionText(String promotionText) {
+        this.promotionText = promotionText;
     }
-
 }

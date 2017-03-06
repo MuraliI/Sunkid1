@@ -1,36 +1,69 @@
 package com.rcl.excalibur.model;
 
 
-import android.os.Parcel;
-import android.os.Parcelable;
+public class DiscoverItemModel {
+    private String discoverId;
+    private String imageUrl;
+    private String category;
+    private String title;
+    private String hours;
+    private String promotionText;
+    private String type;
 
-public class DiscoverItemModel implements Parcelable {
-
-    public static final Creator<DiscoverItemModel> CREATOR = new Creator<DiscoverItemModel>() {
-        @Override
-        public DiscoverItemModel createFromParcel(Parcel in) {
-            return new DiscoverItemModel(in);
-        }
-
-        @Override
-        public DiscoverItemModel[] newArray(int size) {
-            return new DiscoverItemModel[size];
-        }
-    };
-
-    public DiscoverItemModel() {
+    public String getType() {
+        return type;
     }
 
-    protected DiscoverItemModel(Parcel in) {
-        //TODO in.readString(); with all the plan fields.
+    public void setType(String type) {
+        this.type = type;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getDiscoverId() {
+        return discoverId;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void setDiscoverId(String discoverId) {
+        this.discoverId = discoverId;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
+    }
+
+    public String getPromotionText() {
+        return promotionText;
+    }
+
+    public void setPromotionText(String promotionText) {
+        this.promotionText = promotionText;
+    }
+
 }

@@ -40,7 +40,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/plans_header_day"
-                android:src="@drawable/arrow"
+                android:src="@drawable/icon_arrow_small_gray"
                 android:tint="@color/black" />
 
             <ImageView
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/plans_header_top"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/plan_list_margin_top_section"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -65,14 +65,14 @@
                 style="@style/PlanListSectionSelected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="3dp"
-                android:text="@string/discover" />
+                android:layout_marginRight="@dimen/plan_list_separator_section"
+                android:text="@string/discoverItem" />
 
             <TextView
                 style="@style/PlanListSectionUnselected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
+                android:layout_marginLeft="@dimen/plan_list_separator_section"
                 android:text="@string/my_plans" />
 
         </LinearLayout>

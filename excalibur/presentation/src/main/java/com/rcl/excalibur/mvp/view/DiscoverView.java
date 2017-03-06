@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.DiscoverAdapter;
 import com.rcl.excalibur.fragments.DiscoverFragment;
-import com.rcl.excalibur.model.DiscoverModel;
+import com.rcl.excalibur.model.DiscoverItemModel;
 
 import java.util.Collection;
 
@@ -35,7 +35,7 @@ public class DiscoverView extends FragmentView<DiscoverFragment> {
         recyclerView.setAdapter(adapter);
     }
 
-    public void addAll(Collection<DiscoverModel> list) {
+    public void addAll(Collection<DiscoverItemModel> list) {
         adapter.addAll(list);
     }
 }

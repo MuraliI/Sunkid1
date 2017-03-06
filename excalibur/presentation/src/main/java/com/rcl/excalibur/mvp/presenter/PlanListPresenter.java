@@ -1,8 +1,10 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import com.rcl.excalibur.model.DiscoverModel;
+import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.PlanListView;
+import com.rcl.excalibur.utils.ActivityUtils;
 
 public class PlanListPresenter implements BasePresenter {
     private PlanListView view;
@@ -17,14 +19,22 @@ public class PlanListPresenter implements BasePresenter {
         view.init();
     }
 
-    public class AdapterObserver extends DefaultPresentObserver<DiscoverModel, PlanListPresenter> {
+    public void onHeaderBackOnClick() {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        ActivityUtils.onBackActivity(activity);
+    }
+
+    public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, PlanListPresenter> {
 
         public AdapterObserver(PlanListPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(DiscoverModel value) {
+        public void onNext(DiscoverItemModel value) {
 
 //   TODO         Invoke Details screen
         }

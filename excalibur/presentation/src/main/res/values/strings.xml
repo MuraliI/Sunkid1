@@ -7,7 +7,7 @@
     <string name="ship_time_label">ship time&#160;</string>
     <string name="next_up">next up</string>
     <string name="empty_string"/>
-    <string name="discover">Discover</string>
+    <string name="discoverItem">Discover</string>
     <string name="my_plans">My Plans</string>
     
     <!-- Detail View -->
