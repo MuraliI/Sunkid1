@@ -1,7 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import com.rcl.excalibur.model.PlanModel;
+import com.rcl.excalibur.model.DiscoverModel;
 import com.rcl.excalibur.mvp.view.PlanListView;
 
 public class PlanListPresenter implements BasePresenter {
@@ -17,14 +17,14 @@ public class PlanListPresenter implements BasePresenter {
         view.init();
     }
 
-    public class AdapterObserver extends DefaultPresentObserver<PlanModel, PlanListPresenter> {
+    public class AdapterObserver extends DefaultPresentObserver<DiscoverModel, PlanListPresenter> {
 
         public AdapterObserver(PlanListPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(PlanModel value) {
+        public void onNext(DiscoverModel value) {
 
 //   TODO         Invoke Details screen
         }

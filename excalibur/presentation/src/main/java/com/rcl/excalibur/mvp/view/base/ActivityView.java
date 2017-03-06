@@ -1,4 +1,4 @@
-package com.rcl.excalibur.mvp.view;
+package com.rcl.excalibur.mvp.view.base;
 
 
 import android.content.Context;
@@ -22,7 +22,7 @@ public class ActivityView<T extends AppCompatActivity> {
 
 
     public ActivityView(T activity) {
-        activityRef = new WeakReference(activity);
+        activityRef = new WeakReference<>(activity);
     }
 
     @Nullable
@@ -34,7 +34,6 @@ public class ActivityView<T extends AppCompatActivity> {
     public Context getContext() {
         return getActivity();
     }
-
 
     @Nullable
     public FragmentManager getFragmentManager() {

@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.adapters.PlanListAdapter;
+import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

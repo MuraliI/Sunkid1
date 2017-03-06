@@ -6,8 +6,12 @@
     <string name="search_hint">Search for anything</string>
     <string name="ship_time_label">ship time&#160;</string>
     <string name="next_up">next up</string>
+    <string name="empty_string"/>
     <string name="discover">Discover</string>
     <string name="my_plans">My Plans</string>
+    
+    <!-- Detail View -->
+    <string name="accessibility_hero_image_content_description">Hero image</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
@@ -24,12 +28,15 @@
     <string name="shorex">Shorex</string>
     <string name="entertainment">Entertainment</string>
 
-    <!--TODO hardcoded values-->
+    <!--FIXME hardcoded values-->
     <string name="hardcoded_ship_time">14:07</string>
     <string name="hardcoded_place">Masquerade Theater</string>
     <string name="hardcoded_time">In 15 min</string>
     <string name="hardcoded_destination_place">ST MARTIN</string>
     <string name="hardcoded_destination_time">in 1:40 hours</string>
+    <string name="hardcoded_detail_activity_location">2nd floor restaurant</string>
+    <string name="hardcoded_activity_title">Sams\'s BBQ Wild House</string>
+    <string name="hardcoded_reservation_required">Reservation required</string>
     <string name="hardcoded_today">Today</string>
 
 <!--Categories-->

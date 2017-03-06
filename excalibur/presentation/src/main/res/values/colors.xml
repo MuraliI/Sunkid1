@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Colors -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#0099FF</color>
+
+    <!-- layout colors -->
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
@@ -10,5 +13,6 @@
     <color name="ribbon_ship_time">#88676767</color>
     <color name="plan_list_lightblue">#1EADFF</color>
     <color name="discover_grey">#34323d</color>
+    <color name="transparent_white">#33FFFFFF</color>
 
 </resources>

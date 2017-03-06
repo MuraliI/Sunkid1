@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.adobe.mobile.Config;
 import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.internal.di.component.ApplicationComponent;
 
@@ -28,4 +29,15 @@ public class BaseActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Config.collectLifecycleData(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Config.pauseCollectingLifecycleData();
+    }
 }

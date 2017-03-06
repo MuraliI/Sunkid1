@@ -11,26 +11,26 @@ ext {
     androidTargetSdkVersion = 25
     androidCompileSdkVersion = 25
 
-  //Libraries
-  butterKnifeVersion = '7.0.1'
-  daggerVersion = '2.8'
-  recyclerViewVersion = '25.0.0'
-  javaxAnnotationVersion = '1.0'
-  javaxInjectVersion = '1'
-  gsonVersion = '2.3'
-  activeAndroidVersion = '3.1.0-SNAPSHOT'
-  appSupportVersion =  '25.1.0'
-  rxAndroidVersion = '2.0.1'
-  rxJavaVersion = '2.0.2'
-  arrowVersion = '1.0.0'
-  okHttpVersion = '2.5.0'
-  androidAnnotationsVersion = '21.0.3'
-  picassoVersion = "2.5.2"
-  cardViewVersion = "25.0.0"
-  calligraphyVersion = "2.2.0"
-  timberVersion = "4.5.1"
-  appcompatVersion = "25.0.0"
-  designVersion = "25.0.0"
+    //Libraries
+    butterKnifeVersion = '7.0.1'
+    daggerVersion = '2.8'
+    recyclerViewVersion = '25.0.0'
+    javaxAnnotationVersion = '1.0'
+    javaxInjectVersion = '1'
+    gsonVersion = '2.3'
+    activeAndroidVersion = '3.1.0-SNAPSHOT'
+    appSupportVersion = '25.1.0'
+    rxAndroidVersion = '2.0.1'
+    rxJavaVersion = '2.0.2'
+    arrowVersion = '1.0.0'
+    okHttpVersion = '2.5.0'
+    androidAnnotationsVersion = '21.0.3'
+    picassoVersion = "2.5.2"
+    cardViewVersion = "25.1.1"
+    calligraphyVersion = "2.2.0"
+    timberVersion = "4.5.1"
+    appcompatVersion = "25.1.1"
+    designVersion = "25.1.1"
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -71,7 +71,7 @@ ext {
             dexmaker         : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
             dexmakerMockito  : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
             espresso         : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
-            testingSupportLib: "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
+            testingSupportLib: "com.android.support.test:testing-support-lib:${testingSupportLibVersion}"
     ]
 
     domainDependencies = [
