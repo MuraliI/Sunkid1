@@ -3,6 +3,7 @@ package com.rcl.excalibur.mvp.view;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -42,6 +43,11 @@ public class DiscoverItemDetailView extends ActivityView {
     public void render(SparseArrayCompat<DelegateAdapter> adapterList, List<RecyclerViewType> viewTypes) {
         adapter = new DetailViewCoordinatorAdapter(viewObserver, adapterList, viewTypes);
         planDetailRecycler.setAdapter(adapter);
-        planDetailRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        if (getActivity() != null) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            planDetailRecycler.setLayoutManager(layoutManager);
+            planDetailRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), layoutManager.getOrientation()));
+        }
     }
 }

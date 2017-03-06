@@ -1,6 +1,8 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import android.content.res.Resources;
+
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
 import com.rcl.excalibur.adapters.delegate.factory.DinningDetailModuleFactory;
@@ -20,15 +22,17 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
 
     //TODO check what kind of plan was passed by the activity
     private void initModuleFactory(DiscoverItemModel discoverItemModel) {
-        moduleFactory = new DinningDetailModuleFactory();
+        moduleFactory = new DinningDetailModuleFactory(discoverItemModel);
     }
 
     private void initView() {
+        Resources resources = null;
         if (view.getActivity() != null) {
             view.setDetailTitle(view.getActivity().getString(R.string.hardcoded_activity_title)); //FIXME get the plan title
+            resources = view.getActivity().getResources();
         }
         view.setAdapterObserver(new DetailAdapterObserver(this));
-        view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes());
+        view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(resources));
     }
 
 
