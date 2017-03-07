@@ -20,14 +20,9 @@
         android:layout_height="wrap_content"
         tools:text="@string/hardcoded_lunch_time_description"/>
 
-    <TextView
-        android:id="@+id/text_module_lunch_menu"
-        style="@style/AppTheme.DiscoverItemModuleLinkTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/detail_discover_item_link_menu_margin_top"
-        android:clickable="true"
-        android:text="@string/discover_item_detail_see_menu"/>
+    <include
+        android:id="@+id/discover_detail_lunch_menu"
+        layout="@layout/discover_detail_item_link_menu"/>
 
     <TextView
         android:id="@+id/text_module_dinner_title"
@@ -44,13 +39,8 @@
         android:layout_height="wrap_content"
         tools:text="@string/hardcoded_dinner_time_description"/>
 
-    <TextView
-        android:id="@+id/text_module_dinner_menu"
-        style="@style/AppTheme.DiscoverItemModuleLinkTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/detail_discover_item_link_menu_margin_top"
-        android:clickable="true"
-        android:text="@string/discover_item_detail_see_menu"/>
+    <include
+        android:id="@+id/discover_detail_dinner_menu"
+        layout="@layout/discover_detail_item_link_menu"/>
 
 </LinearLayout>
