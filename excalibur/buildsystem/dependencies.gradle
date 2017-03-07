@@ -33,6 +33,7 @@ ext {
     timberVersion = "4.5.1"
     designSupportLibraryVersion = "25.1.1"
     realTimeBlurLibVersion = "1.1.0"
+    appcompatVersion = "25.1.1"
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -62,7 +63,8 @@ ext {
             cardView        : "com.android.support:cardview-v7:${cardViewVersion}",
             calligraphy     : "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
             supportDesign   : "com.android.support:design:${designSupportLibraryVersion}",
-            realTimeBlurView: "com.github.mmin18:realtimeblurview:${realTimeBlurLibVersion}"
+            realTimeBlurView: "com.github.mmin18:realtimeblurview:${realTimeBlurLibVersion}",
+            appcompat:          "com.android.support:appcompat-v7:${appcompatVersion}"
     ]
 
     presentationTestDependencies = [

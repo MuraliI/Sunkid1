@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.PlansActivity"
+            android:name=".activity.PlanListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Home"/>
         <activity
@@ -35,7 +35,9 @@
             android:value="testDB.db"/>
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.rcl.excalibur.data.entity.ItemEntity"/>
+            android:value="com.rcl.excalibur.data.entity.ItemEntity,
+            com.rcl.excalibur.data.entity.DiscoverItemEntity"
+            />
     </application>
 
 </manifest>

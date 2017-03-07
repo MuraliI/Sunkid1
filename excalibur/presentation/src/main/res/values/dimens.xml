@@ -20,6 +20,8 @@
     <dimen name="ribbon_ship_time_padding_top">30dp</dimen>
     <dimen name="ribbon_ship_time_margin_bottom">6dp</dimen>
 
+
+    <dimen name="corner_radius">7dp</dimen>
     <!--home item plan-->
     <dimen name="item_plan_container_height">130dp</dimen>
     <dimen name="item_plan_corner_radius">7dp</dimen>
@@ -28,7 +30,16 @@
     <dimen name="item_plan_line_top_height">2dp</dimen>
     <dimen name="item_plan_image_margin_right">20dp</dimen>
     <dimen name="item_plan_line_bottom_height">1dp</dimen>
-    
+
+    <dimen name="plan_list_elevation_tab_layout">6dp</dimen>
+    <dimen name="plan_list_elevation_fab">5dp</dimen>
+    <dimen name="plan_list_margin_fab">16dp</dimen>
+
+    <dimen name="plan_list_padding_bottom_header">30dp</dimen>
+    <dimen name="plan_list_padding_top_header">40dp</dimen>
+    <dimen name="plan_list_padding_left_header">20dp</dimen>
+    <dimen name="plan_list_padding_right_header">20dp</dimen>
+
     <!-- detail screen -->
     <dimen name="detail_discover_item_app_bar_size">380dp</dimen>
     <dimen name="detail_discover_item_toolbar_size">80dp</dimen>
@@ -38,4 +49,9 @@
     <dimen name="detail_discover_item_reservation_title_drawable_padding">10dp</dimen>
     <dimen name="detail_discover_toolbar_icon_size">50dp</dimen>
     <dimen name="detail_discover_item_blur_radius">5dp</dimen>
+    <dimen name="plan_list_margin_top_section">20dp</dimen>
+    <dimen name="plan_list_separator_section">10dp</dimen>
+    <dimen name="item_discover_width_image">70dp</dimen>
+    <dimen name="item_discover_height_image">70dp</dimen>
+    <dimen name="plan_list_height_tab_layout">70dp</dimen>
 </resources>
