@@ -9,7 +9,8 @@
     <string name="empty_string"/>
     <string name="discoverItem">Discover</string>
     <string name="my_plans">My Plans</string>
-    
+    <string name="detail_module_accessibility">Accessibility &amp; Other info</string>
+
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>
     <string name="discover_item_detail_age_restriction_title">Ages</string>

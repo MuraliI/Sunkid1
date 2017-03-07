@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/margin_large"
+    android:layout_marginStart="@dimen/margin_large"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_large"
+    android:paddingTop="@dimen/margin_large">
+
+    <RelativeLayout
+        android:id="@+id/accessibility_module_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/AppTheme.DiscoverItemTitleLinkTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/detail_module_accessibility" />
+
+        <ImageView
+            android:id="@+id/accessibility_module_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_arrow_drop_down"
+            android:tint="@color/detail_item_link" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/accessibility_module_content"
+        style="@style/AppTheme.DiscoverItemModuleDescriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</LinearLayout>
