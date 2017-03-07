@@ -11,11 +11,16 @@
     <color name="transparent">#00000000</color>
     <color name="grey">#C8C8C8</color>
     <color name="ribbon_ship_time">#88676767</color>
+    <color name="transparent_white">#33FFFFFF</color>
     <color name="plan_list_lightblue">#1EADFF</color>
     <color name="plan_list_grey">#D8D8D8</color>
     <color name="discover_black">#34323d</color>
     <color name="discover_grey">#D8D8D8</color>
-    <color name="transparent_white">#33FFFFFF</color>
+
+    <!-- Discover Item Detail -->
+    <color name="transparent_black">#66000000</color>
+    <color name="fab_detail_blue">#00CFD6</color>
+    <color name="blur_layout_overlay_color">#1FFF</color>
 
     <!-- Font colors -->
     <color name="font_detail_title_gray">#7C7E8D</color>
