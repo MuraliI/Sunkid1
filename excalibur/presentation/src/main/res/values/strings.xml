@@ -13,6 +13,8 @@
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>
     <string name="discover_item_detail_age_restriction_title">Ages</string>
+    <string name="accessibility_map_btn_content_description">Activity location</string>
+    <string name="accessibility_back_btn_content_description">Back button</string>
     <string name="discover_item_detail_lunch_title">Lunch</string>
     <string name="discover_item_detail_dinner_title">Dinner</string>
     <string name="discover_item_detail_see_menu">See menu</string>

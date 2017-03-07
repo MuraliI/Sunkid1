@@ -16,7 +16,7 @@ public class DiscoverItemDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plan_detail);
+        setContentView(R.layout.activity_discover_item_detail);
 
         DiscoverItemModel discoverItemModel = null;
         Intent intent = getIntent();
