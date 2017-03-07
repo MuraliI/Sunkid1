@@ -8,7 +8,8 @@
     <dimen name="left_margin_forward">100dp</dimen>
     <dimen name="top_image_margin">20dp</dimen>
 
-    <!-- General Margin -->
+    <!-- General dimens -->
+    <dimen name="no_size">0dp</dimen>
     <dimen name="margin_large">20dp</dimen>
     <dimen name="margin_normal">10dp</dimen>
 
@@ -38,13 +39,16 @@
     <dimen name="plan_list_padding_top_header">40dp</dimen>
     <dimen name="plan_list_padding_left_header">20dp</dimen>
     <dimen name="plan_list_padding_right_header">20dp</dimen>
-    
+
     <!-- detail screen -->
-    <dimen name="detail_discover_item_app_bar_size">320dp</dimen>
+    <dimen name="detail_discover_item_app_bar_size">380dp</dimen>
+    <dimen name="detail_discover_item_toolbar_size">80dp</dimen>
     <dimen name="detail_discover_item_inset_margin_side">20dp</dimen>
     <dimen name="detail_discover_item_reservation_message_container_size">60dp</dimen>
     <dimen name="detail_discover_item_reservation_message_container_elevation">12dp</dimen>
     <dimen name="detail_discover_item_reservation_title_drawable_padding">10dp</dimen>
+    <dimen name="detail_discover_toolbar_icon_size">50dp</dimen>
+    <dimen name="detail_discover_item_blur_radius">5dp</dimen>
     <dimen name="plan_list_margin_top_section">20dp</dimen>
     <dimen name="plan_list_separator_section">10dp</dimen>
     <dimen name="item_discover_width_image">70dp</dimen>
