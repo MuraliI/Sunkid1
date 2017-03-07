@@ -29,9 +29,13 @@
     <dimen name="item_plan_line_bottom_height">1dp</dimen>
     
     <!-- detail screen -->
+    <dimen name="detail_discover_item_description_margin_top">1dp</dimen>
     <dimen name="detail_discover_item_app_bar_size">320dp</dimen>
     <dimen name="detail_discover_item_inset_margin_side">20dp</dimen>
     <dimen name="detail_discover_item_reservation_message_container_size">60dp</dimen>
     <dimen name="detail_discover_item_reservation_message_container_elevation">12dp</dimen>
     <dimen name="detail_discover_item_reservation_title_drawable_padding">10dp</dimen>
+    <dimen name="detail_discover_item_dinner_times_padding">20dp</dimen>
+    <dimen name="detail_discover_item_link_menu_margin_top">10dp</dimen>
+    <dimen name="detail_discover_item_dinner_title_margin_top">25dp</dimen>
 </resources>

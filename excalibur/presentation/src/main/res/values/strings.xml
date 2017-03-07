@@ -7,10 +7,13 @@
     <string name="ship_time_label">ship time&#160;</string>
     <string name="next_up">next up</string>
     <string name="empty_string"/>
-    
+
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>
     <string name="discover_item_detail_age_restriction_title">Ages</string>
+    <string name="discover_item_detail_lunch_title">Lunch</string>
+    <string name="discover_item_detail_dinner_title">Dinner</string>
+    <string name="discover_item_detail_see_menu">See menu</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
@@ -31,5 +34,7 @@
     <string name="hardcoded_reservation_required">Reservation required</string>
     <string name="hardcoded_age_restriction_title">Ages</string>
     <string name="hardcoded_age_restriction_description">All Ages</string>
+    <string name="hardcoded_lunch_time_description">12:00 pm - 3:00 pm</string>
+    <string name="hardcoded_dinner_time_description">5:00 pm - 10:00 pm</string>
 
 </resources>

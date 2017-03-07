@@ -20,6 +20,11 @@ android {
         testApplicationId globalConfiguration.getAt("testApplicationId")
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     lintOptions {
         quiet true
         abortOnError false

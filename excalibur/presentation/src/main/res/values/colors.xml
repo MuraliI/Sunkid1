@@ -12,6 +12,7 @@
     <color name="grey">#C8C8C8</color>
     <color name="ribbon_ship_time">#88676767</color>
     <color name="transparent_white">#33FFFFFF</color>
+    <color name="detail_item_link">#286cf5</color>
 
     <!-- Font colors -->
     <color name="font_detail_title_gray">#7C7E8D</color>
