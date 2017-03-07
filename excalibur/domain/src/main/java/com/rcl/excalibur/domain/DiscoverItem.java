@@ -1,7 +1,6 @@
-package com.rcl.excalibur.model;
+package com.rcl.excalibur.domain;
 
-
-public class DiscoverItemModel {
+public class DiscoverItem {
     private String discoverId;
     private String imageUrl;
     private String category;
@@ -65,5 +64,4 @@ public class DiscoverItemModel {
     public void setPromotionText(String promotionText) {
         this.promotionText = promotionText;
     }
-
 }

@@ -70,8 +70,10 @@ dependencies {
     compile presentationDependencies.picasso
     compile presentationDependencies.cardView
     compile presentationDependencies.calligraphy
+    compile presentationDependencies.appcompat
+    compile presentationDependencies.design
     compile generalDependencies.timber
-    compile presentationDependencies.supportDesign
+    compile presentationDependencies.design
     testCompile presentationTestDependencies.junit
     testCompile presentationTestDependencies.mockito
     testCompile presentationTestDependencies.assertj

@@ -8,6 +8,8 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import com.rcl.excalibur.activity.BaseActivity;
+
 import java.lang.ref.WeakReference;
 
 import io.reactivex.Observer;
@@ -30,8 +32,8 @@ public class FragmentView<T extends Fragment> {
     }
 
     @Nullable
-    public Activity getActivity() {
-        return fragmentRef.get().getActivity();
+    public BaseActivity getActivity() {
+        return (BaseActivity) fragmentRef.get().getActivity();
     }
 
     @Nullable
