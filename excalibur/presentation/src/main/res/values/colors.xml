@@ -21,6 +21,7 @@
     <color name="transparent_black">#66000000</color>
     <color name="fab_detail_blue">#00CFD6</color>
     <color name="blur_layout_overlay_color">#1FFF</color>
+    <color name="detail_item_link">#286cf5</color>
 
     <!-- Font colors -->
     <color name="font_detail_title_gray">#7C7E8D</color>

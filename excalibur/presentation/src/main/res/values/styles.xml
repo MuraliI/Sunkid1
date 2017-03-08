@@ -52,6 +52,14 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/font_detail_description_dark_blue</item>
         <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:layout_marginTop">@dimen/detail_discover_item_description_margin_top
+        </item>
+    </style>
+
+    <style name="AppTheme.DiscoverItemModuleLinkTextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/detail_item_link</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="AppTheme.TimeTextView" parent="@android:style/Widget.TextView">
@@ -134,4 +142,9 @@
         <item name="android:textColor">@color/discover_grey</item>
     </style>
 
+    <style name="AppTheme.DiscoverItemTitleLinkTextView">
+        <item name="fontPath">@string/roboto_medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/detail_item_link</item>
+    </style>
 </resources>
