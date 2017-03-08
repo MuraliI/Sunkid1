@@ -17,8 +17,8 @@ import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DinnerTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
+import com.rcl.excalibur.adapters.viewtype.PriceRangeViewType;
 import com.rcl.excalibur.adapters.viewtype.PromotionViewType;
-import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionV
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.model.DiscoverItemModel;
 
@@ -52,6 +52,10 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> viewTypes = new ArrayList<>();
+
+        //Promotion text
+        viewTypes.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionText()));
+
         //Dinner times
         //FIXME get this attributes from model
         viewTypes.add(new DinnerTimesViewType(
@@ -60,6 +64,9 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
                 resources.getString(R.string.hardcoded_dinner_time_description),
                 null)
         );
+
+        // Price Range
+        viewTypes.add(new PriceRangeViewType(Integer.valueOf(itemModel.getPriceRange()[0]))); //FIXME get this attributes from model
 
         // Title and description modules
         if (itemModel.getProperties() != null && itemModel.getProperties().size() > 0) {
@@ -75,15 +82,13 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
         //Accessibility
         viewTypes.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_accessibility),
-                itemModel.getAccessibility())); //FIXME get this attributes from model
+                itemModel.getAccessibility()));
 
         //Legal
         viewTypes.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_legal),
                 itemModel.getLegal()));
 
-        viewTypes.add(new PromotionViewType("Promotional title long version", "Content"));
-        viewTypes.add(new PriceRangeViewType(2)); //FIXME get this attributes from model
 
         return viewTypes;
     }
