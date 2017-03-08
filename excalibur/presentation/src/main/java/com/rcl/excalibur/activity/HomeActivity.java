@@ -19,10 +19,14 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         presenter = new HomePresenter(new HomeView(this));
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         //TODO: create handler for analytics
         HashMap<String, Object> contextData = new HashMap<String, Object>();
         contextData.put("App starting", "App Start");
         Config.collectLifecycleData(this, contextData);
-
     }
 }
