@@ -10,9 +10,11 @@ import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DinnerTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.ExpandableLinkDelegateAdapter;
+import com.rcl.excalibur.adapters.delegate.PriceRangeDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DinnerTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
+import com.rcl.excalibur.adapters.viewtype.PriceRangeViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.model.DiscoverItemModel;
 
@@ -33,6 +35,7 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DINNER_TIMES, new DinnerTimesDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICE_RANGE, new PriceRangeDelegateAdapter());
         return delegateAdapters;
     }
 
@@ -57,6 +60,8 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
                 resources.getString(R.string.hardcoded_dinner_time_description),
                 null)
         );
+        viewTypes.add(new PriceRangeViewType(2)); //FIXME get this attributes from model
+
         return viewTypes;
     }
 }

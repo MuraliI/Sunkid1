@@ -58,4 +58,5 @@
     <string name="category_shopping">Shopping</string>
     <string name="category_shorex">Shorex</string>
     <string name="category_entertainment">Entertainment</string>
+    <string name="price_range">Price Range</string>
 </resources>
