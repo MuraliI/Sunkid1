@@ -32,7 +32,7 @@ public class ExpandableDescriptionLayout extends FrameLayout {
     private int maxLineCount;
     private int animationDuration;
     private boolean isExpanded;
-    private boolean firstOnMeasue = true;
+    private boolean firstOnMeasure = true;
 
     public ExpandableDescriptionLayout(Context context) {
         super(context);
@@ -79,11 +79,11 @@ public class ExpandableDescriptionLayout extends FrameLayout {
         measureChild(description, widthMeasureSpec, heightMeasureSpec);
 
         //Check if the see more btn will be needed due to the size of the text
-        if (firstOnMeasue && View.VISIBLE == showMoreContainer.getVisibility()) {
+        if (firstOnMeasure && View.VISIBLE == showMoreContainer.getVisibility()) {
             boolean showSeeMoreBtn = description.getLineCount() > maxLineCount;
             showMoreContainer.setVisibility(showSeeMoreBtn ? View.VISIBLE : View.GONE);
             transParentLayout.setVisibility(showSeeMoreBtn ? View.VISIBLE : View.GONE);
-            firstOnMeasue = false;
+            firstOnMeasure = false;
         }
 
         //if the show more btn is indeed needed, check if it needs to be drawn collapsed or expanded

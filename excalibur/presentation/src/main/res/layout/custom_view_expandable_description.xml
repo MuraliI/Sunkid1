@@ -26,7 +26,8 @@
         android:layout_marginStart="@dimen/margin_large"
         android:layout_marginEnd="@dimen/margin_large"
         android:layout_gravity="bottom"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
 
         <TextView
             android:id="@+id/text_see_more_btn"
@@ -40,7 +41,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_arrow_drop_down_blue"/>
+            android:src="@drawable/ic_arrow_drop_down"
+            android:tint="@color/detail_item_link"
+            android:contentDescription="@null"/>
     </LinearLayout>
 
 </merge>

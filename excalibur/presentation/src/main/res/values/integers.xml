@@ -6,4 +6,5 @@
 
     <!-- Detail view integers -->
     <integer name="detail_expandable_description_max_lines">6</integer>
+    <integer name="detail_expandable_description_gradient_angle">90</integer>
 </resources>

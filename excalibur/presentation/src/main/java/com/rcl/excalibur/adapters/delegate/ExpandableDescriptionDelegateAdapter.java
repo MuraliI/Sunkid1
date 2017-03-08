@@ -25,11 +25,11 @@ public class ExpandableDescriptionDelegateAdapter implements
         holder.descriptionLayout.setDescription(Html.fromHtml(item.getDescription()));
     }
 
-    public static class ExpandableDescriptionViewHolder extends RecyclerView.ViewHolder {
+    static class ExpandableDescriptionViewHolder extends RecyclerView.ViewHolder {
 
         private ExpandableDescriptionLayout descriptionLayout;
 
-        public ExpandableDescriptionViewHolder(ViewGroup parent) {
+        ExpandableDescriptionViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_expandable_description, parent, false));
             descriptionLayout = (ExpandableDescriptionLayout) itemView;
         }
