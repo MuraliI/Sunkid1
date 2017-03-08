@@ -54,7 +54,11 @@
     <dimen name="item_discover_width_image">70dp</dimen>
     <dimen name="item_discover_height_image">70dp</dimen>
     <dimen name="plan_list_height_tab_layout">70dp</dimen>
+    <dimen name="detail_discover_item_dinner_times_padding">20dp</dimen>
+    <dimen name="detail_discover_item_link_menu_margin_top">10dp</dimen>
+    <dimen name="detail_discover_item_dinner_title_margin_top">25dp</dimen>
+    <dimen name="ic_arrow_width">16dp</dimen>
+    <dimen name="ic_arrow_height">16dp</dimen>
     <dimen name="detail_discover_item_description_transparency_size">50dp</dimen>
     <dimen name="ic_drop_down_arrow_blue_size">16dp</dimen>
-
 </resources>

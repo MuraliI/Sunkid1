@@ -7,8 +7,12 @@ import android.support.v4.util.SparseArrayCompat;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
+import com.rcl.excalibur.adapters.delegate.DinnerTimesDelegateAdapter;
+import com.rcl.excalibur.adapters.delegate.ExpandableLinkDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.ExpandableDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
+import com.rcl.excalibur.adapters.viewtype.DinnerTimesViewType;
+import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.model.DiscoverItemModel;
@@ -33,6 +37,8 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
             delegateAdapters = new SparseArrayCompat<>(VIEW_TYPES_COUNT_DINNING);
             delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
             delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_DESCRIPTION, new ExpandableDescriptionDelegateAdapter());
+            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
+            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DINNER_TIMES, new DinnerTimesDelegateAdapter());
         }
         return delegateAdapters;
     }
@@ -47,7 +53,22 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
                 viewTypes.add(new TitleAndDescriptionViewType(entry.getKey(), entry.getValue()));
             }
         }
+
+        viewTypes.add(new ExpandableLinkViewType(
+                resources.getString(R.string.detail_module_accessibility),
+                "Content")); //FIXME get this attributes from model
+        viewTypes.add(new ExpandableLinkViewType(
+                resources.getString(R.string.detail_module_legal),
+                "Content"));
+
         viewTypes.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
+        //FIXME get this attributes from model
+        viewTypes.add(new DinnerTimesViewType(
+                resources.getString(R.string.hardcoded_lunch_time_description),
+                null,
+                resources.getString(R.string.hardcoded_dinner_time_description),
+                null)
+        );
         return viewTypes;
     }
 }
