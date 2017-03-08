@@ -28,7 +28,7 @@ public class PlanListActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.plans_header_back)
+    @OnClick(R.id.plans_header_back_layout)
     public void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();
     }
