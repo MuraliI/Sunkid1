@@ -23,8 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DinningDetailModuleFactory implements DetailModuleFactory {
-    private static final int VIEW_TYPES_COUNT = 1;
-    private static final int VIEW_TYPES_COUNT_DINNING = 2;
+    private static final int VIEW_TYPES_COUNT_DINNING = 4;
     private DiscoverItemModel itemModel;
 
     public DinningDetailModuleFactory(DiscoverItemModel itemModel) {
@@ -47,22 +46,7 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> viewTypes = new ArrayList<>();
-        //TODO get age restriction from model
-        if (itemModel.getProperties() != null && itemModel.getProperties().size() > 0) {
-            Map<String, String> properties = itemModel.getProperties();
-            for (Map.Entry<String, String> entry : properties.entrySet()) {
-                viewTypes.add(new TitleAndDescriptionViewType(entry.getKey(), entry.getValue()));
-            }
-        }
-
-        viewTypes.add(new ExpandableLinkViewType(
-                resources.getString(R.string.detail_module_accessibility),
-                "Content")); //FIXME get this attributes from model
-        viewTypes.add(new ExpandableLinkViewType(
-                resources.getString(R.string.detail_module_legal),
-                "Content"));
-
-        viewTypes.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
+        //Dinner times
         //FIXME get this attributes from model
         viewTypes.add(new DinnerTimesViewType(
                 resources.getString(R.string.hardcoded_lunch_time_description),
@@ -70,6 +54,28 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
                 resources.getString(R.string.hardcoded_dinner_time_description),
                 null)
         );
+
+        // Title and description modules
+        if (itemModel.getProperties() != null && itemModel.getProperties().size() > 0) {
+            Map<String, String> properties = itemModel.getProperties();
+            for (Map.Entry<String, String> entry : properties.entrySet()) {
+                viewTypes.add(new TitleAndDescriptionViewType(entry.getKey(), entry.getValue()));
+            }
+        }
+
+        // Description module
+        viewTypes.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
+
+        //Accessibility
+        viewTypes.add(new ExpandableLinkViewType(
+                resources.getString(R.string.detail_module_accessibility),
+                itemModel.getAccessibility())); //FIXME get this attributes from model
+
+        //Legal
+        viewTypes.add(new ExpandableLinkViewType(
+                resources.getString(R.string.detail_module_legal),
+                itemModel.getLegal()));
+
         return viewTypes;
     }
 }

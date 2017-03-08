@@ -1,6 +1,7 @@
 package com.rcl.excalibur.adapters.delegate;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
     @Override
     public void onBindViewHolder(ExpandableLinkViewHolder holder, ExpandableLinkViewType item) {
         holder.title.setText(item.getTitle());
-        holder.textContent.setText(item.getContent());
+        holder.textContent.setText(Html.fromHtml(item.getContent()));
     }
 
 
