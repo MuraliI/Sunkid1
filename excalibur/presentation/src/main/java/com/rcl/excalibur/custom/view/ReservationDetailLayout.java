@@ -1,4 +1,4 @@
-package com.rcl.excalibur;
+package com.rcl.excalibur.custom.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.mmin18.widget.RealtimeBlurView;
+import com.rcl.excalibur.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

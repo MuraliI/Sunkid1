@@ -12,11 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.ReservationDetailLayout;
+import com.rcl.excalibur.custom.view.ReservationDetailLayout;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DetailViewCoordinatorAdapter;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -42,7 +43,9 @@ public class DiscoverItemDetailView extends ActivityView {
     }
 
     public void setHeroImage(String url) {
-        //TODO initialize image
+        if (getActivity() != null) {
+            Picasso.with(getActivity()).load(url).into(heroImage);
+        }
     }
 
     public void showOnlyReservationIcon() {

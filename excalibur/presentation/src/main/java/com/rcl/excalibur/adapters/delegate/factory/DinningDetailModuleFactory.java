@@ -9,12 +9,14 @@ import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DinnerTimesDelegateAdapter;
+import com.rcl.excalibur.adapters.delegate.ExpandableDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.ExpandableLinkDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PriceRangeDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PricesFromDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PromotionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DinnerTimesViewType;
+import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PriceRangeViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
@@ -24,9 +26,12 @@ import com.rcl.excalibur.model.DiscoverItemModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static com.rcl.excalibur.model.DiscoverItemModel.TYPE_DINING;
 
 public class DinningDetailModuleFactory implements DetailModuleFactory {
-    private static final int VIEW_TYPES_COUNT = 1;
+    private static final int VIEW_TYPES_COUNT_DINNING = 4;
     private DiscoverItemModel itemModel;
 
     public DinningDetailModuleFactory(DiscoverItemModel itemModel) {
@@ -35,12 +40,16 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
 
     @Override
     public SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray() {
-        SparseArrayCompat<DelegateAdapter> delegateAdapters = new SparseArrayCompat<>(VIEW_TYPES_COUNT);
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DINNER_TIMES, new DinnerTimesDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICE_RANGE, new PriceRangeDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PROMOTION, new PromotionDelegateAdapter());
+        SparseArrayCompat<DelegateAdapter> delegateAdapters = null;
+        if (TYPE_DINING.equals(itemModel.getType())) {
+            delegateAdapters = new SparseArrayCompat<>(VIEW_TYPES_COUNT_DINNING);
+            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
+            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_DESCRIPTION, new ExpandableDescriptionDelegateAdapter());
+            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
+            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DINNER_TIMES, new DinnerTimesDelegateAdapter());
+            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICE_RANGE, new PriceRangeDelegateAdapter());
+            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PROMOTION, new PromotionDelegateAdapter());
+        }
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICES_FROM, new PricesFromDelegateAdapter());
 
         return delegateAdapters;
@@ -48,26 +57,45 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
 
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
-        //TODO get age restriction from model
         List<RecyclerViewType> viewTypes = new ArrayList<>();
-        viewTypes.add(new TitleAndDescriptionViewType(
-                resources.getString(R.string.discover_item_detail_age_restriction_title),
-                "All ages")); //FIXME get this attributes from model
-        viewTypes.add(new ExpandableLinkViewType(
-                resources.getString(R.string.detail_module_accessibility),
-                "Content")); //FIXME get this attributes from model
-        viewTypes.add(new ExpandableLinkViewType(
-                resources.getString(R.string.detail_module_legal),
-                "Content")); //FIXME get this attributes from model
 
+        //Promotion text
+        viewTypes.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionText()));
+
+        //Dinner times
         //FIXME get this attributes from model
         viewTypes.add(new DinnerTimesViewType(
                 resources.getString(R.string.hardcoded_lunch_time_description),
                 null,
                 resources.getString(R.string.hardcoded_dinner_time_description),
-                null));
-        viewTypes.add(new PromotionViewType("Promotional title long version", "Content"));
-        viewTypes.add(new PriceRangeViewType(2)); //FIXME get this attributes from model
+                null)
+        );
+
+        // Price Range
+        viewTypes.add(new PriceRangeViewType(Integer.valueOf(itemModel.getPriceRange()[0]))); //FIXME get this attributes from model
+
+        // Title and description modules
+        if (itemModel.getProperties() != null && itemModel.getProperties().size() > 0) {
+            Map<String, String> properties = itemModel.getProperties();
+            for (Map.Entry<String, String> entry : properties.entrySet()) {
+                viewTypes.add(new TitleAndDescriptionViewType(entry.getKey(), entry.getValue()));
+            }
+        }
+
+        // Description module
+        viewTypes.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
+
+        //Accessibility
+        viewTypes.add(new ExpandableLinkViewType(
+                resources.getString(R.string.detail_module_accessibility),
+                itemModel.getAccessibility()));
+
+        //Legal
+        viewTypes.add(new ExpandableLinkViewType(
+                resources.getString(R.string.detail_module_legal),
+                itemModel.getLegal()));
+
+//Prices from
         viewTypes.add(new PricesFromViewType("40", "20")); //FIXME get this attributes from model
 
         return viewTypes;
