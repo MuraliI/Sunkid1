@@ -41,6 +41,7 @@
     <dimen name="plan_list_padding_right_header">20dp</dimen>
 
     <!-- detail screen -->
+    <dimen name="detail_discover_item_description_margin_top">1dp</dimen>
     <dimen name="detail_discover_item_app_bar_size">380dp</dimen>
     <dimen name="detail_discover_item_toolbar_size">80dp</dimen>
     <dimen name="detail_discover_item_inset_margin_side">20dp</dimen>
@@ -61,5 +62,6 @@
     <dimen name="ic_arrow_height">16dp</dimen>
     <dimen name="detail_discover_item_description_transparency_size">50dp</dimen>
     <dimen name="ic_drop_down_arrow_blue_size">16dp</dimen>
+    <dimen name="price_range_dolar_margin_end">1dp</dimen>
 
 </resources>
