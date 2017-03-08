@@ -60,4 +60,5 @@
     <dimen name="detail_discover_item_dinner_title_margin_top">25dp</dimen>
     <dimen name="ic_arrow_width">16dp</dimen>
     <dimen name="ic_arrow_height">16dp</dimen>
+    <dimen name="price_range_dolar_margin_end">1dp</dimen>
 </resources>
