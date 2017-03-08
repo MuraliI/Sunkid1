@@ -7,6 +7,7 @@ public class RecyclerViewConstants {
     public static final int VIEW_TYPE_DINNER_TIMES = 1000002;
     public static final int VIEW_TYPE_PRICE_RANGE = 1000003;
     public static final int VIEW_TYPE_PROMOTION = 1000004;
+    public static final int VIEW_TYPE_EXPANDABLE_DESCRIPTION = 1000005;
 
     private RecyclerViewConstants() {
 

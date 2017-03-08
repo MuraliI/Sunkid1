@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/text_description"
+        style="@style/AppTheme.DiscoverItemDescriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
+        tools:maxLines="@integer/detail_expandable_description_max_lines"
+        tools:text="@string/hardcoded_detail_description"/>
+
+    <View
+        android:id="@+id/view_transparent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/detail_discover_item_description_transparency_size"
+        android:layout_gravity="bottom"
+        android:background="@drawable/background_gradient_transparent_white"/>
+
+    <LinearLayout
+        android:id="@+id/layout_show_more_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/text_see_more_btn"
+            style="@style/AppTheme.DiscoverItemSeeMoreLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/discover_item_detail_see_more_btn"/>
+
+        <ImageView
+            android:id="@+id/image_dropdown_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_arrow_drop_down"
+            android:tint="@color/detail_item_link"
+            android:contentDescription="@null"/>
+    </LinearLayout>
+
+</merge>
