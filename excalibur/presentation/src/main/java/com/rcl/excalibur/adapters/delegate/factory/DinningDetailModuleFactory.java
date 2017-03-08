@@ -11,11 +11,13 @@ import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DinnerTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.ExpandableLinkDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PriceRangeDelegateAdapter;
+import com.rcl.excalibur.adapters.delegate.PricesFromDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PromotionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DinnerTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PriceRangeViewType;
+import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.PromotionViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.model.DiscoverItemModel;
@@ -39,6 +41,8 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DINNER_TIMES, new DinnerTimesDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICE_RANGE, new PriceRangeDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PROMOTION, new PromotionDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICES_FROM, new PricesFromDelegateAdapter());
+
         return delegateAdapters;
     }
 
@@ -64,6 +68,7 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
                 null));
         viewTypes.add(new PromotionViewType("Promotional title long version", "Content"));
         viewTypes.add(new PriceRangeViewType(2)); //FIXME get this attributes from model
+        viewTypes.add(new PricesFromViewType("40", "20")); //FIXME get this attributes from model
 
         return viewTypes;
     }

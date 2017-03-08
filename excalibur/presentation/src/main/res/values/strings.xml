@@ -12,6 +12,8 @@
     <string name="detail_module_accessibility">Accessibility &amp; Other info</string>
     <string name="detail_module_legal">Legal</string>
     <string name="detail_module_promotion">Promotion</string>
+    <string name="price_range">Price Range</string>
+    <string name="prices_from">Prices from</string>
 
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>
@@ -59,5 +61,7 @@
     <string name="category_shopping">Shopping</string>
     <string name="category_shorex">Shorex</string>
     <string name="category_entertainment">Entertainment</string>
-    <string name="price_range">Price Range</string>
+    <string name="adults">Adults</string>
+    <string name="children">Children</string>
+
 </resources>
