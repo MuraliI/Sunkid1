@@ -4,6 +4,7 @@ package com.rcl.excalibur.adapters.delegate.factory;
 import android.content.res.Resources;
 import android.support.v4.util.SparseArrayCompat;
 
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;

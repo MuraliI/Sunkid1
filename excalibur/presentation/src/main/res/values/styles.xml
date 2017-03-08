@@ -64,8 +64,6 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/font_detail_description_dark_blue</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:layout_marginTop">@dimen/detail_discover_item_description_margin_top
-        </item>
     </style>
 
     <style name="AppTheme.DiscoverItemModuleLinkTextView">
