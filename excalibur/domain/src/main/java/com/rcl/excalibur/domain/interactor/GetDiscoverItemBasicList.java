@@ -4,7 +4,7 @@ package com.rcl.excalibur.domain.interactor;
 import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.executor.PostExecutionThread;
 import com.rcl.excalibur.domain.executor.ThreadExecutor;
-import com.rcl.excalibur.domain.repository.DiscoverRepository;
+import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
 
 import java.util.List;
 
@@ -16,20 +16,20 @@ import io.reactivex.Observable;
  * This class is an implementation of {@link UseCase} that represents a use case for
  * retrieving a collection of all {@link DiscoverItem}.
  */
-public class GetDiscoverList extends UseCase<List<DiscoverItem>, GetDiscoverList.Params> {
+public class GetDiscoverItemBasicList extends UseCase<List<DiscoverItem>, GetDiscoverItemBasicList.Params> {
 
-    private final DiscoverRepository discoverRepository;
+    private final DiscoverItemRepository discoverItemRepository;
 
     @Inject
-    GetDiscoverList(DiscoverRepository discoverRepository, ThreadExecutor threadExecutor,
-                    PostExecutionThread postExecutionThread) {
+    GetDiscoverItemBasicList(DiscoverItemRepository discoverItemRepository, ThreadExecutor threadExecutor,
+                             PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
-        this.discoverRepository = discoverRepository;
+        this.discoverItemRepository = discoverItemRepository;
     }
 
     @Override
     Observable<List<DiscoverItem>> buildUseCaseObservable(Params params) {
-        return this.discoverRepository.listBy(params.type);
+        return this.discoverItemRepository.listBasicBy(params.type);
     }
 
     public static final class Params {

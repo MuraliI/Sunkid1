@@ -5,11 +5,11 @@ import android.content.Context;
 import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.UIThread;
 import com.rcl.excalibur.data.executor.JobExecutor;
-import com.rcl.excalibur.data.repository.DiscoverDataRepository;
+import com.rcl.excalibur.data.repository.DiscoverItemDataRepository;
 import com.rcl.excalibur.data.repository.ItemDataRepository;
 import com.rcl.excalibur.domain.executor.PostExecutionThread;
 import com.rcl.excalibur.domain.executor.ThreadExecutor;
-import com.rcl.excalibur.domain.repository.DiscoverRepository;
+import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
 import com.rcl.excalibur.domain.repository.ItemRepository;
 
 import javax.inject.Singleton;
@@ -55,7 +55,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DiscoverRepository provideDiscoverRepository(DiscoverDataRepository discoverDataRepository) {
-        return discoverDataRepository;
+    DiscoverItemRepository provideDiscoverRepository(DiscoverItemDataRepository discoverItemDataRepository) {
+        return discoverItemDataRepository;
     }
 }

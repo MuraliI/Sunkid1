@@ -5,27 +5,27 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
-import com.rcl.excalibur.domain.interactor.GetDiscoverList;
-import com.rcl.excalibur.fragments.DiscoverFragment;
+import com.rcl.excalibur.domain.interactor.GetDiscoverItemBasicList;
+import com.rcl.excalibur.fragments.DiscoverItemListFragment;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
-import com.rcl.excalibur.mvp.view.DiscoverView;
+import com.rcl.excalibur.mvp.view.DiscoverItemListView;
 
 import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.rcl.excalibur.domain.interactor.GetDiscoverList.Params;
+import static com.rcl.excalibur.domain.interactor.GetDiscoverItemBasicList.Params;
 
 
-public class DiscoverPresenter implements BasePresenter {
+public class DiscoverItemListPresenter implements BasePresenter {
     protected DiscoverModelDataMapper discoverModelDataMapper;
-    @Inject GetDiscoverList getDiscoverList;
-    private DiscoverView view;
+    @Inject GetDiscoverItemBasicList getDiscoverItemBasicList;
+    private DiscoverItemListView view;
     private int type;
 
-    public DiscoverPresenter(int type, DiscoverView view) {
+    public DiscoverItemListPresenter(int type, DiscoverItemListView view) {
         this.discoverModelDataMapper = new DiscoverModelDataMapper();
         this.view = view;
         this.type = type;
@@ -41,22 +41,22 @@ public class DiscoverPresenter implements BasePresenter {
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
         final String type = getType(activity, this.type);
-        getDiscoverList.execute(new DiscoverListObserver(), Params.create(type));
+        getDiscoverItemBasicList.execute(new DiscoverListObserver(), Params.create(type));
     }
 
     protected String getType(final BaseActivity activity, int type) {
         switch (type) {
-            case DiscoverFragment.ROYAL_ACTIVITY:
+            case DiscoverItemListFragment.ROYAL_ACTIVITY:
                 return activity.getString(R.string.category_royal_activity);
-            case DiscoverFragment.DINING:
+            case DiscoverItemListFragment.DINING:
                 return activity.getString(R.string.category_dining);
-            case DiscoverFragment.SHOPPING:
+            case DiscoverItemListFragment.SHOPPING:
                 return activity.getString(R.string.category_shopping);
-            case DiscoverFragment.SPA:
+            case DiscoverItemListFragment.SPA:
                 return activity.getString(R.string.category_spa);
-            case DiscoverFragment.SHOREX:
+            case DiscoverItemListFragment.SHOREX:
                 return activity.getString(R.string.category_shorex);
-            case DiscoverFragment.ENTERTAINMENT:
+            case DiscoverItemListFragment.ENTERTAINMENT:
                 return activity.getString(R.string.category_entertainment);
             default:
                 return activity.getString(R.string.category_royal_activity);
@@ -77,9 +77,9 @@ public class DiscoverPresenter implements BasePresenter {
 
     }
 
-    public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverPresenter> {
+    public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemListPresenter> {
 
-        public AdapterObserver(DiscoverPresenter presenter) {
+        public AdapterObserver(DiscoverItemListPresenter presenter) {
             super(presenter);
         }
 

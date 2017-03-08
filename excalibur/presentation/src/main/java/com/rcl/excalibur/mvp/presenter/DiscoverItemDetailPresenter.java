@@ -4,37 +4,58 @@ package com.rcl.excalibur.mvp.presenter;
 import android.content.res.Resources;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
+import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
 import com.rcl.excalibur.adapters.delegate.factory.DinningDetailModuleFactory;
+import com.rcl.excalibur.domain.DiscoverItem;
+import com.rcl.excalibur.domain.interactor.DefaultObserver;
+import com.rcl.excalibur.domain.interactor.GetDiscoverItemFullList;
+import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
 
+import javax.inject.Inject;
+
 public class DiscoverItemDetailPresenter implements BasePresenter {
-
+    @Inject GetDiscoverItemFullList getDiscoverItemList;
+    private DiscoverModelDataMapper discoverModelDataMapper;
     private DiscoverItemDetailView view;
-    private DetailModuleFactory moduleFactory;
 
-    public DiscoverItemDetailPresenter(DiscoverItemDetailView view, DiscoverItemModel discoverItemModel) {
+    public DiscoverItemDetailPresenter(DiscoverItemDetailView view, String discoverItemId) {
+        this.discoverModelDataMapper = new DiscoverModelDataMapper();
         this.view = view;
-        initModuleFactory(discoverItemModel);
-        initView();
+        initInjection();
+        initView(discoverItemId);
     }
 
-    //TODO check what kind of plan was passed by the activity
-    private void initModuleFactory(DiscoverItemModel discoverItemModel) {
-        moduleFactory = new DinningDetailModuleFactory(discoverItemModel);
+    private void initInjection() {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        activity.getApplicationComponent().inject(this);
     }
 
-    private void initView() {
-        Resources resources = null;
+    private void initView(final String discoverItemId) {
         if (view.getActivity() != null) {
             view.setDetailTitle(view.getActivity().getString(R.string.hardcoded_activity_title)); //FIXME get the plan title
-            resources = view.getActivity().getResources();
         }
         view.setAdapterObserver(new DetailAdapterObserver(this));
-        view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(resources));
+        getDiscoverItemList.execute(new DiscoverListObserver(), GetDiscoverItemFullList.Params.create(discoverItemId));
     }
 
+    private void showItemInView(DiscoverItem discoverItem) {
+        final DiscoverItemDetailActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        final Resources resources = activity.getResources();
+        final DiscoverItemModel discoverItemModel = discoverModelDataMapper.transform(discoverItem);
+        final DinningDetailModuleFactory moduleFactory = new DinningDetailModuleFactory(discoverItemModel);
+
+        view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(resources));
+
+    }
 
 
     public class DetailAdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemDetailPresenter> {
@@ -48,4 +69,22 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
             //TODO do something when a detail item is clicked.
         }
     }
+
+    public final class DiscoverListObserver extends DefaultObserver<DiscoverItem> {
+
+        @Override
+        public void onComplete() {
+        }
+
+        @Override
+        public void onError(Throwable e) {
+        }
+
+        @Override
+        public void onNext(DiscoverItem discoverItem) {
+            showItemInView(discoverItem);
+        }
+    }
+
+
 }

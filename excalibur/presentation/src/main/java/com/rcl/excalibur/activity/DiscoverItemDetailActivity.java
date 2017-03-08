@@ -12,6 +12,7 @@ public class DiscoverItemDetailActivity extends BaseActivity {
 
     private static final String EXTRA_DISCOVER_ITEM_MODEL = "EXTRA_DISCOVER_ITEM_MODEL";
 
+    private DiscoverItemDetailPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class DiscoverItemDetailActivity extends BaseActivity {
         if (intent != null && intent.hasExtra(EXTRA_DISCOVER_ITEM_MODEL)) {
             discoverItemModel = getIntent().getExtras().getParcelable(EXTRA_DISCOVER_ITEM_MODEL);
         }
-
-        DiscoverItemDetailPresenter presenter = new DiscoverItemDetailPresenter(new DiscoverItemDetailView(this), discoverItemModel);
+//TODO hardcoded wait integration with listview integration
+        presenter = new DiscoverItemDetailPresenter(new DiscoverItemDetailView(this), "6");
     }
 }

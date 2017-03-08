@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.mvp.presenter.DiscoverPresenter;
-import com.rcl.excalibur.mvp.view.DiscoverView;
+import com.rcl.excalibur.mvp.presenter.DiscoverItemListPresenter;
+import com.rcl.excalibur.mvp.view.DiscoverItemListView;
 
-public class DiscoverFragment extends Fragment {
+public class DiscoverItemListFragment extends Fragment {
 
     public static final int ROYAL_ACTIVITY = 0;
     public static final int DINING = 1;
@@ -19,11 +19,11 @@ public class DiscoverFragment extends Fragment {
     public static final int SPA = 3;
     public static final int SHOREX = 4;
     public static final int ENTERTAINMENT = 5;
-    private static final String ARGUMENT_TYPE = "DiscoverFragment.ARGUMENT_TYPE";
-    private DiscoverPresenter presenter;
+    private static final String ARGUMENT_TYPE = "DiscoverItemListFragment.ARGUMENT_TYPE";
+    private DiscoverItemListPresenter presenter;
 
-    public static DiscoverFragment newInstance(int type) {
-        DiscoverFragment fragment = new DiscoverFragment();
+    public static DiscoverItemListFragment newInstance(int type) {
+        DiscoverItemListFragment fragment = new DiscoverItemListFragment();
         Bundle args = new Bundle();
         args.putInt(ARGUMENT_TYPE, type);
         fragment.setArguments(args);
@@ -38,7 +38,7 @@ public class DiscoverFragment extends Fragment {
             return;
         }
         final int type = bundle.getInt(ARGUMENT_TYPE);
-        presenter = new DiscoverPresenter(type, new DiscoverView(this));
+        presenter = new DiscoverItemListPresenter(type, new DiscoverItemListView(this));
     }
 
     @Override

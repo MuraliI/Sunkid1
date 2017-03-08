@@ -4,10 +4,11 @@ import android.content.Context;
 
 import com.rcl.excalibur.domain.executor.PostExecutionThread;
 import com.rcl.excalibur.domain.executor.ThreadExecutor;
-import com.rcl.excalibur.domain.repository.DiscoverRepository;
+import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
 import com.rcl.excalibur.domain.repository.ItemRepository;
 import com.rcl.excalibur.internal.di.module.ApplicationModule;
-import com.rcl.excalibur.mvp.presenter.DiscoverPresenter;
+import com.rcl.excalibur.mvp.presenter.DiscoverItemDetailPresenter;
+import com.rcl.excalibur.mvp.presenter.DiscoverItemListPresenter;
 import com.rcl.excalibur.mvp.presenter.LoadFromDBPresenter;
 
 import javax.inject.Singleton;
@@ -22,7 +23,9 @@ import dagger.Component;
 public interface ApplicationComponent {
     void inject(LoadFromDBPresenter presenter);
 
-    void inject(DiscoverPresenter presenter);
+    void inject(DiscoverItemListPresenter presenter);
+
+    void inject(DiscoverItemDetailPresenter presenter);
 
     //Exposed to sub-graphs.
     Context context();
@@ -33,5 +36,5 @@ public interface ApplicationComponent {
 
     ItemRepository itemRepository();
 
-    DiscoverRepository discoverRepository();
+    DiscoverItemRepository discoverItemRepository();
 }

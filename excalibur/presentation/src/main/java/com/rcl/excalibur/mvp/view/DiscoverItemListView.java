@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.DiscoverAdapter;
-import com.rcl.excalibur.fragments.DiscoverFragment;
+import com.rcl.excalibur.fragments.DiscoverItemListFragment;
 import com.rcl.excalibur.model.DiscoverItemModel;
 
 import java.util.Collection;
@@ -15,12 +15,12 @@ import java.util.Collection;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DiscoverView extends FragmentView<DiscoverFragment> {
+public class DiscoverItemListView extends FragmentView<DiscoverItemListFragment> {
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
 
     private DiscoverAdapter adapter;
 
-    public DiscoverView(DiscoverFragment fragment) {
+    public DiscoverItemListView(DiscoverItemListFragment fragment) {
         super(fragment);
         ButterKnife.bind(this, fragment.getView());
     }

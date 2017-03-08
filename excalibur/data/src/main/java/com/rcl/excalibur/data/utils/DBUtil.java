@@ -1,8 +1,10 @@
 package com.rcl.excalibur.data.utils;
 
+import android.text.TextUtils;
+
 public final class DBUtil {
 
-    private static final String COL_ID = "Id";
+    public static final String COL_ID = "Id";
 
     private DBUtil() {
     }
@@ -22,7 +24,7 @@ public final class DBUtil {
     }
 
     private static String checkValue(final String value) {
-        if (value == null || value.isEmpty()) {
+        if (TextUtils.isEmpty(value)) {
             throw new IllegalArgumentException("Value must be non-null and non-empty.");
         }
         return value;

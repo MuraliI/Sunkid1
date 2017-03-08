@@ -4,12 +4,12 @@ package com.rcl.excalibur.mvp.presenter;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.domain.DiscoverItem;
-import com.rcl.excalibur.domain.interactor.GetDiscoverList;
-import com.rcl.excalibur.fragments.DiscoverFragment;
+import com.rcl.excalibur.domain.interactor.GetDiscoverItemBasicList;
+import com.rcl.excalibur.fragments.DiscoverItemListFragment;
 import com.rcl.excalibur.internal.di.component.ApplicationComponent;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
-import com.rcl.excalibur.mvp.view.DiscoverView;
+import com.rcl.excalibur.mvp.view.DiscoverItemListView;
 
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -29,12 +29,12 @@ import static org.mockito.Mockito.when;
 public class DiscoverPresenterTest {
 
     private static final int TYPE = 0;
-    DiscoverPresenter presenter;
-    @Mock DiscoverView view;
+    DiscoverItemListPresenter presenter;
+    @Mock DiscoverItemListView view;
     @Mock BaseActivity activity;
     @Mock ApplicationComponent applicationComponent;
     @Mock DiscoverModelDataMapper discoverModelDataMapper;
-    @Mock GetDiscoverList getDiscoverList;
+    @Mock GetDiscoverItemBasicList getDiscoverItemBasicList;
 
 //    @Before
 //    public void setUp() {
@@ -43,18 +43,18 @@ public class DiscoverPresenterTest {
 //
 //        when(view.getActivity()).thenReturn(activity);
 //        when(activity.getApplicationComponent()).thenReturn(applicationComponent);
-//        doNothing().when(getDiscoverList).execute(any(DiscoverPresenter.DiscoverListObserver.class), any(GetDiscoverList.Params.class));
-//        presenter = new DiscoverPresenter(TYPE, view);
+//        doNothing().when(getDiscoverItemBasicList).execute(any(DiscoverItemListPresenter.DiscoverListObserver.class), any(GetDiscoverItemBasicList.Params.class));
+//        presenter = new DiscoverItemListPresenter(TYPE, view);
 //        presenter.discoverModelDataMapper = discoverModelDataMapper;
-//        presenter.getDiscoverList = getDiscoverList;
+//        presenter.getDiscoverItemBasicList = getDiscoverItemBasicList;
 //    }
 
     @Ignore
     public void init() throws Exception {
         //init()
-        verify(view).setAdapterObserver(any(DiscoverPresenter.AdapterObserver.class));
+        verify(view).setAdapterObserver(any(DiscoverItemListPresenter.AdapterObserver.class));
         verify(view).init();
-        verify(getDiscoverList).execute(any(DiscoverPresenter.DiscoverListObserver.class), any(GetDiscoverList.Params.class));
+        verify(getDiscoverItemBasicList).execute(any(DiscoverItemListPresenter.DiscoverListObserver.class), any(GetDiscoverItemBasicList.Params.class));
         //initInjection()
         verify(applicationComponent).inject(presenter);
     }
@@ -69,12 +69,12 @@ public class DiscoverPresenterTest {
         when(activity.getString(R.string.category_dining)).thenReturn("Dining");
         when(activity.getString(R.string.category_shopping)).thenReturn("Shopping");
 
-        Assert.assertEquals("Activities", presenter.getType(activity, DiscoverFragment.ROYAL_ACTIVITY));
-        Assert.assertEquals("Ent", presenter.getType(activity, DiscoverFragment.ENTERTAINMENT));
-        Assert.assertEquals("Shorex", presenter.getType(activity, DiscoverFragment.SHOREX));
-        Assert.assertEquals("Spa", presenter.getType(activity, DiscoverFragment.SPA));
-        Assert.assertEquals("Dining", presenter.getType(activity, DiscoverFragment.DINING));
-        Assert.assertEquals("Shopping", presenter.getType(activity, DiscoverFragment.SHOPPING));
+        Assert.assertEquals("Activities", presenter.getType(activity, DiscoverItemListFragment.ROYAL_ACTIVITY));
+        Assert.assertEquals("Ent", presenter.getType(activity, DiscoverItemListFragment.ENTERTAINMENT));
+        Assert.assertEquals("Shorex", presenter.getType(activity, DiscoverItemListFragment.SHOREX));
+        Assert.assertEquals("Spa", presenter.getType(activity, DiscoverItemListFragment.SPA));
+        Assert.assertEquals("Dining", presenter.getType(activity, DiscoverItemListFragment.DINING));
+        Assert.assertEquals("Shopping", presenter.getType(activity, DiscoverItemListFragment.SHOPPING));
     }
 
     @Ignore
