@@ -60,8 +60,7 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
                 resources.getString(R.string.hardcoded_dinner_time_description),
                 null)
         );
-        viewTypes.add(new PriceRangeViewType(
-                2)); //FIXME get this attributes from model
+        viewTypes.add(new PriceRangeViewType(2)); //FIXME get this attributes from model
 
         return viewTypes;
     }
