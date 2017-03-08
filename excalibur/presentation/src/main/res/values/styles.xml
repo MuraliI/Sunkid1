@@ -37,6 +37,18 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="AppTheme.DiscoverItemDescriptionText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_light</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/detail_item_description</item>
+    </style>
+
+    <style name="AppTheme.DiscoverItemSeeMoreLink">
+        <item name="fontPath">@string/roboto_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/detail_item_link</item>
+    </style>
+
     <style name="AppTheme.DiscoverItemTextView" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/roboto_light</item>
         <item name="android:textSize">20sp</item>

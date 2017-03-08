@@ -4,19 +4,22 @@ package com.rcl.excalibur.adapters.delegate.factory;
 import android.content.res.Resources;
 import android.support.v4.util.SparseArrayCompat;
 
-import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
+import com.rcl.excalibur.adapters.delegate.ExpandableDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
+import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.model.DiscoverItemModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DinningDetailModuleFactory implements DetailModuleFactory {
     private static final int VIEW_TYPES_COUNT = 1;
+    private static final int VIEW_TYPES_COUNT_DINNING = 2;
     private DiscoverItemModel itemModel;
 
     public DinningDetailModuleFactory(DiscoverItemModel itemModel) {
@@ -25,18 +28,26 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
 
     @Override
     public SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray() {
-        SparseArrayCompat<DelegateAdapter> delegateAdapters = new SparseArrayCompat<>(VIEW_TYPES_COUNT);
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
+        SparseArrayCompat<DelegateAdapter> delegateAdapters = null;
+        if ("Dining".equals(itemModel.getType())) {
+            delegateAdapters = new SparseArrayCompat<>(VIEW_TYPES_COUNT_DINNING);
+            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
+            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_DESCRIPTION, new ExpandableDescriptionDelegateAdapter());
+        }
         return delegateAdapters;
     }
 
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
-        //TODO get age restriction from model
         List<RecyclerViewType> viewTypes = new ArrayList<>();
-        viewTypes.add(new TitleAndDescriptionViewType(
-                resources.getString(R.string.discover_item_detail_age_restriction_title),
-                "All ages")); //FIXME get this attributes from model
+        //TODO get age restriction from model
+        if (itemModel.getProperties() != null && itemModel.getProperties().size() > 0) {
+            Map<String, String> properties = itemModel.getProperties();
+            for (Map.Entry<String, String> entry : properties.entrySet()) {
+                viewTypes.add(new TitleAndDescriptionViewType(entry.getKey(), entry.getValue()));
+            }
+        }
+        viewTypes.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
         return viewTypes;
     }
 }

@@ -3,6 +3,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
 import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetDiscoverList;
@@ -85,7 +86,10 @@ public class DiscoverPresenter implements BasePresenter {
 
         @Override
         public void onNext(DiscoverItemModel value) {
-            //TODO open Details Screen
+            BaseActivity activity = view.getActivity();
+            if (activity != null) {
+                activity.startActivity(DiscoverItemDetailActivity.getIntent(activity, value.getDiscoverId()));
+            }
         }
     }
 

@@ -1,6 +1,9 @@
 package com.rcl.excalibur.model;
 
 
+import java.util.List;
+import java.util.Map;
+
 public class DiscoverItemModel {
     private String discoverId;
     private String imageUrl;
@@ -9,6 +12,17 @@ public class DiscoverItemModel {
     private String hours;
     private String promotionText;
     private String type;
+    //FIXME this are temporary attributes. Will be fixed when we start querying the database
+    private String subtitle;
+    private boolean reservationRequired;
+    private String promotionTitle;
+    private String promotionDescription;
+    private List<String> discoverItemTimes;
+    private Map<String, String> properties;
+    private String[] priceRange;
+    private String description;
+    private String accessibility;
+    private String legal;
 
     public String getType() {
         return type;
@@ -66,4 +80,84 @@ public class DiscoverItemModel {
         this.promotionText = promotionText;
     }
 
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+
+    public String getPromotionTitle() {
+        return promotionTitle;
+    }
+
+    public void setPromotionTitle(String promotionTitle) {
+        this.promotionTitle = promotionTitle;
+    }
+
+    public String getPromotionDescription() {
+        return promotionDescription;
+    }
+
+    public void setPromotionDescription(String promotionDescription) {
+        this.promotionDescription = promotionDescription;
+    }
+
+    public List<String> getDiscoverItemTimes() {
+        return discoverItemTimes;
+    }
+
+    public void setDiscoverItemTimes(List<String> discoverItemTimes) {
+        this.discoverItemTimes = discoverItemTimes;
+    }
+
+    public String[] getPriceRange() {
+        return priceRange;
+    }
+
+    public void setPriceRange(String[] priceRange) {
+        this.priceRange = priceRange;
+    }
+
+    public String getAccessibility() {
+        return accessibility;
+    }
+
+    public void setAccessibility(String accessibility) {
+        this.accessibility = accessibility;
+    }
+
+    public String getLegal() {
+        return legal;
+    }
+
+    public void setLegal(String legal) {
+        this.legal = legal;
+    }
+
+    public boolean isReservationRequired() {
+        return reservationRequired;
+    }
+
+    public void setReservationRequired(boolean reservationRequired) {
+        this.reservationRequired = reservationRequired;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Map<String, String> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map<String, String> properties) {
+        this.properties = properties;
+    }
 }

@@ -65,7 +65,7 @@
 
                 </LinearLayout>
 
-                <com.rcl.excalibur.ReservationDetailLayout
+                <com.rcl.excalibur.custom.view.ReservationDetailLayout
                     android:id="@+id/frame_layout_reservation_container"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/detail_discover_item_reservation_message_container_size"
