@@ -52,6 +52,15 @@ public final class DetailModelProvider {
         discoverItem1.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
         discoverItem1.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
+
+        List<String[]> daysAndTimes = new ArrayList<>();
+        daysAndTimes.add(new String[]{"Day 3", "10 AM"});
+        daysAndTimes.add(new String[]{
+                "Day 4",
+                "10 AM - 12 PM"
+        });
+        discoverItem1.setStandarTimesTitle("Presentations");
+        discoverItem1.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItemMap.put("1", discoverItem1);
 
         ////////////////////////////////////////////////////////////////////////////////
@@ -92,6 +101,8 @@ public final class DetailModelProvider {
         discoverItem2.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
         discoverItem2.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
+        discoverItem2.setStandarTimesTitle("Times");
+        discoverItem2.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItemMap.put("2", discoverItem2);
 
         ///////////////////////////////////////////////////////////////////////////////////
@@ -129,6 +140,8 @@ public final class DetailModelProvider {
         discoverItem3.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
         discoverItem3.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
+        discoverItem3.setStandarTimesTitle("Sessions");
+        discoverItem3.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItemMap.put("3", discoverItem3);
 
         /////////////////////////////////////////////////////////////////////////
@@ -163,6 +176,8 @@ public final class DetailModelProvider {
         discoverItem4.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
         discoverItem4.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
+        discoverItem4.setStandarTimesTitle("Excursion times");
+        discoverItem4.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItemMap.put("4", discoverItem4);
     }
 }
