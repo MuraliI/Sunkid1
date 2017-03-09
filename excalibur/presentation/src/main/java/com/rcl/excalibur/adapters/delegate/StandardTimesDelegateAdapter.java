@@ -81,7 +81,7 @@ public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTim
 
 
         @OnClick(R.id.link_container)
-        public void onLinkClick() {
+        void onLinkClick() {
             change();
         }
 
