@@ -56,7 +56,7 @@
             style="@style/AppTheme.DiscoverItemModuleLinkTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/see_more"/>
+            android:text="@string/discover_item_detail_see_more_btn"/>
 
         <ImageView
             android:id="@+id/link_arrow"
