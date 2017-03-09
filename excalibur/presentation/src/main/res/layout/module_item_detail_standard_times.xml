@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/detail_discover_item_dinner_times_padding">
+
+    <TextView
+        android:id="@+id/text_module_standard_times_title"
+        style="@style/AppTheme.DiscoverItemModuleTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Excursion times" />
+
+    <LinearLayout
+        android:id="@+id/linear_times_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:orientation="horizontal"
+        android:weightSum="@integer/detail_standard_times_container_weight">
+
+        <TextView
+            android:id="@+id/text_module_standard_times_days"
+            style="@style/AppTheme.DiscoverItemModuleSmallDescriptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/detail_standard_times_days_weight"
+            tools:text="Day 3\n\nDay 4" />
+
+        <TextView
+            android:id="@+id/text_module_standard_times_times"
+            style="@style/AppTheme.DiscoverItemModuleSmallDescriptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/detail_standard_times_times_weight"
+            tools:text="10 AM\n\n10 AM - 12 PM" />
+
+    </LinearLayout>
+
+</LinearLayout>
