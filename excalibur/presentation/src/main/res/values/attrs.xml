@@ -2,7 +2,8 @@
 <resources>
     <declare-styleable name="ExpandableDescriptionLayout">
         <attr name="descriptionText" format="string"/>
-        <attr name="seeMoreButtonText" format="string"/>
+        <attr name="seeMoreCollapsedButtonText" format="string"/>
+        <attr name="seeMoreExpandedButtonText" format="string" />
         <attr name="collapseLinesCount" format="integer" />
         <attr name="animationDuration" format="integer" />
     </declare-styleable>

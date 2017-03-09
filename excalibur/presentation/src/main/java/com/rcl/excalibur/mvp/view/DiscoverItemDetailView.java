@@ -10,12 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.custom.view.ReservationDetailLayout;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DetailViewCoordinatorAdapter;
+import com.rcl.excalibur.custom.view.ReservationDetailLayout;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.squareup.picasso.Picasso;
 
@@ -25,7 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class DiscoverItemDetailView extends ActivityView {
+public class DiscoverItemDetailView extends ActivityView<AppCompatActivity> {
 
     @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
     @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
@@ -65,6 +66,13 @@ public class DiscoverItemDetailView extends ActivityView {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             planDetailRecycler.setLayoutManager(layoutManager);
             planDetailRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), layoutManager.getOrientation()));
+        }
+    }
+
+    public void showToastAndFinishActivity(String message) {
+        if (getActivity() != null) {
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            getActivity().finish();
         }
     }
 }

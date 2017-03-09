@@ -40,7 +40,7 @@
 
     <TextView
         android:id="@+id/promotion_module_content"
-        style="@style/AppTheme.DiscoverItemModuleDescriptionTextView"
+        style="@style/AppTheme.DiscoverItemDescriptionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
