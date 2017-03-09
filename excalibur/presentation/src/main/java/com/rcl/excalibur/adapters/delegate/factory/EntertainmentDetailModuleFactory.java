@@ -23,7 +23,7 @@ import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntertainmentDetailModuleFactory extends DetailModuleFactory {
+class EntertainmentDetailModuleFactory extends DetailModuleFactory {
     private static final int VIEW_TYPES_COUNT = 10;
     private static final int POSITION_PRICE_ADULTS = 1;
     private static final int POSITION_PRICE_CHILDREN = 3;
