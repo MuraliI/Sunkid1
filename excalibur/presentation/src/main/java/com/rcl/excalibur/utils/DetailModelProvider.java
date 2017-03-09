@@ -105,7 +105,7 @@ public final class DetailModelProvider {
         daysAndTimes.add(new String[]{"Day 6", "10 AM - 12 PM - 4 PM"});
         discoverItem3.setStandardTimesTitle("Operating hours");
         discoverItem3.setStandardTimesDaysAndTimes(daysAndTimes);
-        discoverItem3.setPriceRange(new String[]{"2"});
+        discoverItem3.setPriceRange(new String[]{"40", "80"});
         properties = new LinkedHashMap<>();
         properties.put("Sessions", "30 mins - 90 mins");
         properties.put("Age", "18+");
