@@ -27,19 +27,13 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
     }
 
     private void initModuleFactory() {
-        moduleFactory = getModuleFactory(itemModel);
-    }
-
-    private DetailModuleFactory getModuleFactory(DiscoverItemModel itemModel) {
         String type = itemModel.getType();
         if (DiscoverItemModel.TYPE_DINING.equals(type)) {
-            return new DinningDetailModuleFactory(itemModel);
+            moduleFactory = new DinningDetailModuleFactory(itemModel);
         } else if (DiscoverItemModel.TYPE_SHOREX.equals(type)) {
             //TODO add more module factories;
-            return null;
+            moduleFactory = null;
         }
-
-        return null;
     }
 
     private void initView() {
