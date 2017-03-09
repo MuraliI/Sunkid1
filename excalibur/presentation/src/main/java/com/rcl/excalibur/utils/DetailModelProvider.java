@@ -5,6 +5,7 @@ import com.rcl.excalibur.model.DiscoverItemModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,7 @@ public final class DetailModelProvider {
         discoverItem1.setStandardTimesTitle("Presentations");
         discoverItem1.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItem1.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
-        Map<String, String> properties = new HashMap<>();
+        Map<String, String> properties = new LinkedHashMap<>();
         properties.put("Duration", "90 mins");
         properties.put("Age", "12+");
         properties.put("HeightRestriction", "None");
@@ -67,7 +68,7 @@ public final class DetailModelProvider {
         discoverItem2.setStandardTimesTitle("Excursion times");
         discoverItem2.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItem2.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
-        properties = new HashMap<>();
+        properties = new LinkedHashMap<>();
         properties.put("Cuisine Types", "Latin American");
         properties.put("Duration", "90 mins");
         properties.put("Age", "All ages");
@@ -105,7 +106,7 @@ public final class DetailModelProvider {
         discoverItem3.setStandardTimesTitle("Operating hours");
         discoverItem3.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItem3.setPriceRange(new String[]{"Min", "40", "Max", "20"});
-        properties = new HashMap<>();
+        properties = new LinkedHashMap<>();
         properties.put("Age", "18+");
         properties.put("ActivityLevel", "Low");
         discoverItem3.setProperties(properties);
@@ -136,7 +137,7 @@ public final class DetailModelProvider {
         diningItem.setDinnerTime("5:00 pm - 10:00 pm");
         diningItem.setDinnerMenu("https://secure.royalcaribbean.com.au/royal/content/en_OC_reg/pdf/worldwide-brochure-2016-2017.pdf");
         diningItem.setPriceRange(new String[]{"2"});
-        properties = new HashMap<>();
+        properties = new LinkedHashMap<>();
         properties.put("Cuisine", "American");
         properties.put("Age", "All ages");
         properties.put("Attire", "Casual");
@@ -216,7 +217,7 @@ public final class DetailModelProvider {
         activityItem2.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. - "
                 + "You can't sue us if you die - You might die</p></body></html>");
 
-        properties = new HashMap<>();
+        properties = new LinkedHashMap<>();
         properties.put("Duration", "90 mins");
         properties.put("AgeRestriction", "All Ages");
         properties.put("Restriction", "None");
@@ -251,7 +252,7 @@ public final class DetailModelProvider {
         discoverItem8.setStandardTimesTitle("Operating hours");
         discoverItem8.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItem8.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
-        properties = new HashMap<>();
+        properties = new LinkedHashMap<>();
         properties.put("AgeRestriction", "All Ages");
         discoverItem8.setProperties(properties);
         discoverItem8.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
