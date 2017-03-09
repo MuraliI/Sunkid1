@@ -186,7 +186,7 @@ public final class DetailModelProvider {
         properties = new LinkedHashMap<>();
         properties.put("Guests should be", "5 feet");
         properties.put("Duration", "90 mins");
-        properties.put("AgeRestriction", "All Ages");
+        properties.put("Age Restriction", "All Ages");
         properties.put("Restriction", "None");
         properties.put("Attire", "Active Wear");
         properties.put("ActivityLevel", "Low");
@@ -230,7 +230,7 @@ public final class DetailModelProvider {
         properties = new LinkedHashMap<>();
         properties.put("Guests should be", "5 feet");
         properties.put("Duration", "90 mins");
-        properties.put("AgeRestriction", "All Ages");
+        properties.put("Age Restriction", "All Ages");
         properties.put("Restriction", "None");
         properties.put("Attire", "Active Wear");
         properties.put("ActivityLevel", "Low");
@@ -264,7 +264,7 @@ public final class DetailModelProvider {
         discoverItem8.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItem8.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         properties = new LinkedHashMap<>();
-        properties.put("AgeRestriction", "All Ages");
+        properties.put("Age Restriction", "All Ages");
         discoverItem8.setProperties(properties);
         discoverItem8.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
                 + "meaningful. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat "
