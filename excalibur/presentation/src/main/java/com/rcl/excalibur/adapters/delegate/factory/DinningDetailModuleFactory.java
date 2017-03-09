@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DinningDetailModuleFactory implements DetailModuleFactory {
-    private static final int VIEW_TYPES_COUNT_DINNING = 4;
+    private static final int VIEW_TYPES_COUNT_DINNING = 6;
     private DiscoverItemModel itemModel;
 
     public DinningDetailModuleFactory(DiscoverItemModel itemModel) {
@@ -36,18 +36,13 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
 
     @Override
     public SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray() {
-        SparseArrayCompat<DelegateAdapter> delegateAdapters = null;
-        delegateAdapters = new SparseArrayCompat<>(VIEW_TYPES_COUNT_DINNING);
+        SparseArrayCompat<DelegateAdapter> delegateAdapters = new SparseArrayCompat<>(VIEW_TYPES_COUNT_DINNING);
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PROMOTION, new PromotionDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DINNER_TIMES, new DinnerTimesDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICE_RANGE, new PriceRangeDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_DESCRIPTION, new ExpandableDescriptionDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICE_RANGE, new PriceRangeDelegateAdapter());
-
-        //delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICES_FROM, new PricesFromDelegateAdapter()); TODO Integrate with other activity types
-        //delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_STANDARD_TIMES, new StandardTimesDelegateAdapter());
-
         return delegateAdapters;
     }
 
@@ -59,12 +54,11 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
         viewTypes.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionDescription()));
 
         //Dinner times
-        //FIXME get this attributes from model
         viewTypes.add(new DinnerTimesViewType(
-                resources.getString(R.string.hardcoded_lunch_time_description),
-                null,
-                resources.getString(R.string.hardcoded_dinner_time_description),
-                null)
+                itemModel.getLunchTime(),
+                itemModel.getLunchMenu(),
+                itemModel.getDinnerTime(),
+                itemModel.getDinnerMenu())
         );
 
         // Price Range
@@ -90,12 +84,6 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
         viewTypes.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_legal),
                 itemModel.getLegal()));
-
-        //Prices from
-        //viewTypes.add(new PricesFromViewType("40", "20")); //FIXME get this attributes from model and add it to another category
-
-        //Standard times
-        //viewTypes.add(new StandardTimesViewType(itemModel.getStandarTimesTitle(), itemModel.getStandardTimesDaysAndTimes()));
 
         return viewTypes;
     }

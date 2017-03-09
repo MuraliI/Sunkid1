@@ -33,7 +33,7 @@ public final class DetailModelProvider {
         items.add("10 AM - 12 PM - 4 PM");
         items.add("Day 6");
         items.add("10 AM - 12 PM - 4 PM");
-        discoverItem1.setDiscoverItemTimes(items);
+        //discoverItem1.setDiscoverItemTimes(items);
         discoverItem1.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         Map<String, String> properties = new HashMap<>();
         properties.put("Duration", "90 mins");
@@ -55,7 +55,7 @@ public final class DetailModelProvider {
                 "Day 4",
                 "10 AM - 12 PM"
         });
-        discoverItem1.setStandarTimesTitle("Presentations");
+        discoverItem1.setStandardTimesTitle("Presentations");
         discoverItem1.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItemMap.put(discoverItem1.getDiscoverId(), discoverItem1);
 
@@ -64,7 +64,7 @@ public final class DetailModelProvider {
         discoverItem2.setDiscoverId("2");
         discoverItem2.setType("Shorex");
         discoverItem2.setImageUrl("https://s17.postimg.org/yftzz3qun/img_caribbean_kitchen.png");
-        discoverItem2.setTitle("Caribean Kitchen");
+        discoverItem2.setTitle("Caribbean Kitchen");
         discoverItem2.setSubtitle("St Martin");
         discoverItem2.setReservationRequired(true);
         discoverItem2.setPromotionTitle("Promotional title long version");
@@ -80,7 +80,7 @@ public final class DetailModelProvider {
         items.add("10 AM - 12 PM - 4 PM");
         items.add("Day 6");
         items.add("10 AM - 12 PM - 4 PM");
-        discoverItem2.setDiscoverItemTimes(items);
+        //discoverItem2.setDiscoverItemTimes(items);
         discoverItem2.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         properties = new HashMap<>();
         properties.put("Cuisine Types", "Latin American");
@@ -97,7 +97,7 @@ public final class DetailModelProvider {
         discoverItem2.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
         discoverItem2.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
-        discoverItem2.setStandarTimesTitle("Times");
+        discoverItem2.setStandardTimesTitle("Times");
         discoverItem2.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItemMap.put(discoverItem2.getDiscoverId(), discoverItem2);
 
@@ -123,7 +123,7 @@ public final class DetailModelProvider {
         items.add("10 AM - 12 PM - 4 PM");
         items.add("Day 6");
         items.add("10 AM - 12 PM - 4 PM");
-        discoverItem3.setDiscoverItemTimes(items);
+        //discoverItem3.setDiscoverItemTimes(items);
         discoverItem3.setPriceRange(new String[]{"Min", "40", "Max", "20"});
         properties = new HashMap<>();
         properties.put("Age", "18+");
@@ -136,45 +136,43 @@ public final class DetailModelProvider {
         discoverItem3.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
         discoverItem3.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
-        discoverItem3.setStandarTimesTitle("Sessions");
+        discoverItem3.setStandardTimesTitle("Sessions");
         discoverItem3.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItemMap.put(discoverItem3.getDiscoverId(), discoverItem3);
 
         /////////////////////////////////////////////////////////////////////////
-        DiscoverItemModel discoverItem4 = new DiscoverItemModel();
-        discoverItem4.setDiscoverId("4");
-        discoverItem4.setType("Dining");
-        discoverItem4.setImageUrl("https://s22.postimg.org/jjfafr7pd/img_sams_bbq_wild_house.png");
-        discoverItem4.setTitle("Sam's BBQ Wild House");
-        discoverItem4.setSubtitle("Deck 12, AFT");
-        discoverItem4.setReservationRequired(false);
-        discoverItem4.setPromotionTitle("50% off Matinee showtimes");
-        discoverItem4.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, Guess, "
+        DiscoverItemModel diningItem = new DiscoverItemModel();
+        diningItem.setDiscoverId("4");
+        diningItem.setType("Dining");
+        diningItem.setImageUrl("https://s22.postimg.org/jjfafr7pd/img_sams_bbq_wild_house.png");
+        diningItem.setTitle("Sam's BBQ Wild House");
+        diningItem.setSubtitle("Deck 12, AFT");
+        diningItem.setReservationRequired(false);
+        diningItem.setPromotionTitle("50% off Matinee showtimes");
+        diningItem.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, Guess, "
                 + "G-Shock, "
                 + "and more. All purchases have a 30-day price match guarantee! Whether you're shopping for yourself or as a gift, we have "
                 + "an amazing selection for you to choose from. All tax and duty free.");
-        items = new ArrayList<>();
-        items.add("LunchTime");
-        items.add("12:00 pm - 3:00 pm");
-        items.add("DinnerTime");
-        items.add("5:00 pm - 10:00 pm");
-        discoverItem4.setDiscoverItemTimes(items);
-        discoverItem4.setPriceRange(new String[]{"2"});
+        diningItem.setLunchTime("12:00 pm - 3:00 pm");
+        diningItem.setLunchMenu("http://www.crucerosvips.com/catalogos/cat17_09.pdf");
+        diningItem.setDinnerTime("5:00 pm - 10:00 pm");
+        diningItem.setDinnerMenu("https://secure.royalcaribbean.com.au/royal/content/en_OC_reg/pdf/worldwide-brochure-2016-2017.pdf");
+        diningItem.setPriceRange(new String[]{"2"});
         properties = new HashMap<>();
         properties.put("Cuisine", "American");
         properties.put("Age", "All ages");
         properties.put("Attire", "Casual");
-        discoverItem4.setProperties(properties);
-        discoverItem4.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
+        diningItem.setProperties(properties);
+        diningItem.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
                 + "meaningful. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat "
                 + "est. Aliquam non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, "
                 + "in lobortis felis. - Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
-        discoverItem4.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
-        discoverItem4.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
+        diningItem.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        diningItem.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
-        discoverItem4.setStandarTimesTitle("Excursion times");
-        discoverItem4.setStandardTimesDaysAndTimes(daysAndTimes);
-        discoverItemMap.put(discoverItem4.getDiscoverId(), discoverItem4);
+        diningItem.setStandardTimesTitle("Excursion times");
+        diningItem.setStandardTimesDaysAndTimes(daysAndTimes);
+        discoverItemMap.put(diningItem.getDiscoverId(), diningItem);
         //////////////////////////////////////////////////////
         DiscoverItemModel discoverItem5 = new DiscoverItemModel();
         discoverItem5.setDiscoverId("6");
@@ -207,7 +205,7 @@ public final class DetailModelProvider {
         items.add("Day 10");
         items.add("10 AM - 12 PM - 4 PM");
 
-        discoverItem5.setDiscoverItemTimes(items);
+        //discoverItem5.setDiscoverItemTimes(items);
         discoverItem5.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
                 + "meaningful."
                 + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat est. Aliquam "
@@ -250,7 +248,7 @@ public final class DetailModelProvider {
         items.add("Day 10");
         items.add("10 AM - 12 PM - 4 PM");
 
-        discoverItem6.setDiscoverItemTimes(items);
+        //discoverItem6.setDiscoverItemTimes(items);
         discoverItem6.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
                 + "meaningful."
                 + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat est. Aliquam "
@@ -302,7 +300,7 @@ public final class DetailModelProvider {
         items.add("Day 10");
         items.add("10 AM - 12 PM - 4 PM");
 
-        discoverItem8.setDiscoverItemTimes(items);
+        //discoverItem8.setDiscoverItemTimes(items);
         discoverItem8.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         properties = new HashMap<>();
         properties.put("AgeRestriction", "All Ages");
