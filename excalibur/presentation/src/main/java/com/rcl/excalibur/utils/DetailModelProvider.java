@@ -30,7 +30,7 @@ public final class DetailModelProvider {
         daysAndTimes.add(new String[]{"Day 4", "10 AM - 12 PM - 4 PM"});
         daysAndTimes.add(new String[]{"Day 5", "10 AM - 12 PM - 4 PM"});
         daysAndTimes.add(new String[]{"Day 6", "10 AM - 12 PM - 4 PM"});
-        discoverItem1.setStandardTimesTitle("Presentations");
+        discoverItem1.setStandardTimesTitle("Show Times");
         discoverItem1.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItem1.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         Map<String, String> properties = new LinkedHashMap<>();
@@ -71,7 +71,7 @@ public final class DetailModelProvider {
         properties = new LinkedHashMap<>();
         properties.put("Cuisine Types", "Latin American");
         properties.put("Duration", "90 mins");
-        properties.put("Age", "All ages");
+        properties.put("Ages", "All ages");
         properties.put("HeightRestriction", "None");
         properties.put("Attire", "Casual");
         properties.put("Activity Level", "Low");
@@ -139,7 +139,7 @@ public final class DetailModelProvider {
         diningItem.setPriceRange(new String[]{"2"});
         properties = new LinkedHashMap<>();
         properties.put("Cuisine", "American");
-        properties.put("Age", "All ages");
+        properties.put("Ages", "All ages");
         properties.put("Attire", "Casual");
         diningItem.setProperties(properties);
         diningItem.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
@@ -216,7 +216,7 @@ public final class DetailModelProvider {
         daysAndTimes.add(new String[]{"Day 8", "Closed"});
         daysAndTimes.add(new String[]{"Day 9", "10 AM - 12 PM - 4 PM"});
         daysAndTimes.add(new String[]{"Day 10", "10 AM - 12 PM - 4 PM"});
-        activityItem2.setStandardTimesTitle("Matches hours");
+        activityItem2.setStandardTimesTitle("Times");
         activityItem2.setStandardTimesDaysAndTimes(daysAndTimes);
         activityItem2.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
                 + "meaningful."

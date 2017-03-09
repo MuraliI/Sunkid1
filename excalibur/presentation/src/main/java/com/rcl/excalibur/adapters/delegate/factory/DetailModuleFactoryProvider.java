@@ -19,6 +19,7 @@ public class DetailModuleFactoryProvider {
         factoriesMap.put(TYPE_DINING, new DinningDetailModuleFactory());
         factoriesMap.put(TYPE_ACTIVITY, new ActivityDetailModuleFactory());
         factoriesMap.put(TYPE_ENTERTAINMENT, new EntertainmentDetailModuleFactory());
+        factoriesMap.put(TYPE_SHOREX, new ShorexDetailModuleFactory());
         factoriesMap.put(TYPE_SHOPPING, new ShoppingDetailModuleFactory());
     }
 
