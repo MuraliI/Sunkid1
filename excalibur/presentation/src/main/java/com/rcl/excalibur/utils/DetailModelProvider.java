@@ -11,10 +11,6 @@ import java.util.Map;
 public final class DetailModelProvider {
     public static Map<String, DiscoverItemModel> discoverItemMap;
 
-    private DetailModelProvider() {
-
-    }
-
     static {
         discoverItemMap = new HashMap<>();
         DiscoverItemModel discoverItem1 = new DiscoverItemModel();
@@ -38,7 +34,7 @@ public final class DetailModelProvider {
         items.add("Day 6");
         items.add("10 AM - 12 PM - 4 PM");
         discoverItem1.setDiscoverItemTimes(items);
-        discoverItem1.setPriceRange(new String[]{"Adults", "$40", "Children", "$20"});
+        discoverItem1.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         Map<String, String> properties = new HashMap<>();
         properties.put("Duration", "90 mins");
         properties.put("Age", "12+");
@@ -61,7 +57,7 @@ public final class DetailModelProvider {
         });
         discoverItem1.setStandarTimesTitle("Presentations");
         discoverItem1.setStandardTimesDaysAndTimes(daysAndTimes);
-        discoverItemMap.put("1", discoverItem1);
+        discoverItemMap.put(discoverItem1.getDiscoverId(), discoverItem1);
 
         ////////////////////////////////////////////////////////////////////////////////
         DiscoverItemModel discoverItem2 = new DiscoverItemModel();
@@ -85,7 +81,7 @@ public final class DetailModelProvider {
         items.add("Day 6");
         items.add("10 AM - 12 PM - 4 PM");
         discoverItem2.setDiscoverItemTimes(items);
-        discoverItem2.setPriceRange(new String[]{"Adults", "$40", "Children", "$20"});
+        discoverItem2.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         properties = new HashMap<>();
         properties.put("Cuisine Types", "Latin American");
         properties.put("Duration", "90 mins");
@@ -103,7 +99,7 @@ public final class DetailModelProvider {
                 + "- You can't sue us if you die - You might die</p></body></html>");
         discoverItem2.setStandarTimesTitle("Times");
         discoverItem2.setStandardTimesDaysAndTimes(daysAndTimes);
-        discoverItemMap.put("2", discoverItem2);
+        discoverItemMap.put(discoverItem2.getDiscoverId(), discoverItem2);
 
         ///////////////////////////////////////////////////////////////////////////////////
         DiscoverItemModel discoverItem3 = new DiscoverItemModel();
@@ -128,7 +124,7 @@ public final class DetailModelProvider {
         items.add("Day 6");
         items.add("10 AM - 12 PM - 4 PM");
         discoverItem3.setDiscoverItemTimes(items);
-        discoverItem3.setPriceRange(new String[]{"Min", "$40", "Max", "$20"});
+        discoverItem3.setPriceRange(new String[]{"Min", "40", "Max", "20"});
         properties = new HashMap<>();
         properties.put("Age", "18+");
         properties.put("ActivityLevel", "Low");
@@ -142,7 +138,7 @@ public final class DetailModelProvider {
                 + "- You can't sue us if you die - You might die</p></body></html>");
         discoverItem3.setStandarTimesTitle("Sessions");
         discoverItem3.setStandardTimesDaysAndTimes(daysAndTimes);
-        discoverItemMap.put("3", discoverItem3);
+        discoverItemMap.put(discoverItem3.getDiscoverId(), discoverItem3);
 
         /////////////////////////////////////////////////////////////////////////
         DiscoverItemModel discoverItem4 = new DiscoverItemModel();
@@ -178,6 +174,152 @@ public final class DetailModelProvider {
                 + "- You can't sue us if you die - You might die</p></body></html>");
         discoverItem4.setStandarTimesTitle("Excursion times");
         discoverItem4.setStandardTimesDaysAndTimes(daysAndTimes);
-        discoverItemMap.put("4", discoverItem4);
+        discoverItemMap.put(discoverItem4.getDiscoverId(), discoverItem4);
+        //////////////////////////////////////////////////////
+        DiscoverItemModel discoverItem5 = new DiscoverItemModel();
+        discoverItem5.setDiscoverId("6");
+        discoverItem5.setType("Activity");
+        discoverItem5.setImageUrl("https://s24.postimg.org/p050yxrg5/img_library.png");
+        discoverItem5.setTitle("Library");
+        discoverItem5.setSubtitle("Deck 12 AFT");
+        discoverItem5.setReservationRequired(false);
+        discoverItem5.setPromotionTitle("Promotional title long version");
+        discoverItem5.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, "
+                + "Guess, G-Shock, and more. All purchases have a 30-day price match guarantee! Whether you're shopping for yourself or as "
+                + "a gift, we have an amazing selection for you to choose from. All tax and duty free.");
+        items = new ArrayList<>();
+
+
+        items.add("Day 3");
+        items.add("10AM - 12PM, 3PM - 8PM");
+        items.add("Day 4");
+        items.add("Closed");
+        items.add("Day 5");
+        items.add("10 AM - 12 PM");
+        items.add("Day 6");
+        items.add("10 AM - 12 PM - 4 PM");
+        items.add("Day 7");
+        items.add("9:30 AM - 12:30 PM");
+        items.add("Day 8");
+        items.add("Closed");
+        items.add("Day 9");
+        items.add("10 AM - 12 PM - 4 PM");
+        items.add("Day 10");
+        items.add("10 AM - 12 PM - 4 PM");
+
+        discoverItem5.setDiscoverItemTimes(items);
+        discoverItem5.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
+                + "meaningful."
+                + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat est. Aliquam "
+                + "non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, in lobortis felis. - "
+                + "Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
+        discoverItem5.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        discoverItem5.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
+                + "- You can't sue us if you die - You might die</p></body></html>");
+
+        discoverItemMap.put(discoverItem5.getDiscoverId(), discoverItem5);
+
+
+        DiscoverItemModel discoverItem6 = new DiscoverItemModel();
+        discoverItem6.setDiscoverId("7");
+        discoverItem6.setType("Activity");
+        discoverItem6.setImageUrl("https://s17.postimg.org/qtlpsu3z3/img_pool_voleball.png");
+        discoverItem6.setTitle("Pool Volleyball");
+        discoverItem6.setSubtitle("Deck 12 AFT");
+        discoverItem6.setReservationRequired(false);
+        discoverItem6.setPromotionTitle("Promotional title long version");
+        discoverItem6.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, Guess, "
+                + "G-Shock, and more. All purchases have a 30-day price match guarantee! Whether you're shopping for yourself or as a gift"
+                + ", we have an amazing selection for you to choose from. All tax and duty free.");
+        items = new ArrayList<>();
+
+        items.add("Day 3");
+        items.add("10AM");
+        items.add("Day 4");
+        items.add("11AM");
+        items.add("Day 5");
+        items.add("10 AM - 12 PM");
+        items.add("Day 6");
+        items.add("10 AM - 12 PM - 4 PM");
+        items.add("Day 7");
+        items.add("9:30 AM - 12:30 PM");
+        items.add("Day 8");
+        items.add("Closed");
+        items.add("Day 9");
+        items.add("10 AM - 12 PM - 4 PM");
+        items.add("Day 10");
+        items.add("10 AM - 12 PM - 4 PM");
+
+        discoverItem6.setDiscoverItemTimes(items);
+        discoverItem6.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
+                + "meaningful."
+                + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat est. Aliquam "
+                + "non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, in lobortis felis. - "
+                + "Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
+        discoverItem6.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        discoverItem6.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. - "
+                + "You can't sue us if you die - You might die</p></body></html>");
+
+        properties = new HashMap<>();
+        properties.put("Duration", "90 mins");
+        properties.put("AgeRestriction", "All Ages");
+        properties.put("Restriction", "None");
+        properties.put("Attire", "Active Wear");
+        properties.put("ActivityLevel", "Low");
+        discoverItem6.setProperties(properties);
+        discoverItemMap.put(discoverItem6.getDiscoverId(), discoverItem6);
+        //////////////////////////////////////////////////////
+
+
+        DiscoverItemModel discoverItem8 = new DiscoverItemModel();
+        discoverItem8.setDiscoverId("5");
+        discoverItem8.setType("Shopping");
+        discoverItem8.setImageUrl("https://s10.postimg.org/o3d9asfqh/img_tiffanys_jewelry.png");
+        discoverItem8.setTitle("Tiffany`s Jewelry");
+        discoverItem8.setSubtitle("Deck 12 AFT");
+        discoverItem8.setReservationRequired(true);
+        discoverItem8.setPromotionTitle("Promotional title long version");
+        discoverItem8.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, Guess, "
+                + "G-Shock, and more. All purchases have a 30-day price match guarantee! Whether you're shopping for yourself or as "
+                + "a gift, "
+                + "we have an amazing selection for you to choose from. All tax and duty free.");
+        items = new ArrayList<>();
+
+        items.add("Day 3");
+        items.add("10 AM - 12 PM, 3PM - 8PM");
+        items.add("Day 4");
+        items.add("Closed");
+        items.add("Day 5");
+        items.add("10 AM - 12 PM");
+        items.add("Day 6");
+        items.add("10 AM - 12 PM - 4 PM");
+        items.add("Day 7");
+        items.add("9:30 AM - 12:30 PM");
+        items.add("Day 8");
+        items.add("Closed");
+        items.add("Day 9");
+        items.add("10 AM - 12 PM - 4 PM");
+        items.add("Day 10");
+        items.add("10 AM - 12 PM - 4 PM");
+
+        discoverItem8.setDiscoverItemTimes(items);
+        discoverItem8.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
+        properties = new HashMap<>();
+        properties.put("AgeRestriction", "All Ages");
+        discoverItem8.setProperties(properties);
+        discoverItem8.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
+                + "meaningful. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat "
+                + "est. Aliquam non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, in "
+                + "lobortis felis. - Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
+        discoverItem8.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        discoverItem8.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. - "
+                + "You can't sue us if you die - You might die</p></body></html>");
+
+        discoverItemMap.put(discoverItem8.getDiscoverId(), discoverItem8);
+
+    }
+
+    private DetailModelProvider() {
+
     }
 }
