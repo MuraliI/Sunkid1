@@ -39,4 +39,33 @@
 
     </LinearLayout>
 
+    <!--See more/less-->
+    <LinearLayout
+        android:id="@+id/link_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detail_discover_item_link_menu_margin_top"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/link_title"
+            style="@style/AppTheme.DiscoverItemModuleLinkTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_more"/>
+
+        <ImageView
+            android:id="@+id/link_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_arrow_drop_down"
+            android:tint="@color/detail_item_link" />
+
+    </LinearLayout>
+
 </LinearLayout>

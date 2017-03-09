@@ -73,5 +73,7 @@
     <string name="category_entertainment">Entertainment</string>
     <string name="adults">Adults</string>
     <string name="children">Children</string>
+    <string name="see_more">See more</string>
+    <string name="see_less">See less</string>
 
 </resources>
