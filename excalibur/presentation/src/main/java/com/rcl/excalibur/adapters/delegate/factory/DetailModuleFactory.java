@@ -23,7 +23,7 @@ public abstract class DetailModuleFactory {
 
     public abstract List<RecyclerViewType> getListOfDetailViewTypes(Resources resources);
 
-    public void addTitleAndDescriptionTypes(List<RecyclerViewType> recyclerViewTypeList) {
+    void addTitleAndDescriptionTypes(List<RecyclerViewType> recyclerViewTypeList) {
         // Title and description modules
         if (itemModel.getProperties() != null && itemModel.getProperties().size() > 0) {
             Map<String, String> properties = itemModel.getProperties();
