@@ -9,6 +9,8 @@ import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
 import com.rcl.excalibur.utils.DetailModelProvider;
 
+import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOPPING;
+
 public class DiscoverItemDetailPresenter implements BasePresenter {
     private DiscoverItemDetailView view;
     private DetailModuleFactory moduleFactory;
@@ -19,6 +21,9 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
         itemModel = DetailModelProvider.discoverItemMap.get(discoverItemId); //TODO query database
         DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
         if (itemModel != null) {
+            if (TYPE_SHOPPING.equals(itemModel.getType())) {
+                view.showOnlyReservationIcon();
+            }
             moduleFactory = factoryProvider.getFactory(itemModel.getType());
             if (moduleFactory == null) {
                 view.showToastAndFinishActivity("Discover Item Not Found");
