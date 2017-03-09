@@ -140,7 +140,7 @@ public final class DetailModelProvider {
         discoverItem4.setSubtitle("Deck 12, AFT");
         discoverItem4.setReservationRequired(false);
         discoverItem4.setPromotionTitle("50% off Matinee showtimes");
-        discoverItem4.setPromotionDescription("\"Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, Guess, "
+        discoverItem4.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, Guess, "
                 + "G-Shock, "
                 + "and more. All purchases have a 30-day price match guarantee! Whether you're shopping for yourself or as a gift, we have "
                 + "an amazing selection for you to choose from. All tax and duty free.");

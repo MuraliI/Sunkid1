@@ -1,9 +1,8 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import android.content.res.Resources;
+import android.support.v7.app.AppCompatActivity;
 
-import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
 import com.rcl.excalibur.adapters.delegate.factory.DinningDetailModuleFactory;
 import com.rcl.excalibur.model.DiscoverItemModel;
@@ -18,32 +17,70 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
 
     public DiscoverItemDetailPresenter(DiscoverItemDetailView view, String discoverItemId) {
         this.view = view;
-        initModuleFactory(discoverItemId);
-        initView();
+        itemModel = DetailModelProvider.discoverItemMap.get(discoverItemId); //TODO query database
+        if (itemModel != null) {
+            initModuleFactory();
+            initView();
+        } else {
+            view.showToastAndFinishActivity("Discover Item Not Found");
+        }
     }
 
-    //TODO check what kind of plan was passed by the activity
-    private void initModuleFactory(String discoverItemId) {
-        //TODO search database for the item model
-        itemModel = DetailModelProvider.discoverItemMap.get(discoverItemId);
-        moduleFactory = new DinningDetailModuleFactory(itemModel);
+    private void initModuleFactory() {
+        moduleFactory = getModuleFactory(itemModel);
+    }
+
+    private DetailModuleFactory getModuleFactory(DiscoverItemModel itemModel) {
+        String type = itemModel.getType();
+        if (DiscoverItemModel.TYPE_DINING.equals(type)) {
+            return new DinningDetailModuleFactory(itemModel);
+        } else if (DiscoverItemModel.TYPE_SHOREX.equals(type)) {
+            //TODO add more module factories;
+            return null;
+        }
+
+        return null;
     }
 
     private void initView() {
-        Resources resources = null;
-        if (view.getActivity() != null) {
-            view.setDetailTitle(view.getActivity().getString(R.string.hardcoded_activity_title)); //FIXME get the plan title
-            resources = view.getActivity().getResources();
+        AppCompatActivity activity = view.getActivity();
+        if (activity != null) {
+            view.setDetailTitle(itemModel.getTitle());
+            view.setHeroImage(itemModel.getImageUrl());
+            view.setAdapterObserver(new DetailAdapterObserver(this));
+            view.setViewObserver(new DiscoverItemDetailViewObserver(this));
+            if (moduleFactory != null) {
+                view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(activity.getResources()));
+            } else {
+                view.showToastAndFinishActivity("Discover Activity Not Recognized");
+            }
         }
-        view.setHeroImage(itemModel.getImageUrl());
-        view.setAdapterObserver(new DetailAdapterObserver(this));
-        view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(resources));
+    }
+
+    private class DiscoverItemDetailViewObserver extends DefaultPresentObserver<Integer, DiscoverItemDetailPresenter> {
+
+        DiscoverItemDetailViewObserver(DiscoverItemDetailPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Integer value) {
+            switch (value) {
+                case DiscoverItemDetailView.ON_BACK_CLICKED:
+                    if (view.getActivity() != null) {
+                        view.getActivity().finish();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
 
-    public class DetailAdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemDetailPresenter> {
+    private class DetailAdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemDetailPresenter> {
 
-        public DetailAdapterObserver(DiscoverItemDetailPresenter presenter) {
+        DetailAdapterObserver(DiscoverItemDetailPresenter presenter) {
             super(presenter);
         }
 

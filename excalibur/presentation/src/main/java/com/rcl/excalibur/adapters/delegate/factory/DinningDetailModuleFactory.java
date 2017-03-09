@@ -12,14 +12,12 @@ import com.rcl.excalibur.adapters.delegate.DinnerTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.ExpandableDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.ExpandableLinkDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PriceRangeDelegateAdapter;
-import com.rcl.excalibur.adapters.delegate.PricesFromDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PromotionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DinnerTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PriceRangeViewType;
-import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.PromotionViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.model.DiscoverItemModel;
@@ -27,8 +25,6 @@ import com.rcl.excalibur.model.DiscoverItemModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static com.rcl.excalibur.model.DiscoverItemModel.TYPE_DINING;
 
 public class DinningDetailModuleFactory implements DetailModuleFactory {
     private static final int VIEW_TYPES_COUNT_DINNING = 4;
@@ -41,16 +37,15 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
     @Override
     public SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray() {
         SparseArrayCompat<DelegateAdapter> delegateAdapters = null;
-        if (TYPE_DINING.equals(itemModel.getType())) {
-            delegateAdapters = new SparseArrayCompat<>(VIEW_TYPES_COUNT_DINNING);
-            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
-            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_DESCRIPTION, new ExpandableDescriptionDelegateAdapter());
-            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
-            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DINNER_TIMES, new DinnerTimesDelegateAdapter());
-            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICE_RANGE, new PriceRangeDelegateAdapter());
-            delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PROMOTION, new PromotionDelegateAdapter());
-        }
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICES_FROM, new PricesFromDelegateAdapter());
+        delegateAdapters = new SparseArrayCompat<>(VIEW_TYPES_COUNT_DINNING);
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PROMOTION, new PromotionDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DINNER_TIMES, new DinnerTimesDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_DESCRIPTION, new ExpandableDescriptionDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICE_RANGE, new PriceRangeDelegateAdapter());
+
+        //delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICES_FROM, new PricesFromDelegateAdapter()); TODO Integrate with other activity types
 
         return delegateAdapters;
     }
@@ -60,7 +55,7 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
         List<RecyclerViewType> viewTypes = new ArrayList<>();
 
         //Promotion text
-        viewTypes.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionText()));
+        viewTypes.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionDescription()));
 
         //Dinner times
         //FIXME get this attributes from model
@@ -72,7 +67,7 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
         );
 
         // Price Range
-        viewTypes.add(new PriceRangeViewType(Integer.valueOf(itemModel.getPriceRange()[0]))); //FIXME get this attributes from model
+        viewTypes.add(new PriceRangeViewType(Integer.valueOf(itemModel.getPriceRange()[0])));
 
         // Title and description modules
         if (itemModel.getProperties() != null && itemModel.getProperties().size() > 0) {
@@ -95,8 +90,8 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
                 resources.getString(R.string.detail_module_legal),
                 itemModel.getLegal()));
 
-//Prices from
-        viewTypes.add(new PricesFromViewType("40", "20")); //FIXME get this attributes from model
+        //Prices from
+        //viewTypes.add(new PricesFromViewType("40", "20")); //FIXME get this attributes from model and add it to another category
 
         return viewTypes;
     }

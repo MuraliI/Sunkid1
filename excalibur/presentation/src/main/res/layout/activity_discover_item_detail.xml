@@ -83,6 +83,7 @@
                 app:layout_scrollFlags="scroll|snap">
 
                 <ImageButton
+                    android:id="@+id/back_arrow"
                     android:layout_width="@dimen/detail_discover_toolbar_icon_size"
                     android:layout_height="@dimen/detail_discover_toolbar_icon_size"
                     android:background="@color/transparent"
