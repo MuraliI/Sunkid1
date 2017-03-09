@@ -35,8 +35,8 @@ public final class DetailModelProvider {
         discoverItem1.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         Map<String, String> properties = new LinkedHashMap<>();
         properties.put("Duration", "90 mins");
-        properties.put("Age", "12+");
-        properties.put("HeightRestriction", "None");
+        properties.put("Ages", "12+");
+        properties.put("Guests should be", "None");
         properties.put("Attire", "Semi-formal");
         discoverItem1.setProperties(properties);
         discoverItem1.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
@@ -72,7 +72,7 @@ public final class DetailModelProvider {
         properties.put("Cuisine Types", "Latin American");
         properties.put("Duration", "90 mins");
         properties.put("Ages", "All ages");
-        properties.put("HeightRestriction", "None");
+        properties.put("Guests should be", "None");
         properties.put("Attire", "Casual");
         properties.put("Activity Level", "Low");
         discoverItem2.setProperties(properties);
@@ -99,17 +99,17 @@ public final class DetailModelProvider {
                 + "and more. All purchases have a 30-day price match guarantee! Whether you're shopping for yourself or as a gift, we have "
                 + "an amazing selection for you to choose from. All tax and duty free.");
         daysAndTimes = new ArrayList<>();
-        daysAndTimes.add(new String[]{"Day 3", "10 AM - 12 PM - 4 PM"});
-        daysAndTimes.add(new String[]{"Day 4", "10 AM - 12 PM - 4 PM"});
-        daysAndTimes.add(new String[]{"Day 5", "10 AM - 12 PM - 4 PM"});
-        daysAndTimes.add(new String[]{"Day 6", "10 AM - 12 PM - 4 PM"});
+        daysAndTimes.add(new String[]{"Day 3", "10 AM - 4 PM"});
+        daysAndTimes.add(new String[]{"Day 4", "10 AM - 4 PM"});
+        daysAndTimes.add(new String[]{"Day 5", "10 AM - 4 PM"});
+        daysAndTimes.add(new String[]{"Day 6", "10 AM - 4 PM"});
         discoverItem3.setStandardTimesTitle("Operating hours");
         discoverItem3.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItem3.setPriceRange(new String[]{"40", "80"});
         properties = new LinkedHashMap<>();
-        properties.put("Sessions", "30 mins - 90 mins");
-        properties.put("Age", "18+");
-        properties.put("ActivityLevel", "Low");
+        properties.put("Sessions from", "30 mins - 90 mins");
+        properties.put("Ages", "18+");
+        properties.put("Activity Level", "Low");
         properties.put("Attire", "Casual");
         discoverItem3.setProperties(properties);
         discoverItem3.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
@@ -153,6 +153,49 @@ public final class DetailModelProvider {
                 + "- You can't sue us if you die - You might die</p></body></html>");
         discoverItemMap.put(diningItem.getDiscoverId(), diningItem);
         //////////////////////////////////////////////////////
+        DiscoverItemModel activityItem = new DiscoverItemModel();
+        activityItem.setDiscoverId("6");
+        activityItem.setType("Activity");
+        activityItem.setImageUrl("https://s24.postimg.org/p050yxrg5/img_library.png");
+        activityItem.setTitle("Library");
+        activityItem.setSubtitle("Deck 12 AFT");
+        activityItem.setReservationRequired(false);
+        activityItem.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
+        activityItem.setPromotionTitle("Promotional title long version");
+        activityItem.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, "
+                + "Guess, G-Shock, and more. All purchases have a 30-day price match guarantee! Whether you're shopping for yourself or as "
+                + "a gift, we have an amazing selection for you to choose from. All tax and duty free.");
+
+        daysAndTimes = new ArrayList<>();
+        daysAndTimes.add(new String[]{"Day 3", "10AM - 8PM"});
+        daysAndTimes.add(new String[]{"Day 4", "Closed"});
+        daysAndTimes.add(new String[]{"Day 5", "10 AM - 12 PM"});
+        daysAndTimes.add(new String[]{"Day 6", "10 AM - 4PM"});
+        daysAndTimes.add(new String[]{"Day 7", "9:30 AM - 12:30 PM"});
+        daysAndTimes.add(new String[]{"Day 8", "Closed"});
+        daysAndTimes.add(new String[]{"Day 9", "10 AM - 4 PM"});
+        daysAndTimes.add(new String[]{"Day 10", "10 AM - 4 PM"});
+        activityItem.setStandardTimesTitle("Operating hours");
+        activityItem.setStandardTimesDaysAndTimes(daysAndTimes);
+        activityItem.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
+                + "meaningful."
+                + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat est. Aliquam "
+                + "non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, in lobortis felis. - "
+                + "Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
+        activityItem.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        activityItem.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
+                + "- You can't sue us if you die - You might die</p></body></html>");
+        properties = new LinkedHashMap<>();
+        properties.put("Guests should be", "5 feet");
+        properties.put("Duration", "90 mins");
+        properties.put("Ages", "All Ages");
+        properties.put("Guests should be", "None");
+        properties.put("Attire", "Active Wear");
+        properties.put("Activity Level", "Low");
+
+        activityItem.setProperties(properties);
+        discoverItemMap.put(activityItem.getDiscoverId(), activityItem);
+
 
         DiscoverItemModel activityItem2 = new DiscoverItemModel();
         activityItem2.setDiscoverId("7");
@@ -189,9 +232,9 @@ public final class DetailModelProvider {
         properties = new LinkedHashMap<>();
         properties.put("Guests should be", "5 feet");
         properties.put("Duration", "90 mins");
-        properties.put("Age Restriction", "All Ages");
+        properties.put("Ages", "All Ages");
         properties.put("Attire", "Active Wear");
-        properties.put("ActivityLevel", "Low");
+        properties.put("Activity Level", "Low");
         activityItem2.setProperties(properties);
         discoverItemMap.put(activityItem2.getDiscoverId(), activityItem2);
         //////////////////////////////////////////////////////
@@ -222,7 +265,7 @@ public final class DetailModelProvider {
         discoverItem8.setStandardTimesDaysAndTimes(daysAndTimes);
         discoverItem8.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         properties = new LinkedHashMap<>();
-        properties.put("Age Restriction", "All Ages");
+        properties.put("Ages", "All Ages");
         discoverItem8.setProperties(properties);
         discoverItem8.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
                 + "meaningful. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat "
