@@ -105,10 +105,12 @@ public final class DetailModelProvider {
         daysAndTimes.add(new String[]{"Day 6", "10 AM - 12 PM - 4 PM"});
         discoverItem3.setStandardTimesTitle("Operating hours");
         discoverItem3.setStandardTimesDaysAndTimes(daysAndTimes);
-        discoverItem3.setPriceRange(new String[]{"Min", "40", "Max", "20"});
+        discoverItem3.setPriceRange(new String[]{"2"});
         properties = new LinkedHashMap<>();
+        properties.put("Sessions", "30 mins - 90 mins");
         properties.put("Age", "18+");
         properties.put("ActivityLevel", "Low");
+        properties.put("Attire", "Casual");
         discoverItem3.setProperties(properties);
         discoverItem3.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
                 + "meaningful. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat "
