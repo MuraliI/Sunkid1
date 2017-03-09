@@ -105,6 +105,7 @@ public class ExpandableDescriptionLayout extends FrameLayout {
     public void onShowMoreClicked(View view) {
         isExpanded = !isExpanded;
         seeMoreBtnText.setText(isExpanded ? expandedBtnText : collapsedBtnText);
+        seeMoreArrowIcon.setImageResource(isExpanded ? R.drawable.ic_arrow_drop_up : R.drawable.ic_arrow_drop_down);
         requestLayout();
     }
 
