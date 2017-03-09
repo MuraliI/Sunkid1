@@ -231,7 +231,6 @@ public final class DetailModelProvider {
         properties.put("Guests should be", "5 feet");
         properties.put("Duration", "90 mins");
         properties.put("Age Restriction", "All Ages");
-        properties.put("Restriction", "None");
         properties.put("Attire", "Active Wear");
         properties.put("ActivityLevel", "Low");
         activityItem2.setProperties(properties);
