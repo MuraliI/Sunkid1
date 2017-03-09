@@ -158,6 +158,7 @@ public final class DetailModelProvider {
         activityItem.setTitle("Library");
         activityItem.setSubtitle("Deck 12 AFT");
         activityItem.setReservationRequired(false);
+        activityItem.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         activityItem.setPromotionTitle("Promotional title long version");
         activityItem.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, "
                 + "Guess, G-Shock, and more. All purchases have a 30-day price match guarantee! Whether you're shopping for yourself or as "
@@ -182,7 +183,15 @@ public final class DetailModelProvider {
         activityItem.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
         activityItem.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
+        properties = new LinkedHashMap<>();
+        properties.put("Guests should be", "5 feet");
+        properties.put("Duration", "90 mins");
+        properties.put("AgeRestriction", "All Ages");
+        properties.put("Restriction", "None");
+        properties.put("Attire", "Active Wear");
+        properties.put("ActivityLevel", "Low");
 
+        activityItem.setProperties(properties);
         discoverItemMap.put(activityItem.getDiscoverId(), activityItem);
 
 
@@ -193,6 +202,7 @@ public final class DetailModelProvider {
         activityItem2.setTitle("Pool Volleyball");
         activityItem2.setSubtitle("Deck 12 AFT");
         activityItem2.setReservationRequired(false);
+        activityItem2.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         activityItem2.setPromotionTitle("Promotional title long version");
         activityItem2.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, Guess, "
                 + "G-Shock, and more. All purchases have a 30-day price match guarantee! Whether you're shopping for yourself or as a gift"
@@ -218,6 +228,7 @@ public final class DetailModelProvider {
                 + "You can't sue us if you die - You might die</p></body></html>");
 
         properties = new LinkedHashMap<>();
+        properties.put("Guests should be", "5 feet");
         properties.put("Duration", "90 mins");
         properties.put("AgeRestriction", "All Ages");
         properties.put("Restriction", "None");

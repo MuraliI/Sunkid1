@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import com.rcl.excalibur.adapters.viewtype.DinnerTimesViewType;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class DinnerTimesDelegateAdapter implements DelegateAdapter<DinnerTimesDelegateAdapter.TimesViewHolder, DinnerTimesViewType> {
     private static final String INTENT_DATA_TYPE = "application/pdf";
@@ -42,8 +42,8 @@ public class DinnerTimesDelegateAdapter implements DelegateAdapter<DinnerTimesDe
         try {
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Log.e(getClass().getSimpleName(), e.getMessage(), e);
-            // TODO: 9/03/17 Show something notifying the user about he doesn't have a pdf reader.
+            Timber.d("RCL Timber is: %s", "ON");
+            Timber.d(e);
         }
     }
 
