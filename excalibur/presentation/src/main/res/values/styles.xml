@@ -65,6 +65,11 @@
         <item name="android:textColor">@color/font_detail_description_dark_blue</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
+
+    <style name="AppTheme.DiscoverItemModuleSmallDescriptionTextView" parent="AppTheme.DiscoverItemModuleDescriptionTextView">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="AppTheme.DiscoverItemModuleSubTitleTextView">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/font_detail_description_dark_blue</item>

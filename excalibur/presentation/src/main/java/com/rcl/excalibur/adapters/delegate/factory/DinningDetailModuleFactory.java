@@ -46,6 +46,7 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICE_RANGE, new PriceRangeDelegateAdapter());
 
         //delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICES_FROM, new PricesFromDelegateAdapter()); TODO Integrate with other activity types
+        //delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_STANDARD_TIMES, new StandardTimesDelegateAdapter());
 
         return delegateAdapters;
     }
@@ -92,6 +93,9 @@ public class DinningDetailModuleFactory implements DetailModuleFactory {
 
         //Prices from
         //viewTypes.add(new PricesFromViewType("40", "20")); //FIXME get this attributes from model and add it to another category
+
+        //Standard times
+        //viewTypes.add(new StandardTimesViewType(itemModel.getStandarTimesTitle(), itemModel.getStandardTimesDaysAndTimes()));
 
         return viewTypes;
     }

@@ -26,6 +26,8 @@ public class DiscoverItemModel {
     private String description;
     private String accessibility;
     private String legal;
+    private String standarTimesTitle;
+    private List<String[]> standardTimesDaysAndTimes;
 
     public String getType() {
         return type;
@@ -162,5 +164,21 @@ public class DiscoverItemModel {
 
     public void setProperties(Map<String, String> properties) {
         this.properties = properties;
+    }
+
+    public String getStandarTimesTitle() {
+        return standarTimesTitle;
+    }
+
+    public void setStandarTimesTitle(String standarTimesTitle) {
+        this.standarTimesTitle = standarTimesTitle;
+    }
+
+    public List<String[]> getStandardTimesDaysAndTimes() {
+        return standardTimesDaysAndTimes;
+    }
+
+    public void setStandardTimesDaysAndTimes(List<String[]> standardTimesDaysAndTimes) {
+        this.standardTimesDaysAndTimes = standardTimesDaysAndTimes;
     }
 }
