@@ -4,13 +4,12 @@ package com.rcl.excalibur.mvp.presenter;
 import android.support.v7.app.AppCompatActivity;
 
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
-import com.rcl.excalibur.adapters.delegate.factory.DinningDetailModuleFactory;
+import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
 import com.rcl.excalibur.utils.DetailModelProvider;
 
 public class DiscoverItemDetailPresenter implements BasePresenter {
-
     private DiscoverItemDetailView view;
     private DetailModuleFactory moduleFactory;
     private DiscoverItemModel itemModel;
@@ -18,21 +17,17 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
     public DiscoverItemDetailPresenter(DiscoverItemDetailView view, String discoverItemId) {
         this.view = view;
         itemModel = DetailModelProvider.discoverItemMap.get(discoverItemId); //TODO query database
+        DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
         if (itemModel != null) {
-            initModuleFactory();
-            initView();
+            moduleFactory = factoryProvider.getFactory(itemModel.getType());
+            if (moduleFactory == null) {
+                view.showToastAndFinishActivity("Discover Item Not Found");
+            } else {
+                moduleFactory.setItemModel(itemModel);
+                initView();
+            }
         } else {
             view.showToastAndFinishActivity("Discover Item Not Found");
-        }
-    }
-
-    private void initModuleFactory() {
-        String type = itemModel.getType();
-        if (DiscoverItemModel.TYPE_DINING.equals(type)) {
-            moduleFactory = new DinningDetailModuleFactory(itemModel);
-        } else if (DiscoverItemModel.TYPE_SHOREX.equals(type)) {
-            //TODO add more module factories;
-            moduleFactory = null;
         }
     }
 

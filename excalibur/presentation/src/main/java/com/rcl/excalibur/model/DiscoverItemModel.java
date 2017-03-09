@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 public class DiscoverItemModel {
-    public static final String TYPE_DINING = "Dining";
-    public static final String TYPE_SHOREX = "Shorex";
-
     private String discoverId;
     private String imageUrl;
     private String category;

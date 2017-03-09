@@ -6,12 +6,18 @@ import android.support.v4.util.SparseArrayCompat;
 
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
+import com.rcl.excalibur.model.DiscoverItemModel;
 
 import java.util.List;
 
-public interface DetailModuleFactory {
+public abstract class DetailModuleFactory {
+    DiscoverItemModel itemModel;
 
-    SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray();
+    public void setItemModel(DiscoverItemModel itemModel) {
+        this.itemModel = itemModel;
+    }
 
-    List<RecyclerViewType> getListOfDetailViewTypes(Resources resources);
+    public abstract SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray();
+
+    public abstract List<RecyclerViewType> getListOfDetailViewTypes(Resources resources);
 }
