@@ -85,8 +85,9 @@ public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTim
         }
 
         private void change() {
-            linkTitle.setText(expanded ? R.string.discover_item_detail_description_expanded_text : R.string.discover_item_detail_see_more_btn);
-            linkArrow.setImageResource(expanded ? R.drawable.ic_arrow_drop_up : R.drawable.ic_arrow_drop_down);
+            linkTitle.setText(expanded ? R.string.discover_item_detail_see_more_btn :
+                    R.string.discover_item_detail_description_expanded_text);
+            linkArrow.setImageResource(expanded ? R.drawable.ic_arrow_drop_down : R.drawable.ic_arrow_drop_up);
             int size = expanded ? THRESHOLD : this.daysAndTimes.size();
 
             final String[] daysAndTimes = buildDaysAndTimesStrings(this.daysAndTimes, size);
