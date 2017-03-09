@@ -18,7 +18,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTimesDelegateAdapter.StandardTimesViewHolder, StandardTimesViewType> {
+public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTimesDelegateAdapter.StandardTimesViewHolder,
+        StandardTimesViewType> {
 
     private static final String SEPARATION = "\n\n";
     private static final int THRESHOLD = 3;
@@ -85,8 +86,8 @@ public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTim
         }
 
         private void change() {
-            linkTitle.setText(expanded ? R.string.discover_item_detail_see_more_btn :
-                    R.string.discover_item_detail_description_expanded_text);
+            linkTitle.setText(expanded ? R.string.discover_item_detail_see_more_btn
+                    : R.string.discover_item_detail_description_expanded_text);
             linkArrow.setImageResource(expanded ? R.drawable.ic_arrow_drop_down : R.drawable.ic_arrow_drop_up);
             int size = expanded ? THRESHOLD : this.daysAndTimes.size();
 

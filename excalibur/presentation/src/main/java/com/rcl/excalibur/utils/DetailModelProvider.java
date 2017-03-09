@@ -71,7 +71,7 @@ public final class DetailModelProvider {
         properties = new LinkedHashMap<>();
         properties.put("Cuisine Types", "Latin American");
         properties.put("Duration", "90 mins");
-        properties.put("Age", "All ages");
+        properties.put("Ages", "All ages");
         properties.put("HeightRestriction", "None");
         properties.put("Attire", "Casual");
         properties.put("Activity Level", "Low");
@@ -139,7 +139,7 @@ public final class DetailModelProvider {
         diningItem.setPriceRange(new String[]{"2"});
         properties = new LinkedHashMap<>();
         properties.put("Cuisine", "American");
-        properties.put("Age", "All ages");
+        properties.put("Ages", "All ages");
         properties.put("Attire", "Casual");
         diningItem.setProperties(properties);
         diningItem.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
