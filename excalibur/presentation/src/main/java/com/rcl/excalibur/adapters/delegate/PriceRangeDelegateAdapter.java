@@ -16,6 +16,11 @@ import butterknife.ButterKnife;
 
 
 public class PriceRangeDelegateAdapter implements DelegateAdapter<PriceRangeDelegateAdapter.PriceRangeViewHolder, PriceRangeViewType> {
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
+    private static final int FIVE = 5;
 
     @Override
     public PriceRangeViewHolder onCreateViewHolder(ViewGroup parent) {
@@ -29,11 +34,11 @@ public class PriceRangeDelegateAdapter implements DelegateAdapter<PriceRangeDele
             return;
         }
         final int count = item.getCount();
-        changeTint(context, holder.imageDolar1, count >= 1);
-        changeTint(context, holder.imageDolar2, count >= 2);
-        changeTint(context, holder.imageDolar3, count >= 3);
-        changeTint(context, holder.imageDolar4, count >= 4);
-        changeTint(context, holder.imageDolar5, count >= 5);
+        changeTint(context, holder.imageDolar1, count >= ONE);
+        changeTint(context, holder.imageDolar2, count >= TWO);
+        changeTint(context, holder.imageDolar3, count >= THREE);
+        changeTint(context, holder.imageDolar4, count >= FOUR);
+        changeTint(context, holder.imageDolar5, count >= FIVE);
     }
 
     private void changeTint(final Context context, final ImageView imageView, final boolean valid) {
