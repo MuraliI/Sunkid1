@@ -12,6 +12,7 @@ public class DetailModuleFactoryProvider {
     private static final String TYPE_ACTIVITY = "Activity";
     private static final String TYPE_ENTERTAINMENT = "Entertainment";
     public static final String TYPE_SHOPPING = "Shopping";
+    private static final String TYPE_SPA = "Spa";
 
     private Map<String, DetailModuleFactory> factoriesMap = new HashMap<>();
 
@@ -21,6 +22,7 @@ public class DetailModuleFactoryProvider {
         factoriesMap.put(TYPE_ENTERTAINMENT, new EntertainmentDetailModuleFactory());
         factoriesMap.put(TYPE_SHOREX, new ShorexDetailModuleFactory());
         factoriesMap.put(TYPE_SHOPPING, new ShoppingDetailModuleFactory());
+        factoriesMap.put(TYPE_SPA, new SpaDetailModuleFactory());
     }
 
     @Nullable
