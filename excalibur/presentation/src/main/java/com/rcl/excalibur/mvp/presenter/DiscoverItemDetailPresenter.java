@@ -42,7 +42,6 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
             view.setDetailTitle(itemModel.getTitle());
             view.setHeroImage(itemModel.getImageUrl());
             view.setAdapterObserver(new DetailAdapterObserver(this));
-            view.setViewObserver(new DiscoverItemDetailViewObserver(this));
             if (moduleFactory != null) {
                 view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(activity.getResources()));
             } else {
@@ -51,23 +50,9 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
         }
     }
 
-    private class DiscoverItemDetailViewObserver extends DefaultPresentObserver<Integer, DiscoverItemDetailPresenter> {
-
-        DiscoverItemDetailViewObserver(DiscoverItemDetailPresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(Integer value) {
-            switch (value) {
-                case DiscoverItemDetailView.ON_BACK_CLICKED:
-                    if (view.getActivity() != null) {
-                        view.getActivity().finish();
-                    }
-                    break;
-                default:
-                    break;
-            }
+    public void onBackClicked() {
+        if (view.getActivity() != null) {
+            view.getActivity().finish();
         }
     }
 

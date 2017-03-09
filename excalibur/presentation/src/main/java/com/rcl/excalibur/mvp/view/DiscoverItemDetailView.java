@@ -24,13 +24,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.reactivex.Observable;
 
 
 public class DiscoverItemDetailView extends ActivityView<AppCompatActivity> {
-
-    public static final int ON_BACK_CLICKED = 1;
 
     @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
     @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
@@ -70,13 +66,6 @@ public class DiscoverItemDetailView extends ActivityView<AppCompatActivity> {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             planDetailRecycler.setLayoutManager(layoutManager);
             planDetailRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), layoutManager.getOrientation()));
-        }
-    }
-
-    @OnClick(R.id.back_arrow)
-    void onBackClicked(View view) {
-        if (viewObserver != null) {
-            Observable.just(ON_BACK_CLICKED).subscribe(viewObserver);
         }
     }
 

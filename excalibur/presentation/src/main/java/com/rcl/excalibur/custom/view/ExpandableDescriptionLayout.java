@@ -33,6 +33,8 @@ public class ExpandableDescriptionLayout extends FrameLayout {
     private int animationDuration;
     private boolean isExpanded;
     private boolean firstOnMeasure = true;
+    private CharSequence expandedBtnText;
+    private CharSequence collapsedBtnText;
 
     public ExpandableDescriptionLayout(Context context) {
         super(context);
@@ -62,9 +64,14 @@ public class ExpandableDescriptionLayout extends FrameLayout {
                 defStyleAttr,
                 defStyleRes);
         try {
+            //Btn text
+            CharSequence collapsedText = tp.getText(R.styleable.ExpandableDescriptionLayout_seeMoreCollapsedButtonText);
+            collapsedBtnText = collapsedText != null ? collapsedText
+                    : getResources().getString(R.string.discover_item_detail_see_more_btn);
+            expandedBtnText = tp.getText(R.styleable.ExpandableDescriptionLayout_seeMoreExpandedButtonText);
+
             description.setText(tp.getText(R.styleable.ExpandableDescriptionLayout_descriptionText));
-            CharSequence btnText = tp.getText(R.styleable.ExpandableDescriptionLayout_seeMoreButtonText);
-            seeMoreBtnText.setText(btnText != null ? btnText : getResources().getString(R.string.discover_item_detail_see_more_btn));
+            seeMoreBtnText.setText(collapsedText);
             maxLineCount = tp.getInteger(R.styleable.ExpandableDescriptionLayout_collapseLinesCount, DEFAULT_MAX_LINES_COUNT);
             animationDuration = tp.getInteger(R.styleable.ExpandableDescriptionLayout_animationDuration, DEFAULT_ANIMATION_DURATION);
         } finally {
@@ -97,6 +104,7 @@ public class ExpandableDescriptionLayout extends FrameLayout {
     @OnClick(R.id.layout_show_more_container)
     public void onShowMoreClicked(View view) {
         isExpanded = !isExpanded;
+        seeMoreBtnText.setText(isExpanded ? expandedBtnText : collapsedBtnText);
         requestLayout();
     }
 
