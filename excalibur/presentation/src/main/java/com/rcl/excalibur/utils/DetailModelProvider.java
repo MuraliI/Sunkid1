@@ -153,49 +153,6 @@ public final class DetailModelProvider {
                 + "- You can't sue us if you die - You might die</p></body></html>");
         discoverItemMap.put(diningItem.getDiscoverId(), diningItem);
         //////////////////////////////////////////////////////
-        DiscoverItemModel activityItem = new DiscoverItemModel();
-        activityItem.setDiscoverId("6");
-        activityItem.setType("Activity");
-        activityItem.setImageUrl("https://s24.postimg.org/p050yxrg5/img_library.png");
-        activityItem.setTitle("Library");
-        activityItem.setSubtitle("Deck 12 AFT");
-        activityItem.setReservationRequired(false);
-        activityItem.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
-        activityItem.setPromotionTitle("Promotional title long version");
-        activityItem.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, "
-                + "Guess, G-Shock, and more. All purchases have a 30-day price match guarantee! Whether you're shopping for yourself or as "
-                + "a gift, we have an amazing selection for you to choose from. All tax and duty free.");
-
-        daysAndTimes = new ArrayList<>();
-        daysAndTimes.add(new String[]{"Day 3", "10AM - 12PM, 3PM - 8PM"});
-        daysAndTimes.add(new String[]{"Day 4", "Closed"});
-        daysAndTimes.add(new String[]{"Day 5", "10 AM - 12 PM"});
-        daysAndTimes.add(new String[]{"Day 6", "10 AM - 12 PM - 4 PM"});
-        daysAndTimes.add(new String[]{"Day 7", "9:30 AM - 12:30 PM"});
-        daysAndTimes.add(new String[]{"Day 8", "Closed"});
-        daysAndTimes.add(new String[]{"Day 9", "10 AM - 12 PM - 4 PM"});
-        daysAndTimes.add(new String[]{"Day 10", "10 AM - 12 PM - 4 PM"});
-        activityItem.setStandardTimesTitle("Operating hours");
-        activityItem.setStandardTimesDaysAndTimes(daysAndTimes);
-        activityItem.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
-                + "meaningful."
-                + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat est. Aliquam "
-                + "non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, in lobortis felis. - "
-                + "Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
-        activityItem.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
-        activityItem.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
-                + "- You can't sue us if you die - You might die</p></body></html>");
-        properties = new LinkedHashMap<>();
-        properties.put("Guests should be", "5 feet");
-        properties.put("Duration", "90 mins");
-        properties.put("Age Restriction", "All Ages");
-        properties.put("Restriction", "None");
-        properties.put("Attire", "Active Wear");
-        properties.put("ActivityLevel", "Low");
-
-        activityItem.setProperties(properties);
-        discoverItemMap.put(activityItem.getDiscoverId(), activityItem);
-
 
         DiscoverItemModel activityItem2 = new DiscoverItemModel();
         activityItem2.setDiscoverId("7");
