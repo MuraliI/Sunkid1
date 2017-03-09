@@ -11,7 +11,7 @@ public class DetailModuleFactoryProvider {
     private static final String TYPE_SHOREX = "Shorex";
     private static final String TYPE_ACTIVITY = "Activity";
     private static final String TYPE_ENTERTAINMENT = "Entertainment";
-    private static final String TYPE_SHOPPING = "Shopping";
+    public static final String TYPE_SHOPPING = "Shopping";
 
     private Map<String, DetailModuleFactory> factoriesMap = new HashMap<>();
 
