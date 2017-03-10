@@ -47,35 +47,24 @@ class DinningDetailModuleFactory extends DetailModuleFactory {
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
-
-        //Promotion text
         types.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionDescription()));
-
-        //Dinner times
         types.add(new DinnerTimesViewType(
                 itemModel.getLunchTime(),
                 itemModel.getLunchMenu(),
                 itemModel.getDinnerTime(),
                 itemModel.getDinnerMenu())
         );
-
-        // Price Range
         types.add(new PriceRangeViewType(Integer.valueOf(itemModel.getPriceRange()[0])));
-
         addTitleAndDescriptionTypes(types);
-
-        // Description module
         types.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
-
-        //Accessibility
         types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_accessibility),
-                itemModel.getAccessibility()));
-
-        //Legal
+                itemModel.getAccessibility(),
+                true));
         types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_legal),
-                itemModel.getLegal()));
+                new String[]{itemModel.getLegal()},
+                false));
 
         return types;
     }
