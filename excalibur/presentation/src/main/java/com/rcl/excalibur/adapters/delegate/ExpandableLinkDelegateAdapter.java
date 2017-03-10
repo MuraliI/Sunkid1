@@ -47,8 +47,10 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
     private static void initializeContentLines(int numberOfContentLines, boolean hasCheckMarks, ExpandableLinkViewHolder viewHolder) {
         viewHolder.contentLines.clear();
         viewHolder.textContent.removeAllViews();
+
         Resources resources = viewHolder.itemView.getResources();
         Context context = viewHolder.itemView.getContext();
+
         for (int i = 0; i < numberOfContentLines; i++) {
             //Create TextView;
             TextView contentLine = new TextView(context);
