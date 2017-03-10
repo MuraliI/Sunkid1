@@ -58,10 +58,12 @@ class ActivityDetailModuleFactory extends DetailModuleFactory {
         types.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
         types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_accessibility),
-                itemModel.getAccessibility()));
+                itemModel.getAccessibility(),
+                true));
         types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_legal),
-                itemModel.getLegal()));
+                new String[]{itemModel.getLegal()},
+                false));
 
         return types;
     }
