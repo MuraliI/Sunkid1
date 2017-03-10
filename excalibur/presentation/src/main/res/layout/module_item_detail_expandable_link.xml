@@ -29,13 +29,14 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_arrow_drop_down"
             android:tint="@color/detail_item_link"/>
+
     </RelativeLayout>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/expandable_link_module_content"
-        style="@style/AppTheme.DiscoverItemDescriptionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:orientation="vertical"
+        android:visibility="gone"/>
 
 </LinearLayout>

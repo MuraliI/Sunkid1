@@ -42,20 +42,22 @@ class EntertainmentDetailModuleFactory extends DetailModuleFactory {
 
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
-        List<RecyclerViewType> recyclerViewTypes = new ArrayList<>();
-        recyclerViewTypes.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionDescription()));
-        recyclerViewTypes.add(new StandardTimesViewType(itemModel.getStandardTimesTitle(), itemModel.getStandardTimesDaysAndTimes()));
-        recyclerViewTypes.add(new PricesFromViewType(
+        List<RecyclerViewType> types = new ArrayList<>();
+        types.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionDescription()));
+        types.add(new StandardTimesViewType(itemModel.getStandardTimesTitle(), itemModel.getStandardTimesDaysAndTimes()));
+        types.add(new PricesFromViewType(
                 itemModel.getPriceRange()[POSITION_PRICE_ADULTS],
                 itemModel.getPriceRange()[POSITION_PRICE_CHILDREN]));
-        addTitleAndDescriptionTypes(recyclerViewTypes);
-        recyclerViewTypes.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
-        recyclerViewTypes.add(new ExpandableLinkViewType(
+        addTitleAndDescriptionTypes(types);
+        types.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
+        types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_accessibility),
-                itemModel.getAccessibility()));
-        recyclerViewTypes.add(new ExpandableLinkViewType(
+                itemModel.getAccessibility(),
+                true));
+        types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_legal),
-                itemModel.getLegal()));
-        return recyclerViewTypes;
+                new String[]{itemModel.getLegal()},
+                false));
+        return types;
     }
 }
