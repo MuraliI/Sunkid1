@@ -3,7 +3,6 @@ package com.rcl.excalibur.adapters.delegate;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
+import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
 
         int i = 0;
         for (TextView textView : holder.contentLines) {
-            textView.setText(Html.fromHtml(item.getContent()[i]));
+            textView.setText(StringUtils.fromHtml(item.getContent()[i]));
             i++;
         }
     }
