@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
-import com.rcl.excalibur.utils.RoyalStringUtils;
+import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.List;
 
@@ -76,8 +76,8 @@ public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTim
         int size = valid ? count : THRESHOLD;
         String[] daysAndTimes = buildDaysAndTimesStrings(holder.daysAndTimes, size);
         holder.title.setText(item.getTitle());
-        holder.days.setText(RoyalStringUtils.fromHtml(daysAndTimes[0]));
-        holder.times.setText(RoyalStringUtils.fromHtml(daysAndTimes[1]));
+        holder.days.setText(StringUtils.fromHtml(daysAndTimes[0]));
+        holder.times.setText(StringUtils.fromHtml(daysAndTimes[1]));
     }
 
     static class StandardTimesViewHolder extends RecyclerView.ViewHolder {
@@ -108,8 +108,8 @@ public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTim
             int size = expanded ? THRESHOLD : this.daysAndTimes.size();
 
             final String[] daysAndTimes = buildDaysAndTimesStrings(this.daysAndTimes, size);
-            days.setText(RoyalStringUtils.fromHtml(daysAndTimes[0]));
-            times.setText(RoyalStringUtils.fromHtml(daysAndTimes[1]));
+            days.setText(StringUtils.fromHtml(daysAndTimes[0]));
+            times.setText(StringUtils.fromHtml(daysAndTimes[1]));
             expanded = !expanded;
         }
 

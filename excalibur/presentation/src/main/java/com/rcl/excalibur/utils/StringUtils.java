@@ -5,9 +5,9 @@ import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
 
-public final class RoyalStringUtils {
+public final class StringUtils {
 
-    private RoyalStringUtils() {
+    private StringUtils() {
 
     }
 

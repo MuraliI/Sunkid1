@@ -8,7 +8,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.custom.view.ExpandableDescriptionLayout;
-import com.rcl.excalibur.utils.RoyalStringUtils;
+import com.rcl.excalibur.utils.StringUtils;
 
 
 public class ExpandableDescriptionDelegateAdapter implements
@@ -22,7 +22,7 @@ public class ExpandableDescriptionDelegateAdapter implements
 
     @Override
     public void onBindViewHolder(ExpandableDescriptionViewHolder holder, ExpandableDescriptionViewType item) {
-        holder.descriptionLayout.setDescription(RoyalStringUtils.fromHtml(item.getDescription()));
+        holder.descriptionLayout.setDescription(StringUtils.fromHtml(item.getDescription()));
     }
 
     static class ExpandableDescriptionViewHolder extends RecyclerView.ViewHolder {
