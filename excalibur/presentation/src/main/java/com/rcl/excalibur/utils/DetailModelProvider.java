@@ -218,7 +218,7 @@ public final class DetailModelProvider {
         daysAndTimes.add(new String[]{"Day 8", "Closed"});
         daysAndTimes.add(new String[]{"Day 9", "10 AM - 12 PM - 4 PM"});
         daysAndTimes.add(new String[]{"Day 10", "10 AM - 12 PM - 4 PM"});
-        activityItem2.setStandardTimesTitle("Times");
+        activityItem2.setStandardTimesTitle("Operating Hours");
         activityItem2.setStandardTimesDaysAndTimes(daysAndTimes);
         activityItem2.setDescription("<html><body><p>This description is shot enough to whet one's apetite but long enough to be "
                 + "meaningful."

@@ -1,6 +1,7 @@
 package com.rcl.excalibur.adapters.delegate;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,21 +22,36 @@ import butterknife.OnClick;
 public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTimesDelegateAdapter.StandardTimesViewHolder,
         StandardTimesViewType> {
 
-    private static final String SEPARATION = "\n\n";
     private static final int THRESHOLD = 3;
+    private static final int CURRENT_DAY_POSITION = 0;
+    private static final String SEPARATION = "<br/><br/>";
+    private static final String OPENING_BOLD_TAG = "<b>";
+    private static final String CLOSING_BOL_TAG = "</b>";
 
     private static String[] buildDaysAndTimesStrings(List<String[]> daysAndTimes, final int size) {
         StringBuilder daysBuilder = new StringBuilder();
         StringBuilder timesBuilder = new StringBuilder();
 
-        for (int index = 0; index < size; index++) {
-            String[] pair = daysAndTimes.get(index);
+        if (daysAndTimes.size() >= 1) {
+            String[] pair = daysAndTimes.get(CURRENT_DAY_POSITION);
+            daysBuilder.append(OPENING_BOLD_TAG);
             daysBuilder.append(pair[0]);
-            timesBuilder.append(pair[1]);
+            daysBuilder.append(CLOSING_BOL_TAG);
+            daysBuilder.append(SEPARATION);
 
-            if (index < size - 1) {
-                daysBuilder.append(SEPARATION);
-                timesBuilder.append(SEPARATION);
+            timesBuilder.append(OPENING_BOLD_TAG);
+            timesBuilder.append(pair[1]);
+            timesBuilder.append(CLOSING_BOL_TAG);
+            timesBuilder.append(SEPARATION);
+
+            for (int index = 1; index < size; index++) {
+                daysBuilder.append(pair[0]);
+                timesBuilder.append(pair[1]);
+
+                if (index < size - 1) {
+                    daysBuilder.append(SEPARATION);
+                    timesBuilder.append(SEPARATION);
+                }
             }
         }
         return new String[]{
@@ -60,8 +76,8 @@ public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTim
         int size = valid ? count : THRESHOLD;
         String[] daysAndTimes = buildDaysAndTimesStrings(holder.daysAndTimes, size);
         holder.title.setText(item.getTitle());
-        holder.days.setText(daysAndTimes[0]);
-        holder.times.setText(daysAndTimes[1]);
+        holder.days.setText(Html.fromHtml(daysAndTimes[0]));
+        holder.times.setText(Html.fromHtml(daysAndTimes[1]));
     }
 
     static class StandardTimesViewHolder extends RecyclerView.ViewHolder {
@@ -92,10 +108,9 @@ public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTim
             int size = expanded ? THRESHOLD : this.daysAndTimes.size();
 
             final String[] daysAndTimes = buildDaysAndTimesStrings(this.daysAndTimes, size);
-            days.setText(daysAndTimes[0]);
-            times.setText(daysAndTimes[1]);
+            days.setText(Html.fromHtml(daysAndTimes[0]));
+            times.setText(Html.fromHtml(daysAndTimes[1]));
             expanded = !expanded;
-
         }
 
     }
