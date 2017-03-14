@@ -45,6 +45,7 @@ public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTim
             timesBuilder.append(SEPARATION);
 
             for (int index = 1; index < size; index++) {
+                pair = daysAndTimes.get(index);
                 daysBuilder.append(pair[0]);
                 timesBuilder.append(pair[1]);
 
