@@ -1,67 +1,65 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import android.content.res.Resources;
+import android.support.v7.app.AppCompatActivity;
 
-import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
-import com.rcl.excalibur.adapters.delegate.factory.DinningDetailModuleFactory;
-import com.rcl.excalibur.domain.DiscoverItem;
-import com.rcl.excalibur.domain.interactor.DiscoverItemDbUseCase;
-import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
+import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
+import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
+import com.rcl.excalibur.utils.DetailModelProvider;
 
-import javax.inject.Inject;
+import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOPPING;
 
 public class DiscoverItemDetailPresenter implements BasePresenter {
-    @Inject DiscoverItemDbUseCase discoverItemDbUseCase;
-    private DiscoverModelDataMapper discoverModelDataMapper;
     private DiscoverItemDetailView view;
+    private DetailModuleFactory moduleFactory;
+    private DiscoverItemModel itemModel;
 
-    public DiscoverItemDetailPresenter(DiscoverItemDetailView view, int discoverItemId) {
-        this.discoverModelDataMapper = new DiscoverModelDataMapper();
+    public DiscoverItemDetailPresenter(DiscoverItemDetailView view, String discoverItemId) {
         this.view = view;
-        initInjection();
-        initView(discoverItemId);
-    }
-
-    private void initInjection() {
-        final BaseActivity activity = view.getActivity();
-        if (activity == null) {
-            return;
+        itemModel = DetailModelProvider.discoverItemMap.get(discoverItemId); //TODO query database
+        DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
+        if (itemModel != null) {
+            if (TYPE_SHOPPING.equals(itemModel.getType())) {
+                view.showOnlyReservationIcon();
+            }
+            moduleFactory = factoryProvider.getFactory(itemModel.getType());
+            if (moduleFactory == null) {
+                view.showToastAndFinishActivity("Discover Item Not Found");
+            } else {
+                moduleFactory.setItemModel(itemModel);
+                initView();
+            }
+        } else {
+            view.showToastAndFinishActivity("Discover Item Not Found");
         }
-        activity.getApplicationComponent().inject(this);
     }
 
-    private void initView(final int discoverItemId) {
+    private void initView() {
+        AppCompatActivity activity = view.getActivity();
+        if (activity != null) {
+            view.setDetailTitle(itemModel.getTitle());
+            view.setHeroImage(itemModel.getImageUrl());
+            view.setAdapterObserver(new DetailAdapterObserver(this));
+            if (moduleFactory != null) {
+                view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(activity.getResources()));
+            } else {
+                view.showToastAndFinishActivity("Discover Activity Not Recognized");
+            }
+        }
+    }
+
+    public void onBackClicked() {
         if (view.getActivity() != null) {
-            view.setDetailTitle(view.getActivity().getString(R.string.hardcoded_activity_title)); //FIXME get the plan title
+            view.getActivity().finish();
         }
-        view.setAdapterObserver(new DetailAdapterObserver(this));
-
-        final DiscoverItem discoverItem = discoverItemDbUseCase.getDiscoverItem(discoverItemId);
-        showItemInView(discoverItem);
-    }
-
-    private void showItemInView(DiscoverItem discoverItem) {
-        final DiscoverItemDetailActivity activity = view.getActivity();
-        if (activity == null) {
-            return;
-        }
-        final Resources resources = activity.getResources();
-        final DiscoverItemModel discoverItemModel = discoverModelDataMapper.transform(discoverItem);
-        final DinningDetailModuleFactory moduleFactory = new DinningDetailModuleFactory(discoverItemModel);
-
-        view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(resources));
-
     }
 
 
-    public class DetailAdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemDetailPresenter> {
+    private class DetailAdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemDetailPresenter> {
 
-        public DetailAdapterObserver(DiscoverItemDetailPresenter presenter) {
+        DetailAdapterObserver(DiscoverItemDetailPresenter presenter) {
             super(presenter);
         }
 
@@ -70,5 +68,4 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
             //TODO do something when a detail item is clicked.
         }
     }
-
 }

@@ -5,12 +5,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.rcl.excalibur.R;
 
-public class RoundedImageView extends ImageView {
+public class RoundedImageView extends AppCompatImageView {
 
     private float radius;
 

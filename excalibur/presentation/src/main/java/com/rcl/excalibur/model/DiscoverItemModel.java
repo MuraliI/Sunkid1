@@ -2,23 +2,42 @@ package com.rcl.excalibur.model;
 
 
 import java.util.List;
+import java.util.Map;
 
 public class DiscoverItemModel {
+    private String discoverId;
     private String imageUrl;
     private String category;
-    private String type;
     private String title;
     private String hours;
+    private String promotionText;
+    private String type;
     private String subTitle;
-    private String reservationRequired;
-    private String description;
+    //FIXME this are temporary attributes. Will be fixed when we start querying the database
+    private String subtitle;
+    private boolean reservationRequired;
     private String promotionTitle;
     private String promotionDescription;
+    private String lunchTime;
+    private String lunchMenu;
+    private String dinnerTime;
+    private String dinnerMenu;
+    private Map<String, String> properties;
+    private String[] priceRange;
+    private String description;
+    private String accessibility;
     private String legal;
-    private StandardTimeModel standardTime;
-    private List<AccessibilityModel> accessibilities;
-    private List<PriceModel> prices;
-    private List<PropertyModel> properties;
+    private String standardTimesTitle;
+    private List<String[]> standardTimesDaysAndTimes;
+
+
+    public String getDiscoverId() {
+        return discoverId;
+    }
+
+    public void setDiscoverId(String discoverId) {
+        this.discoverId = discoverId;
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -68,21 +87,14 @@ public class DiscoverItemModel {
         this.subTitle = subTitle;
     }
 
-    public String getReservationRequired() {
-        return reservationRequired;
+    public String getSubtitle() {
+        return subtitle;
     }
 
-    public void setReservationRequired(String reservationRequired) {
-        this.reservationRequired = reservationRequired;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getPromotionTitle() {
         return promotionTitle;
@@ -100,6 +112,54 @@ public class DiscoverItemModel {
         this.promotionDescription = promotionDescription;
     }
 
+    public String getLunchTime() {
+        return lunchTime;
+    }
+
+    public void setLunchTime(String lunchTime) {
+        this.lunchTime = lunchTime;
+    }
+
+    public String getLunchMenu() {
+        return lunchMenu;
+    }
+
+    public void setLunchMenu(String lunchMenu) {
+        this.lunchMenu = lunchMenu;
+    }
+
+    public String getDinnerTime() {
+        return dinnerTime;
+    }
+
+    public void setDinnerTime(String dinnerTime) {
+        this.dinnerTime = dinnerTime;
+    }
+
+    public String getDinnerMenu() {
+        return dinnerMenu;
+    }
+
+    public void setDinnerMenu(String dinnerMenu) {
+        this.dinnerMenu = dinnerMenu;
+    }
+
+    public String[] getPriceRange() {
+        return priceRange;
+    }
+
+    public void setPriceRange(String[] priceRange) {
+        this.priceRange = priceRange;
+    }
+
+    public String getAccessibility() {
+        return accessibility;
+    }
+
+    public void setAccessibility(String accessibility) {
+        this.accessibility = accessibility;
+    }
+
     public String getLegal() {
         return legal;
     }
@@ -108,35 +168,43 @@ public class DiscoverItemModel {
         this.legal = legal;
     }
 
-    public StandardTimeModel getStandardTime() {
-        return standardTime;
+    public boolean isReservationRequired() {
+        return reservationRequired;
     }
 
-    public void setStandardTime(StandardTimeModel standardTime) {
-        this.standardTime = standardTime;
+    public void setReservationRequired(boolean reservationRequired) {
+        this.reservationRequired = reservationRequired;
     }
 
-    public List<AccessibilityModel> getAccessibilities() {
-        return accessibilities;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAccessibilities(List<AccessibilityModel> accessibilities) {
-        this.accessibilities = accessibilities;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<PriceModel> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(List<PriceModel> prices) {
-        this.prices = prices;
-    }
-
-    public List<PropertyModel> getProperties() {
+    public Map<String, String> getProperties() {
         return properties;
     }
 
-    public void setProperties(List<PropertyModel> properties) {
+    public void setProperties(Map<String, String> properties) {
         this.properties = properties;
+    }
+
+    public String getStandardTimesTitle() {
+        return standardTimesTitle;
+    }
+
+    public void setStandardTimesTitle(String standardTimesTitle) {
+        this.standardTimesTitle = standardTimesTitle;
+    }
+
+    public List<String[]> getStandardTimesDaysAndTimes() {
+        return standardTimesDaysAndTimes;
+    }
+
+    public void setStandardTimesDaysAndTimes(List<String[]> standardTimesDaysAndTimes) {
+        this.standardTimesDaysAndTimes = standardTimesDaysAndTimes;
     }
 }

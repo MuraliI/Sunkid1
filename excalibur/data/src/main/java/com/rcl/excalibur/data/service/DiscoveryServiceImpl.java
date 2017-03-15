@@ -30,7 +30,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
             @Override
             public void onResponse(Call<List<DiscoverItemResponse>> call, Response<List<DiscoverItemResponse>> response) {
                 if (response.isSuccessful()) {
-                    observer.onNext(response.body());
+                    //TODO mappear to DiscoverItem. observer.onNext(response.body());
                     return;
                 }
                 observer.onError(null);

@@ -33,15 +33,15 @@ public class DiscoverModelDataMapper extends BaseModelDataMapper<DiscoverItemMod
         discoverItemModel.setTitle(discoverItem.getTitle());
         discoverItemModel.setType(discoverItem.getType());
         discoverItemModel.setSubTitle(discoverItem.getSubTitle());
-        discoverItemModel.setReservationRequired(discoverItem.getReservationRequired());
+//        discoverItemModel.setReservationRequired(discoverItem.getReservationRequired());
         discoverItemModel.setDescription(discoverItem.getDescription());
         discoverItemModel.setPromotionTitle(discoverItem.getPromotionTitle());
         discoverItemModel.setPromotionDescription(discoverItem.getPromotionDescription());
         discoverItemModel.setLegal(discoverItem.getLegal());
-        discoverItemModel.setStandardTime(create(discoverItem.getStandardTime()));
-        discoverItemModel.setAccessibilities(createAccessibilities(discoverItem.getAccessibilities()));
-        discoverItemModel.setPrices(createPrices(discoverItem.getPrices()));
-        discoverItemModel.setProperties(createProperties(discoverItem.getProperties()));
+//        discoverItemModel.setStandardTime(create(discoverItem.getStandardTime()));
+//        discoverItemModel.setAccessibilities(createAccessibilities(discoverItem.getAccessibilities()));
+//        discoverItemModel.setPrices(createPrices(discoverItem.getPrices()));
+//        discoverItemModel.setProperties(createProperties(discoverItem.getProperties()));
 
         return discoverItemModel;
     }

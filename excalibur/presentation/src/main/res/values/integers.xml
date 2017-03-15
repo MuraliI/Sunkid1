@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="ic_arrow_viewport_width">24</integer>
-    <integer name="ic_arrow_viewport_height">24</integer>
+    <integer name="ic_arrow_viewport_size">24</integer>
+
+    <!-- Detail view integers -->
+    <integer name="detail_expandable_description_max_lines">6</integer>
+    <integer name="detail_expandable_description_gradient_angle">90</integer>
+    <integer name="detail_standard_times_container_weight">100</integer>
+    <integer name="detail_standard_times_times_weight">70</integer>
+    <integer name="detail_standard_times_days_weight">30</integer>
 </resources>

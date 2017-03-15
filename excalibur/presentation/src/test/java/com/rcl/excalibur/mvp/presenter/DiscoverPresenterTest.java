@@ -4,7 +4,6 @@ package com.rcl.excalibur.mvp.presenter;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.domain.DiscoverItem;
-import com.rcl.excalibur.domain.interactor.GetDiscoverItemBasicList;
 import com.rcl.excalibur.fragments.DiscoverItemListFragment;
 import com.rcl.excalibur.internal.di.component.ApplicationComponent;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
@@ -34,7 +33,7 @@ public class DiscoverPresenterTest {
     @Mock BaseActivity activity;
     @Mock ApplicationComponent applicationComponent;
     @Mock DiscoverModelDataMapper discoverModelDataMapper;
-    @Mock GetDiscoverItemBasicList getDiscoverItemBasicList;
+//    @Mock GetDiscoverItemBasicList getDiscoverItemBasicList;
 
 //    @Before
 //    public void setUp() {
@@ -54,7 +53,7 @@ public class DiscoverPresenterTest {
         //init()
         verify(view).setAdapterObserver(any(DiscoverItemListPresenter.AdapterObserver.class));
         verify(view).init();
-        verify(getDiscoverItemBasicList).execute(any(DiscoverItemListPresenter.DiscoverListObserver.class), any(GetDiscoverItemBasicList.Params.class));
+//        verify(getDiscoverItemBasicList).execute(any(DiscoverItemListPresenter.DiscoverListObserver.class), any(GetDiscoverItemBasicList.Params.class));
         //initInjection()
         verify(applicationComponent).inject(presenter);
     }
