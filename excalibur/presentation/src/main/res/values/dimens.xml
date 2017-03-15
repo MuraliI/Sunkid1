@@ -63,4 +63,9 @@
     <dimen name="price_range_dolar_margin_end">1dp</dimen>
     <dimen name="prices_from_margin">40dp</dimen>
 
+    <!--Itinerary -->
+    <dimen name="item_product_margin_min">5dp</dimen>
+    <dimen name="item_product_container_height">130dp</dimen>
+    <dimen name="item_product_width_image">160dp</dimen>
+
 </resources>

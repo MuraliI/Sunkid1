@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_product_container_height">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_large"
+        android:paddingLeft="@dimen/margin_large">
+
+        <ImageView
+            android:id="@+id/card_image"
+            android:layout_width="@dimen/item_product_width_image"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/card_name"
+            style="@style/AppTheme.ProductTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_large" />
+
+        <TextView
+            android:id="@+id/card_date"
+            style="@style/AppTheme.ProductDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card_name"
+            android:paddingTop="@dimen/item_product_margin_min" />
+
+        <TextView
+            android:id="@+id/card_venue"
+            style="@style/AppTheme.ProductVenue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card_date" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+
