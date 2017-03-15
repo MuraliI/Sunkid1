@@ -66,6 +66,6 @@
     <!--Itinerary -->
     <dimen name="item_product_margin_min">5dp</dimen>
     <dimen name="item_product_container_height">130dp</dimen>
-    <dimen name="item_product_width_image">160dp</dimen>
+    <dimen name="item_product_width_image">100dp</dimen>
 
 </resources>

@@ -5,12 +5,21 @@ public class ProductModel {
     public static final String LOCATION_POINTER_AFT = "After";
     public static final String LOCATION_POINTER_MID = "Middle";
 
+    private String productId;
     private String imageUrl;
     private String name;
     private String venue;
     private String deckNumber;
     private String locationPointer;
     private String date;
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
 
     public String getImageUrl() {
         return imageUrl;
