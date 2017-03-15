@@ -1,19 +1,20 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.domain.Item;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetItemList;
-import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.mapper.ItemModelDataMapper;
-import com.rcl.excalibur.mvp.view.LoadFromDBView;
 import com.rcl.excalibur.model.ItemModel;
+import com.rcl.excalibur.mvp.view.LoadFromDBView;
 
 import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
 
+@Deprecated
 public class LoadFromDBPresenter implements BasePresenter {
 
     protected ItemModelDataMapper itemModelDataMapper;
@@ -41,7 +42,7 @@ public class LoadFromDBPresenter implements BasePresenter {
     }
 
     private void getUserList() {
-        this.getItemListUseCase.execute(new ItemListObserver(), null);
+//        this.getItemListUseCase.execute(new ItemListObserver(), null);
     }
 
     protected void showUsersCollectionInView(Collection<Item> itemCollection) {

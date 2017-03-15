@@ -12,8 +12,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.Observable;
-
 @Singleton
 public class ItemDataRepository implements ItemRepository {
 
@@ -26,11 +24,8 @@ public class ItemDataRepository implements ItemRepository {
 
 
     @Override
-    public Observable<List<Item>> items() {
-        List<ItemEntity> entities = new Select().from(ItemEntity.class).execute();
-        return Observable.create(e -> {
-            e.onNext(itemEntityDataMapper.transform(entities));
-            e.onComplete();
-        });
+    public List<Item> items() {
+        final List<ItemEntity> entities = new Select().from(ItemEntity.class).executeSingle();
+        return itemEntityDataMapper.transform(entities);
     }
 }

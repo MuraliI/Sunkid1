@@ -20,6 +20,12 @@ android {
         buildConfigField "int", "MAXIMUM_POOL_SIZE", "5"
         buildConfigField "long", "KEEP_ALIVE_TIME", "10"
 
+        buildConfigField "int", "READ_TIMEOUT", "60"
+        buildConfigField "int", "LAUNCH_TIME", "3000"
+        buildConfigField "int", "CONNECT_TIMEOUT", "60"
+        buildConfigField "String", "DISCOVERY_API_URL", "\"http://demo8197184.mockable.io/\""
+
+
     }
 
     compileOptions {
@@ -58,6 +64,8 @@ dependencies {
     compile dataDependencies.rxAndroid
     compile dataDependencies.androidAnnotations
     compile dataDependencies.activeAndroid
+    compile dataDependencies.retrofit
+    compile dataDependencies.retrofitGson
     compile generalDependencies.timber
 
     testCompile testDependencies.junit

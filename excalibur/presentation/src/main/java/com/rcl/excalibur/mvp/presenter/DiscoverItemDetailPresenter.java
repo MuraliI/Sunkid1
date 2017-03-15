@@ -8,8 +8,7 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
 import com.rcl.excalibur.adapters.delegate.factory.DinningDetailModuleFactory;
 import com.rcl.excalibur.domain.DiscoverItem;
-import com.rcl.excalibur.domain.interactor.DefaultObserver;
-import com.rcl.excalibur.domain.interactor.GetDiscoverItemFullList;
+import com.rcl.excalibur.domain.interactor.DiscoverItemDbUseCase;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
@@ -17,11 +16,11 @@ import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
 import javax.inject.Inject;
 
 public class DiscoverItemDetailPresenter implements BasePresenter {
-    @Inject GetDiscoverItemFullList getDiscoverItemList;
+    @Inject DiscoverItemDbUseCase discoverItemDbUseCase;
     private DiscoverModelDataMapper discoverModelDataMapper;
     private DiscoverItemDetailView view;
 
-    public DiscoverItemDetailPresenter(DiscoverItemDetailView view, String discoverItemId) {
+    public DiscoverItemDetailPresenter(DiscoverItemDetailView view, int discoverItemId) {
         this.discoverModelDataMapper = new DiscoverModelDataMapper();
         this.view = view;
         initInjection();
@@ -36,12 +35,14 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
         activity.getApplicationComponent().inject(this);
     }
 
-    private void initView(final String discoverItemId) {
+    private void initView(final int discoverItemId) {
         if (view.getActivity() != null) {
             view.setDetailTitle(view.getActivity().getString(R.string.hardcoded_activity_title)); //FIXME get the plan title
         }
         view.setAdapterObserver(new DetailAdapterObserver(this));
-        getDiscoverItemList.execute(new DiscoverListObserver(), GetDiscoverItemFullList.Params.create(discoverItemId));
+
+        final DiscoverItem discoverItem = discoverItemDbUseCase.getDiscoverItem(discoverItemId);
+        showItemInView(discoverItem);
     }
 
     private void showItemInView(DiscoverItem discoverItem) {
@@ -69,22 +70,5 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
             //TODO do something when a detail item is clicked.
         }
     }
-
-    public final class DiscoverListObserver extends DefaultObserver<DiscoverItem> {
-
-        @Override
-        public void onComplete() {
-        }
-
-        @Override
-        public void onError(Throwable e) {
-        }
-
-        @Override
-        public void onNext(DiscoverItem discoverItem) {
-            showItemInView(discoverItem);
-        }
-    }
-
 
 }

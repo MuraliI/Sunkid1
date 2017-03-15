@@ -5,6 +5,7 @@ import com.rcl.excalibur.internal.di.PerActivity;
 import com.rcl.excalibur.internal.di.module.UserModule;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemDetailPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemListPresenter;
+import com.rcl.excalibur.mvp.presenter.HomePresenter;
 import com.rcl.excalibur.mvp.presenter.LoadFromDBPresenter;
 
 import dagger.Component;
@@ -20,5 +21,7 @@ public interface UserComponent {
     void inject(DiscoverItemListPresenter discoverItemListPresenter);
 
     void inject(DiscoverItemDetailPresenter discoverItemDetailPresenter);
+
+    void inject(HomePresenter presenter);
 
 }

@@ -28,7 +28,7 @@ public class GetDiscoverItemListTest {
     public void buildUseCaseObservable() throws Exception {
         GetDiscoverItemBasicList.Params params = GetDiscoverItemBasicList.Params.create("type");
         useCase.buildUseCaseObservable(params);
-        verify(discoverItemRepository).listBasicBy("type");
+        verify(discoverItemRepository).listAll("type");
     }
 
 

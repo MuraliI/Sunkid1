@@ -4,8 +4,7 @@ package com.rcl.excalibur.mvp.presenter;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.domain.DiscoverItem;
-import com.rcl.excalibur.domain.interactor.DefaultObserver;
-import com.rcl.excalibur.domain.interactor.GetDiscoverItemBasicList;
+import com.rcl.excalibur.domain.interactor.DiscoverItemDbUseCase;
 import com.rcl.excalibur.fragments.DiscoverItemListFragment;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
@@ -16,12 +15,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.rcl.excalibur.domain.interactor.GetDiscoverItemBasicList.Params;
-
 
 public class DiscoverItemListPresenter implements BasePresenter {
     protected DiscoverModelDataMapper discoverModelDataMapper;
-    @Inject GetDiscoverItemBasicList getDiscoverItemBasicList;
+    @Inject DiscoverItemDbUseCase discoverItemDbUseCase;
     private DiscoverItemListView view;
     private int type;
 
@@ -41,7 +38,9 @@ public class DiscoverItemListPresenter implements BasePresenter {
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
         final String type = getType(activity, this.type);
-        getDiscoverItemBasicList.execute(new DiscoverListObserver(), Params.create(type));
+
+        final List<DiscoverItem> discoverItems = discoverItemDbUseCase.getAllDiscoverItem(type);
+        showCollectionInView(discoverItems);
     }
 
     protected String getType(final BaseActivity activity, int type) {
@@ -86,22 +85,6 @@ public class DiscoverItemListPresenter implements BasePresenter {
         @Override
         public void onNext(DiscoverItemModel value) {
             //TODO open Details Screen
-        }
-    }
-
-    public final class DiscoverListObserver extends DefaultObserver<List<DiscoverItem>> {
-
-        @Override
-        public void onComplete() {
-        }
-
-        @Override
-        public void onError(Throwable e) {
-        }
-
-        @Override
-        public void onNext(List<DiscoverItem> discoverItems) {
-            showCollectionInView(discoverItems);
         }
     }
 }

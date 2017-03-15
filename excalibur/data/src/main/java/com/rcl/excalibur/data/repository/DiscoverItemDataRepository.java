@@ -13,8 +13,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.Observable;
-
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 @Singleton
@@ -27,39 +25,35 @@ public class DiscoverItemDataRepository implements DiscoverItemRepository {
         this.discoverEntityDataMapper = discoverEntityDataMapper;
     }
 
-
     @Override
-    public Observable<List<DiscoverItem>> listBasicBy(String type) {
-        final String[] columns = new String[8];
-        columns[0] = DBUtil.COL_ID;
-        columns[1] = DiscoverItemEntity.COLUMN_DISCOVER_ITEM_ID;
-        columns[2] = DiscoverItemEntity.COLUMN_CATEGORY;
-        columns[3] = DiscoverItemEntity.COLUMN_HOURS;
-        columns[4] = DiscoverItemEntity.COLUMN_IMAGE_URL;
-        columns[5] = DiscoverItemEntity.COLUMN_TITLE;
-        columns[6] = DiscoverItemEntity.COLUMN_TYPE;
-        columns[7] = DiscoverItemEntity.COLUMN_PROMOTION_TEXT;
-
+    public List<DiscoverItem> listAll(String type) {
+        final String[] columns = new String[]{
+                DBUtil.COL_ID,
+                DiscoverItemEntity.COLUMN_DISCOVER_ITEM_ID,
+                DiscoverItemEntity.COLUMN_CATEGORY,
+                DiscoverItemEntity.COLUMN_HOURS,
+                DiscoverItemEntity.COLUMN_IMAGE_URL,
+                DiscoverItemEntity.COLUMN_TITLE,
+                DiscoverItemEntity.COLUMN_TYPE,
+        };
         final List<DiscoverItemEntity> entities = new Select(columns)
                 .from(DiscoverItemEntity.class)
                 .where(eq(DiscoverItemEntity.COLUMN_TYPE, type))
                 .execute();
+        return discoverEntityDataMapper.transform(entities);
 
-        return Observable.create(e -> {
-            e.onNext(discoverEntityDataMapper.transform(entities));
-            e.onComplete();
-        });
     }
 
     @Override
-    public Observable<DiscoverItem> getFullBy(String discoverItemId) {
+    public DiscoverItem get(int id) {
         final DiscoverItemEntity entity = new Select()
                 .from(DiscoverItemEntity.class)
-                .where(eq(DiscoverItemEntity.COLUMN_DISCOVER_ITEM_ID, discoverItemId))
+                .where(eq(DiscoverItemEntity.COLUMN_DISCOVER_ITEM_ID, id))
                 .executeSingle();
-        return Observable.create(e -> {
-            e.onNext(discoverEntityDataMapper.transform(entity));
-            e.onComplete();
-        });
+        return discoverEntityDataMapper.transform(entity);
+    }
+
+    @Override
+    public void create(List<DiscoverItem> discoverItems) {
     }
 }

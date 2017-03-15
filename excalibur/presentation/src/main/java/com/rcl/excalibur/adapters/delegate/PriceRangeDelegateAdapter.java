@@ -29,11 +29,11 @@ public class PriceRangeDelegateAdapter implements DelegateAdapter<PriceRangeDele
             return;
         }
         final int count = item.getCount();
-        changeTint(context, holder.imageDolar1, count >= 1);
-        changeTint(context, holder.imageDolar2, count >= 2);
-        changeTint(context, holder.imageDolar3, count >= 3);
-        changeTint(context, holder.imageDolar4, count >= 4);
-        changeTint(context, holder.imageDolar5, count >= 5);
+//        changeTint(context, holder.imageDolar1, count >= 1);
+//        changeTint(context, holder.imageDolar2, count >= 2);
+//        changeTint(context, holder.imageDolar3, count >= 3);
+//        changeTint(context, holder.imageDolar4, count >= 4);
+//        changeTint(context, holder.imageDolar5, count >= 5);
     }
 
     private void changeTint(final Context context, final ImageView imageView, final boolean valid) {

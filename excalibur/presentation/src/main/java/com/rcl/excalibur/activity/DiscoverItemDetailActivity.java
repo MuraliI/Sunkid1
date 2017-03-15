@@ -25,6 +25,6 @@ public class DiscoverItemDetailActivity extends BaseActivity {
             discoverItemModel = getIntent().getExtras().getParcelable(EXTRA_DISCOVER_ITEM_MODEL);
         }
 //TODO hardcoded wait integration with listview integration
-        presenter = new DiscoverItemDetailPresenter(new DiscoverItemDetailView(this), "6");
+        presenter = new DiscoverItemDetailPresenter(new DiscoverItemDetailView(this), 1);
     }
 }

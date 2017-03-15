@@ -34,6 +34,8 @@ ext {
     designSupportLibraryVersion = "25.1.1"
     realTimeBlurLibVersion = "1.1.0"
     appcompatVersion = "25.1.1"
+    retrofitVersion = "2.1.0"
+    retrofitGsonVersion = "2.1.0"
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -102,7 +104,10 @@ ext {
             javaxAnnotation   : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject       : "javax.inject:javax.inject:${javaxInjectVersion}",
             androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
-            activeAndroid     : "com.michaelpardo:activeandroid:${activeAndroidVersion}"
+            activeAndroid     : "com.michaelpardo:activeandroid:${activeAndroidVersion}",
+            retrofit          : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitGson      : "com.squareup.retrofit2:converter-gson:${retrofitGsonVersion}"
+
     ]
 
     dataTestDependencies = [
