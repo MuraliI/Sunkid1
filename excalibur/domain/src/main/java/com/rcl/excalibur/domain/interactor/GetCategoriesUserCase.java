@@ -11,12 +11,12 @@ import javax.inject.Inject;
 import io.reactivex.observers.DisposableObserver;
 
 
-public class GetLisDiscoverItemsUserCase extends UseCase<List<DiscoverItem>, Void> {
+public class GetCategoriesUserCase extends UseCase<List<DiscoverItem>, Void> {
 
     private final DiscoveryService itineraryService;
 
     @Inject
-    GetLisDiscoverItemsUserCase(DiscoveryService itineraryService) {
+    GetCategoriesUserCase(DiscoveryService itineraryService) {
         super();
         this.itineraryService = itineraryService;
     }

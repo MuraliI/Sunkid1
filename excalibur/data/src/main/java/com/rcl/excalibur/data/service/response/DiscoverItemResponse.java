@@ -23,10 +23,6 @@ public class DiscoverItemResponse {
     public String subTitle;
     @SerializedName("ReservationRequired")
     public String reservationRequired;
-    @SerializedName("Promotions")
-    public PromotionResponse promotionResponse;
-    @SerializedName("PricesFrom")
-    public PriceResponse priceResponse;
     @SerializedName("Duration")
     public String duration;
     @SerializedName("AgeRestriction")
@@ -59,12 +55,6 @@ public class DiscoverItemResponse {
     public String dinnerMenu;
     @SerializedName("Cuisine")
     public String cuisine;
-    @SerializedName("ShowTimes")
-    public List<TimeResponse> showTimes;
-    @SerializedName("ExcursionTimes")
-    public List<TimeResponse> excursionTimes;
-    @SerializedName("OperatingHours")
-    public List<TimeResponse> operatingHours;
 
 
 }

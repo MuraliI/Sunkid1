@@ -5,8 +5,6 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-import java.util.List;
-
 @Table(name = DiscoverItemEntity.TABLE_NAME)
 public class DiscoverItemEntity extends Model {
 
@@ -27,7 +25,7 @@ public class DiscoverItemEntity extends Model {
     public static final String COLUMN_STANDARD_TIME = "standard_time";
 
     @Column(name = COLUMN_DISCOVER_ITEM_ID, unique = true)
-    private int discoverItemId;
+    private String discoverItemId;
     @Column(name = COLUMN_IMAGE_URL)
     private String imageUrl;
     @Column(name = COLUMN_CATEGORY)
@@ -50,30 +48,17 @@ public class DiscoverItemEntity extends Model {
     private String promotionDescription;
     @Column(name = COLUMN_LEGAL)
     private String legal;
-    @Column(name = COLUMN_STANDARD_TIME)
-    private StandardTimeEntity standardTimeEntity;
 
     public DiscoverItemEntity() {
         super();
     }
 
-    public List<AccessibilityEntity> getAccessibilities() {
-        return getMany(AccessibilityEntity.class, AccessibilityEntity.COLUMN_DISCOVER_ITEM);
-    }
 
-    public List<PriceEntity> getPrices() {
-        return getMany(PriceEntity.class, PriceEntity.COLUMN_DISCOVER_ITEM);
-    }
-
-    public List<PropertyEntity> getProperties() {
-        return getMany(PropertyEntity.class, PropertyEntity.COLUMN_DISCOVER_ITEM);
-    }
-
-    public int getDiscoverItemId() {
+    public String getDiscoverItemId() {
         return discoverItemId;
     }
 
-    public void setDiscoverItemId(int discoverItemId) {
+    public void setDiscoverItemId(String discoverItemId) {
         this.discoverItemId = discoverItemId;
     }
 
@@ -165,12 +150,5 @@ public class DiscoverItemEntity extends Model {
         this.legal = legal;
     }
 
-    public StandardTimeEntity getStandardTimeEntity() {
-        return standardTimeEntity;
-    }
-
-    public void setStandardTimeEntity(StandardTimeEntity standardTimeEntity) {
-        this.standardTimeEntity = standardTimeEntity;
-    }
 }
 

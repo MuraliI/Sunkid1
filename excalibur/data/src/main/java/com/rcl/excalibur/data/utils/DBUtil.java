@@ -1,7 +1,5 @@
 package com.rcl.excalibur.data.utils;
 
-import android.text.TextUtils;
-
 public final class DBUtil {
 
     public static final String COL_ID = "Id";
@@ -23,8 +21,9 @@ public final class DBUtil {
         return builder.toString();
     }
 
-    private static String checkValue(final String value) {
-        if (TextUtils.isEmpty(value)) {
+    protected static String checkValue(final String value) {
+        //Not use TextUtils.isEmpty for this case. The test crash
+        if (value == null || value.isEmpty()) {
             throw new IllegalArgumentException("Value must be non-null and non-empty.");
         }
         return value;
@@ -59,7 +58,15 @@ public final class DBUtil {
         return String.format("%s = ?", column);
     }
 
-    public static <T> String notEq(String column, T value) {
+    public static String notEq(String column, String value) {
+        return String.format("%s != '%s'", column, value);
+    }
+
+    public static String notEq(String column, int value) {
+        return String.format("%s != %s", column, value);
+    }
+
+    public static String notEq(String column, float value) {
         return String.format("%s != %s", column, value);
     }
 

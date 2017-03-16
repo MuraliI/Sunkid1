@@ -1,8 +1,7 @@
 package com.rcl.excalibur.domain;
 
-import java.util.List;
-
 public class DiscoverItem {
+    private String discoverItemId;
     private String imageUrl;
     private String category;
     private String type;
@@ -14,12 +13,16 @@ public class DiscoverItem {
     private String promotionTitle;
     private String promotionDescription;
     private String legal;
-    private StandardTime standardTime;
-    private List<Accessibility> accessibilities;
-    private List<Price> prices;
-    private List<Property> properties;
 
     public DiscoverItem() {
+    }
+
+    public String getDiscoverItemId() {
+        return discoverItemId;
+    }
+
+    public void setDiscoverItemId(String discoverItemId) {
+        this.discoverItemId = discoverItemId;
     }
 
     public String getImageUrl() {
@@ -110,35 +113,4 @@ public class DiscoverItem {
         this.legal = legal;
     }
 
-    public StandardTime getStandardTime() {
-        return standardTime;
-    }
-
-    public void setStandardTime(StandardTime standardTime) {
-        this.standardTime = standardTime;
-    }
-
-    public List<Accessibility> getAccessibilities() {
-        return accessibilities;
-    }
-
-    public void setAccessibilities(List<Accessibility> accessibilities) {
-        this.accessibilities = accessibilities;
-    }
-
-    public List<Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(List<Price> prices) {
-        this.prices = prices;
-    }
-
-    public List<Property> getProperties() {
-        return properties;
-    }
-
-    public void setProperties(List<Property> properties) {
-        this.properties = properties;
-    }
 }
