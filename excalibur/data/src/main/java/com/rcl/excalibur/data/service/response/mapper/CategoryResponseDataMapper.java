@@ -2,12 +2,13 @@ package com.rcl.excalibur.data.service.response.mapper;
 
 
 import com.rcl.excalibur.data.service.response.CategoryResponse;
+import com.rcl.excalibur.domain.Category;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class CategoryResponseDataMapper extends BaseResponseDataMapper<com.rcl.excalibur.domain.Category, CategoryResponse> {
+public class CategoryResponseDataMapper extends BaseResponseDataMapper<Category, CategoryResponse> {
 
     @Inject
     CategoryResponseDataMapper() {

@@ -17,10 +17,8 @@ import static org.junit.Assert.*;
 public class CategoryResponseDataMapperTest {
 
     CategoryResponseDataMapper categotyServiceDataMapper;
-    @Mock
-    CategoryResponse entity1;
-    @Mock
-    CategoryResponse entity2;
+    @Mock CategoryResponse entity1;
+    @Mock CategoryResponse entity2;
 
     @Before
     public void setUp() throws Exception {
