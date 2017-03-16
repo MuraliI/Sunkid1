@@ -7,14 +7,14 @@ import com.google.gson.annotations.SerializedName;
 public class CategoriesResponse {
 
     @SerializedName("GetCategoriesResponse")
-    private com.rcl.excalibur.data.service.response.GetCategoriesResponse mGetCategoriesResponse;
+    private GetCategoriesResponse getCategoriesResponse;
 
-    public com.rcl.excalibur.data.service.response.GetCategoriesResponse getGetCategoriesResponse() {
-        return mGetCategoriesResponse;
+    public GetCategoriesResponse getGetCategoriesResponse() {
+        return getCategoriesResponse;
     }
 
-    public void setGetCategoriesResponse(com.rcl.excalibur.data.service.response.GetCategoriesResponse getCategoriesResponse) {
-        this.mGetCategoriesResponse = getCategoriesResponse;
+    public void setGetCategoriesResponse(GetCategoriesResponse getCategoriesResponse) {
+        this.getCategoriesResponse = getCategoriesResponse;
     }
 
 }

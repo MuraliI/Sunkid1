@@ -1,12 +1,10 @@
 
 package com.rcl.excalibur.data.service.response;
 
-import com.activeandroid.Model;
-
 import java.util.List;
 
 
-public class CategoryResponse extends Model {
+public class CategoryResponse {
 
     private String categoryDescription;
     private long categoryid;

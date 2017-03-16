@@ -20,7 +20,7 @@ android {
         buildConfigField "int", "MAXIMUM_POOL_SIZE", "5"
         buildConfigField "long", "KEEP_ALIVE_TIME", "10"
 
-        buildConfigField "String", "DISCOVERY_API_URL", '"http://10.16.6.134:8090/v1"'
+        buildConfigField "String", "DISCOVERY_API_URL", '"http://demo5438717.mockable.io/v1/"'
         buildConfigField "int", "READ_TIMEOUT", "60"
         buildConfigField "int", "CONNECT_TIMEOUT", "60"
 

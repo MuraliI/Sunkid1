@@ -1,9 +1,6 @@
 package com.rcl.excalibur.data.service.response.mapper;
 
-import com.rcl.excalibur.data.entity.DiscoverItemEntity;
 import com.rcl.excalibur.data.service.response.CategoryResponse;
-import com.rcl.excalibur.domain.Category;
-import com.rcl.excalibur.domain.DiscoverItem;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,14 +12,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static android.R.attr.category;
 import static org.junit.Assert.*;
 
 public class CategoryResponseDataMapperTest {
 
     CategoryResponseDataMapper categotyServiceDataMapper;
-    @Mock CategoryResponse entity1;
-    @Mock CategoryResponse entity2;
+    @Mock
+    CategoryResponse entity1;
+    @Mock
+    CategoryResponse entity2;
 
     @Before
     public void setUp() throws Exception {
@@ -40,7 +38,7 @@ public class CategoryResponseDataMapperTest {
 
     @Test
     public void transform() throws Exception {
-        Category category = categotyServiceDataMapper.transform(entity1);
+        com.rcl.excalibur.domain.Category category = categotyServiceDataMapper.transform(entity1);
         assertNotNull(category);
         assertEquals(entity1.getCategoryid(),category.getCategoryId());
         assertEquals(entity1.getCategoryDescription(),category.getDescription());
@@ -52,7 +50,7 @@ public class CategoryResponseDataMapperTest {
         entities.add(entity1);
         entities.add(entity2);
 
-        List<Category> categoryList = categotyServiceDataMapper.transform(entities);
+        List<com.rcl.excalibur.domain.Category> categoryList = categotyServiceDataMapper.transform(entities);
         assertNotNull(categoryList);
         assertFalse(categoryList.isEmpty());
         assertEquals(entities.size(), categoryList.size());
