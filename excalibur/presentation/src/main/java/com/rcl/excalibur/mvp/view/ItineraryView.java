@@ -4,6 +4,7 @@ package com.rcl.excalibur.mvp.view;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.fragments.ItineraryFragment;
@@ -12,8 +13,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ItineraryView extends FragmentView<ItineraryFragment> {
-    @Bind(R.id.recycler_view)
-    RecyclerView recyclerView;
+
+    @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    @Bind(R.id.text_greeting) TextView textGreeting;
 
     public ItineraryView(ItineraryFragment fragment) {
         super(fragment);
@@ -28,4 +30,10 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         //recyclerView.setAdapter(adapter);
     }
+
+    public void setGreetingText(int resource) {
+        textGreeting.setText(getActivity().getResources().getString(resource));
+    }
+
+
 }

@@ -74,5 +74,10 @@
     <string name="category_entertainment">Entertainment</string>
     <string name="adults">Adults</string>
     <string name="children">Children</string>
+    <string name="title_good_morning">Good Morning</string>
+    <string name="title_good_afternoon">Good Afternoon!</string>
+    <string name="title_good_evening">Good Evening!</string>
+    <string name="title_good_night">Good Night!</string>
+    <string name="title_hello">Hello</string>
 
 </resources>

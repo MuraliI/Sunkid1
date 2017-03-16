@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.mvp.presenter.ItineraryPresenter;
+import com.rcl.excalibur.mvp.view.ItineraryView;
 
 public class ItineraryFragment extends Fragment {
     private static final String ARGUMENT_TYPE = "ItineraryFragment.ARGUMENT_TYPE";
     private ItineraryPresenter presenter;
 
-    public static DiscoverFragment newInstance(int type) {
-        DiscoverFragment fragment = new DiscoverFragment();
+    public static ItineraryFragment newInstance(int type) {
+        ItineraryFragment fragment = new ItineraryFragment();
         Bundle args = new Bundle();
         args.putInt(ARGUMENT_TYPE, type);
         fragment.setArguments(args);
@@ -30,10 +31,17 @@ public class ItineraryFragment extends Fragment {
             return;
         }
         final int type = bundle.getInt(ARGUMENT_TYPE);
+        presenter = new ItineraryPresenter(type, new ItineraryView(this));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_itenerary, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.onResume();
     }
 }

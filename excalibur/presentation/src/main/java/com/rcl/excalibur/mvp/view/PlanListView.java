@@ -19,7 +19,6 @@ import static com.rcl.excalibur.adapters.PlanListAdapter.POSITION_SHOPPING;
 import static com.rcl.excalibur.adapters.PlanListAdapter.POSITION_SHOREX;
 import static com.rcl.excalibur.adapters.PlanListAdapter.POSITION_SPA;
 
-
 public class PlanListView extends ActivityView<PlanListActivity> {
     @Bind(R.id.plan_list_tab_layout) TabLayout tabLayout;
     @Bind(R.id.plan_list_view_pager) ViewPager viewPager;
