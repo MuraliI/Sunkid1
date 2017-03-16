@@ -64,9 +64,6 @@ dependencies {
     compile dataDependencies.activeAndroid
     compile dataDependencies.retrofit2
     compile dataDependencies.convertergson
-
-
-
     compile generalDependencies.timber
 
     testCompile testDependencies.junit
