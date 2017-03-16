@@ -4,7 +4,6 @@ package com.rcl.excalibur.data.repository;
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.ItemEntity;
 import com.rcl.excalibur.data.entity.mapper.ItemEntityDataMapper;
-import com.rcl.excalibur.data.service.DiscoverServiceImpl;
 import com.rcl.excalibur.domain.Item;
 import com.rcl.excalibur.domain.repository.ItemRepository;
 
@@ -29,9 +28,6 @@ public class ItemDataRepository implements ItemRepository {
     @Override
     public Observable<List<Item>> items() {
         List<ItemEntity> entities = new Select().from(ItemEntity.class).execute();
-
-        DiscoverServiceImpl dicoveryService = new DiscoverServiceImpl();
-        dicoveryService.getCategory();
         return Observable.create(e -> {
             e.onNext(itemEntityDataMapper.transform(entities));
             e.onComplete();
