@@ -25,7 +25,7 @@ public class DiscoverItemModel {
     private Map<String, String> properties;
     private String[] priceRange;
     private String description;
-    private String accessibility;
+    private String[] accessibility;
     private String legal;
     private String standardTimesTitle;
     private List<String[]> standardTimesDaysAndTimes;
@@ -152,11 +152,11 @@ public class DiscoverItemModel {
         this.priceRange = priceRange;
     }
 
-    public String getAccessibility() {
+    public String[] getAccessibility() {
         return accessibility;
     }
 
-    public void setAccessibility(String accessibility) {
+    public void setAccessibility(String[] accessibility) {
         this.accessibility = accessibility;
     }
 

@@ -43,7 +43,7 @@ public final class DetailModelProvider {
                 + "meaningful. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat "
                 + "est. Aliquam non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, "
                 + "in lobortis felis. - Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
-        discoverItem1.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        discoverItem1.setAccessibility(new String[] {"Wheelchair accessible", "Wear closed toed shoes"});
         discoverItem1.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
         discoverItemMap.put(discoverItem1.getDiscoverId(), discoverItem1);
@@ -80,7 +80,7 @@ public final class DetailModelProvider {
                 + "meaningful. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat "
                 + "est. Aliquam non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, "
                 + "in lobortis felis. - Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
-        discoverItem2.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        discoverItem2.setAccessibility(new String[] {"Wheelchair accessible", "Wear closed toed shoes"});
         discoverItem2.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
         discoverItemMap.put(discoverItem2.getDiscoverId(), discoverItem2);
@@ -116,7 +116,7 @@ public final class DetailModelProvider {
                 + "meaningful. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat "
                 + "est. Aliquam non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, "
                 + "in lobortis felis. - Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
-        discoverItem3.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        discoverItem3.setAccessibility(new String[] {"Wheelchair accessible", "Wear closed toed shoes"});
         discoverItem3.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
         discoverItemMap.put(discoverItem3.getDiscoverId(), discoverItem3);
@@ -148,7 +148,7 @@ public final class DetailModelProvider {
                 + "meaningful. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat "
                 + "est. Aliquam non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, "
                 + "in lobortis felis. - Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
-        diningItem.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        diningItem.setAccessibility(new String[] {"Wheelchair accessible", "Wear closed toed shoes"});
         diningItem.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
         discoverItemMap.put(diningItem.getDiscoverId(), diningItem);
@@ -182,7 +182,7 @@ public final class DetailModelProvider {
                 + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat est. Aliquam "
                 + "non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, in lobortis felis. - "
                 + "Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
-        activityItem.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        activityItem.setAccessibility(new String[] {"Wheelchair accessible", "Wear closed toed shoes"});
         activityItem.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. "
                 + "- You can't sue us if you die - You might die</p></body></html>");
         properties = new LinkedHashMap<>();
@@ -225,7 +225,7 @@ public final class DetailModelProvider {
                 + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat est. Aliquam "
                 + "non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, in lobortis felis. - "
                 + "Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
-        activityItem2.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        activityItem2.setAccessibility(new String[] {"Wheelchair accessible", "Wear closed toed shoes"});
         activityItem2.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. - "
                 + "You can't sue us if you die - You might die</p></body></html>");
 
@@ -271,7 +271,7 @@ public final class DetailModelProvider {
                 + "meaningful. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. Praesent quis feugiat "
                 + "est. Aliquam non erat tempor, egestas dui eget, rutrum velit. Donec eu turpis dui. Nulla venenatis justo dolor, in "
                 + "lobortis felis. - Arrive 15 mins early - Wear closed toed shoes</p></body></html>");
-        discoverItem8.setAccessibility("Wheelchair accessible \n Wear closed toed shoes");
+        discoverItem8.setAccessibility(new String[] {"Wheelchair accessible", "Wear closed toed shoes"});
         discoverItem8.setLegal("<html><body><p>This legal information is short enough to comfort you but long enough to be meaningful. - "
                 + "You can't sue us if you die - You might die</p></body></html>");
 
