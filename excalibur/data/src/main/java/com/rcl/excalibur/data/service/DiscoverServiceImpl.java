@@ -5,15 +5,16 @@ import android.util.Log;
 
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
+import com.rcl.excalibur.domain.repository.DiscoverService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DiscoverServiceImpl  {
+public class DiscoverServiceImpl implements DiscoverService {
 
 
-    public void getCategory() {
+    public void getCategories() {
 
         Call<CategoriesResponse> call =
                 ServiceUtil.getDiscoveryApi().getCategories();
@@ -30,5 +31,10 @@ public class DiscoverServiceImpl  {
                 Log.e("error", t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void getCategoriesResponse() {
+
     }
 }

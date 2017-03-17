@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Category {
 
-    public long categoryId;
-    public String description;
-    public List<String> tags;
+    private long categoryId;
+    private String description;
+    private List<String> tags;
 
     public Category() {
     }

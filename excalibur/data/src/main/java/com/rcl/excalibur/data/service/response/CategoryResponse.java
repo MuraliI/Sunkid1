@@ -10,6 +10,8 @@ public class CategoryResponse {
     private long categoryid;
     private List<String> productTags;
 
+    public CategoryResponse() {
+    }
 
     public String getCategoryDescription() {
         return categoryDescription;

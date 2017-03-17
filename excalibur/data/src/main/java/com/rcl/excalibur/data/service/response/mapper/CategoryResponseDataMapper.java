@@ -16,10 +16,10 @@ public class CategoryResponseDataMapper extends BaseResponseDataMapper<Category,
     }
 
     @Override
-    public com.rcl.excalibur.domain.Category transform(CategoryResponse entity) {
-        com.rcl.excalibur.domain.Category category = null;
+    public Category transform(CategoryResponse entity) {
+            Category category = null;
         if (entity != null) {
-            category = new com.rcl.excalibur.domain.Category();
+            category = new Category();
             category.setCategoryId(entity.getCategoryid());
             category.setDescription(entity.getCategoryDescription());
             category.setTags(entity.getProductTags());

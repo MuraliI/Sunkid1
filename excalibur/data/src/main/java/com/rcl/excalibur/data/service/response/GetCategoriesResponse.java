@@ -9,6 +9,8 @@ public class GetCategoriesResponse {
     private List<CategoryResponse> category;
     private String responseStatus;
 
+    public GetCategoriesResponse() {
+    }
 
     public List<CategoryResponse> getCategory() {
         return category;
