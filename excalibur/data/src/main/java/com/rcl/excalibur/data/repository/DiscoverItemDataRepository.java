@@ -3,7 +3,7 @@ package com.rcl.excalibur.data.repository;
 
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.DiscoverItemEntity;
-import com.rcl.excalibur.data.entity.mapper.DiscoverEntityDataMapper;
+import com.rcl.excalibur.data.mapper.DiscoverEntityDataMapper;
 import com.rcl.excalibur.data.utils.DBUtil;
 import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.repository.DiscoverItemRepository;

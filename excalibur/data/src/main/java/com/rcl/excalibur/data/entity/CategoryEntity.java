@@ -6,6 +6,8 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.google.gson.Gson;
 
+import java.util.List;
+
 @Table(name = CategoryEntity.TABLE_NAME)
 public class CategoryEntity extends Model {
 
@@ -43,6 +45,10 @@ public class CategoryEntity extends Model {
 
     public String[] getTags() {
         return new Gson().fromJson(tags, String[].class);
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = new Gson().toJson(tags);
     }
 
     public void setTags(String[] tags) {

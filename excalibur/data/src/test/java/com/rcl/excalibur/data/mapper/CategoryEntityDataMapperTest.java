@@ -1,4 +1,4 @@
-package com.rcl.excalibur.data.entity.mapper;
+package com.rcl.excalibur.data.mapper;
 
 
 import com.rcl.excalibur.data.entity.CategoryEntity;

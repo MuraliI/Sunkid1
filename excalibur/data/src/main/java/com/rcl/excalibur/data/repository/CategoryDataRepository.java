@@ -3,7 +3,7 @@ package com.rcl.excalibur.data.repository;
 
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.CategoryEntity;
-import com.rcl.excalibur.data.entity.mapper.CategoryEntityDataMapper;
+import com.rcl.excalibur.data.mapper.CategoryEntityDataMapper;
 import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
@@ -27,9 +27,9 @@ public class CategoryDataRepository implements CategoryRepository {
     @Override
     public void create(Category category) {
         final CategoryEntity entity = new CategoryEntity();
-//        entity.setCategoryId();
-//        entity.setDescription();
-//        entity.setTags();
+        entity.setCategoryId(category.getCategoryId());
+        entity.setDescription(category.getDescription());
+        entity.setTags(category.getTags());
         entity.save();
     }
 

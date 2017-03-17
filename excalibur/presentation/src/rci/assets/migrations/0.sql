@@ -1,6 +1,3 @@
-INSERT INTO item (name, image_url) VALUES ("Item 1 for Brand3", "https://splashbase.s3.amazonaws.com/moveast/regular/tumblr_og2ppfmQNq1tomxvuo7_1280.jpg");
-INSERT INTO item (name, image_url) VALUES ("Item 2 for Brand3", "https://splashbase.s3.amazonaws.com/littlevisuals/regular/tumblr_mrztdrnrgt1sdyj9lo1_1280.jpg");
-
 INSERT INTO discover_item (discover_item_id, type, category, title, image_url, hours) VALUES ("1","Entertainment","Family","Grease - The Musical","http://i.imgur.com/kXiKJiG.png","10am - 4pm");
 INSERT INTO discover_item (discover_item_id, type, category, title, image_url, hours) VALUES ("2","Shorex","Family","Caribean Kitchen","http://i.imgur.com/lldrjTf.png","10am -12pm");
 INSERT INTO discover_item (discover_item_id, type, category, title, image_url, hours) VALUES ("3","Spa","Family","Hot Stone Massage","http://i.imgur.com/3thlkWY.png","10am -12pm");

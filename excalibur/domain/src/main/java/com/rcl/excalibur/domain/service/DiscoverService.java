@@ -1,4 +1,4 @@
-package com.rcl.excalibur.domain.repository;
+package com.rcl.excalibur.domain.service;
 
 
 public interface DiscoverService {

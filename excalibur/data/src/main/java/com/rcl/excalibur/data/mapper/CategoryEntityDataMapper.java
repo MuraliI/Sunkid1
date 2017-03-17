@@ -1,4 +1,4 @@
-package com.rcl.excalibur.data.entity.mapper;
+package com.rcl.excalibur.data.mapper;
 
 
 import com.rcl.excalibur.data.entity.CategoryEntity;
@@ -14,7 +14,7 @@ import javax.inject.Singleton;
  * domain layer.
  */
 @Singleton
-public class CategoryEntityDataMapper extends BaseEntityDataMapper<Category, CategoryEntity> {
+public class CategoryEntityDataMapper extends BaseDataMapper<Category, CategoryEntity> {
 
     @Inject
     CategoryEntityDataMapper() {
@@ -31,5 +31,4 @@ public class CategoryEntityDataMapper extends BaseEntityDataMapper<Category, Cat
         category.setTags(Arrays.asList(entity.getTags()));
         return category;
     }
-
 }

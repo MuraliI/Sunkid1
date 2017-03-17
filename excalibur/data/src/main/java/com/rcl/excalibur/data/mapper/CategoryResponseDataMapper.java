@@ -1,4 +1,4 @@
-package com.rcl.excalibur.data.service.response.mapper;
+package com.rcl.excalibur.data.mapper;
 
 
 import com.rcl.excalibur.data.service.response.CategoryResponse;
@@ -8,11 +8,10 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class CategoryResponseDataMapper extends BaseResponseDataMapper<Category, CategoryResponse> {
+public class CategoryResponseDataMapper extends BaseDataMapper<Category, CategoryResponse> {
 
     @Inject
     CategoryResponseDataMapper() {
-
     }
 
     @Override

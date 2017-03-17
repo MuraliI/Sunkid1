@@ -1,8 +1,8 @@
 package com.rcl.excalibur.domain.interactor;
 
 
-import com.rcl.excalibur.domain.DiscoverItem;
-import com.rcl.excalibur.domain.service.DiscoveryService;
+import com.rcl.excalibur.domain.Category;
+import com.rcl.excalibur.domain.service.DiscoverService;
 
 import java.util.List;
 
@@ -11,19 +11,19 @@ import javax.inject.Inject;
 import io.reactivex.observers.DisposableObserver;
 
 
-public class GetCategoriesUserCase extends UseCase<List<DiscoverItem>, Void> {
+public class GetCategoriesUserCase extends UseCase<List<Category>, Void> {
 
-    private final DiscoveryService itineraryService;
+    private final DiscoverService discoverService;
 
     @Inject
-    GetCategoriesUserCase(DiscoveryService itineraryService) {
+    GetCategoriesUserCase(DiscoverService discoverService) {
         super();
-        this.itineraryService = itineraryService;
+        this.discoverService = discoverService;
     }
 
     @Override
-    void buildUseCaseObservable(DisposableObserver<List<DiscoverItem>> observer, Void aVoid) {
-        itineraryService.getItems(observer);
+    void buildUseCaseObservable(DisposableObserver<List<Category>> observer, Void aVoid) {
+        discoverService.getCategories();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.rcl.excalibur.data.entity.mapper;
+package com.rcl.excalibur.data.mapper;
 
 
 import com.rcl.excalibur.data.entity.DiscoverItemEntity;
@@ -12,7 +12,7 @@ import javax.inject.Singleton;
  * domain layer.
  */
 @Singleton
-public class DiscoverEntityDataMapper extends BaseEntityDataMapper<DiscoverItem, DiscoverItemEntity> {
+public class DiscoverEntityDataMapper extends BaseDataMapper<DiscoverItem, DiscoverItemEntity> {
 
     @Inject
     DiscoverEntityDataMapper() {
