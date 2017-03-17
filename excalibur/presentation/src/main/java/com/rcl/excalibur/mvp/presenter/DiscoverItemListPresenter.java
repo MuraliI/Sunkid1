@@ -5,7 +5,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
 import com.rcl.excalibur.domain.DiscoverItem;
-import com.rcl.excalibur.domain.interactor.DiscoverItemDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetDiscoverItemDbUseCase;
 import com.rcl.excalibur.fragments.DiscoverItemListFragment;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 public class DiscoverItemListPresenter implements BasePresenter {
     protected DiscoverModelDataMapper discoverModelDataMapper;
-    @Inject DiscoverItemDbUseCase discoverItemDbUseCase;
+    @Inject GetDiscoverItemDbUseCase getDiscoverItemDbUseCase;
     private DiscoverItemListView view;
     private int type;
 
@@ -40,7 +40,7 @@ public class DiscoverItemListPresenter implements BasePresenter {
         view.init();
         final String type = getType(activity, this.type);
 
-        final List<DiscoverItem> discoverItems = discoverItemDbUseCase.getAllDiscoverItem(type);
+        final List<DiscoverItem> discoverItems = getDiscoverItemDbUseCase.getAllDiscoverItem(type);
         showCollectionInView(discoverItems);
     }
 

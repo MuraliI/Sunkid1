@@ -19,7 +19,7 @@ public class CategoryResponseDataMapper extends BaseDataMapper<Category, Categor
         Category category = null;
         if (entity != null) {
             category = new Category();
-            category.setCategoryId(entity.getCategoryid());
+            category.setCategoryId(entity.getCategoryId());
             category.setDescription(entity.getCategoryDescription());
             category.setTags(entity.getProductTags());
         }

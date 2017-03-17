@@ -1,6 +1,5 @@
 package com.rcl.excalibur.domain.interactor;
 
-import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
 import org.junit.Before;
@@ -10,21 +9,14 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.verify;
 
-public class CategoryDbUseCaseTest {
+public class GetCategoryDbUseCaseTest {
     @Mock CategoryRepository categoryRepository;
-    CategoryDbUseCase useCase;
+    GetCategoryDbUseCase useCase;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        useCase = new CategoryDbUseCase(categoryRepository);
-    }
-
-    @Test
-    public void create() throws Exception {
-        final Category category = new Category();
-        useCase.create(category);
-        verify(categoryRepository).create(category);
+        useCase = new GetCategoryDbUseCase(categoryRepository);
     }
 
     @Test

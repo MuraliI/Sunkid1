@@ -8,12 +8,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class DiscoverItemDbUseCase extends UseCaseSync {
+public class GetDiscoverItemDbUseCase extends UseCaseSync {
 
     private final DiscoverItemRepository discoverItemRepository;
 
     @Inject
-    DiscoverItemDbUseCase(DiscoverItemRepository discoverItemRepository) {
+    GetDiscoverItemDbUseCase(DiscoverItemRepository discoverItemRepository) {
         this.discoverItemRepository = discoverItemRepository;
     }
 

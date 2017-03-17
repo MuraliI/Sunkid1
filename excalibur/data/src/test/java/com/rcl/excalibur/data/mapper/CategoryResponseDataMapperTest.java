@@ -30,10 +30,10 @@ public class CategoryResponseDataMapperTest {
         MockitoAnnotations.initMocks(this);
 
         categotyServiceDataMapper = new CategoryResponseDataMapper();
-        Mockito.when(entity1.getCategoryid()).thenReturn((long) 12);
+        Mockito.when(entity1.getCategoryId()).thenReturn((long) 12);
         Mockito.when(entity1.getCategoryDescription()).thenReturn("Some Dectiption");
         Mockito.when(entity1.getProductTags()).thenReturn(Arrays.asList("Tag 1", "Tag 2", "Ta2"));
-        Mockito.when(entity2.getCategoryid()).thenReturn((long) 13);
+        Mockito.when(entity2.getCategoryId()).thenReturn((long) 13);
         Mockito.when(entity2.getCategoryDescription()).thenReturn("Some Dectiption 2");
         Mockito.when(entity2.getProductTags()).thenReturn(Arrays.asList("Tag 1", "Tag 2", "Ta2"));
     }
@@ -42,7 +42,7 @@ public class CategoryResponseDataMapperTest {
     public void transform() throws Exception {
         Category category = categotyServiceDataMapper.transform(entity1);
         assertNotNull(category);
-        assertEquals(entity1.getCategoryid(), category.getCategoryId());
+        assertEquals(entity1.getCategoryId(), category.getCategoryId());
         assertEquals(entity1.getCategoryDescription(), category.getDescription());
         assertEquals(entity1.getProductTags(), category.getTags());
     }
@@ -59,7 +59,7 @@ public class CategoryResponseDataMapperTest {
         assertEquals(entities.size(), categoryList.size());
 
         for (int i = 0; i < categoryList.size(); i++) {
-            assertEquals(entities.get(i).getCategoryid(), categoryList.get(i).getCategoryId());
+            assertEquals(entities.get(i).getCategoryId(), categoryList.get(i).getCategoryId());
             assertEquals(entities.get(i).getCategoryDescription(), categoryList.get(i).getDescription());
             assertEquals(entities.get(i).getProductTags(), categoryList.get(i).getTags());
         }

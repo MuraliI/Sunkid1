@@ -8,17 +8,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class CategoryDbUseCase extends UseCaseSync {
+public class GetCategoryDbUseCase extends UseCaseSync {
 
     private final CategoryRepository categoryRepository;
 
     @Inject
-    CategoryDbUseCase(CategoryRepository categoryRepository) {
+    GetCategoryDbUseCase(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-    }
-
-    public void create(final Category category) {
-        categoryRepository.create(category);
     }
 
     List<Category> getAll() {

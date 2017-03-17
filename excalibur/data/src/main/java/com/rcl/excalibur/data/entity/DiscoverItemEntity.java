@@ -53,7 +53,6 @@ public class DiscoverItemEntity extends Model {
         super();
     }
 
-
     public String getDiscoverItemId() {
         return discoverItemId;
     }
@@ -151,4 +150,3 @@ public class DiscoverItemEntity extends Model {
     }
 
 }
-
