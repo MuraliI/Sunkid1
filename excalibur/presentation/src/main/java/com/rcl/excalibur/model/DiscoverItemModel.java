@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 public class DiscoverItemModel {
-    public static final String TYPE_DINING = "Dining";
-    public static final String TYPE_SHOREX = "Shorex";
-
     private String discoverId;
     private String imageUrl;
     private String category;
@@ -20,13 +17,16 @@ public class DiscoverItemModel {
     private boolean reservationRequired;
     private String promotionTitle;
     private String promotionDescription;
-    private List<String> discoverItemTimes;
+    private String lunchTime;
+    private String lunchMenu;
+    private String dinnerTime;
+    private String dinnerMenu;
     private Map<String, String> properties;
     private String[] priceRange;
     private String description;
-    private String accessibility;
+    private String[] accessibility;
     private String legal;
-    private String standarTimesTitle;
+    private String standardTimesTitle;
     private List<String[]> standardTimesDaysAndTimes;
 
     public String getType() {
@@ -110,12 +110,36 @@ public class DiscoverItemModel {
         this.promotionDescription = promotionDescription;
     }
 
-    public List<String> getDiscoverItemTimes() {
-        return discoverItemTimes;
+    public String getLunchTime() {
+        return lunchTime;
     }
 
-    public void setDiscoverItemTimes(List<String> discoverItemTimes) {
-        this.discoverItemTimes = discoverItemTimes;
+    public void setLunchTime(String lunchTime) {
+        this.lunchTime = lunchTime;
+    }
+
+    public String getLunchMenu() {
+        return lunchMenu;
+    }
+
+    public void setLunchMenu(String lunchMenu) {
+        this.lunchMenu = lunchMenu;
+    }
+
+    public String getDinnerTime() {
+        return dinnerTime;
+    }
+
+    public void setDinnerTime(String dinnerTime) {
+        this.dinnerTime = dinnerTime;
+    }
+
+    public String getDinnerMenu() {
+        return dinnerMenu;
+    }
+
+    public void setDinnerMenu(String dinnerMenu) {
+        this.dinnerMenu = dinnerMenu;
     }
 
     public String[] getPriceRange() {
@@ -126,11 +150,11 @@ public class DiscoverItemModel {
         this.priceRange = priceRange;
     }
 
-    public String getAccessibility() {
+    public String[] getAccessibility() {
         return accessibility;
     }
 
-    public void setAccessibility(String accessibility) {
+    public void setAccessibility(String[] accessibility) {
         this.accessibility = accessibility;
     }
 
@@ -166,12 +190,12 @@ public class DiscoverItemModel {
         this.properties = properties;
     }
 
-    public String getStandarTimesTitle() {
-        return standarTimesTitle;
+    public String getStandardTimesTitle() {
+        return standardTimesTitle;
     }
 
-    public void setStandarTimesTitle(String standarTimesTitle) {
-        this.standarTimesTitle = standarTimesTitle;
+    public void setStandardTimesTitle(String standardTimesTitle) {
+        this.standardTimesTitle = standardTimesTitle;
     }
 
     public List<String[]> getStandardTimesDaysAndTimes() {

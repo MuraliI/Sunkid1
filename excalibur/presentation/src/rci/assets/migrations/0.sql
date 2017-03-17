@@ -6,6 +6,5 @@ INSERT INTO discover_item (discover_item_id, type, category, title, image_url, h
 INSERT INTO discover_item (discover_item_id, type, category, title, image_url, hours, promotion_text) VALUES ("3","Spa","Family","Hot Stone Massage","http://i.imgur.com/3thlkWY.png","10am -12pm","Promotion Text");
 INSERT INTO discover_item (discover_item_id, type, category, title, image_url, hours, promotion_text) VALUES ("4","Dining","Family","Sam´s BBQ Wild House","https://s23.postimg.org/ijc65h1gb/img_sams_bbq_wild_house.png","12pm -3pm, 5pm - 10 pm","Promotion Text");
 INSERT INTO discover_item (discover_item_id, type, category, title, image_url, hours, promotion_text) VALUES ("5","Shopping","Family","Tiffany`s Jewelry","https://s28.postimg.org/6m9r3wrn1/img_tiffanys_jewelry.png","10am -12pm, 3pm - 8pm","Promotion Text");
-INSERT INTO discover_item (discover_item_id, type, category, title, image_url, hours, promotion_text) VALUES ("6","Activities","Family","Library","https://s27.postimg.org/xbuwiaojn/img_library.png","10am -12pm, 3pm - 8pm","Promotion Text");
 INSERT INTO discover_item (discover_item_id, type, category, title, image_url, hours, promotion_text) VALUES ("7","Activities","Sport","Pool Volleyball","https://s10.postimg.org/42dai3d1l/img_pool_voleball.png","10am - 11 am","Promotion Text");
 

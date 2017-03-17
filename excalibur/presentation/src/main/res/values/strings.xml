@@ -25,6 +25,7 @@
     <string name="discover_item_detail_dinner_title">Dinner</string>
     <string name="discover_item_detail_see_menu">See menu</string>
     <string name="discover_item_detail_description_expanded_text">See less</string>
+    <string name="discover_item_detail_price_range">$%1$s&#8210;$%2$s</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>

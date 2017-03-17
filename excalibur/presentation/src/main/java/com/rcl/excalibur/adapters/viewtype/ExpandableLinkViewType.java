@@ -7,19 +7,29 @@ import com.rcl.excalibur.adapters.base.RecyclerViewType;
 public class ExpandableLinkViewType implements RecyclerViewType {
 
     private String title;
-    private String content;
+    private String[] content;
+    private boolean contentWithCheckMark;
 
-    public ExpandableLinkViewType(String title, String content) {
+    public ExpandableLinkViewType(String title, String[] content, boolean contentWithCheckMark) {
         this.title = title;
         this.content = content;
+        this.contentWithCheckMark = contentWithCheckMark;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getContent() {
+    public String[] getContent() {
         return content;
+    }
+
+    public boolean isContentWithCheckMark() {
+        return contentWithCheckMark;
+    }
+
+    public void setContentWithCheckMark(boolean contentWithCheckMark) {
+        this.contentWithCheckMark = contentWithCheckMark;
     }
 
     @Override
