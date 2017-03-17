@@ -34,6 +34,8 @@ ext {
     designSupportLibraryVersion = "25.1.1"
     realTimeBlurLibVersion = "1.1.0"
     appcompatVersion = "25.1.1"
+    retrofit2Version = "2.1.0"
+    convertergsonVersion = "2.1.0"
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -64,7 +66,8 @@ ext {
             calligraphy     : "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
             supportDesign   : "com.android.support:design:${designSupportLibraryVersion}",
             realTimeBlurView: "com.github.mmin18:realtimeblurview:${realTimeBlurLibVersion}",
-            appcompat:          "com.android.support:appcompat-v7:${appcompatVersion}"
+            appcompat       : "com.android.support:appcompat-v7:${appcompatVersion}",
+
     ]
 
     presentationTestDependencies = [
@@ -102,7 +105,9 @@ ext {
             javaxAnnotation   : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject       : "javax.inject:javax.inject:${javaxInjectVersion}",
             androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
-            activeAndroid     : "com.michaelpardo:activeandroid:${activeAndroidVersion}"
+            activeAndroid     : "com.michaelpardo:activeandroid:${activeAndroidVersion}",
+            retrofit2         : "com.squareup.retrofit2:retrofit:${retrofit2Version}",
+            convertergson     : "com.squareup.retrofit2:converter-gson:${convertergsonVersion}"
     ]
 
     dataTestDependencies = [
