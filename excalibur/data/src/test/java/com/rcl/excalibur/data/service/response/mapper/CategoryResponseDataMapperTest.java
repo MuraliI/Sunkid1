@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 public class CategoryResponseDataMapperTest {
 
@@ -39,26 +41,26 @@ public class CategoryResponseDataMapperTest {
     public void transform() throws Exception {
         Category category = categotyServiceDataMapper.transform(entity1);
         assertNotNull(category);
-        assertEquals(entity1.getCategoryid(),category.getCategoryId());
-        assertEquals(entity1.getCategoryDescription(),category.getDescription());
-        assertEquals(entity1.getProductTags(),category.getTags());
+        assertEquals(entity1.getCategoryid(), category.getCategoryId());
+        assertEquals(entity1.getCategoryDescription(), category.getDescription());
+        assertEquals(entity1.getProductTags(), category.getTags());
     }
+
     @Test
     public void transformToList() throws Exception {
         final List<CategoryResponse> entities = new ArrayList();
         entities.add(entity1);
         entities.add(entity2);
 
-        List<com.rcl.excalibur.domain.Category> categoryList = categotyServiceDataMapper.transform(entities);
+        List<Category> categoryList = categotyServiceDataMapper.transform(entities);
         assertNotNull(categoryList);
         assertFalse(categoryList.isEmpty());
         assertEquals(entities.size(), categoryList.size());
 
         for (int i = 0; i < categoryList.size(); i++) {
-            assertEquals(entities.get(i).getCategoryid(),categoryList.get(i).getCategoryId());
-            assertEquals(entities.get(i).getCategoryDescription(),categoryList.get(i).getDescription());
-            assertEquals(entities.get(i).getProductTags(),categoryList.get(i).getTags());
-
+            assertEquals(entities.get(i).getCategoryid(), categoryList.get(i).getCategoryId());
+            assertEquals(entities.get(i).getCategoryDescription(), categoryList.get(i).getDescription());
+            assertEquals(entities.get(i).getProductTags(), categoryList.get(i).getTags());
         }
     }
 

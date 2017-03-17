@@ -17,7 +17,7 @@ public class CategoryResponseDataMapper extends BaseResponseDataMapper<Category,
 
     @Override
     public Category transform(CategoryResponse entity) {
-            Category category = null;
+        Category category = null;
         if (entity != null) {
             category = new Category();
             category.setCategoryId(entity.getCategoryid());

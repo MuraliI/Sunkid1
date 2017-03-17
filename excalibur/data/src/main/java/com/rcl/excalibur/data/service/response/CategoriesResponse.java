@@ -1,4 +1,3 @@
-
 package com.rcl.excalibur.data.service.response;
 
 import com.google.gson.annotations.SerializedName;
