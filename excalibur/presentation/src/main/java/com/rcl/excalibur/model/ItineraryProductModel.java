@@ -1,6 +1,6 @@
 package com.rcl.excalibur.model;
 
-public class ProductModel {
+public class ItineraryProductModel {
     public static final String LOCATION_POINTER_FWD = "Forward";
     public static final String LOCATION_POINTER_AFT = "After";
     public static final String LOCATION_POINTER_MID = "Middle";
