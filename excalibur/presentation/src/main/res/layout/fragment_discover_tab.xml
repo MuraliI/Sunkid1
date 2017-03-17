@@ -8,14 +8,25 @@
         android:id="@+id/home_boat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/card_view"
+        android:layout_above="@+id/textview_title"
         android:layout_below="@+id/home_header"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_large"
         android:src="@drawable/boat" />
 
+    <TextView
+        android:id="@+id/textview_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_bar"
+        android:layout_centerHorizontal="true"
+        android:text="Discover"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
     <GridLayout
-        android:id="@+id/recycler_view"
+        android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
