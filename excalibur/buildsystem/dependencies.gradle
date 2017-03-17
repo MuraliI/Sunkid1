@@ -34,8 +34,7 @@ ext {
     designSupportLibraryVersion = "25.1.1"
     realTimeBlurLibVersion = "1.1.0"
     appcompatVersion = "25.1.1"
-    retrofitVersion = "2.1.0"
-    retrofitGsonVersion = "2.1.0"
+(??)
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -66,7 +65,8 @@ ext {
             calligraphy     : "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
             supportDesign   : "com.android.support:design:${designSupportLibraryVersion}",
             realTimeBlurView: "com.github.mmin18:realtimeblurview:${realTimeBlurLibVersion}",
-            appcompat:          "com.android.support:appcompat-v7:${appcompatVersion}"
+            appcompat       : "com.android.support:appcompat-v7:${appcompatVersion}"
+
     ]
 
     presentationTestDependencies = [
