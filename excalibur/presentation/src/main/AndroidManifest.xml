@@ -44,7 +44,13 @@
         <meta-data
             android:name="AA_MODELS"
             android:value="com.rcl.excalibur.data.entity.ItemEntity,
-            com.rcl.excalibur.data.entity.DiscoverItemEntity" />
+            com.rcl.excalibur.data.entity.DiscoverItemEntity,
+            com.rcl.excalibur.data.entity.AccessibilityEntity,
+            com.rcl.excalibur.data.entity.StandardTimeEntity,
+            com.rcl.excalibur.data.entity.TimeEntity,
+            com.rcl.excalibur.data.entity.PriceEntity,
+            com.rcl.excalibur.data.entity.PropertyEntity" />
+
     </application>
 
 </manifest>

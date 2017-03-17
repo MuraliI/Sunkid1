@@ -12,6 +12,8 @@ import java.util.List;
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
 public class HomePresenter implements BasePresenter {
+
+
     private HomeView view;
 
     public HomePresenter(HomeView view) {
@@ -44,5 +46,4 @@ public class HomePresenter implements BasePresenter {
             startActivity(activity, PlanListActivity.getStartIntent(activity));
         }
     }
-
 }
