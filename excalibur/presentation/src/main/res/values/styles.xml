@@ -74,7 +74,8 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/font_detail_description_dark_blue</item>
         <item name="fontPath">@string/roboto_regular</item>
-        <item name="android:layout_marginTop">@dimen/detail_discover_item_description_margin_top</item>
+        <item name="android:layout_marginTop">@dimen/detail_discover_item_description_margin_top
+        </item>
     </style>
 
     <style name="AppTheme.DiscoverItemModuleLinkTextView">
@@ -173,21 +174,21 @@
     </style>
 
     <style name="AppTheme.ProductTitle" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_regular</item>
+        <item name="fontPath">@string/roboto_bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/discover_black</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="AppTheme.ProductDate" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/roboto_medium</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/discover_grey</item>
+        <item name="android:textColor">@color/discover_black</item>
     </style>
 
     <style name="AppTheme.ProductVenue" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/roboto_medium</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/discover_grey</item>
+        <item name="android:textColor">@color/discover_black</item>
     </style>
 
 </resources>
