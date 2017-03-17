@@ -1,12 +1,15 @@
 package com.rcl.excalibur.data.service.response;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 
 public class CategoryResponse {
 
     private String categoryDescription;
-    private long categoryid;
+    @SerializedName("categoryid")
+    private long categoryId;
     private List<String> productTags;
 
     public CategoryResponse() {
@@ -28,11 +31,11 @@ public class CategoryResponse {
         this.productTags = productTags;
     }
 
-    public long getCategoryid() {
-        return categoryid;
+    public long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryid(long categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 }

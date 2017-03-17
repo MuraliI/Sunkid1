@@ -5,18 +5,25 @@ import android.util.Log;
 
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
-import com.rcl.excalibur.domain.repository.DiscoverService;
+import com.rcl.excalibur.domain.service.DiscoverService;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@Singleton
 public class DiscoverServiceImpl implements DiscoverService {
+    @Inject
+    public DiscoverServiceImpl() {
+    }
 
     @Override
     public void getCategories() {
 
-        Call<CategoriesResponse> call = ServiceUtil.getDiscoveryApi().getCategories();
+        Call<CategoriesResponse> call = ServiceUtil.getDiscoverApi().getCategories();
 
         call.enqueue(new Callback<CategoriesResponse>() {
             @Override
