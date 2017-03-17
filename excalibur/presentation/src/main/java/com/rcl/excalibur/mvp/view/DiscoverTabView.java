@@ -4,10 +4,6 @@ import android.app.Activity;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
 import butterknife.ButterKnife;
 
-/**
- * Created by asielgil on 3/17/17.
- */
-
 public class DiscoverTabView extends FragmentView<DiscoverTabFragment> {
 
     public DiscoverTabView(DiscoverTabFragment fragment) {

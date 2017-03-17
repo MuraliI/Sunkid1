@@ -3,10 +3,6 @@ package com.rcl.excalibur.mvp.presenter;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
 
-/**
- * Created by asielgil on 3/17/17.
- */
-
 public class DiscoverTabPresenter implements BasePresenter {
 
     private DiscoverTabView view;
