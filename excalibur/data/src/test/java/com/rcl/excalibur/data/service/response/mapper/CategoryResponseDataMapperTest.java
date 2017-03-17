@@ -1,6 +1,7 @@
 package com.rcl.excalibur.data.service.response.mapper;
 
 import com.rcl.excalibur.data.service.response.CategoryResponse;
+import com.rcl.excalibur.domain.Category;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +37,7 @@ public class CategoryResponseDataMapperTest {
 
     @Test
     public void transform() throws Exception {
-        com.rcl.excalibur.domain.Category category = categotyServiceDataMapper.transform(entity1);
+        Category category = categotyServiceDataMapper.transform(entity1);
         assertNotNull(category);
         assertEquals(entity1.getCategoryid(),category.getCategoryId());
         assertEquals(entity1.getCategoryDescription(),category.getDescription());
@@ -54,7 +55,6 @@ public class CategoryResponseDataMapperTest {
         assertEquals(entities.size(), categoryList.size());
 
         for (int i = 0; i < categoryList.size(); i++) {
-
             assertEquals(entities.get(i).getCategoryid(),categoryList.get(i).getCategoryId());
             assertEquals(entities.get(i).getCategoryDescription(),categoryList.get(i).getDescription());
             assertEquals(entities.get(i).getProductTags(),categoryList.get(i).getTags());

@@ -13,11 +13,10 @@ import retrofit2.Response;
 
 public class DiscoverServiceImpl implements DiscoverService {
 
-
+    @Override
     public void getCategories() {
 
-        Call<CategoriesResponse> call =
-                ServiceUtil.getDiscoveryApi().getCategories();
+        Call<CategoriesResponse> call = ServiceUtil.getDiscoveryApi().getCategories();
 
         call.enqueue(new Callback<CategoriesResponse>() {
             @Override
@@ -33,8 +32,4 @@ public class DiscoverServiceImpl implements DiscoverService {
         });
     }
 
-    @Override
-    public void getCategoriesResponse() {
-
-    }
 }
