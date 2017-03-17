@@ -20,6 +20,9 @@ android {
         testApplicationId globalConfiguration.getAt("testApplicationId")
         renderscriptTargetApi globalConfiguration.getAt("renderScriptTargetApiVersion")
         renderscriptSupportModeEnabled globalConfiguration.getAt("rederScriptEnabledFlag")
+
+        buildConfigField "String", "PREFIX_IMAGE", "\"media.royalcaribbean.com\""
+
     }
 
     compileOptions {

@@ -23,7 +23,6 @@ public class DiscoverItemDetailActivity extends BaseActivity {
         return intent;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

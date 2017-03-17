@@ -2,14 +2,14 @@ package com.rcl.excalibur.internal.di.component;
 
 import android.content.Context;
 
-import com.rcl.excalibur.domain.executor.PostExecutionThread;
-import com.rcl.excalibur.domain.executor.ThreadExecutor;
-import com.rcl.excalibur.domain.repository.DiscoverRepository;
-import com.rcl.excalibur.domain.repository.ItemRepository;
+import com.rcl.excalibur.domain.repository.CategoryRepository;
+import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
+import com.rcl.excalibur.domain.service.DiscoverService;
 import com.rcl.excalibur.internal.di.module.ApplicationModule;
-import com.rcl.excalibur.mvp.presenter.DiscoverPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
-import com.rcl.excalibur.mvp.presenter.LoadFromDBPresenter;
+import com.rcl.excalibur.mvp.presenter.DiscoverItemDetailPresenter;
+import com.rcl.excalibur.mvp.presenter.DiscoverItemListPresenter;
+import com.rcl.excalibur.mvp.presenter.HomePresenter;
 
 import javax.inject.Singleton;
 
@@ -21,20 +21,20 @@ import dagger.Component;
 @Singleton // Constraints this component to one-per-application or unscoped bindings.
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
-    void inject(LoadFromDBPresenter presenter);
+    void inject(DiscoverItemListPresenter presenter);
 
-    void inject(DiscoverPresenter presenter);
+    void inject(DiscoverItemDetailPresenter presenter);
+
+    void inject(HomePresenter presenter);
 
     void inject(DiscoverTabPresenter presenter);
 
     //Exposed to sub-graphs.
     Context context();
 
-    ThreadExecutor threadExecutor();
+    DiscoverItemRepository discoverItemRepository();
 
-    PostExecutionThread postExecutionThread();
+    CategoryRepository categoryRepository();
 
-    ItemRepository itemRepository();
-
-    DiscoverRepository discoverRepository();
+    DiscoverService discoverService();
 }
