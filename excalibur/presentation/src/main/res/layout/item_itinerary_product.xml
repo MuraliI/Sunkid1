@@ -11,33 +11,33 @@
         android:paddingLeft="@dimen/margin_large">
 
         <ImageView
-            android:id="@+id/card_image"
+            android:id="@+id/image_product"
             android:layout_width="@dimen/item_product_width_image"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/card_name"
+            android:id="@+id/text_name"
             style="@style/AppTheme.ProductTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin_large" />
 
         <TextView
-            android:id="@+id/card_date"
+            android:id="@+id/text_date"
             style="@style/AppTheme.ProductDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/card_name"
+            android:layout_below="@+id/image_product"
             android:paddingTop="@dimen/item_product_margin_min" />
 
         <TextView
-            android:id="@+id/card_venue"
+            android:id="@+id/text_venue"
             style="@style/AppTheme.ProductVenue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/card_date" />
+            android:layout_below="@+id/text_date" />
 
     </RelativeLayout>
 
