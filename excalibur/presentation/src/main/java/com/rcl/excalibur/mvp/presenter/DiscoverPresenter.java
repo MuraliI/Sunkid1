@@ -11,6 +11,9 @@ import com.rcl.excalibur.fragments.DiscoverFragment;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverView;
+import com.rcl.excalibur.utils.analytics.AnalyticEvent;
+import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -39,6 +42,9 @@ public class DiscoverPresenter implements BasePresenter {
         if (activity == null) {
             return;
         }
+
+        AnalyticsUtils.trackState(AnalyticsConstants.KEY_DISCOVER);
+
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
         final String type = getType(activity, this.type);
@@ -46,22 +52,34 @@ public class DiscoverPresenter implements BasePresenter {
     }
 
     protected String getType(final BaseActivity activity, int type) {
+        AnalyticEvent analyticEvent = new AnalyticEvent(AnalyticsConstants.KEY_FILTER_DISCOVER);
+
+        String categorySelected;
         switch (type) {
             case DiscoverFragment.ROYAL_ACTIVITY:
-                return activity.getString(R.string.category_royal_activity);
+                categorySelected = activity.getString(R.string.category_royal_activity);
+                break;
             case DiscoverFragment.DINING:
-                return activity.getString(R.string.category_dining);
+                categorySelected = activity.getString(R.string.category_dining);
+                break;
             case DiscoverFragment.SHOPPING:
-                return activity.getString(R.string.category_shopping);
+                categorySelected = activity.getString(R.string.category_shopping);
+                break;
             case DiscoverFragment.SPA:
-                return activity.getString(R.string.category_spa);
+                categorySelected = activity.getString(R.string.category_spa);
+                break;
             case DiscoverFragment.SHOREX:
-                return activity.getString(R.string.category_shorex);
+                categorySelected = activity.getString(R.string.category_shorex);
+                break;
             case DiscoverFragment.ENTERTAINMENT:
-                return activity.getString(R.string.category_entertainment);
+                categorySelected = activity.getString(R.string.category_entertainment);
+                break;
             default:
-                return activity.getString(R.string.category_royal_activity);
+                categorySelected = activity.getString(R.string.category_royal_activity);
         }
+
+        AnalyticsUtils.trackEvent(analyticEvent.addKeyValue(AnalyticsConstants.KEY_FILTER_CATEGORY, categorySelected));
+        return categorySelected;
     }
 
     private void initInjection() {

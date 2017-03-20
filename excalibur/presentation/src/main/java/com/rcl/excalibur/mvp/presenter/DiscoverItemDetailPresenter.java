@@ -19,6 +19,7 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
     public DiscoverItemDetailPresenter(DiscoverItemDetailView view, String discoverItemId) {
         this.view = view;
         itemModel = DetailModelProvider.discoverItemMap.get(discoverItemId); //TODO query database
+
         DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
         if (itemModel != null) {
             if (TYPE_SHOPPING.equals(itemModel.getType())) {

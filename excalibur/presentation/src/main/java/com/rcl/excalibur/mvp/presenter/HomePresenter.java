@@ -5,6 +5,8 @@ import com.rcl.excalibur.activity.HomeActivity;
 import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.HomeView;
+import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,7 @@ public class HomePresenter implements BasePresenter {
             }
 
             startActivity(activity, PlanListActivity.getStartIntent(activity));
+            AnalyticsUtils.trackState(AnalyticsConstants.KEY_HOME);
         }
     }
 

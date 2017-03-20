@@ -1,6 +1,8 @@
 package com.rcl.excalibur.model;
 
 
+import com.rcl.excalibur.utils.analytics.AnalyticEvent;
+
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +30,7 @@ public class DiscoverItemModel {
     private String legal;
     private String standardTimesTitle;
     private List<String[]> standardTimesDaysAndTimes;
+    private AnalyticEvent eventBuilder;
 
     public String getType() {
         return type;
@@ -204,5 +207,13 @@ public class DiscoverItemModel {
 
     public void setStandardTimesDaysAndTimes(List<String[]> standardTimesDaysAndTimes) {
         this.standardTimesDaysAndTimes = standardTimesDaysAndTimes;
+    }
+
+    public AnalyticEvent getEventBuilder() {
+        return eventBuilder;
+    }
+
+    public void setEventBuilder(AnalyticEvent eventBuilder) {
+        this.eventBuilder = eventBuilder;
     }
 }
