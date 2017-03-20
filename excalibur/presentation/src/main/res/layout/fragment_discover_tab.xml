@@ -21,9 +21,7 @@
         android:layout_above="@+id/bottom_bar"
         android:layout_centerHorizontal="true"
         android:text="Discover"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        style="@style/AppTheme.DiscoverPageTitle" />
 
     <GridLayout
         android:id="@+id/bottom_bar"
@@ -34,7 +32,7 @@
         android:columnCount="4"
         android:rowCount="2">
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/btn_dinning"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -46,13 +44,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Dinning"
                 android:textSize="12sp" />
 
-        </RelativeLayout>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/btn_excursions"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -64,13 +63,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Excursions"
                 android:textSize="12sp" />
 
-        </RelativeLayout>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/btn_spa"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -82,13 +82,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Spa"
                 android:textSize="12sp" />
 
-        </RelativeLayout>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/btn_shop"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -100,13 +101,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:text="Shop"
                 android:textSize="12sp" />
 
-        </RelativeLayout>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/btn_entertainment"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -118,13 +119,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Entertainment"
                 android:textSize="12sp" />
 
-        </RelativeLayout>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/btn_activities"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -136,13 +138,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Activities"
                 android:textSize="12sp" />
 
-        </RelativeLayout>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/btn_services"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -154,13 +157,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Services"
                 android:textSize="12sp" />
 
-        </RelativeLayout>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/btn_search"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -174,12 +178,13 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Search"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
-        </RelativeLayout>
+        </FrameLayout>
 
     </GridLayout>
 
