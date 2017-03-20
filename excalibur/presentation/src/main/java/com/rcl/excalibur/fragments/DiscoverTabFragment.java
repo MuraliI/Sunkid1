@@ -38,42 +38,42 @@ public class DiscoverTabFragment extends Fragment {
         return view;
     }
 
-    @OnClick(R.id.btn_dinning)
+    @OnClick(R.id.button_dinning)
     public void dinningOnClick() {
         Toast.makeText(getActivity(), "Dinning Click", Toast.LENGTH_LONG).show();
     }
 
-    @OnClick(R.id.btn_excursions)
+    @OnClick(R.id.button_excursions)
     public void excursionsOnClick() {
         Toast.makeText(getActivity(), "Excursions Click", Toast.LENGTH_LONG).show();
     }
 
-    @OnClick(R.id.btn_spa)
+    @OnClick(R.id.button_spa)
     public void spaOnClick() {
         Toast.makeText(getActivity(), "Spa Click", Toast.LENGTH_LONG).show();
     }
 
-    @OnClick(R.id.btn_shop)
+    @OnClick(R.id.button_shop)
     public void shopOnClick() {
         Toast.makeText(getActivity(), "Shop Click", Toast.LENGTH_LONG).show();
     }
 
-    @OnClick(R.id.btn_entertainment)
+    @OnClick(R.id.button_entertainment)
     public void entertainmentOnClick() {
         Toast.makeText(getActivity(), "Entertainment Click", Toast.LENGTH_LONG).show();
     }
 
-    @OnClick(R.id.btn_activities)
+    @OnClick(R.id.button_activities)
     public void activitiesOnClick() {
         Toast.makeText(getActivity(), "Activities Click", Toast.LENGTH_LONG).show();
     }
 
-    @OnClick(R.id.btn_services)
+    @OnClick(R.id.button_services)
     public void servicesOnClick() {
         Toast.makeText(getActivity(), "Services Click", Toast.LENGTH_LONG).show();
     }
 
-    @OnClick(R.id.btn_search)
+    @OnClick(R.id.button_search)
     public void searchOnClick() {
         Toast.makeText(getActivity(), "Search Click", Toast.LENGTH_LONG).show();
     }
