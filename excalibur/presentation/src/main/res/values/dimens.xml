@@ -63,5 +63,8 @@
     <dimen name="ic_drop_down_arrow_blue_size">16dp</dimen>
     <dimen name="price_range_dolar_margin_end">1dp</dimen>
     <dimen name="prices_from_margin">40dp</dimen>
+    <dimen name="menu_button_height">60dp</dimen>
+    <dimen name="menu_button_width">0dp</dimen>
+
 
 </resources>
