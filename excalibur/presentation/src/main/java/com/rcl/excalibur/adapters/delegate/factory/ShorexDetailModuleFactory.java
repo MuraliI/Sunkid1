@@ -17,11 +17,9 @@ import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.PromotionViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
-import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_DESCRIPTION;
 import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK;
@@ -49,38 +47,22 @@ class ShorexDetailModuleFactory extends DetailModuleFactory {
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
-
-        //Promotion text
         types.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionDescription()));
-
-        //Standard times
         types.add(new StandardTimesViewType(itemModel.getStandardTimesTitle(), itemModel.getStandardTimesDaysAndTimes()));
-
-        //Prices from
         types.add(new PricesFromViewType(
                 itemModel.getPriceRange()[POSITION_PRICE_ADULTS],
                 itemModel.getPriceRange()[POSITION_PRICE_CHILDREN]));
-
-        // Title and description modules
-        if (itemModel.getProperties() != null && itemModel.getProperties().size() > 0) {
-            Map<String, String> properties = itemModel.getProperties();
-            for (Map.Entry<String, String> entry : properties.entrySet()) {
-                types.add(new TitleAndDescriptionViewType(entry.getKey(), entry.getValue()));
-            }
-        }
-
-        // Description module
+        addTitleAndDescriptionTypes(types);
         types.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
 
-        //Accessibility
         types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_accessibility),
-                itemModel.getAccessibility()));
-
-        //Legal
+                itemModel.getAccessibility(),
+                true));
         types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_legal),
-                itemModel.getLegal()));
+                new String[]{itemModel.getLegal()},
+                false));
         return types;
     }
 }

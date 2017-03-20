@@ -14,6 +14,7 @@ public class DiscoverItemModel {
     private String hours;
     private String promotionText;
     private String type;
+    private String subTitle;
     //FIXME this are temporary attributes. Will be fixed when we start querying the database
     private String subtitle;
     private boolean reservationRequired;
@@ -26,19 +27,12 @@ public class DiscoverItemModel {
     private Map<String, String> properties;
     private String[] priceRange;
     private String description;
-    private String accessibility;
+    private String[] accessibility;
     private String legal;
     private String standardTimesTitle;
     private List<String[]> standardTimesDaysAndTimes;
     private AnalyticEvent eventBuilder;
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getDiscoverId() {
         return discoverId;
@@ -64,6 +58,14 @@ public class DiscoverItemModel {
         this.category = category;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -80,12 +82,12 @@ public class DiscoverItemModel {
         this.hours = hours;
     }
 
-    public String getPromotionText() {
-        return promotionText;
+    public String getSubTitle() {
+        return subTitle;
     }
 
-    public void setPromotionText(String promotionText) {
-        this.promotionText = promotionText;
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
     }
 
     public String getSubtitle() {
@@ -153,11 +155,11 @@ public class DiscoverItemModel {
         this.priceRange = priceRange;
     }
 
-    public String getAccessibility() {
+    public String[] getAccessibility() {
         return accessibility;
     }
 
-    public void setAccessibility(String accessibility) {
+    public void setAccessibility(String[] accessibility) {
         this.accessibility = accessibility;
     }
 

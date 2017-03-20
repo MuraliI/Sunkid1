@@ -14,6 +14,8 @@ import java.util.List;
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
 public class HomePresenter implements BasePresenter {
+
+
     private HomeView view;
 
     public HomePresenter(HomeView view) {
@@ -47,5 +49,4 @@ public class HomePresenter implements BasePresenter {
             AnalyticsUtils.trackState(AnalyticsConstants.KEY_HOME);
         }
     }
-
 }
