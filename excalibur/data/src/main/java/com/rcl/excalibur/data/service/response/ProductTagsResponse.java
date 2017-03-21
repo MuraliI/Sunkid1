@@ -3,7 +3,6 @@ package com.rcl.excalibur.data.service.response;
 import com.google.gson.annotations.SerializedName;
 
 
-
 public class ProductTagsResponse {
     @SerializedName("tagID")
     private String tagId;

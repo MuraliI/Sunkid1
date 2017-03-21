@@ -1,21 +1,21 @@
 package com.rcl.excalibur.domain;
 
 
-
 public class ProductAdvisement {
-    private String advisementID;
+
+    private String advisementId;
     private String advisementName;
     private String advisementType;
     private String advisementTitle;
     private String advisementDescription;
     private Media advisementMedia;
 
-    public String getAdvisementID() {
-        return advisementID;
+    public String getAdvisementId() {
+        return advisementId;
     }
 
-    public void setAdvisementID(String advisementID) {
-        this.advisementID = advisementID;
+    public void setAdvisementId(String advisementId) {
+        this.advisementId = advisementId;
     }
 
     public String getAdvisementName() {

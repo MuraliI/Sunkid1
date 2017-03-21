@@ -1,21 +1,22 @@
 package com.rcl.excalibur.data.service.response;
 
 
+import com.google.gson.annotations.SerializedName;
 
 public class ProductPreferenceResponse {
-
-    private String preferenceID;
+    @SerializedName("preferenceID")
+    private String preferenceId;
     private String preferenceName;
     private boolean mandatoryPreferenceFlag;
     private String preferenceType;
     private ProductPreferenceValueResponse preferenceValue;
 
-    public String getPreferenceID() {
-        return preferenceID;
+    public String getPreferenceId() {
+        return preferenceId;
     }
 
-    public void setPreferenceID(String preferenceID) {
-        this.preferenceID = preferenceID;
+    public void setPreferenceId(String preferenceID) {
+        this.preferenceId = preferenceId;
     }
 
     public String getPreferenceName() {

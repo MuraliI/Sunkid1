@@ -2,9 +2,6 @@ package com.rcl.excalibur.data.service.response;
 
 import java.util.List;
 
-/**
- * Created by norberto.lopez on 3/20/2017.
- */
 
 public class GetEntertaimentsResponse {
 

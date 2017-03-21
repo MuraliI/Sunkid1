@@ -1,7 +1,6 @@
 package com.rcl.excalibur.data.service.response;
 
 
-
 public class MediaItemResponse {
     private String mediaType;
     private String mediaRefLink;

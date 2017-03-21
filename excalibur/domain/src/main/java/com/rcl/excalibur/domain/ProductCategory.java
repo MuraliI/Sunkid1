@@ -3,18 +3,17 @@ package com.rcl.excalibur.domain;
 import java.util.List;
 
 
-
 public class ProductCategory {
-    private String categoryid;
+    private String categoryId;
     private String categoryDescription;
     private List<ProductTags> productTags;
 
-    public String getCategoryid() {
-        return categoryid;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryid(String categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategoryDescription() {

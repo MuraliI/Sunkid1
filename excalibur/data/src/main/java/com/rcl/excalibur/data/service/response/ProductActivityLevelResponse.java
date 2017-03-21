@@ -1,18 +1,21 @@
 package com.rcl.excalibur.data.service.response;
 
 
+import com.google.gson.annotations.SerializedName;
+
 public class ProductActivityLevelResponse {
-    private String activityLevelID;
+    @SerializedName("activityLevelID")
+    private String activityLevelId;
     private String activityLevelTitle;
     private String activityLevelDescription;
     private MediaResponse activityLevelMedia;
 
-    public String getActivityLevelID() {
-        return activityLevelID;
+    public String getActivityLevelId() {
+        return activityLevelId;
     }
 
-    public void setActivityLevelID(String activityLevelID) {
-        this.activityLevelID = activityLevelID;
+    public void setActivityLevelId(String activityLevelId) {
+        this.activityLevelId = activityLevelId;
     }
 
     public String getActivityLevelTitle() {

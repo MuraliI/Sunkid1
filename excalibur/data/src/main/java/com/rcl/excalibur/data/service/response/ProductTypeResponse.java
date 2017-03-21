@@ -1,19 +1,20 @@
 package com.rcl.excalibur.data.service.response;
 
 
+import com.google.gson.annotations.SerializedName;
 
 public class ProductTypeResponse {
-
-    private String productTypeID;
+    @SerializedName("preferenceID")
+    private String productTypeId;
     private String productTypeName;
     private String productType;
 
-    public String getProductTypeID() {
-        return productTypeID;
+    public String getProductTypeId() {
+        return productTypeId;
     }
 
-    public void setProductTypeID(String productTypeID) {
-        this.productTypeID = productTypeID;
+    public void setProductTypeId(String productTypeId) {
+        this.productTypeId = productTypeId;
     }
 
     public String getProductTypeName() {

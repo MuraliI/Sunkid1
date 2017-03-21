@@ -1,7 +1,6 @@
 package com.rcl.excalibur.domain;
 
 
-
 public class ProductPreference {
 
     private String preferenceID;

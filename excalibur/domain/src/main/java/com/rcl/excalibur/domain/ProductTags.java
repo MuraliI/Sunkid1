@@ -1,8 +1,6 @@
 package com.rcl.excalibur.domain;
 
 
-
-
 public class ProductTags {
 
     private String tagId;

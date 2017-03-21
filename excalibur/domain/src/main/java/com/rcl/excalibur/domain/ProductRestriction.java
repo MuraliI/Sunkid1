@@ -4,7 +4,6 @@ package com.rcl.excalibur.domain;
 import java.util.List;
 
 
-
 public class ProductRestriction {
 
     private String restrictionId;

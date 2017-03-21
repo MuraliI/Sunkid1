@@ -1,20 +1,22 @@
 package com.rcl.excalibur.data.service.response;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 
-
 public class ProductCategoryResponse {
-    private String categoryid;
+    @SerializedName("categoryid")
+    private String categoryId;
     private String categoryDescription;
     private List<ProductTagsResponse> productTags;
 
-    public String getCategoryid() {
-        return categoryid;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryid(String categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategoryDescription() {

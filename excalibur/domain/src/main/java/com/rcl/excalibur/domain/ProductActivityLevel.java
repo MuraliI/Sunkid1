@@ -1,19 +1,19 @@
 package com.rcl.excalibur.domain;
 
 
-
 public class ProductActivityLevel {
-    private String activityLevelID;
+
+    private String activityLevelId;
     private String activityLevelTitle;
     private String activityLevelDescription;
     private Media activityLevelMedia;
 
-    public String getActivityLevelID() {
-        return activityLevelID;
+    public String getActivityLevelId() {
+        return activityLevelId;
     }
 
-    public void setActivityLevelID(String activityLevelID) {
-        this.activityLevelID = activityLevelID;
+    public void setActivityLevelId(String activityLevelId) {
+        this.activityLevelId = activityLevelId;
     }
 
     public String getActivityLevelTitle() {

@@ -1,7 +1,6 @@
 package com.rcl.excalibur.domain;
 
 
-
 public class ProductType {
 
     private String productTypeID;

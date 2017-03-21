@@ -1,6 +1,7 @@
 package com.rcl.excalibur.domain.interactor;
 
 
+import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.service.DiscoverService;
 
 import java.util.List;

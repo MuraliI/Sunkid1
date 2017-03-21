@@ -1,8 +1,6 @@
 package com.rcl.excalibur.domain;
 
 
-
-
 public class ProductLocation {
 
     private String locationId;

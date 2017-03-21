@@ -1,7 +1,6 @@
 package com.rcl.excalibur.domain;
 
 
-
 public class MediaItem {
     private String mediaType;
     private String mediaRefLink;

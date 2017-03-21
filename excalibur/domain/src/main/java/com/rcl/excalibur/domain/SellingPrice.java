@@ -1,7 +1,6 @@
 package com.rcl.excalibur.domain;
 
 
-
 public class SellingPrice {
     private String currency;
     private float adultPrice;

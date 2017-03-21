@@ -1,7 +1,6 @@
 package com.rcl.excalibur.data.service.response;
 
 
-
 public class SellingPriceResponse {
     private String currency;
     private float adultPrice;

@@ -1,7 +1,6 @@
 package com.rcl.excalibur.data.service.response;
 
 
-
 public class ProductRestrictionAnswerResponse {
 
     private String restrictionAnswerDisplayText;
