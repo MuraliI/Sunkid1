@@ -12,6 +12,7 @@
     <dimen name="no_size">0dp</dimen>
     <dimen name="margin_large">20dp</dimen>
     <dimen name="margin_normal">10dp</dimen>
+    <dimen name="margin_small">5dp</dimen>
 
     <dimen name="home_arrow_margin_bottom">5dp</dimen>
     <dimen name="home_arrow_margin_top">20dp</dimen>
@@ -62,6 +63,9 @@
     <dimen name="ic_drop_down_arrow_blue_size">16dp</dimen>
     <dimen name="price_range_dolar_margin_end">1dp</dimen>
     <dimen name="prices_from_margin">40dp</dimen>
+    <dimen name="menu_button_height">60dp</dimen>
+    <dimen name="menu_button_width">0dp</dimen>
+
 
     <!--Itinerary -->
     <dimen name="item_product_margin_min">5dp</dimen>
