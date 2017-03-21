@@ -1,32 +1,23 @@
-
 package com.rcl.excalibur.data.service.response;
 
-import java.util.List;
-import javax.annotation.Generated;
+
 import com.google.gson.annotations.SerializedName;
 
-@Generated("net.hexar.json2pojo")
-@SuppressWarnings("unused")
-public class PreferencesResponse {
+import java.util.List;
 
+public class ProductPreferenceResponse {
     @SerializedName("preferenceID")
     private String preferenceId;
     private String preferenceName;
-    @SerializedName("PreferenceValueCode")
-    private String preferenceValueCode;
-    private Boolean mandatoryPreferenceFlag;
+    private boolean mandatoryPreferenceFlag;
     private String preferenceType;
-    private List<PreferenceValueResponse> preferenceValue;
-
-
-    public PreferencesResponse() {
-    }
+    private List<ProductPreferenceValueResponse> preferenceValue;
 
     public String getPreferenceId() {
         return preferenceId;
     }
 
-    public void setPreferenceId(String preferenceId) {
+    public void setPreferenceId(String preferenceID) {
         this.preferenceId = preferenceId;
     }
 
@@ -38,19 +29,11 @@ public class PreferencesResponse {
         this.preferenceName = preferenceName;
     }
 
-    public String getPreferenceValueCode() {
-        return preferenceValueCode;
-    }
-
-    public void setPreferenceValueCode(String preferenceValueCode) {
-        this.preferenceValueCode = preferenceValueCode;
-    }
-
-    public Boolean getMandatoryPreferenceFlag() {
+    public boolean isMandatoryPreferenceFlag() {
         return mandatoryPreferenceFlag;
     }
 
-    public void setMandatoryPreferenceFlag(Boolean mandatoryPreferenceFlag) {
+    public void setMandatoryPreferenceFlag(boolean mandatoryPreferenceFlag) {
         this.mandatoryPreferenceFlag = mandatoryPreferenceFlag;
     }
 
@@ -62,11 +45,11 @@ public class PreferencesResponse {
         this.preferenceType = preferenceType;
     }
 
-    public List<PreferenceValueResponse> getPreferenceValue() {
+    public List<ProductPreferenceValueResponse> getPreferenceValue() {
         return preferenceValue;
     }
 
-    public void setPreferenceValue(List<PreferenceValueResponse> preferenceValue) {
+    public void setPreferenceValue(List<ProductPreferenceValueResponse> preferenceValue) {
         this.preferenceValue = preferenceValue;
     }
 }

@@ -1,10 +1,8 @@
-package com.rcl.excalibur.data.service.response;
-
-import com.google.gson.annotations.SerializedName;
+package com.rcl.excalibur.domain;
 
 
-public class ProductLocationResponse {
-    @SerializedName("locationID")
+public class ProductLocation {
+
     private String locationId;
     private String locationCode;
     private String locationType;
@@ -35,6 +33,9 @@ public class ProductLocationResponse {
         this.locationType = locationType;
     }
 
+    public int getOperatingHoursStart() {
+        return operatingHoursStart;
+    }
 
     public void setOperatingHoursStart(int operatingHoursStart) {
         this.operatingHoursStart = operatingHoursStart;
@@ -46,9 +47,5 @@ public class ProductLocationResponse {
 
     public void setOperatingHoursEnd(int operatingHoursEnd) {
         this.operatingHoursEnd = operatingHoursEnd;
-    }
-
-    public int getOperatingHoursStart() {
-        return operatingHoursStart;
     }
 }

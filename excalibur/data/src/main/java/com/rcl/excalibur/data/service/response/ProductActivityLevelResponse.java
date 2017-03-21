@@ -1,21 +1,18 @@
-
 package com.rcl.excalibur.data.service.response;
+
 
 import com.google.gson.annotations.SerializedName;
 
-import javax.annotation.Generated;
+public class ProductActivityLevelResponse {
 
-@Generated("net.hexar.json2pojo")
-@SuppressWarnings("unused")
-public class ActivityLevelResponse {
-
-    private String activityLevelDescription;
     @SerializedName("activityLevelID")
     private String activityLevelId;
-    private ActivityLevelMedia activityLevelMedia;
     private String activityLevelTitle;
+    private String activityLevelDescription;
+    private ActivityLevelMedia activityLevelMedia;
 
-    public ActivityLevelResponse() {
+
+    public ProductActivityLevelResponse() {
     }
 
     public String getActivityLevelDescription() {

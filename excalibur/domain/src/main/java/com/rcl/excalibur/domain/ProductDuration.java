@@ -1,7 +1,7 @@
-package com.rcl.excalibur.data.service.response;
+package com.rcl.excalibur.domain;
 
 
-public class ProductDurationResponse {
+public class ProductDuration {
     private boolean isAtYourLeisure;
     private int durationInMinutes;
     private int leadTimeInMinutes;

@@ -4,6 +4,7 @@ package com.rcl.excalibur.data.service;
 import android.util.Log;
 
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
+import com.rcl.excalibur.data.service.response.EntertaimentsResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.service.DiscoverService;
@@ -56,5 +57,25 @@ public class DiscoverServiceImpl implements DiscoverService {
             }
         });
     }
+
+    @Override
+    public void getEntertaiments() {
+
+        Call<EntertaimentsResponse> call = ServiceUtil.getDiscoverApi().getEntertaiments();
+
+        call.enqueue(new Callback<EntertaimentsResponse>() {
+            @Override
+            public void onResponse(Call<EntertaimentsResponse> call, Response<EntertaimentsResponse> response) {
+                Log.d("Succesfull", response.body().getGetEntertaimentsResponse().getResponseStatus());
+            }
+
+            @Override
+            public void onFailure(Call<EntertaimentsResponse> call, Throwable t) {
+                //Handle failure
+                Log.e("error", t.getMessage());
+            }
+        });
+    }
+
 
 }

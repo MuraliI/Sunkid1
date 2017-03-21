@@ -1,10 +1,8 @@
-package com.rcl.excalibur.data.service.response;
+package com.rcl.excalibur.domain;
 
 
-import com.google.gson.annotations.SerializedName;
+public class ProductType {
 
-public class ProductTypeResponse {
-    @SerializedName("productTypeID")
     private String productTypeId;
     private String productTypeName;
     private String productType;

@@ -1,18 +1,19 @@
-
 package com.rcl.excalibur.data.service.response;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("net.hexar.json2pojo")
-@SuppressWarnings("unused")
-public class ProductTagResponse {
 
-    private String description;
+public class ProductTagsResponse {
     @SerializedName("tagID")
     private String tagId;
+    private String description;
 
-    public ProductTagResponse() {
+    public String getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(String tagId) {
+        this.tagId = tagId;
     }
 
     public String getDescription() {
@@ -23,11 +24,4 @@ public class ProductTagResponse {
         this.description = description;
     }
 
-    public String getTagId() {
-        return tagId;
-    }
-
-    public void setTagId(String tagId) {
-        this.tagId = tagId;
-    }
 }
