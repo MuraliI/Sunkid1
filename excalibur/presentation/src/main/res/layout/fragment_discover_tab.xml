@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_bar"
         android:layout_centerHorizontal="true"
-        android:text="Discover" />
+        android:text="@string/discoverItem" />
 
     <GridLayout
         android:id="@+id/bottom_bar"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:text="Dinning" />
+                android:text="@string/dining" />
 
         </FrameLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:text="Excursions" />
+                android:text="@string/shorex" />
 
         </FrameLayout>
 
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:text="Spa" />
+                android:text="@string/spa" />
 
         </FrameLayout>
 
@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Shop" />
+                android:text="@string/shopping" />
 
         </FrameLayout>
 
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Entertainment" />
+                android:text="@string/entertainment" />
 
         </FrameLayout>
 
@@ -133,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Activities" />
+                android:text="@string/royal_activity" />
 
         </FrameLayout>
 
@@ -150,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Services" />
+                android:text="@string/services" />
 
         </FrameLayout>
 
@@ -168,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Search"
+                android:text="@string/search"
                 android:textColor="@color/white" />
 
         </FrameLayout>
