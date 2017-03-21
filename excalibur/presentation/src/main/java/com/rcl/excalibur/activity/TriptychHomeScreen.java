@@ -1,0 +1,26 @@
+package com.rcl.excalibur.activity;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.rcl.excalibur.R;
+import com.rcl.excalibur.mvp.presenter.TriptycHomePresenter;
+import com.rcl.excalibur.mvp.view.TriptychView;
+
+public class TriptychHomeScreen extends BaseActivity {
+
+    private TriptycHomePresenter presenter;
+
+    public static Intent getStartIntent(final BaseActivity activity) {
+        return new Intent(activity, TriptychHomeScreen.class);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_triptych_home_screen);
+
+        presenter = new TriptycHomePresenter(new TriptychView(this));
+    }
+}

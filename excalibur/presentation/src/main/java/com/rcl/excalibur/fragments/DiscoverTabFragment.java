@@ -19,8 +19,7 @@ public class DiscoverTabFragment extends Fragment {
     private DiscoverTabPresenter presenter;
 
     public static DiscoverTabFragment newInstance() {
-        DiscoverTabFragment fragment = new DiscoverTabFragment();
-        return fragment;
+        return new DiscoverTabFragment();
     }
 
     @Override
@@ -31,10 +30,8 @@ public class DiscoverTabFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_discover_tab, container, false);
         ButterKnife.bind(this, view);
-
         return view;
     }
 

@@ -2,7 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 
 import com.rcl.excalibur.activity.HomeActivity;
-import com.rcl.excalibur.activity.PlanListActivity;
+import com.rcl.excalibur.activity.TriptychHomeScreen;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.HomeView;
 
@@ -12,7 +12,6 @@ import java.util.List;
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
 public class HomePresenter implements BasePresenter {
-
 
     private HomeView view;
 
@@ -27,7 +26,7 @@ public class HomePresenter implements BasePresenter {
 //        TODO hard. waiting mock service
         List<DiscoverItemModel> discoverItemModels = new ArrayList();
         discoverItemModels.add(new DiscoverItemModel());
-        view.addAll(discoverItemModels);
+        ((HomeView) view).addAll(discoverItemModels);
     }
 
     public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, HomePresenter> {
@@ -43,7 +42,7 @@ public class HomePresenter implements BasePresenter {
                 return;
             }
 
-            startActivity(activity, PlanListActivity.getStartIntent(activity));
+            startActivity(activity, TriptychHomeScreen.getStartIntent(activity));
         }
     }
 }
