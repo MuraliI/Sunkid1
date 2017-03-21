@@ -4,7 +4,6 @@ package com.rcl.excalibur.data.repository;
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.DiscoverItemEntity;
 import com.rcl.excalibur.data.mapper.DiscoverEntityDataMapper;
-import com.rcl.excalibur.data.service.DiscoverServiceImpl;
 import com.rcl.excalibur.data.utils.DBUtil;
 import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
@@ -28,9 +27,6 @@ public class DiscoverItemDataRepository implements DiscoverItemRepository {
 
     @Override
     public List<DiscoverItem> listAll(String type) {
-
-        DiscoverServiceImpl discoverService = new DiscoverServiceImpl();
-        discoverService.getSpas();
         final String[] columns = new String[]{
                 DBUtil.COL_ID,
                 DiscoverItemEntity.COLUMN_DISCOVER_ITEM_ID,

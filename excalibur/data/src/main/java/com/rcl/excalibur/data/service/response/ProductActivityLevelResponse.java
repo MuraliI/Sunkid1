@@ -9,7 +9,7 @@ public class ProductActivityLevelResponse {
     private String activityLevelId;
     private String activityLevelTitle;
     private String activityLevelDescription;
-    private ActivityLevelMedia activityLevelMedia;
+    private MediaResponse activityLevelMedia;
 
 
     public ProductActivityLevelResponse() {
@@ -31,19 +31,19 @@ public class ProductActivityLevelResponse {
         this.activityLevelId = activityLevelId;
     }
 
-    public ActivityLevelMedia getActivityLevelMedia() {
-        return activityLevelMedia;
-    }
-
-    public void setActivityLevelMedia(ActivityLevelMedia activityLevelMedia) {
-        this.activityLevelMedia = activityLevelMedia;
-    }
-
     public String getActivityLevelTitle() {
         return activityLevelTitle;
     }
 
     public void setActivityLevelTitle(String activityLevelTitle) {
         this.activityLevelTitle = activityLevelTitle;
+    }
+
+    public MediaResponse getActivityLevelMedia() {
+        return activityLevelMedia;
+    }
+
+    public void setActivityLevelMedia(MediaResponse activityLevelMedia) {
+        this.activityLevelMedia = activityLevelMedia;
     }
 }

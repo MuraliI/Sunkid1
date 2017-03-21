@@ -10,6 +10,7 @@ public class ProductPreferenceValueResponse {
     @SerializedName("PreferenceValueCode")
     private boolean preferenceValueCode;
 
+
     public String getPreferenceValueId() {
         return preferenceValueId;
     }

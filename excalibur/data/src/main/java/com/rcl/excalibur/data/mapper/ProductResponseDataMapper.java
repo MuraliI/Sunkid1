@@ -142,8 +142,26 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             productPreference.setPreferenceId(productPreferenceResponse.getPreferenceId());
             productPreference.setPreferenceName(productPreferenceResponse.getPreferenceName());
             productPreference.setPreferenceType(productPreferenceResponse.getPreferenceType());
-            //productPreference.setPreferenceValue(transform(productPreferenceResponse.getPreferenceValue()));
+            productPreference.setPreferenceValue(transformPreferenceValue(productPreferenceResponse.getPreferenceValue()));
             items.add(productPreference);
+        }
+
+        return items;
+    }
+
+    private List<ProductPreferenceValue> transformPreferenceValue(List<ProductPreferenceValueResponse> productPreferenceValueResponseList) {
+
+        ArrayList<ProductPreferenceValue> items = new ArrayList<ProductPreferenceValue>();
+
+        if (CollectionUtils.isEmpty(productPreferenceValueResponseList)) {
+            return items;
+        }
+        for (ProductPreferenceValueResponse productPreferenceValueResponse : productPreferenceValueResponseList) {
+
+            if (productPreferenceValueResponseList == null) {
+                continue;
+            }
+            items.add(transform(productPreferenceValueResponse));
         }
 
         return items;
@@ -241,7 +259,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             productActivityLevel = new ProductActivityLevel();
             productActivityLevel.setActivityLevelDescription(productActivityLevelResponse.getActivityLevelDescription());
             productActivityLevel.setActivityLevelId(productActivityLevelResponse.getActivityLevelId());
-            //productActivityLevel.setActivityLevelMedia(transform(productActivityLevelResponse.getActivityLevelMedia()));
+            productActivityLevel.setActivityLevelMedia(transform(productActivityLevelResponse.getActivityLevelMedia()));
         }
         return productActivityLevel;
     }
