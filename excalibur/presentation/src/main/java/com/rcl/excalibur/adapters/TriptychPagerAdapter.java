@@ -11,7 +11,6 @@ public class TriptychPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> triptychFragments;
 
-
     public TriptychPagerAdapter(FragmentManager fm, List<Fragment> triptychFragments) {
         super(fm);
         this.triptychFragments = triptychFragments;
