@@ -6,7 +6,7 @@ public class PromotionMessage {
     private String description;
     private String categoryId;
     private String locationCode;
-    private String [] productId;
+    private String[] productId;
 
     public String getTitle() {
         return title;

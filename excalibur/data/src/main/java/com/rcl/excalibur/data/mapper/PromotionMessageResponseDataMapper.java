@@ -5,7 +5,7 @@ import com.rcl.excalibur.domain.PromotionMessage;
 
 import javax.inject.Inject;
 
-public class PromotionMessageResponseDataMapper extends BaseDataMapper<PromotionMessage, PromotionMessageResponse>{
+public class PromotionMessageResponseDataMapper extends BaseDataMapper<PromotionMessage, PromotionMessageResponse> {
 
     @Inject
     PromotionMessageResponseDataMapper() {
