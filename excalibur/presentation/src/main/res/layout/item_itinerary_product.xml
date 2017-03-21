@@ -35,7 +35,8 @@
                 style="@style/AppTheme.ProductDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text_name" />
+                android:layout_below="@+id/text_name"
+                android:layout_marginTop="@dimen/item_product_margin" />
 
             <TextView
                 android:id="@+id/text_venue"
