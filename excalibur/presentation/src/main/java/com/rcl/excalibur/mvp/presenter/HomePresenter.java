@@ -2,7 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 
 import com.rcl.excalibur.activity.HomeActivity;
-import com.rcl.excalibur.activity.TriptychHomeScreen;
+import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.HomeView;
 
@@ -42,7 +42,7 @@ public class HomePresenter implements BasePresenter {
                 return;
             }
 
-            startActivity(activity, TriptychHomeScreen.getStartIntent(activity));
+            startActivity(activity, TriptychHomeActivity.getStartIntent(activity));
         }
     }
 }

@@ -6,14 +6,14 @@ import android.os.Bundle;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.mvp.presenter.TriptycHomePresenter;
-import com.rcl.excalibur.mvp.view.TriptychView;
+import com.rcl.excalibur.mvp.view.TriptyHomechView;
 
-public class TriptychHomeScreen extends BaseActivity {
+public class TriptychHomeActivity extends BaseActivity {
 
     private TriptycHomePresenter presenter;
 
     public static Intent getStartIntent(final BaseActivity activity) {
-        return new Intent(activity, TriptychHomeScreen.class);
+        return new Intent(activity, TriptychHomeActivity.class);
     }
 
     @Override
@@ -21,6 +21,6 @@ public class TriptychHomeScreen extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_triptych_home_screen);
 
-        presenter = new TriptycHomePresenter(new TriptychView(this));
+        presenter = new TriptycHomePresenter(new TriptyHomechView(this));
     }
 }

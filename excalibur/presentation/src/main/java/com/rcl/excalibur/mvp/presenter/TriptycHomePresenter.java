@@ -1,13 +1,13 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import com.rcl.excalibur.mvp.view.TriptychView;
+import com.rcl.excalibur.mvp.view.TriptyHomechView;
 
 public class TriptycHomePresenter implements BasePresenter {
 
-    private TriptychView view;
+    private TriptyHomechView view;
 
-    public TriptycHomePresenter(TriptychView view) {
+    public TriptycHomePresenter(TriptyHomechView view) {
         this.view = view;
         init();
     }

@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.TriptychHomeScreen;
+import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.custom.view.TriptychTabBarLayout;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
@@ -19,12 +19,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class TriptychView extends ActivityView<TriptychHomeScreen> {
+public class TriptyHomechView extends ActivityView<TriptychHomeActivity> {
 
     @Bind(R.id.pager_triptych_pager) ViewPager viewPager;
     @Bind(R.id.tab_triptych_tablayout) TriptychTabBarLayout tabBarLayout;
 
-    public TriptychView(TriptychHomeScreen activity) {
+    public TriptyHomechView(TriptychHomeActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
     }
