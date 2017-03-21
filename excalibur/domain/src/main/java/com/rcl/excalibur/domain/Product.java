@@ -22,7 +22,7 @@ public class Product {
     private ProductCostType costType;
     private SellingPrice startingFromPrice;
     private List<ProductAdvisement> advisements;
-    private List<ProductPreference>preferences;
+    private List<ProductPreference> preferences;
     private List<ProductRestriction> restrictions;
     private String productTitle;
     private String productShortDescription;

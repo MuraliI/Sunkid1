@@ -7,7 +7,7 @@ import java.util.List;
 public class ProductCategoryResponse {
     private String categoryid;
     private String categoryDescription;
-    private List<ProductTagsResponse>productTags;
+    private List<ProductTagsResponse> productTags;
 
     public String getCategoryid() {
         return categoryid;

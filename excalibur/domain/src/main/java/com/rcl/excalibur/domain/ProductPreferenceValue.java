@@ -6,7 +6,7 @@ public class ProductPreferenceValue {
 
     private String preferenceValueID;
     private boolean preferenceValueName;
-    private boolean PreferenceValueCode;
+    private boolean preferenceValueCode;
 
     public String getPreferenceValueID() {
         return preferenceValueID;
@@ -25,10 +25,10 @@ public class ProductPreferenceValue {
     }
 
     public boolean isPreferenceValueCode() {
-        return PreferenceValueCode;
+        return preferenceValueCode;
     }
 
     public void setPreferenceValueCode(boolean preferenceValueCode) {
-        PreferenceValueCode = preferenceValueCode;
+        this.preferenceValueCode = preferenceValueCode;
     }
 }

@@ -23,7 +23,7 @@ public class ProductResponse {
     private ProductCostTypeResponse costType;
     private SellingPriceResponse startingFromPrice;
     private List<ProductAdvisementResponse> advisements;
-    private List<ProductPreferenceResponse>preferences;
+    private List<ProductPreferenceResponse> preferences;
     private List<ProductRestrictionResponse> restrictions;
     private String productTitle;
     private String productShortDescription;

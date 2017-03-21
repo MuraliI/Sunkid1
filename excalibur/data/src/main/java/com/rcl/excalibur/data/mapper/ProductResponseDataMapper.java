@@ -16,7 +16,7 @@ import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
 import com.rcl.excalibur.data.service.response.ProductTagsResponse;
 import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
-import com.rcl.excalibur.domain.Category;
+
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
@@ -60,7 +60,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             product.setProductRank(entity.getProductRank());
             product.setReservationRequired(entity.isReservationRequired());
             product.setScheduable(entity.isScheduable());
-            product.setActivityLevel( transform(entity.getActivityLevel()));
+            product.setActivityLevel(transform(entity.getActivityLevel()));
             product.setProductLocation(transform(entity.getProductLocation()));
             product.setProductDuration(transform(entity.getProductDuration()));
             product.setCostType(transform(entity.getCostType()));
@@ -83,7 +83,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         ArrayList<ProductRestriction> items = new ArrayList<ProductRestriction>();
 
         for (ProductRestrictionResponse entity : entities) {
-            ProductRestriction productRestriction= null;
+            ProductRestriction productRestriction = null;
             if (entity != null) {
                 productRestriction = new ProductRestriction();
                 productRestriction.setRestrictionId(entity.getRestrictionId());
@@ -107,7 +107,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
         for (ProductRestrictionAnswerResponse entity: entities) {
 
-            ProductRestrictionAnswer productRestrictionAnswer= null;
+            ProductRestrictionAnswer productRestrictionAnswer = null;
             if (entity != null) {
                 productRestrictionAnswer = new ProductRestrictionAnswer();
                 productRestrictionAnswer.setRestrictionAnswerDisplayText(entity.getRestrictionAnswerDisplayText());
@@ -122,7 +122,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         ArrayList<ProductPreference> items = new ArrayList<ProductPreference>();
         for (ProductPreferenceResponse entity : entities) {
 
-            ProductPreference productPreference= null;
+            ProductPreference productPreference = null;
             if (entity != null) {
                 productPreference = new ProductPreference();
                 productPreference.setMandatoryPreferenceFlag(entity.isMandatoryPreferenceFlag());
@@ -137,7 +137,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
     }
 
     private ProductPreferenceValue transform(ProductPreferenceValueResponse entity) {
-        ProductPreferenceValue productPreferenceValue= null;
+        ProductPreferenceValue productPreferenceValue = null;
         if (entity != null) {
             productPreferenceValue = new ProductPreferenceValue();
             productPreferenceValue.setPreferenceValueCode(entity.isPreferenceValueCode());
@@ -153,7 +153,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
         for (ProductAdvisementResponse entity : entities) {
 
-            ProductAdvisement productAdvisement= null;
+            ProductAdvisement productAdvisement = null;
             if (entity != null) {
                 productAdvisement = new ProductAdvisement();
                 productAdvisement.setAdvisementDescription(entity.getAdvisementDescription());
@@ -184,7 +184,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
     }
 
     private ProductCostType transform(ProductCostTypeResponse entity) {
-        ProductCostType productCostType= null;
+        ProductCostType productCostType = null;
         if (entity != null) {
             productCostType = new ProductCostType();
             productCostType.setCostTypeCode(entity.getCostTypeCode());
@@ -196,7 +196,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
     }
 
     private ProductDuration transform(ProductDurationResponse entity) {
-        ProductDuration productDuration= null;
+        ProductDuration productDuration = null;
         if (entity != null) {
             productDuration = new ProductDuration();
             productDuration.setAtYourLeisure(entity.isAtYourLeisure());
@@ -269,9 +269,9 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductCategory> transform(List<ProductCategoryResponse> entities) {
 
-        ArrayList<ProductCategory> productCategories=new ArrayList<ProductCategory>();
+        ArrayList<ProductCategory> productCategories = new ArrayList<ProductCategory>();
 
-        for(ProductCategoryResponse entity : entities) {
+        for (ProductCategoryResponse entity : entities) {
             ProductCategory productCategory = null;
             if (entity != null) {
                 productCategory = new ProductCategory();
@@ -285,7 +285,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         return productCategories;
     }
 
-    public List<ProductTags> transformProductTags(List<ProductTagsResponse> entities) {
+    private List<ProductTags> transformProductTags(List<ProductTagsResponse> entities) {
 
         ArrayList<ProductTags> items = new ArrayList<ProductTags>();
 
