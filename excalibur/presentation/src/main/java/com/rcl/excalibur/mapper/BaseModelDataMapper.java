@@ -1,7 +1,7 @@
 package com.rcl.excalibur.mapper;
 
 
-import com.rcl.excalibur.utils.CollectionUtils;
+import com.rcl.excalibur.data.utils.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
