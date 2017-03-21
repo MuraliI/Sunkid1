@@ -10,10 +10,8 @@ import org.mockito.MockitoAnnotations;
 public class PromotionMessageResponseDataMapperTest {
 
     PromotionMessageResponseDataMapper promotionMessageResponseDataMapper;
-    @Mock
-    PromotionMessageResponse entity1;
-    @Mock
-    PromotionMessageResponse entity2;
+    @Mock PromotionMessageResponse entity1;
+    @Mock PromotionMessageResponse entity2;
 
     @Before
     public void setUp() {
