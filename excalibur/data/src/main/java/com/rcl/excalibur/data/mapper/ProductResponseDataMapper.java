@@ -133,7 +133,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
                 }
                 ProductPreference productPreference = new ProductPreference();
                 productPreference.setMandatoryPreferenceFlag(productPreferenceResponse.isMandatoryPreferenceFlag());
-                productPreference.setPreferenceID(productPreferenceResponse.getPreferenceID());
+                productPreference.setPreferenceID(productPreferenceResponse.getPreferenceId());
                 productPreference.setPreferenceName(productPreferenceResponse.getPreferenceName());
                 productPreference.setPreferenceType(productPreferenceResponse.getPreferenceType());
                 productPreference.setPreferenceValue(transform(productPreferenceResponse.getPreferenceValue()));
@@ -148,7 +148,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         if (entity != null) {
             productPreferenceValue = new ProductPreferenceValue();
             productPreferenceValue.setPreferenceValueCode(entity.isPreferenceValueCode());
-            productPreferenceValue.setPreferenceValueID(entity.getPreferenceValueID());
+            productPreferenceValue.setPreferenceValueId(entity.getPreferenceValueId());
             productPreferenceValue.setPreferenceValueName(entity.isPreferenceValueName());
         }
         return productPreferenceValue;
@@ -166,7 +166,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
                 }
                 ProductAdvisement productAdvisement = new ProductAdvisement();
                 productAdvisement.setAdvisementDescription(productAdvisementResponse.getAdvisementDescription());
-                productAdvisement.setAdvisementID(productAdvisementResponse.getAdvisementID());
+                productAdvisement.setAdvisementId(productAdvisementResponse.getAdvisementId());
                 productAdvisement.setAdvisementName(productAdvisementResponse.getAdvisementName());
                 productAdvisement.setAdvisementTitle(productAdvisementResponse.getAdvisementTitle());
                 productAdvisement.setAdvisementMedia(transform(productAdvisementResponse.getAdvisementMedia()));
@@ -232,7 +232,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         if (entity != null) {
             productActivityLevel = new ProductActivityLevel();
             productActivityLevel.setActivityLevelDescription(entity.getActivityLevelDescription());
-            productActivityLevel.setActivityLevelID(entity.getActivityLevelID());
+            productActivityLevel.setActivityLevelId(entity.getActivityLevelId());
             productActivityLevel.setActivityLevelMedia(transform(entity.getActivityLevelMedia()));
         }
         return productActivityLevel;
@@ -270,7 +270,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         ProductType productType = null;
         if (entity != null) {
             productType = new ProductType();
-            productType.setProductTypeID(entity.getProductTypeID());
+            productType.setProductTypeID(entity.getProductTypeId());
             productType.setProductTypeName(entity.getProductTypeName());
             productType.setProductType(entity.getProductType());
         }
@@ -288,7 +288,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
                 }
                 ProductCategory productCategory = new ProductCategory();
                 productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
-                productCategory.setCategoryid(productCategoryResponse.getCategoryid());
+                productCategory.setCategoryId(productCategoryResponse.getCategoryId());
                 productCategory.setProductTags(transformProductTags(productCategoryResponse.getProductTags()));
                 productCategories.add(productCategory);
             }
