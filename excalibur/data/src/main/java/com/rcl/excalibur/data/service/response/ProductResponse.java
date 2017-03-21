@@ -1,31 +1,33 @@
-package com.rcl.excalibur.domain;
+package com.rcl.excalibur.data.service.response;
 
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 
-public class Product {
+public class ProductResponse {
 
+    @SerializedName("productID")
     private String productId;
     private String productCode;
-    private ProductType productType;
+    private ProductTypeResponse productType;
     private String productClass;
-    private List<ProductCategory> productCategory;
+    private List<ProductCategoryResponse> productCategory;
     private int productRank;
     private boolean isReservationRequired;
     private boolean isScheduable;
-    private ProductActivityLevel activityLevel;
-    private ProductLocation productLocation;
-    private ProductDuration productDuration;
-    private ProductCostType costType;
-    private SellingPrice startingFromPrice;
-    private List<ProductAdvisement> advisements;
-    private List<ProductPreference> preferences;
-    private List<ProductRestriction> restrictions;
+    private ProductActivityLevelResponse activityLevel;
+    private ProductLocationResponse productLocation;
+    private ProductDurationResponse productDuration;
+    private ProductCostTypeResponse costType;
+    private SellingPriceResponse startingFromPrice;
+    private List<ProductAdvisementResponse> advisements;
+    private List<ProductPreferenceResponse> preferences;
+    private List<ProductRestrictionResponse> restrictions;
     private String productTitle;
     private String productShortDescription;
     private String productLongDescription;
-    private Media productMedia;
+    private MediaResponse productMedia;
 
     public String getProductId() {
         return productId;
@@ -43,11 +45,11 @@ public class Product {
         this.productCode = productCode;
     }
 
-    public ProductType getProductType() {
+    public ProductTypeResponse getProductType() {
         return productType;
     }
 
-    public void setProductType(ProductType productType) {
+    public void setProductType(ProductTypeResponse productType) {
         this.productType = productType;
     }
 
@@ -59,11 +61,11 @@ public class Product {
         this.productClass = productClass;
     }
 
-    public List<ProductCategory> getProductCategory() {
+    public List<ProductCategoryResponse> getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(List<ProductCategory> productCategory) {
+    public void setProductCategory(List<ProductCategoryResponse> productCategory) {
         this.productCategory = productCategory;
     }
 
@@ -91,67 +93,67 @@ public class Product {
         isScheduable = scheduable;
     }
 
-    public ProductActivityLevel getActivityLevel() {
+    public ProductActivityLevelResponse getActivityLevel() {
         return activityLevel;
     }
 
-    public void setActivityLevel(ProductActivityLevel activityLevel) {
+    public void setActivityLevel(ProductActivityLevelResponse activityLevel) {
         this.activityLevel = activityLevel;
     }
 
-    public ProductLocation getProductLocation() {
+    public ProductLocationResponse getProductLocation() {
         return productLocation;
     }
 
-    public void setProductLocation(ProductLocation productLocation) {
+    public void setProductLocation(ProductLocationResponse productLocation) {
         this.productLocation = productLocation;
     }
 
-    public ProductDuration getProductDuration() {
+    public ProductDurationResponse getProductDuration() {
         return productDuration;
     }
 
-    public void setProductDuration(ProductDuration productDuration) {
+    public void setProductDuration(ProductDurationResponse productDuration) {
         this.productDuration = productDuration;
     }
 
-    public ProductCostType getCostType() {
+    public ProductCostTypeResponse getCostType() {
         return costType;
     }
 
-    public void setCostType(ProductCostType costType) {
+    public void setCostType(ProductCostTypeResponse costType) {
         this.costType = costType;
     }
 
-    public SellingPrice getStartingFromPrice() {
+    public SellingPriceResponse getStartingFromPrice() {
         return startingFromPrice;
     }
 
-    public void setStartingFromPrice(SellingPrice startingFromPrice) {
+    public void setStartingFromPrice(SellingPriceResponse startingFromPrice) {
         this.startingFromPrice = startingFromPrice;
     }
 
-    public List<ProductAdvisement> getAdvisements() {
+    public List<ProductAdvisementResponse> getAdvisements() {
         return advisements;
     }
 
-    public void setAdvisements(List<ProductAdvisement> advisements) {
+    public void setAdvisements(List<ProductAdvisementResponse> advisements) {
         this.advisements = advisements;
     }
 
-    public List<ProductPreference> getPreferences() {
+    public List<ProductPreferenceResponse> getPreferences() {
         return preferences;
     }
 
-    public void setPreferences(List<ProductPreference> preferences) {
+    public void setPreferences(List<ProductPreferenceResponse> preferences) {
         this.preferences = preferences;
     }
 
-    public List<ProductRestriction> getRestrictions() {
+    public List<ProductRestrictionResponse> getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(List<ProductRestriction> restrictions) {
+    public void setRestrictions(List<ProductRestrictionResponse> restrictions) {
         this.restrictions = restrictions;
     }
 
@@ -179,11 +181,11 @@ public class Product {
         this.productLongDescription = productLongDescription;
     }
 
-    public Media getProductMedia() {
+    public MediaResponse getProductMedia() {
         return productMedia;
     }
 
-    public void setProductMedia(Media productMedia) {
+    public void setProductMedia(MediaResponse productMedia) {
         this.productMedia = productMedia;
     }
 }
