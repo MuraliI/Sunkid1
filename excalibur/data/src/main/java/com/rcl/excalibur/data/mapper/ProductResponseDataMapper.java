@@ -16,6 +16,7 @@ import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
 import com.rcl.excalibur.data.service.response.ProductTagsResponse;
 import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
+import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
@@ -47,30 +48,30 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
     }
 
     @Override
-    public Product transform(ProductResponse entity) {
+    public Product transform(ProductResponse productResponse) {
         Product product = null;
-        if (entity != null) {
+        if (productResponse != null) {
             product = new Product();
-            product.setProductId(entity.getProductId());
-            product.setProductCode(entity.getProductCode());
-            product.setProductType(transform(entity.getProductType()));
-            product.setProductClass(entity.getProductClass());
-            product.setProductCategory(transform(entity.getProductCategory()));
-            product.setProductRank(entity.getProductRank());
-            product.setReservationRequired(entity.isReservationRequired());
-            product.setScheduable(entity.isScheduable());
-            product.setActivityLevel(transform(entity.getActivityLevel()));
-            product.setProductLocation(transform(entity.getProductLocation()));
-            product.setProductDuration(transform(entity.getProductDuration()));
-            product.setCostType(transform(entity.getCostType()));
-            product.setStartingFromPrice(transform(entity.getStartingFromPrice()));
-            product.setAdvisements(transformProductAdvisement(entity.getAdvisements()));
-            product.setPreferences(transformProductPreference(entity.getPreferences()));
-            product.setRestrictions(transformProductRestriction(entity.getRestrictions()));
-            product.setProductTitle(entity.getProductTitle());
-            product.setProductShortDescription(entity.getProductShortDescription());
-            product.setProductLongDescription(entity.getProductLongDescription());
-            product.setProductMedia(transform(entity.getProductMedia()));
+            product.setProductId(productResponse.getProductId());
+            product.setProductCode(productResponse.getProductCode());
+            product.setProductType(transform(productResponse.getProductType()));
+            product.setProductClass(productResponse.getProductClass());
+            product.setProductCategory(transform(productResponse.getProductCategory()));
+            product.setProductRank(productResponse.getProductRank());
+            product.setReservationRequired(productResponse.isReservationRequired());
+            product.setScheduable(productResponse.isScheduable());
+            product.setActivityLevel(transform(productResponse.getActivityLevel()));
+            product.setProductLocation(transform(productResponse.getProductLocation()));
+            product.setProductDuration(transform(productResponse.getProductDuration()));
+            product.setCostType(transform(productResponse.getCostType()));
+            product.setStartingFromPrice(transform(productResponse.getStartingFromPrice()));
+            product.setAdvisements(transformProductAdvisement(productResponse.getAdvisements()));
+            product.setPreferences(transformProductPreference(productResponse.getPreferences()));
+            product.setRestrictions(transformProductRestriction(productResponse.getRestrictions()));
+            product.setProductTitle(productResponse.getProductTitle());
+            product.setProductShortDescription(productResponse.getProductShortDescription());
+            product.setProductLongDescription(productResponse.getProductLongDescription());
+            product.setProductMedia(transform(productResponse.getProductMedia()));
 
         }
         return product;
@@ -81,75 +82,80 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
         ArrayList<ProductRestriction> items = new ArrayList<ProductRestriction>();
 
-        if (productRestrictionResponses != null) {
-            for (ProductRestrictionResponse productRestrictionResponse : productRestrictionResponses) {
-
-                if (productRestrictionResponse == null) {
-                    continue;
-                }
-
-                ProductRestriction productRestriction = new ProductRestriction();
-                productRestriction.setRestrictionId(productRestrictionResponse.getRestrictionId());
-                productRestriction.setRestrictionType(productRestrictionResponse.getRestrictionType());
-                productRestriction.setMandatory(productRestrictionResponse.isMandatory());
-                productRestriction.setRestrictionDisplayText(productRestrictionResponse.getRestrictionDisplayText());
-                productRestriction.setRestrictionTitle(productRestrictionResponse.getRestrictionTitle());
-                productRestriction.setRestrictionDescription(productRestrictionResponse.getRestrictionDescription());
-                productRestriction.setRestrictionQuestion(productRestrictionResponse.getRestrictionQuestion());
-                productRestriction.setRestrictionAnswers(transformProductRestrictionAnswer(productRestrictionResponse.getRestrictionAnswers()));
-                productRestriction.setRestrictionMedia(transform(productRestrictionResponse.getRestrictionMedia()));
-                items.add(productRestriction);
-            }
+        if (CollectionUtils.isEmpty(productRestrictionResponses)) {
+            return items;
         }
+        for (ProductRestrictionResponse productRestrictionResponse : productRestrictionResponses) {
+
+            if (productRestrictionResponse == null) {
+                continue;
+            }
+
+            ProductRestriction productRestriction = new ProductRestriction();
+            productRestriction.setRestrictionId(productRestrictionResponse.getRestrictionId());
+            productRestriction.setRestrictionType(productRestrictionResponse.getRestrictionType());
+            productRestriction.setMandatory(productRestrictionResponse.isMandatory());
+            productRestriction.setRestrictionDisplayText(productRestrictionResponse.getRestrictionDisplayText());
+            productRestriction.setRestrictionTitle(productRestrictionResponse.getRestrictionTitle());
+            productRestriction.setRestrictionDescription(productRestrictionResponse.getRestrictionDescription());
+            productRestriction.setRestrictionQuestion(productRestrictionResponse.getRestrictionQuestion());
+            productRestriction.setRestrictionAnswers(transformProductRestrictionAnswer(productRestrictionResponse.getRestrictionAnswers()));
+            productRestriction.setRestrictionMedia(transform(productRestrictionResponse.getRestrictionMedia()));
+            items.add(productRestriction);
+        }
+
         return items;
     }
 
     private List<ProductRestrictionAnswer> transformProductRestrictionAnswer(List<ProductRestrictionAnswerResponse> transformProductRestrictionAnswersResponses) {
 
         ArrayList<ProductRestrictionAnswer> items = new ArrayList<ProductRestrictionAnswer>();
-        if (transformProductRestrictionAnswersResponses != null) {
-
-            for (ProductRestrictionAnswerResponse transformProductRestrictionAnswerResponse : transformProductRestrictionAnswersResponses) {
-
-                if (transformProductRestrictionAnswerResponse == null) {
-                    continue;
-                }
-                ProductRestrictionAnswer productRestrictionAnswer = new ProductRestrictionAnswer();
-                productRestrictionAnswer.setRestrictionAnswerDisplayText(transformProductRestrictionAnswerResponse.getRestrictionAnswerDisplayText());
-                items.add(productRestrictionAnswer);
-            }
+        if (CollectionUtils.isEmpty(transformProductRestrictionAnswersResponses)) {
+            return items;
         }
+        for (ProductRestrictionAnswerResponse transformProductRestrictionAnswerResponse : transformProductRestrictionAnswersResponses) {
+
+            if (transformProductRestrictionAnswerResponse == null) {
+                continue;
+            }
+            ProductRestrictionAnswer productRestrictionAnswer = new ProductRestrictionAnswer();
+            productRestrictionAnswer.setRestrictionAnswerDisplayText(transformProductRestrictionAnswerResponse.getRestrictionAnswerDisplayText());
+            items.add(productRestrictionAnswer);
+        }
+
         return items;
     }
 
     private List<ProductPreference> transformProductPreference(List<ProductPreferenceResponse> productPreferenceResponses) {
 
         ArrayList<ProductPreference> items = new ArrayList<ProductPreference>();
-        if (productPreferenceResponses != null) {
-            for (ProductPreferenceResponse productPreferenceResponse : productPreferenceResponses) {
-
-                if (productPreferenceResponse == null) {
-                    continue;
-                }
-                ProductPreference productPreference = new ProductPreference();
-                productPreference.setMandatoryPreferenceFlag(productPreferenceResponse.isMandatoryPreferenceFlag());
-                productPreference.setPreferenceID(productPreferenceResponse.getPreferenceId());
-                productPreference.setPreferenceName(productPreferenceResponse.getPreferenceName());
-                productPreference.setPreferenceType(productPreferenceResponse.getPreferenceType());
-                productPreference.setPreferenceValue(transform(productPreferenceResponse.getPreferenceValue()));
-                items.add(productPreference);
-            }
+        if (CollectionUtils.isEmpty(productPreferenceResponses)) {
+            return items;
         }
+        for (ProductPreferenceResponse productPreferenceResponse : productPreferenceResponses) {
+
+            if (productPreferenceResponse == null) {
+                continue;
+            }
+            ProductPreference productPreference = new ProductPreference();
+            productPreference.setMandatoryPreferenceFlag(productPreferenceResponse.isMandatoryPreferenceFlag());
+            productPreference.setPreferenceId(productPreferenceResponse.getPreferenceId());
+            productPreference.setPreferenceName(productPreferenceResponse.getPreferenceName());
+            productPreference.setPreferenceType(productPreferenceResponse.getPreferenceType());
+            productPreference.setPreferenceValue(transform(productPreferenceResponse.getPreferenceValue()));
+            items.add(productPreference);
+        }
+
         return items;
     }
 
-    private ProductPreferenceValue transform(ProductPreferenceValueResponse entity) {
+    private ProductPreferenceValue transform(ProductPreferenceValueResponse productPreferenceValueResponse) {
         ProductPreferenceValue productPreferenceValue = null;
-        if (entity != null) {
+        if (productPreferenceValueResponse != null) {
             productPreferenceValue = new ProductPreferenceValue();
-            productPreferenceValue.setPreferenceValueCode(entity.isPreferenceValueCode());
-            productPreferenceValue.setPreferenceValueId(entity.getPreferenceValueId());
-            productPreferenceValue.setPreferenceValueName(entity.isPreferenceValueName());
+            productPreferenceValue.setPreferenceValueCode(productPreferenceValueResponse.isPreferenceValueCode());
+            productPreferenceValue.setPreferenceValueId(productPreferenceValueResponse.getPreferenceValueId());
+            productPreferenceValue.setPreferenceValueName(productPreferenceValueResponse.isPreferenceValueName());
         }
         return productPreferenceValue;
     }
@@ -158,91 +164,93 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
         ArrayList<ProductAdvisement> items = new ArrayList<ProductAdvisement>();
 
-        if (productAdvisementResponses != null) {
-            for (ProductAdvisementResponse productAdvisementResponse : productAdvisementResponses) {
-
-                if (productAdvisementResponse == null) {
-                    continue;
-                }
-                ProductAdvisement productAdvisement = new ProductAdvisement();
-                productAdvisement.setAdvisementDescription(productAdvisementResponse.getAdvisementDescription());
-                productAdvisement.setAdvisementId(productAdvisementResponse.getAdvisementId());
-                productAdvisement.setAdvisementName(productAdvisementResponse.getAdvisementName());
-                productAdvisement.setAdvisementTitle(productAdvisementResponse.getAdvisementTitle());
-                productAdvisement.setAdvisementMedia(transform(productAdvisementResponse.getAdvisementMedia()));
-                productAdvisement.setAdvisementType(productAdvisementResponse.getAdvisementType());
-                productAdvisement.setAdvisementDescription(productAdvisementResponse.getAdvisementDescription());
-                items.add(productAdvisement);
-            }
+        if (CollectionUtils.isEmpty(productAdvisementResponses)) {
+            return items;
         }
+        for (ProductAdvisementResponse productAdvisementResponse : productAdvisementResponses) {
+
+            if (productAdvisementResponse == null) {
+                continue;
+            }
+            ProductAdvisement productAdvisement = new ProductAdvisement();
+            productAdvisement.setAdvisementDescription(productAdvisementResponse.getAdvisementDescription());
+            productAdvisement.setAdvisementId(productAdvisementResponse.getAdvisementId());
+            productAdvisement.setAdvisementName(productAdvisementResponse.getAdvisementName());
+            productAdvisement.setAdvisementTitle(productAdvisementResponse.getAdvisementTitle());
+            productAdvisement.setAdvisementMedia(transform(productAdvisementResponse.getAdvisementMedia()));
+            productAdvisement.setAdvisementType(productAdvisementResponse.getAdvisementType());
+            productAdvisement.setAdvisementDescription(productAdvisementResponse.getAdvisementDescription());
+            items.add(productAdvisement);
+        }
+
         return items;
     }
 
-    private SellingPrice transform(SellingPriceResponse entity) {
+    private SellingPrice transform(SellingPriceResponse sellingPriceResponse) {
         SellingPrice sellingPrice = null;
-        if (entity != null) {
+        if (sellingPriceResponse != null) {
             sellingPrice = new SellingPrice();
-            sellingPrice.setAdultPrice(entity.getAdultPrice());
-            sellingPrice.setChildPrice(entity.getChildPrice());
-            sellingPrice.setCurrency(entity.getCurrency());
-            sellingPrice.setInfantPrice(entity.getInfantPrice());
+            sellingPrice.setAdultPrice(sellingPriceResponse.getAdultPrice());
+            sellingPrice.setChildPrice(sellingPriceResponse.getChildPrice());
+            sellingPrice.setCurrency(sellingPriceResponse.getCurrency());
+            sellingPrice.setInfantPrice(sellingPriceResponse.getInfantPrice());
         }
         return sellingPrice;
     }
 
-    private ProductCostType transform(ProductCostTypeResponse entity) {
+    private ProductCostType transform(ProductCostTypeResponse productCostTypeResponse) {
         ProductCostType productCostType = null;
-        if (entity != null) {
+        if (productCostTypeResponse != null) {
             productCostType = new ProductCostType();
-            productCostType.setCostTypeCode(entity.getCostTypeCode());
-            productCostType.setCostTypeDescription(entity.getCostTypeDescription());
-            productCostType.setCostTypeMedia(transform(entity.getCostTypeMedia()));
-            productCostType.setCostTypeTitle(entity.getCostTypeTitle());
+            productCostType.setCostTypeCode(productCostTypeResponse.getCostTypeCode());
+            productCostType.setCostTypeDescription(productCostTypeResponse.getCostTypeDescription());
+            productCostType.setCostTypeMedia(transform(productCostTypeResponse.getCostTypeMedia()));
+            productCostType.setCostTypeTitle(productCostTypeResponse.getCostTypeTitle());
         }
         return productCostType;
     }
 
-    private ProductDuration transform(ProductDurationResponse entity) {
+    private ProductDuration transform(ProductDurationResponse productDurationResponse) {
         ProductDuration productDuration = null;
-        if (entity != null) {
+        if (productDurationResponse != null) {
             productDuration = new ProductDuration();
-            productDuration.setAtYourLeisure(entity.isAtYourLeisure());
-            productDuration.setDurationInMinutes(entity.getDurationInMinutes());
-            productDuration.setLagTimeInMinutes(entity.getLagTimeInMinutes());
-            productDuration.setLeadTimeInMinutes(entity.getLeadTimeInMinutes());
+            productDuration.setAtYourLeisure(productDurationResponse.isAtYourLeisure());
+            productDuration.setDurationInMinutes(productDurationResponse.getDurationInMinutes());
+            productDuration.setLagTimeInMinutes(productDurationResponse.getLagTimeInMinutes());
+            productDuration.setLeadTimeInMinutes(productDurationResponse.getLeadTimeInMinutes());
         }
         return productDuration;
     }
 
-    private ProductLocation transform(ProductLocationResponse entity) {
+    private ProductLocation transform(ProductLocationResponse productLocationResponse) {
         ProductLocation productLocation = null;
-        if (entity != null) {
+        if (productLocationResponse != null) {
             productLocation = new ProductLocation();
-            productLocation.setLocationCode(entity.getLocationCode());
-            productLocation.setLocationId(entity.getLocationId());
-            productLocation.setLocationType(entity.getLocationType());
-            productLocation.setOperatingHoursEnd(entity.getOperatingHoursEnd());
-            productLocation.setOperatingHoursStart(entity.getOperatingHoursStart());
+            productLocation.setLocationCode(productLocationResponse.getLocationCode());
+            productLocation.setLocationId(productLocationResponse.getLocationId());
+            productLocation.setLocationType(productLocationResponse.getLocationType());
+            productLocation.setOperatingHoursEnd(productLocationResponse.getOperatingHoursEnd());
+            productLocation.setOperatingHoursStart(productLocationResponse.getOperatingHoursStart());
         }
         return productLocation;
     }
 
-    private ProductActivityLevel transform(ProductActivityLevelResponse entity) {
+    private ProductActivityLevel transform(ProductActivityLevelResponse productActivityLevelResponse) {
         ProductActivityLevel productActivityLevel = null;
-        if (entity != null) {
+        if (productActivityLevelResponse != null) {
             productActivityLevel = new ProductActivityLevel();
-            productActivityLevel.setActivityLevelDescription(entity.getActivityLevelDescription());
-            productActivityLevel.setActivityLevelId(entity.getActivityLevelId());
-            productActivityLevel.setActivityLevelMedia(transform(entity.getActivityLevelMedia()));
+            productActivityLevel.setActivityLevelDescription(productActivityLevelResponse.getActivityLevelDescription());
+            productActivityLevel.setActivityLevelId(productActivityLevelResponse.getActivityLevelId());
+            productActivityLevel.setActivityLevelMedia(transform(productActivityLevelResponse.getActivityLevelMedia()));
         }
         return productActivityLevel;
     }
 
-    private Media transform(MediaResponse entity) {
+    private Media transform(MediaResponse mediaResponse) {
         Media media = null;
-        if (entity != null) {
+        if (mediaResponse != null) {
             media = new Media();
-            media.setMediaItem(transformMediaItem(entity.getMediaItem()));
+            media.setMediaItem(transformMediaItem(mediaResponse.getMediaItem()));
         }
         return media;
     }
@@ -250,29 +258,31 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
     private List<MediaItem> transformMediaItem(List<MediaItemResponse> mediaItemsResponses) {
         ArrayList<MediaItem> items = new ArrayList<MediaItem>();
 
-        if (mediaItemsResponses != null) {
-            for (MediaItemResponse mediaItemResponse : mediaItemsResponses) {
-
-                if (mediaItemResponse != null) {
-                    continue;
-                }
-                MediaItem mediaItem = new MediaItem();
-                mediaItem.setMediaRefLink(mediaItemResponse.getMediaRefLink());
-                mediaItem.setMediaType(mediaItemResponse.getMediaType());
-                items.add(mediaItem);
-
-            }
+        if (CollectionUtils.isEmpty(mediaItemsResponses)) {
+            return items;
         }
+        for (MediaItemResponse mediaItemResponse : mediaItemsResponses) {
+
+            if (mediaItemResponse != null) {
+                continue;
+            }
+            MediaItem mediaItem = new MediaItem();
+            mediaItem.setMediaRefLink(mediaItemResponse.getMediaRefLink());
+            mediaItem.setMediaType(mediaItemResponse.getMediaType());
+            items.add(mediaItem);
+
+        }
+
         return items;
     }
 
-    private ProductType transform(ProductTypeResponse entity) {
+    private ProductType transform(ProductTypeResponse productTypeResponse) {
         ProductType productType = null;
-        if (entity != null) {
+        if (productTypeResponse != null) {
             productType = new ProductType();
-            productType.setProductTypeID(entity.getProductTypeId());
-            productType.setProductTypeName(entity.getProductTypeName());
-            productType.setProductType(entity.getProductType());
+            productType.setProductTypeID(productTypeResponse.getProductTypeId());
+            productType.setProductTypeName(productTypeResponse.getProductTypeName());
+            productType.setProductType(productTypeResponse.getProductType());
         }
         return productType;
     }
@@ -280,25 +290,31 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
     private List<ProductCategory> transform(List<ProductCategoryResponse> productCategoryResponses) {
 
         ArrayList<ProductCategory> productCategories = new ArrayList<ProductCategory>();
-        if (productCategoryResponses != null) {
-            for (ProductCategoryResponse productCategoryResponse : productCategoryResponses) {
-
-                if (productCategoryResponse == null) {
-                    continue;
-                }
-                ProductCategory productCategory = new ProductCategory();
-                productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
-                productCategory.setCategoryId(productCategoryResponse.getCategoryId());
-                productCategory.setProductTags(transformProductTags(productCategoryResponse.getProductTags()));
-                productCategories.add(productCategory);
-            }
+        if (CollectionUtils.isEmpty(productCategoryResponses)) {
+            return productCategories;
         }
+        for (ProductCategoryResponse productCategoryResponse : productCategoryResponses) {
+
+            if (productCategoryResponse == null) {
+                continue;
+            }
+            ProductCategory productCategory = new ProductCategory();
+            productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
+            productCategory.setCategoryId(productCategoryResponse.getCategoryId());
+            productCategory.setProductTags(transformProductTags(productCategoryResponse.getProductTags()));
+            productCategories.add(productCategory);
+        }
+
         return productCategories;
     }
 
     private List<ProductTags> transformProductTags(List<ProductTagsResponse> productTagsResponses) {
 
         ArrayList<ProductTags> items = new ArrayList<ProductTags>();
+
+        if (CollectionUtils.isEmpty(productTagsResponses)) {
+            return items;
+        }
 
         for (ProductTagsResponse productTagsResponse : productTagsResponses) {
 

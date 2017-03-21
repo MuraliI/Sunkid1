@@ -4,7 +4,7 @@ package com.rcl.excalibur.data.service.response;
 import com.google.gson.annotations.SerializedName;
 
 public class ProductTypeResponse {
-    @SerializedName("preferenceID")
+    @SerializedName("productTypeID")
     private String productTypeId;
     private String productTypeName;
     private String productType;

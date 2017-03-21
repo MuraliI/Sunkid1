@@ -3,18 +3,18 @@ package com.rcl.excalibur.domain;
 
 public class ProductPreference {
 
-    private String preferenceID;
+    private String preferenceId;
     private String preferenceName;
     private boolean mandatoryPreferenceFlag;
     private String preferenceType;
     private ProductPreferenceValue preferenceValue;
 
-    public String getPreferenceID() {
-        return preferenceID;
+    public String getPreferenceId() {
+        return preferenceId;
     }
 
-    public void setPreferenceID(String preferenceID) {
-        this.preferenceID = preferenceID;
+    public void setPreferenceId(String preferenceId) {
+        this.preferenceId = preferenceId;
     }
 
     public String getPreferenceName() {
