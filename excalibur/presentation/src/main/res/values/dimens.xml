@@ -65,10 +65,11 @@
 
     <!--Itinerary -->
     <dimen name="item_product_margin_min">5dp</dimen>
-    <dimen name="item_product_container_height">140dp</dimen>
+    <dimen name="item_product_image_height">140dp</dimen>
+    <dimen name="item_product_image_width">140dp</dimen>
     <dimen name="item_product_width_image">150dp</dimen>
     <dimen name="item_product_left_margin">60dp</dimen>
     <dimen name="item_product_width">300dp</dimen>
-    <dimen name="item_product_padding_top">35dp</dimen>
+    <dimen name="item_product_padding">35dp</dimen>
 
 </resources>

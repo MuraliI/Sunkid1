@@ -5,16 +5,16 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="@dimen/item_product_width"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_margin="@dimen/margin_large"
-        android:paddingLeft="@dimen/margin_large">
+        android:paddingLeft="@dimen/item_product_padding">
 
         <ImageView
             android:id="@+id/image_product"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/item_product_container_height"
+            android:layout_width="@dimen/item_product_image_width"
+            android:layout_height="@dimen/item_product_image_height"
             android:layout_alignParentEnd="true"
             android:scaleType="centerCrop" />
 
@@ -23,7 +23,7 @@
             style="@style/AppTheme.ProductTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/item_product_padding_top" />
+            android:paddingTop="@dimen/item_product_padding" />
 
         <TextView
             android:id="@+id/text_date"
