@@ -1,4 +1,4 @@
-package com.rcl.excalibur.utils;
+package com.rcl.excalibur.data.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
