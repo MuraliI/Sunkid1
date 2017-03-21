@@ -3,16 +3,16 @@ package com.rcl.excalibur.domain;
 
 public class ProductType {
 
-    private String productTypeID;
+    private String productTypeId;
     private String productTypeName;
     private String productType;
 
-    public String getProductTypeID() {
-        return productTypeID;
+    public String getProductTypeId() {
+        return productTypeId;
     }
 
-    public void setProductTypeID(String productTypeID) {
-        this.productTypeID = productTypeID;
+    public void setProductTypeId(String productTypeId) {
+        this.productTypeId = productTypeId;
     }
 
     public String getProductTypeName() {

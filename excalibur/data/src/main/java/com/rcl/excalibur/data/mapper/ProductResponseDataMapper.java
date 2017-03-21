@@ -280,7 +280,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         ProductType productType = null;
         if (productTypeResponse != null) {
             productType = new ProductType();
-            productType.setProductTypeID(productTypeResponse.getProductTypeId());
+            productType.setProductTypeId(productTypeResponse.getProductTypeId());
             productType.setProductTypeName(productTypeResponse.getProductTypeName());
             productType.setProductType(productTypeResponse.getProductType());
         }
@@ -323,7 +323,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             }
             ProductTags productTags = new ProductTags();
             productTags.setDescription(productTagsResponse.getDescription());
-            productTags.setTagID(productTagsResponse.getTagID());
+            productTags.setTagId(productTagsResponse.getTagId());
             items.add(productTags);
         }
         return items;

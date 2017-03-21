@@ -6,11 +6,11 @@ public class ProductTags {
     private String tagId;
     private String description;
 
-    public String getTagID() {
+    public String getTagId() {
         return tagId;
     }
 
-    public void setTagID(String tagID) {
+    public void setTagId(String tagId) {
         this.tagId = tagId;
     }
 
