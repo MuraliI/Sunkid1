@@ -36,14 +36,21 @@
             android:value="testDB.db"/>
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.rcl.excalibur.data.entity.ItemEntity,
-            com.rcl.excalibur.data.entity.DiscoverItemEntity,
-            com.rcl.excalibur.data.entity.AccessibilityEntity,
-            com.rcl.excalibur.data.entity.StandardTimeEntity,
-            com.rcl.excalibur.data.entity.TimeEntity,
-            com.rcl.excalibur.data.entity.PriceEntity,
-            com.rcl.excalibur.data.entity.PropertyEntity"
-            />
+            android:value="com.rcl.excalibur.data.entity.DiscoverItemEntity,
+            com.rcl.excalibur.data.entity.AdvisementEntity,
+            com.rcl.excalibur.data.entity.CategoryEntity,
+            com.rcl.excalibur.data.entity.CostTypeEntity,
+            com.rcl.excalibur.data.entity.DurationEntity,
+            com.rcl.excalibur.data.entity.LocationEntity,
+            com.rcl.excalibur.data.entity.MediaEntity,
+            com.rcl.excalibur.data.entity.MediaValueEntity,
+            com.rcl.excalibur.data.entity.PreferenceEntity,
+            com.rcl.excalibur.data.entity.PreferenceValueEntity,
+            com.rcl.excalibur.data.entity.ProductEntity,
+            com.rcl.excalibur.data.entity.PromotionEntity,
+            com.rcl.excalibur.data.entity.RestrictionEntity,
+            com.rcl.excalibur.data.entity.StartingFromPriceEntity,
+            com.rcl.excalibur.data.entity.TypeEntity" />
     </application>
 
 </manifest>

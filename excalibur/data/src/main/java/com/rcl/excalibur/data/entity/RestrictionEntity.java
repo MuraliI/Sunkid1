@@ -1,0 +1,102 @@
+package com.rcl.excalibur.data.entity;
+
+
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.google.gson.Gson;
+
+import java.util.List;
+
+@Table(name = RestrictionEntity.TABLE_NAME)
+public class RestrictionEntity extends Model {
+
+    public static final String TABLE_NAME = "restriction";
+    public static final String COLUMN_RESTRICTION_ID = "restriction_id";
+    public static final String COLUMN_TYPE = "type";
+    public static final String COLUMN_MANDATORY = "mandatory";
+    public static final String COLUMN_DISPLAY_TEXT = "display_text";
+    public static final String COLUMN_QUESTION = "question";
+    public static final String COLUMN_ANSWERS = "answers";
+    public static final String COLUMN_PRODUCT = "product";
+
+
+    @Column(name = COLUMN_RESTRICTION_ID)
+    public long restrictionId;
+    @Column(name = COLUMN_TYPE)
+    public String type;
+    @Column(name = COLUMN_MANDATORY)
+    public boolean mandatory;
+    @Column(name = COLUMN_DISPLAY_TEXT)
+    public String displayText;
+    @Column(name = COLUMN_QUESTION)
+    public String question;
+    @Column(name = COLUMN_ANSWERS)
+    public String answersJson;
+    @Column(name = COLUMN_PRODUCT)
+    public ProductEntity product;
+
+    public RestrictionEntity() {
+        super();
+    }
+
+    public String[] getAnswers() {
+        return new Gson().fromJson(answersJson, String[].class);
+    }
+
+    public void setAnswers(String[] answers) {
+        this.answersJson = new Gson().toJson(answers);
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answersJson = new Gson().toJson(answers);
+    }
+
+    public long getRestrictionId() {
+        return restrictionId;
+    }
+
+    public void setRestrictionId(long restrictionId) {
+        this.restrictionId = restrictionId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isMandatory() {
+        return mandatory;
+    }
+
+    public void setMandatory(boolean mandatory) {
+        this.mandatory = mandatory;
+    }
+
+    public String getDisplayText() {
+        return displayText;
+    }
+
+    public void setDisplayText(String displayText) {
+        this.displayText = displayText;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
+    }
+}
