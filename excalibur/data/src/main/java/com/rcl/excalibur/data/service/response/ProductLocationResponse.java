@@ -1,16 +1,12 @@
 
 package com.rcl.excalibur.data.service.response;
 
-import javax.annotation.Generated;
-
-@Generated("net.hexar.json2pojo")
-@SuppressWarnings("unused")
 public class ProductLocationResponse {
 
     private String locationCode;
     private String locationType;
-    private Long operatingHoursEnd;
-    private Long operatingHoursStart;
+    private String operatingHoursEnd;
+    private String operatingHoursStart;
 
 
     public ProductLocationResponse() {
@@ -32,19 +28,20 @@ public class ProductLocationResponse {
         this.locationType = locationType;
     }
 
-    public Long getOperatingHoursEnd() {
+
+    public String getOperatingHoursEnd() {
         return operatingHoursEnd;
     }
 
-    public void setOperatingHoursEnd(Long operatingHoursEnd) {
+    public void setOperatingHoursEnd(String operatingHoursEnd) {
         this.operatingHoursEnd = operatingHoursEnd;
     }
 
-    public Long getOperatingHoursStart() {
+    public String getOperatingHoursStart() {
         return operatingHoursStart;
     }
 
-    public void setOperatingHoursStart(Long operatingHoursStart) {
+    public void setOperatingHoursStart(String operatingHoursStart) {
         this.operatingHoursStart = operatingHoursStart;
     }
 }

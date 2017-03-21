@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("net.hexar.json2pojo")
-public class GetSpaResponse {
+public class SpasResponse {
 
     @SerializedName("GetSpasResponse")
     private GetSpasResponse getSpasResponse;
