@@ -1,6 +1,6 @@
-package com.rcl.excalibur.data.bean;
+package com.rcl.excalibur.data.service.response.itinerary;
 
-public class BaseEventTimeDto {
+public class BaseEventTimeResponse {
     private String eventDate;
     private String eventTime;
     private String eventTimeZone;

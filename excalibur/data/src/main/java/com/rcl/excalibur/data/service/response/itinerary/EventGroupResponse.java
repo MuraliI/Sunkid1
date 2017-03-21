@@ -1,11 +1,11 @@
-package com.rcl.excalibur.data.bean;
+package com.rcl.excalibur.data.service.response.itinerary;
 
 import java.util.List;
 
-public class EventGroupDto {
+public class EventGroupResponse {
     private String eventGroupType;
     private String eventGroupDescription;
-    private List<ItineraryEventDto> itineraryEvents;
+    private List<ItineraryEventResponse> itineraryEvents;
 
     public String getEventGroupType() {
         return eventGroupType;
@@ -23,11 +23,11 @@ public class EventGroupDto {
         this.eventGroupDescription = eventGroupDescription;
     }
 
-    public List<ItineraryEventDto> getItineraryEvents() {
+    public List<ItineraryEventResponse> getItineraryEvents() {
         return itineraryEvents;
     }
 
-    public void setItineraryEvents(List<ItineraryEventDto> itineraryEvents) {
+    public void setItineraryEvents(List<ItineraryEventResponse> itineraryEvents) {
         this.itineraryEvents = itineraryEvents;
     }
 }

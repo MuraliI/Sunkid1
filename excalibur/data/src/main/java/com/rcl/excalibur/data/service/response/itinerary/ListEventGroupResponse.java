@@ -1,8 +1,8 @@
-package com.rcl.excalibur.data.bean;
+package com.rcl.excalibur.data.service.response.itinerary;
 
 import java.util.List;
 
-public class ListEventGroupDto<T> {
+public class ListEventGroupResponse<T> {
     private List<T> itineraryEventGroups;
 
     public List<T> getItineraryEventGroups() {

@@ -1,6 +1,6 @@
-package com.rcl.excalibur.data.bean;
+package com.rcl.excalibur.data.service.response.itinerary;
 
-public class EventLocationDto {
+public class EventLocationResponse {
     private String locationCode;
     private String locationType;
     private String locationName;

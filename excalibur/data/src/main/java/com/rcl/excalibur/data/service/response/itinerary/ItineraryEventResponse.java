@@ -1,12 +1,12 @@
-package com.rcl.excalibur.data.bean;
+package com.rcl.excalibur.data.service.response.itinerary;
 
-public class ItineraryEventDto {
+public class ItineraryEventResponse {
     private String eventID;
     private String eventType;
     private String eventLocale;
-    private EventLocationDto eventLocation;
-    private BaseEventTimeDto eventStartTime;
-    private BaseEventTimeDto eventEndTime;
+    private EventLocationResponse eventLocation;
+    private BaseEventTimeResponse eventStartTime;
+    private BaseEventTimeResponse eventEndTime;
 
     public String getEventID() {
         return eventID;
@@ -32,27 +32,27 @@ public class ItineraryEventDto {
         this.eventLocale = eventLocale;
     }
 
-    public EventLocationDto getEventLocation() {
+    public EventLocationResponse getEventLocation() {
         return eventLocation;
     }
 
-    public void setEventLocation(EventLocationDto eventLocation) {
+    public void setEventLocation(EventLocationResponse eventLocation) {
         this.eventLocation = eventLocation;
     }
 
-    public BaseEventTimeDto getEventStartTime() {
+    public BaseEventTimeResponse getEventStartTime() {
         return eventStartTime;
     }
 
-    public void setEventStartTime(BaseEventTimeDto eventStartTime) {
+    public void setEventStartTime(BaseEventTimeResponse eventStartTime) {
         this.eventStartTime = eventStartTime;
     }
 
-    public BaseEventTimeDto getEventEndTime() {
+    public BaseEventTimeResponse getEventEndTime() {
         return eventEndTime;
     }
 
-    public void setEventEndTime(BaseEventTimeDto eventEndTime) {
+    public void setEventEndTime(BaseEventTimeResponse eventEndTime) {
         this.eventEndTime = eventEndTime;
     }
 }

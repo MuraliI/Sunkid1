@@ -1,8 +1,8 @@
-package com.rcl.excalibur.data.bean;
+package com.rcl.excalibur.data.service.response.itinerary;
 
 import java.util.List;
 
-public class BaseResponseDto<T> {
+public class BaseResponseItinerary<T> {
     private int cruiseReservationID;
     private int guestID;
     private String sailingID;
