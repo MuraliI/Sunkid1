@@ -27,11 +27,11 @@ public class CategoryResponseDataMapperTest {
         categotyServiceDataMapper = new CategoryResponseDataMapper();
         entity1 = new CategoryResponse();
         entity1.setCategoryId((long) 12);
-        entity1.setCategoryDescription("Some Decription");
+        entity1.setCategoryDescription("Some Description");
         entity1.setProductTags(Arrays.asList("Tag 1", "Tag 2", "Ta2"));
         entity2 = new CategoryResponse();
         entity2.setCategoryId((long) 13);
-        entity2.setCategoryDescription("Some Decription 2");
+        entity2.setCategoryDescription("Some Description 2");
         entity2.setProductTags(Arrays.asList("Tag 1", "Tag 2", "Ta2"));
     }
 
