@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
+import com.rcl.excalibur.mvp.presenter.PlanListPresenter;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
 
 import butterknife.ButterKnife;
@@ -37,32 +38,32 @@ public class DiscoverTabFragment extends Fragment {
 
     @OnClick(R.id.button_dinning)
     public void dinningOnClick() {
-        Toast.makeText(getActivity(), "Dinning Click", Toast.LENGTH_LONG).show();
+        presenter.openListScreen(PlanListPresenter.POSITION_DINING);
     }
 
     @OnClick(R.id.button_excursions)
     public void excursionsOnClick() {
-        Toast.makeText(getActivity(), "Excursions Click", Toast.LENGTH_LONG).show();
+        presenter.openListScreen(PlanListPresenter.POSITION_SHOREX);
     }
 
     @OnClick(R.id.button_spa)
     public void spaOnClick() {
-        Toast.makeText(getActivity(), "Spa Click", Toast.LENGTH_LONG).show();
+        presenter.openListScreen(PlanListPresenter.POSITION_SPA);
     }
 
     @OnClick(R.id.button_shop)
     public void shopOnClick() {
-        Toast.makeText(getActivity(), "Shop Click", Toast.LENGTH_LONG).show();
+        presenter.openListScreen(PlanListPresenter.POSITION_SHOPPING);
     }
 
     @OnClick(R.id.button_entertainment)
     public void entertainmentOnClick() {
-        Toast.makeText(getActivity(), "Entertainment Click", Toast.LENGTH_LONG).show();
+        presenter.openListScreen(PlanListPresenter.POSITION_ENTERTAINMENT);
     }
 
     @OnClick(R.id.button_activities)
     public void activitiesOnClick() {
-        Toast.makeText(getActivity(), "Activities Click", Toast.LENGTH_LONG).show();
+        presenter.openListScreen(PlanListPresenter.POSITION_ROYAL_ACTIVITY);
     }
 
     @OnClick(R.id.button_services)
@@ -74,4 +75,5 @@ public class DiscoverTabFragment extends Fragment {
     public void searchOnClick() {
         Toast.makeText(getActivity(), "Search Click", Toast.LENGTH_LONG).show();
     }
+
 }

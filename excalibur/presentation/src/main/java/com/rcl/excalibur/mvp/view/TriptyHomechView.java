@@ -8,7 +8,6 @@ import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.custom.view.TriptychTabBarLayout;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
-import com.rcl.excalibur.fragments.MeTabFragment;
 import com.rcl.excalibur.fragments.PlansTabFragment;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
@@ -34,7 +33,6 @@ public class TriptyHomechView extends ActivityView<TriptychHomeActivity> {
             List<Fragment> triptychFragments = new ArrayList<>();
             triptychFragments.add(PlansTabFragment.newInstance());
             triptychFragments.add(DiscoverTabFragment.newInstance());
-            triptychFragments.add(MeTabFragment.newInstance());
 
             viewPager.setAdapter(new TriptychPagerAdapter(getActivity().getSupportFragmentManager(), triptychFragments));
             tabBarLayout.setViewPager(viewPager);

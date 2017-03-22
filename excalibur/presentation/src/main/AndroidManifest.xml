@@ -13,14 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.HomeActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Home">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.PlanListActivity"
@@ -32,8 +26,14 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.TriptychHomeActivity"
-            android:label="@string/empty_string"
-            android:screenOrientation="portrait"/>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="AA_DB_NAME"
