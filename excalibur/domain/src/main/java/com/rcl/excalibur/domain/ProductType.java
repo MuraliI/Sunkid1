@@ -3,15 +3,15 @@ package com.rcl.excalibur.domain;
 
 public class ProductType {
 
-    private String productTypeId;
+    private long productTypeId;
     private String productTypeName;
     private String productType;
 
-    public String getProductTypeId() {
+    public long getProductTypeId() {
         return productTypeId;
     }
 
-    public void setProductTypeId(String productTypeId) {
+    public void setProductTypeId(long productTypeId) {
         this.productTypeId = productTypeId;
     }
 

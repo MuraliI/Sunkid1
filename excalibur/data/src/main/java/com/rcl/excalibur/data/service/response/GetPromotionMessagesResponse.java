@@ -2,20 +2,9 @@ package com.rcl.excalibur.data.service.response;
 
 import java.util.List;
 
-public class GetPromotionMessagesResponse {
-
-    private String responseStatus;
+public class GetPromotionMessagesResponse extends BaseResponse {
 
     private List<PromotionMessageResponse> promotionMessage;
-
-    public String getResponseStatus() {
-        return responseStatus;
-    }
-
-    public void setResponseStatus(String responseStatus) {
-        this.responseStatus = responseStatus;
-    }
-
 
     public List<PromotionMessageResponse> getPromotionMessage() {
         return promotionMessage;

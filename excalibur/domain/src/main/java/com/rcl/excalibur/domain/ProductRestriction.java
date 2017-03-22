@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ProductRestriction {
 
-    private String restrictionId;
+    private long restrictionId;
     private String restrictionType;
     private boolean isMandatory;
     private String restrictionDisplayText;
@@ -16,11 +16,11 @@ public class ProductRestriction {
     private List<ProductRestrictionAnswer> restrictionAnswers;
     private Media restrictionMedia;
 
-    public String getRestrictionId() {
+    public long getRestrictionId() {
         return restrictionId;
     }
 
-    public void setRestrictionId(String restrictionId) {
+    public void setRestrictionId(long restrictionId) {
         this.restrictionId = restrictionId;
     }
 

@@ -5,33 +5,32 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProductPreferenceValueResponse {
     @SerializedName("preferenceValueID")
-    private String preferenceValueId;
-    private boolean preferenceValueName;
+    private long preferenceValueId;
+    private String preferenceValueName;
     @SerializedName("PreferenceValueCode")
-    private boolean preferenceValueCode;
+    private String preferenceValueCode;
 
-
-    public String getPreferenceValueId() {
+    public long getPreferenceValueId() {
         return preferenceValueId;
     }
 
-    public void setPreferenceValueId(String preferenceValueId) {
+    public void setPreferenceValueId(long preferenceValueId) {
         this.preferenceValueId = preferenceValueId;
     }
 
-    public boolean isPreferenceValueName() {
+    public String getPreferenceValueName() {
         return preferenceValueName;
     }
 
-    public void setPreferenceValueName(boolean preferenceValueName) {
+    public void setPreferenceValueName(String preferenceValueName) {
         this.preferenceValueName = preferenceValueName;
     }
 
-    public boolean isPreferenceValueCode() {
+    public String getPreferenceValueCode() {
         return preferenceValueCode;
     }
 
-    public void setPreferenceValueCode(boolean preferenceValueCode) {
+    public void setPreferenceValueCode(String preferenceValueCode) {
         this.preferenceValueCode = preferenceValueCode;
     }
 }

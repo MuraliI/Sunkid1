@@ -80,7 +80,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductRestriction> transformProductRestriction(List<ProductRestrictionResponse> productRestrictionResponses) {
 
-        ArrayList<ProductRestriction> items = new ArrayList<>();
+        ArrayList<ProductRestriction> items = new ArrayList<ProductRestriction>();
 
         if (CollectionUtils.isEmpty(productRestrictionResponses)) {
             return items;
@@ -107,10 +107,9 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         return items;
     }
 
-    private List<ProductRestrictionAnswer>
-    transformProductRestrictionAnswer(List<ProductRestrictionAnswerResponse> transformProductRestrictionAnswersResponses) {
+    private List<ProductRestrictionAnswer> transformProductRestrictionAnswer(List<ProductRestrictionAnswerResponse> transformProductRestrictionAnswersResponses) {
 
-        ArrayList<ProductRestrictionAnswer> items = new ArrayList<>();
+        ArrayList<ProductRestrictionAnswer> items = new ArrayList<ProductRestrictionAnswer>();
         if (CollectionUtils.isEmpty(transformProductRestrictionAnswersResponses)) {
             return items;
         }
@@ -120,8 +119,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
                 continue;
             }
             ProductRestrictionAnswer productRestrictionAnswer = new ProductRestrictionAnswer();
-            productRestrictionAnswer.setRestrictionAnswerDisplayText(
-                    transformProductRestrictionAnswerResponse.getRestrictionAnswerDisplayText());
+            productRestrictionAnswer.setRestrictionAnswerDisplayText(transformProductRestrictionAnswerResponse.getRestrictionAnswerDisplayText());
             items.add(productRestrictionAnswer);
         }
 
@@ -130,7 +128,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductPreference> transformProductPreference(List<ProductPreferenceResponse> productPreferenceResponses) {
 
-        ArrayList<ProductPreference> items = new ArrayList<>();
+        ArrayList<ProductPreference> items = new ArrayList<ProductPreference>();
         if (CollectionUtils.isEmpty(productPreferenceResponses)) {
             return items;
         }
@@ -144,45 +142,35 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             productPreference.setPreferenceId(productPreferenceResponse.getPreferenceId());
             productPreference.setPreferenceName(productPreferenceResponse.getPreferenceName());
             productPreference.setPreferenceType(productPreferenceResponse.getPreferenceType());
-            productPreference.setPreferenceValue(transformPreferenceValue(productPreferenceResponse.getPreferenceValue()));
+            productPreference.setPreferenceValue(transformPreferencesValues(productPreferenceResponse.getPreferenceValue()));
             items.add(productPreference);
         }
 
         return items;
     }
 
-    private List<ProductPreferenceValue> transformPreferenceValue(List<ProductPreferenceValueResponse> productPreferenceValueResponseList) {
-
-        ArrayList<ProductPreferenceValue> items = new ArrayList<>();
-
-        if (CollectionUtils.isEmpty(productPreferenceValueResponseList)) {
+    private List<ProductPreferenceValue> transformPreferencesValues(List<ProductPreferenceValueResponse> productPreferenceValueResponses) {
+        final List<ProductPreferenceValue> items = new ArrayList<>();
+        if (CollectionUtils.isEmpty(productPreferenceValueResponses)) {
             return items;
         }
-        for (ProductPreferenceValueResponse productPreferenceValueResponse : productPreferenceValueResponseList) {
-
-            if (productPreferenceValueResponseList == null) {
+        for (ProductPreferenceValueResponse productPreferenceValueResponse : productPreferenceValueResponses) {
+            if (productPreferenceValueResponse == null) {
                 continue;
             }
-            items.add(transform(productPreferenceValueResponse));
-        }
 
-        return items;
-    }
-
-    private ProductPreferenceValue transform(ProductPreferenceValueResponse productPreferenceValueResponse) {
-        ProductPreferenceValue productPreferenceValue = null;
-        if (productPreferenceValueResponse != null) {
-            productPreferenceValue = new ProductPreferenceValue();
-            productPreferenceValue.setPreferenceValueCode(productPreferenceValueResponse.isPreferenceValueCode());
+            ProductPreferenceValue productPreferenceValue = new ProductPreferenceValue();
+            productPreferenceValue.setPreferenceValueCode(productPreferenceValueResponse.getPreferenceValueCode());
             productPreferenceValue.setPreferenceValueId(productPreferenceValueResponse.getPreferenceValueId());
-            productPreferenceValue.setPreferenceValueName(productPreferenceValueResponse.isPreferenceValueName());
+            productPreferenceValue.setPreferenceValueName(productPreferenceValueResponse.getPreferenceValueName());
+            items.add(productPreferenceValue);
         }
-        return productPreferenceValue;
+        return items;
     }
 
     private List<ProductAdvisement> transformProductAdvisement(List<ProductAdvisementResponse> productAdvisementResponses) {
 
-        ArrayList<ProductAdvisement> items = new ArrayList<>();
+        ArrayList<ProductAdvisement> items = new ArrayList<ProductAdvisement>();
 
         if (CollectionUtils.isEmpty(productAdvisementResponses)) {
             return items;
@@ -310,7 +298,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductCategory> transform(List<ProductCategoryResponse> productCategoryResponses) {
 
-        ArrayList<ProductCategory> productCategories = new ArrayList<>();
+        ArrayList<ProductCategory> productCategories = new ArrayList<ProductCategory>();
         if (CollectionUtils.isEmpty(productCategoryResponses)) {
             return productCategories;
         }
@@ -331,7 +319,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductTags> transformProductTags(List<ProductTagsResponse> productTagsResponses) {
 
-        ArrayList<ProductTags> items = new ArrayList<>();
+        ArrayList<ProductTags> items = new ArrayList<ProductTags>();
 
         if (CollectionUtils.isEmpty(productTagsResponses)) {
             return items;

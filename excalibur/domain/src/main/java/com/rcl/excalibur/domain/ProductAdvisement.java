@@ -3,18 +3,18 @@ package com.rcl.excalibur.domain;
 
 public class ProductAdvisement {
 
-    private String advisementId;
+    private long advisementId;
     private String advisementName;
     private String advisementType;
     private String advisementTitle;
     private String advisementDescription;
     private Media advisementMedia;
 
-    public String getAdvisementId() {
+    public long getAdvisementId() {
         return advisementId;
     }
 
-    public void setAdvisementId(String advisementId) {
+    public void setAdvisementId(long advisementId) {
         this.advisementId = advisementId;
     }
 
