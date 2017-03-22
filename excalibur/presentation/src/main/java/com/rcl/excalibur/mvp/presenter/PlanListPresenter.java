@@ -18,14 +18,14 @@ import static com.rcl.excalibur.fragments.DiscoverItemListFragment.SPA;
 import static com.rcl.excalibur.fragments.DiscoverItemListFragment.newInstance;
 
 public class PlanListPresenter implements BasePresenter {
-    private PlanListView view;
-    private int fragmentToShow = 0;
     public static final int POSITION_ROYAL_ACTIVITY = 0;
     public static final int POSITION_DINING = 1;
     public static final int POSITION_SHOPPING = 2;
     public static final int POSITION_SPA = 3;
     public static final int POSITION_SHOREX = 4;
     public static final int POSITION_ENTERTAINMENT = 5;
+    private PlanListView view;
+    private int fragmentToShow = 0;
 
     public PlanListPresenter(PlanListView view, int fragmentToShow) {
         this.view = view;
