@@ -2,6 +2,7 @@ package com.rcl.excalibur.data.service.response.itinerary;
 
 public class ItineraryEventResponse {
     private String eventID;
+    private String eventName;
     private String eventType;
     private String eventLocale;
     private EventLocationResponse eventLocation;
@@ -14,6 +15,14 @@ public class ItineraryEventResponse {
 
     public void setEventID(String eventID) {
         this.eventID = eventID;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     public String getEventType() {
