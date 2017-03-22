@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 
-import static com.rcl.excalibur.utils.CollectionUtils.isEmpty;
+import static com.rcl.excalibur.data.utils.CollectionUtils.isEmpty;
 import static io.reactivex.Observable.just;
 
 public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHoldel> {
