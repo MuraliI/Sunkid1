@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.adapters.itinerary.ItineraryCoodinatorAdapter;
 import com.rcl.excalibur.fragments.ItineraryFragment;
 
 import butterknife.Bind;
@@ -28,7 +29,7 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
             return;
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        //recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new ItineraryCoodinatorAdapter(null));
     }
 
     public void setGreetingText(int resource) {
