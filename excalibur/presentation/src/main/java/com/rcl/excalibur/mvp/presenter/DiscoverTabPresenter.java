@@ -1,7 +1,11 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import android.content.Intent;
+
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
+import com.rcl.excalibur.utils.ActivityUtils;
 
 public class DiscoverTabPresenter implements BasePresenter {
 
@@ -26,6 +30,12 @@ public class DiscoverTabPresenter implements BasePresenter {
             return;
         }
         activity.getApplicationComponent().inject(this);
+    }
+
+    public void openListScreen(int fragmentToShow) {
+        Intent intent = new Intent(view.getActivity(), PlanListActivity.class);
+        intent.putExtra(PlanListActivity.EXTRA_FRAGMENT_TYPE, fragmentToShow);
+        ActivityUtils.startActivity(view.getActivity(), intent);
     }
 
 }

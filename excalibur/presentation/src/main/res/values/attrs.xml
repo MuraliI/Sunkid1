@@ -7,4 +7,9 @@
         <attr name="collapseLinesCount" format="integer" />
         <attr name="animationDuration" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="TriptychTabBarLayout">
+        <attr name="stripThickness" format="dimension" />
+        <attr name="stripColor" format="color" />
+    </declare-styleable>
 </resources>
