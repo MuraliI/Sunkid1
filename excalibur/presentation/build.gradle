@@ -83,6 +83,7 @@ dependencies {
     compile generalDependencies.timber
     compile presentationDependencies.supportDesign
     compile presentationDependencies.realTimeBlurView
+    compile presentationDependencies.scaleImageView
 
     testCompile presentationTestDependencies.junit
     testCompile presentationTestDependencies.mockito
