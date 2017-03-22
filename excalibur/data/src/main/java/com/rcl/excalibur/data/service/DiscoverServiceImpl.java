@@ -4,7 +4,9 @@ package com.rcl.excalibur.data.service;
 import android.util.Log;
 
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
+import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.EntertaimentsResponse;
+import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.service.DiscoverService;
 
@@ -39,6 +41,40 @@ public class DiscoverServiceImpl implements DiscoverService {
             }
         });
     }
+
+    @Override
+    public void getSpas() {
+        Call<SpasResponse> call = ServiceUtil.getDiscoverApi().getSpas();
+
+        call.enqueue(new Callback<SpasResponse>() {
+            @Override
+            public void onResponse(Call<SpasResponse> call, Response<SpasResponse> response) {
+                Log.d("Succesfull", response.body().getGetSpasResponse().getResponseStatus());
+            }
+
+            @Override
+            public void onFailure(Call<SpasResponse> call, Throwable t) {
+                Log.e("error", t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getPromotionMessages() {
+        Call<PromotionMessagesResponse> call = ServiceUtil.getDiscoverApi().getPromotionMessages();
+        call.enqueue(new Callback<PromotionMessagesResponse>() {
+            @Override
+            public void onResponse(Call<PromotionMessagesResponse> call, Response<PromotionMessagesResponse> response) {
+                //TODO:
+            }
+
+            @Override
+            public void onFailure(Call<PromotionMessagesResponse> call, Throwable t) {
+                //TODO:
+            }
+        });
+    }
+
 
     @Override
     public void getEntertaiments() {

@@ -3,20 +3,12 @@ package com.rcl.excalibur.data.service.response;
 import java.util.List;
 
 
-public class GetEntertaimentsResponse {
+public class GetProductsResponse {
 
-    private List<ProductResponse> products;
+    private List<ProductResponse> product;
     private String responseStatus;
 
-    public GetEntertaimentsResponse() {
-    }
-
-    public List<ProductResponse> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<ProductResponse> products) {
-        this.products = products;
+    public GetProductsResponse() {
     }
 
     public String getResponseStatus() {
@@ -25,5 +17,13 @@ public class GetEntertaimentsResponse {
 
     public void setResponseStatus(String responseStatus) {
         this.responseStatus = responseStatus;
+    }
+
+    public List<ProductResponse> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<ProductResponse> product) {
+        this.product = product;
     }
 }

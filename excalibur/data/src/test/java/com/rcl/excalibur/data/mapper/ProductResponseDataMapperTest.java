@@ -1,5 +1,6 @@
 package com.rcl.excalibur.data.mapper;
 
+
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductActivityLevelResponse;
@@ -33,9 +34,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+
 public class ProductResponseDataMapperTest {
 
     ProductResponseDataMapper productResponseDataMapper;
+
     @Mock ProductResponse productResponse1;
     @Mock ProductResponse productResponse2;
 
@@ -134,8 +137,8 @@ public class ProductResponseDataMapperTest {
         Mockito.when(productLocationResponse.getLocationId()).thenReturn("RYLTH_QN");
         Mockito.when(productLocationResponse.getLocationCode()).thenReturn("RYLTH_QN");
         Mockito.when(productLocationResponse.getLocationType()).thenReturn("VENUE");
-        Mockito.when(productLocationResponse.getOperatingHoursEnd()).thenReturn("1200");
-        Mockito.when(productLocationResponse.getOperatingHoursStart()).thenReturn("1100");
+        Mockito.when(productLocationResponse.getOperatingHoursEnd()).thenReturn(1200);
+        Mockito.when(productLocationResponse.getOperatingHoursStart()).thenReturn(1100);
         Mockito.when(productResponse1.getProductLocation()).thenReturn(productLocationResponse);
 
         Mockito.when(productResponse2.getProductLocation()).thenReturn(productLocationResponse);
@@ -185,7 +188,7 @@ public class ProductResponseDataMapperTest {
         Mockito.when(productPreferenceResponse.getPreferenceId()).thenReturn("PreferenceId");
         Mockito.when(productPreferenceResponse.getPreferenceName()).thenReturn("PreferenceName");
         Mockito.when(productPreferenceResponse.getPreferenceType()).thenReturn("PreferenceType");
-        Mockito.when(productPreferenceResponse.getPreferenceValue()).thenReturn(productPreferenceValueResponse);
+        Mockito.when(productPreferenceResponse.getPreferenceValue()).thenReturn(Arrays.asList(productPreferenceValueResponse));
         Mockito.when(productResponse1.getPreferences()).thenReturn(Arrays.asList(productPreferenceResponse));
 
         Mockito.when(productResponse2.getPreferences()).thenReturn(Arrays.asList(productPreferenceResponse));
@@ -312,9 +315,11 @@ public class ProductResponseDataMapperTest {
             assertEquals(productResponse1.getPreferences().get(i).getPreferenceId(), product.getPreferences().get(i).getPreferenceId());
             assertEquals(productResponse1.getPreferences().get(i).getPreferenceName(), product.getPreferences().get(i).getPreferenceName());
             assertEquals(productResponse1.getPreferences().get(i).getPreferenceType(), product.getPreferences().get(i).getPreferenceType());
-            assertEquals(productResponse1.getPreferences().get(i).getPreferenceValue().getPreferenceValueId(), product.getPreferences().get(i).getPreferenceValue().getPreferenceValueId());
-            assertEquals(productResponse1.getPreferences().get(i).getPreferenceValue().isPreferenceValueCode(), product.getPreferences().get(i).getPreferenceValue().isPreferenceValueCode());
-            assertEquals(productResponse1.getPreferences().get(i).getPreferenceValue().isPreferenceValueName(), product.getPreferences().get(i).getPreferenceValue().isPreferenceValueName());
+            for (int j = 0; j < productResponse1.getPreferences().get(i).getPreferenceValue().size(); j++) {
+                assertEquals(productResponse1.getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueId(), product.getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueId());
+                assertEquals(productResponse1.getPreferences().get(i).getPreferenceValue().get(j).isPreferenceValueCode(), product.getPreferences().get(i).getPreferenceValue().get(j).isPreferenceValueCode());
+                assertEquals(productResponse1.getPreferences().get(i).getPreferenceValue().get(j).isPreferenceValueName(), product.getPreferences().get(i).getPreferenceValue().get(j).isPreferenceValueName());
+            }
         }
 
         for (int i = 0; i < productResponse1.getRestrictions().size(); i++) {
@@ -447,9 +452,12 @@ public class ProductResponseDataMapperTest {
                 assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceId(), productList.get(z).getPreferences().get(i).getPreferenceId());
                 assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceName(), productList.get(z).getPreferences().get(i).getPreferenceName());
                 assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceType(), productList.get(z).getPreferences().get(i).getPreferenceType());
-                assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceValue().getPreferenceValueId(), productList.get(z).getPreferences().get(i).getPreferenceValue().getPreferenceValueId());
-                assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceValue().isPreferenceValueCode(), productList.get(z).getPreferences().get(i).getPreferenceValue().isPreferenceValueCode());
-                assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceValue().isPreferenceValueName(), productList.get(z).getPreferences().get(i).getPreferenceValue().isPreferenceValueName());
+
+                for (int j = 0; j < productResponses.get(z).getPreferences().get(i).getPreferenceValue().size(); j++) {
+                    assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueId(), productList.get(z).getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueId());
+                    assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceValue().get(j).isPreferenceValueCode(), productList.get(z).getPreferences().get(i).getPreferenceValue().get(j).isPreferenceValueCode());
+                    assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceValue().get(j).isPreferenceValueName(), productList.get(z).getPreferences().get(i).getPreferenceValue().get(j).isPreferenceValueName());
+                }
             }
 
             for (int i = 0; i < productResponses.get(z).getRestrictions().size(); i++) {
@@ -486,6 +494,8 @@ public class ProductResponseDataMapperTest {
                 assertEquals(item.getMediaType(), itemProduct.getMediaType());
             }
         }
+
+
     }
 
 }
