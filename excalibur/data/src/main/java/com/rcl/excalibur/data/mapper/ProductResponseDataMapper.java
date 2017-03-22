@@ -80,7 +80,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductRestriction> transformProductRestriction(List<ProductRestrictionResponse> productRestrictionResponses) {
 
-        ArrayList<ProductRestriction> items = new ArrayList<ProductRestriction>();
+        ArrayList<ProductRestriction> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(productRestrictionResponses)) {
             return items;
@@ -110,7 +110,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
     private List<ProductRestrictionAnswer>
     transformProductRestrictionAnswer(List<ProductRestrictionAnswerResponse> transformProductRestrictionAnswersResponses) {
 
-        ArrayList<ProductRestrictionAnswer> items = new ArrayList<ProductRestrictionAnswer>();
+        ArrayList<ProductRestrictionAnswer> items = new ArrayList<>();
         if (CollectionUtils.isEmpty(transformProductRestrictionAnswersResponses)) {
             return items;
         }
@@ -130,7 +130,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductPreference> transformProductPreference(List<ProductPreferenceResponse> productPreferenceResponses) {
 
-        ArrayList<ProductPreference> items = new ArrayList<ProductPreference>();
+        ArrayList<ProductPreference> items = new ArrayList<>();
         if (CollectionUtils.isEmpty(productPreferenceResponses)) {
             return items;
         }
@@ -153,7 +153,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductPreferenceValue> transformPreferenceValue(List<ProductPreferenceValueResponse> productPreferenceValueResponseList) {
 
-        ArrayList<ProductPreferenceValue> items = new ArrayList<ProductPreferenceValue>();
+        ArrayList<ProductPreferenceValue> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(productPreferenceValueResponseList)) {
             return items;
@@ -182,7 +182,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductAdvisement> transformProductAdvisement(List<ProductAdvisementResponse> productAdvisementResponses) {
 
-        ArrayList<ProductAdvisement> items = new ArrayList<ProductAdvisement>();
+        ArrayList<ProductAdvisement> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(productAdvisementResponses)) {
             return items;
@@ -276,7 +276,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
     }
 
     private List<MediaItem> transformMediaItem(List<MediaItemResponse> mediaItemsResponses) {
-        ArrayList<MediaItem> items = new ArrayList<MediaItem>();
+        ArrayList<MediaItem> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(mediaItemsResponses)) {
             return items;
@@ -309,7 +309,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductCategory> transform(List<ProductCategoryResponse> productCategoryResponses) {
 
-        ArrayList<ProductCategory> productCategories = new ArrayList<ProductCategory>();
+        ArrayList<ProductCategory> productCategories = new ArrayList<>();
         if (CollectionUtils.isEmpty(productCategoryResponses)) {
             return productCategories;
         }
@@ -330,7 +330,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private List<ProductTags> transformProductTags(List<ProductTagsResponse> productTagsResponses) {
 
-        ArrayList<ProductTags> items = new ArrayList<ProductTags>();
+        ArrayList<ProductTags> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(productTagsResponses)) {
             return items;
