@@ -68,6 +68,7 @@
 
 
     <!--Itinerary -->
+    <dimen name="itinerary_background_corner_radius">10dp</dimen>
     <dimen name="item_product_image_height">140dp</dimen>
     <dimen name="item_product_image_width">140dp</dimen>
     <dimen name="item_product_padding">35dp</dimen>

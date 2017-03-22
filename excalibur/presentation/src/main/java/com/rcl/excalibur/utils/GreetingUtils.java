@@ -2,7 +2,7 @@ package com.rcl.excalibur.utils;
 
 import com.rcl.excalibur.R;
 
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 public final class GreetingUtils {
 
@@ -15,7 +15,7 @@ public final class GreetingUtils {
     private GreetingUtils() {
     }
 
-    public static int getGreetingByDate(GregorianCalendar date) {
+    public static int getGreetingByDate(Calendar date) {
 
         int value;
         int currentHourInMinutes = getCurrentHourInMinutes(date);
@@ -35,7 +35,7 @@ public final class GreetingUtils {
         return value;
     }
 
-    public static int getCurrentHourInMinutes(GregorianCalendar date) {
+    public static int getCurrentHourInMinutes(Calendar date) {
         int currentHour = date.get(date.HOUR_OF_DAY);
         int currentMinutes = date.get(date.MINUTE);
         return currentHour * NUMBER_OF_MINUTES_IN_HOUR + currentMinutes;

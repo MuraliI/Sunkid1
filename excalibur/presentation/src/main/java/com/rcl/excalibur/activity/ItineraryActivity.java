@@ -19,7 +19,7 @@ public class ItineraryActivity extends BaseActivity {
     public void attachFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        transaction.replace(R.id.fragment_container, ItineraryFragment.newInstance(1));
+        transaction.add(R.id.fragment_container, ItineraryFragment.newInstance(1));
         transaction.addToBackStack(null);
 
         transaction.commit();

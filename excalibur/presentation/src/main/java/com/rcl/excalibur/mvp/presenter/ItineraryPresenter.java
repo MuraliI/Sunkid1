@@ -1,9 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
 import com.rcl.excalibur.mvp.view.ItineraryView;
-import com.rcl.excalibur.utils.GreetingUtils;
-
-import java.util.GregorianCalendar;
 
 public class ItineraryPresenter implements BasePresenter {
 
@@ -13,15 +11,13 @@ public class ItineraryPresenter implements BasePresenter {
     public ItineraryPresenter(int type, ItineraryView view) {
         this.view = view;
         this.type = type;
-
+        init();
     }
 
-    public void onResume() {
-        getGreeting();
-    }
+    private void init() {
+        view.init();
+        view.setGreetingText(new GreetingViewType());
 
-    public void getGreeting() {
-        view.setGreetingText(GreetingUtils.getGreetingByDate(new GregorianCalendar()));
     }
 
 }
