@@ -26,9 +26,11 @@ android {
     buildTypes {
         release {
             buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.6.134:8090/v1/"'
+            buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
         }
         debug {
             buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.6.134:8090/v1/"'
+            buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
         }
     }
     compileOptions {

@@ -1,41 +1,59 @@
 package com.rcl.excalibur.data.service;
 
-import android.util.Log;
-
-import com.rcl.excalibur.data.service.response.CategoriesResponse;
+import com.rcl.excalibur.data.mapper.ItineraryEventDataMapper;
+import com.rcl.excalibur.data.service.response.itinerary.BaseResponseItinerary;
+import com.rcl.excalibur.data.service.response.itinerary.EventGroupResponse;
+import com.rcl.excalibur.data.service.response.itinerary.ItineraryEventResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
+import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
+
+import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 @Singleton
 public class ItineraryServiceImpl implements ItineraryService {
 
+    ItineraryEventDataMapper itineraryEventDataMapper;
+
     @Inject
-    public ItineraryServiceImpl() {
+    public ItineraryServiceImpl(ItineraryEventDataMapper itineraryEventDataMapper) {
+        this.itineraryEventDataMapper = itineraryEventDataMapper;
     }
 
-    @Override
-    public void myItinerary() {
-        Call<CategoriesResponse> call = ServiceUtil.getItineraryApi().myItinerary();
+    public void myItinerary(Observer observer) {
 
-        call.enqueue(new Callback<CategoriesResponse>() {
-            @Override
-            public void onResponse(Call<CategoriesResponse> call, Response<CategoriesResponse> response) {
-                Log.d("Succesfull", response.body().getGetCategoriesResponse().getResponseStatus());
-            }
+        Observable<List<ItineraryEvent>> observable = Observable.create(e -> {
+            Call<BaseResponseItinerary<EventGroupResponse>> call = ServiceUtil.getItineraryApi().myItinerary();
+            try {
+                Response<BaseResponseItinerary<EventGroupResponse>> response = call.execute();
 
-            @Override
-            public void onFailure(Call<CategoriesResponse> call, Throwable t) {
-                //Handle failure
-                Log.e("error", t.getMessage());
+                List<ItineraryEventResponse> itineraryEventResponseList = response.body()
+                        .getItineraryEventGroups()
+                        .get(0).getItineraryEvents();
+                List<ItineraryEvent> itineraryEventList = itineraryEventDataMapper.transform(itineraryEventResponseList);
+
+                e.onNext(itineraryEventList);
+            } catch (IOException exception) {
+                e.onError(exception);
             }
+            e.onComplete();
         });
+
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
+
 }
 
