@@ -1,16 +1,23 @@
 package com.rcl.excalibur.adapters;
 
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductCategory;
+import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,19 +35,30 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
     @Override
     public void onBindViewHolder(DiscoverViewHolder holder, int position) {
         final Product product = items.get(position);
+        Context context = holder.imageView.getContext();
         holder.product = product;
-        // TODO: 22/03/17 Make it show the product information
-        /*holder.categoryTextView.setText(product.getCategory());
-        holder.titleTextView.setText(product.getTitle());
-        holder.rangeTextView.setText(product.getHours());
+
+        List<ProductCategory> productCategory = product.getProductCategory();
+        if (!productCategory.isEmpty()) {
+            holder.categoryTextView.setText(productCategory.get(0).getCategoryDescription());
+        }
+
+        holder.titleTextView.setText(product.getProductTitle());
+        String timeFormatted = String.format(Locale.getDefault(),
+                context.getString(R.string.product_duration_template),
+                product.getProductDuration().getDurationInMinutes());
+        holder.rangeTextView.setText(timeFormatted);
+
+        List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
+        if (!mediaItems.isEmpty()) {
+            Picasso.with(context)
+                    .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
+                    .into(holder.imageView);
+        }
+
         if (hasObserver()) {
             holder.observerRef = new WeakReference<>(getObserver());
         }
-        final Context context = holder.imageView.getContext();
-        if (context == null || TextUtils.isEmpty(product.getImageUrl())) {
-            return;
-        }
-        Picasso.with(context).load(product.getImageUrl()).into(holder.imageView);*/
     }
 
     @Override
