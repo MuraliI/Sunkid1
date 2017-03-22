@@ -3,13 +3,15 @@ package com.rcl.excalibur.data.service.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class ProductPreferenceResponse {
     @SerializedName("preferenceID")
     private String preferenceId;
     private String preferenceName;
     private boolean mandatoryPreferenceFlag;
     private String preferenceType;
-    private ProductPreferenceValueResponse preferenceValue;
+    private List<ProductPreferenceValueResponse> preferenceValue;
 
     public String getPreferenceId() {
         return preferenceId;
@@ -43,11 +45,11 @@ public class ProductPreferenceResponse {
         this.preferenceType = preferenceType;
     }
 
-    public ProductPreferenceValueResponse getPreferenceValue() {
+    public List<ProductPreferenceValueResponse> getPreferenceValue() {
         return preferenceValue;
     }
 
-    public void setPreferenceValue(ProductPreferenceValueResponse preferenceValue) {
+    public void setPreferenceValue(List<ProductPreferenceValueResponse> preferenceValue) {
         this.preferenceValue = preferenceValue;
     }
 }

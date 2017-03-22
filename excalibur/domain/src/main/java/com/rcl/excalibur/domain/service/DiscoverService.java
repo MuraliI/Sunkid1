@@ -8,4 +8,6 @@ public interface DiscoverService {
     void getPromotionMessages();
 
     void getEntertaiments();
+
+    void getSpas();
 }
