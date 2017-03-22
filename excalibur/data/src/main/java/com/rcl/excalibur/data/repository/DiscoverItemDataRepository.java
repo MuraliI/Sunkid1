@@ -55,5 +55,6 @@ public class DiscoverItemDataRepository implements DiscoverItemRepository {
 
     @Override
     public void create(List<DiscoverItem> discoverItems) {
+        throw new RuntimeException("Operation not supported");
     }
 }

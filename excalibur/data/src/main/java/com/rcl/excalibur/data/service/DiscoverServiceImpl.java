@@ -4,8 +4,8 @@ package com.rcl.excalibur.data.service;
 import android.util.Log;
 
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
+import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
-import com.rcl.excalibur.data.service.response.EntertaimentsResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.service.DiscoverService;
@@ -78,18 +78,18 @@ public class DiscoverServiceImpl implements DiscoverService {
 
 
     @Override
-    public void getEntertaiments() {
+    public void getEntertainments() {
 
-        Call<EntertaimentsResponse> call = ServiceUtil.getDiscoverApi().getEntertaiments();
+        Call<EntertainmentsResponse> call = ServiceUtil.getDiscoverApi().getEntertainments();
 
-        call.enqueue(new Callback<EntertaimentsResponse>() {
+        call.enqueue(new Callback<EntertainmentsResponse>() {
             @Override
-            public void onResponse(Call<EntertaimentsResponse> call, Response<EntertaimentsResponse> response) {
-                Log.d("Succesfull", response.body().getGetEntertaimentsResponse().getResponseStatus());
+            public void onResponse(Call<EntertainmentsResponse> call, Response<EntertainmentsResponse> response) {
+                Log.d("Succesfull", response.body().getGetEntertainmentsResponse().getResponseStatus());
             }
 
             @Override
-            public void onFailure(Call<EntertaimentsResponse> call, Throwable t) {
+            public void onFailure(Call<EntertainmentsResponse> call, Throwable t) {
                 //Handle failure
                 Log.e("error", t.getMessage());
             }

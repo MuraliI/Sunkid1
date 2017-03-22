@@ -27,13 +27,13 @@ import io.reactivex.Observer;
 import static com.rcl.excalibur.data.utils.CollectionUtils.isEmpty;
 import static io.reactivex.Observable.just;
 
-public class DiscoverAdapter extends BaseAdapter<DiscoverAdapter.DiscoverViewHoldel> {
+public class DiscoverAdapter extends BaseAdapter<DiscoverAdapter.DiscoverViewHolder> {
 
     private List<DiscoverItemModel> plans;
 
     public DiscoverAdapter(final Observer observer) {
         super(observer);
-        this.plans = new ArrayList();
+        this.plans = new ArrayList<>();
     }
 
     public void removeAll() {
@@ -56,20 +56,20 @@ public class DiscoverAdapter extends BaseAdapter<DiscoverAdapter.DiscoverViewHol
     }
 
     @Override
-    public DiscoverViewHoldel onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DiscoverViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_discover, parent, false);
-        return new DiscoverViewHoldel(view);
+        return new DiscoverViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DiscoverViewHoldel holder, int position) {
+    public void onBindViewHolder(DiscoverViewHolder holder, int position) {
         final DiscoverItemModel discoverModel = plans.get(position);
         holder.model = discoverModel;
         holder.categoryTextView.setText(discoverModel.getCategory());
         holder.titleTextView.setText(discoverModel.getTitle());
         holder.rangeTextView.setText(discoverModel.getHours());
         if (hasObserver()) {
-            holder.observerRef = new WeakReference(getObserver());
+            holder.observerRef = new WeakReference<>(getObserver());
         }
         final Context context = holder.imageView.getContext();
         if (context == null || TextUtils.isEmpty(discoverModel.getImageUrl())) {
@@ -83,7 +83,7 @@ public class DiscoverAdapter extends BaseAdapter<DiscoverAdapter.DiscoverViewHol
         return plans.size();
     }
 
-    static class DiscoverViewHoldel extends RecyclerView.ViewHolder {
+    static class DiscoverViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.card_image) ImageView imageView;
         @Bind(R.id.card_title) TextView titleTextView;
@@ -92,13 +92,13 @@ public class DiscoverAdapter extends BaseAdapter<DiscoverAdapter.DiscoverViewHol
         private DiscoverItemModel model;
         private WeakReference<Observer> observerRef;
 
-        public DiscoverViewHoldel(View itemView) {
+        DiscoverViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         @OnClick(R.id.card_view)
-        public void onImageClick() {
+        void onImageClick() {
             if (observerRef == null) {
                 return;
             }

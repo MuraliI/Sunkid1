@@ -2,8 +2,8 @@ package com.rcl.excalibur.data.service.api;
 
 
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
+import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
-import com.rcl.excalibur.data.service.response.EntertaimentsResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 
 import retrofit2.Call;
@@ -18,7 +18,7 @@ public interface DiscoverApi {
     Call<PromotionMessagesResponse> getPromotionMessages();
 
     @GET("entertainments/en/mobile")
-    Call<EntertaimentsResponse> getEntertaiments();
+    Call<EntertainmentsResponse> getEntertainments();
 
     @GET("spas/en/mobile")
     Call<SpasResponse> getSpas();
