@@ -90,6 +90,7 @@
                     android:src="@drawable/ic_white_arrow_back"/>
 
                 <ImageButton
+                    android:id="@+id/btn_deck_map"
                     android:layout_width="@dimen/detail_discover_toolbar_icon_size"
                     android:layout_height="@dimen/detail_discover_toolbar_icon_size"
                     android:layout_gravity="end"

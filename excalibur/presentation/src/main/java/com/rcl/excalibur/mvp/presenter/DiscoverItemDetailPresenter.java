@@ -3,6 +3,8 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.DiscoverDeckMapActivity;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider;
 import com.rcl.excalibur.model.DiscoverItemModel;
@@ -53,6 +55,13 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
     public void onBackClicked() {
         if (view.getActivity() != null) {
             view.getActivity().finish();
+        }
+    }
+
+    public void onDeckMapClicked() {
+        BaseActivity activity = (BaseActivity) view.getActivity();
+        if (activity != null) {
+            activity.startActivity(DiscoverDeckMapActivity.getIntent(activity, itemModel.getDiscoverId()));
         }
     }
 
