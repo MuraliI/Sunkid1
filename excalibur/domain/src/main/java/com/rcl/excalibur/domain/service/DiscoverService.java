@@ -10,4 +10,9 @@ public interface DiscoverService {
     void getEntertaiments();
 
     void getSpas();
+
+    void getExcursion();
+
+    void getDinings();
+
 }
