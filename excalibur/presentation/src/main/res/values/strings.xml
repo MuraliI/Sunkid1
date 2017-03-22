@@ -68,12 +68,13 @@
         nulla pariatur?\"</string>
 
 <!--Categories-->
-    <string name="category_royal_activity">Activities</string>
-    <string name="category_spa">Spa</string>
-    <string name="category_dining">Dining</string>
-    <string name="category_shopping">Shopping</string>
-    <string name="category_shorex">Shorex</string>
-    <string name="category_entertainment">Entertainment</string>
+    <string name="category_royal_activity">ACTIVITIES</string>
+    <string name="category_spa">SPA</string>
+    <string name="category_dining">DINING</string>
+    <string name="category_shopping">SHOPPING</string>
+    <string name="category_shorex">SHOREX</string>
+    <string name="category_entertainment">ENTERTAINMENT</string>
+
     <string name="adults">Adults</string>
     <string name="children">Children</string>
 

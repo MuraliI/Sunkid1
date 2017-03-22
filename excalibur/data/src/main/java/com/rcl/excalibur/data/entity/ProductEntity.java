@@ -56,7 +56,7 @@ public class ProductEntity extends Model {
     @Column(name = COLUMN_DURATION)
     public DurationEntity duration;
     @Column(name = COLUMN_COST_TYPE)
-    public CostTypeEntity costTypeEntity;
+    public CostTypeEntity costType;
     @Column(name = COLUMN_STARTING_FROM_PRICE)
     public StartingFromPriceEntity startingFromPrice;
     @Column(name = COLUMN_TITLE)
@@ -170,12 +170,12 @@ public class ProductEntity extends Model {
         this.duration = duration;
     }
 
-    public CostTypeEntity getCostTypeEntity() {
-        return costTypeEntity;
+    public CostTypeEntity getCostType() {
+        return costType;
     }
 
-    public void setCostTypeEntity(CostTypeEntity costTypeEntity) {
-        this.costTypeEntity = costTypeEntity;
+    public void setCostTypeEntity(CostTypeEntity costType) {
+        this.costType = costType;
     }
 
     public StartingFromPriceEntity getStartingFromPrice() {

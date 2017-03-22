@@ -17,6 +17,9 @@ public class RestrictionEntity extends Model {
     public static final String COLUMN_MANDATORY = "mandatory";
     public static final String COLUMN_DISPLAY_TEXT = "display_text";
     public static final String COLUMN_QUESTION = "question";
+    public static final String COLUMN_TITLE = "title";
+    public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_MEDIA = "media";
     public static final String COLUMN_ANSWERS = "answers";
     public static final String COLUMN_PRODUCT = "product";
 
@@ -31,10 +34,16 @@ public class RestrictionEntity extends Model {
     public String displayText;
     @Column(name = COLUMN_QUESTION)
     public String question;
+    @Column(name = COLUMN_TITLE)
+    public String title;
+    @Column(name = COLUMN_DESCRIPTION)
+    public String description;
     @Column(name = COLUMN_ANSWERS)
     public String answersJson;
     @Column(name = COLUMN_PRODUCT)
     public ProductEntity product;
+    @Column(name = COLUMN_MEDIA)
+    public MediaEntity media;
 
     public RestrictionEntity() {
         super();
@@ -44,11 +53,11 @@ public class RestrictionEntity extends Model {
         return new Gson().fromJson(answersJson, String[].class);
     }
 
-    public void setAnswers(String[] answers) {
+    public void setAnswers(List<String> answers) {
         this.answersJson = new Gson().toJson(answers);
     }
 
-    public void setAnswers(List<String> answers) {
+    public void setAnswers(String[] answers) {
         this.answersJson = new Gson().toJson(answers);
     }
 
@@ -98,5 +107,29 @@ public class RestrictionEntity extends Model {
 
     public void setProduct(ProductEntity product) {
         this.product = product;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public MediaEntity getMedia() {
+        return media;
+    }
+
+    public void setMedia(MediaEntity media) {
+        this.media = media;
     }
 }

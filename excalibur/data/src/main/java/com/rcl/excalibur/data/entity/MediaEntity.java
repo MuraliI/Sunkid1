@@ -16,8 +16,8 @@ public class MediaEntity extends Model {
         super();
     }
 
-    public List<MediaEntity> getValues() {
-        return getMany(MediaEntity.class, MediaValueEntity.COLUMN_MEDIA);
+    public List<MediaValueEntity> getValues() {
+        return getMany(MediaValueEntity.class, MediaValueEntity.COLUMN_MEDIA);
     }
 
 }

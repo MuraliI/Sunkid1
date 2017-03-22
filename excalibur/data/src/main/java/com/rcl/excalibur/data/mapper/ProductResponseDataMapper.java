@@ -264,14 +264,14 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
     }
 
     private List<MediaItem> transformMediaItem(List<MediaItemResponse> mediaItemsResponses) {
-        ArrayList<MediaItem> items = new ArrayList<MediaItem>();
+        ArrayList<MediaItem> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(mediaItemsResponses)) {
             return items;
         }
         for (MediaItemResponse mediaItemResponse : mediaItemsResponses) {
 
-            if (mediaItemResponse != null) {
+            if (mediaItemResponse == null) {
                 continue;
             }
             MediaItem mediaItem = new MediaItem();

@@ -17,15 +17,15 @@ public class GetProductDbUseCase extends UseCaseSync {
         this.productRepository = productRepository;
     }
 
-    List<Product> getAll() {
+    public List<Product> getAll() {
         return productRepository.getAll();
     }
 
-    Product get(long productId) {
+    public Product get(long productId) {
         return productRepository.get(productId);
     }
 
-    List<Product> getAll(String type) {
+    public List<Product> getAll(String type) {
         return productRepository.getAll(type);
     }
 }

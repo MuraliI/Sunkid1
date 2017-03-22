@@ -4,6 +4,7 @@ package com.rcl.excalibur.data.repository;
 import android.support.annotation.NonNull;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.ActivityLevelEntity;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
@@ -58,10 +59,12 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         this.productEntityDataMapper = productEntityDataMapper;
     }
 
+
     @Override
     public void create(List<Product> products) {
         ActiveAndroid.beginTransaction();
         try {
+            deleteAll();
             for (Product product : products) {
                 create(product);
             }
@@ -112,8 +115,23 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
         //Restriction
         createRestriction(entity, product.getRestrictions());
+    }
 
-
+    private void deleteAll() {
+        new Delete().from(RestrictionEntity.class).execute();
+        new Delete().from(AdvisementEntity.class).execute();
+        new Delete().from(ProductEntity.class).execute();
+        new Delete().from(StartingFromPriceEntity.class).execute();
+        new Delete().from(ActivityLevelEntity.class).execute();
+        new Delete().from(PreferenceValueEntity.class).execute();
+        new Delete().from(PreferenceEntity.class).execute();
+        new Delete().from(CostTypeEntity.class).execute();
+        new Delete().from(DurationEntity.class).execute();
+        new Delete().from(LocationEntity.class).execute();
+        new Delete().from(CategoryEntity.class).execute();
+        new Delete().from(TypeEntity.class).execute();
+        new Delete().from(MediaValueEntity.class).execute();
+        new Delete().from(MediaEntity.class).execute();
     }
 
     private void create(final ProductEntity entity, final SellingPrice startingFromPrice) {
@@ -313,11 +331,17 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         if (productType == null) {
             return;
         }
-        final TypeEntity typeEntity = new TypeEntity();
-        typeEntity.setName(productType.getProductTypeName());
-        typeEntity.setType(productType.getProductType());
-        typeEntity.setTypeId(productType.getProductTypeId());
-        typeEntity.save();
+        TypeEntity typeEntity = new Select()
+                .from(TypeEntity.class)
+                .where(eq(TypeEntity.COLUMN_TYPE, productType.getProductType()))
+                .executeSingle();
+        if (typeEntity == null) {
+            typeEntity = new TypeEntity();
+            typeEntity.setName(productType.getProductTypeName());
+            typeEntity.setType(productType.getProductType());
+            typeEntity.setTypeId(productType.getProductTypeId());
+            typeEntity.save();
+        }
         entity.setType(typeEntity);
 
     }
@@ -352,14 +376,14 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     public List<Product> getAll(@NonNull final String type) {
         final TypeEntity typeEntity = new Select()
                 .from(TypeEntity.class)
-                .where(eq(ProductEntity.COLUMN_TYPE, type))
+                .where(eq(TypeEntity.COLUMN_TYPE, type))
                 .executeSingle();
         if (typeEntity == null) {
             return null;
         }
         final List<ProductEntity> entities = new Select()
                 .from(ProductEntity.class)
-                .where(eq(ProductEntity.COLUMN_TYPE, type))
+                .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
                 .execute();
         return productEntityDataMapper.transform(entities);
     }
