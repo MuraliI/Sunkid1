@@ -76,8 +76,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     @Override
     public void create(Product product) {
-        //TODO chequear nullos!!!!! TODO
-//        TODO separar en metodos mas cortos
         final ProductEntity entity = new ProductEntity();
         entity.setProductId(product.getProductId());
         entity.setProductClass(product.getProductClass());
@@ -257,7 +255,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             preferenceEntity.setMandatory(productPreference.isMandatoryPreferenceFlag());
             preferenceEntity.setPreferenceId(productPreference.getPreferenceId());
             preferenceEntity.save();
-//Preference Values
+            //Preference Values
             final List<ProductPreferenceValue> productPreferenceValues = productPreference.getPreferenceValue();
             if (!CollectionUtils.isEmpty(productPreferenceValues)) {
                 for (ProductPreferenceValue productPreferenceValue : productPreferenceValues) {
