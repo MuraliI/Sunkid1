@@ -1,5 +1,9 @@
 package com.rcl.excalibur.data.service.response.itinerary;
 
+import com.rcl.excalibur.data.utils.DateUtil;
+
+import java.util.Date;
+
 public class BaseEventTimeResponse {
     private String eventDate;
     private String eventTime;
@@ -27,5 +31,10 @@ public class BaseEventTimeResponse {
 
     public void setEventTimeZone(String eventTimeZone) {
         this.eventTimeZone = eventTimeZone;
+    }
+
+    public Date getDateObj() {
+        Date date = DateUtil.parseDateResponse(eventDate, eventTime);
+        return date;
     }
 }
