@@ -22,9 +22,6 @@ import com.rcl.excalibur.domain.Product;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,193 +36,202 @@ public class ProductResponseDataMapperTest {
 
     ProductResponseDataMapper productResponseDataMapper;
 
-    @Mock ProductResponse productResponse1;
-    @Mock ProductResponse productResponse2;
+    ProductResponse productResponse1;
+    ProductResponse productResponse2;
 
-    @Mock ProductTypeResponse productTypeResponse;
+    ProductTypeResponse productTypeResponse;
 
-    @Mock ProductTagsResponse productTagsResponse;
-    @Mock ProductCategoryResponse productCategoryResponse;
+    ProductTagsResponse productTagsResponse;
+    ProductCategoryResponse productCategoryResponse;
 
-    @Mock ProductActivityLevelResponse productActivityLevelResponse;
-    @Mock MediaItemResponse mediaItemResponse;
-    @Mock MediaResponse mediaResponse;
+    ProductActivityLevelResponse productActivityLevelResponse;
+    MediaItemResponse mediaItemResponse;
+    MediaResponse mediaResponse;
 
-    @Mock ProductLocationResponse productLocationResponse;
+    ProductLocationResponse productLocationResponse;
 
-    @Mock ProductDurationResponse productDurationResponse;
+    ProductDurationResponse productDurationResponse;
 
-    @Mock ProductCostTypeResponse productCostTypeResponse;
+    ProductCostTypeResponse productCostTypeResponse;
 
-    @Mock SellingPriceResponse sellingPriceResponse;
+    SellingPriceResponse sellingPriceResponse;
 
-    @Mock ProductAdvisementResponse productAdvisementResponse;
+    ProductAdvisementResponse productAdvisementResponse;
 
-    @Mock ProductPreferenceValueResponse productPreferenceValueResponse;
-    @Mock ProductPreferenceResponse productPreferenceResponse;
+    ProductPreferenceValueResponse productPreferenceValueResponse;
+    ProductPreferenceResponse productPreferenceResponse;
 
-    @Mock ProductRestrictionAnswerResponse productRestrictionAnswerResponse;
-    @Mock ProductRestrictionResponse productRestrictionResponse;
+    ProductRestrictionAnswerResponse productRestrictionAnswerResponse;
+    ProductRestrictionResponse productRestrictionResponse;
 
     @Before
     public void setUp() throws Exception {
 
-        MockitoAnnotations.initMocks(this);
 
         productResponseDataMapper = new ProductResponseDataMapper();
 
-        Mockito.when(productResponse1.getProductId()).thenReturn("100000002814023699");
+        productResponse1 = new ProductResponse();
+        productResponse1.setProductId("100000002814023699");
 
-        Mockito.when(productResponse2.getProductId()).thenReturn("100000002814023699");
-
-
-        Mockito.when(productResponse1.getProductCode()).thenReturn("2751");
-
-        Mockito.when(productResponse2.getProductCode()).thenReturn("2751");
+        productResponse2 = new ProductResponse();
+        productResponse2.setProductId("100000002814023699");
 
 
-        Mockito.when(productTypeResponse.getProductTypeId()).thenReturn("27");
-        Mockito.when(productTypeResponse.getProductTypeName()).thenReturn("Show Tickets");
-        Mockito.when(productTypeResponse.getProductType()).thenReturn("ENTERTAINMENT");
-        Mockito.when(productResponse1.getProductType()).thenReturn(productTypeResponse);
+        productResponse1.setProductCode("2751");
 
-        Mockito.when(productResponse2.getProductType()).thenReturn(productTypeResponse);
+        productResponse2.setProductCode("2751");
 
+        productTypeResponse = new ProductTypeResponse();
+        productTypeResponse.setProductTypeId("27");
+        productTypeResponse.setProductTypeName("Show Tickets");
+        productTypeResponse.setProductType("ENTERTAINMENT");
+        productResponse1.setProductType(productTypeResponse);
 
-        Mockito.when(productResponse1.getProductClass()).thenReturn("SERVICE");
-
-        Mockito.when(productResponse2.getProductClass()).thenReturn("SERVICE");
-
-
-        Mockito.when(productTagsResponse.getDescription()).thenReturn("Musical");
-        Mockito.when(productTagsResponse.getTagId()).thenReturn("1232");
-        Mockito.when(productCategoryResponse.getCategoryDescription()).thenReturn("Entertainment");
-        Mockito.when(productCategoryResponse.getCategoryId()).thenReturn("333333");
-        Mockito.when(productCategoryResponse.getProductTags()).thenReturn(Arrays.asList(productTagsResponse));
-        Mockito.when(productResponse1.getProductCategory()).thenReturn(Arrays.asList(productCategoryResponse));
-
-        Mockito.when(productResponse2.getProductCategory()).thenReturn(Arrays.asList(productCategoryResponse));
+        productResponse2.setProductType(productTypeResponse);
 
 
-        Mockito.when(productResponse1.getProductRank()).thenReturn(1);
+        productResponse1.setProductClass("SERVICE");
 
-        Mockito.when(productResponse2.getProductRank()).thenReturn(1);
+        productResponse2.setProductClass("SERVICE");
 
+        productTagsResponse = new ProductTagsResponse();
+        productTagsResponse.setDescription("Musical");
+        productTagsResponse.setTagId("1232");
+        productCategoryResponse = new ProductCategoryResponse();
+        productCategoryResponse.setCategoryDescription("Entertainment");
+        productCategoryResponse.setCategoryId("333333");
+        productCategoryResponse.setProductTags(Arrays.asList(productTagsResponse));
+        productResponse1.setProductCategory(Arrays.asList(productCategoryResponse));
 
-        Mockito.when(productResponse1.isReservationRequired()).thenReturn(true);
-
-        Mockito.when(productResponse2.isReservationRequired()).thenReturn(true);
-
-
-        Mockito.when(productResponse1.isScheduable()).thenReturn(false);
-
-        Mockito.when(productResponse2.isScheduable()).thenReturn(false);
-
-
-        Mockito.when(mediaItemResponse.getMediaRefLink()).thenReturn("link");
-        Mockito.when(mediaItemResponse.getMediaType()).thenReturn("media type");
-        Mockito.when(mediaResponse.getMediaItem()).thenReturn(Arrays.asList(mediaItemResponse));
-        Mockito.when(productActivityLevelResponse.getActivityLevelDescription()).thenReturn("ActivityLevelDescription");
-        Mockito.when(productActivityLevelResponse.getActivityLevelId()).thenReturn("ActivityLevelId");
-        Mockito.when(productActivityLevelResponse.getActivityLevelTitle()).thenReturn("ActivityLevelTitle");
-        Mockito.when(productActivityLevelResponse.getActivityLevelMedia()).thenReturn(mediaResponse);
-        Mockito.when(productResponse1.getActivityLevel()).thenReturn(productActivityLevelResponse);
-
-        Mockito.when(productResponse2.getActivityLevel()).thenReturn(productActivityLevelResponse);
+        productResponse2.setProductCategory(Arrays.asList(productCategoryResponse));
 
 
-        Mockito.when(productLocationResponse.getLocationId()).thenReturn("RYLTH_QN");
-        Mockito.when(productLocationResponse.getLocationCode()).thenReturn("RYLTH_QN");
-        Mockito.when(productLocationResponse.getLocationType()).thenReturn("VENUE");
-        Mockito.when(productLocationResponse.getOperatingHoursEnd()).thenReturn(1200);
-        Mockito.when(productLocationResponse.getOperatingHoursStart()).thenReturn(1100);
-        Mockito.when(productResponse1.getProductLocation()).thenReturn(productLocationResponse);
+        productResponse1.setProductRank(1);
 
-        Mockito.when(productResponse2.getProductLocation()).thenReturn(productLocationResponse);
+        productResponse2.setProductRank(1);
 
 
-        Mockito.when(productDurationResponse.getDurationInMinutes()).thenReturn(4);
-        Mockito.when(productDurationResponse.getLagTimeInMinutes()).thenReturn(6);
-        Mockito.when(productDurationResponse.getLeadTimeInMinutes()).thenReturn(5);
-        Mockito.when(productDurationResponse.isAtYourLeisure()).thenReturn(true);
-        Mockito.when(productResponse1.getProductDuration()).thenReturn(productDurationResponse);
+        productResponse1.setReservationRequired(true);
 
-        Mockito.when(productResponse2.getProductDuration()).thenReturn(productDurationResponse);
+        productResponse2.setReservationRequired(true);
 
 
-        Mockito.when(productCostTypeResponse.getCostTypeCode()).thenReturn("costypecode");
-        Mockito.when(productCostTypeResponse.getCostTypeDescription()).thenReturn("costypedescription");
-        Mockito.when(productCostTypeResponse.getCostTypeTitle()).thenReturn("costypetittle");
-        Mockito.when(productCostTypeResponse.getCostTypeMedia()).thenReturn(mediaResponse);
-        Mockito.when(productResponse1.getCostType()).thenReturn(productCostTypeResponse);
+        productResponse1.setScheduable(false);
 
-        Mockito.when(productResponse2.getCostType()).thenReturn(productCostTypeResponse);
+        productResponse2.setScheduable(false);
 
+        mediaItemResponse = new MediaItemResponse();
+        mediaItemResponse.setMediaRefLink("link");
+        mediaItemResponse.setMediaType("media type");
+        mediaResponse = new MediaResponse();
+        mediaResponse.setMediaItem(Arrays.asList(mediaItemResponse));
+        productActivityLevelResponse = new ProductActivityLevelResponse();
+        productActivityLevelResponse = new ProductActivityLevelResponse();
+        productActivityLevelResponse.setActivityLevelDescription("ActivityLevelDescription");
+        productActivityLevelResponse.setActivityLevelId("ActivityLevelId");
+        productActivityLevelResponse.setActivityLevelTitle("ActivityLevelTitle");
+        productActivityLevelResponse.setActivityLevelMedia(mediaResponse);
+        productResponse1.setActivityLevel(productActivityLevelResponse);
 
-        Mockito.when(sellingPriceResponse.getAdultPrice()).thenReturn(3f);
-        Mockito.when(sellingPriceResponse.getChildPrice()).thenReturn(4f);
-        Mockito.when(sellingPriceResponse.getInfantPrice()).thenReturn(5f);
-        Mockito.when(sellingPriceResponse.getCurrency()).thenReturn("USD");
-        Mockito.when(productResponse1.getStartingFromPrice()).thenReturn(sellingPriceResponse);
+        productResponse2.setActivityLevel(productActivityLevelResponse);
 
-        Mockito.when(productResponse2.getStartingFromPrice()).thenReturn(sellingPriceResponse);
+        productLocationResponse = new ProductLocationResponse();
+        productLocationResponse.setLocationId("RYLTH_QN");
+        productLocationResponse.setLocationCode("RYLTH_QN");
+        productLocationResponse.setLocationType("VENUE");
+        productLocationResponse.setOperatingHoursEnd(1200);
+        productLocationResponse.setOperatingHoursStart(1100);
+        productResponse1.setProductLocation(productLocationResponse);
 
+        productResponse2.setProductLocation(productLocationResponse);
 
-        Mockito.when(productAdvisementResponse.getAdvisementDescription()).thenReturn("AdvisementDescription");
-        Mockito.when(productAdvisementResponse.getAdvisementId()).thenReturn("AdvisementId");
-        Mockito.when(productAdvisementResponse.getAdvisementName()).thenReturn("AdvisementName");
-        Mockito.when(productAdvisementResponse.getAdvisementTitle()).thenReturn("AdvisementTitle");
-        Mockito.when(productAdvisementResponse.getAdvisementType()).thenReturn("AdvisementType");
-        Mockito.when(productAdvisementResponse.getAdvisementMedia()).thenReturn(mediaResponse);
-        Mockito.when(productResponse1.getAdvisements()).thenReturn(Arrays.asList(productAdvisementResponse));
+        productDurationResponse = new ProductDurationResponse();
+        productDurationResponse.setDurationInMinutes(4);
+        productDurationResponse.setLagTimeInMinutes(6);
+        productDurationResponse.setLeadTimeInMinutes(5);
+        productDurationResponse.setAtYourLeisure(true);
+        productResponse1.setProductDuration(productDurationResponse);
 
-        Mockito.when(productResponse2.getAdvisements()).thenReturn(Arrays.asList(productAdvisementResponse));
+        productResponse2.setProductDuration(productDurationResponse);
 
+        productCostTypeResponse = new ProductCostTypeResponse();
+        productCostTypeResponse.setCostTypeCode("costypecode");
+        productCostTypeResponse.setCostTypeDescription("costypedescription");
+        productCostTypeResponse.setCostTypeTitle("costypetittle");
+        productCostTypeResponse.setCostTypeMedia(mediaResponse);
+        productResponse1.setCostType(productCostTypeResponse);
 
-        Mockito.when(productPreferenceValueResponse.getPreferenceValueId()).thenReturn("PreferenceValueId");
-        Mockito.when(productPreferenceValueResponse.isPreferenceValueCode()).thenReturn(true);
-        Mockito.when(productPreferenceValueResponse.isPreferenceValueName()).thenReturn(false);
-        Mockito.when(productPreferenceResponse.getPreferenceId()).thenReturn("PreferenceId");
-        Mockito.when(productPreferenceResponse.getPreferenceName()).thenReturn("PreferenceName");
-        Mockito.when(productPreferenceResponse.getPreferenceType()).thenReturn("PreferenceType");
-        Mockito.when(productPreferenceResponse.getPreferenceValue()).thenReturn(Arrays.asList(productPreferenceValueResponse));
-        Mockito.when(productResponse1.getPreferences()).thenReturn(Arrays.asList(productPreferenceResponse));
+        productResponse2.setCostType(productCostTypeResponse);
 
-        Mockito.when(productResponse2.getPreferences()).thenReturn(Arrays.asList(productPreferenceResponse));
+        sellingPriceResponse = new SellingPriceResponse();
+        sellingPriceResponse.setAdultPrice(3f);
+        sellingPriceResponse.setChildPrice(4f);
+        sellingPriceResponse.setInfantPrice(5f);
+        sellingPriceResponse.setCurrency("USD");
+        productResponse1.setStartingFromPrice(sellingPriceResponse);
 
+        productResponse2.setStartingFromPrice(sellingPriceResponse);
 
-        Mockito.when(productRestrictionAnswerResponse.getRestrictionAnswerDisplayText()).thenReturn("RestrictionAnswerDisplayText");
-        Mockito.when(productRestrictionResponse.getRestrictionAnswers()).thenReturn(Arrays.asList(productRestrictionAnswerResponse));
-        Mockito.when(productRestrictionResponse.getRestrictionMedia()).thenReturn(mediaResponse);
-        Mockito.when(productRestrictionResponse.getRestrictionDescription()).thenReturn("RestrictionDescription");
-        Mockito.when(productRestrictionResponse.getRestrictionDisplayText()).thenReturn("RestrictionDisplayText");
-        Mockito.when(productRestrictionResponse.getRestrictionId()).thenReturn("RestrictionId");
-        Mockito.when(productRestrictionResponse.getRestrictionQuestion()).thenReturn("RestrictionQuestion");
-        Mockito.when(productRestrictionResponse.getRestrictionTitle()).thenReturn("RestrictionTitle");
-        Mockito.when(productRestrictionResponse.getRestrictionType()).thenReturn("RestrictionType");
-        Mockito.when(productResponse1.getRestrictions()).thenReturn(Arrays.asList(productRestrictionResponse));
+        productAdvisementResponse = new ProductAdvisementResponse();
+        productAdvisementResponse.setAdvisementDescription("AdvisementDescription");
+        productAdvisementResponse.setAdvisementId("AdvisementId");
+        productAdvisementResponse.setAdvisementName("AdvisementName");
+        productAdvisementResponse.setAdvisementTitle("AdvisementTitle");
+        productAdvisementResponse.setAdvisementType("AdvisementType");
+        productAdvisementResponse.setAdvisementMedia(mediaResponse);
+        productResponse1.setAdvisements(Arrays.asList(productAdvisementResponse));
 
-        Mockito.when(productResponse2.getRestrictions()).thenReturn(Arrays.asList(productRestrictionResponse));
-
-
-        Mockito.when(productResponse1.getProductTitle()).thenReturn("ProductTitle");
-
-        Mockito.when(productResponse2.getProductTitle()).thenReturn("ProductTitle");
-
-
-        Mockito.when(productResponse1.getProductShortDescription()).thenReturn("ProductShortDescription");
-
-        Mockito.when(productResponse2.getProductShortDescription()).thenReturn("ProductShortDescription");
-
-
-        Mockito.when(productResponse1.getProductLongDescription()).thenReturn("ProductLongDescription");
-
-        Mockito.when(productResponse2.getProductLongDescription()).thenReturn("ProductLongDescription");
+        productResponse2.setAdvisements(Arrays.asList(productAdvisementResponse));
 
 
-        Mockito.when(productResponse1.getProductMedia()).thenReturn(mediaResponse);
+        productPreferenceValueResponse = new ProductPreferenceValueResponse();
+        productPreferenceValueResponse.setPreferenceValueId("PreferenceValueId");
+        productPreferenceValueResponse.setPreferenceValueCode(true);
+        productPreferenceValueResponse.setPreferenceValueName(false);
+        productPreferenceResponse = new ProductPreferenceResponse();
+        productPreferenceResponse.setPreferenceId("PreferenceId");
+        productPreferenceResponse.setPreferenceName("PreferenceName");
+        productPreferenceResponse.setPreferenceType("PreferenceType");
+        productPreferenceResponse.setPreferenceValue(Arrays.asList(productPreferenceValueResponse));
+        productResponse1.setPreferences(Arrays.asList(productPreferenceResponse));
 
-        Mockito.when(productResponse2.getProductMedia()).thenReturn(mediaResponse);
+        productResponse2.setPreferences(Arrays.asList(productPreferenceResponse));
+
+
+        productRestrictionAnswerResponse = new ProductRestrictionAnswerResponse();
+        productRestrictionAnswerResponse.setRestrictionAnswerDisplayText("RestrictionAnswerDisplayText");
+        productRestrictionResponse = new ProductRestrictionResponse();
+        productRestrictionResponse.setRestrictionAnswers(Arrays.asList(productRestrictionAnswerResponse));
+        productRestrictionResponse.setRestrictionMedia(mediaResponse);
+        productRestrictionResponse.setRestrictionDescription("RestrictionDescription");
+        productRestrictionResponse.setRestrictionDisplayText("RestrictionDisplayText");
+        productRestrictionResponse.setRestrictionId("RestrictionId");
+        productRestrictionResponse.setRestrictionQuestion("RestrictionQuestion");
+        productRestrictionResponse.setRestrictionTitle("RestrictionTitle");
+        productRestrictionResponse.setRestrictionType("RestrictionType");
+        productResponse1.setRestrictions(Arrays.asList(productRestrictionResponse));
+
+        productResponse2.setRestrictions(Arrays.asList(productRestrictionResponse));
+
+
+        productResponse1.setProductTitle("ProductTitle");
+
+        productResponse2.setProductTitle("ProductTitle");
+
+
+        productResponse1.setProductShortDescription("ProductShortDescription");
+
+        productResponse2.setProductShortDescription("ProductShortDescription");
+
+
+        productResponse1.setProductLongDescription("ProductLongDescription");
+
+        productResponse2.setProductLongDescription("ProductLongDescription");
+
+
+        productResponse1.setProductMedia(mediaResponse);
+
+        productResponse2.setProductMedia(mediaResponse);
 
     }
 

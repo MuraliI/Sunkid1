@@ -5,9 +5,6 @@ import com.rcl.excalibur.domain.Category;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,21 +17,22 @@ import static org.junit.Assert.assertNotNull;
 public class CategoryResponseDataMapperTest {
 
     CategoryResponseDataMapper categotyServiceDataMapper;
-    @Mock CategoryResponse entity1;
-    @Mock CategoryResponse entity2;
+    CategoryResponse entity1;
+    CategoryResponse entity2;
 
     @Before
     public void setUp() throws Exception {
 
-        MockitoAnnotations.initMocks(this);
 
         categotyServiceDataMapper = new CategoryResponseDataMapper();
-        Mockito.when(entity1.getCategoryId()).thenReturn((long) 12);
-        Mockito.when(entity1.getCategoryDescription()).thenReturn("Some Dectiption");
-        Mockito.when(entity1.getProductTags()).thenReturn(Arrays.asList("Tag 1", "Tag 2", "Ta2"));
-        Mockito.when(entity2.getCategoryId()).thenReturn((long) 13);
-        Mockito.when(entity2.getCategoryDescription()).thenReturn("Some Dectiption 2");
-        Mockito.when(entity2.getProductTags()).thenReturn(Arrays.asList("Tag 1", "Tag 2", "Ta2"));
+        entity1 = new CategoryResponse();
+        entity1.setCategoryId((long) 12);
+        entity1.setCategoryDescription("Some Dectiption");
+        entity1.setProductTags(Arrays.asList("Tag 1", "Tag 2", "Ta2"));
+        entity2 = new CategoryResponse();
+        entity2.setCategoryId((long) 13);
+        entity2.setCategoryDescription("Some Dectiption 2");
+        entity2.setProductTags(Arrays.asList("Tag 1", "Tag 2", "Ta2"));
     }
 
     @Test
