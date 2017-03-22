@@ -1,10 +1,12 @@
 package com.rcl.excalibur.data.service;
 
 
-import android.util.Log;
-
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
+import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
+import com.rcl.excalibur.data.service.response.DiningsResponse;
+import com.rcl.excalibur.data.service.response.EntertaimentsResponse;
+import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
@@ -16,6 +18,7 @@ import javax.inject.Singleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 @Singleton
 public class DiscoverServiceImpl implements DiscoverService {
@@ -31,13 +34,13 @@ public class DiscoverServiceImpl implements DiscoverService {
         call.enqueue(new Callback<CategoriesResponse>() {
             @Override
             public void onResponse(Call<CategoriesResponse> call, Response<CategoriesResponse> response) {
-                Log.d("Succesfull", response.body().getGetCategoriesResponse().getResponseStatus());
+                Timber.d("Succesfull", response.body().getGetCategoriesResponse().getResponseStatus());
             }
 
             @Override
             public void onFailure(Call<CategoriesResponse> call, Throwable t) {
                 //Handle failure
-                Log.e("error", t.getMessage());
+                Timber.e("error", t.getMessage());
             }
         });
     }
@@ -49,12 +52,47 @@ public class DiscoverServiceImpl implements DiscoverService {
         call.enqueue(new Callback<SpasResponse>() {
             @Override
             public void onResponse(Call<SpasResponse> call, Response<SpasResponse> response) {
-                Log.d("Succesfull", response.body().getGetSpasResponse().getResponseStatus());
+                Timber.d("Succesfull", response.body().getGetSpasResponse().getResponseStatus());
             }
 
             @Override
             public void onFailure(Call<SpasResponse> call, Throwable t) {
-                Log.e("error", t.getMessage());
+                Timber.e("error", t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getExcursion() {
+
+        Call<ExcursionResponse> call = ServiceUtil.getDiscoverApi().getExcursion();
+
+        call.enqueue(new Callback<ExcursionResponse>() {
+            @Override
+            public void onResponse(Call<ExcursionResponse> call, Response<ExcursionResponse> response) {
+                Timber.d("Succesfull", response.body().getGetExcursionsResponse().getResponseStatus());
+            }
+
+            @Override
+            public void onFailure(Call<ExcursionResponse> call, Throwable t) {
+                Timber.e("error", t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getDinings() {
+        Call<DiningsResponse> call = ServiceUtil.getDiscoverApi().getDinings();
+
+        call.enqueue(new Callback<DiningsResponse>() {
+            @Override
+            public void onResponse(Call<DiningsResponse> call, Response<DiningsResponse> response) {
+                Timber.d("Succesfull", response.body().getGetDiningsResponse().getResponseStatus());
+            }
+
+            @Override
+            public void onFailure(Call<DiningsResponse> call, Throwable t) {
+                Timber.e("error", t.getMessage());
             }
         });
     }
@@ -65,13 +103,13 @@ public class DiscoverServiceImpl implements DiscoverService {
         call.enqueue(new Callback<PromotionMessagesResponse>() {
             @Override
             public void onResponse(Call<PromotionMessagesResponse> call, Response<PromotionMessagesResponse> response) {
-                Log.d("Succesfull", response.body().getGetPromotionMessages().getResponseStatus());
+                Timber.d("Succesfull", response.body().getGetPromotionMessages().getResponseStatus());
 
             }
 
             @Override
             public void onFailure(Call<PromotionMessagesResponse> call, Throwable t) {
-                Log.e("error", t.getMessage());
+                Timber.e("error", t.getMessage());
             }
         });
     }
@@ -85,13 +123,13 @@ public class DiscoverServiceImpl implements DiscoverService {
         call.enqueue(new Callback<EntertainmentsResponse>() {
             @Override
             public void onResponse(Call<EntertainmentsResponse> call, Response<EntertainmentsResponse> response) {
-                Log.d("Succesfull", response.body().getGetEntertainmentsResponse().getResponseStatus());
+                Timber.d("Succesfull", response.body().getGetEntertainmentsResponse().getResponseStatus());
             }
 
             @Override
             public void onFailure(Call<EntertainmentsResponse> call, Throwable t) {
                 //Handle failure
-                Log.e("error", t.getMessage());
+                Timber.e("error", t.getMessage());
             }
         });
     }
