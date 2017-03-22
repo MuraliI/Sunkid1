@@ -8,6 +8,9 @@
     <dimen name="left_margin_forward">100dp</dimen>
     <dimen name="top_image_margin">20dp</dimen>
 
+    <!-- Triptych view -->
+    <dimen name="triptych_strip_tickness">2dp</dimen>
+
     <!-- General dimens -->
     <dimen name="no_size">0dp</dimen>
     <dimen name="margin_large">20dp</dimen>

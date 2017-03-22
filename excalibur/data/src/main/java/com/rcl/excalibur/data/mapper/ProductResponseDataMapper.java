@@ -249,6 +249,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             productActivityLevel = new ProductActivityLevel();
             productActivityLevel.setActivityLevelDescription(productActivityLevelResponse.getActivityLevelDescription());
             productActivityLevel.setActivityLevelId(productActivityLevelResponse.getActivityLevelId());
+            productActivityLevel.setActivityLevelTitle(productActivityLevelResponse.getActivityLevelTitle());
             productActivityLevel.setActivityLevelMedia(transform(productActivityLevelResponse.getActivityLevelMedia()));
         }
         return productActivityLevel;

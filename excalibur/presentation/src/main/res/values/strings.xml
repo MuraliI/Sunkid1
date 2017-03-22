@@ -67,7 +67,7 @@
         reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
         nulla pariatur?\"</string>
 
-<!--Categories-->
+    <!--Categories-->
     <string name="category_royal_activity">ACTIVITIES</string>
     <string name="category_spa">SPA</string>
     <string name="category_dining">DINING</string>
@@ -77,5 +77,9 @@
 
     <string name="adults">Adults</string>
     <string name="children">Children</string>
+
+    <!-- Triptych Home Screen -->
+    <string name="triptych_tab_plans">Plans Screen</string>
+    <string name="triptych_tab_me">Me Screen</string>
 
 </resources>

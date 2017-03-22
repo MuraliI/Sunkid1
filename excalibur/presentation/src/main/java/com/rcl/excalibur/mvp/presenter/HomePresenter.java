@@ -1,39 +1,23 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.HomeActivity;
-import com.rcl.excalibur.activity.PlanListActivity;
-import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
+import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.HomeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
 public class HomePresenter implements BasePresenter {
 
-    @Inject GetProductsUseCase getProductsUseCase;
     private HomeView view;
 
     public HomePresenter(HomeView view) {
         this.view = view;
         init();
-        initInjection();
-        getProductsUseCase.execute(null);
-
-    }
-
-    private void initInjection() {
-        final BaseActivity activity = view.getActivity();
-        if (activity == null) {
-            return;
-        }
-        activity.getApplicationComponent().inject(this);
     }
 
     private void init() {
@@ -58,7 +42,7 @@ public class HomePresenter implements BasePresenter {
                 return;
             }
 
-            startActivity(activity, PlanListActivity.getStartIntent(activity));
+            startActivity(activity, TriptychHomeActivity.getStartIntent(activity));
         }
     }
 }
