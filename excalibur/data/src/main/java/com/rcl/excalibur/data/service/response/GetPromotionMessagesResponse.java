@@ -1,10 +1,12 @@
 package com.rcl.excalibur.data.service.response;
 
+import java.util.List;
+
 public class GetPromotionMessagesResponse {
 
     private String responseStatus;
 
-    private PromotionMessageResponse promotionMessage;
+    private List<PromotionMessageResponse> promotionMessage;
 
     public String getResponseStatus() {
         return responseStatus;
@@ -14,11 +16,12 @@ public class GetPromotionMessagesResponse {
         this.responseStatus = responseStatus;
     }
 
-    public PromotionMessageResponse getPromotionMessage() {
+
+    public List<PromotionMessageResponse> getPromotionMessage() {
         return promotionMessage;
     }
 
-    public void setPromotionMessage(PromotionMessageResponse promotionMessage) {
+    public void setPromotionMessage(List<PromotionMessageResponse> promotionMessage) {
         this.promotionMessage = promotionMessage;
     }
 }
