@@ -65,12 +65,13 @@ public class DiscoverServiceImpl implements DiscoverService {
         call.enqueue(new Callback<PromotionMessagesResponse>() {
             @Override
             public void onResponse(Call<PromotionMessagesResponse> call, Response<PromotionMessagesResponse> response) {
-                //TODO:
+                Log.d("Succesfull", response.body().getGetPromotionMessages().getResponseStatus());
+
             }
 
             @Override
             public void onFailure(Call<PromotionMessagesResponse> call, Throwable t) {
-                //TODO:
+                Log.e("error", t.getMessage());
             }
         });
     }
