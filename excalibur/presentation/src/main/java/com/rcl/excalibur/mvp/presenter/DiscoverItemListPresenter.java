@@ -18,7 +18,6 @@ import javax.inject.Inject;
 
 
 public class DiscoverItemListPresenter implements BasePresenter {
-    protected DiscoverModelDataMapper discoverModelDataMapper;
     @Inject GetProductDbUseCase getProductDbUseCase;
     private ProductsListView view;
     private int type;
