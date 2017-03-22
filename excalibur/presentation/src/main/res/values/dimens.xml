@@ -67,4 +67,10 @@
     <dimen name="menu_button_width">0dp</dimen>
 
 
+    <!--Itinerary -->
+    <dimen name="item_product_image_height">140dp</dimen>
+    <dimen name="item_product_image_width">140dp</dimen>
+    <dimen name="item_product_padding">35dp</dimen>
+    <dimen name="item_product_margin">10dp</dimen>
+
 </resources>

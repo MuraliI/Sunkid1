@@ -3,8 +3,6 @@ package com.rcl.excalibur.data.service.response;
 
 import com.google.gson.annotations.SerializedName;
 
-import javax.annotation.Generated;
-
 public class SpasResponse {
 
     @SerializedName("GetSpasResponse")
