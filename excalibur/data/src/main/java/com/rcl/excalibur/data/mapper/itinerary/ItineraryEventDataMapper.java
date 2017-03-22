@@ -1,5 +1,6 @@
-package com.rcl.excalibur.data.mapper;
+package com.rcl.excalibur.data.mapper.itinerary;
 
+import com.rcl.excalibur.data.mapper.BaseDataMapper;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryEventResponse;
 import com.rcl.excalibur.domain.ItineraryEvent;
 
@@ -14,7 +15,7 @@ import javax.inject.Singleton;
 public class ItineraryEventDataMapper extends BaseDataMapper<ItineraryEvent, ItineraryEventResponse> {
 
     @Inject
-    ItineraryEventDataMapper() {
+    public ItineraryEventDataMapper() {
     }
 
     @Override

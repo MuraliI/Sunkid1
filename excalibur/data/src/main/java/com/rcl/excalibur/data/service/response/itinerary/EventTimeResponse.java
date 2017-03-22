@@ -4,7 +4,7 @@ import com.rcl.excalibur.data.utils.DateUtil;
 
 import java.util.Date;
 
-public class BaseEventTimeResponse {
+public class EventTimeResponse {
     private String eventDate;
     private String eventTime;
     private String eventTimeZone;

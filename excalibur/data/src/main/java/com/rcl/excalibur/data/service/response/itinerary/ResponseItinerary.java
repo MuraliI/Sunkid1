@@ -2,13 +2,13 @@ package com.rcl.excalibur.data.service.response.itinerary;
 
 import java.util.List;
 
-public class BaseResponseItinerary<T> {
+public class ResponseItinerary {
     private int cruiseReservationID;
     private int guestID;
     private String sailingID;
     private String firstName;
     private String lastName;
-    private List<T> itineraryEventGroups;
+    private List<EventGroupResponse> itineraryEventGroups;
 
     public int getCruiseReservationID() {
         return cruiseReservationID;
@@ -50,11 +50,11 @@ public class BaseResponseItinerary<T> {
         this.lastName = lastName;
     }
 
-    public List<T> getItineraryEventGroups() {
+    public List<EventGroupResponse> getItineraryEventGroups() {
         return itineraryEventGroups;
     }
 
-    public void setItineraryEventGroups(List<T> itineraryEventGroups) {
+    public void setItineraryEventGroups(List<EventGroupResponse> itineraryEventGroups) {
         this.itineraryEventGroups = itineraryEventGroups;
     }
 }

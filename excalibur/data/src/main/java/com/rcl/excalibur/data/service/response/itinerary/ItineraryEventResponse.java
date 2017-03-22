@@ -6,8 +6,8 @@ public class ItineraryEventResponse {
     private String eventType;
     private String eventLocale;
     private EventLocationResponse eventLocation;
-    private BaseEventTimeResponse eventStartTime;
-    private BaseEventTimeResponse eventEndTime;
+    private EventTimeResponse eventStartTime;
+    private EventTimeResponse eventEndTime;
 
     public String getEventID() {
         return eventID;
@@ -49,19 +49,19 @@ public class ItineraryEventResponse {
         this.eventLocation = eventLocation;
     }
 
-    public BaseEventTimeResponse getEventStartTime() {
+    public EventTimeResponse getEventStartTime() {
         return eventStartTime;
     }
 
-    public void setEventStartTime(BaseEventTimeResponse eventStartTime) {
+    public void setEventStartTime(EventTimeResponse eventStartTime) {
         this.eventStartTime = eventStartTime;
     }
 
-    public BaseEventTimeResponse getEventEndTime() {
+    public EventTimeResponse getEventEndTime() {
         return eventEndTime;
     }
 
-    public void setEventEndTime(BaseEventTimeResponse eventEndTime) {
+    public void setEventEndTime(EventTimeResponse eventEndTime) {
         this.eventEndTime = eventEndTime;
     }
 }
