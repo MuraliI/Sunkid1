@@ -4,6 +4,7 @@ package com.rcl.excalibur.data.service;
 import android.util.Log;
 
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
+import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.EntertaimentsResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.service.DiscoverService;
@@ -39,6 +40,23 @@ public class DiscoverServiceImpl implements DiscoverService {
             }
         });
     }
+
+    @Override
+    public void getPromotionMessages() {
+        Call<PromotionMessagesResponse> call = ServiceUtil.getDiscoverApi().getPromotionMessages();
+        call.enqueue(new Callback<PromotionMessagesResponse>() {
+            @Override
+            public void onResponse(Call<PromotionMessagesResponse> call, Response<PromotionMessagesResponse> response) {
+                //TODO:
+            }
+
+            @Override
+            public void onFailure(Call<PromotionMessagesResponse> call, Throwable t) {
+                //TODO:
+            }
+        });
+    }
+
 
     @Override
     public void getEntertaiments() {
