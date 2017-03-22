@@ -50,7 +50,8 @@
             com.rcl.excalibur.data.entity.PromotionEntity,
             com.rcl.excalibur.data.entity.RestrictionEntity,
             com.rcl.excalibur.data.entity.StartingFromPriceEntity,
-            com.rcl.excalibur.data.entity.TypeEntity" />
+            com.rcl.excalibur.data.entity.TypeEntity,
+            com.rcl.excalibur.data.entity.ActivityLevelEntity" />
     </application>
 
 </manifest>

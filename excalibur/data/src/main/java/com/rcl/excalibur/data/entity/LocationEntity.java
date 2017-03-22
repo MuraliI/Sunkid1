@@ -19,9 +19,9 @@ public class LocationEntity extends Model {
     @Column(name = COLUMN_TYPE)
     private String type;
     @Column(name = COLUMN_HOURS_START)
-    private long hoursStart;
+    private String hoursStart;
     @Column(name = COLUMN_HOURS_END)
-    private long hoursEnd;
+    private String hoursEnd;
 
     public LocationEntity() {
         super();
@@ -43,19 +43,19 @@ public class LocationEntity extends Model {
         this.type = type;
     }
 
-    public long getHoursStart() {
+    public String getHoursStart() {
         return hoursStart;
     }
 
-    public void setHoursStart(long hoursStart) {
+    public void setHoursStart(String hoursStart) {
         this.hoursStart = hoursStart;
     }
 
-    public long getHoursEnd() {
+    public String getHoursEnd() {
         return hoursEnd;
     }
 
-    public void setHoursEnd(long hoursEnd) {
+    public void setHoursEnd(String hoursEnd) {
         this.hoursEnd = hoursEnd;
     }
 }

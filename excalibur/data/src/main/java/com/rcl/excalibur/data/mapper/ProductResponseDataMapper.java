@@ -142,22 +142,30 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             productPreference.setPreferenceId(productPreferenceResponse.getPreferenceId());
             productPreference.setPreferenceName(productPreferenceResponse.getPreferenceName());
             productPreference.setPreferenceType(productPreferenceResponse.getPreferenceType());
-            productPreference.setPreferenceValue(transform(productPreferenceResponse.getPreferenceValue()));
+            productPreference.setPreferenceValue(transformPreferencesValues(productPreferenceResponse.getPreferenceValue()));
             items.add(productPreference);
         }
 
         return items;
     }
 
-    private ProductPreferenceValue transform(ProductPreferenceValueResponse productPreferenceValueResponse) {
-        ProductPreferenceValue productPreferenceValue = null;
-        if (productPreferenceValueResponse != null) {
-            productPreferenceValue = new ProductPreferenceValue();
-            productPreferenceValue.setPreferenceValueCode(productPreferenceValueResponse.isPreferenceValueCode());
-            productPreferenceValue.setPreferenceValueId(productPreferenceValueResponse.getPreferenceValueId());
-            productPreferenceValue.setPreferenceValueName(productPreferenceValueResponse.isPreferenceValueName());
+    private List<ProductPreferenceValue> transformPreferencesValues(List<ProductPreferenceValueResponse> productPreferenceValueResponses) {
+        final List<ProductPreferenceValue> items = new ArrayList<>();
+        if (CollectionUtils.isEmpty(productPreferenceValueResponses)) {
+            return items;
         }
-        return productPreferenceValue;
+        for (ProductPreferenceValueResponse productPreferenceValueResponse : productPreferenceValueResponses) {
+            if (productPreferenceValueResponse == null) {
+                continue;
+            }
+
+            ProductPreferenceValue productPreferenceValue = new ProductPreferenceValue();
+            productPreferenceValue.setPreferenceValueCode(productPreferenceValueResponse.getPreferenceValueCode());
+            productPreferenceValue.setPreferenceValueId(productPreferenceValueResponse.getPreferenceValueId());
+            productPreferenceValue.setPreferenceValueName(productPreferenceValueResponse.getPreferenceValueName());
+            items.add(productPreferenceValue);
+        }
+        return items;
     }
 
     private List<ProductAdvisement> transformProductAdvisement(List<ProductAdvisementResponse> productAdvisementResponses) {

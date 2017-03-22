@@ -1,14 +1,16 @@
 package com.rcl.excalibur.data.service.response;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 
-public class GetEntertaimentsResponse {
+public class GetProductsResponse extends BaseResponse {
 
+    @SerializedName("product")
     private List<ProductResponse> products;
-    private String responseStatus;
 
-    public GetEntertaimentsResponse() {
+    public GetProductsResponse() {
     }
 
     public List<ProductResponse> getProducts() {
@@ -17,13 +19,5 @@ public class GetEntertaimentsResponse {
 
     public void setProducts(List<ProductResponse> products) {
         this.products = products;
-    }
-
-    public String getResponseStatus() {
-        return responseStatus;
-    }
-
-    public void setResponseStatus(String responseStatus) {
-        this.responseStatus = responseStatus;
     }
 }

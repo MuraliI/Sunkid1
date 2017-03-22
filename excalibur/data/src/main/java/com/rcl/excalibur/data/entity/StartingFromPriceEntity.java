@@ -17,11 +17,11 @@ public class StartingFromPriceEntity extends Model {
     @Column(name = COLUMN_CURRENCY)
     private String currency;
     @Column(name = COLUMN_ADULT_PRICE)
-    private long adultPrice;
+    private float adultPrice;
     @Column(name = COLUMN_CHILD_PRICE)
-    private long childPrice;
+    private float childPrice;
     @Column(name = COLUMN_INFANT_PRICE)
-    private long infantPrice;
+    private float infantPrice;
 
     public StartingFromPriceEntity() {
         super();
@@ -35,27 +35,27 @@ public class StartingFromPriceEntity extends Model {
         this.currency = currency;
     }
 
-    public long getAdultPrice() {
+    public float getAdultPrice() {
         return adultPrice;
     }
 
-    public void setAdultPrice(long adultPrice) {
+    public void setAdultPrice(float adultPrice) {
         this.adultPrice = adultPrice;
     }
 
-    public long getChildPrice() {
+    public float getChildPrice() {
         return childPrice;
     }
 
-    public void setChildPrice(long childPrice) {
+    public void setChildPrice(float childPrice) {
         this.childPrice = childPrice;
     }
 
-    public long getInfantPrice() {
+    public float getInfantPrice() {
         return infantPrice;
     }
 
-    public void setInfantPrice(long infantPrice) {
+    public void setInfantPrice(float infantPrice) {
         this.infantPrice = infantPrice;
     }
 }

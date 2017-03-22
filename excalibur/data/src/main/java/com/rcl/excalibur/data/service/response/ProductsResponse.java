@@ -3,9 +3,9 @@ package com.rcl.excalibur.data.service.response;
 import com.google.gson.annotations.SerializedName;
 
 
-public class EntertaimentsResponse {
+public class ProductsResponse {
 
-    @SerializedName("GetEntertainmentsResponse")
+    @SerializedName("GetProductsResponse")
     private GetProductsResponse getProductsResponse;
 
     public GetProductsResponse getGetProductsResponse() {

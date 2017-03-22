@@ -5,16 +5,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProductActivityLevelResponse {
     @SerializedName("activityLevelID")
-    private String activityLevelId;
+    private long activityLevelId;
     private String activityLevelTitle;
     private String activityLevelDescription;
     private MediaResponse activityLevelMedia;
 
-    public String getActivityLevelId() {
+    public long getActivityLevelId() {
         return activityLevelId;
     }
 
-    public void setActivityLevelId(String activityLevelId) {
+    public void setActivityLevelId(long activityLevelId) {
         this.activityLevelId = activityLevelId;
     }
 

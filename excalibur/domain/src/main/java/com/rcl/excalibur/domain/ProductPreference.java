@@ -1,19 +1,21 @@
 package com.rcl.excalibur.domain;
 
 
+import java.util.List;
+
 public class ProductPreference {
 
-    private String preferenceId;
+    private long preferenceId;
     private String preferenceName;
     private boolean mandatoryPreferenceFlag;
     private String preferenceType;
-    private ProductPreferenceValue preferenceValue;
+    private List<ProductPreferenceValue> preferenceValue;
 
-    public String getPreferenceId() {
+    public long getPreferenceId() {
         return preferenceId;
     }
 
-    public void setPreferenceId(String preferenceId) {
+    public void setPreferenceId(long preferenceId) {
         this.preferenceId = preferenceId;
     }
 
@@ -41,11 +43,11 @@ public class ProductPreference {
         this.preferenceType = preferenceType;
     }
 
-    public ProductPreferenceValue getPreferenceValue() {
+    public List<ProductPreferenceValue> getPreferenceValue() {
         return preferenceValue;
     }
 
-    public void setPreferenceValue(ProductPreferenceValue preferenceValue) {
+    public void setPreferenceValue(List<ProductPreferenceValue> preferenceValue) {
         this.preferenceValue = preferenceValue;
     }
 }

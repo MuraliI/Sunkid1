@@ -9,6 +9,8 @@ public interface ProductRepository {
 
     void create(Product product);
 
+    void create(List<Product> product);
+
     List<Product> getAll();
 
     List<Product> getAll(String type);

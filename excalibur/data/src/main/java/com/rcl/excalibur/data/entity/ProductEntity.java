@@ -32,7 +32,6 @@ public class ProductEntity extends Model {
     public static final String COLUMN_PREFERENCE = "preference";
     public static final String COLUMN_PRODUCT_MEDIA = "product_media";
 
-
     @Column(name = COLUMN_PRODUCT_ID, unique = true, index = true)
     public long productId;
     @Column(name = COLUMN_CODE)
@@ -51,7 +50,7 @@ public class ProductEntity extends Model {
     @Column(name = COLUMN_SCHEDULABLE)
     public boolean schedulable;
     @Column(name = COLUMN_ACTIVITY_LEVEL)
-    public String activityLevel;
+    public ActivityLevelEntity activityLevel;
     @Column(name = COLUMN_LOCATION)
     public LocationEntity location;
     @Column(name = COLUMN_DURATION)
@@ -147,11 +146,11 @@ public class ProductEntity extends Model {
         this.schedulable = schedulable;
     }
 
-    public String getActivityLevel() {
+    public ActivityLevelEntity getActivityLevel() {
         return activityLevel;
     }
 
-    public void setActivityLevel(String activityLevel) {
+    public void setActivityLevel(ActivityLevelEntity activityLevel) {
         this.activityLevel = activityLevel;
     }
 
