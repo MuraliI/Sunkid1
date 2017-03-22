@@ -9,13 +9,13 @@ import javax.annotation.Generated;
 public class SpasResponse {
 
     @SerializedName("GetSpasResponse")
-    private GetSpasResponse getSpasResponse;
+    private GetProductsResponse getSpasResponse;
 
-    public GetSpasResponse getGetSpasResponse() {
+    public GetProductsResponse getGetSpasResponse() {
         return getSpasResponse;
     }
 
-    public void setGetSpasResponse(GetSpasResponse getSpasResponse) {
+    public void setGetSpasResponse(GetProductsResponse getSpasResponse) {
         this.getSpasResponse = getSpasResponse;
     }
 }
