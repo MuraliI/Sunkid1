@@ -1,6 +1,5 @@
 package com.rcl.excalibur.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
+import com.rcl.excalibur.mvp.presenter.PlanListPresenter;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
-import com.rcl.excalibur.mvp.view.PlanListView;
-import com.rcl.excalibur.utils.ActivityUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,32 +38,32 @@ public class DiscoverTabFragment extends Fragment {
 
     @OnClick(R.id.button_dinning)
     public void dinningOnClick() {
-        openListScreen(PlanListView.POSITION_DINING);
+        presenter.openListScreen(PlanListPresenter.POSITION_DINING);
     }
 
     @OnClick(R.id.button_excursions)
     public void excursionsOnClick() {
-        openListScreen(PlanListView.POSITION_SHOREX);
+        presenter.openListScreen(PlanListPresenter.POSITION_SHOREX);
     }
 
     @OnClick(R.id.button_spa)
     public void spaOnClick() {
-        openListScreen(PlanListView.POSITION_SPA);
+        presenter.openListScreen(PlanListPresenter.POSITION_SPA);
     }
 
     @OnClick(R.id.button_shop)
     public void shopOnClick() {
-        openListScreen(PlanListView.POSITION_SHOPPING);
+        presenter.openListScreen(PlanListPresenter.POSITION_SHOPPING);
     }
 
     @OnClick(R.id.button_entertainment)
     public void entertainmentOnClick() {
-        openListScreen(PlanListView.POSITION_ENTERTAINMENT);
+        presenter.openListScreen(PlanListPresenter.POSITION_ENTERTAINMENT);
     }
 
     @OnClick(R.id.button_activities)
     public void activitiesOnClick() {
-        openListScreen(PlanListView.POSITION_ROYAL_ACTIVITY);
+        presenter.openListScreen(PlanListPresenter.POSITION_ROYAL_ACTIVITY);
     }
 
     @OnClick(R.id.button_services)
@@ -79,9 +76,4 @@ public class DiscoverTabFragment extends Fragment {
         Toast.makeText(getActivity(), "Search Click", Toast.LENGTH_LONG).show();
     }
 
-    private void openListScreen(int fragmentToShow) {
-        Intent intent = new Intent(getActivity(), PlanListActivity.class);
-        intent.putExtra(PlanListActivity.EXTRA_FRAGMENT_TYPE, fragmentToShow);
-        ActivityUtils.startActivity(getActivity(), intent);
-    }
 }

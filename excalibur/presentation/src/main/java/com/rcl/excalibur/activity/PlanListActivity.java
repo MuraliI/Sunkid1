@@ -29,10 +29,10 @@ public class PlanListActivity extends BaseActivity {
         int fragmentToShow = 0;
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_FRAGMENT_TYPE)) {
-            fragmentToShow = getIntent().getExtras().getInt(EXTRA_FRAGMENT_TYPE);
+            fragmentToShow = intent.getExtras().getInt(EXTRA_FRAGMENT_TYPE);
         }
 
-        presenter = new PlanListPresenter(new PlanListView(this, fragmentToShow));
+        presenter = new PlanListPresenter(new PlanListView(this), fragmentToShow);
     }
 
 
