@@ -8,7 +8,7 @@ import com.rcl.excalibur.fragments.DiscoverItemListFragment;
 import com.rcl.excalibur.internal.di.component.ApplicationComponent;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
-import com.rcl.excalibur.mvp.view.DiscoverItemListView;
+import com.rcl.excalibur.mvp.view.ProductsListView;
 
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -29,7 +29,7 @@ public class DiscoverPresenterTest {
 
     private static final int TYPE = 0;
     DiscoverItemListPresenter presenter;
-    @Mock DiscoverItemListView view;
+    @Mock ProductsListView view;
     @Mock BaseActivity activity;
     @Mock ApplicationComponent applicationComponent;
     @Mock DiscoverModelDataMapper discoverModelDataMapper;

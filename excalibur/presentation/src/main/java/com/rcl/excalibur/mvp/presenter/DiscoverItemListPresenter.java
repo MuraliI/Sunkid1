@@ -7,24 +7,21 @@ import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
 import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.interactor.GetDiscoverItemDbUseCase;
 import com.rcl.excalibur.fragments.DiscoverItemListFragment;
-import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
-import com.rcl.excalibur.mvp.view.DiscoverItemListView;
+import com.rcl.excalibur.mvp.view.ProductsListView;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 
 public class DiscoverItemListPresenter implements BasePresenter {
-    protected DiscoverModelDataMapper discoverModelDataMapper;
     @Inject GetDiscoverItemDbUseCase getDiscoverItemDbUseCase;
-    private DiscoverItemListView view;
+    private ProductsListView view;
     private int type;
 
-    public DiscoverItemListPresenter(int type, DiscoverItemListView view) {
-        this.discoverModelDataMapper = new DiscoverModelDataMapper();
+    public DiscoverItemListPresenter(int type, ProductsListView view) {
         this.view = view;
         this.type = type;
         initInjection();
@@ -72,9 +69,8 @@ public class DiscoverItemListPresenter implements BasePresenter {
     }
 
     protected void showCollectionInView(List<DiscoverItem> discoverItems) {
-        final Collection<DiscoverItemModel> models = discoverModelDataMapper.transform(discoverItems);
-        view.addAll(models);
-
+        // TODO: 22/03/17 Pass products from the use case
+        view.addAll(new ArrayList<>());
     }
 
     public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemListPresenter> {

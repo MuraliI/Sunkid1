@@ -13,17 +13,15 @@ import com.rcl.excalibur.activity.BaseActivity;
 import java.lang.ref.WeakReference;
 
 import io.reactivex.Observer;
-import io.reactivex.disposables.CompositeDisposable;
 
 
 public class FragmentView<T extends Fragment> {
     protected Observer viewObserver;
     protected Observer adapterObserver;
     private WeakReference<T> fragmentRef;
-    private CompositeDisposable compositeSubscription;
 
-    public FragmentView(T fragment) {
-        fragmentRef = new WeakReference(fragment);
+    FragmentView(T fragment) {
+        fragmentRef = new WeakReference<>(fragment);
     }
 
     @Nullable
