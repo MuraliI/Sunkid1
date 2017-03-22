@@ -7,5 +7,9 @@ public interface DiscoverService {
 
     void getCategories();
 
+    void getPromotionMessages();
+
     void getEntertaiments();
+
+    void getSpas();
 }

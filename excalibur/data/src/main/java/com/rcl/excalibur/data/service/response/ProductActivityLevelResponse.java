@@ -10,6 +10,18 @@ public class ProductActivityLevelResponse {
     private String activityLevelDescription;
     private MediaResponse activityLevelMedia;
 
+
+    public ProductActivityLevelResponse() {
+    }
+
+    public String getActivityLevelDescription() {
+        return activityLevelDescription;
+    }
+
+    public void setActivityLevelDescription(String activityLevelDescription) {
+        this.activityLevelDescription = activityLevelDescription;
+    }
+
     public long getActivityLevelId() {
         return activityLevelId;
     }
@@ -24,14 +36,6 @@ public class ProductActivityLevelResponse {
 
     public void setActivityLevelTitle(String activityLevelTitle) {
         this.activityLevelTitle = activityLevelTitle;
-    }
-
-    public String getActivityLevelDescription() {
-        return activityLevelDescription;
-    }
-
-    public void setActivityLevelDescription(String activityLevelDescription) {
-        this.activityLevelDescription = activityLevelDescription;
     }
 
     public MediaResponse getActivityLevelMedia() {
