@@ -4,14 +4,11 @@ package com.rcl.excalibur.mvp.presenter;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
-import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.fragments.DiscoverItemListFragment;
-import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.ProductsListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,12 +34,10 @@ public class DiscoverItemListPresenter implements BasePresenter {
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
         final String type = getType(activity, this.type);
-
-        final List<Product> products = getProductDbUseCase.getAll(type);
-//  TODO      showCollectionInView(discoverItems);
+        showCollectionInView(getProductDbUseCase.getAll(type));
     }
 
-    protected String getType(final BaseActivity activity, int type) {
+    private String getType(final BaseActivity activity, int type) {
         switch (type) {
             case DiscoverItemListFragment.ROYAL_ACTIVITY:
                 return activity.getString(R.string.category_royal_activity);
@@ -69,22 +64,21 @@ public class DiscoverItemListPresenter implements BasePresenter {
         activity.getApplicationComponent().inject(this);
     }
 
-    protected void showCollectionInView(List<DiscoverItem> discoverItems) {
-        // TODO: 22/03/17 Pass products from the use case
-        view.addAll(new ArrayList<>());
+    private void showCollectionInView(List<Product> products) {
+        view.addAll(products);
     }
 
-    public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemListPresenter> {
+    public class AdapterObserver extends DefaultPresentObserver<Product, DiscoverItemListPresenter> {
 
-        public AdapterObserver(DiscoverItemListPresenter presenter) {
+        AdapterObserver(DiscoverItemListPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(DiscoverItemModel value) {
+        public void onNext(Product value) {
             BaseActivity activity = view.getActivity();
             if (activity != null) {
-                activity.startActivity(DiscoverItemDetailActivity.getIntent(activity, value.getDiscoverId()));
+                activity.startActivity(DiscoverItemDetailActivity.getIntent(activity, value.getProductId()));
             }
         }
     }
