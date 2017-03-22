@@ -1,10 +1,10 @@
 package com.rcl.excalibur.domain.service;
 
-import io.reactivex.Observable;
+import io.reactivex.Observer;
 
 public interface ItineraryService {
 
-    Observable myItinerary();
+    void myItinerary(Observer observer);
 
 }
 
