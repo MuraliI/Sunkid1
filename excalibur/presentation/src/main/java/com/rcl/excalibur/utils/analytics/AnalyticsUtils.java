@@ -37,7 +37,7 @@ public final class AnalyticsUtils {
 
     }
 
-    public AnalyticEvent getDiscoverDetailEvent(DiscoverItemModel discoverItemModel) {
+    public static AnalyticEvent getDiscoverDetailEvent(DiscoverItemModel discoverItemModel) {
         String title = "";
 
         return new AnalyticEvent(title).addKeyValue(AnalyticsConstants.KEY_DISCOVER_ITEM_DETAILS_ACTIVITY_TYPE,

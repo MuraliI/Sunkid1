@@ -70,31 +70,37 @@ dependencies {
     compile project(':domain')
     compile project(':data')
     apt presentationDependencies.daggerCompiler
-    compile presentationDependencies.dagger
-    compile presentationDependencies.butterKnife
-    compile presentationDependencies.recyclerView
-    compile presentationDependencies.activeAndroid
-    compile presentationDependencies.appSupport
-    compile presentationDependencies.rxAndroid
-    compile presentationDependencies.picasso
-    compile presentationDependencies.cardView
-    compile presentationDependencies.calligraphy
-    compile presentationDependencies.appcompat
-    compile generalDependencies.timber
-    compile presentationDependencies.supportDesign
-    compile presentationDependencies.realTimeBlurView
+    compile presentationDependencies.dagger,
+            presentationDependencies.butterKnife,
+            presentationDependencies.recyclerView,
+            presentationDependencies.activeAndroid,
+            presentationDependencies.appSupport,
+            presentationDependencies.rxAndroid,
+            presentationDependencies.picasso,
+            presentationDependencies.cardView,
+            presentationDependencies.calligraphy,
+            presentationDependencies.appcompat,
+            generalDependencies.timber,
+            presentationDependencies.supportDesign,
+            presentationDependencies.realTimeBlurView
 
-    testCompile presentationTestDependencies.junit
-    testCompile presentationTestDependencies.mockito
-    testCompile presentationTestDependencies.assertj
-    androidTestCompile presentationTestDependencies.mockito
-    androidTestCompile presentationTestDependencies.dexmaker
-    androidTestCompile presentationTestDependencies.dexmakerMockito
-    androidTestCompile presentationTestDependencies.espresso
-    androidTestCompile presentationTestDependencies.testingSupportLib
+    testCompile presentationTestDependencies.junit,
+                presentationTestDependencies.mockito,
+                presentationTestDependencies.assertj,
+                presentationTestDependencies.powermockCore,
+                presentationTestDependencies.powermockModuleJunit4,
+                presentationTestDependencies.powermockApiMockitoV
+
+
+    androidTestCompile  presentationTestDependencies.mockito,
+                        presentationTestDependencies.dexmaker,
+                        presentationTestDependencies.dexmakerMockito,
+                        presentationTestDependencies.espresso,
+                        presentationTestDependencies.testingSupportLib
+
     //Development
-    compile developmentDependencies.leakCanary
-    compile files('libs/adobeMobileLibrary-4.13.4.jar')
+    compile developmentDependencies.leakCanary,
+            files('libs/adobeMobileLibrary-4.13.4.jar')
 }
 
 apply plugin: 'checkstyle'
