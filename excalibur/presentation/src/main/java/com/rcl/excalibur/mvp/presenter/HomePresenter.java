@@ -26,7 +26,7 @@ public class HomePresenter implements BasePresenter {
 //        TODO hard. waiting mock service
         List<DiscoverItemModel> discoverItemModels = new ArrayList();
         discoverItemModels.add(new DiscoverItemModel());
-        ((HomeView) view).addAll(discoverItemModels);
+        view.addAll(discoverItemModels);
     }
 
     public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, HomePresenter> {
