@@ -261,6 +261,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             productActivityLevel = new ProductActivityLevel();
             productActivityLevel.setActivityLevelDescription(productActivityLevelResponse.getActivityLevelDescription());
             productActivityLevel.setActivityLevelId(productActivityLevelResponse.getActivityLevelId());
+            productActivityLevel.setActivityLevelTitle(productActivityLevelResponse.getActivityLevelTitle());
             productActivityLevel.setActivityLevelMedia(transform(productActivityLevelResponse.getActivityLevelMedia()));
         }
         return productActivityLevel;
@@ -283,7 +284,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         }
         for (MediaItemResponse mediaItemResponse : mediaItemsResponses) {
 
-            if (mediaItemResponse != null) {
+            if (mediaItemResponse == null) {
                 continue;
             }
             MediaItem mediaItem = new MediaItem();
