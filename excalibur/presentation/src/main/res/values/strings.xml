@@ -4,7 +4,7 @@
     <string name="load_from_db">Load from DB</string>
     <string name="message">Item clicked</string>
     <string name="search_hint">Search for anything</string>
-    <string name="ship_time_label">ship time&#160;</string>
+    <string name="ship_time_label">ship label&#160;</string>
     <string name="next_up">next up</string>
     <string name="empty_string"/>
     <string name="discoverItem">Discover</string>
@@ -83,5 +83,19 @@
     <string name="triptych_tab_me">Me Screen</string>
     <string name="product_duration_template">%d min.</string>
     <string name="no_items_to_show">There are no items to show right now. Please try again later.</string>
+
+    <!-- Itinerary -->
+    <string name="title_good_morning">Good Morning</string>
+    <string name="title_good_afternoon">Good Afternoon!</string>
+    <string name="title_good_evening">Good Evening!</string>
+    <string name="title_good_night">Good Night!</string>
+    <string name="title_hello">Hello</string>
+    <string name="itinerary_product_view_am"> AM</string>
+    <string name="itinerary_product_view_pm"> PM</string>
+    <string name="itinerary_product_view_colon">:</string>
+    <string name="itinerary_product_view_dash">&#8210;</string>
+    <string name="itinerary_accessibility_product_image">Item Image</string>
+    <string name="itinerary_separator_title_on_going">On Going</string>
+
 
 </resources>

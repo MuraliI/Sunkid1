@@ -30,7 +30,7 @@ public class ItineraryServiceImpl implements ItineraryService {
         this.itineraryEventDataMapper = itineraryEventDataMapper;
     }
 
-    public void myItinerary(Observer observer) {
+    public void myItinerary(Observer<List<ItineraryEvent>> observer) {
 
         Observable<List<ItineraryEvent>> observable = Observable.create(e -> {
             Call<ResponseItinerary> call = ServiceUtil.getItineraryApi().myItinerary();

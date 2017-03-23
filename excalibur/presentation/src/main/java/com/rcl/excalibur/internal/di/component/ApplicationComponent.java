@@ -12,6 +12,7 @@ import com.rcl.excalibur.mvp.presenter.DiscoverItemDetailPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemListPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
 import com.rcl.excalibur.mvp.presenter.HomePresenter;
+import com.rcl.excalibur.mvp.presenter.ItineraryPresenter;
 import com.rcl.excalibur.mvp.presenter.TriptycHomePresenter;
 
 import javax.inject.Singleton;
@@ -33,6 +34,8 @@ public interface ApplicationComponent {
     void inject(TriptycHomePresenter presenter);
 
     void inject(DiscoverTabPresenter presenter);
+
+    void inject(ItineraryPresenter presenter);
 
     //Exposed to sub-graphs.
     Context context();

@@ -5,10 +5,11 @@ import android.support.annotation.Nullable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public final class DateUtil {
 
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmm");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmm", Locale.US);
 
     private DateUtil() {
     }
@@ -25,5 +26,4 @@ public final class DateUtil {
         }
         return date;
     }
-
 }

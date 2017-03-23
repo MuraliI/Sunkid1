@@ -115,6 +115,14 @@
         <item name="android:textColor">@color/grey</item>
     </style>
 
+    <!-- Fonts.Itinerary -->
+    <style name="AppTheme.ItinteraryGreetingText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_medium</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <!--<item name="tabMaxWidth">@dimen/tab_max_width</item>-->
         <item name="tabIndicatorColor">@color/plan_list_lightblue</item>
@@ -178,21 +186,27 @@
     </style>
 
     <style name="AppTheme.ProductTitle" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_bold</item>
+        <item name="fontPath">@string/roboto_regular</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/itinerary_product_card_text_dark_grey</item>
     </style>
 
     <style name="AppTheme.ProductDate" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_medium</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/discover_black</item>
+        <item name="fontPath">@string/roboto_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/itinerary_product_card_text_grey</item>
     </style>
 
     <style name="AppTheme.ProductVenue" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_medium</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/discover_black</item>
+        <item name="fontPath">@string/roboto_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/itinerary_product_card_text_grey</item>
+    </style>
+
+    <style name="AppTheme.CalendarHour" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/grey</item>
     </style>
 
     <style name="AppTheme.DiscoverPageTitle" parent="@android:style/Widget.TextView">
