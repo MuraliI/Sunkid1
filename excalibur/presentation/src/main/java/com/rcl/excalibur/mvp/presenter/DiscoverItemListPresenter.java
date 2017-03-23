@@ -11,9 +11,6 @@ import com.rcl.excalibur.fragments.DiscoverItemListFragment;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverItemListView;
-import com.rcl.excalibur.utils.analytics.AnalyticEvent;
-import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
-import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -41,8 +38,6 @@ public class DiscoverItemListPresenter implements BasePresenter {
             return;
         }
 
-        AnalyticsUtils.trackState(AnalyticsConstants.KEY_DISCOVER);
-
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
         final String type = getType(activity, this.type);
@@ -52,7 +47,6 @@ public class DiscoverItemListPresenter implements BasePresenter {
     }
 
     protected String getType(final BaseActivity activity, int type) {
-        AnalyticEvent analyticEvent = new AnalyticEvent(AnalyticsConstants.KEY_FILTER_DISCOVER);
 
         String categorySelected;
         switch (type) {
@@ -78,7 +72,6 @@ public class DiscoverItemListPresenter implements BasePresenter {
                 categorySelected = activity.getString(R.string.category_royal_activity);
         }
 
-        AnalyticsUtils.trackEvent(analyticEvent.addKeyValue(AnalyticsConstants.KEY_FILTER_CATEGORY, categorySelected));
         return categorySelected;
     }
 
