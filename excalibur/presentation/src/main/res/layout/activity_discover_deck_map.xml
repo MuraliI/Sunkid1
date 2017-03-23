@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_detail"
+            android:id="@+id/toolbar_deck_map"
             android:layout_width="match_parent"
             android:layout_height="@dimen/detail_discover_item_toolbar_size"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -24,10 +24,10 @@
                 android:src="@drawable/ic_white_arrow_back"/>
         </android.support.v7.widget.Toolbar>
 
-        <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        <com.rcl.excalibur.custom.view.MarkerImageView
             android:id="@+id/image_ship"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar_detail"/>
+            android:layout_below="@+id/toolbar_deck_map"/>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

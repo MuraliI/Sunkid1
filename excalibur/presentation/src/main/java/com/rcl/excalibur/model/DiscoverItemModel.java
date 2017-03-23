@@ -30,7 +30,6 @@ public class DiscoverItemModel {
     private String standardTimesTitle;
     private List<String[]> standardTimesDaysAndTimes;
 
-
     public String getDiscoverId() {
         return discoverId;
     }
