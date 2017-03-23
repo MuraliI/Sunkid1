@@ -127,13 +127,13 @@ public class ItineraryPresenter implements BasePresenter {
 
     private void addCalendarSeparator(List<RecyclerViewType> list, String label, int position) {
         if (scrollPosition == 0) {
-            scrollPosition = position;
+            scrollPosition = position + 1;
         }
         addSeparator(list, label);
     }
 
     private void addOnGoingSeparator(List<RecyclerViewType> list, String label, int position) {
-        scrollPosition = position;
+        scrollPosition = position + 1;
         addSeparator(list, label);
     }
 

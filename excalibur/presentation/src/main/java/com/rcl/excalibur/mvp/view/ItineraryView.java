@@ -39,8 +39,9 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
     }
 
     public void scrollToPosition(int pos) {
-        if (pos < adapter.getItemCount())
+        if (pos < adapter.getItemCount()) {
             recyclerView.smoothScrollToPosition(pos);
+        }
     }
 
     public void setGreetingText(RecyclerViewType greetingText) {

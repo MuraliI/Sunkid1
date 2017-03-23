@@ -119,7 +119,7 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
 
     private int compareHourMinute(Date date1, Date date2) {
 
-        /* FIXME: This is to user Mockdata with old date values only using Hours & Minutes*/
+        /*FIXME: This is to user Mockdata with old date values only using Hours & Minutes*/
 
         if (date1.getHours() > date2.getHours())
             return 1;
