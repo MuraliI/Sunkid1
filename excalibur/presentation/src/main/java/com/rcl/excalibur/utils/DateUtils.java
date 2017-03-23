@@ -1,0 +1,38 @@
+package com.rcl.excalibur.utils;
+
+
+import android.content.res.Resources;
+
+import com.rcl.excalibur.R;
+
+import java.util.Calendar;
+import java.util.Date;
+
+public final class DateUtils {
+
+    private DateUtils() {
+
+    }
+
+    public static String getDateTime(Date date, Resources resources) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        int hour = calendar.get(Calendar.HOUR);
+        int minutes = calendar.get(Calendar.MINUTE);
+        int amPm = calendar.get(Calendar.AM_PM);
+
+        StringBuilder builder = new StringBuilder();
+        if (minutes == 0) {
+            builder.append(hour);
+        } else {
+            builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon)).append(minutes);
+        }
+
+        builder.append(amPm == Calendar.AM ?
+                resources.getString(R.string.itinerary_product_view_am) :
+                resources.getString(R.string.itinerary_product_view_pm));
+
+        return builder.toString();
+    }
+}
