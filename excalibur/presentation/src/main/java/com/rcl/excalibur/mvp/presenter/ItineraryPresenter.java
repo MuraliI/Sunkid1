@@ -1,7 +1,9 @@
 package com.rcl.excalibur.mvp.presenter;
 
 import android.app.Activity;
+import android.content.res.Resources;
 
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
@@ -66,7 +68,7 @@ public class ItineraryPresenter implements BasePresenter {
 
                 List<ItineraryProductModel> productModels = mapper.transform(value);
                 Collections.sort(productModels);
-                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels);
+                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels, view.getActivity().getResources());
 
                 view.addPlans(viewTypeList);
                 refreshPositioning();
@@ -74,7 +76,7 @@ public class ItineraryPresenter implements BasePresenter {
         }
     }
 
-    private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products) {
+    private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products, Resources resources) {
 
         List<RecyclerViewType> viewTypeList = new ArrayList<>();
 
@@ -84,7 +86,7 @@ public class ItineraryPresenter implements BasePresenter {
             switch (productModel.getState()) {
                 case ON_GOING:
 
-                    String separatorOnGoing = "On Going";
+                    String separatorOnGoing = resources.getString(R.string.itinerary_separator_title_on_going);
 
                     if (i == 0) {
                         addOnGoingSeparator(viewTypeList, separatorOnGoing, i);
