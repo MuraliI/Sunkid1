@@ -14,7 +14,7 @@ public class PlanListView extends ActivityView<PlanListActivity> {
 
     public PlanListView(PlanListActivity activity) {
         super(activity);
-        ButterKnife.bind(this, activity);
+        //ButterKnife.bind(this, activity);
     }
 
     public void init(Fragment fragment) {

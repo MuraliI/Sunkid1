@@ -41,24 +41,24 @@ class SpaDetailModuleFactory extends DetailModuleFactory {
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
-        types.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionDescription()));
-        types.add(new StandardTimesViewType(itemModel.getStandardTimesTitle(), itemModel.getStandardTimesDaysAndTimes()));
+        /*types.add(new PromotionViewType(product.getPromotionTitle(), product.getPromotionDescription()));
+        types.add(new StandardTimesViewType(product.getStandardTimesTitle(), product.getStandardTimesDaysAndTimes()));
         types.add(new TitleAndDescriptionViewType(
                 resources.getString(R.string.prices_from),
                 resources.getString(
                         R.string.discover_item_detail_price_range,
-                        itemModel.getPriceRange()[FIRST_PRICE_POSITION],
-                        itemModel.getPriceRange()[SECOND_PRICE_POSITION])));
+                        product.getPriceRange()[FIRST_PRICE_POSITION],
+                        product.getPriceRange()[SECOND_PRICE_POSITION])));
         addTitleAndDescriptionTypes(types);
-        types.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
+        types.add(new ExpandableDescriptionViewType(product.getDescription()));
         types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_accessibility),
-                itemModel.getAccessibility(),
+                product.getAccessibility(),
                 true));
         types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_legal),
-                new String[]{itemModel.getLegal()},
-                false));
+                new String[]{product.getLegal()},
+                false));*/
         return types;
     }
 }

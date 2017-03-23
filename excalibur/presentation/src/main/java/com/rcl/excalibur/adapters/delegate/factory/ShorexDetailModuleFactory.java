@@ -47,22 +47,22 @@ class ShorexDetailModuleFactory extends DetailModuleFactory {
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
-        types.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionDescription()));
-        types.add(new StandardTimesViewType(itemModel.getStandardTimesTitle(), itemModel.getStandardTimesDaysAndTimes()));
+        /*types.add(new PromotionViewType(product.getPromotionTitle(), product.getPromotionDescription()));
+        types.add(new StandardTimesViewType(product.getStandardTimesTitle(), product.getStandardTimesDaysAndTimes()));
         types.add(new PricesFromViewType(
-                itemModel.getPriceRange()[POSITION_PRICE_ADULTS],
-                itemModel.getPriceRange()[POSITION_PRICE_CHILDREN]));
+                product.getPriceRange()[POSITION_PRICE_ADULTS],
+                product.getPriceRange()[POSITION_PRICE_CHILDREN]));
         addTitleAndDescriptionTypes(types);
-        types.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
+        types.add(new ExpandableDescriptionViewType(product.getDescription()));
 
         types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_accessibility),
-                itemModel.getAccessibility(),
+                product.getAccessibility(),
                 true));
         types.add(new ExpandableLinkViewType(
                 resources.getString(R.string.detail_module_legal),
-                new String[]{itemModel.getLegal()},
-                false));
+                new String[]{product.getLegal()},
+                false));*/
         return types;
     }
 }
