@@ -2,12 +2,12 @@ package com.rcl.excalibur.internal.di.component;
 
 import android.content.Context;
 
+import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.DiscoverService;
 import com.rcl.excalibur.internal.di.module.ApplicationModule;
-import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemDetailPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemListPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;

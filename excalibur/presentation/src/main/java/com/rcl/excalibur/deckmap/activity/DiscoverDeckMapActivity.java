@@ -3,7 +3,6 @@ package com.rcl.excalibur.deckmap.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
@@ -11,7 +10,6 @@ import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
 import com.rcl.excalibur.deckmap.mvp.view.DiscoverDeckMapView;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class DiscoverDeckMapActivity extends BaseActivity {
     private static final String EXTRA_PRODUCT_ITEM_ID = "EXTRA_PRODUCT_ITEM_ID";
@@ -40,8 +38,9 @@ public class DiscoverDeckMapActivity extends BaseActivity {
         presenter = new DiscoverDeckMapPresenter(new DiscoverDeckMapView(this), productItemId);
     }
 
-    @OnClick(R.id.back_arrow)
-    void onBackClicked(View view) {
-        presenter.onBackClicked();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

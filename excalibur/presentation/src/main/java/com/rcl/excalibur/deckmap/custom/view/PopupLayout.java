@@ -25,7 +25,7 @@ public class PopupLayout extends RelativeLayout {
     @Bind(R.id.image_product) ImageView productImage;
     @Bind(R.id.text_title_product) TextView titleProductText;
     @Bind(R.id.text_type_product) TextView typeProductText;
-    @Bind(R.id.text_price_range) TextView priceRangeText;
+    @Bind(R.id.text_type_name) TextView typeNameText;
 
     public PopupLayout(Context context) {
         super(context);
@@ -55,7 +55,7 @@ public class PopupLayout extends RelativeLayout {
     public void setProduct(Product product) {
         titleProductText.setText(product.getProductTitle());
         typeProductText.setText(product.getProductType().getProductType());
-        priceRangeText.setText(product.getProductType().getProductTypeName());
+        typeNameText.setText(product.getProductType().getProductTypeName());
 
         List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
         if (!mediaItems.isEmpty()) {

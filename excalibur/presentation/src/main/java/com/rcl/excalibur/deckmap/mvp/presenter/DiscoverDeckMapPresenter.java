@@ -99,4 +99,8 @@ public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickLi
             view.showProductOnPopupLayout(productDeckMapModel.getProduct());
         }
     }
+
+    public void onDestroy() {
+        view.onDestroy();
+    }
 }

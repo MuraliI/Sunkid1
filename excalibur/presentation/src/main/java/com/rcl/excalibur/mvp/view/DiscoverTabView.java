@@ -1,7 +1,9 @@
 package com.rcl.excalibur.mvp.view;
 
 import android.app.Activity;
+
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
+
 import butterknife.ButterKnife;
 
 public class DiscoverTabView extends FragmentView<DiscoverTabFragment> {

@@ -7,11 +7,12 @@
     android:padding="10dp"
     android:gravity="center_vertical">
 
-    <ImageView
+    <com.rcl.excalibur.utils.RoundedImageView
         android:id="@+id/image_product"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="10dp"/>
+        android:layout_width="@dimen/item_discover_width_image"
+        android:layout_height="@dimen/item_discover_height_image"
+        android:layout_marginEnd="@dimen/item_plan_image_margin_right"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,16 +22,19 @@
 
         <TextView
             android:id="@+id/text_title_product"
+            style="@style/AppTheme.DiscoverTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/text_type_product"
+            style="@style/AppTheme.DiscoverOther"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/text_price_range"
+            android:id="@+id/text_type_name"
+            style="@style/AppTheme.DiscoverOther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
