@@ -7,14 +7,11 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
-import butterknife.ButterKnife;
-
 
 public class PlanListView extends ActivityView<PlanListActivity> {
 
     public PlanListView(PlanListActivity activity) {
         super(activity);
-        //ButterKnife.bind(this, activity);
     }
 
     public void init(Fragment fragment) {
