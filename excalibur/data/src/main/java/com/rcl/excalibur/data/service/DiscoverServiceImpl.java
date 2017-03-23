@@ -34,7 +34,6 @@ public class DiscoverServiceImpl implements DiscoverService {
         this.productResponseDataMapper = productResponseDataMapper;
     }
 
-
     @Override
     public void getCategories() {
 
@@ -140,7 +139,6 @@ public class DiscoverServiceImpl implements DiscoverService {
             }
         });
     }
-
 
     @Override
     public void getEntertainments() {
