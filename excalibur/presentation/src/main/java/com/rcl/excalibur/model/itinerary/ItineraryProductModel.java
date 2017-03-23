@@ -3,7 +3,7 @@ package com.rcl.excalibur.model.itinerary;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
-public class ProductModel implements RecyclerViewType{
+public class ItineraryProductModel implements RecyclerViewType {
     public static final String LOCATION_POINTER_FWD = "Forward";
     public static final String LOCATION_POINTER_AFT = "After";
     public static final String LOCATION_POINTER_MID = "Middle";
@@ -75,7 +75,7 @@ public class ProductModel implements RecyclerViewType{
 
     @Override
     public int getViewType() {
-        return RecyclerViewConstants.VIEW_TYPE_PRODUCT_VIEW;
+        return RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW;
     }
 }
 

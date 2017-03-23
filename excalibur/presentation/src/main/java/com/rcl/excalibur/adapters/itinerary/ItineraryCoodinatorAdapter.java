@@ -6,6 +6,7 @@ import com.rcl.excalibur.adapters.base.BaseCoordinatorAdapter;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.delegate.itinerary.GreetingsDelegateAdapter;
+import com.rcl.excalibur.adapters.delegate.itinerary.ItineraryProductDelegateAdapter;
 
 import io.reactivex.Observer;
 
@@ -18,5 +19,6 @@ public class ItineraryCoodinatorAdapter extends BaseCoordinatorAdapter {
         super(observer);
         delegateAdapters = new SparseArrayCompat<DelegateAdapter>(VIEW_TYPE_COUNT);
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_GREETINGS, new GreetingsDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW, new ItineraryProductDelegateAdapter());
     }
 }

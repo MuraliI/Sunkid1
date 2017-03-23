@@ -2,7 +2,6 @@ package com.rcl.excalibur.mvp.view;
 
 
 import android.app.Activity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -10,7 +9,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.itinerary.ItineraryCoodinatorAdapter;
 import com.rcl.excalibur.fragments.ItineraryFragment;
-import com.rcl.excalibur.model.itinerary.ProductModel;
+import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 
 import java.util.List;
 
@@ -33,11 +32,9 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
         if (activity == null) {
             return;
         }
-        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
-        adapter = new ItineraryCoodinatorAdapter(null);
 
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), layoutManager.getOrientation()));
+        adapter = new ItineraryCoodinatorAdapter(null);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
     }
 
@@ -45,7 +42,7 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
         adapter.addViewTypeOnceAndNotify(greetingText);
     }
 
-    public void addPlans(List<ProductModel> productModelList) {
+    public void addPlans(List<ItineraryProductModel> productModelList) {
         adapter.addAll(productModelList);
     }
 

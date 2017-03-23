@@ -24,6 +24,11 @@
     <color name="detail_item_link">#286CF5</color>
     <color name="detail_item_description">#3A4053</color>
     <color name="detail_description_transparent_white">#9FFF</color>
+    
+    <!-- Itinerary -->
+    <color name="itinerary_product_card_background">#F5F5F5</color>
+    <color name="itinerary_product_card_text_grey">#999</color>
+    <color name="itinerary_product_card_text_dark_grey">#424242</color>
 
     <!-- Font colors -->
     <color name="font_detail_title_gray">#7C7E8D</color>

@@ -10,6 +10,9 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class GreetingsDelegateAdapter implements DelegateAdapter<GreetingsDelegateAdapter.GreetingsViewHolder, GreetingViewType> {
 
     @Override
@@ -24,11 +27,11 @@ public class GreetingsDelegateAdapter implements DelegateAdapter<GreetingsDelega
 
     class GreetingsViewHolder extends RecyclerView.ViewHolder {
 
-        TextView greetingsText;
+        @Bind(R.id.text_greeting) TextView greetingsText;
 
         GreetingsViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.itinerary_item_header_greeting, parent, false));
-            greetingsText = (TextView) itemView;
+            ButterKnife.bind(this, itemView);
         }
     }
 }

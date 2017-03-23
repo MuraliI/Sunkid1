@@ -1,12 +1,12 @@
 package com.rcl.excalibur.mvp.presenter;
 
 import android.app.Activity;
-import android.widget.Toast;
 
 import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
+import com.rcl.excalibur.model.itinerary.ProductModelMapper;
 import com.rcl.excalibur.mvp.view.ItineraryView;
 
 import java.util.List;
@@ -43,13 +43,16 @@ public class ItineraryPresenter implements BasePresenter {
 
     private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
 
-        public ItineraryServiceObserver(ItineraryPresenter presenter) {
+        ItineraryServiceObserver(ItineraryPresenter presenter) {
             super(presenter);
         }
 
         @Override
         public void onNext(List<ItineraryEvent> value) {
-
+            if (view.getActivity() != null) {
+                ProductModelMapper mapper = new ProductModelMapper(view.getActivity().getResources());
+                view.addPlans(mapper.transform(value));
+            }
         }
     }
 
