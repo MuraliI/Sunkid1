@@ -75,7 +75,7 @@ public class DiscoverItemListPresenter implements BasePresenter {
         activity.getApplicationComponent().inject(this);
     }
 
-    private void showCollectionInView(List<Product> products) {
+    protected void showCollectionInView(List<Product> products) {
         view.addAll(products);
     }
 
