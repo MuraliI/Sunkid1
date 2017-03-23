@@ -6,6 +6,8 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
 import com.rcl.excalibur.utils.ActivityUtils;
+import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 public class DiscoverTabPresenter implements BasePresenter {
 
@@ -15,6 +17,8 @@ public class DiscoverTabPresenter implements BasePresenter {
         this.view = view;
         initInjection();
         init();
+
+        AnalyticsUtils.trackState(AnalyticsConstants.KEY_DISCOVER);
     }
 
     private void init() {

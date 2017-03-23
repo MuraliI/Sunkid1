@@ -13,12 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.utils.analytics.AnalyticEvent;
+import com.rcl.excalibur.utils.analytics.AnalyticsManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ExpandableDescriptionLayout extends FrameLayout {
+public class ExpandableDescriptionLayout extends FrameLayout implements AnalyticsManager {
 
     private static final int DEFAULT_MAX_LINES_COUNT = 6;
     private static final int DEFAULT_ANIMATION_DURATION = 1000;
@@ -35,6 +37,7 @@ public class ExpandableDescriptionLayout extends FrameLayout {
     private boolean firstOnMeasure = true;
     private CharSequence expandedBtnText;
     private CharSequence collapsedBtnText;
+    private AnalyticEvent eventBuilder;
 
     public ExpandableDescriptionLayout(Context context) {
         super(context);
@@ -106,6 +109,8 @@ public class ExpandableDescriptionLayout extends FrameLayout {
         isExpanded = !isExpanded;
         seeMoreBtnText.setText(isExpanded ? expandedBtnText : collapsedBtnText);
         seeMoreArrowIcon.setImageResource(isExpanded ? R.drawable.ic_arrow_drop_up : R.drawable.ic_arrow_drop_down);
+        if (isExpanded)
+            sendAnalytics();
         requestLayout();
     }
 
@@ -136,5 +141,15 @@ public class ExpandableDescriptionLayout extends FrameLayout {
 
     public void setSeeMoreBtnText(String seeMoreBtnText) {
         this.seeMoreBtnText.setText(seeMoreBtnText);
+    }
+
+    @Override
+    public void setAnalyticEvent(AnalyticEvent analyticEvent) {
+        this.eventBuilder = analyticEvent;
+    }
+
+    @Override
+    public void sendAnalytics() {
+        //TODO Implement analytics call here.
     }
 }

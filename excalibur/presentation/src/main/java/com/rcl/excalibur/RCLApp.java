@@ -3,10 +3,10 @@ package com.rcl.excalibur;
 import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
-import com.adobe.mobile.Config;
 import com.rcl.excalibur.internal.di.component.ApplicationComponent;
 import com.rcl.excalibur.internal.di.component.DaggerApplicationComponent;
 import com.rcl.excalibur.internal.di.module.ApplicationModule;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 import timber.log.Timber;
@@ -23,7 +23,7 @@ public class RCLApp extends Application {
         this.initializeInjector();
         this.initializeLeakDetection();
         this.initCalligraphy();
-        Config.setContext(this.getApplicationContext());
+        AnalyticsUtils.initializeAnalyticsTool(this.getApplicationContext());
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());

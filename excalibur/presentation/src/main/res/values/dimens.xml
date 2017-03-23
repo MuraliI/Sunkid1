@@ -75,5 +75,7 @@
     <dimen name="item_product_image_width">140dp</dimen>
     <dimen name="item_product_padding">35dp</dimen>
     <dimen name="item_product_margin">10dp</dimen>
+    <dimen name="ship_button_category_size">25dp</dimen>
+    <dimen name="ship_button_category_top_margin">10dp</dimen>
 
 </resources>

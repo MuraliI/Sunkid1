@@ -19,7 +19,7 @@ public final class DetailModelProvider {
         discoverItem1.setType("Entertainment");
         discoverItem1.setImageUrl("https://s8.postimg.org/o6pm4w0n9/img_grease_musical.png");
         discoverItem1.setTitle("Grease - The Musical");
-        discoverItem1.setSubtitle("Royale Theatre, Deck 12 AFT");
+        //discoverItem1.setSubtitle("Royale Theatre, Deck 12 AFT");
         discoverItem1.setReservationRequired(true);
         discoverItem1.setPromotionTitle("50% off Matinee showtimes");
         discoverItem1.setPromotionDescription("\"Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, "
@@ -54,7 +54,7 @@ public final class DetailModelProvider {
         discoverItem2.setType("Shorex");
         discoverItem2.setImageUrl("https://s17.postimg.org/yftzz3qun/img_caribbean_kitchen.png");
         discoverItem2.setTitle("Caribbean Kitchen");
-        discoverItem2.setSubtitle("St Martin");
+        //discoverItem2.setSubtitle("St Martin");
         discoverItem2.setReservationRequired(true);
         discoverItem2.setPromotionTitle("Promotional title long version");
         discoverItem2.setPromotionDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet purus turpis. "
@@ -91,7 +91,7 @@ public final class DetailModelProvider {
         discoverItem3.setType("Spa");
         discoverItem3.setImageUrl("https://s11.postimg.org/4neqgqroz/img_hot_stone_massage.png");
         discoverItem3.setTitle("Hot Stone Massage");
-        discoverItem3.setSubtitle("Vitality at Sea Spa. Deck 12 AFT");
+        //discoverItem3.setSubtitle("Vitality at Sea Spa. Deck 12 AFT");
         discoverItem3.setReservationRequired(true);
         discoverItem3.setPromotionTitle("50% off Matinee showtimes");
         discoverItem3.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, "
@@ -127,7 +127,7 @@ public final class DetailModelProvider {
         diningItem.setType("Dining");
         diningItem.setImageUrl("https://s22.postimg.org/jjfafr7pd/img_sams_bbq_wild_house.png");
         diningItem.setTitle("Sam's BBQ Wild House");
-        diningItem.setSubtitle("Deck 12, AFT");
+        //diningItem.setSubtitle("Deck 12, AFT");
         diningItem.setReservationRequired(false);
         diningItem.setPromotionTitle("50% off Matinee showtimes");
         diningItem.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, Guess, "
@@ -158,7 +158,7 @@ public final class DetailModelProvider {
         activityItem.setType("Activity");
         activityItem.setImageUrl("https://s24.postimg.org/p050yxrg5/img_library.png");
         activityItem.setTitle("Library");
-        activityItem.setSubtitle("Deck 12 AFT");
+        //activityItem.setSubtitle("Deck 12 AFT");
         activityItem.setReservationRequired(false);
         activityItem.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         activityItem.setPromotionTitle("Promotional title long version");
@@ -202,7 +202,7 @@ public final class DetailModelProvider {
         activityItem2.setType("Activity");
         activityItem2.setImageUrl("https://s17.postimg.org/qtlpsu3z3/img_pool_voleball.png");
         activityItem2.setTitle("Pool Volleyball");
-        activityItem2.setSubtitle("Deck 12 AFT");
+        //activityItem2.setSubtitle("Deck 12 AFT");
         activityItem2.setReservationRequired(false);
         activityItem2.setPriceRange(new String[]{"Adults", "40", "Children", "20"});
         activityItem2.setPromotionTitle("Promotional title long version");
@@ -245,7 +245,7 @@ public final class DetailModelProvider {
         discoverItem8.setType("Shopping");
         discoverItem8.setImageUrl("https://s10.postimg.org/o3d9asfqh/img_tiffanys_jewelry.png");
         discoverItem8.setTitle("Tiffany`s Jewelry");
-        discoverItem8.setSubtitle("Deck 12 AFT");
+        //discoverItem8.setSubtitle("Deck 12 AFT");
         discoverItem8.setReservationRequired(true);
         discoverItem8.setPromotionTitle("Promotional title long version");
         discoverItem8.setPromotionDescription("Save on Invicta, Movado, Tissot, Citizen, Bulova, Michael Kors, Ferrari, Fossil, Guess, "

@@ -39,12 +39,15 @@ ext {
 
     //Testing
     robolectricVersion = '3.2.2'
-    jUnitVersion = '4.12'
+    jUnitVersion = '4.11'
     assertJVersion = '1.7.1'
     mockitoVersion = '1.9.0'
     dexmakerVersion = '1.0'
     espressoVersion = '2.0'
     testingSupportLibVersion = '0.1'
+    powermockCoreV = '1.4.12'
+    powermockModuleJunit4V = '1.4.12'
+    powermockApiMockitoV = '1.4.12'
 
     //Development
     leakCanaryVersion = '1.3.1'
@@ -67,18 +70,20 @@ ext {
             supportDesign   : "com.android.support:design:${designSupportLibraryVersion}",
             realTimeBlurView: "com.github.mmin18:realtimeblurview:${realTimeBlurLibVersion}",
             appcompat       : "com.android.support:appcompat-v7:${appcompatVersion}"
-
     ]
 
     presentationTestDependencies = [
-            mockito          : "org.mockito:mockito-core:${mockitoVersion}",
-            junit            : "junit:junit:${jUnitVersion}",
-            assertj          : "org.assertj:assertj-core:${assertJVersion}",
-            robolectric      : "org.robolectric:robolectric:${robolectricVersion}",
-            dexmaker         : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
-            dexmakerMockito  : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
-            espresso         : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
-            testingSupportLib: "com.android.support.test:testing-support-lib:${testingSupportLibVersion}"
+            mockito                 : "org.mockito:mockito-core:${mockitoVersion}",
+            junit                   : "junit:junit:${jUnitVersion}",
+            assertj                 : "org.assertj:assertj-core:${assertJVersion}",
+            robolectric             : "org.robolectric:robolectric:${robolectricVersion}",
+            dexmaker                : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
+            dexmakerMockito         : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
+            espresso                : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            testingSupportLib       : "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
+            powermockCore           : "org.powermock:powermock-core:${powermockCoreV}",
+            powermockModuleJunit4   : "org.powermock:powermock-module-junit4:${powermockModuleJunit4V}",
+            powermockApiMockitoV    : "org.powermock:powermock-api-mockito:${powermockApiMockitoV}"
     ]
 
     domainDependencies = [
