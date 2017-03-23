@@ -3,9 +3,9 @@ package com.rcl.excalibur.domain;
 
 public class ProductDuration {
     private boolean isAtYourLeisure;
-    private int durationInMinutes;
-    private int leadTimeInMinutes;
-    private int lagTimeInMinutes;
+    private long durationInMinutes;
+    private long leadTimeInMinutes;
+    private long lagTimeInMinutes;
 
     public boolean isAtYourLeisure() {
         return isAtYourLeisure;
@@ -15,27 +15,27 @@ public class ProductDuration {
         isAtYourLeisure = atYourLeisure;
     }
 
-    public int getDurationInMinutes() {
+    public long getDurationInMinutes() {
         return durationInMinutes;
     }
 
-    public void setDurationInMinutes(int durationInMinutes) {
+    public void setDurationInMinutes(long durationInMinutes) {
         this.durationInMinutes = durationInMinutes;
     }
 
-    public int getLeadTimeInMinutes() {
+    public long getLeadTimeInMinutes() {
         return leadTimeInMinutes;
     }
 
-    public void setLeadTimeInMinutes(int leadTimeInMinutes) {
+    public void setLeadTimeInMinutes(long leadTimeInMinutes) {
         this.leadTimeInMinutes = leadTimeInMinutes;
     }
 
-    public int getLagTimeInMinutes() {
+    public long getLagTimeInMinutes() {
         return lagTimeInMinutes;
     }
 
-    public void setLagTimeInMinutes(int lagTimeInMinutes) {
+    public void setLagTimeInMinutes(long lagTimeInMinutes) {
         this.lagTimeInMinutes = lagTimeInMinutes;
     }
 }

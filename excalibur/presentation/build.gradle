@@ -50,7 +50,7 @@ android {
         rci {
             applicationId 'com.rcl.excalibur.rci'
             versionName '0.1'
-            dependencies{
+            dependencies {
 
             }
         }

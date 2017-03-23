@@ -1,29 +1,23 @@
 package com.rcl.excalibur.data.service.response;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 
-public class GetProductsResponse {
+public class GetProductsResponse extends BaseResponse {
 
-    private List<ProductResponse> product;
-    private String responseStatus;
+    @SerializedName("product")
+    private List<ProductResponse> products;
 
     public GetProductsResponse() {
     }
 
-    public String getResponseStatus() {
-        return responseStatus;
+    public List<ProductResponse> getProducts() {
+        return products;
     }
 
-    public void setResponseStatus(String responseStatus) {
-        this.responseStatus = responseStatus;
-    }
-
-    public List<ProductResponse> getProduct() {
-        return product;
-    }
-
-    public void setProduct(List<ProductResponse> product) {
-        this.product = product;
+    public void setProducts(List<ProductResponse> products) {
+        this.products = products;
     }
 }

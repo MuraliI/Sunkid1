@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Product {
 
-    private String productId;
+    private long productId;
     private String productCode;
     private ProductType productType;
     private String productClass;
@@ -27,11 +27,11 @@ public class Product {
     private String productLongDescription;
     private Media productMedia;
 
-    public String getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 

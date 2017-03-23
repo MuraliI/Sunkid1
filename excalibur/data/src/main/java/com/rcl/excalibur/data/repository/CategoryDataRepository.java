@@ -1,26 +1,22 @@
 package com.rcl.excalibur.data.repository;
 
 
-import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.CategoryEntity;
 import com.rcl.excalibur.data.mapper.CategoryEntityDataMapper;
 import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static com.rcl.excalibur.data.utils.DBUtil.eq;
-
 @Singleton
-public class CategoryDataRepository implements CategoryRepository {
+public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity> implements CategoryRepository {
 
     private final CategoryEntityDataMapper categoryEntityDataMapper;
 
     @Inject
     CategoryDataRepository(CategoryEntityDataMapper categoryEntityDataMapper) {
+        super(categoryEntityDataMapper, CategoryEntity.class);
         this.categoryEntityDataMapper = categoryEntityDataMapper;
     }
 
@@ -34,20 +30,8 @@ public class CategoryDataRepository implements CategoryRepository {
     }
 
     @Override
-    public List<Category> getAll() {
-        final List<CategoryEntity> entities = new Select()
-                .from(CategoryEntity.class)
-                .execute();
-        return categoryEntityDataMapper.transform(entities);
-    }
-
-    @Override
     public Category get(long id) {
-        final CategoryEntity entity = new Select()
-                .from(CategoryEntity.class)
-                .where(eq(CategoryEntity.COLUMN_CATEGORY_ID, id))
-                .executeSingle();
-        return categoryEntityDataMapper.transform(entity);
+        return get(CategoryEntity.COLUMN_CATEGORY_ID, id);
     }
 
 }

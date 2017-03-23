@@ -2,7 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 
 import com.rcl.excalibur.activity.HomeActivity;
-import com.rcl.excalibur.activity.PlanListActivity;
+import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.HomeView;
 
@@ -12,7 +12,6 @@ import java.util.List;
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
 public class HomePresenter implements BasePresenter {
-
 
     private HomeView view;
 
@@ -43,7 +42,7 @@ public class HomePresenter implements BasePresenter {
                 return;
             }
 
-            startActivity(activity, PlanListActivity.getStartIntent(activity));
+            startActivity(activity, TriptychHomeActivity.getStartIntent(activity));
         }
     }
 }
