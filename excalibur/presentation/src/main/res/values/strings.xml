@@ -38,9 +38,11 @@
     <string name="royal_activity">Activity</string>
     <string name="spa">Spa</string>
     <string name="dining">Dining</string>
-    <string name="shopping">Shopping</string>
-    <string name="shorex">Shorex</string>
+    <string name="shopping">Shop</string>
+    <string name="shorex">Excursions</string>
     <string name="entertainment">Entertainment</string>
+    <string name="services">Services</string>
+    <string name="search">Search</string>
 
     <!--FIXME hardcoded values-->
     <string name="hardcoded_ship_time">14:07</string>
@@ -65,14 +67,19 @@
         reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
         nulla pariatur?\"</string>
 
-<!--Categories-->
-    <string name="category_royal_activity">Activities</string>
-    <string name="category_spa">Spa</string>
-    <string name="category_dining">Dining</string>
-    <string name="category_shopping">Shopping</string>
-    <string name="category_shorex">Shorex</string>
-    <string name="category_entertainment">Entertainment</string>
+    <!--Categories-->
+    <string name="category_royal_activity">ACTIVITIES</string>
+    <string name="category_spa">SPA</string>
+    <string name="category_dining">DINING</string>
+    <string name="category_shopping">SHOPPING</string>
+    <string name="category_shorex">SHOREX</string>
+    <string name="category_entertainment">ENTERTAINMENT</string>
+
     <string name="adults">Adults</string>
     <string name="children">Children</string>
+
+    <!-- Triptych Home Screen -->
+    <string name="triptych_tab_plans">Plans Screen</string>
+    <string name="triptych_tab_me">Me Screen</string>
 
 </resources>
