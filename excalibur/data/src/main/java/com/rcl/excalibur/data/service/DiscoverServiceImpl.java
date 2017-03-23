@@ -7,12 +7,16 @@ import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertaimentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
+import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.ProductsResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.DiscoverService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -152,7 +156,17 @@ public class DiscoverServiceImpl implements DiscoverService {
                 if (response.isSuccessful()) {
                     GetProductsResponse getProductsResponse = response.body().getGetProductsResponse();
                     if (ServiceUtil.isSuccess(getProductsResponse)) {
-                        productRepository.create(productResponseDataMapper.transform(getProductsResponse.getProducts()));
+//                        productRepository.create(productResponseDataMapper.transform(getProductsResponse.getProducts()));
+                        //TODO remove after fix service by ID repeated
+                        final List<ProductResponse> result = new ArrayList<>(getProductsResponse.getProducts());
+                        for (int i = 0; i < result.size(); i++) {
+                            final ProductResponse productResponse = result.get(i);
+                            if ("SPA".equalsIgnoreCase(productResponse.getProductType().getProductType())) {
+                                result.remove(i);
+                                result.add(0, productResponse);
+                            }
+                        }
+                        productRepository.create(productResponseDataMapper.transform(result));
                         return;
                     }
                 }
