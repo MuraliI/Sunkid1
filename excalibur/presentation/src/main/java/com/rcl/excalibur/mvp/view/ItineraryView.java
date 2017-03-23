@@ -2,6 +2,7 @@ package com.rcl.excalibur.mvp.view;
 
 
 import android.app.Activity;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -40,7 +41,12 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
 
     public void scrollToPosition(int pos) {
         if (pos < adapter.getItemCount()) {
-            recyclerView.smoothScrollToPosition(pos);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(pos, 20);
+                }
+            }, 200);
         }
     }
 
