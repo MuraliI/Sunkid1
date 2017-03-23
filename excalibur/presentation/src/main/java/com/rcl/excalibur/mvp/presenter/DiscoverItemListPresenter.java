@@ -31,6 +31,7 @@ public class DiscoverItemListPresenter implements BasePresenter {
         if (activity == null) {
             return;
         }
+
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
         final String type = getType(activity, this.type);
@@ -38,22 +39,32 @@ public class DiscoverItemListPresenter implements BasePresenter {
     }
 
     protected String getType(final BaseActivity activity, int type) {
+
+        String categorySelected;
         switch (type) {
             case DiscoverItemListFragment.ROYAL_ACTIVITY:
-                return activity.getString(R.string.category_royal_activity);
+                categorySelected = activity.getString(R.string.category_royal_activity);
+                break;
             case DiscoverItemListFragment.DINING:
-                return activity.getString(R.string.category_dining);
+                categorySelected = activity.getString(R.string.category_dining);
+                break;
             case DiscoverItemListFragment.SHOPPING:
-                return activity.getString(R.string.category_shopping);
+                categorySelected = activity.getString(R.string.category_shopping);
+                break;
             case DiscoverItemListFragment.SPA:
-                return activity.getString(R.string.category_spa);
+                categorySelected = activity.getString(R.string.category_spa);
+                break;
             case DiscoverItemListFragment.SHOREX:
-                return activity.getString(R.string.category_shorex);
+                categorySelected = activity.getString(R.string.category_shorex);
+                break;
             case DiscoverItemListFragment.ENTERTAINMENT:
-                return activity.getString(R.string.category_entertainment);
+                categorySelected = activity.getString(R.string.category_entertainment);
+                break;
             default:
-                return activity.getString(R.string.category_royal_activity);
+                categorySelected = activity.getString(R.string.category_royal_activity);
         }
+
+        return categorySelected;
     }
 
     private void initInjection() {
