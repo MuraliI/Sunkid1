@@ -1,9 +1,13 @@
 package com.rcl.excalibur.model.itinerary;
 
+import android.support.annotation.NonNull;
+
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
-public class ProductModel implements RecyclerViewType{
+import java.util.Date;
+
+public class ProductModel implements RecyclerViewType, Comparable<ProductModel> {
     public static final String LOCATION_POINTER_FWD = "Forward";
     public static final String LOCATION_POINTER_AFT = "After";
     public static final String LOCATION_POINTER_MID = "Middle";
@@ -14,7 +18,9 @@ public class ProductModel implements RecyclerViewType{
     private String venue;
     private String deckNumber;
     private String locationPointer;
-    private String date;
+    private String operatinghours;
+    private Date startDate;
+    private Date endDate;
 
     public String getProductId() {
         return productId;
@@ -64,18 +70,45 @@ public class ProductModel implements RecyclerViewType{
         this.locationPointer = locationPointer;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getOperatinghours() {
+        return operatinghours;
     }
 
-    public String getDate() {
+    public void setOperatinghours(String operatinghours) {
+        this.operatinghours = operatinghours;
+    }
 
-        return date;
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public boolean hourIsDifferent(ProductModel o) {
+        return this.getStartDate().getHours() != o.getStartDate().getHours();
     }
 
     @Override
     public int getViewType() {
         return RecyclerViewConstants.VIEW_TYPE_PRODUCT_VIEW;
+    }
+
+    @Override
+    public int compareTo(@NonNull ProductModel o) {
+        if (this.getStartDate().getTime() > o.getStartDate().getTime())
+            return 1;
+        else
+            return -1;
     }
 }
 

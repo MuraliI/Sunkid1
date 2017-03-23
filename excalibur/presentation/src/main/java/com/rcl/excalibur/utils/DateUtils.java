@@ -14,6 +14,27 @@ public final class DateUtils {
 
     }
 
+    public static String getDateHour(Date date, Resources resources) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        int hour = calendar.get(Calendar.HOUR);
+        int amPm = calendar.get(Calendar.AM_PM);
+
+        if (hour == 0 && amPm == Calendar.PM) {
+            hour = 12;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(hour);
+
+        builder.append(amPm == Calendar.AM
+                ? resources.getString(R.string.itinerary_product_view_am)
+                : resources.getString(R.string.itinerary_product_view_pm));
+
+        return builder.toString();
+    }
+
     public static String getDateTime(Date date, Resources resources) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -22,6 +43,10 @@ public final class DateUtils {
         int minutes = calendar.get(Calendar.MINUTE);
         int amPm = calendar.get(Calendar.AM_PM);
 
+        if (hour == 0 && amPm == Calendar.PM) {
+            hour = 12;
+        }
+
         StringBuilder builder = new StringBuilder();
         if (minutes == 0) {
             builder.append(hour);
@@ -29,9 +54,9 @@ public final class DateUtils {
             builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon)).append(minutes);
         }
 
-        builder.append(amPm == Calendar.AM ?
-                resources.getString(R.string.itinerary_product_view_am) :
-                resources.getString(R.string.itinerary_product_view_pm));
+        builder.append(amPm == Calendar.AM
+                ? resources.getString(R.string.itinerary_product_view_am)
+                : resources.getString(R.string.itinerary_product_view_pm));
 
         return builder.toString();
     }

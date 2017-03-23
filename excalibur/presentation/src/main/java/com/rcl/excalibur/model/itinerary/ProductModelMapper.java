@@ -27,8 +27,10 @@ public class ProductModelMapper extends BaseDataMapper<ProductModel, ItineraryEv
                 .append(resources.getString(R.string.itinerary_product_view_dash))
                 .append(DateUtils.getDateTime(itineraryEvent.getEndDate(), resources));
 
-        productModel.setDate(builder.toString());
+        productModel.setStartDate(itineraryEvent.getStartDate());
+        productModel.setEndDate(itineraryEvent.getEndDate());
+        productModel.setOperatinghours(builder.toString());
         productModel.setLocationPointer(itineraryEvent.getLocation());
-        return null;
+        return productModel;
     }
 }
