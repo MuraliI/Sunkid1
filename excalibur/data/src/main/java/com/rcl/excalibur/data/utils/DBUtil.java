@@ -50,6 +50,10 @@ public final class DBUtil {
         return String.format("%s = %s", column, value);
     }
 
+    public static String eq(String column, long value) {
+        return String.format("%s = %s", column, value);
+    }
+
     public static String eq(String column, String value) {
         return String.format("%s = '%s'", column, value);
     }
@@ -67,6 +71,10 @@ public final class DBUtil {
     }
 
     public static String notEq(String column, float value) {
+        return String.format("%s != %s", column, value);
+    }
+
+    public static String notEq(String column, long value) {
         return String.format("%s != %s", column, value);
     }
 
