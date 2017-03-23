@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
@@ -20,7 +19,7 @@ public class DiscoverItemDetailPresenterTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        discoverItemDetailPresenter = new DiscoverItemDetailPresenter(view,any(String.class));
+        discoverItemDetailPresenter = new DiscoverItemDetailPresenter(view, any(String.class));
     }
 
     @Test
