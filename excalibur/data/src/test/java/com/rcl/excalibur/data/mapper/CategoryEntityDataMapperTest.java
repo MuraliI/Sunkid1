@@ -49,7 +49,7 @@ public class CategoryEntityDataMapperTest {
 
     @Test
     public void transformToList() throws Exception {
-        final List<CategoryEntity> entities = new ArrayList();
+        final List<CategoryEntity> entities = new ArrayList<>();
         entities.add(entity1);
         entities.add(entity2);
 
