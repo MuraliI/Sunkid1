@@ -3,6 +3,7 @@ package com.rcl.excalibur.data.service.api;
 
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
+import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertaimentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
@@ -22,7 +23,7 @@ public interface DiscoverApi {
     Call<PromotionMessagesResponse> getPromotionMessages();
 
     @GET("entertainments/en/mobile")
-    Call<EntertaimentsResponse> getEntertaiments();
+    Call<EntertainmentsResponse> getEntertainments();
 
     @GET("spas/en/mobile")
     Call<SpasResponse> getSpas();

@@ -9,7 +9,7 @@ public interface DiscoverService {
 
     void getPromotionMessages();
 
-    void getEntertaiments();
+    void getEntertainments();
 
     void getSpas();
 

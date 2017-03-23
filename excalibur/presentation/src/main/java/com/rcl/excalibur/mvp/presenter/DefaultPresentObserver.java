@@ -6,14 +6,14 @@ import java.lang.ref.WeakReference;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class DefaultPresentObserver<T, S extends BasePresenter> implements Observer<T> {
-    protected WeakReference<S> weakReference;
+public class DefaultPresentObserver<T, P extends BasePresenter> implements Observer<T> {
+    private WeakReference<P> weakReference;
 
-    public DefaultPresentObserver(S presenter) {
-        this.weakReference = new WeakReference(presenter);
+    DefaultPresentObserver(P presenter) {
+        this.weakReference = new WeakReference<>(presenter);
     }
 
-    protected S getPresenter() {
+    protected P getPresenter() {
         return weakReference.get();
     }
 

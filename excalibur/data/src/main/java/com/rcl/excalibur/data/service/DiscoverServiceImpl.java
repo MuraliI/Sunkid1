@@ -5,19 +5,15 @@ import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
-import com.rcl.excalibur.data.service.response.EntertaimentsResponse;
+import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
-import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.ProductsResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.DiscoverService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -147,18 +143,18 @@ public class DiscoverServiceImpl implements DiscoverService {
 
 
     @Override
-    public void getEntertaiments() {
+    public void getEntertainments() {
 
-        Call<EntertaimentsResponse> call = ServiceUtil.getDiscoverApi().getEntertaiments();
+        Call<EntertainmentsResponse> call = ServiceUtil.getDiscoverApi().getEntertainments();
 
-        call.enqueue(new Callback<EntertaimentsResponse>() {
+        call.enqueue(new Callback<EntertainmentsResponse>() {
             @Override
-            public void onResponse(Call<EntertaimentsResponse> call, Response<EntertaimentsResponse> response) {
-                Timber.d("Succesfull", response.body().getGetProductsResponse().getResponseStatus());
+            public void onResponse(Call<EntertainmentsResponse> call, Response<EntertainmentsResponse> response) {
+                Timber.d("Succesfull", response.body().getGetEntertainmentsResponse().getResponseStatus());
             }
 
             @Override
-            public void onFailure(Call<EntertaimentsResponse> call, Throwable t) {
+            public void onFailure(Call<EntertainmentsResponse> call, Throwable t) {
                 //Handle failure
                 Timber.e("error", t.getMessage());
             }
@@ -176,17 +172,7 @@ public class DiscoverServiceImpl implements DiscoverService {
                 if (response.isSuccessful()) {
                     GetProductsResponse getProductsResponse = response.body().getGetProductsResponse();
                     if (ServiceUtil.isSuccess(getProductsResponse)) {
-//                        productRepository.create(productResponseDataMapper.transform(getProductsResponse.getProducts()));
-                        //TODO remove after fix service by ID repeated
-                        final List<ProductResponse> result = new ArrayList<>(getProductsResponse.getProducts());
-                        for (int i = 0; i < result.size(); i++) {
-                            final ProductResponse productResponse = result.get(i);
-                            if ("SPA".equalsIgnoreCase(productResponse.getProductType().getProductType())) {
-                                result.remove(i);
-                                result.add(0, productResponse);
-                            }
-                        }
-                        productRepository.create(productResponseDataMapper.transform(result));
+                        productRepository.create(productResponseDataMapper.transform(getProductsResponse.getProducts()));
                         return;
                     }
                 }

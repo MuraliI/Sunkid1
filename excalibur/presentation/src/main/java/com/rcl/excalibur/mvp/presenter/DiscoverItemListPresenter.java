@@ -4,28 +4,22 @@ package com.rcl.excalibur.mvp.presenter;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
-import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.fragments.DiscoverItemListFragment;
-import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
-import com.rcl.excalibur.model.DiscoverItemModel;
-import com.rcl.excalibur.mvp.view.DiscoverItemListView;
+import com.rcl.excalibur.mvp.view.ProductsListView;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
 
 
 public class DiscoverItemListPresenter implements BasePresenter {
-    protected DiscoverModelDataMapper discoverModelDataMapper;
     @Inject GetProductDbUseCase getProductDbUseCase;
-    private DiscoverItemListView view;
+    private ProductsListView view;
     private int type;
 
-    public DiscoverItemListPresenter(int type, DiscoverItemListView view) {
-        this.discoverModelDataMapper = new DiscoverModelDataMapper();
+    public DiscoverItemListPresenter(int type, ProductsListView view) {
         this.view = view;
         this.type = type;
         initInjection();
@@ -40,12 +34,10 @@ public class DiscoverItemListPresenter implements BasePresenter {
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
         final String type = getType(activity, this.type);
-
-        final List<Product> products = getProductDbUseCase.getAll(type);
-//  TODO      showCollectionInView(discoverItems);
+        showCollectionInView(getProductDbUseCase.getAll(type));
     }
 
-    protected String getType(final BaseActivity activity, int type) {
+    private String getType(final BaseActivity activity, int type) {
         switch (type) {
             case DiscoverItemListFragment.ROYAL_ACTIVITY:
                 return activity.getString(R.string.category_royal_activity);
@@ -72,23 +64,21 @@ public class DiscoverItemListPresenter implements BasePresenter {
         activity.getApplicationComponent().inject(this);
     }
 
-    protected void showCollectionInView(List<DiscoverItem> discoverItems) {
-        final Collection<DiscoverItemModel> models = discoverModelDataMapper.transform(discoverItems);
-        view.addAll(models);
-
+    private void showCollectionInView(List<Product> products) {
+        view.addAll(products);
     }
 
-    public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemListPresenter> {
+    public class AdapterObserver extends DefaultPresentObserver<Product, DiscoverItemListPresenter> {
 
-        public AdapterObserver(DiscoverItemListPresenter presenter) {
+        AdapterObserver(DiscoverItemListPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(DiscoverItemModel value) {
+        public void onNext(Product value) {
             BaseActivity activity = view.getActivity();
             if (activity != null) {
-                activity.startActivity(DiscoverItemDetailActivity.getIntent(activity, value.getDiscoverId()));
+                activity.startActivity(DiscoverItemDetailActivity.getIntent(activity, value.getProductId()));
             }
         }
     }
