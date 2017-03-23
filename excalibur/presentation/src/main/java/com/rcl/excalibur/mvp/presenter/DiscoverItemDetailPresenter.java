@@ -27,7 +27,7 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
         product = getProductDbUseCase.get(productId);
         DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
         if (product != null) {
-            String productTypeName = product.getProductType().getProductTypeName();
+            String productTypeName = product.getProductType().getProductType();
             if (TYPE_SHOPPING.equals(productTypeName)) {
                 view.showOnlyReservationIcon();
             }
