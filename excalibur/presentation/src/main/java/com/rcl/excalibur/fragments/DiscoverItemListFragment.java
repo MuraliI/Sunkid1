@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemListPresenter;
-import com.rcl.excalibur.mvp.view.DiscoverItemListView;
+import com.rcl.excalibur.mvp.view.ProductsListView;
 
 public class DiscoverItemListFragment extends Fragment {
 
@@ -38,7 +38,7 @@ public class DiscoverItemListFragment extends Fragment {
             return;
         }
         final int type = bundle.getInt(ARGUMENT_TYPE);
-        presenter = new DiscoverItemListPresenter(type, new DiscoverItemListView(this));
+        presenter = new DiscoverItemListPresenter(type, new ProductsListView(this));
     }
 
     @Override
