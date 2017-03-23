@@ -3,33 +3,39 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider;
+import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
+
+import javax.inject.Inject;
 
 import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOPPING;
 
 public class DiscoverItemDetailPresenter implements BasePresenter {
+    @Inject GetProductDbUseCase getProductDbUseCase;
     private DiscoverItemDetailView view;
     private DetailModuleFactory moduleFactory;
-    // TODO: 22/03/17 Change it to Product
-    private DiscoverItemModel itemModel;
+    private Product product;
 
     public DiscoverItemDetailPresenter(DiscoverItemDetailView view, long productId) {
         this.view = view;
-        // TODO: 22/03/17 Query the database
-        itemModel = new DiscoverItemModel();
+        initInjection();
+        product = getProductDbUseCase.get(productId);
         DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
-        if (itemModel != null) {
-            if (TYPE_SHOPPING.equals(itemModel.getType())) {
+        if (product != null) {
+            String productTypeName = product.getProductType().getProductType();
+            if (TYPE_SHOPPING.equals(productTypeName)) {
                 view.showOnlyReservationIcon();
             }
-            moduleFactory = factoryProvider.getFactory(itemModel.getType());
+            moduleFactory = factoryProvider.getFactory(productTypeName);
             if (moduleFactory == null) {
                 view.showToastAndFinishActivity("Discover Item Not Found");
             } else {
-                moduleFactory.setItemModel(itemModel);
+                moduleFactory.setProduct(product);
                 initView();
             }
         } else {
@@ -40,8 +46,8 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
     private void initView() {
         AppCompatActivity activity = view.getActivity();
         if (activity != null) {
-            view.setDetailTitle(itemModel.getTitle());
-            view.setHeroImage(itemModel.getImageUrl());
+            view.setDetailTitle(product.getProductTitle());
+            view.setHeroImage(product.getProductMedia().getMediaItem().get(0).getMediaRefLink());
             view.setAdapterObserver(new DetailAdapterObserver(this));
             if (moduleFactory != null) {
                 view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(activity.getResources()));
@@ -49,6 +55,14 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
                 view.showToastAndFinishActivity("Discover Activity Not Recognized");
             }
         }
+    }
+
+    private void initInjection() {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        activity.getApplicationComponent().inject(this);
     }
 
     public void onBackClicked() {

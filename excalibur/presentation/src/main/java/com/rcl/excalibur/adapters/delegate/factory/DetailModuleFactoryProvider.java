@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DetailModuleFactoryProvider {
-    private static final String TYPE_DINING = "Dining";
-    private static final String TYPE_SHOREX = "Shorex";
-    private static final String TYPE_ACTIVITY = "Activity";
-    private static final String TYPE_ENTERTAINMENT = "Entertainment";
-    public static final String TYPE_SHOPPING = "Shopping";
-    private static final String TYPE_SPA = "Spa";
+    private static final String TYPE_DINING = "DINING";
+    private static final String TYPE_SHOREX = "SHOREX";
+    private static final String TYPE_ACTIVITY = "ACTIVITIES";
+    private static final String TYPE_ENTERTAINMENT = "ENTERTAINMENT";
+    public static final String TYPE_SHOPPING = "Shopping"; // It doesn't exist in the service definition
+    private static final String TYPE_SPA = "SPA";
+    private static final String TYPE_BEVERAGES = "BEVERAGES";
+    private static final String TYPE_INTERNET_PACKAGES = "INTERNET_PACKAGES";
 
     private Map<String, DetailModuleFactory> factoriesMap = new HashMap<>();
 

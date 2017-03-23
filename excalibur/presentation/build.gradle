@@ -84,17 +84,23 @@ dependencies {
     compile presentationDependencies.realTimeBlurView
     compile presentationDependencies.scaleImageView
 
-    testCompile presentationTestDependencies.junit
-    testCompile presentationTestDependencies.mockito
-    testCompile presentationTestDependencies.assertj
-    androidTestCompile presentationTestDependencies.mockito
-    androidTestCompile presentationTestDependencies.dexmaker
-    androidTestCompile presentationTestDependencies.dexmakerMockito
-    androidTestCompile presentationTestDependencies.espresso
-    androidTestCompile presentationTestDependencies.testingSupportLib
+    testCompile presentationTestDependencies.junit,
+                presentationTestDependencies.mockito,
+                presentationTestDependencies.assertj,
+                presentationTestDependencies.powermockCore,
+                presentationTestDependencies.powermockModuleJunit4,
+                presentationTestDependencies.powermockApiMockitoV
+
+
+    androidTestCompile  presentationTestDependencies.mockito,
+                        presentationTestDependencies.dexmaker,
+                        presentationTestDependencies.dexmakerMockito,
+                        presentationTestDependencies.espresso,
+                        presentationTestDependencies.testingSupportLib
+
     //Development
-    compile developmentDependencies.leakCanary
-    compile files('libs/adobeMobileLibrary-4.13.4.jar')
+    compile developmentDependencies.leakCanary,
+            files('libs/adobeMobileLibrary-4.13.4.jar')
 }
 
 apply plugin: 'checkstyle'

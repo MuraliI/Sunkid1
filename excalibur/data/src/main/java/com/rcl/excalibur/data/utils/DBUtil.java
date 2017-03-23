@@ -74,6 +74,10 @@ public final class DBUtil {
         return String.format("%s != %s", column, value);
     }
 
+    public static String notEq(String column, long value) {
+        return String.format("%s != %s", column, value);
+    }
+
     public static String isTrue(String column) {
         return String.format("%s = '1'", column);
     }
