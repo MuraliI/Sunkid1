@@ -186,4 +186,17 @@ public class Product {
     public void setProductMedia(Media productMedia) {
         this.productMedia = productMedia;
     }
+
+    public String getTimeFrame() {
+        return convertToTime(productLocation.getOperatingHoursStart()) + " - " + convertToTime(productLocation.getOperatingHoursEnd());
+    }
+
+    private String convertToTime(String time) {
+        price
+        if (time.length() == 4) {
+            return time.substring(0, 2) + ":" + time.substring(2);
+        }
+        return "00:00";
+    }
+
 }

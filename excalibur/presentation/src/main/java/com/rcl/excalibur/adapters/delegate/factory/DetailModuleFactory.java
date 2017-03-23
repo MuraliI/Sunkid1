@@ -11,7 +11,6 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductPreference;
 
 import java.util.List;
-import java.util.Map;
 
 public abstract class DetailModuleFactory {
     private Product product;
