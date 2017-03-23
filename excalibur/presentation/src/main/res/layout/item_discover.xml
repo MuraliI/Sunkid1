@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     style="@style/AppTheme.PlanListCardView"
     android:layout_width="match_parent"
@@ -17,10 +14,10 @@
             android:id="@+id/card_image"
             android:layout_width="@dimen/item_discover_width_image"
             android:layout_height="@dimen/item_discover_height_image"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/item_plan_image_margin_right"
-            android:scaleType="centerCrop"/>
+            android:layout_marginEnd="@dimen/item_plan_image_margin_right"
+            android:scaleType="centerCrop" />
 
 
         <TextView
@@ -29,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/card_image"
-            android:layout_toRightOf="@+id/card_image"/>
+            android:layout_toEndOf="@+id/card_image" />
 
         <TextView
             android:id="@+id/card_range"
@@ -37,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/card_title"
-            android:layout_toRightOf="@+id/card_image"/>
+            android:layout_toEndOf="@+id/card_image" />
 
         <TextView
             android:id="@+id/card_category"
@@ -45,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/card_range"
-            android:layout_toRightOf="@+id/card_image"/>
+            android:layout_toEndOf="@+id/card_image" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

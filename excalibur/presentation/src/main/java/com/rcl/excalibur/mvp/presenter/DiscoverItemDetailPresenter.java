@@ -7,19 +7,19 @@ import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
-import com.rcl.excalibur.utils.DetailModelProvider;
 
 import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOPPING;
 
 public class DiscoverItemDetailPresenter implements BasePresenter {
     private DiscoverItemDetailView view;
     private DetailModuleFactory moduleFactory;
+    // TODO: 22/03/17 Change it to Product
     private DiscoverItemModel itemModel;
 
-    public DiscoverItemDetailPresenter(DiscoverItemDetailView view, String discoverItemId) {
+    public DiscoverItemDetailPresenter(DiscoverItemDetailView view, long productId) {
         this.view = view;
-        itemModel = DetailModelProvider.discoverItemMap.get(discoverItemId); //TODO query database
-
+        // TODO: 22/03/17 Query the database
+        itemModel = new DiscoverItemModel();
         DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
         if (itemModel != null) {
             if (TYPE_SHOPPING.equals(itemModel.getType())) {
