@@ -10,9 +10,7 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-/**
- * Created by norberto.lopez on 3/23/2017.
- */
+
 public class DiscoverTabPresenterTest {
 
     DiscoverTabPresenter discoverTabPresenter;
