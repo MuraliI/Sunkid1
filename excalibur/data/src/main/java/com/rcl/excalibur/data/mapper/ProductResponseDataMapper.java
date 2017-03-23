@@ -107,8 +107,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         return items;
     }
 
-    private List<ProductRestrictionAnswer>
-    transformProductRestrictionAnswer(List<ProductRestrictionAnswerResponse> transformProductRestrictionAnswersResponses) {
+    private List<ProductRestrictionAnswer> transformProductRestrictionAnswer(List<ProductRestrictionAnswerResponse> transformProductRestrictionAnswersResponses) {
 
         ArrayList<ProductRestrictionAnswer> items = new ArrayList<ProductRestrictionAnswer>();
         if (CollectionUtils.isEmpty(transformProductRestrictionAnswersResponses)) {
@@ -120,8 +119,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
                 continue;
             }
             ProductRestrictionAnswer productRestrictionAnswer = new ProductRestrictionAnswer();
-            productRestrictionAnswer.setRestrictionAnswerDisplayText(
-                    transformProductRestrictionAnswerResponse.getRestrictionAnswerDisplayText());
+            productRestrictionAnswer.setRestrictionAnswerDisplayText(transformProductRestrictionAnswerResponse.getRestrictionAnswerDisplayText());
             items.add(productRestrictionAnswer);
         }
 
@@ -144,40 +142,30 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             productPreference.setPreferenceId(productPreferenceResponse.getPreferenceId());
             productPreference.setPreferenceName(productPreferenceResponse.getPreferenceName());
             productPreference.setPreferenceType(productPreferenceResponse.getPreferenceType());
-            productPreference.setPreferenceValue(transformPreferenceValue(productPreferenceResponse.getPreferenceValue()));
+            productPreference.setPreferenceValue(transformPreferencesValues(productPreferenceResponse.getPreferenceValue()));
             items.add(productPreference);
         }
 
         return items;
     }
 
-    private List<ProductPreferenceValue> transformPreferenceValue(List<ProductPreferenceValueResponse> productPreferenceValueResponseList) {
-
-        ArrayList<ProductPreferenceValue> items = new ArrayList<ProductPreferenceValue>();
-
-        if (CollectionUtils.isEmpty(productPreferenceValueResponseList)) {
+    private List<ProductPreferenceValue> transformPreferencesValues(List<ProductPreferenceValueResponse> productPreferenceValueResponses) {
+        final List<ProductPreferenceValue> items = new ArrayList<>();
+        if (CollectionUtils.isEmpty(productPreferenceValueResponses)) {
             return items;
         }
-        for (ProductPreferenceValueResponse productPreferenceValueResponse : productPreferenceValueResponseList) {
-
-            if (productPreferenceValueResponseList == null) {
+        for (ProductPreferenceValueResponse productPreferenceValueResponse : productPreferenceValueResponses) {
+            if (productPreferenceValueResponse == null) {
                 continue;
             }
-            items.add(transform(productPreferenceValueResponse));
-        }
 
-        return items;
-    }
-
-    private ProductPreferenceValue transform(ProductPreferenceValueResponse productPreferenceValueResponse) {
-        ProductPreferenceValue productPreferenceValue = null;
-        if (productPreferenceValueResponse != null) {
-            productPreferenceValue = new ProductPreferenceValue();
-            productPreferenceValue.setPreferenceValueCode(productPreferenceValueResponse.isPreferenceValueCode());
+            ProductPreferenceValue productPreferenceValue = new ProductPreferenceValue();
+            productPreferenceValue.setPreferenceValueCode(productPreferenceValueResponse.getPreferenceValueCode());
             productPreferenceValue.setPreferenceValueId(productPreferenceValueResponse.getPreferenceValueId());
-            productPreferenceValue.setPreferenceValueName(productPreferenceValueResponse.isPreferenceValueName());
+            productPreferenceValue.setPreferenceValueName(productPreferenceValueResponse.getPreferenceValueName());
+            items.add(productPreferenceValue);
         }
-        return productPreferenceValue;
+        return items;
     }
 
     private List<ProductAdvisement> transformProductAdvisement(List<ProductAdvisementResponse> productAdvisementResponses) {
@@ -277,7 +265,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
     }
 
     private List<MediaItem> transformMediaItem(List<MediaItemResponse> mediaItemsResponses) {
-        ArrayList<MediaItem> items = new ArrayList<MediaItem>();
+        ArrayList<MediaItem> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(mediaItemsResponses)) {
             return items;

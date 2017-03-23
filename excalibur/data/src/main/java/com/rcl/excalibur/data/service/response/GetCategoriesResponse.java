@@ -3,10 +3,9 @@ package com.rcl.excalibur.data.service.response;
 import java.util.List;
 
 
-public class GetCategoriesResponse {
+public class GetCategoriesResponse extends BaseResponse {
 
     private List<CategoryResponse> category;
-    private String responseStatus;
 
     public GetCategoriesResponse() {
     }
@@ -19,11 +18,4 @@ public class GetCategoriesResponse {
         this.category = category;
     }
 
-    public String getResponseStatus() {
-        return responseStatus;
-    }
-
-    public void setResponseStatus(String responseStatus) {
-        this.responseStatus = responseStatus;
-    }
 }

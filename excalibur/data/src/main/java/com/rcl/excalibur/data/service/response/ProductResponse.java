@@ -8,7 +8,7 @@ import java.util.List;
 public class ProductResponse {
 
     @SerializedName("productID")
-    private String productId;
+    private long productId;
     private String productCode;
     private ProductTypeResponse productType;
     private String productClass;
@@ -29,11 +29,11 @@ public class ProductResponse {
     private String productLongDescription;
     private MediaResponse productMedia;
 
-    public String getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 

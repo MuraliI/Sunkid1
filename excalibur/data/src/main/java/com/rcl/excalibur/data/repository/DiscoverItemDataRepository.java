@@ -16,12 +16,13 @@ import javax.inject.Singleton;
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 @Singleton
-public class DiscoverItemDataRepository implements DiscoverItemRepository {
+public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem, DiscoverItemEntity> implements DiscoverItemRepository {
 
     private final DiscoverEntityDataMapper discoverEntityDataMapper;
 
     @Inject
     DiscoverItemDataRepository(DiscoverEntityDataMapper discoverEntityDataMapper) {
+        super(discoverEntityDataMapper, DiscoverItemEntity.class);
         this.discoverEntityDataMapper = discoverEntityDataMapper;
     }
 
@@ -46,14 +47,15 @@ public class DiscoverItemDataRepository implements DiscoverItemRepository {
 
     @Override
     public DiscoverItem get(int id) {
-        final DiscoverItemEntity entity = new Select()
-                .from(DiscoverItemEntity.class)
-                .where(eq(DiscoverItemEntity.COLUMN_DISCOVER_ITEM_ID, id))
-                .executeSingle();
-        return discoverEntityDataMapper.transform(entity);
+        return get(DiscoverItemEntity.COLUMN_DISCOVER_ITEM_ID, id);
     }
 
     @Override
     public void create(List<DiscoverItem> discoverItems) {
+    }
+
+    @Override
+    public void create(DiscoverItem promotion) {
+
     }
 }
