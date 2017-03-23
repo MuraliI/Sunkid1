@@ -12,8 +12,8 @@ import com.rcl.excalibur.model.itinerary.ItinerarySeparatorModel;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class CalendarSeparatorDelegateAdapter implements DelegateAdapter<
-        CalendarSeparatorDelegateAdapter.CalendarSeparatorViewHolder,
+public class SeparatorDelegateAdapter implements DelegateAdapter<
+        SeparatorDelegateAdapter.CalendarSeparatorViewHolder,
         ItinerarySeparatorModel> {
 
     @Override
