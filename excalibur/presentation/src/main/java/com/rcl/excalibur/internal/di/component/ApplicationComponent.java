@@ -7,6 +7,7 @@ import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.DiscoverService;
 import com.rcl.excalibur.internal.di.module.ApplicationModule;
+import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemDetailPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemListPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
@@ -32,6 +33,8 @@ public interface ApplicationComponent {
     void inject(TriptycHomePresenter presenter);
 
     void inject(DiscoverTabPresenter presenter);
+
+    void inject(DiscoverDeckMapPresenter presenter);
 
     //Exposed to sub-graphs.
     Context context();

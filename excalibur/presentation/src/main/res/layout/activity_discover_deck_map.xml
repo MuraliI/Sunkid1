@@ -24,7 +24,7 @@
                 android:src="@drawable/ic_white_arrow_back"/>
         </android.support.v7.widget.Toolbar>
 
-        <com.rcl.excalibur.custom.view.MarkerImageView
+        <com.rcl.excalibur.deckmap.custom.view.MarkerImageView
             android:id="@+id/image_ship"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

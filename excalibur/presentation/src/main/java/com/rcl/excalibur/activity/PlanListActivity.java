@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.deckmap.activity.DiscoverDeckMapActivity;
 import com.rcl.excalibur.mvp.presenter.PlanListPresenter;
 import com.rcl.excalibur.mvp.view.PlanListView;
 
@@ -42,9 +43,12 @@ public class PlanListActivity extends BaseActivity {
         presenter.onHeaderBackOnClick();
     }
 
+    private static final long ACTIVITIES_TEMP_ID = 100000002783668857L;
+    private static final long DINING_TEMP_ID = 100000002903890058L;
+
     @OnClick(R.id.plan_list_filter)
     public void onFilterClick() {
         Timber.i("onFilterClick");
-        startActivity(DiscoverDeckMapActivity.getIntent(this, "1"));
+        startActivity(DiscoverDeckMapActivity.getIntent(this, DINING_TEMP_ID));
     }
 }

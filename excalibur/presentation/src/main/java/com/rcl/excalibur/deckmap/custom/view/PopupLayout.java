@@ -1,26 +1,31 @@
-package com.medellin.team.moveimagetest.custom.view;
+package com.rcl.excalibur.deckmap.custom.view;
 
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.medellin.team.moveimagetest.R;
-import com.medellin.team.moveimagetest.model.DeckItem;
+import com.rcl.excalibur.BuildConfig;
+import com.rcl.excalibur.R;
+import com.rcl.excalibur.domain.MediaItem;
+import com.rcl.excalibur.domain.Product;
 import com.squareup.picasso.Picasso;
 
-import butterknife.BindView;
+import java.util.List;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class PopupLayout extends RelativeLayout {
-    @BindView(R.id.image_event) ImageView eventImage;
-    @BindView(R.id.text_title) TextView titleText;
-    @BindView(R.id.text_type) TextView typeText;
-    @BindView(R.id.text_price_range) TextView priceRangeText;
+    // TODO: PENDING REFACTOR TO MVP
+
+    @Bind(R.id.image_product) ImageView productImage;
+    @Bind(R.id.text_title_product) TextView titleProductText;
+    @Bind(R.id.text_type_product) TextView typeProductText;
+    @Bind(R.id.text_price_range) TextView priceRangeText;
 
     public PopupLayout(Context context) {
         super(context);
@@ -47,15 +52,16 @@ public class PopupLayout extends RelativeLayout {
         ButterKnife.bind(this, this);
     }
 
-    public void setActivity(DeckItem deckItem) {
-        titleText.setText(deckItem.getTitle());
-        typeText.setText(deckItem.getType());
-        priceRangeText.setText("$$, " + deckItem.getCategory());
+    public void setProduct(Product product) {
+        titleProductText.setText(product.getProductTitle());
+        typeProductText.setText(product.getProductType().getProductType());
+        priceRangeText.setText(product.getProductType().getProductTypeName());
 
-        final Context context = getContext();
-        if (context == null || TextUtils.isEmpty(deckItem.getImageUrl())) {
-            return;
+        List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
+        if (!mediaItems.isEmpty()) {
+            Picasso.with(getContext())
+                    .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
+                    .into(productImage);
         }
-        Picasso.with(context).load(deckItem.getImageUrl()).into(eventImage);
     }
 }

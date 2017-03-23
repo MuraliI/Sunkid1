@@ -76,4 +76,7 @@
     <dimen name="item_product_padding">35dp</dimen>
     <dimen name="item_product_margin">10dp</dimen>
 
+    <!-- Deck Map -->
+    <dimen name="item_deck_height">80dp</dimen>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.rcl.excalibur.activity;
+package com.rcl.excalibur.deckmap.activity;
 
 
 import android.content.Intent;
@@ -6,20 +6,22 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.mvp.presenter.DiscoverDeckMapPresenter;
-import com.rcl.excalibur.mvp.view.DiscoverDeckMapView;
+import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
+import com.rcl.excalibur.deckmap.mvp.view.DiscoverDeckMapView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DiscoverDeckMapActivity extends BaseActivity {
-    private static final String EXTRA_DISCOVER_ITEM_ID = "EXTRA_DISCOVER_ITEM_ID";
+    private static final String EXTRA_PRODUCT_ITEM_ID = "EXTRA_PRODUCT_ITEM_ID";
 
     private DiscoverDeckMapPresenter presenter;
 
-    public static Intent getIntent(final BaseActivity activity, String discoverItemId) {
+    // TODO: Pending call from item detail
+    public static Intent getIntent(final BaseActivity activity, long productItemId) {
         Intent intent = new Intent(activity, DiscoverDeckMapActivity.class);
-        intent.putExtra(EXTRA_DISCOVER_ITEM_ID, discoverItemId);
+        intent.putExtra(EXTRA_PRODUCT_ITEM_ID, productItemId);
         return intent;
     }
 
@@ -29,13 +31,13 @@ public class DiscoverDeckMapActivity extends BaseActivity {
         setContentView(R.layout.activity_discover_deck_map);
         ButterKnife.bind(this);
 
-        String discoverItemId = null;
+        long productItemId = 0L;
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra(EXTRA_DISCOVER_ITEM_ID)) {
-            discoverItemId = intent.getExtras().getString(EXTRA_DISCOVER_ITEM_ID);
+        if (intent != null && intent.hasExtra(EXTRA_PRODUCT_ITEM_ID)) {
+            productItemId = intent.getExtras().getLong(EXTRA_PRODUCT_ITEM_ID);
         }
 
-        presenter = new DiscoverDeckMapPresenter(new DiscoverDeckMapView(this), 1);
+        presenter = new DiscoverDeckMapPresenter(new DiscoverDeckMapView(this), productItemId);
     }
 
     @OnClick(R.id.back_arrow)

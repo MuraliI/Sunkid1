@@ -1,4 +1,4 @@
-package com.rcl.excalibur.custom.view;
+package com.rcl.excalibur.deckmap.custom.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,31 +14,24 @@ import android.view.MotionEvent;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.model.ProductDeckMapModel;
+import com.rcl.excalibur.deckmap.model.ProductDeckMapModel;
 
 
 public class MarkerImageView extends SubsamplingScaleImageView {
-    // TODO: Refactor custom view to MVP
+    // TODO: PENDING REFACTOR TO MVP
 
     private static final int DELAY_ANIMATION = 250;
     private static final float DENSITY_FACTOR = 420f;
 
     private ProductDeckMapModel productDeckMapModel;
+    private OnMarkerClickListener listener;
 
     private Bitmap marker;
     private Paint paint;
 
-    private final GestureDetector gestureDetector = new GestureDetector(getContext(),
-            new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapConfirmed(MotionEvent e) {
-                    if (isReady()) {
-
-                    }
-                    return true;
-                }
-            }
-    );
+    public void setOnMarkerClickListener(OnMarkerClickListener listener) {
+        this.listener = listener;
+    }
 
     public MarkerImageView(Context context, AttributeSet attr) {
         super(context, attr);
@@ -66,7 +59,7 @@ public class MarkerImageView extends SubsamplingScaleImageView {
         this.setImage(ImageSource.resource(resource));
     }
 
-    public void setDiscoverDeckMap(ProductDeckMapModel productDeckMapModel) {
+    public void setProductDeckMap(ProductDeckMapModel productDeckMapModel) {
         this.productDeckMapModel = productDeckMapModel;
         invalidate();
     }
@@ -90,7 +83,7 @@ public class MarkerImageView extends SubsamplingScaleImageView {
         paint.setAntiAlias(true);
 
         if (productDeckMapModel != null && marker != null) {
-            PointF vPin = sourceToViewCoord(new PointF(0, 0));
+            PointF vPin = sourceToViewCoord(productDeckMapModel.getCoordinate());
 
             float left = vPin.x - marker.getWidth() / 2;
             float top = vPin.y - marker.getHeight();
@@ -100,5 +93,28 @@ public class MarkerImageView extends SubsamplingScaleImageView {
             productDeckMapModel.setRegion(new Region((int) left, (int) top, (int) right, (int) bottom));
             canvas.drawBitmap(marker, left, top, paint);
         }
+    }
+
+    private final GestureDetector gestureDetector = new GestureDetector(getContext(),
+            new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapConfirmed(MotionEvent e) {
+                    if (isReady() && isTouchInsideRegion(new PointF(e.getX(), e.getY()))) {
+                        if (listener != null) {
+                            listener.isInsideRegion();
+                        }
+                    }
+                    return true;
+                }
+            }
+    );
+
+    private boolean isTouchInsideRegion(PointF touchedLocation) {
+        Region region = productDeckMapModel.getRegion();
+        return region.contains((int) touchedLocation.x, (int) touchedLocation.y);
+    }
+
+    public interface OnMarkerClickListener {
+        void isInsideRegion();
     }
 }

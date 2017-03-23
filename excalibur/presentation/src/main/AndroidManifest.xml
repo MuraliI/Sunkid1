@@ -34,10 +34,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-            android:screenOrientation="portrait"
-            android:label="@string/empty_string"/>
         <activity
-            android:name=".activity.DiscoverDeckMapActivity"
+            android:name=".deckmap.activity.DiscoverDeckMapActivity"
             android:screenOrientation="portrait"
             android:label="@string/empty_string"/>
 
