@@ -1,12 +1,10 @@
-package com.rcl.excalibur.model;
+package com.rcl.excalibur.domain;
 
 
 import android.graphics.PointF;
 import android.graphics.Region;
 
-import com.rcl.excalibur.model.itinerary.ProductModel;
-
-public class ProductDeckMapModel extends ProductModel {
+public class ProductDeckMapModel extends Product {
     private PointF coordinate;
     private Region region;
 

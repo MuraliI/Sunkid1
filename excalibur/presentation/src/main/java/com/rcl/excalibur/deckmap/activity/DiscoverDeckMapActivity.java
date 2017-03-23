@@ -35,7 +35,7 @@ public class DiscoverDeckMapActivity extends BaseActivity {
             discoverItemId = intent.getExtras().getString(EXTRA_DISCOVER_ITEM_ID);
         }
 
-        presenter = new DiscoverDeckMapPresenter(new DiscoverDeckMapView(this), discoverItemId);
+        presenter = new DiscoverDeckMapPresenter(new DiscoverDeckMapView(this), 1);
     }
 
     @OnClick(R.id.back_arrow)
