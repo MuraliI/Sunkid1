@@ -3,20 +3,14 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.fragments.DiscoverItemListFragment;
 import com.rcl.excalibur.internal.di.component.ApplicationComponent;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
-import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.ProductsListView;
 
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.mockito.Mock;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -78,12 +72,13 @@ public class DiscoverPresenterTest {
 
     @Ignore
     public void showCollectionInView() throws Exception {
-        List<DiscoverItem> list = new ArrayList();
-        Collection<DiscoverItemModel> listResult = new ArrayList();
-        when(discoverModelDataMapper.transform(list)).thenReturn(listResult);
-
-        /*presenter.showCollectionInView(list);
-        verify(discoverModelDataMapper).transform(list);
-        verify(view).addAll(listResult);*/
+        //TODO fix with Product
+//        List<DiscoverItem> list = new ArrayList();
+//        Collection<DiscoverItemModel> listResult = new ArrayList();
+//        when(discoverModelDataMapper.transform(list)).thenReturn(listResult);
+//
+//        presenter.showCollectionInView(list);
+//        verify(discoverModelDataMapper).transform(list);
+//        verify(view).addAll(listResult);
     }
 }
