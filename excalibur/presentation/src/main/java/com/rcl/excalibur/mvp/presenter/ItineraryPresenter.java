@@ -18,11 +18,9 @@ public class ItineraryPresenter implements BasePresenter {
     @Inject ItineraryService itineraryService;
 
     private ItineraryView view;
-    private int type;
 
-    public ItineraryPresenter(int type, ItineraryView view) {
+    public ItineraryPresenter(ItineraryView view) {
         this.view = view;
-        this.type = type;
         initInjection();
         init();
     }

@@ -29,7 +29,10 @@ public final class DateUtils {
             builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon)).append(minutes);
         }
 
-        builder.append(amPm == Calendar.AM ? resources.getString(R.string.itinerary_product_view_am) : resources.getString(R.string.itinerary_product_view_pm));
+        builder.append(
+                amPm == Calendar.AM
+                        ? resources.getString(R.string.itinerary_product_view_am)
+                        : resources.getString(R.string.itinerary_product_view_pm));
 
         return builder.toString();
     }
