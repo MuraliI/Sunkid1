@@ -1,6 +1,8 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import android.widget.Toast;
+
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
@@ -76,7 +78,11 @@ public class DiscoverItemListPresenter implements BasePresenter {
     }
 
     protected void showCollectionInView(List<Product> products) {
-        view.addAll(products);
+        if (products == null || products.size() == 0) {
+            Toast.makeText(view.getActivity(), R.string.no_items_to_show, Toast.LENGTH_LONG).show();
+        } else {
+            view.addAll(products);
+        }
     }
 
     public class AdapterObserver extends DefaultPresentObserver<Product, DiscoverItemListPresenter> {
