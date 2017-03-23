@@ -6,6 +6,7 @@ public class ItineraryEvent {
 
     private String id;
     private String name;
+    private String thumbnail;
     private Date startDate;
     private Date endDate;
     private String location;
@@ -50,4 +51,11 @@ public class ItineraryEvent {
         this.location = location;
     }
 
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
 }

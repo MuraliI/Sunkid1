@@ -29,6 +29,7 @@ public class ProductModelMapper extends BaseDataMapper<ItineraryProductModel, It
 
         productModel.setDate(builder.toString());
         productModel.setLocationPointer(itineraryEvent.getLocation());
+        productModel.setImageUrl(itineraryEvent.getThumbnail());
 
         //TODO Map other fields remaining on the ItineraryProductModel
 

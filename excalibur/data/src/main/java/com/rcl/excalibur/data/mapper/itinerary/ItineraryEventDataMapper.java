@@ -30,6 +30,7 @@ public class ItineraryEventDataMapper extends BaseDataMapper<ItineraryEvent, Iti
         itineraryEvent.setStartDate(eventResponse.getEventStartTime().getDateObj());
         itineraryEvent.setEndDate(eventResponse.getEventEndTime().getDateObj());
         itineraryEvent.setLocation(eventResponse.getEventLocation().getLocationName());
+        itineraryEvent.setThumbnail(eventResponse.getThumbnail());
 
         return itineraryEvent;
     }
