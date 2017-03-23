@@ -52,6 +52,7 @@ public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem,
 
     @Override
     public void create(List<DiscoverItem> discoverItems) {
+        throw new RuntimeException("Operation not supported");
     }
 
     @Override

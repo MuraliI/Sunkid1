@@ -49,7 +49,8 @@ public class ItineraryPresenter implements BasePresenter {
     }
 
     public void refreshPositioning() {
-        view.scrollToPosition(scrollPosition);
+        /*TODO: List should scrool to ON_GOING or UP_COMMING event*/
+//        view.scrollToPosition(scrollPosition);
     }
 
     private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {

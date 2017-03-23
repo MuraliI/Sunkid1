@@ -6,21 +6,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.adapters.DiscoverAdapter;
+import com.rcl.excalibur.adapters.ProductsAdapter;
+import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.fragments.DiscoverItemListFragment;
-import com.rcl.excalibur.model.DiscoverItemModel;
 
-import java.util.Collection;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DiscoverItemListView extends FragmentView<DiscoverItemListFragment> {
+public class ProductsListView extends FragmentView<DiscoverItemListFragment> {
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
 
-    private DiscoverAdapter adapter;
+    private ProductsAdapter adapter;
 
-    public DiscoverItemListView(DiscoverItemListFragment fragment) {
+    public ProductsListView(DiscoverItemListFragment fragment) {
         super(fragment);
         ButterKnife.bind(this, fragment.getView());
     }
@@ -30,12 +30,12 @@ public class DiscoverItemListView extends FragmentView<DiscoverItemListFragment>
         if (activity == null) {
             return;
         }
-        adapter = new DiscoverAdapter(adapterObserver);
+        adapter = new ProductsAdapter(adapterObserver);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
     }
 
-    public void addAll(Collection<DiscoverItemModel> list) {
+    public void addAll(List<Product> list) {
         adapter.addAll(list);
     }
 }
