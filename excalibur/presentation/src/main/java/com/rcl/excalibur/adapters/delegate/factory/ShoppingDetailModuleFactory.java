@@ -3,7 +3,6 @@ package com.rcl.excalibur.adapters.delegate.factory;
 import android.content.res.Resources;
 import android.support.v4.util.SparseArrayCompat;
 
-import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.ExpandableDescriptionDelegateAdapter;
@@ -11,10 +10,6 @@ import com.rcl.excalibur.adapters.delegate.ExpandableLinkDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PromotionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.StandardTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
-import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
-import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
-import com.rcl.excalibur.adapters.viewtype.PromotionViewType;
-import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,24 +36,6 @@ class ShoppingDetailModuleFactory extends DetailModuleFactory {
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
-
-        /*types.add(new PromotionViewType(product.getPromotionTitle(), product.getPromotionDescription()));
-
-        types.add(new StandardTimesViewType(product.getStandardTimesTitle(), product.getStandardTimesDaysAndTimes()));
-
-        addTitleAndDescriptionTypes(types);
-
-        types.add(new ExpandableDescriptionViewType(product.getDescription()));
-
-        types.add(new ExpandableLinkViewType(
-                resources.getString(R.string.detail_module_accessibility),
-                product.getAccessibility(),
-                true));
-        types.add(new ExpandableLinkViewType(
-                resources.getString(R.string.detail_module_legal),
-                new String[]{product.getLegal()},
-                false));*/
-
         return types;
     }
 }
