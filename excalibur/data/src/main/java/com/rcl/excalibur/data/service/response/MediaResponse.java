@@ -1,6 +1,5 @@
 package com.rcl.excalibur.data.service.response;
 
-
 import java.util.List;
 
 public class MediaResponse {
@@ -13,4 +12,5 @@ public class MediaResponse {
     public void setMediaItem(List<MediaItemResponse> mediaItem) {
         this.mediaItem = mediaItem;
     }
+
 }

@@ -67,15 +67,20 @@
         reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
         nulla pariatur?\"</string>
 
-<!--Categories-->
-    <string name="category_royal_activity">Activities</string>
-    <string name="category_spa">Spa</string>
-    <string name="category_dining">Dining</string>
-    <string name="category_shopping">Shopping</string>
-    <string name="category_shorex">Shorex</string>
-    <string name="category_entertainment">Entertainment</string>
+    <!--Categories-->
+    <string name="category_royal_activity">ACTIVITIES</string>
+    <string name="category_spa">SPA</string>
+    <string name="category_dining">DINING</string>
+    <string name="category_shopping">SHOPPING</string>
+    <string name="category_shorex">SHOREX</string>
+    <string name="category_entertainment">ENTERTAINMENT</string>
+
     <string name="adults">Adults</string>
     <string name="children">Children</string>
+
+    <!-- Triptych Home Screen -->
+    <string name="triptych_tab_plans">Plans Screen</string>
+    <string name="triptych_tab_me">Me Screen</string>
 
     <!-- Itinerary -->
     <string name="title_good_morning">Good Morning</string>
@@ -88,7 +93,6 @@
     <string name="itinerary_product_view_colon">:</string>
     <string name="itinerary_product_view_dash">&#8210;</string>
     <string name="itinerary_accessibility_product_image">Item Image</string>
-
 
 
 </resources>

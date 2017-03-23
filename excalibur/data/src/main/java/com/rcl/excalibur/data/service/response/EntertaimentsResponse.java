@@ -6,14 +6,14 @@ import com.google.gson.annotations.SerializedName;
 public class EntertaimentsResponse {
 
     @SerializedName("GetEntertainmentsResponse")
-    private GetProductsResponse getEntertaimentsResponse;
+    private GetProductsResponse getProductsResponse;
 
-    public GetProductsResponse getGetEntertaimentsResponse() {
-        return getEntertaimentsResponse;
+    public GetProductsResponse getGetProductsResponse() {
+        return getProductsResponse;
     }
 
-    public void setGetCategoriesResponse(GetProductsResponse getEntertaimentsResponse) {
-        this.getEntertaimentsResponse = getEntertaimentsResponse;
+    public void setGetCategoriesResponse(GetProductsResponse getProductsResponse) {
+        this.getProductsResponse = getProductsResponse;
     }
 
 }
