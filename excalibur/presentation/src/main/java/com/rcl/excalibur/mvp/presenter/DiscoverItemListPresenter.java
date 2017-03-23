@@ -37,7 +37,7 @@ public class DiscoverItemListPresenter implements BasePresenter {
         showCollectionInView(getProductDbUseCase.getAll(type));
     }
 
-    private String getType(final BaseActivity activity, int type) {
+    protected String getType(final BaseActivity activity, int type) {
         switch (type) {
             case DiscoverItemListFragment.ROYAL_ACTIVITY:
                 return activity.getString(R.string.category_royal_activity);
@@ -64,7 +64,7 @@ public class DiscoverItemListPresenter implements BasePresenter {
         activity.getApplicationComponent().inject(this);
     }
 
-    private void showCollectionInView(List<Product> products) {
+    protected void showCollectionInView(List<Product> products) {
         view.addAll(products);
     }
 
