@@ -8,8 +8,8 @@ import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
 import com.rcl.excalibur.model.itinerary.CalendarSeparatorModel;
-import com.rcl.excalibur.model.itinerary.ProductModel;
-import com.rcl.excalibur.model.itinerary.ProductModelMapper;
+import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
+import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
 import com.rcl.excalibur.mvp.view.ItineraryView;
 import com.rcl.excalibur.utils.DateUtils;
 
@@ -52,34 +52,38 @@ public class ItineraryPresenter implements BasePresenter {
 
     private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
 
-        public ItineraryServiceObserver(ItineraryPresenter presenter) {
+        ItineraryServiceObserver(ItineraryPresenter presenter) {
             super(presenter);
         }
 
         @Override
         public void onNext(List<ItineraryEvent> value) {
 
-            ProductModelMapper productModelMapper = new ProductModelMapper(view.getActivity().getResources());
-            List<ProductModel> productModels = productModelMapper.transform(value);
-            Collections.sort(productModels);
-            List<RecyclerViewType> viewTypeList = groupEventByDate(productModels);
-            Timber.e("Grouping", viewTypeList.size());
+            if (view.getActivity() != null) {
+                ItineraryProductModelMapper mapper = new ItineraryProductModelMapper(view.getActivity().getResources());
+                view.addPlans(mapper.transform(value));
+
+                List<ItineraryProductModel> productModels = mapper.transform(value);
+                Collections.sort(productModels);
+                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels);
+                Timber.e("Grouping", viewTypeList.size());
+            }
         }
     }
 
-    private List<RecyclerViewType> groupEventByDate(List<ProductModel> products) {
+    private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products) {
 
         List<RecyclerViewType> viewTypeList = new ArrayList<>();
 
         for (int i = 0; i < products.size(); i++) {
-            ProductModel productModel = products.get(i);
+            ItineraryProductModel productModel = products.get(i);
 
             boolean addCalendar = false;
 
             if (i == 0) {
                 addCalendar = true;
             } else if (i > 0) {
-                ProductModel prevProduct = products.get(i - 1);
+                ItineraryProductModel prevProduct = products.get(i - 1);
                 if (productModel.hourIsDifferent(prevProduct)) {
                     addCalendar = true;
                 }
@@ -91,7 +95,6 @@ public class ItineraryPresenter implements BasePresenter {
                 viewTypeList.add(calendarSeparatorModel);
             }
             viewTypeList.add(productModel);
-
         }
 
 

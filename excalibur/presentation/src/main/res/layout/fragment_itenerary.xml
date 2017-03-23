@@ -8,8 +8,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/detail_discover_item_link_menu_margin_top"
-        android:layout_marginRight="@dimen/detail_discover_item_link_menu_margin_top"/>
+        android:layout_height="wrap_content"/>
 
 </FrameLayout>

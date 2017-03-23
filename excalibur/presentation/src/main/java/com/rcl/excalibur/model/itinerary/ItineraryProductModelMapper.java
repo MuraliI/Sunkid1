@@ -8,17 +8,17 @@ import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.utils.DateUtils;
 
 
-public class ProductModelMapper extends BaseDataMapper<ProductModel, ItineraryEvent> {
+public class ItineraryProductModelMapper extends BaseDataMapper<ItineraryProductModel, ItineraryEvent> {
 
     private Resources resources;
 
-    public ProductModelMapper(Resources resources) {
+    public ItineraryProductModelMapper(Resources resources) {
         this.resources = resources;
     }
 
     @Override
-    public ProductModel transform(ItineraryEvent itineraryEvent) {
-        ProductModel productModel = new ProductModel();
+    public ItineraryProductModel transform(ItineraryEvent itineraryEvent) {
+        ItineraryProductModel productModel = new ItineraryProductModel();
         productModel.setProductId(itineraryEvent.getId());
         productModel.setName(itineraryEvent.getName());
 
@@ -31,6 +31,8 @@ public class ProductModelMapper extends BaseDataMapper<ProductModel, ItineraryEv
         productModel.setEndDate(itineraryEvent.getEndDate());
         productModel.setOperatinghours(builder.toString());
         productModel.setLocationPointer(itineraryEvent.getLocation());
+        productModel.setImageUrl(itineraryEvent.getThumbnail());
+        //TODO Map other fields remaining on the ItineraryProductModel
         return productModel;
     }
 }

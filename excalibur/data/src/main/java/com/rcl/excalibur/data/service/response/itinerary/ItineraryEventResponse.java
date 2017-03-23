@@ -1,6 +1,7 @@
 package com.rcl.excalibur.data.service.response.itinerary;
 
 public class ItineraryEventResponse {
+    private String thumbnail;
     private String eventID;
     private String eventName;
     private String eventType;
@@ -63,5 +64,13 @@ public class ItineraryEventResponse {
 
     public void setEventEndTime(EventTimeResponse eventEndTime) {
         this.eventEndTime = eventEndTime;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

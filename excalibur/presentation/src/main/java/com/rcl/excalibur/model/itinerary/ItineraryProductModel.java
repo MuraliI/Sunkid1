@@ -4,10 +4,10 @@ import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
-
 import java.util.Date;
 
-public class ProductModel implements RecyclerViewType, Comparable<ProductModel> {
+public class ItineraryProductModel implements RecyclerViewType, Comparable<ItineraryProductModel> {
+
     public static final String LOCATION_POINTER_FWD = "Forward";
     public static final String LOCATION_POINTER_AFT = "After";
     public static final String LOCATION_POINTER_MID = "Middle";
@@ -94,17 +94,17 @@ public class ProductModel implements RecyclerViewType, Comparable<ProductModel> 
         this.endDate = endDate;
     }
 
-    public boolean hourIsDifferent(ProductModel o) {
+    public boolean hourIsDifferent(ItineraryProductModel o) {
         return this.getStartDate().getHours() != o.getStartDate().getHours();
     }
 
     @Override
     public int getViewType() {
-        return RecyclerViewConstants.VIEW_TYPE_PRODUCT_VIEW;
+        return RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW;
     }
 
     @Override
-    public int compareTo(@NonNull ProductModel o) {
+    public int compareTo(@NonNull ItineraryProductModel o) {
         if (this.getStartDate().getTime() > o.getStartDate().getTime())
             return 1;
         else
