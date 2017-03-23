@@ -8,6 +8,9 @@
     <dimen name="left_margin_forward">100dp</dimen>
     <dimen name="top_image_margin">20dp</dimen>
 
+    <!-- Triptych view -->
+    <dimen name="triptych_strip_tickness">2dp</dimen>
+
     <!-- General dimens -->
     <dimen name="no_size">0dp</dimen>
     <dimen name="margin_large">20dp</dimen>
@@ -18,7 +21,7 @@
     <dimen name="home_arrow_margin_bottom">5dp</dimen>
     <dimen name="home_arrow_margin_top">20dp</dimen>
 
-    <!--Ribbon ship time-->
+    <!--Ribbon ship label-->
     <dimen name="ribbon_ship_time_padding_top">30dp</dimen>
     <dimen name="ribbon_ship_time_margin_bottom">6dp</dimen>
 
@@ -76,5 +79,7 @@
     <dimen name="item_product_margin">10dp</dimen>
     <dimen name="itinerary_product_view_margin_start">60dp</dimen>
     <dimen name="itinerary_product_view_margin_end">20dp</dimen>
+    <dimen name="itinerary_separator_thickness">1dp</dimen>
+
 
 </resources>

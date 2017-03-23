@@ -4,7 +4,12 @@ import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
+
 import java.util.Date;
+
+import static com.rcl.excalibur.model.itinerary.ProductStateEnum.ON_GOING;
+import static com.rcl.excalibur.model.itinerary.ProductStateEnum.PAST;
+import static com.rcl.excalibur.model.itinerary.ProductStateEnum.UP_COMING;
 
 public class ItineraryProductModel implements RecyclerViewType, Comparable<ItineraryProductModel> {
 
@@ -98,6 +103,38 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
         return this.getStartDate().getHours() != o.getStartDate().getHours();
     }
 
+    public ProductStateEnum getState() {
+
+        Date now = new Date();
+
+        if (compareHourMinute(now, endDate) > 0) {
+            return PAST;
+        }
+        if (compareHourMinute(now, startDate) >= 0 && compareHourMinute(now, endDate) <= 0) {
+            return ON_GOING;
+        }
+
+        return UP_COMING;
+    }
+
+    private int compareHourMinute(Date date1, Date date2) {
+
+        /* FIXME: This is to user Mockdata with old date values only using Hours & Minutes*/
+
+        if (date1.getHours() > date2.getHours())
+            return 1;
+        else if (date1.getHours() < date2.getHours())
+            return -1;
+        else {
+            if (date1.getMinutes() > date2.getMinutes()) {
+                return 1;
+            } else if (date1.getMinutes() < date2.getMinutes()) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
     @Override
     public int getViewType() {
         return RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW;
@@ -105,10 +142,20 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
 
     @Override
     public int compareTo(@NonNull ItineraryProductModel o) {
+
+        if (getState().getValue() > o.getState().getValue()) {
+            return -1;
+        } else if (getState().getValue() < o.getState().getValue()) {
+            return 1;
+        }
+
+        //case state equal priority
         if (this.getStartDate().getTime() > o.getStartDate().getTime())
             return 1;
         else
             return -1;
+
     }
 }
+
 

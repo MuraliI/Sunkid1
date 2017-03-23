@@ -4,16 +4,17 @@ package com.rcl.excalibur.model.itinerary;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
-public class CalendarSeparatorModel implements RecyclerViewType {
+public class ItinerarySeparatorModel implements RecyclerViewType {
 
-    private String date;
 
-    public String getDate() {
-        return date;
+    private String label;
+
+    public String getLabel() {
+        return label;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     @Override

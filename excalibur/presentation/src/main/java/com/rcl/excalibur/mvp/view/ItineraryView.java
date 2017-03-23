@@ -9,7 +9,6 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.itinerary.ItineraryCoodinatorAdapter;
 import com.rcl.excalibur.fragments.ItineraryFragment;
-import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 
 import java.util.List;
 
@@ -18,7 +17,8 @@ import butterknife.ButterKnife;
 
 public class ItineraryView extends FragmentView<ItineraryFragment> {
 
-    @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     private ItineraryCoodinatorAdapter adapter;
 
@@ -38,11 +38,16 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
         recyclerView.setAdapter(adapter);
     }
 
+    public void scrollToPosition(int pos) {
+        if (pos < adapter.getItemCount())
+            recyclerView.smoothScrollToPosition(pos);
+    }
+
     public void setGreetingText(RecyclerViewType greetingText) {
         adapter.addViewTypeOnceAndNotify(greetingText);
     }
 
-    public void addPlans(List<ItineraryProductModel> productModelList) {
+    public void addPlans(List<RecyclerViewType> productModelList) {
         adapter.addAll(productModelList);
     }
 

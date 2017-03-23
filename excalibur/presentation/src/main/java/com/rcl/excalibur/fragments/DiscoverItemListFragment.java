@@ -19,7 +19,7 @@ public class DiscoverItemListFragment extends Fragment {
     public static final int SPA = 3;
     public static final int SHOREX = 4;
     public static final int ENTERTAINMENT = 5;
-    private static final String ARGUMENT_TYPE = "DiscoverItemListFragment.ARGUMENT_TYPE";
+    public static final String ARGUMENT_TYPE = "DiscoverItemListFragment.ARGUMENT_TYPE";
     private DiscoverItemListPresenter presenter;
 
     public static DiscoverItemListFragment newInstance(int type) {

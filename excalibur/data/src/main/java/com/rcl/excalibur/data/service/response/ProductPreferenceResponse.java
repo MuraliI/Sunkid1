@@ -7,17 +7,17 @@ import java.util.List;
 
 public class ProductPreferenceResponse {
     @SerializedName("preferenceID")
-    private String preferenceId;
+    private long preferenceId;
     private String preferenceName;
     private boolean mandatoryPreferenceFlag;
     private String preferenceType;
     private List<ProductPreferenceValueResponse> preferenceValue;
 
-    public String getPreferenceId() {
+    public long getPreferenceId() {
         return preferenceId;
     }
 
-    public void setPreferenceId(String preferenceID) {
+    public void setPreferenceId(long preferenceID) {
         this.preferenceId = preferenceId;
     }
 

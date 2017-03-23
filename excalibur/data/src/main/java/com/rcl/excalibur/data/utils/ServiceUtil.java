@@ -4,6 +4,7 @@ package com.rcl.excalibur.data.utils;
 import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.api.ItineraryApi;
+import com.rcl.excalibur.data.service.response.BaseResponse;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,6 +13,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class ServiceUtil {
+
+    private static final String SUCCESS = "SUCCESS";
 
     private ServiceUtil() {
     }
@@ -40,5 +43,9 @@ public final class ServiceUtil {
                 client(client)
                 .build();
         return retrofit.create(ItineraryApi.class);
+    }
+
+    public static boolean isSuccess(BaseResponse baseResponse) {
+        return baseResponse != null && SUCCESS.equals(baseResponse.getResponseStatus());
     }
 }

@@ -5,6 +5,7 @@ import android.support.v4.util.SparseArrayCompat;
 import com.rcl.excalibur.adapters.base.BaseCoordinatorAdapter;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
+import com.rcl.excalibur.adapters.delegate.itinerary.CalendarSeparatorDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.itinerary.GreetingsDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.itinerary.ItineraryProductDelegateAdapter;
 
@@ -20,5 +21,6 @@ public class ItineraryCoodinatorAdapter extends BaseCoordinatorAdapter {
         delegateAdapters = new SparseArrayCompat<DelegateAdapter>(VIEW_TYPE_COUNT);
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_GREETINGS, new GreetingsDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW, new ItineraryProductDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_CALENDAR_VIEW, new CalendarSeparatorDelegateAdapter());
     }
 }

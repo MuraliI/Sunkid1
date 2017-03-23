@@ -6,8 +6,8 @@ public class ProductLocation {
     private String locationId;
     private String locationCode;
     private String locationType;
-    private int operatingHoursStart;
-    private int operatingHoursEnd;
+    private String operatingHoursStart;
+    private String operatingHoursEnd;
 
     public String getLocationId() {
         return locationId;
@@ -33,19 +33,19 @@ public class ProductLocation {
         this.locationType = locationType;
     }
 
-    public int getOperatingHoursStart() {
+    public String getOperatingHoursStart() {
         return operatingHoursStart;
     }
 
-    public void setOperatingHoursStart(int operatingHoursStart) {
+    public void setOperatingHoursStart(String operatingHoursStart) {
         this.operatingHoursStart = operatingHoursStart;
     }
 
-    public int getOperatingHoursEnd() {
+    public String getOperatingHoursEnd() {
         return operatingHoursEnd;
     }
 
-    public void setOperatingHoursEnd(int operatingHoursEnd) {
+    public void setOperatingHoursEnd(String operatingHoursEnd) {
         this.operatingHoursEnd = operatingHoursEnd;
     }
 }

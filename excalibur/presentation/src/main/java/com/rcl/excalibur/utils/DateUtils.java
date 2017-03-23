@@ -10,6 +10,8 @@ import java.util.Date;
 
 public final class DateUtils {
 
+    private static final int AFTERNOON = 12;
+
     private DateUtils() {
 
     }
@@ -22,7 +24,7 @@ public final class DateUtils {
         int amPm = calendar.get(Calendar.AM_PM);
 
         if (hour == 0 && amPm == Calendar.PM) {
-            hour = 12;
+            hour = AFTERNOON;
         }
 
         StringBuilder builder = new StringBuilder();
@@ -44,7 +46,7 @@ public final class DateUtils {
         int amPm = calendar.get(Calendar.AM_PM);
 
         if (hour == 0 && amPm == Calendar.PM) {
-            hour = 12;
+            hour = AFTERNOON;
         }
 
         StringBuilder builder = new StringBuilder();
