@@ -46,9 +46,7 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
 
         if ("0".equals(product.getProductLocation().getOperatingHoursEnd())) {
             holder.rangeTextView.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             holder.rangeTextView.setText(product.getTimeFrame());
         }
 
