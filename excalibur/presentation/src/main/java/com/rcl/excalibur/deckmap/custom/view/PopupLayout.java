@@ -55,7 +55,7 @@ public class PopupLayout extends RelativeLayout {
     public void setProduct(Product product) {
         titleProductText.setText(product.getProductTitle());
         typeProductText.setText(product.getProductType().getProductType());
-        typeNameText.setText(product.getProductType().getProductTypeName());
+        typeNameText.setText(product.getProductCategory().get(0).getProductTags().get(0).getDescription());
 
         List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
         if (!mediaItems.isEmpty()) {

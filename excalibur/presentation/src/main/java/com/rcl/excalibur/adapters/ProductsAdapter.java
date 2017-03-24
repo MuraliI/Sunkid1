@@ -44,7 +44,13 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
 
         holder.titleTextView.setText(product.getProductTitle());
 
-        holder.rangeTextView.setText(product.getTimeFrame());
+        if ("0".equals(product.getProductLocation().getOperatingHoursEnd())) {
+            holder.rangeTextView.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.rangeTextView.setText(product.getTimeFrame());
+        }
 
         List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
         if (!mediaItems.isEmpty()) {

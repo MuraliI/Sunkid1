@@ -42,8 +42,10 @@ class EntertainmentDetailModuleFactory extends DetailModuleFactory {
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
         if (product.getStartingFromPrice() != null) {
-            types.add(new PricesFromViewType(StringUtils.getPriceFormated(product.getStartingFromPrice().getAdultPrice()),
-                    StringUtils.getPriceFormated(product.getStartingFromPrice().getChildPrice())));
+            if (product.getStartingFromPrice().getAdultPrice() != 0 || product.getStartingFromPrice().getChildPrice() != 0) {
+                types.add(new PricesFromViewType(StringUtils.getPriceFormated(product.getStartingFromPrice().getAdultPrice()),
+                        StringUtils.getPriceFormated(product.getStartingFromPrice().getChildPrice())));
+            }
         }
 
         ProductPreferencesUtils productPreferencesUtils = new ProductPreferencesUtils();
@@ -56,7 +58,7 @@ class EntertainmentDetailModuleFactory extends DetailModuleFactory {
 
         addTitleAndDescriptionTypes(types);
 
-        types.add(new ExpandableDescriptionViewType(product.getProductShortDescription()));
+        types.add(new ExpandableDescriptionViewType(product.getProductLongDescription()));
         return types;
     }
 }

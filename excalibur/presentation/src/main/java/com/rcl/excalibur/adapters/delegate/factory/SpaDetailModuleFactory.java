@@ -46,16 +46,20 @@ class SpaDetailModuleFactory extends DetailModuleFactory {
         List<RecyclerViewType> types = new ArrayList<>();
 
         if (product.getProductLocation() != null) {
-            ArrayList<String[]> arrayListTimes = new ArrayList<>();
-            arrayListTimes.add(new String[]{"Day 1", product.getTimeFrame() });
-            types.add(new StandardTimesViewType("Operating hours", arrayListTimes));
+            if (!"0".equals(product.getProductLocation().getOperatingHoursEnd())) {
+                ArrayList<String[]> arrayListTimes = new ArrayList<>();
+                arrayListTimes.add(new String[]{"Day 1", product.getTimeFrame()});
+                types.add(new StandardTimesViewType("Operating hours", arrayListTimes));
+            }
         }
 
-        types.add(new ExpandableDescriptionViewType(product.getProductShortDescription()));
+        types.add(new ExpandableDescriptionViewType(product.getProductLongDescription()));
 
         if (product.getStartingFromPrice() != null) {
-            types.add(new PricesFromViewType(StringUtils.getPriceFormated(product.getStartingFromPrice().getAdultPrice()),
-                    StringUtils.getPriceFormated(product.getStartingFromPrice().getChildPrice())));
+            if (product.getStartingFromPrice().getAdultPrice() != 0 || product.getStartingFromPrice().getChildPrice() != 0) {
+                types.add(new PricesFromViewType(StringUtils.getPriceFormated(product.getStartingFromPrice().getAdultPrice()),
+                        StringUtils.getPriceFormated(product.getStartingFromPrice().getChildPrice())));
+            }
         }
 
         ProductPreferencesUtils productPreferencesUtils = new ProductPreferencesUtils();
@@ -63,6 +67,8 @@ class SpaDetailModuleFactory extends DetailModuleFactory {
         if (product.getProductDuration() != null) {
             productPreferencesUtils.addProduct("Sessions from", product.getProductDuration().getDurationInMinutes() + " mins");
         }
+
+        product.setPreferences(productPreferencesUtils.getProperties());
 
         addTitleAndDescriptionTypes(types);
 
