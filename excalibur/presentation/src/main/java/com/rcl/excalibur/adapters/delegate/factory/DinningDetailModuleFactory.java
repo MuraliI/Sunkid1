@@ -47,7 +47,8 @@ class DinningDetailModuleFactory extends DetailModuleFactory {
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
         if (product.getStartingFromPrice() != null) {
-            types.add(new PricesFromViewType(product.getStartingFromPrice().getAdultPrice() + "", product.getStartingFromPrice().getChildPrice() + ""));
+            types.add(new PricesFromViewType(product.getStartingFromPrice().getAdultPrice() + "",
+                    product.getStartingFromPrice().getChildPrice() + ""));
         }
         addTitleAndDescriptionTypes(types);
         types.add(new ExpandableDescriptionViewType(product.getProductShortDescription()));
