@@ -15,6 +15,7 @@ import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import com.rcl.excalibur.utils.ProductPreferencesUtils;
+import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +47,10 @@ class ShorexDetailModuleFactory extends DetailModuleFactory {
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
         if (product.getStartingFromPrice() != null) {
-            types.add(new PricesFromViewType(product.getStartingFromPrice().getAdultPrice() + "",
-                    product.getStartingFromPrice().getChildPrice() + ""));
+            if (product.getStartingFromPrice().getAdultPrice() != 0 || product.getStartingFromPrice().getChildPrice() != 0) {
+                types.add(new PricesFromViewType(StringUtils.getPriceFormated(product.getStartingFromPrice().getAdultPrice()),
+                        StringUtils.getPriceFormated(product.getStartingFromPrice().getChildPrice())));
+            }
         }
 
         ProductPreferencesUtils productPreferencesUtils = new ProductPreferencesUtils();
@@ -71,12 +74,14 @@ class ShorexDetailModuleFactory extends DetailModuleFactory {
         product.setPreferences(productPreferencesUtils.getProperties());
 
         if (product.getProductLocation() != null) {
-            ArrayList<String[]> arrayListTimes = new ArrayList<>();
-            arrayListTimes.add(new String[]{"Day 1", product.getTimeFrame() });
-            types.add(new StandardTimesViewType("Operating hours", arrayListTimes));
+            if (!"0".equals(product.getProductLocation().getOperatingHoursEnd())) {
+                ArrayList<String[]> arrayListTimes = new ArrayList<>();
+                arrayListTimes.add(new String[]{"Day 1", product.getTimeFrame()});
+                types.add(new StandardTimesViewType("Operating hours", arrayListTimes));
+            }
         }
         addTitleAndDescriptionTypes(types);
-        types.add(new ExpandableDescriptionViewType(product.getProductShortDescription()));
+        types.add(new ExpandableDescriptionViewType(product.getProductLongDescription()));
 
         return types;
     }
