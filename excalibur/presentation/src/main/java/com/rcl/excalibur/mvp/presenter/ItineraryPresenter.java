@@ -1,9 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
 import android.app.Activity;
-import android.content.res.Resources;
 
-import com.rcl.excalibur.R;
 import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
@@ -12,7 +10,6 @@ import com.rcl.excalibur.domain.service.ItineraryService;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
 import com.rcl.excalibur.model.itinerary.ItinerarySeparatorModel;
-import com.rcl.excalibur.model.itinerary.ProductStateEnum;
 import com.rcl.excalibur.mvp.view.ItineraryView;
 import com.rcl.excalibur.utils.DateUtils;
 
@@ -21,6 +18,10 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_ON_GOING;
+import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_PAST;
+import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_UP_COMING;
 
 public class ItineraryPresenter implements BasePresenter {
 
@@ -68,7 +69,7 @@ public class ItineraryPresenter implements BasePresenter {
 
                 List<ItineraryProductModel> productModels = mapper.transform(value);
                 Collections.sort(productModels);
-                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels, view.getActivity().getResources());
+                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels);
 
                 view.addPlans(viewTypeList);
                 refreshPositioning();
@@ -76,7 +77,7 @@ public class ItineraryPresenter implements BasePresenter {
         }
     }
 
-    private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products, Resources resources) {
+    private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products) {
 
         List<RecyclerViewType> viewTypeList = new ArrayList<>();
 
@@ -84,21 +85,21 @@ public class ItineraryPresenter implements BasePresenter {
             ItineraryProductModel productModel = products.get(i);
 
             switch (productModel.getState()) {
-                case ON_GOING:
+                case STATE_ON_GOING:
 
-                    String separatorOnGoing = resources.getString(R.string.itinerary_separator_title_on_going);
+                    String separatorOnGoing = "On Going";
 
                     if (i == 0) {
                         addOnGoingSeparator(viewTypeList, separatorOnGoing, i);
                     } else if (i > 0) {
                         ItineraryProductModel prevProduct = products.get(i - 1);
-                        if (prevProduct.getState() != ProductStateEnum.ON_GOING) {
+                        if (prevProduct.getState() != STATE_ON_GOING) {
                             addOnGoingSeparator(viewTypeList, separatorOnGoing, i);
                         }
                     }
 
                     break;
-                case UP_COMING:
+                case STATE_UP_COMING:
 
                     String separatorLabel = DateUtils.getDateHour(productModel.getStartDate(),
                             view.getActivity().getResources());
@@ -107,14 +108,14 @@ public class ItineraryPresenter implements BasePresenter {
                         addCalendarSeparator(viewTypeList, separatorLabel, i);
                     } else if (i > 0) {
                         ItineraryProductModel prevProduct = products.get(i - 1);
-                        if (prevProduct.getState() != ProductStateEnum.UP_COMING
+                        if (prevProduct.getState() != STATE_UP_COMING
                                 || productModel.hourIsDifferent(prevProduct)) {
                             addCalendarSeparator(viewTypeList, separatorLabel, i);
                         }
                     }
 
                     break;
-                case PAST:
+                case STATE_PAST:
                     break;
                 default:
                     break;

@@ -7,15 +7,18 @@ import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
 import java.util.Date;
 
-import static com.rcl.excalibur.model.itinerary.ProductStateEnum.ON_GOING;
-import static com.rcl.excalibur.model.itinerary.ProductStateEnum.PAST;
-import static com.rcl.excalibur.model.itinerary.ProductStateEnum.UP_COMING;
-
 public class ItineraryProductModel implements RecyclerViewType, Comparable<ItineraryProductModel> {
 
     public static final String LOCATION_POINTER_FWD = "Forward";
     public static final String LOCATION_POINTER_AFT = "After";
     public static final String LOCATION_POINTER_MID = "Middle";
+
+
+    //STATE value represent priority in list Higher priority go on top
+    public static final int STATE_PAST = 3;
+    public static final int STATE_ON_GOING = 2;
+    public static final int STATE_UP_COMING = 1;
+
 
     private String productId;
     private String imageUrl;
@@ -103,18 +106,18 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
         return this.getStartDate().getHours() != o.getStartDate().getHours();
     }
 
-    public ProductStateEnum getState() {
+    public int getState() {
 
         Date now = new Date();
 
         if (compareHourMinute(now, endDate) > 0) {
-            return PAST;
+            return STATE_PAST;
         }
         if (compareHourMinute(now, startDate) >= 0 && compareHourMinute(now, endDate) <= 0) {
-            return ON_GOING;
+            return STATE_ON_GOING;
         }
 
-        return UP_COMING;
+        return STATE_UP_COMING;
     }
 
     private int compareHourMinute(Date date1, Date date2) {
@@ -143,9 +146,9 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
     @Override
     public int compareTo(@NonNull ItineraryProductModel o) {
 
-        if (getState().getValue() > o.getState().getValue()) {
+        if (getState() > o.getState()) {
             return -1;
-        } else if (getState().getValue() < o.getState().getValue()) {
+        } else if (getState() < o.getState()) {
             return 1;
         }
 

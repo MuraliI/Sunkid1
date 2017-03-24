@@ -36,7 +36,7 @@ public class DateUtilTest {
         Date dateObj2 = DateUtil.parseDateResponse(date2, time2);
 
         assertNotNull(dateObj1);
-        assertEquals(DateUtil.DATE_FORMAT.format(dateObj1), date1+time1);
+        assertEquals(DateUtil.formatDate(dateObj1), date1+time1);
 
         assertNull(dateObj2);
     }

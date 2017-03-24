@@ -9,7 +9,8 @@ import java.util.Locale;
 
 public final class DateUtil {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmm", Locale.US);
+    private static final String DATE_FORMAT = "yyyyMMddHHmm";
+    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT, Locale.US);
 
     private DateUtil() {
     }
@@ -20,10 +21,14 @@ public final class DateUtil {
         Date date = null;
         String str = dateStr + timeStr;
         try {
-            date = DATE_FORMAT.parse(str);
+            date = DATE_FORMATTER.parse(str);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static String formatDate(Date date) {
+        return DATE_FORMATTER.format(date);
     }
 }
