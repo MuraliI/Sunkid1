@@ -13,6 +13,7 @@ import com.rcl.excalibur.adapters.delegate.StandardTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
+import com.rcl.excalibur.utils.ProductPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,10 +46,21 @@ class ActivityDetailModuleFactory extends DetailModuleFactory {
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
         if (product.getStartingFromPrice() != null) {
-            types.add(new PricesFromViewType(product.getStartingFromPrice().getAdultPrice() + "", product.getStartingFromPrice().getChildPrice() + ""));
+            types.add(new PricesFromViewType(product.getStartingFromPrice().getAdultPrice() + "",
+                    product.getStartingFromPrice().getChildPrice() + ""));
         }
+
+        ProductPreferencesUtils productPreferencesUtils = new ProductPreferencesUtils();
+        //TODO Refactor this so ProductPreferenceUtils can manage all types and return the preferences according to the factory needed.
+        if (product.getRestrictions() != null && product.getRestrictions().size() > 0) {
+            productPreferencesUtils.addProduct("Guests should be", product.getRestrictions().get(0).getRestrictionDisplayText());
+        }
+        productPreferencesUtils.addProduct("Duration", product.getProductDuration().getDurationInMinutes() + " mins");
+
+        product.setPreferences(productPreferencesUtils.getProperties());
         addTitleAndDescriptionTypes(types);
         types.add(new ExpandableDescriptionViewType(product.getProductShortDescription()));
+
         return types;
     }
 }

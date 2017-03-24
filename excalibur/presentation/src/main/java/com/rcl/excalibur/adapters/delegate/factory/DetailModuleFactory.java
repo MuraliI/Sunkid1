@@ -28,7 +28,8 @@ public abstract class DetailModuleFactory {
         if (product.getPreferences() != null && product.getPreferences().size() > 0) {
             List<ProductPreference> properties = product.getPreferences();
             for (ProductPreference productPreference : properties) {
-                recyclerViewTypeList.add(new TitleAndDescriptionViewType(productPreference.getPreferenceName(), productPreference.getPreferenceType()));
+                recyclerViewTypeList.add(new TitleAndDescriptionViewType(productPreference.getPreferenceName(),
+                        productPreference.getPreferenceType()));
             }
         }
     }
