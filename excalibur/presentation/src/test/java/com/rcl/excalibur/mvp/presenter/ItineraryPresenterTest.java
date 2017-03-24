@@ -1,7 +1,8 @@
 package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.mvp.view.ItineraryView;
+import com.rcl.excalibur.mvp.presenter.itinerary.ItineraryPresenter;
+import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
 import com.rcl.excalibur.utils.GreetingUtils;
 
 import org.junit.Before;

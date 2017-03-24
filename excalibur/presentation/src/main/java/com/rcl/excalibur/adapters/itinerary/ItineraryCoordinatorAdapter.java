@@ -12,11 +12,11 @@ import com.rcl.excalibur.adapters.delegate.itinerary.ItineraryProductDelegateAda
 import io.reactivex.Observer;
 
 
-public class ItineraryCoodinatorAdapter extends BaseCoordinatorAdapter {
+public class ItineraryCoordinatorAdapter extends BaseCoordinatorAdapter {
 
     private static final int VIEW_TYPE_COUNT = 3;
 
-    public ItineraryCoodinatorAdapter(Observer observer) {
+    public ItineraryCoordinatorAdapter(Observer observer) {
         super(observer);
         delegateAdapters = new SparseArrayCompat<DelegateAdapter>(VIEW_TYPE_COUNT);
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_GREETINGS, new GreetingsDelegateAdapter());

@@ -1,7 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-interface BasePresenter {
+public interface BasePresenter {
 
 
 }

@@ -1,4 +1,4 @@
-package com.rcl.excalibur.mvp.presenter;
+package com.rcl.excalibur.mvp.presenter.itinerary;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -13,7 +13,9 @@ import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
 import com.rcl.excalibur.model.itinerary.ItinerarySeparatorModel;
 import com.rcl.excalibur.model.itinerary.ProductStateEnum;
-import com.rcl.excalibur.mvp.view.ItineraryView;
+import com.rcl.excalibur.mvp.presenter.BasePresenter;
+import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
+import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
 import com.rcl.excalibur.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -22,13 +24,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ItineraryPresenter implements BasePresenter {
+public class ItineraryPresenter implements BasePresenter, ItineraryView.OnRefreshDataListener {
 
     @Inject
     ItineraryService itineraryService;
 
-    private ItineraryView view;
     private int scrollPosition = 0;
+
+    private ItineraryView view;
+    private ItineraryServiceObserver serviceObserver;
 
     public ItineraryPresenter(ItineraryView view) {
         this.view = view;
@@ -46,34 +50,25 @@ public class ItineraryPresenter implements BasePresenter {
 
     private void init() {
         view.init();
+        view.setOnRefreshDataListener(this);
         view.setGreetingText(new GreetingViewType());
-        itineraryService.myItinerary(new ItineraryServiceObserver(this));
+
+        serviceObserver = new ItineraryServiceObserver(this);
+        refreshItinerary();
     }
 
-    public void refreshPositioning() {
+    @Override
+    public void onRefresh() {
+        refreshItinerary();
+    }
+
+    private void refreshItinerary() {
+        view.setIsLoadingData(true);
+        itineraryService.myItinerary(serviceObserver);
+    }
+
+    private void refreshPositioning() {
         view.scrollToPosition(scrollPosition);
-    }
-
-    private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
-
-        ItineraryServiceObserver(ItineraryPresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(List<ItineraryEvent> value) {
-
-            if (view.getActivity() != null) {
-                ItineraryProductModelMapper mapper = new ItineraryProductModelMapper(view.getActivity().getResources());
-
-                List<ItineraryProductModel> productModels = mapper.transform(value);
-                Collections.sort(productModels);
-                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels, view.getActivity().getResources());
-
-                view.addPlans(viewTypeList);
-                refreshPositioning();
-            }
-        }
     }
 
     private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products, Resources resources) {
@@ -145,4 +140,26 @@ public class ItineraryPresenter implements BasePresenter {
         list.add(itinerarySeparatorModel);
     }
 
+    private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
+
+        private ItineraryServiceObserver(ItineraryPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(List<ItineraryEvent> value) {
+
+            if (view.getActivity() != null) {
+                ItineraryProductModelMapper mapper = new ItineraryProductModelMapper(view.getActivity().getResources());
+
+                List<ItineraryProductModel> productModels = mapper.transform(value);
+                Collections.sort(productModels);
+                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels, view.getActivity().getResources());
+
+                view.setIsLoadingData(false);
+                view.addPlans(viewTypeList);
+                refreshPositioning();
+            }
+        }
+    }
 }

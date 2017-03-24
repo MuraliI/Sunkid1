@@ -85,7 +85,7 @@
     <string name="no_items_to_show">There are no items to show right now. Please try again later.</string>
 
     <!-- Itinerary -->
-    <string name="title_good_morning">Good Morning</string>
+    <string name="title_good_morning">Good Morning!</string>
     <string name="title_good_afternoon">Good Afternoon!</string>
     <string name="title_good_evening">Good Evening!</string>
     <string name="title_good_night">Good Night!</string>

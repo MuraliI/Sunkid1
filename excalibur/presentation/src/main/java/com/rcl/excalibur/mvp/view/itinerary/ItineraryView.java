@@ -1,15 +1,17 @@
-package com.rcl.excalibur.mvp.view;
+package com.rcl.excalibur.mvp.view.itinerary;
 
 
 import android.app.Activity;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
-import com.rcl.excalibur.adapters.itinerary.ItineraryCoodinatorAdapter;
+import com.rcl.excalibur.adapters.itinerary.ItineraryCoordinatorAdapter;
 import com.rcl.excalibur.fragments.ItineraryFragment;
+import com.rcl.excalibur.mvp.view.FragmentView;
 
 import java.util.List;
 
@@ -18,10 +20,17 @@ import butterknife.ButterKnife;
 
 public class ItineraryView extends FragmentView<ItineraryFragment> {
 
-    @Bind(R.id.recycler_view)
-    RecyclerView recyclerView;
+    public interface OnRefreshDataListener {
+        void onRefresh();
+    }
 
-    private ItineraryCoodinatorAdapter adapter;
+    private static final int SCROLL_OFFSET = 20;
+    private static final int SCROLL_DELAY = 200;
+
+    @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    @Bind(R.id.layout_swipe_refresh) SwipeRefreshLayout refreshLayout;
+
+    private ItineraryCoordinatorAdapter adapter;
 
     public ItineraryView(ItineraryFragment fragment) {
         super(fragment);
@@ -34,9 +43,19 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
             return;
         }
 
-        adapter = new ItineraryCoodinatorAdapter(null);
+        adapter = new ItineraryCoordinatorAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
+    }
+
+    public void setOnRefreshDataListener(OnRefreshDataListener onRefreshDataListener) {
+        if (onRefreshDataListener != null) {
+            refreshLayout.setOnRefreshListener(onRefreshDataListener::onRefresh);
+        }
+    }
+
+    public void setIsLoadingData(boolean isLoadingData) {
+        refreshLayout.setRefreshing(isLoadingData);
     }
 
     public void scrollToPosition(int pos) {
@@ -44,9 +63,9 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(pos, 20);
+                    ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(pos, SCROLL_OFFSET);
                 }
-            }, 200);
+            }, SCROLL_DELAY);
         }
     }
 
