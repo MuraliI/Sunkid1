@@ -17,6 +17,7 @@ import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import com.rcl.excalibur.utils.ProductPreferencesUtils;
+import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +54,8 @@ class SpaDetailModuleFactory extends DetailModuleFactory {
         types.add(new ExpandableDescriptionViewType(product.getProductShortDescription()));
 
         if (product.getStartingFromPrice() != null) {
-            types.add(new PricesFromViewType(product.getStartingFromPrice().getAdultPrice() + "",
-                    product.getStartingFromPrice().getChildPrice() + ""));
+            types.add(new PricesFromViewType(StringUtils.getPriceFormated(product.getStartingFromPrice().getAdultPrice()),
+                    StringUtils.getPriceFormated(product.getStartingFromPrice().getChildPrice())));
         }
 
         ProductPreferencesUtils productPreferencesUtils = new ProductPreferencesUtils();
