@@ -35,10 +35,8 @@ public class PlanListActivity extends BaseActivity {
         presenter = new PlanListPresenter(new PlanListView(this), fragmentToShow);
     }
 
-
     @OnClick(R.id.plans_header_back_layout)
     public void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();
     }
-
 }

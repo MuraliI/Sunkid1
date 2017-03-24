@@ -3,12 +3,10 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.fragments.DiscoverItemListFragment;
 import com.rcl.excalibur.internal.di.component.ApplicationComponent;
 import com.rcl.excalibur.mapper.DiscoverModelDataMapper;
 import com.rcl.excalibur.mvp.view.ProductsListView;
 
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.mockito.Mock;
 

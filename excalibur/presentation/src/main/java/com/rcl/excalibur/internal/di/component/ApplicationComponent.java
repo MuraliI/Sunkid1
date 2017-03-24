@@ -2,6 +2,7 @@ package com.rcl.excalibur.internal.di.component;
 
 import android.content.Context;
 
+import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
@@ -32,6 +33,8 @@ public interface ApplicationComponent {
     void inject(TriptycHomePresenter presenter);
 
     void inject(DiscoverTabPresenter presenter);
+
+    void inject(DiscoverDeckMapPresenter presenter);
 
     //Exposed to sub-graphs.
     Context context();
