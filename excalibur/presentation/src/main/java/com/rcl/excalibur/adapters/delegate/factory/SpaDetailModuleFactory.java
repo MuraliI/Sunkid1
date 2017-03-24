@@ -43,6 +43,13 @@ class SpaDetailModuleFactory extends DetailModuleFactory {
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
+
+        if (product.getProductLocation() != null) {
+            ArrayList<String[]> arrayListTimes = new ArrayList<>();
+            arrayListTimes.add(new String[]{"Day 1", product.getTimeFrame() });
+            types.add(new StandardTimesViewType("Operating hours", arrayListTimes));
+        }
+
         types.add(new ExpandableDescriptionViewType(product.getProductShortDescription()));
 
         if (product.getStartingFromPrice() != null) {
@@ -54,12 +61,6 @@ class SpaDetailModuleFactory extends DetailModuleFactory {
         //TODO Refactor this so ProductPreferenceUtils can manage all types and return the preferences according to the factory needed.
         if (product.getProductDuration() != null) {
             productPreferencesUtils.addProduct("Sessions from", product.getProductDuration().getDurationInMinutes() + " mins");
-        }
-
-        if (product.getProductLocation() != null) {
-            ArrayList<String[]> arrayListTimes = new ArrayList<>();
-            arrayListTimes.add(new String[]{"Day 1", product.getTimeFrame() });
-            types.add(new StandardTimesViewType("Operating hours", arrayListTimes));
         }
 
         addTitleAndDescriptionTypes(types);
