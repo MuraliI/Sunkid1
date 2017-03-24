@@ -15,7 +15,7 @@ import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
 
 import javax.inject.Inject;
 
-import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOPPING;
+import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOREX;
 
 public class DiscoverItemDetailPresenter implements BasePresenter {
     @Inject GetProductDbUseCase getProductDbUseCase;
@@ -30,8 +30,11 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
         DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
         if (product != null) {
             String productTypeName = product.getProductType().getProductType();
-            if (TYPE_SHOPPING.equals(productTypeName)) {
+            if (!product.isReservationRequired() && product.isScheduable()) {
                 view.showOnlyReservationIcon();
+            }
+            if (TYPE_SHOREX.equals(productTypeName)) {
+                view.hideDeckMapButton();
             }
             moduleFactory = factoryProvider.getFactory(productTypeName);
             if (moduleFactory == null) {

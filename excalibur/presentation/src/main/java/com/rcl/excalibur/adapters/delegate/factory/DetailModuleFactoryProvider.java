@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class DetailModuleFactoryProvider {
     private static final String TYPE_DINING = "DINING";
-    private static final String TYPE_SHOREX = "SHOREX";
+    public static final String TYPE_SHOREX = "SHOREX";
     private static final String TYPE_ACTIVITY = "ACTIVITIES";
     private static final String TYPE_ENTERTAINMENT = "ENTERTAINMENT";
     public static final String TYPE_SHOPPING = "Shopping"; // It doesn't exist in the service definition
