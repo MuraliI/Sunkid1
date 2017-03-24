@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
-import com.rcl.excalibur.mvp.view.TriptychHomechView;
+import com.rcl.excalibur.mvp.view.TriptychHomeView;
 
 public class TriptychHomeActivity extends BaseActivity {
 
@@ -21,6 +21,6 @@ public class TriptychHomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_triptych_home_screen);
 
-        presenter = new TriptychHomePresenter(new TriptychHomechView(this));
+        presenter = new TriptychHomePresenter(new TriptychHomeView(this));
     }
 }

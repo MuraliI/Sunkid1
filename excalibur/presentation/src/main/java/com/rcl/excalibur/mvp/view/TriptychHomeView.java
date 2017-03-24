@@ -18,12 +18,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class TriptychHomechView extends ActivityView<TriptychHomeActivity> {
+public class TriptychHomeView extends ActivityView<TriptychHomeActivity> {
 
     @Bind(R.id.pager_triptych_pager) ViewPager viewPager;
     @Bind(R.id.tab_triptych_tablayout) TriptychTabBarLayout tabBarLayout;
 
-    public TriptychHomechView(TriptychHomeActivity activity) {
+    public TriptychHomeView(TriptychHomeActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
     }
