@@ -3,9 +3,13 @@ package com.rcl.excalibur;
 import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
-import com.rcl.excalibur.internal.di.component.ApplicationComponent;
-import com.rcl.excalibur.internal.di.component.DaggerApplicationComponent;
-import com.rcl.excalibur.internal.di.module.ApplicationModule;
+import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
+import com.rcl.excalibur.internal.di.component.AppComponent;
+import com.rcl.excalibur.internal.di.component.DaggerAppComponent;
+import com.rcl.excalibur.internal.di.component.DaggerProductsComponent;
+import com.rcl.excalibur.internal.di.component.ProductsComponent;
+import com.rcl.excalibur.internal.di.module.AppModule;
+import com.rcl.excalibur.internal.di.module.ProductsServicesModule;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -13,8 +17,8 @@ import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class RCLApp extends Application {
-
-    private ApplicationComponent applicationComponent;
+    private AppComponent appComponent;
+    private ProductsComponent productsComponent;
 
     @Override
     public void onCreate() {
@@ -26,14 +30,15 @@ public class RCLApp extends Application {
         AnalyticsUtils.initializeAnalyticsTool(this.getApplicationContext());
 
         if (BuildConfig.DEBUG) {
+            AndroidDevMetrics.initWith(this);
             Timber.plant(new Timber.DebugTree());
             Timber.d("RCL Timber is: %s", "ON");
         }
     }
 
     private void initializeInjector() {
-        this.applicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
                 .build();
     }
 
@@ -46,8 +51,8 @@ public class RCLApp extends Application {
         );
     }
 
-    public ApplicationComponent getApplicationComponent() {
-        return this.applicationComponent;
+    public AppComponent getAppComponent() {
+        return appComponent;
     }
 
     private void initializeLeakDetection() {
@@ -60,5 +65,19 @@ public class RCLApp extends Application {
     public void onTerminate() {
         super.onTerminate();
         ActiveAndroid.dispose();
+    }
+
+    public void createProductsComponent() {
+        productsComponent = DaggerProductsComponent.builder()
+                .productsServicesModule(new ProductsServicesModule())
+                .build();
+    }
+
+    public ProductsComponent getProductsComponent() {
+        return productsComponent;
+    }
+
+    public void destroyProductsComponent() {
+        productsComponent = null;
     }
 }

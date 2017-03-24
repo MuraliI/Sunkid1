@@ -1,7 +1,7 @@
 package com.rcl.excalibur.domain.service;
 
 
-public interface DiscoverService {
+public interface ProductService {
 
     void getProducts();
 

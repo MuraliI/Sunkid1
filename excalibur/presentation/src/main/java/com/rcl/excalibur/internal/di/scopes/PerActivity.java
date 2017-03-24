@@ -1,4 +1,4 @@
-package com.rcl.excalibur.internal.di;
+package com.rcl.excalibur.internal.di.scopes;
 
 import java.lang.annotation.Retention;
 

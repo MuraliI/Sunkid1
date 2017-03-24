@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.mvp.presenter.PlanListPresenter;
 import com.rcl.excalibur.mvp.view.PlanListView;
 
@@ -38,5 +39,10 @@ public class PlanListActivity extends BaseActivity {
     @OnClick(R.id.plans_header_back_layout)
     public void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();
+    }
+
+    @Override
+    protected void injectActivity(ActivityComponent activityComponent) {
+
     }
 }

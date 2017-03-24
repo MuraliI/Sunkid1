@@ -33,7 +33,7 @@ public class DiscoverTabPresenter implements BasePresenter {
         if (activity == null) {
             return;
         }
-        activity.getApplicationComponent().inject(this);
+        /*activity.getApplicationComponent().inject(this);*/
     }
 
     public void openListScreen(int fragmentToShow) {

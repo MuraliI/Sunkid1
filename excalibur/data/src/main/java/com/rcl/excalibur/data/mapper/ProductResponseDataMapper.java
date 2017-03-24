@@ -37,14 +37,9 @@ import com.rcl.excalibur.domain.SellingPrice;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-@Singleton
 public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductResponse> {
 
-    @Inject
-    ProductResponseDataMapper() {
+    public ProductResponseDataMapper() {
     }
 
     @Override

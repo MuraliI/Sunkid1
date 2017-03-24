@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Product {
-
+    private static final int TIME_LENGTH = 4;
     private long productId;
     private String productCode;
     private ProductType productType;
@@ -192,7 +192,7 @@ public class Product {
     }
 
     private String convertToTime(String time) {
-        if (time.length() == 4) {
+        if (time.length() == TIME_LENGTH) {
             return time.substring(0, 2) + ":" + time.substring(2);
         }
         return "00:00";

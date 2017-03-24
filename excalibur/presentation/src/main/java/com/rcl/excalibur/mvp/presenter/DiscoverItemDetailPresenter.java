@@ -13,12 +13,10 @@ import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
 
-import javax.inject.Inject;
-
 import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOPPING;
 
 public class DiscoverItemDetailPresenter implements BasePresenter {
-    @Inject GetProductDbUseCase getProductDbUseCase;
+    /*@Inject */ GetProductDbUseCase getProductDbUseCase;
     private DiscoverItemDetailView view;
     private DetailModuleFactory moduleFactory;
     private Product product;
@@ -64,7 +62,7 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
         if (activity == null) {
             return;
         }
-        activity.getApplicationComponent().inject(this);
+        /*activity.getApplicationComponent().inject(this);*/
     }
 
     public void onBackClicked() {

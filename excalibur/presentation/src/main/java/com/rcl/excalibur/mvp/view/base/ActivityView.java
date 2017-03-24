@@ -5,21 +5,18 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import com.rcl.excalibur.activity.BaseActivity;
 
 import java.lang.ref.WeakReference;
 
 import io.reactivex.Observer;
-import io.reactivex.disposables.CompositeDisposable;
 
-
-public class ActivityView<T extends AppCompatActivity> {
+public class ActivityView<T extends BaseActivity> {
     protected Observer viewObserver;
     protected Observer adapterObserver;
     private WeakReference<T> activityRef;
-    private CompositeDisposable compositeSubscription;
-
 
     public ActivityView(T activity) {
         activityRef = new WeakReference<>(activity);

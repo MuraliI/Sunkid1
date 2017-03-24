@@ -8,6 +8,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
 import com.rcl.excalibur.deckmap.mvp.view.DiscoverDeckMapView;
+import com.rcl.excalibur.internal.di.component.ActivityComponent;
 
 import butterknife.ButterKnife;
 
@@ -42,5 +43,10 @@ public class DiscoverDeckMapActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
+    }
+
+    @Override
+    protected void injectActivity(ActivityComponent activityComponent) {
+
     }
 }

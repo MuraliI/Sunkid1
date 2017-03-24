@@ -20,7 +20,7 @@ import com.rcl.excalibur.data.entity.ProductEntity;
 import com.rcl.excalibur.data.entity.RestrictionEntity;
 import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
 import com.rcl.excalibur.data.entity.TypeEntity;
-import com.rcl.excalibur.data.mapper.ProductEntityDataMapper;
+import com.rcl.excalibur.data.mapper.BaseDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
@@ -43,22 +43,13 @@ import com.rcl.excalibur.domain.repository.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-@Singleton
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity> implements ProductRepository {
 
-    private final ProductEntityDataMapper productEntityDataMapper;
-
-    @Inject
-    ProductDataRepository(ProductEntityDataMapper productEntityDataMapper) {
-        super(productEntityDataMapper, ProductEntity.class);
-        this.productEntityDataMapper = productEntityDataMapper;
+    public ProductDataRepository(BaseDataMapper baseDataMapper) {
+        super(baseDataMapper, ProductEntity.class);
     }
-
 
     @Override
     public void create(List<Product> products) {
@@ -75,7 +66,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     }
 
     @Override
-    public void create(Product product) {
+    public void create(@NonNull Product product) {
         final ProductEntity entity = new ProductEntity();
         entity.setProductId(product.getProductId());
         entity.setProductClass(product.getProductClass());
@@ -371,7 +362,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     }
 
 
-    public List<Product> getAll(@NonNull final String type) {
+    public List<Product> getAll(@NonNull
+                                final String type) {
         final TypeEntity typeEntity = new Select()
                 .from(TypeEntity.class)
                 .where(eq(TypeEntity.COLUMN_TYPE, type))
@@ -383,6 +375,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
                 .from(ProductEntity.class)
                 .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
                 .execute();
-        return productEntityDataMapper.transform(entities);
+        return baseDataMapper.transform(entities);
     }
 }

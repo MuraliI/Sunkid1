@@ -2,28 +2,25 @@ package com.rcl.excalibur.domain.interactor;
 
 
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.service.DiscoverService;
+import com.rcl.excalibur.domain.service.ProductService;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
 
 
 public class GetProductsUseCase extends UseCase<List<Product>, Void> {
 
-    private final DiscoverService discoverService;
+    private final ProductService productService;
 
-    @Inject
-    GetProductsUseCase(DiscoverService discoverService) {
+    public GetProductsUseCase(ProductService productService) {
         super();
-        this.discoverService = discoverService;
+        this.productService = productService;
     }
 
     @Override
     void buildUseCaseObservable(DisposableObserver<List<Product>> observer, Void aVoid) {
-        discoverService.getProducts();
+        productService.getProducts();
     }
 
 }

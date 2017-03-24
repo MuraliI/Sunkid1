@@ -13,11 +13,9 @@ import com.rcl.excalibur.mvp.view.ProductsListView;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 
 public class DiscoverItemListPresenter implements BasePresenter {
-    @Inject GetProductDbUseCase getProductDbUseCase;
+    /*@Inject */ GetProductDbUseCase getProductDbUseCase;
     private ProductsListView view;
     private int type;
 
@@ -74,7 +72,7 @@ public class DiscoverItemListPresenter implements BasePresenter {
         if (activity == null) {
             return;
         }
-        activity.getApplicationComponent().inject(this);
+        /*activity.getApplicationComponent().inject(this);*/
     }
 
     protected void showCollectionInView(List<Product> products) {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemDetailPresenter;
 import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
 
@@ -47,5 +48,10 @@ public class DiscoverItemDetailActivity extends BaseActivity {
     @OnClick(R.id.btn_deck_map)
     void onDeckMapClicked() {
         presenter.onDeckMapClicked(productId);
+    }
+
+    @Override
+    protected void injectActivity(ActivityComponent activityComponent) {
+
     }
 }
