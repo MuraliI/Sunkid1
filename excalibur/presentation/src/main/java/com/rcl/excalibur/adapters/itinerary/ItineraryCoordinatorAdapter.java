@@ -5,9 +5,12 @@ import android.support.v4.util.SparseArrayCompat;
 import com.rcl.excalibur.adapters.base.BaseCoordinatorAdapter;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
-import com.rcl.excalibur.adapters.delegate.itinerary.SeparatorDelegateAdapter;
+import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.itinerary.GreetingsDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.itinerary.ItineraryProductDelegateAdapter;
+import com.rcl.excalibur.adapters.delegate.itinerary.SeparatorDelegateAdapter;
+
+import java.util.List;
 
 import io.reactivex.Observer;
 
@@ -22,5 +25,21 @@ public class ItineraryCoordinatorAdapter extends BaseCoordinatorAdapter {
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_GREETINGS, new GreetingsDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW, new ItineraryProductDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_CALENDAR_VIEW, new SeparatorDelegateAdapter());
+    }
+
+    public void clearAndAddAll(List<RecyclerViewType> items) {
+        RecyclerViewType greetings = null;
+        for (Object item : this.items) {
+            if (RecyclerViewConstants.VIEW_TYPE_GREETINGS == ((RecyclerViewType) item).getViewType()) {
+                greetings = (RecyclerViewType) item;
+                break;
+            }
+        }
+
+        clearItemsAndNotify();
+        if (greetings != null) {
+            addViewTypeOnceAndNotify(greetings);
+        }
+        addAll(items);
     }
 }
