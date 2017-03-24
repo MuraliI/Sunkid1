@@ -50,7 +50,7 @@
     <string name="hardcoded_time">In 15 min</string>
     <string name="hardcoded_destination_place">ST MARTIN</string>
     <string name="hardcoded_destination_time">in 1:40 hours</string>
-    <string name="hardcoded_detail_activity_location">2nd floor restaurant</string>
+    <string name="hardcoded_detail_activity_location">Location Here</string>
     <string name="hardcoded_activity_title">Sams\'s BBQ Wild House</string>
     <string name="hardcoded_reservation_required">Reservation required</string>
     <string name="hardcoded_age_restriction_title">Ages</string>

@@ -15,8 +15,6 @@ import com.rcl.excalibur.adapters.delegate.PromotionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.StandardTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
-import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
-import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,18 +47,8 @@ class DinningDetailModuleFactory extends DetailModuleFactory {
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
 
-        if (product.getProductLocation() != null) {
-            ArrayList<String[]> arrayListTimes = new ArrayList<>();
-            arrayListTimes.add(new String[]{"Day 1", product.getTimeFrame() });
-            types.add(new StandardTimesViewType("Operating hours", arrayListTimes));
-        }
-
-        if (product.getStartingFromPrice() != null) {
-            types.add(new PricesFromViewType(product.getStartingFromPrice().getAdultPrice() + "",
-                    product.getStartingFromPrice().getChildPrice() + ""));
-        }
         addTitleAndDescriptionTypes(types);
-        types.add(new ExpandableDescriptionViewType(product.getProductShortDescription()));
+        types.add(new ExpandableDescriptionViewType(product.getProductLongDescription()));
         return types;
     }
 }
