@@ -55,7 +55,9 @@ class ActivityDetailModuleFactory extends DetailModuleFactory {
         if (product.getRestrictions() != null && product.getRestrictions().size() > 0) {
             productPreferencesUtils.addProduct("Guests should be", product.getRestrictions().get(0).getRestrictionDisplayText());
         }
-        productPreferencesUtils.addProduct("Duration", product.getProductDuration().getDurationInMinutes() + " mins");
+        if (product.getProductDuration() != null) {
+            productPreferencesUtils.addProduct("Duration", product.getProductDuration().getDurationInMinutes() + " mins");
+        }
 
         product.setPreferences(productPreferencesUtils.getProperties());
         addTitleAndDescriptionTypes(types);

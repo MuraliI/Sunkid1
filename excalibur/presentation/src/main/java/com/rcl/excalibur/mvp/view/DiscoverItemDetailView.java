@@ -45,7 +45,7 @@ public class DiscoverItemDetailView extends ActivityView<DiscoverItemDetailActiv
 
     public void setHeroImage(String url) {
         if (getActivity() != null) {
-            Picasso.with(getActivity()).load(url).into(heroImage);
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.thumb).into(heroImage);
         }
     }
 

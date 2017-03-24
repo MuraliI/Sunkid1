@@ -61,6 +61,7 @@ public class PopupLayout extends RelativeLayout {
         if (!mediaItems.isEmpty()) {
             Picasso.with(getContext())
                     .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
+                    .placeholder(R.drawable.thumb)
                     .into(productImage);
         }
     }

@@ -50,6 +50,7 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
         if (!mediaItems.isEmpty()) {
             Picasso.with(context)
                     .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
+                    .placeholder(R.drawable.thumb)
                     .into(holder.imageView);
         }
 
