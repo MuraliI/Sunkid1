@@ -69,34 +69,34 @@ dependencies {
     compile project(':domain')
     compile project(':data')
     apt presentationDependencies.daggerCompiler
-    compile presentationDependencies.dagger
-    compile presentationDependencies.butterKnife
-    compile presentationDependencies.recyclerView
-    compile presentationDependencies.activeAndroid
-    compile presentationDependencies.appSupport
-    compile presentationDependencies.rxAndroid
-    compile presentationDependencies.picasso
-    compile presentationDependencies.cardView
-    compile presentationDependencies.calligraphy
-    compile presentationDependencies.appcompat
-    compile generalDependencies.timber
-    compile presentationDependencies.supportDesign
-    compile presentationDependencies.realTimeBlurView
-    compile presentationDependencies.scaleImageView
+
+    compile presentationDependencies.dagger,
+            presentationDependencies.butterKnife,
+            presentationDependencies.recyclerView,
+            presentationDependencies.activeAndroid,
+            presentationDependencies.appSupport,
+            presentationDependencies.rxAndroid,
+            presentationDependencies.picasso,
+            presentationDependencies.cardView,
+            presentationDependencies.calligraphy,
+            presentationDependencies.appcompat,
+            generalDependencies.timber,
+            presentationDependencies.supportDesign,
+            presentationDependencies.realTimeBlurView,
+            presentationDependencies.scaleImageView
 
     testCompile presentationTestDependencies.junit,
-                presentationTestDependencies.mockito,
-                presentationTestDependencies.assertj,
-                presentationTestDependencies.powermockCore,
-                presentationTestDependencies.powermockModuleJunit4,
-                presentationTestDependencies.powermockApiMockitoV
-
-
-    androidTestCompile  presentationTestDependencies.mockito,
-                        presentationTestDependencies.dexmaker,
-                        presentationTestDependencies.dexmakerMockito,
-                        presentationTestDependencies.espresso,
-                        presentationTestDependencies.testingSupportLib
+            presentationTestDependencies.mockito,
+            presentationTestDependencies.assertj,
+            presentationTestDependencies.powermockCore,
+            presentationTestDependencies.powermockModuleJunit4,
+            presentationTestDependencies.powermockApiMockitoV
+    
+    androidTestCompile presentationTestDependencies.mockito,
+            presentationTestDependencies.dexmaker,
+            presentationTestDependencies.dexmakerMockito,
+            presentationTestDependencies.espresso,
+            presentationTestDependencies.testingSupportLib
 
     //Development
     compile developmentDependencies.leakCanary,
@@ -116,7 +116,6 @@ task checkstyle(type: Checkstyle) {
     configProperties configProps
 
     classpath = files()
-
 }
 
 preBuild.dependsOn('checkstyle')
