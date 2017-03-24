@@ -192,7 +192,6 @@ public class Product {
     }
 
     private String convertToTime(String time) {
-        price
         if (time.length() == 4) {
             return time.substring(0, 2) + ":" + time.substring(2);
         }

@@ -3,6 +3,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider;
@@ -47,7 +48,7 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
         AppCompatActivity activity = view.getActivity();
         if (activity != null) {
             view.setDetailTitle(product.getProductTitle());
-            view.setHeroImage(product.getProductMedia().getMediaItem().get(0).getMediaRefLink());
+            view.setHeroImage(BuildConfig.PREFIX_IMAGE + product.getProductMedia().getMediaItem().get(0).getMediaRefLink());
             view.setAdapterObserver(new DetailAdapterObserver(this));
             if (moduleFactory != null) {
                 view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(activity.getResources()));

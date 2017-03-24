@@ -39,7 +39,12 @@ public class BaseCoordinatorAdapter<VH extends RecyclerView.ViewHolder> extends 
     @Override
     public void onBindViewHolder(VH holder, int position) {
         RecyclerViewType viewType = items.get(position);
-        delegateAdapters.get(viewType.getViewType()).onBindViewHolder(holder, viewType);
+        DelegateAdapter<VH, RecyclerViewType> delegateAdapter = delegateAdapters.get(viewType.getViewType());
+        if (delegateAdapter == null) {
+            throw new RuntimeException("No delegate adapter for " + viewType.getViewType());
+        } else {
+            delegateAdapter.onBindViewHolder(holder, viewType);
+        }
     }
 
     @Override

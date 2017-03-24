@@ -13,7 +13,7 @@ import com.rcl.excalibur.domain.ProductPreference;
 import java.util.List;
 
 public abstract class DetailModuleFactory {
-    private Product product;
+    public Product product;
 
     public void setProduct(Product product) {
         this.product = product;
