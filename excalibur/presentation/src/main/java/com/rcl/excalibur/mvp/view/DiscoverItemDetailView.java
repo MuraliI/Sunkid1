@@ -2,7 +2,6 @@ package com.rcl.excalibur.mvp.view;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.util.SparseArrayCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
