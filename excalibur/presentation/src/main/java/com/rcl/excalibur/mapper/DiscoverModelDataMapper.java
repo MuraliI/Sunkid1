@@ -7,9 +7,6 @@ import com.rcl.excalibur.model.DiscoverItemModel;
 
 public class DiscoverModelDataMapper extends BaseModelDataMapper<DiscoverItem, DiscoverItemModel> {
 
-    public DiscoverModelDataMapper() {
-    }
-
     @NonNull
     @Override
     public DiscoverItemModel transform(DiscoverItem discoverItem) {

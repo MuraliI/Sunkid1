@@ -1,6 +1,8 @@
 package com.rcl.excalibur.data.repository;
 
 
+import android.support.annotation.NonNull;
+
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.DiscoverItemEntity;
 import com.rcl.excalibur.data.mapper.DiscoverEntityDataMapper;
@@ -10,20 +12,12 @@ import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-@Singleton
 public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem, DiscoverItemEntity> implements DiscoverItemRepository {
 
-    private final DiscoverEntityDataMapper discoverEntityDataMapper;
-
-    @Inject
-    DiscoverItemDataRepository(DiscoverEntityDataMapper discoverEntityDataMapper) {
+    public DiscoverItemDataRepository(DiscoverEntityDataMapper discoverEntityDataMapper) {
         super(discoverEntityDataMapper, DiscoverItemEntity.class);
-        this.discoverEntityDataMapper = discoverEntityDataMapper;
     }
 
     @Override
@@ -41,7 +35,7 @@ public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem,
                 .from(DiscoverItemEntity.class)
                 .where(eq(DiscoverItemEntity.COLUMN_TYPE, type))
                 .execute();
-        return discoverEntityDataMapper.transform(entities);
+        return baseDataMapper.transform(entities);
 
     }
 
@@ -56,7 +50,7 @@ public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem,
     }
 
     @Override
-    public void create(DiscoverItem promotion) {
-
+    public void create(@NonNull DiscoverItem promotion) {
+        throw new RuntimeException("Operation not supported");
     }
 }

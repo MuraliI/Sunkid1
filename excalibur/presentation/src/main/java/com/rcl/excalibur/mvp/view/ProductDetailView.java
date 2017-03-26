@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
+import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DetailViewCoordinatorAdapter;
@@ -26,7 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class DiscoverItemDetailView extends ActivityView<DiscoverItemDetailActivity> {
+public class ProductDetailView extends ActivityView<ProductDetailActivity> {
 
     @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
     @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
@@ -37,7 +37,7 @@ public class DiscoverItemDetailView extends ActivityView<DiscoverItemDetailActiv
 
     private DetailViewCoordinatorAdapter adapter;
 
-    public DiscoverItemDetailView(DiscoverItemDetailActivity activity) {
+    public ProductDetailView(ProductDetailActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
         activity.setSupportActionBar(detailToolbar);

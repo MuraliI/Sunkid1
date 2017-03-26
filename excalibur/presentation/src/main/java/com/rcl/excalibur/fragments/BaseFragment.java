@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.RCLApp;
-import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.internal.di.component.FragmentComponent;
 import com.rcl.excalibur.internal.di.module.FragmentModule;
 import com.rcl.excalibur.mvp.presenter.FragmentPresenter;
@@ -42,13 +41,13 @@ public abstract class BaseFragment<P extends FragmentPresenter> extends Fragment
 
     @CallSuper
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         destroyFragmentComponent();
     }
 
     protected void createFragmentComponent() {
-        fragmentComponent = ((BaseActivity) getActivity()).getAppComponent().plus(new FragmentModule(this));
+        fragmentComponent = ((RCLApp) getActivity().getApplication()).getAppComponent().plus(new FragmentModule(this));
     }
 
     protected void destroyFragmentComponent() {

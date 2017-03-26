@@ -1,4 +1,4 @@
-package com.rcl.excalibur.internal.di.module.products.lists;
+package com.rcl.excalibur.internal.di.module.products;
 
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.fragments.BaseFragment;

@@ -1,6 +1,6 @@
 package com.rcl.excalibur.internal.di.module.products;
 
-import com.rcl.excalibur.activity.ProductsBaseActivity;
+import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
 import com.rcl.excalibur.internal.di.scopes.product.ProductsActivityScope;
@@ -13,19 +13,19 @@ import dagger.Provides;
 @ProductsActivityScope
 @Module
 public class ProductsActivityModule {
-    private ProductsBaseActivity activity;
+    private BaseActivity activity;
 
-    public ProductsActivityModule(ProductsBaseActivity activity) {
+    public ProductsActivityModule(BaseActivity activity) {
         this.activity = activity;
     }
 
     @Provides
-    ProductsBaseActivity providesBaseActivity() {
+    BaseActivity providesBaseActivity() {
         return activity;
     }
 
     @Provides
-    TriptychHomeView providesTriptychHomeView(ProductsBaseActivity activity) {
+    TriptychHomeView providesTriptychHomeView(BaseActivity activity) {
         return new TriptychHomeView(((TriptychHomeActivity) activity));
     }
 

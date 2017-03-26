@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
+import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
@@ -81,7 +81,7 @@ public class ProductsListPresenter implements FragmentPresenter {
         public void onNext(Product value) {
             BaseActivity activity = view.getActivity();
             if (activity != null) {
-                activity.startActivity(DiscoverItemDetailActivity.getIntent(activity, value.getProductId()));
+                activity.startActivity(ProductDetailActivity.getIntent(activity, value.getProductId()));
             }
         }
     }

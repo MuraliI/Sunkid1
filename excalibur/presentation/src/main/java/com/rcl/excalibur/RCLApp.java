@@ -7,11 +7,13 @@ import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.rcl.excalibur.fragments.BaseFragment;
 import com.rcl.excalibur.internal.di.component.AppComponent;
 import com.rcl.excalibur.internal.di.component.DaggerAppComponent;
+import com.rcl.excalibur.internal.di.component.products.ProductDetailComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsListComponent;
 import com.rcl.excalibur.internal.di.module.AppModule;
+import com.rcl.excalibur.internal.di.module.products.ProductDetailModule;
+import com.rcl.excalibur.internal.di.module.products.ProductsListModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsServicesModule;
-import com.rcl.excalibur.internal.di.module.products.lists.ProductsListModule;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -22,6 +24,7 @@ public class RCLApp extends Application {
     private AppComponent appComponent;
     private ProductsComponent productsComponent;
     private ProductsListComponent productsListComponent;
+    private ProductDetailComponent productDetailComponent;
 
     @Override
     public void onCreate() {
@@ -92,5 +95,17 @@ public class RCLApp extends Application {
 
     public void destroyProductsListComponent() {
         productsListComponent = null;
+    }
+
+    public void createProductDetailComponent(long productId) {
+        productDetailComponent = productsListComponent.plus(new ProductDetailModule(productId));
+    }
+
+    public ProductDetailComponent getProductDetailComponent() {
+        return productDetailComponent;
+    }
+
+    public void destroyProductDetailComponent() {
+        productDetailComponent = null;
     }
 }

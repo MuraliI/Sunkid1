@@ -11,19 +11,24 @@ import com.rcl.excalibur.deckmap.activity.DiscoverDeckMapActivity;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.model.DiscoverItemModel;
-import com.rcl.excalibur.mvp.view.DiscoverItemDetailView;
+import com.rcl.excalibur.mvp.view.ProductDetailView;
 
 import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOPPING;
 
-public class DiscoverItemDetailPresenter implements BasePresenter {
-    /*@Inject */ GetProductDbUseCase getProductDbUseCase;
-    private DiscoverItemDetailView view;
+public class ProductDetailPresenter implements ActivityPresenter {
+    private GetProductDbUseCase getProductDbUseCase;
+    private ProductDetailView view;
     private DetailModuleFactory moduleFactory;
+    private long productId;
     private Product product;
 
-    public DiscoverItemDetailPresenter(DiscoverItemDetailView view, long productId) {
+    public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
-        initInjection();
+        this.productId = productId;
+        this.getProductDbUseCase = getProductDbUseCase;
+    }
+
+    public void init() {
         product = getProductDbUseCase.get(productId);
         DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
         if (product != null) {
@@ -57,14 +62,6 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
         }
     }
 
-    private void initInjection() {
-        final BaseActivity activity = view.getActivity();
-        if (activity == null) {
-            return;
-        }
-        /*activity.getApplicationComponent().inject(this);*/
-    }
-
     public void onBackClicked() {
         if (view.getActivity() != null) {
             view.getActivity().finish();
@@ -79,9 +76,9 @@ public class DiscoverItemDetailPresenter implements BasePresenter {
     }
 
 
-    private class DetailAdapterObserver extends DefaultPresentObserver<DiscoverItemModel, DiscoverItemDetailPresenter> {
+    private class DetailAdapterObserver extends DefaultPresentObserver<DiscoverItemModel, ProductDetailPresenter> {
 
-        DetailAdapterObserver(DiscoverItemDetailPresenter presenter) {
+        DetailAdapterObserver(ProductDetailPresenter presenter) {
             super(presenter);
         }
 
