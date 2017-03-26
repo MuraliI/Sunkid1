@@ -1,10 +1,9 @@
-package com.rcl.excalibur.internal.di.module;
+package com.rcl.excalibur.internal.di.module.products;
 
-import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductsBaseActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
-import com.rcl.excalibur.internal.di.scopes.ProductsActivityScope;
+import com.rcl.excalibur.internal.di.scopes.product.ProductsActivityScope;
 import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
 
@@ -21,12 +20,12 @@ public class ProductsActivityModule {
     }
 
     @Provides
-    BaseActivity providesBaseActivity() {
+    ProductsBaseActivity providesBaseActivity() {
         return activity;
     }
 
     @Provides
-    TriptychHomeView providesTriptychHomeView(BaseActivity activity) {
+    TriptychHomeView providesTriptychHomeView(ProductsBaseActivity activity) {
         return new TriptychHomeView(((TriptychHomeActivity) activity));
     }
 

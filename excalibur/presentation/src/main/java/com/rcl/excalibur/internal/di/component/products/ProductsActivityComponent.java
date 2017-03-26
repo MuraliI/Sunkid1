@@ -1,8 +1,8 @@
-package com.rcl.excalibur.internal.di.component;
+package com.rcl.excalibur.internal.di.component.products;
 
 import com.rcl.excalibur.activity.TriptychHomeActivity;
-import com.rcl.excalibur.internal.di.module.ProductsActivityModule;
-import com.rcl.excalibur.internal.di.scopes.ProductsActivityScope;
+import com.rcl.excalibur.internal.di.module.products.ProductsActivityModule;
+import com.rcl.excalibur.internal.di.scopes.product.ProductsActivityScope;
 
 import dagger.Subcomponent;
 

@@ -4,12 +4,14 @@ import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
+import com.rcl.excalibur.fragments.BaseFragment;
 import com.rcl.excalibur.internal.di.component.AppComponent;
 import com.rcl.excalibur.internal.di.component.DaggerAppComponent;
-import com.rcl.excalibur.internal.di.component.DaggerProductsComponent;
-import com.rcl.excalibur.internal.di.component.ProductsComponent;
+import com.rcl.excalibur.internal.di.component.products.ProductsComponent;
+import com.rcl.excalibur.internal.di.component.products.ProductsListComponent;
 import com.rcl.excalibur.internal.di.module.AppModule;
-import com.rcl.excalibur.internal.di.module.ProductsServicesModule;
+import com.rcl.excalibur.internal.di.module.products.ProductsServicesModule;
+import com.rcl.excalibur.internal.di.module.products.lists.ProductsListModule;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -19,6 +21,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class RCLApp extends Application {
     private AppComponent appComponent;
     private ProductsComponent productsComponent;
+    private ProductsListComponent productsListComponent;
 
     @Override
     public void onCreate() {
@@ -68,9 +71,7 @@ public class RCLApp extends Application {
     }
 
     public void createProductsComponent() {
-        productsComponent = DaggerProductsComponent.builder()
-                .productsServicesModule(new ProductsServicesModule())
-                .build();
+        productsComponent = appComponent.plus(new ProductsServicesModule());
     }
 
     public ProductsComponent getProductsComponent() {
@@ -79,5 +80,17 @@ public class RCLApp extends Application {
 
     public void destroyProductsComponent() {
         productsComponent = null;
+    }
+
+    public void createProductListComponent(int productType, BaseFragment fragment) {
+        productsListComponent = productsComponent.plus(new ProductsListModule(productType, fragment));
+    }
+
+    public ProductsListComponent getProductsListComponent() {
+        return productsListComponent;
+    }
+
+    public void destroyProductsListComponent() {
+        productsListComponent = null;
     }
 }

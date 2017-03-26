@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 public class DiscoverPresenterTest {
 
     private static final int TYPE = 0;
-    DiscoverItemListPresenter presenter;
+    ProductsListPresenter presenter;
     @Mock ProductsListView view;
     @Mock BaseActivity activity;
     /*@Mock ApplicationComponent applicationComponent;*/
@@ -33,8 +33,8 @@ public class DiscoverPresenterTest {
 //
 //        when(view.getActivity()).thenReturn(activity);
 //        when(activity.getApplicationComponent()).thenReturn(applicationComponent);
-//        doNothing().when(getDiscoverItemBasicList).execute(any(DiscoverItemListPresenter.DiscoverListObserver.class), any(GetDiscoverItemBasicList.Params.class));
-//        presenter = new DiscoverItemListPresenter(TYPE, view);
+//        doNothing().when(getDiscoverItemBasicList).execute(any(ProductsListPresenter.DiscoverListObserver.class), any(GetDiscoverItemBasicList.Params.class));
+//        presenter = new ProductsListPresenter(TYPE, view);
 //        presenter.discoverModelDataMapper = discoverModelDataMapper;
 //        presenter.getDiscoverItemBasicList = getDiscoverItemBasicList;
 //    }
@@ -42,9 +42,9 @@ public class DiscoverPresenterTest {
     @Ignore
     public void init() throws Exception {
         //init()
-        verify(view).setAdapterObserver(any(DiscoverItemListPresenter.AdapterObserver.class));
+        verify(view).setAdapterObserver(any(ProductsListPresenter.AdapterObserver.class));
         verify(view).init();
-//        verify(getDiscoverItemBasicList).execute(any(DiscoverItemListPresenter.DiscoverListObserver.class), any(GetDiscoverItemBasicList.Params.class));
+//        verify(getDiscoverItemBasicList).execute(any(ProductsListPresenter.DiscoverListObserver.class), any(GetDiscoverItemBasicList.Params.class));
         //initInjection()
         /*verify(applicationComponent).inject(presenter);*/
     }
@@ -59,12 +59,12 @@ public class DiscoverPresenterTest {
         when(activity.getString(R.string.category_dining)).thenReturn("Dining");
         when(activity.getString(R.string.category_shopping)).thenReturn("Shopping");
 
-        /*Assert.assertEquals("Activities", presenter.getType(activity, DiscoverItemListFragment.ROYAL_ACTIVITY));
-        Assert.assertEquals("Ent", presenter.getType(activity, DiscoverItemListFragment.ENTERTAINMENT));
-        Assert.assertEquals("Shorex", presenter.getType(activity, DiscoverItemListFragment.SHOREX));
-        Assert.assertEquals("Spa", presenter.getType(activity, DiscoverItemListFragment.SPA));
-        Assert.assertEquals("Dining", presenter.getType(activity, DiscoverItemListFragment.DINING));
-        Assert.assertEquals("Shopping", presenter.getType(activity, DiscoverItemListFragment.SHOPPING));*/
+        /*Assert.assertEquals("Activities", presenter.getType(activity, ProductsListFragment.ROYAL_ACTIVITY));
+        Assert.assertEquals("Ent", presenter.getType(activity, ProductsListFragment.ENTERTAINMENT));
+        Assert.assertEquals("Shorex", presenter.getType(activity, ProductsListFragment.SHOREX));
+        Assert.assertEquals("Spa", presenter.getType(activity, ProductsListFragment.SPA));
+        Assert.assertEquals("Dining", presenter.getType(activity, ProductsListFragment.DINING));
+        Assert.assertEquals("Shopping", presenter.getType(activity, ProductsListFragment.SHOPPING));*/
     }
 
     @Ignore

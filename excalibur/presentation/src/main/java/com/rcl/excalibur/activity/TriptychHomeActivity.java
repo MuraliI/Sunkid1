@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.internal.di.component.ProductsActivityComponent;
+import com.rcl.excalibur.internal.di.component.products.ProductsActivityComponent;
 import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
 
 public class TriptychHomeActivity extends ProductsBaseActivity<TriptychHomePresenter> {

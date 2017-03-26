@@ -30,7 +30,7 @@ public abstract class BaseActivity<P extends ActivityPresenter> extends AppCompa
         injectActivity(activityComponent);
     }
 
-    protected AppComponent getAppComponent() {
+    public AppComponent getAppComponent() {
         return ((RCLApp) getApplication()).getAppComponent();
     }
 

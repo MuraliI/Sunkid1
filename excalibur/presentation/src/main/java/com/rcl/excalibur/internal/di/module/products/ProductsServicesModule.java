@@ -1,4 +1,4 @@
-package com.rcl.excalibur.internal.di.module;
+package com.rcl.excalibur.internal.di.module.products;
 
 import com.rcl.excalibur.data.entity.ProductEntity;
 import com.rcl.excalibur.data.mapper.BaseDataMapper;
@@ -11,7 +11,7 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.ProductService;
-import com.rcl.excalibur.internal.di.scopes.ProductsScope;
+import com.rcl.excalibur.internal.di.scopes.product.ProductsScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,8 +26,8 @@ public class ProductsServicesModule {
     }
 
     @Provides
-    ProductRepository providesProductRepository(BaseDataMapper<Product, ProductEntity> baseDataMapper) {
-        return new ProductDataRepository(baseDataMapper);
+    ProductRepository providesProductRepository(BaseDataMapper<Product, ProductEntity> mapper) {
+        return new ProductDataRepository(mapper);
     }
 
     @Provides

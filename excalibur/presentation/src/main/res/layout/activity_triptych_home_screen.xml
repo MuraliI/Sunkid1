@@ -19,12 +19,14 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/tab_plans"/>
+            android:src="@drawable/tab_plans"
+            android:contentDescription="@null" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/tab_discover"/>
+            android:src="@drawable/tab_discover"
+            android:contentDescription="@null" />
 
     </com.rcl.excalibur.custom.view.TriptychTabBarLayout>
 

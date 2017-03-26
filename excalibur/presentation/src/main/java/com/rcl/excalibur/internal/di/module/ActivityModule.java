@@ -2,14 +2,14 @@ package com.rcl.excalibur.internal.di.module;
 
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.HomeActivity;
-import com.rcl.excalibur.internal.di.scopes.PerActivity;
+import com.rcl.excalibur.internal.di.scopes.ActivityScope;
 import com.rcl.excalibur.mvp.presenter.HomePresenter;
 import com.rcl.excalibur.mvp.view.HomeView;
 
 import dagger.Module;
 import dagger.Provides;
 
-@PerActivity
+@ActivityScope
 @Module
 public class ActivityModule {
     private final BaseActivity activity;

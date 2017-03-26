@@ -13,13 +13,13 @@ import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
-import static com.rcl.excalibur.fragments.DiscoverItemListFragment.DINING;
-import static com.rcl.excalibur.fragments.DiscoverItemListFragment.ENTERTAINMENT;
-import static com.rcl.excalibur.fragments.DiscoverItemListFragment.ROYAL_ACTIVITY;
-import static com.rcl.excalibur.fragments.DiscoverItemListFragment.SHOPPING;
-import static com.rcl.excalibur.fragments.DiscoverItemListFragment.SHOREX;
-import static com.rcl.excalibur.fragments.DiscoverItemListFragment.SPA;
-import static com.rcl.excalibur.fragments.DiscoverItemListFragment.newInstance;
+import static com.rcl.excalibur.fragments.ProductsListFragment.DINING;
+import static com.rcl.excalibur.fragments.ProductsListFragment.ENTERTAINMENT;
+import static com.rcl.excalibur.fragments.ProductsListFragment.ROYAL_ACTIVITY;
+import static com.rcl.excalibur.fragments.ProductsListFragment.SHOPPING;
+import static com.rcl.excalibur.fragments.ProductsListFragment.SHOREX;
+import static com.rcl.excalibur.fragments.ProductsListFragment.SPA;
+import static com.rcl.excalibur.fragments.ProductsListFragment.newInstance;
 
 public class PlanListPresenter implements BasePresenter {
     public static final int POSITION_ROYAL_ACTIVITY = 0;

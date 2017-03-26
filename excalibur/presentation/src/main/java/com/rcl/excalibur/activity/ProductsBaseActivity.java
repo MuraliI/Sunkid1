@@ -2,8 +2,8 @@ package com.rcl.excalibur.activity;
 
 import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
-import com.rcl.excalibur.internal.di.component.ProductsActivityComponent;
-import com.rcl.excalibur.internal.di.module.ProductsActivityModule;
+import com.rcl.excalibur.internal.di.component.products.ProductsActivityComponent;
+import com.rcl.excalibur.internal.di.module.products.ProductsActivityModule;
 import com.rcl.excalibur.mvp.presenter.ProductsActivityPresenter;
 
 public abstract class ProductsBaseActivity<P extends ProductsActivityPresenter> extends BaseActivity<P> {
