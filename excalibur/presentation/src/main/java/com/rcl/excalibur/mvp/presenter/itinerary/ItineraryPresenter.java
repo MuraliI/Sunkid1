@@ -77,7 +77,7 @@ public class ItineraryPresenter implements BasePresenter {
 
         for (int i = 0; i < products.size(); i++) {
             ItineraryProductModel productModel = products.get(i);
-            RecyclerViewType separator = i != 0 ? new SeparatorModel() : null;
+            RecyclerViewType separator = null;
             switch (productModel.getState()) {
                 case STATE_ON_GOING:
 
@@ -97,6 +97,11 @@ public class ItineraryPresenter implements BasePresenter {
 
                     break;
                 default:
+
+                    if (i != 0) {
+                        separator = new SeparatorModel();
+                    }
+
                     break;
             }
 
