@@ -6,13 +6,13 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.rcl.excalibur.utils.Preconditions;
 
-import static com.rcl.excalibur.fragments.DiscoverFragment.DINING;
-import static com.rcl.excalibur.fragments.DiscoverFragment.ENTERTAINMENT;
-import static com.rcl.excalibur.fragments.DiscoverFragment.ROYAL_ACTIVITY;
-import static com.rcl.excalibur.fragments.DiscoverFragment.SHOPPING;
-import static com.rcl.excalibur.fragments.DiscoverFragment.SHOREX;
-import static com.rcl.excalibur.fragments.DiscoverFragment.SPA;
-import static com.rcl.excalibur.fragments.DiscoverFragment.newInstance;
+import static com.rcl.excalibur.fragments.DiscoverItemListFragment.DINING;
+import static com.rcl.excalibur.fragments.DiscoverItemListFragment.ENTERTAINMENT;
+import static com.rcl.excalibur.fragments.DiscoverItemListFragment.ROYAL_ACTIVITY;
+import static com.rcl.excalibur.fragments.DiscoverItemListFragment.SHOPPING;
+import static com.rcl.excalibur.fragments.DiscoverItemListFragment.SHOREX;
+import static com.rcl.excalibur.fragments.DiscoverItemListFragment.SPA;
+import static com.rcl.excalibur.fragments.DiscoverItemListFragment.newInstance;
 
 
 public class PlanListAdapter extends FragmentStatePagerAdapter {
@@ -53,5 +53,4 @@ public class PlanListAdapter extends FragmentStatePagerAdapter {
                 return null;
         }
     }
-
 }

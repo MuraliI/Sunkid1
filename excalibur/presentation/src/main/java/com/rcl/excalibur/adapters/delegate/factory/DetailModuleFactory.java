@@ -7,16 +7,16 @@ import android.support.v4.util.SparseArrayCompat;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
-import com.rcl.excalibur.model.DiscoverItemModel;
+import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductPreference;
 
 import java.util.List;
-import java.util.Map;
 
 public abstract class DetailModuleFactory {
-    DiscoverItemModel itemModel;
+    public Product product;
 
-    public void setItemModel(DiscoverItemModel itemModel) {
-        this.itemModel = itemModel;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public abstract SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray();
@@ -25,10 +25,11 @@ public abstract class DetailModuleFactory {
 
     void addTitleAndDescriptionTypes(List<RecyclerViewType> recyclerViewTypeList) {
         // Title and description modules
-        if (itemModel.getProperties() != null && itemModel.getProperties().size() > 0) {
-            Map<String, String> properties = itemModel.getProperties();
-            for (Map.Entry<String, String> entry : properties.entrySet()) {
-                recyclerViewTypeList.add(new TitleAndDescriptionViewType(entry.getKey(), entry.getValue()));
+        if (product.getPreferences() != null && product.getPreferences().size() > 0) {
+            List<ProductPreference> properties = product.getPreferences();
+            for (ProductPreference productPreference : properties) {
+                recyclerViewTypeList.add(new TitleAndDescriptionViewType(productPreference.getPreferenceName(),
+                        productPreference.getPreferenceType()));
             }
         }
     }

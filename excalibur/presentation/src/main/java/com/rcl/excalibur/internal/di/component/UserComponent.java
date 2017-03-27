@@ -1,10 +1,13 @@
 package com.rcl.excalibur.internal.di.component;
 
 
+import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
 import com.rcl.excalibur.internal.di.PerActivity;
 import com.rcl.excalibur.internal.di.module.UserModule;
-import com.rcl.excalibur.mvp.presenter.DiscoverPresenter;
-import com.rcl.excalibur.mvp.presenter.LoadFromDBPresenter;
+import com.rcl.excalibur.mvp.presenter.DiscoverItemDetailPresenter;
+import com.rcl.excalibur.mvp.presenter.DiscoverItemListPresenter;
+import com.rcl.excalibur.mvp.presenter.HomePresenter;
+import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
 
 import dagger.Component;
 
@@ -12,9 +15,15 @@ import dagger.Component;
  * Injects user specific Fragments.
  */
 @PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = { UserModule.class })
+@Component(dependencies = ApplicationComponent.class, modules = {UserModule.class})
 public interface UserComponent {
-    void inject(LoadFromDBPresenter loadFromDBPresenter);
+    void inject(DiscoverItemListPresenter discoverItemListPresenter);
 
-    void inject(DiscoverPresenter discoverPresenter);
+    void inject(DiscoverItemDetailPresenter discoverItemDetailPresenter);
+
+    void inject(HomePresenter presenter);
+
+    void inject(TriptychHomePresenter presenter);
+
+    void inject(DiscoverDeckMapPresenter presenter);
 }

@@ -19,4 +19,11 @@ public final class StringUtils {
             return Html.fromHtml(htmlFormattedString);
         }
     }
+
+    public static String getPriceFormated(float price) {
+        if (price - (int) price > 0) {
+            return Float.toString(price);
+        }
+        return Integer.toString((int) price);
+    }
 }

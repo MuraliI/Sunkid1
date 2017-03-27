@@ -2,7 +2,7 @@ package com.rcl.excalibur.data.utils;
 
 public final class DBUtil {
 
-    private static final String COL_ID = "Id";
+    public static final String COL_ID = "Id";
 
     private DBUtil() {
     }
@@ -21,7 +21,8 @@ public final class DBUtil {
         return builder.toString();
     }
 
-    private static String checkValue(final String value) {
+    protected static String checkValue(final String value) {
+        //Not use TextUtils.isEmpty for this case. The test crash
         if (value == null || value.isEmpty()) {
             throw new IllegalArgumentException("Value must be non-null and non-empty.");
         }
@@ -49,6 +50,10 @@ public final class DBUtil {
         return String.format("%s = %s", column, value);
     }
 
+    public static String eq(String column, long value) {
+        return String.format("%s = %s", column, value);
+    }
+
     public static String eq(String column, String value) {
         return String.format("%s = '%s'", column, value);
     }
@@ -57,7 +62,19 @@ public final class DBUtil {
         return String.format("%s = ?", column);
     }
 
-    public static <T> String notEq(String column, T value) {
+    public static String notEq(String column, String value) {
+        return String.format("%s != '%s'", column, value);
+    }
+
+    public static String notEq(String column, int value) {
+        return String.format("%s != %s", column, value);
+    }
+
+    public static String notEq(String column, float value) {
+        return String.format("%s != %s", column, value);
+    }
+
+    public static String notEq(String column, long value) {
         return String.format("%s != %s", column, value);
     }
 

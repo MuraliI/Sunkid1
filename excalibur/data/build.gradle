@@ -19,9 +19,20 @@ android {
         buildConfigField "int", "CORE_POOL_SIZE", "3"
         buildConfigField "int", "MAXIMUM_POOL_SIZE", "5"
         buildConfigField "long", "KEEP_ALIVE_TIME", "10"
+        buildConfigField "int", "READ_TIMEOUT", "60"
+        buildConfigField "int", "CONNECT_TIMEOUT", "60"
 
     }
-
+    buildTypes {
+        release {
+            buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.6.134:8090/v1/"'
+            buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
+        }
+        debug {
+            buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.6.134:8090/v1/"'
+            buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -58,6 +69,8 @@ dependencies {
     compile dataDependencies.rxAndroid
     compile dataDependencies.androidAnnotations
     compile dataDependencies.activeAndroid
+    compile dataDependencies.retrofit
+    compile dataDependencies.retrofitGson
     compile generalDependencies.timber
 
     testCompile testDependencies.junit

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+    <ImageView
+        android:id="@+id/image_boat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/text_title"
+        android:layout_below="@+id/home_header"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_large"
+        android:src="@drawable/boat" />
+
+    <TextView
+        android:id="@+id/text_title"
+        style="@style/AppTheme.DiscoverPageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_bar"
+        android:layout_centerHorizontal="true"
+        android:text="@string/discoverItem" />
+
+    <GridLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/margin_normal"
+        android:columnCount="@integer/discover_grid_columns"
+        android:rowCount="@integer/discover_grid_rows">
+
+        <LinearLayout
+            android:id="@+id/button_dinning"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/margin_small"
+            android:orientation="vertical"
+            android:background="@drawable/background_rounded_white">
+
+            <ImageView
+                android:layout_marginTop="@dimen/ship_button_category_top_margin"
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:src="@drawable/main_button_dining"
+                android:layout_gravity="center"/>
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="@string/dining" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_excursions"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/margin_small"
+            android:orientation="vertical"
+            android:background="@drawable/background_rounded_white">
+
+            <ImageView
+                android:layout_marginTop="@dimen/ship_button_category_top_margin"
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:src="@drawable/main_button_excursion"
+                android:layout_gravity="center"/>
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="@string/shorex" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_spa"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/margin_small"
+            android:orientation="vertical"
+            android:background="@drawable/background_rounded_white">
+
+            <ImageView
+                android:layout_marginTop="@dimen/ship_button_category_top_margin"
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:src="@drawable/main_button_spa"
+                android:layout_gravity="center"/>
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="@string/spa" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_shop"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/margin_small"
+            android:orientation="vertical"
+            android:background="@drawable/background_rounded_white">
+
+            <ImageView
+                android:layout_marginTop="@dimen/ship_button_category_top_margin"
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:src="@drawable/main_button_shopping"
+                android:layout_gravity="center"/>
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/shopping" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_entertainment"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/margin_small"
+            android:orientation="vertical"
+            android:background="@drawable/background_rounded_white">
+
+            <ImageView
+                android:layout_marginTop="@dimen/ship_button_category_top_margin"
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:src="@drawable/main_button_entertainment"
+                android:layout_gravity="center"/>
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:textSize="11sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/entertainment" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_activities"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/margin_small"
+            android:orientation="vertical"
+            android:background="@drawable/background_rounded_white">
+
+            <ImageView
+                android:layout_marginTop="@dimen/ship_button_category_top_margin"
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:src="@drawable/main_button_activity"
+                android:layout_gravity="center"/>
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/royal_activity" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_search"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/margin_small"
+            android:orientation="vertical"
+            android:background="@drawable/background_rounded_blue">
+
+            <ImageView
+                android:layout_marginTop="@dimen/ship_button_category_top_margin"
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:src="@drawable/main_button_search"
+                android:layout_gravity="center"/>
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/search"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </GridLayout>
+
+</RelativeLayout>
+

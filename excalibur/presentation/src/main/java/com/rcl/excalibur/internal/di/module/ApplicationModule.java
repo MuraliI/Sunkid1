@@ -5,12 +5,18 @@ import android.content.Context;
 import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.UIThread;
 import com.rcl.excalibur.data.executor.JobExecutor;
-import com.rcl.excalibur.data.repository.DiscoverDataRepository;
-import com.rcl.excalibur.data.repository.ItemDataRepository;
+import com.rcl.excalibur.data.repository.CategoryDataRepository;
+import com.rcl.excalibur.data.repository.DiscoverItemDataRepository;
+import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.data.service.DiscoverServiceImpl;
+import com.rcl.excalibur.data.service.ItineraryServiceImpl;
 import com.rcl.excalibur.domain.executor.PostExecutionThread;
 import com.rcl.excalibur.domain.executor.ThreadExecutor;
-import com.rcl.excalibur.domain.repository.DiscoverRepository;
-import com.rcl.excalibur.domain.repository.ItemRepository;
+import com.rcl.excalibur.domain.repository.CategoryRepository;
+import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
+import com.rcl.excalibur.domain.repository.ProductRepository;
+import com.rcl.excalibur.domain.service.DiscoverService;
+import com.rcl.excalibur.domain.service.ItineraryService;
 
 import javax.inject.Singleton;
 
@@ -46,16 +52,33 @@ public class ApplicationModule {
         return uiThread;
     }
 
-
     @Provides
     @Singleton
-    ItemRepository provideItemRepository(ItemDataRepository itemDataRepository) {
-        return itemDataRepository;
+    DiscoverItemRepository provideDiscoverRepository(DiscoverItemDataRepository discoverItemDataRepository) {
+        return discoverItemDataRepository;
     }
 
     @Provides
     @Singleton
-    DiscoverRepository provideDiscoverRepository(DiscoverDataRepository discoverDataRepository) {
-        return discoverDataRepository;
+    CategoryRepository provideCategoryRepository(CategoryDataRepository categoryDataRepository) {
+        return categoryDataRepository;
+    }
+
+    @Provides
+    @Singleton
+    ProductRepository provideProductRepository(ProductDataRepository productDataRepository) {
+        return productDataRepository;
+    }
+
+    @Provides
+    @Singleton
+    DiscoverService provideDiscoverService(DiscoverServiceImpl discoverServiceImpl) {
+        return discoverServiceImpl;
+    }
+
+    @Provides
+    @Singleton
+    ItineraryService provideItineraryService(ItineraryServiceImpl itineraryServiceImpl) {
+        return itineraryServiceImpl;
     }
 }
