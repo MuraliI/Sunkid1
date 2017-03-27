@@ -2,11 +2,10 @@ package com.rcl.excalibur.deckmap.mvp.presenter;
 
 
 import android.graphics.PointF;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.deckmap.custom.view.MarkerImageView;
+import com.rcl.excalibur.deckmap.activity.DiscoverDeckMapActivity;
 import com.rcl.excalibur.deckmap.model.ProductDeckMapModel;
 import com.rcl.excalibur.deckmap.mvp.view.DiscoverDeckMapView;
 import com.rcl.excalibur.domain.Product;
@@ -14,7 +13,7 @@ import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 
 import javax.inject.Inject;
 
-public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickListener, DiscoverDeckMapView.OnViewReadyListener {
+public class DiscoverDeckMapPresenter {
     private static final String SPA = "SPA";
     private static final String ENTERTAINMENT = "ENTERTAINMENT";
     private static final String ACTIVITIES = "ACTIVITIES";
@@ -26,7 +25,7 @@ public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickLi
 
     private ProductDeckMapModel productDeckMapModel;
 
-    public DiscoverDeckMapPresenter(DiscoverDeckMapView view, long productId) {
+    public DiscoverDeckMapPresenter(@NonNull DiscoverDeckMapView view, long productId) {
         this.view = view;
 
         initInjection();
@@ -40,6 +39,24 @@ public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickLi
         productDeckMapModel = new ProductDeckMapModel();
         productDeckMapModel.setProduct(product);
         productDeckMapModel.setCoordinate(getCoordinate(product.getProductType().getProductType()));
+    }
+
+    private void initView() {
+        DiscoverDeckMapActivity activity = view.getActivity();
+        if (activity != null) {
+            view.initDeckImage(R.drawable.map_05_fwd);
+            view.initPopupLayout();
+            view.setProductDeckMapModel(productDeckMapModel);
+            view.setOnMarkerClickListener(activity);
+        }
+    }
+
+    private void initInjection() {
+        final DiscoverDeckMapActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        activity.getApplicationComponent().inject(this);
     }
 
     private PointF getCoordinate(String productType) {
@@ -67,40 +84,23 @@ public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickLi
         return productCoord;
     }
 
-    private void initView() {
-        AppCompatActivity activity = view.getActivity();
-        if (activity != null) {
-            view.initDeckImage(R.drawable.map_05_fwd);
-            view.initPopupLayout();
-            view.setProductDeckMapModel(productDeckMapModel);
-            view.setOnMarkerClickListener(this);
-            view.setListener(this);
+    public void moveToCoordinateAndShowPopup() {
+        view.moveToProductCoordinate(productDeckMapModel.getCoordinate());
+        view.showProductOnPopupLayout(productDeckMapModel.getProduct());
+    }
+
+    public void onTouchPopupWindow() {
+        onDismissPopupWindow();
+    }
+
+    public void onDismissPopupWindow() {
+        view.dismissPopupWindow();
+    }
+
+    public void onGlobalLayout() {
+        if (view.isShipImageReady()) {
+            view.removeTreeObserver();
+            moveToCoordinateAndShowPopup();
         }
-    }
-
-    private void initInjection() {
-        final BaseActivity activity = (BaseActivity) view.getActivity();
-        if (activity == null) {
-            return;
-        }
-        activity.getApplicationComponent().inject(this);
-    }
-
-    @Override
-    public void isInsideRegion() {
-        AppCompatActivity activity = view.getActivity();
-        if (activity != null) {
-            view.moveToProductCoordinate(productDeckMapModel.getCoordinate());
-            view.showProductOnPopupLayout(productDeckMapModel.getProduct());
-        }
-    }
-
-    public void onDestroy() {
-        view.onDestroy();
-    }
-
-    @Override
-    public void onViewReady() {
-        isInsideRegion();
     }
 }
