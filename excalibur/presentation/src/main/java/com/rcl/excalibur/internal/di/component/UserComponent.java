@@ -6,7 +6,7 @@ import com.rcl.excalibur.internal.di.module.UserModule;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemDetailPresenter;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemListPresenter;
 import com.rcl.excalibur.mvp.presenter.HomePresenter;
-import com.rcl.excalibur.mvp.presenter.TriptycHomePresenter;
+import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
 
 import dagger.Component;
 
@@ -22,6 +22,6 @@ public interface UserComponent {
 
     void inject(HomePresenter presenter);
 
-    void inject(TriptycHomePresenter presenter);
+    void inject(TriptychHomePresenter presenter);
 
 }
