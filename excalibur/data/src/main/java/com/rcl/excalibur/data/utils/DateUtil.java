@@ -16,11 +16,11 @@ public final class DateUtil {
 
     @Nullable
     public static Date parseDateResponse(String dateStr, String timeStr) {
-        SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT, Locale.US);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.US);
         Date date = null;
         String str = dateStr + timeStr;
         try {
-            date = DATE_FORMATTER.parse(str);
+            date = dateFormatter.parse(str);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -28,7 +28,7 @@ public final class DateUtil {
     }
 
     public static String formatDate(Date date) {
-        SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT, Locale.US);
-        return DATE_FORMATTER.format(date);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.US);
+        return dateFormatter.format(date);
     }
 }
