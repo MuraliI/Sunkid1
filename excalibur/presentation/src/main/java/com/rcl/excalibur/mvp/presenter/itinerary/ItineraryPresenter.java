@@ -105,20 +105,25 @@ public class ItineraryPresenter implements BasePresenter {
 
     private void addCalendarSeparator(List<RecyclerViewType> list, ItineraryProductModel productModel, int position) {
 
-        String separatorLabel = DateUtils.getDateHour(productModel.getStartDate().getTime(),
-                view.getActivity().getResources());
+        if (view.getActivity() != null) {
+            String separatorLabel = DateUtils.getDateHour(productModel.getStartDate().getTime(),
+                    view.getActivity().getResources());
+            separatorLabel = separatorLabel.toLowerCase();
 
-        if (!onGoingIsAdded) {
-            scrollPosition = position + 1;
+            if (!onGoingIsAdded) {
+                scrollPosition = position + 1;
+            }
+            addSeparator(list, separatorLabel);
         }
-        addSeparator(list, separatorLabel);
     }
 
     private void addOnGoingSeparator(List<RecyclerViewType> list, int position) {
-        scrollPosition = position + 1;
-        onGoingIsAdded = true;
-        String label = view.getActivity().getString(R.string.itinerary_separator_title_on_going);
-        addSeparator(list, label);
+        if (view.getActivity() != null) {
+            scrollPosition = position + 1;
+            onGoingIsAdded = true;
+            String label = view.getActivity().getString(R.string.itinerary_separator_title_on_going);
+            addSeparator(list, label);
+        }
     }
 
     private void addSeparator(List<RecyclerViewType> list, String label) {

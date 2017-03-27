@@ -95,7 +95,7 @@
     <string name="itinerary_product_view_colon">:</string>
     <string name="itinerary_product_view_dash">&#8210;</string>
     <string name="itinerary_accessibility_product_image">Item Image</string>
-    <string name="itinerary_separator_title_on_going">On Going</string>
+    <string name="itinerary_separator_title_on_going">On going</string>
 
 
 </resources>
