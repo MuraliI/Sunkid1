@@ -14,12 +14,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="@dimen/margin_normal"
-        android:paddingEnd="@dimen/margin_normal">
+        android:paddingEnd="@dimen/margin_normal"
+        android:weightSum="@integer/itinerary_product_view_total_weight">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/itinerary_product_view_total_weight"
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
