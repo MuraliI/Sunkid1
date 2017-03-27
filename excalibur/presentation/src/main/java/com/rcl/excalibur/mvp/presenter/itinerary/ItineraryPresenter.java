@@ -8,9 +8,9 @@ import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
+import com.rcl.excalibur.model.itinerary.CalendarSeparatorModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
-import com.rcl.excalibur.model.itinerary.CalendarSeparatorModel;
 import com.rcl.excalibur.model.itinerary.SeparatorModel;
 import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
@@ -114,7 +114,11 @@ public class ItineraryPresenter implements BasePresenter {
             String separatorLabel = DateUtils.getDateHour(productModel.getStartDate().getTime(),
                     view.getActivity().getResources());
             separatorLabel = separatorLabel.toLowerCase();
-            return createSeparator(separatorLabel);
+            CalendarSeparatorModel separatorModel = createSeparator(separatorLabel);
+            if (scrollToElement == null) {
+                scrollToElement = separatorModel;
+            }
+            return separatorModel;
         }
         return null;
     }
