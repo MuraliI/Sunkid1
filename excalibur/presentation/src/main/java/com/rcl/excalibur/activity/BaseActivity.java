@@ -70,4 +70,8 @@ public abstract class BaseActivity<P extends ActivityPresenter> extends AppCompa
     }
 
     protected abstract void injectActivity(ActivityComponent activityComponent);
+
+    public ActivityComponent getActivityComponent() {
+        return activityComponent;
+    }
 }

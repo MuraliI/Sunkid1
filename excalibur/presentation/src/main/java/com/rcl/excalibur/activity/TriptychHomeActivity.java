@@ -31,6 +31,10 @@ public class TriptychHomeActivity extends BaseActivity<TriptychHomePresenter> {
         productsActivityComponent = rclApp.getProductsComponent().plus(new ProductsActivityModule(this));
     }
 
+    public ProductsActivityComponent getProductsActivityComponent() {
+        return productsActivityComponent;
+    }
+
     @Override
     protected void destroyComponent() {
         productsActivityComponent = null;

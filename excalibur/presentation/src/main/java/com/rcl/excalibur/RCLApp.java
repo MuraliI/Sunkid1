@@ -12,6 +12,7 @@ import com.rcl.excalibur.internal.di.component.products.ProductsComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsListComponent;
 import com.rcl.excalibur.internal.di.module.AppModule;
 import com.rcl.excalibur.internal.di.module.products.ProductDetailModule;
+import com.rcl.excalibur.internal.di.module.products.ProductsDatabaseModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsListModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsServicesModule;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
@@ -74,7 +75,7 @@ public class RCLApp extends Application {
     }
 
     public void createProductsComponent() {
-        productsComponent = appComponent.plus(new ProductsServicesModule());
+        productsComponent = appComponent.plus(new ProductsServicesModule(), new ProductsDatabaseModule());
     }
 
     public ProductsComponent getProductsComponent() {

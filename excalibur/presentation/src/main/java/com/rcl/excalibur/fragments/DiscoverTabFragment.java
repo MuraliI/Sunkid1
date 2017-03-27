@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.internal.di.component.FragmentComponent;
+import com.rcl.excalibur.internal.di.component.products.ProductsFragmentComponent;
+import com.rcl.excalibur.internal.di.module.products.ProductsFragmentModule;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
 import com.rcl.excalibur.mvp.presenter.PlanListPresenter;
 
@@ -15,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
+    private ProductsFragmentComponent productsFragmentComponent;
 
     public static DiscoverTabFragment newInstance() {
         return new DiscoverTabFragment();
@@ -26,6 +30,16 @@ public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
         View view = inflater.inflate(R.layout.fragment_discover_tab, container, false);
         ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    protected void createFragmentComponent() {
+        productsFragmentComponent = ((TriptychHomeActivity) getActivity()).getProductsActivityComponent().plus(new ProductsFragmentModule(this));
+    }
+
+    @Override
+    protected void destroyFragmentComponent() {
+        productsFragmentComponent = null;
     }
 
     @OnClick(R.id.button_dinning)
@@ -65,6 +79,6 @@ public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
 
     @Override
     protected void inject(FragmentComponent fragmentComponent) {
-        fragmentComponent.inject(this);
+        productsFragmentComponent.inject(this);
     }
 }
