@@ -75,6 +75,10 @@ public class ProductDetailPresenter implements ActivityPresenter {
         }
     }
 
+    @Override
+    public ProductDetailView getView() {
+        return view;
+    }
 
     private class DetailAdapterObserver extends DefaultPresentObserver<DiscoverItemModel, ProductDetailPresenter> {
 

@@ -24,7 +24,7 @@ public class ActivityModule {
     }
 
     @Provides
-    HomeView providesHomeView(BaseActivity activity) {
+    protected HomeView providesHomeView(BaseActivity activity) {
         return new HomeView(((HomeActivity) activity));
     }
 

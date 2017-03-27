@@ -17,4 +17,9 @@ public class TriptychHomePresenter implements ProductsActivityPresenter {
         this.view.init();
         this.getProductsUseCase.execute(null);
     }
+
+    @Override
+    public TriptychHomeView getView() {
+        return view;
+    }
 }

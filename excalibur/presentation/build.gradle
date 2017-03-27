@@ -69,6 +69,7 @@ dependencies {
     compile project(':domain')
     compile project(':data')
     apt presentationDependencies.daggerCompiler
+    testApt presentationDependencies.daggerCompiler
 
     compile presentationDependencies.dagger,
             presentationDependencies.butterKnife,
@@ -85,13 +86,14 @@ dependencies {
             presentationDependencies.realTimeBlurView,
             presentationDependencies.scaleImageView
 
-    testCompile presentationTestDependencies.junit,
+    testCompile presentationDependencies.dagger,
+            presentationTestDependencies.junit,
             presentationTestDependencies.mockito,
             presentationTestDependencies.assertj,
             presentationTestDependencies.powermockCore,
             presentationTestDependencies.powermockModuleJunit4,
             presentationTestDependencies.powermockApiMockitoV
-    
+
     androidTestCompile presentationTestDependencies.mockito,
             presentationTestDependencies.dexmaker,
             presentationTestDependencies.dexmakerMockito,
