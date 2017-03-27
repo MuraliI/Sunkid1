@@ -9,12 +9,14 @@ import com.rcl.excalibur.data.repository.CategoryDataRepository;
 import com.rcl.excalibur.data.repository.DiscoverItemDataRepository;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
 import com.rcl.excalibur.data.service.DiscoverServiceImpl;
+import com.rcl.excalibur.data.service.ItineraryServiceImpl;
 import com.rcl.excalibur.domain.executor.PostExecutionThread;
 import com.rcl.excalibur.domain.executor.ThreadExecutor;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.DiscoverService;
+import com.rcl.excalibur.domain.service.ItineraryService;
 
 import javax.inject.Singleton;
 
@@ -72,5 +74,11 @@ public class ApplicationModule {
     @Singleton
     DiscoverService provideDiscoverService(DiscoverServiceImpl discoverServiceImpl) {
         return discoverServiceImpl;
+    }
+
+    @Provides
+    @Singleton
+    ItineraryService provideItineraryService(ItineraryServiceImpl itineraryServiceImpl) {
+        return itineraryServiceImpl;
     }
 }
