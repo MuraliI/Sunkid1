@@ -7,6 +7,8 @@ import com.rcl.excalibur.data.mapper.BaseDataMapper;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.utils.DateUtils;
 
+import java.util.Calendar;
+
 
 public class ItineraryProductModelMapper extends BaseDataMapper<ItineraryProductModel, ItineraryEvent> {
 
@@ -27,8 +29,14 @@ public class ItineraryProductModelMapper extends BaseDataMapper<ItineraryProduct
                 .append(resources.getString(R.string.itinerary_product_view_dash))
                 .append(DateUtils.getDateTime(itineraryEvent.getEndDate(), resources));
 
-        productModel.setStartDate(itineraryEvent.getStartDate());
-        productModel.setEndDate(itineraryEvent.getEndDate());
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(itineraryEvent.getStartDate());
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(itineraryEvent.getEndDate());
+
+        productModel.setStartDate(startDate);
+        productModel.setEndDate(endDate);
         productModel.setOperatinghours(builder.toString());
         productModel.setLocationPointer(itineraryEvent.getLocation());
         productModel.setImageUrl(itineraryEvent.getThumbnail());

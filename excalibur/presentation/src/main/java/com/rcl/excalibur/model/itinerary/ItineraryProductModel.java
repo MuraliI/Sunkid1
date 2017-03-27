@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class ItineraryProductModel implements RecyclerViewType, Comparable<ItineraryProductModel> {
 
@@ -27,8 +27,8 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
     private String deckNumber;
     private String locationPointer;
     private String operatinghours;
-    private Date startDate;
-    private Date endDate;
+    private Calendar startDate;
+    private Calendar endDate;
 
     public String getProductId() {
         return productId;
@@ -86,29 +86,29 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
         this.operatinghours = operatinghours;
     }
 
-    public Date getStartDate() {
+    public Calendar getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Calendar startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public Calendar getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Calendar endDate) {
         this.endDate = endDate;
     }
 
     public boolean hourIsDifferent(ItineraryProductModel o) {
-        return this.getStartDate().getHours() != o.getStartDate().getHours();
+        return this.getStartDate().get(Calendar.HOUR) != o.getStartDate().get(Calendar.HOUR);
     }
 
     public int getState() {
 
-        Date now = new Date();
+        Calendar now = Calendar.getInstance();
 
         if (compareHourMinute(now, endDate) > 0) {
             return STATE_PAST;
@@ -120,18 +120,18 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
         return STATE_UP_COMING;
     }
 
-    private int compareHourMinute(Date date1, Date date2) {
+    private int compareHourMinute(Calendar date1, Calendar date2) {
 
         /*FIXME: This is to user Mockdata with old date values only using Hours & Minutes*/
 
-        if (date1.getHours() > date2.getHours())
+        if (date1.get(Calendar.HOUR_OF_DAY) > date2.get(Calendar.HOUR_OF_DAY))
             return 1;
-        else if (date1.getHours() < date2.getHours())
+        else if (date1.get(Calendar.HOUR_OF_DAY) < date2.get(Calendar.HOUR_OF_DAY))
             return -1;
         else {
-            if (date1.getMinutes() > date2.getMinutes()) {
+            if (date1.get(Calendar.MINUTE) > date2.get(Calendar.MINUTE)) {
                 return 1;
-            } else if (date1.getMinutes() < date2.getMinutes()) {
+            } else if (date1.get(Calendar.MINUTE) < date2.get(Calendar.MINUTE)) {
                 return -1;
             }
             return 0;
@@ -153,7 +153,7 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
         }
 
         //case state equal priority
-        if (this.getStartDate().getTime() > o.getStartDate().getTime())
+        if (this.getStartDate().getTime().getTime() > o.getStartDate().getTime().getTime())
             return 1;
         else
             return -1;

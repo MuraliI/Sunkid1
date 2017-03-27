@@ -21,6 +21,9 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
 
+    private static final int SCROLL_OFFSET = 20;
+    private static final int SCROLL_DELAY = 200;
+
     private ItineraryCoodinatorAdapter adapter;
 
     public ItineraryView(ItineraryFragment fragment) {
@@ -44,9 +47,9 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(pos, 20);
+                    ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(pos, SCROLL_OFFSET);
                 }
-            }, 200);
+            }, SCROLL_DELAY);
         }
     }
 

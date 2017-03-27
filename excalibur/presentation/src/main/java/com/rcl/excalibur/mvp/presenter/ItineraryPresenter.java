@@ -2,6 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.app.Activity;
 
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
@@ -20,7 +21,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_ON_GOING;
-import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_PAST;
 import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_UP_COMING;
 
 public class ItineraryPresenter implements BasePresenter {
@@ -30,6 +30,7 @@ public class ItineraryPresenter implements BasePresenter {
 
     private ItineraryView view;
     private int scrollPosition = 0;
+    private boolean onGoingIsAdded = false;
 
     public ItineraryPresenter(ItineraryView view) {
         this.view = view;
@@ -87,35 +88,22 @@ public class ItineraryPresenter implements BasePresenter {
             switch (productModel.getState()) {
                 case STATE_ON_GOING:
 
-                    String separatorOnGoing = "On Going";
-
-                    if (i == 0) {
-                        addOnGoingSeparator(viewTypeList, separatorOnGoing, i);
-                    } else if (i > 0) {
-                        ItineraryProductModel prevProduct = products.get(i - 1);
-                        if (prevProduct.getState() != STATE_ON_GOING) {
-                            addOnGoingSeparator(viewTypeList, separatorOnGoing, i);
-                        }
+                    if (!onGoingIsAdded) {
+                        addOnGoingSeparator(viewTypeList, i);
                     }
 
                     break;
                 case STATE_UP_COMING:
 
-                    String separatorLabel = DateUtils.getDateHour(productModel.getStartDate(),
-                            view.getActivity().getResources());
+                    ItineraryProductModel prevProduct = null;
+                    if (i > 0)
+                        prevProduct = products.get(i - 1);
 
-                    if (i == 0) {
-                        addCalendarSeparator(viewTypeList, separatorLabel, i);
-                    } else if (i > 0) {
-                        ItineraryProductModel prevProduct = products.get(i - 1);
-                        if (prevProduct.getState() != STATE_UP_COMING
-                                || productModel.hourIsDifferent(prevProduct)) {
-                            addCalendarSeparator(viewTypeList, separatorLabel, i);
-                        }
+                    if (prevProduct == null
+                            || (prevProduct.getState() != STATE_UP_COMING || productModel.hourIsDifferent(prevProduct))) {
+                        addCalendarSeparator(viewTypeList, productModel, i);
                     }
 
-                    break;
-                case STATE_PAST:
                     break;
                 default:
                     break;
@@ -128,15 +116,21 @@ public class ItineraryPresenter implements BasePresenter {
         return viewTypeList;
     }
 
-    private void addCalendarSeparator(List<RecyclerViewType> list, String label, int position) {
-        if (scrollPosition == 0) {
+    private void addCalendarSeparator(List<RecyclerViewType> list, ItineraryProductModel productModel, int position) {
+
+        String separatorLabel = DateUtils.getDateHour(productModel.getStartDate().getTime(),
+                view.getActivity().getResources());
+
+        if (!onGoingIsAdded) {
             scrollPosition = position + 1;
         }
-        addSeparator(list, label);
+        addSeparator(list, separatorLabel);
     }
 
-    private void addOnGoingSeparator(List<RecyclerViewType> list, String label, int position) {
+    private void addOnGoingSeparator(List<RecyclerViewType> list, int position) {
         scrollPosition = position + 1;
+        onGoingIsAdded = true;
+        String label = view.getActivity().getString(R.string.itinerary_separator_title_on_going);
         addSeparator(list, label);
     }
 
