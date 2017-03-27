@@ -56,28 +56,6 @@ public class ItineraryPresenter implements BasePresenter {
         view.scrollToPosition(scrollPosition);
     }
 
-    private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
-
-        ItineraryServiceObserver(ItineraryPresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(List<ItineraryEvent> value) {
-
-            if (view.getActivity() != null) {
-                ItineraryProductModelMapper mapper = new ItineraryProductModelMapper(view.getActivity().getResources());
-
-                List<ItineraryProductModel> productModels = mapper.transform(value);
-                Collections.sort(productModels);
-                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels);
-
-                view.addPlans(viewTypeList);
-                refreshPositioning();
-            }
-        }
-    }
-
     private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products) {
 
         List<RecyclerViewType> viewTypeList = new ArrayList<>();
@@ -112,7 +90,6 @@ public class ItineraryPresenter implements BasePresenter {
             viewTypeList.add(productModel);
         }
 
-
         return viewTypeList;
     }
 
@@ -138,6 +115,28 @@ public class ItineraryPresenter implements BasePresenter {
         ItinerarySeparatorModel itinerarySeparatorModel = new ItinerarySeparatorModel();
         itinerarySeparatorModel.setLabel(label);
         list.add(itinerarySeparatorModel);
+    }
+
+    private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
+
+        ItineraryServiceObserver(ItineraryPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(List<ItineraryEvent> value) {
+
+            if (view.getActivity() != null) {
+                ItineraryProductModelMapper mapper = new ItineraryProductModelMapper(view.getActivity().getResources());
+
+                List<ItineraryProductModel> productModels = mapper.transform(value);
+                Collections.sort(productModels);
+                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels);
+
+                view.addPlans(viewTypeList);
+                refreshPositioning();
+            }
+        }
     }
 
 }
