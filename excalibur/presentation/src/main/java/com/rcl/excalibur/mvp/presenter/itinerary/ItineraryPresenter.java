@@ -10,7 +10,8 @@ import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
-import com.rcl.excalibur.model.itinerary.ItinerarySeparatorModel;
+import com.rcl.excalibur.model.itinerary.CalendarSeparatorModel;
+import com.rcl.excalibur.model.itinerary.SeparatorModel;
 import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
@@ -76,7 +77,7 @@ public class ItineraryPresenter implements BasePresenter {
 
         for (int i = 0; i < products.size(); i++) {
             ItineraryProductModel productModel = products.get(i);
-            ItinerarySeparatorModel separator = i != 0 ? createSeparator("") : null;
+            RecyclerViewType separator = i != 0 ? new SeparatorModel() : null;
             switch (productModel.getState()) {
                 case STATE_ON_GOING:
 
@@ -108,7 +109,7 @@ public class ItineraryPresenter implements BasePresenter {
         return viewTypeList;
     }
 
-    private ItinerarySeparatorModel createCalendarSeparator(ItineraryProductModel productModel) {
+    private CalendarSeparatorModel createCalendarSeparator(ItineraryProductModel productModel) {
         if (view.getActivity() != null) {
             String separatorLabel = DateUtils.getDateHour(productModel.getStartDate().getTime(),
                     view.getActivity().getResources());
@@ -118,21 +119,21 @@ public class ItineraryPresenter implements BasePresenter {
         return null;
     }
 
-    private ItinerarySeparatorModel createOnGoingSeparator() {
+    private CalendarSeparatorModel createOnGoingSeparator() {
         if (view.getActivity() != null) {
             onGoingIsAdded = true;
             String label = view.getActivity().getString(R.string.itinerary_separator_title_on_going);
-            ItinerarySeparatorModel separatorModel = createSeparator(label);
+            CalendarSeparatorModel separatorModel = createSeparator(label);
             scrollToElement = separatorModel;
             return separatorModel;
         }
         return null;
     }
 
-    private ItinerarySeparatorModel createSeparator(String label) {
-        ItinerarySeparatorModel itinerarySeparatorModel = new ItinerarySeparatorModel();
-        itinerarySeparatorModel.setLabel(label);
-        return itinerarySeparatorModel;
+    private CalendarSeparatorModel createSeparator(String label) {
+        CalendarSeparatorModel calendarSeparatorModel = new CalendarSeparatorModel();
+        calendarSeparatorModel.setLabel(label);
+        return calendarSeparatorModel;
     }
 
     private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {

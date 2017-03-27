@@ -8,6 +8,7 @@ import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.itinerary.GreetingsDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.itinerary.ItineraryProductDelegateAdapter;
+import com.rcl.excalibur.adapters.delegate.itinerary.SeparatorCalendarDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.itinerary.SeparatorDelegateAdapter;
 
 import java.util.List;
@@ -24,7 +25,8 @@ public class ItineraryCoordinatorAdapter extends BaseCoordinatorAdapter {
         delegateAdapters = new SparseArrayCompat<DelegateAdapter>(VIEW_TYPE_COUNT);
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_GREETINGS, new GreetingsDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW, new ItineraryProductDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_CALENDAR_VIEW, new SeparatorDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_CALENDAR_VIEW, new SeparatorCalendarDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_SEPARATOR_VIEW, new SeparatorDelegateAdapter());
     }
 
     public void clearAndAddAll(List<RecyclerViewType> items) {
