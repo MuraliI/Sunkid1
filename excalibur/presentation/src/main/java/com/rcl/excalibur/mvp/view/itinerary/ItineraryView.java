@@ -27,6 +27,7 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
     @Bind(R.id.layout_swipe_refresh) SwipeRefreshLayout refreshLayout;
 
     private ItineraryCoordinatorAdapter adapter;
+    private OnRefreshDataListener refreshDataListener;
 
     public ItineraryView(ItineraryFragment fragment) {
         super(fragment);
@@ -43,7 +44,13 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
         recyclerView.setLayoutManager(new RoyalLinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
 
-        refreshLayout.setOnRefreshListener(getFragment());
+        try {
+            refreshDataListener = (OnRefreshDataListener) getFragment();
+        } catch (Exception e) {
+            throw new RuntimeException("Fragment must implement OnRefreshDataListner");
+        }
+
+        refreshLayout.setOnRefreshListener(() -> refreshDataListener.onRefresh());
     }
 
     public void setIsLoadingData(boolean isLoadingData) {

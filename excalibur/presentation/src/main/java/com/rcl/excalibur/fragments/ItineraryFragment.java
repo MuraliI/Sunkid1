@@ -12,7 +12,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.mvp.presenter.itinerary.ItineraryPresenter;
 import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
 
-public class ItineraryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ItineraryFragment extends Fragment implements ItineraryView.OnRefreshDataListener {
 
     ItineraryPresenter presenter;
 
