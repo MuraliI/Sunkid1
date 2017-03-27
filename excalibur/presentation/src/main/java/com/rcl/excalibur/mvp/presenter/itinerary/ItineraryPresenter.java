@@ -35,6 +35,7 @@ public class ItineraryPresenter implements BasePresenter {
 
     private ItineraryView view;
     private ItineraryServiceObserver serviceObserver;
+    private ItineraryProductModelMapper mapper;
 
     public ItineraryPresenter(ItineraryView view) {
         this.view = view;
@@ -51,6 +52,7 @@ public class ItineraryPresenter implements BasePresenter {
     }
 
     private void init() {
+        mapper = new ItineraryProductModelMapper(view.getActivity().getResources());
         view.init();
         view.setGreetingText(new GreetingViewType());
 
@@ -140,10 +142,7 @@ public class ItineraryPresenter implements BasePresenter {
 
         @Override
         public void onNext(List<ItineraryEvent> value) {
-
             if (view.getActivity() != null) {
-                ItineraryProductModelMapper mapper = new ItineraryProductModelMapper(view.getActivity().getResources());
-
                 List<ItineraryProductModel> productModels = mapper.transform(value);
                 Collections.sort(productModels);
                 List<RecyclerViewType> viewTypeList = groupEventByDate(productModels);

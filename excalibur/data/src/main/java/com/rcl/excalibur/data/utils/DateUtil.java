@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 public final class DateUtil {
 
     public static final String DATE_FORMAT = "yyyyMMddHHmm";
@@ -22,7 +24,7 @@ public final class DateUtil {
         try {
             date = dateFormatter.parse(str);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Timber.d(e.getMessage());
         }
         return date;
     }

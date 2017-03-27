@@ -26,7 +26,9 @@ public class ItineraryProductDelegateAdapter implements DelegateAdapter<
 
     @Override
     public void onBindViewHolder(ItineraryProductViewHolder holder, ItineraryProductModel item) {
-        Picasso.with(holder.itemView.getContext()).load(item.getImageUrl()).into(holder.productImage);
+        if (item.getImageUrl() != null) {
+            Picasso.with(holder.itemView.getContext()).load(item.getImageUrl()).into(holder.productImage);
+        }
         holder.productName.setText(item.getName());
         holder.productOperatingHours.setText(item.getOperatinghours());
         holder.productLocation.setText(item.getLocationPointer());
