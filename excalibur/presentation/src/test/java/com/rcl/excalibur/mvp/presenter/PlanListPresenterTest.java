@@ -29,6 +29,7 @@ public class PlanListPresenterTest extends ProductsListBaseTest {
     @Override
     public void tearDown() throws Exception {
         super.tearDown();
+        activityComponentTest = null;
     }
 
     @Test
