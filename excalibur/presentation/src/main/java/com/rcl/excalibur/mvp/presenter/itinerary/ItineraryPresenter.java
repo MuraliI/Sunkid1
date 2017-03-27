@@ -24,7 +24,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ItineraryPresenter implements BasePresenter, ItineraryView.OnRefreshDataListener {
+public class ItineraryPresenter implements BasePresenter {
 
     @Inject
     ItineraryService itineraryService;
@@ -50,19 +50,13 @@ public class ItineraryPresenter implements BasePresenter, ItineraryView.OnRefres
 
     private void init() {
         view.init();
-        view.setOnRefreshDataListener(this);
         view.setGreetingText(new GreetingViewType());
 
         serviceObserver = new ItineraryServiceObserver(this);
         refreshItinerary();
     }
 
-    @Override
-    public void onRefresh() {
-        refreshItinerary();
-    }
-
-    private void refreshItinerary() {
+    public void refreshItinerary() {
         view.setIsLoadingData(true);
         itineraryService.myItinerary(serviceObserver);
     }

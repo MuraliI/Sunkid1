@@ -23,9 +23,6 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
         void onRefresh();
     }
 
-    private static final int SCROLL_OFFSET = 0;
-    private static final int SCROLL_DELAY = 500;
-
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_swipe_refresh) SwipeRefreshLayout refreshLayout;
 
@@ -45,12 +42,8 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
         adapter = new ItineraryCoordinatorAdapter(null);
         recyclerView.setLayoutManager(new RoyalLinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
-    }
 
-    public void setOnRefreshDataListener(OnRefreshDataListener onRefreshDataListener) {
-        if (onRefreshDataListener != null) {
-            refreshLayout.setOnRefreshListener(onRefreshDataListener::onRefresh);
-        }
+        refreshLayout.setOnRefreshListener(getFragment());
     }
 
     public void setIsLoadingData(boolean isLoadingData) {
