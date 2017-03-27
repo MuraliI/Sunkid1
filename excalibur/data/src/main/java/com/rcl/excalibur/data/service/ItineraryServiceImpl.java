@@ -2,7 +2,7 @@ package com.rcl.excalibur.data.service;
 
 import com.rcl.excalibur.data.mapper.itinerary.ItineraryEventDataMapper;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryEventResponse;
-import com.rcl.excalibur.data.service.response.itinerary.ResponseItinerary;
+import com.rcl.excalibur.data.service.response.itinerary.ItineraryResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
@@ -33,9 +33,9 @@ public class ItineraryServiceImpl implements ItineraryService {
     public void myItinerary(Observer<List<ItineraryEvent>> observer) {
 
         Observable<List<ItineraryEvent>> observable = Observable.create(e -> {
-            Call<ResponseItinerary> call = ServiceUtil.getItineraryApi().myItinerary();
+            Call<ItineraryResponse> call = ServiceUtil.getItineraryApi().myItinerary();
             try {
-                Response<ResponseItinerary> response = call.execute();
+                Response<ItineraryResponse> response = call.execute();
                 /* FIXME: This won't work if the response has several EventGroup, only for mocking Data with COMMERCE EVENT*/
                 List<ItineraryEventResponse> itineraryEventResponseList = response.body()
                         .getItineraryEventGroups()
