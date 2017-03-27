@@ -3,16 +3,16 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
-import com.rcl.excalibur.mvp.view.TriptyHomechView;
+import com.rcl.excalibur.mvp.view.TriptychHomeView;
 
 import javax.inject.Inject;
 
-public class TriptycHomePresenter implements BasePresenter {
+public class TriptychHomePresenter implements BasePresenter {
 
     @Inject GetProductsUseCase getProductsUseCase;
-    private TriptyHomechView view;
+    private TriptychHomeView view;
 
-    public TriptycHomePresenter(TriptyHomechView view) {
+    public TriptychHomePresenter(TriptychHomeView view) {
         this.view = view;
         init();
         initInjection();

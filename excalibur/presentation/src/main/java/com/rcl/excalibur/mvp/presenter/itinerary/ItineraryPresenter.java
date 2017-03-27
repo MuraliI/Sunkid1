@@ -1,4 +1,4 @@
-package com.rcl.excalibur.mvp.presenter;
+package com.rcl.excalibur.mvp.presenter.itinerary;
 
 import android.app.Activity;
 
@@ -11,7 +11,9 @@ import com.rcl.excalibur.domain.service.ItineraryService;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
 import com.rcl.excalibur.model.itinerary.ItinerarySeparatorModel;
-import com.rcl.excalibur.mvp.view.ItineraryView;
+import com.rcl.excalibur.mvp.presenter.BasePresenter;
+import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
+import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
 import com.rcl.excalibur.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -28,9 +30,11 @@ public class ItineraryPresenter implements BasePresenter {
     @Inject
     ItineraryService itineraryService;
 
-    private ItineraryView view;
     private int scrollPosition = 0;
     private boolean onGoingIsAdded = false;
+
+    private ItineraryView view;
+    private ItineraryServiceObserver serviceObserver;
 
     public ItineraryPresenter(ItineraryView view) {
         this.view = view;
@@ -49,10 +53,17 @@ public class ItineraryPresenter implements BasePresenter {
     private void init() {
         view.init();
         view.setGreetingText(new GreetingViewType());
-        itineraryService.myItinerary(new ItineraryServiceObserver(this));
+
+        serviceObserver = new ItineraryServiceObserver(this);
+        refreshItinerary();
     }
 
-    public void refreshPositioning() {
+    public void refreshItinerary() {
+        view.setIsLoadingData(true);
+        itineraryService.myItinerary(serviceObserver);
+    }
+
+    private void refreshPositioning() {
         view.scrollToPosition(scrollPosition);
     }
 
@@ -117,7 +128,7 @@ public class ItineraryPresenter implements BasePresenter {
 
     private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
 
-        ItineraryServiceObserver(ItineraryPresenter presenter) {
+        private ItineraryServiceObserver(ItineraryPresenter presenter) {
             super(presenter);
         }
 
@@ -131,10 +142,10 @@ public class ItineraryPresenter implements BasePresenter {
                 Collections.sort(productModels);
                 List<RecyclerViewType> viewTypeList = groupEventByDate(productModels);
 
+                view.setIsLoadingData(false);
                 view.addPlans(viewTypeList);
                 refreshPositioning();
             }
         }
     }
-
 }
