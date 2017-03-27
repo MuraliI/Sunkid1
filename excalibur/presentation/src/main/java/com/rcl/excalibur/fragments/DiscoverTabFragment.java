@@ -12,10 +12,16 @@ import com.rcl.excalibur.internal.di.component.FragmentComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsFragmentComponent;
 import com.rcl.excalibur.internal.di.module.products.ProductsFragmentModule;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
-import com.rcl.excalibur.mvp.presenter.PlanListPresenter;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_DINING;
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ENTERTAINMENT;
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ROYAL_ACTIVITY;
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOPPING;
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOREX;
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SPA;
 
 public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
     private ProductsFragmentComponent productsFragmentComponent;
@@ -44,32 +50,32 @@ public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
 
     @OnClick(R.id.button_dinning)
     public void dinningOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_DINING);
+        presenter.openListScreen(POSITION_DINING);
     }
 
     @OnClick(R.id.button_excursions)
     public void excursionsOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_SHOREX);
+        presenter.openListScreen(POSITION_SHOREX);
     }
 
     @OnClick(R.id.button_spa)
     public void spaOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_SPA);
+        presenter.openListScreen(POSITION_SPA);
     }
 
     @OnClick(R.id.button_shop)
     public void shopOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_SHOPPING);
+        presenter.openListScreen(POSITION_SHOPPING);
     }
 
     @OnClick(R.id.button_entertainment)
     public void entertainmentOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_ENTERTAINMENT);
+        presenter.openListScreen(POSITION_ENTERTAINMENT);
     }
 
     @OnClick(R.id.button_activities)
     public void activitiesOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_ROYAL_ACTIVITY);
+        presenter.openListScreen(POSITION_ROYAL_ACTIVITY);
     }
 
     @OnClick(R.id.button_search)

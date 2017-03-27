@@ -2,17 +2,13 @@ package com.rcl.excalibur.internal.di.module.products;
 
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.repository.ProductRepository;
-import com.rcl.excalibur.internal.di.scopes.product.ProductsScope;
 
-import dagger.Module;
-import dagger.Provides;
+import static org.mockito.Mockito.mock;
 
-@ProductsScope
-@Module
-public class ProductsDatabaseModule {
+public class ProductsDatabaseModuleTest extends ProductsDatabaseModule {
 
-    @Provides
+    @Override
     protected GetProductDbUseCase providesGetProductDbUseCase(ProductRepository productRepository) {
-        return new GetProductDbUseCase(productRepository);
+        return mock(GetProductDbUseCase.class);
     }
 }

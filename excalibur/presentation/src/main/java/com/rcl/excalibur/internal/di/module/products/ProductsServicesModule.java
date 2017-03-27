@@ -21,28 +21,28 @@ import dagger.Provides;
 public class ProductsServicesModule {
 
     @Provides
-    BaseDataMapper<Product, ProductEntity> providesProductEntityDataMapper() {
+    protected BaseDataMapper<Product, ProductEntity> providesProductEntityDataMapper() {
         return new ProductEntityDataMapper();
     }
 
     @Provides
-    ProductRepository providesProductRepository(BaseDataMapper<Product, ProductEntity> mapper) {
+    protected ProductRepository providesProductRepository(BaseDataMapper<Product, ProductEntity> mapper) {
         return new ProductDataRepository(mapper);
     }
 
     @Provides
-    BaseDataMapper<Product, ProductResponse> providesProductResponseDataMapper() {
+    protected BaseDataMapper<Product, ProductResponse> providesProductResponseDataMapper() {
         return new ProductResponseDataMapper();
     }
 
     @Provides
-    ProductService provideDiscoverService(ProductRepository productRepository,
-                                          BaseDataMapper<Product, ProductResponse> baseDataMapper) {
+    protected ProductService provideDiscoverService(ProductRepository productRepository,
+                                                    BaseDataMapper<Product, ProductResponse> baseDataMapper) {
         return new ProductServiceImpl(productRepository, baseDataMapper);
     }
 
     @Provides
-    GetProductsUseCase providesGetProductsUseCase(ProductService productService) {
+    protected GetProductsUseCase providesGetProductsUseCase(ProductService productService) {
         return new GetProductsUseCase(productService);
     }
 }
