@@ -60,6 +60,7 @@ public class ItineraryPresenter implements BasePresenter {
 
     public void refreshItinerary() {
         view.setIsLoadingData(true);
+        onGoingIsAdded = false;
         itineraryService.myItinerary(serviceObserver);
     }
 
