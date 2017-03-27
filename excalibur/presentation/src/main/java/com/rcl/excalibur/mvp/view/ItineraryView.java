@@ -44,12 +44,7 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
 
     public void scrollToPosition(int pos) {
         if (pos < adapter.getItemCount()) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(pos, SCROLL_OFFSET);
-                }
-            }, SCROLL_DELAY);
+            new Handler().postDelayed(() -> ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(pos, SCROLL_OFFSET), SCROLL_DELAY);
         }
     }
 

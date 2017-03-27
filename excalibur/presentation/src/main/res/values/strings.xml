@@ -90,8 +90,8 @@
     <string name="title_good_evening">Good Evening!</string>
     <string name="title_good_night">Good Night!</string>
     <string name="title_hello">Hello</string>
-    <string name="itinerary_product_view_am"> AM</string>
-    <string name="itinerary_product_view_pm"> PM</string>
+    <string name="itinerary_product_view_am">" AM"</string>
+    <string name="itinerary_product_view_pm">" PM"</string>
     <string name="itinerary_product_view_colon">:</string>
     <string name="itinerary_product_view_dash">&#8210;</string>
     <string name="itinerary_accessibility_product_image">Item Image</string>
