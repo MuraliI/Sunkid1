@@ -17,7 +17,6 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,19 +39,22 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
 
         List<ProductCategory> productCategory = product.getProductCategory();
         if (!productCategory.isEmpty()) {
-            holder.categoryTextView.setText(productCategory.get(0).getCategoryDescription());
+            holder.categoryTextView.setText(productCategory.get(0).getProductTags().get(0).getDescription());
         }
 
         holder.titleTextView.setText(product.getProductTitle());
-        String timeFormatted = String.format(Locale.getDefault(),
-                context.getString(R.string.product_duration_template),
-                product.getProductDuration().getDurationInMinutes());
-        holder.rangeTextView.setText(timeFormatted);
+
+        if ("0".equals(product.getProductLocation().getOperatingHoursEnd())) {
+            holder.rangeTextView.setVisibility(View.GONE);
+        } else {
+            holder.rangeTextView.setText(product.getTimeFrame());
+        }
 
         List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
         if (!mediaItems.isEmpty()) {
             Picasso.with(context)
                     .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
+                    .placeholder(R.drawable.thumb)
                     .into(holder.imageView);
         }
 

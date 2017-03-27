@@ -171,8 +171,12 @@ public class Product {
         this.productShortDescription = productShortDescription;
     }
 
+    //TODO Improve this
     public String getProductLongDescription() {
-        return productLongDescription;
+        if (productLongDescription == null)
+            return productShortDescription;
+        else
+            return productLongDescription;
     }
 
     public void setProductLongDescription(String productLongDescription) {
@@ -186,4 +190,16 @@ public class Product {
     public void setProductMedia(Media productMedia) {
         this.productMedia = productMedia;
     }
+
+    public String getTimeFrame() {
+        return convertToTime(productLocation.getOperatingHoursStart()) + " - " + convertToTime(productLocation.getOperatingHoursEnd());
+    }
+
+    private String convertToTime(String time) {
+        if (time.length() == 4) {
+            return time.substring(0, 2) + ":" + time.substring(2);
+        }
+        return "00:00";
+    }
+
 }

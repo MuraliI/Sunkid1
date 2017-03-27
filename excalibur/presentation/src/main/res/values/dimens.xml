@@ -84,4 +84,7 @@
     <dimen name="ship_button_category_size">25dp</dimen>
     <dimen name="ship_button_category_top_margin">10dp</dimen>
 
+    <!-- Deck Map -->
+    <dimen name="item_deck_height">100dp</dimen>
+
 </resources>

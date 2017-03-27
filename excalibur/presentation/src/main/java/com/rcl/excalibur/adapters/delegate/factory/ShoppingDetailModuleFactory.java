@@ -3,7 +3,6 @@ package com.rcl.excalibur.adapters.delegate.factory;
 import android.content.res.Resources;
 import android.support.v4.util.SparseArrayCompat;
 
-import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.ExpandableDescriptionDelegateAdapter;
@@ -12,9 +11,8 @@ import com.rcl.excalibur.adapters.delegate.PromotionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.StandardTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
-import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
-import com.rcl.excalibur.adapters.viewtype.PromotionViewType;
-import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
+import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
+import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,24 +39,14 @@ class ShoppingDetailModuleFactory extends DetailModuleFactory {
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
         List<RecyclerViewType> types = new ArrayList<>();
-
-        types.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionDescription()));
-
-        types.add(new StandardTimesViewType(itemModel.getStandardTimesTitle(), itemModel.getStandardTimesDaysAndTimes()));
-
+        if (product.getStartingFromPrice() != null) {
+            if (product.getStartingFromPrice().getAdultPrice() != 0 || product.getStartingFromPrice().getChildPrice() != 0) {
+                types.add(new PricesFromViewType(StringUtils.getPriceFormated(product.getStartingFromPrice().getAdultPrice()),
+                        StringUtils.getPriceFormated(product.getStartingFromPrice().getChildPrice())));
+            }
+        }
         addTitleAndDescriptionTypes(types);
-
-        types.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
-
-        types.add(new ExpandableLinkViewType(
-                resources.getString(R.string.detail_module_accessibility),
-                itemModel.getAccessibility(),
-                true));
-        types.add(new ExpandableLinkViewType(
-                resources.getString(R.string.detail_module_legal),
-                new String[]{itemModel.getLegal()},
-                false));
-
+        types.add(new ExpandableDescriptionViewType(product.getProductLongDescription()));
         return types;
     }
 }

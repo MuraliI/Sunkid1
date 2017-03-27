@@ -17,4 +17,6 @@ public interface DiscoverService {
 
     void getDinings();
 
+    void getActivities();
+
 }

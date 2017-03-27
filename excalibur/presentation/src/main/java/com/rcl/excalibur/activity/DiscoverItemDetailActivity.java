@@ -17,6 +17,8 @@ public class DiscoverItemDetailActivity extends BaseActivity {
 
     private DiscoverItemDetailPresenter presenter;
 
+    private long productId = 0;
+
     public static Intent getIntent(final BaseActivity activity, long productId) {
         Intent intent = new Intent(activity, DiscoverItemDetailActivity.class);
         intent.putExtra(EXTRA_DISCOVER_ITEM_ID, productId);
@@ -29,7 +31,6 @@ public class DiscoverItemDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_discover_item_detail);
         ButterKnife.bind(this);
 
-        long productId = 0;
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_DISCOVER_ITEM_ID)) {
             productId = getIntent().getExtras().getLong(EXTRA_DISCOVER_ITEM_ID);
@@ -43,4 +44,8 @@ public class DiscoverItemDetailActivity extends BaseActivity {
         presenter.onBackClicked();
     }
 
+    @OnClick(R.id.btn_deck_map)
+    void onDeckMapClicked() {
+        presenter.onDeckMapClicked(productId);
+    }
 }

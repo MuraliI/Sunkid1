@@ -33,7 +33,6 @@ public class DiscoverItemModel {
     private List<String[]> standardTimesDaysAndTimes;
     private AnalyticEvent eventBuilder;
 
-
     public String getDiscoverId() {
         return discoverId;
     }

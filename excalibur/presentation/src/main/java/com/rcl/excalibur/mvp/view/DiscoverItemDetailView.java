@@ -2,17 +2,18 @@ package com.rcl.excalibur.mvp.view;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.util.SparseArrayCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.DiscoverItemDetailActivity;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DetailViewCoordinatorAdapter;
@@ -26,7 +27,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class DiscoverItemDetailView extends ActivityView<AppCompatActivity> {
+public class DiscoverItemDetailView extends ActivityView<DiscoverItemDetailActivity> {
 
     @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
     @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
@@ -34,18 +35,23 @@ public class DiscoverItemDetailView extends ActivityView<AppCompatActivity> {
     @Bind(R.id.frame_layout_reservation_container) ReservationDetailLayout reservationDetailLayout;
     @Bind(R.id.fab_reserve_discover_item) FloatingActionButton reserveButton;
     @Bind(R.id.image_hero) ImageView heroImage;
+    @Bind(R.id.btn_deck_map) ImageButton deckButton;
 
     private DetailViewCoordinatorAdapter adapter;
 
-    public DiscoverItemDetailView(AppCompatActivity activity) {
+    public DiscoverItemDetailView(DiscoverItemDetailActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
         activity.setSupportActionBar(detailToolbar);
     }
 
+    public void hideDeckMapButton() {
+        deckButton.setVisibility(View.GONE);
+    }
+
     public void setHeroImage(String url) {
         if (getActivity() != null) {
-            Picasso.with(getActivity()).load(url).into(heroImage);
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.thumb).into(heroImage);
         }
     }
 
