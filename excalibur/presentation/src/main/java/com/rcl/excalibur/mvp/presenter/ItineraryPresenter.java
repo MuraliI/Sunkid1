@@ -73,9 +73,7 @@ public class ItineraryPresenter implements BasePresenter {
                     break;
                 case STATE_UP_COMING:
 
-                    ItineraryProductModel prevProduct = null;
-                    if (i > 0)
-                        prevProduct = products.get(i - 1);
+                    ItineraryProductModel prevProduct = i > 0 ? products.get(i - 1) : null;
 
                     if (prevProduct == null
                             || (prevProduct.getState() != STATE_UP_COMING || productModel.hourIsDifferent(prevProduct))) {
