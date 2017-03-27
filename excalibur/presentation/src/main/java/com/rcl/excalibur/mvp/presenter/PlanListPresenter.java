@@ -21,23 +21,27 @@ import static com.rcl.excalibur.fragments.ProductsListFragment.SHOREX;
 import static com.rcl.excalibur.fragments.ProductsListFragment.SPA;
 import static com.rcl.excalibur.fragments.ProductsListFragment.newInstance;
 
-public class PlanListPresenter implements BasePresenter {
+public class PlanListPresenter implements ActivityPresenter {
     public static final int POSITION_ROYAL_ACTIVITY = 0;
     public static final int POSITION_DINING = 1;
     public static final int POSITION_SHOPPING = 2;
     public static final int POSITION_SPA = 3;
     public static final int POSITION_SHOREX = 4;
     public static final int POSITION_ENTERTAINMENT = 5;
-    private PlanListView view;
-    private int fragmentToShow = 0;
+    private final PlanListView view;
+    private final int fragmentToShow;
 
     public PlanListPresenter(PlanListView view, int fragmentToShow) {
         this.view = view;
         this.fragmentToShow = fragmentToShow;
-        init();
     }
 
-    private void init() {
+    @Override
+    public PlanListView getView() {
+        return view;
+    }
+
+    public void init() {
         Fragment fragment = newInstance(ROYAL_ACTIVITY);
 
         //Objects needed for Analytics tracking
@@ -89,14 +93,13 @@ public class PlanListPresenter implements BasePresenter {
 
     public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, PlanListPresenter> {
 
-        public AdapterObserver(PlanListPresenter presenter) {
+        AdapterObserver(PlanListPresenter presenter) {
             super(presenter);
         }
 
         @Override
         public void onNext(DiscoverItemModel value) {
-
-//   TODO         Invoke Details screen
+            //TODO Invoke Details screen
         }
     }
 

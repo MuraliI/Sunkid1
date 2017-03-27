@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.internal.di.component.FragmentComponent;
+import com.rcl.excalibur.internal.di.component.products.ProductsListFragmentComponent;
+import com.rcl.excalibur.internal.di.module.products.ProductsListFragmentModule;
 import com.rcl.excalibur.mvp.presenter.ProductsListPresenter;
 
 public class ProductsListFragment extends BaseFragment<ProductsListPresenter> {
@@ -19,6 +22,7 @@ public class ProductsListFragment extends BaseFragment<ProductsListPresenter> {
     public static final int SHOREX = 4;
     public static final int ENTERTAINMENT = 5;
     public static final String ARGUMENT_TYPE = "ProductsListFragment.ARGUMENT_TYPE";
+    private ProductsListFragmentComponent productsListFragmentComponent;
 
     public static ProductsListFragment newInstance(int type) {
         ProductsListFragment fragment = new ProductsListFragment();
@@ -47,17 +51,18 @@ public class ProductsListFragment extends BaseFragment<ProductsListPresenter> {
             return;
         }
         final int productType = bundle.getInt(ARGUMENT_TYPE);
-        application.createProductListComponent(productType, this);
+        productsListFragmentComponent = ((PlanListActivity) getActivity()).getProductsListActivityComponent()
+                .plus(new ProductsListFragmentModule(this, productType));
     }
 
     @Override
     protected void inject(FragmentComponent fragmentComponent) {
-        application.getProductsListComponent().inject(this);
+        productsListFragmentComponent.inject(this);
     }
 
     @Override
     protected void destroyFragmentComponent() {
         super.destroyFragmentComponent();
-        application.destroyProductsListComponent();
+        productsListFragmentComponent = null;
     }
 }

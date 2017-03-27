@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
-import com.rcl.excalibur.fragments.BaseFragment;
 import com.rcl.excalibur.internal.di.component.AppComponent;
 import com.rcl.excalibur.internal.di.component.DaggerAppComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductDetailComponent;
@@ -86,8 +85,8 @@ public class RCLApp extends Application {
         productsComponent = null;
     }
 
-    public void createProductListComponent(int productType, BaseFragment fragment) {
-        productsListComponent = productsComponent.plus(new ProductsListModule(productType, fragment));
+    public void createProductListComponent(int fragmentToShow) {
+        productsListComponent = productsComponent.plus(new ProductsListModule(fragmentToShow));
     }
 
     public ProductsListComponent getProductsListComponent() {
