@@ -6,7 +6,7 @@
     android:layout_marginTop="@dimen/margin_normal"
     android:layout_marginBottom="@dimen/margin_normal"
     android:layout_marginStart="@dimen/itinerary_product_view_margin_start"
-    android:layout_marginEnd="@dimen/itinerary_product_view_margin_end"
+    android:layout_marginEnd="@dimen/margin_large"
     android:background="@color/itinerary_product_card_background">
 
     <LinearLayout
@@ -14,12 +14,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="@dimen/margin_normal"
-        android:paddingEnd="@dimen/margin_normal">
+        android:paddingEnd="@dimen/no_size"
+        android:weightSum="@integer/itinerary_product_view_total_weight">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/itinerary_product_view_total_weight"
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
 

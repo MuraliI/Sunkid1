@@ -51,7 +51,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         if (context == null) {
             return;
         }
-        Picasso.with(context).load(itemModel.getImageUrl()).into(holder.imageImageView);
+        Picasso.with(context).load(itemModel.getImageUrl()).placeholder(R.drawable.thumb).into(holder.imageImageView);
 
     }
 

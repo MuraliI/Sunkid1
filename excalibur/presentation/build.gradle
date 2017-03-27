@@ -69,6 +69,7 @@ dependencies {
     compile project(':domain')
     compile project(':data')
     apt presentationDependencies.daggerCompiler
+
     compile presentationDependencies.dagger,
             presentationDependencies.butterKnife,
             presentationDependencies.recyclerView,
@@ -81,21 +82,21 @@ dependencies {
             presentationDependencies.appcompat,
             generalDependencies.timber,
             presentationDependencies.supportDesign,
-            presentationDependencies.realTimeBlurView
+            presentationDependencies.realTimeBlurView,
+            presentationDependencies.scaleImageView
 
     testCompile presentationTestDependencies.junit,
-                presentationTestDependencies.mockito,
-                presentationTestDependencies.assertj,
-                presentationTestDependencies.powermockCore,
-                presentationTestDependencies.powermockModuleJunit4,
-                presentationTestDependencies.powermockApiMockitoV
-
-
-    androidTestCompile  presentationTestDependencies.mockito,
-                        presentationTestDependencies.dexmaker,
-                        presentationTestDependencies.dexmakerMockito,
-                        presentationTestDependencies.espresso,
-                        presentationTestDependencies.testingSupportLib
+            presentationTestDependencies.mockito,
+            presentationTestDependencies.assertj,
+            presentationTestDependencies.powermockCore,
+            presentationTestDependencies.powermockModuleJunit4,
+            presentationTestDependencies.powermockApiMockitoV
+    
+    androidTestCompile presentationTestDependencies.mockito,
+            presentationTestDependencies.dexmaker,
+            presentationTestDependencies.dexmakerMockito,
+            presentationTestDependencies.espresso,
+            presentationTestDependencies.testingSupportLib
 
     //Development
     compile developmentDependencies.leakCanary,
@@ -115,7 +116,6 @@ task checkstyle(type: Checkstyle) {
     configProperties configProps
 
     classpath = files()
-
 }
 
 preBuild.dependsOn('checkstyle')

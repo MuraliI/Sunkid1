@@ -60,11 +60,14 @@ public class ItineraryPresenter implements BasePresenter {
 
     public void refreshItinerary() {
         view.setIsLoadingData(true);
+        onGoingIsAdded = false;
         itineraryService.myItinerary(serviceObserver);
     }
 
     private void refreshPositioning() {
-        view.scrollToPosition(scrollToElement);
+        if (scrollToElement != null) {
+            view.scrollToPosition(scrollToElement);
+        }
     }
 
     private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products) {
@@ -106,23 +109,24 @@ public class ItineraryPresenter implements BasePresenter {
     }
 
     private ItinerarySeparatorModel createCalendarSeparator(ItineraryProductModel productModel) {
-
-        String separatorLabel = DateUtils.getDateHour(productModel.getStartDate().getTime(),
-                view.getActivity().getResources());
-
-        if (!onGoingIsAdded) {
-            scrollToElement = productModel;
+        if (view.getActivity() != null) {
+            String separatorLabel = DateUtils.getDateHour(productModel.getStartDate().getTime(),
+                    view.getActivity().getResources());
+            separatorLabel = separatorLabel.toLowerCase();
+            return createSeparator(separatorLabel);
         }
-
-        return createSeparator(separatorLabel);
+        return null;
     }
 
     private ItinerarySeparatorModel createOnGoingSeparator() {
-        onGoingIsAdded = true;
-        String label = view.getActivity().getString(R.string.itinerary_separator_title_on_going);
-        ItinerarySeparatorModel separatorModel = createSeparator(label);
-        scrollToElement = separatorModel;
-        return separatorModel;
+        if (view.getActivity() != null) {
+            onGoingIsAdded = true;
+            String label = view.getActivity().getString(R.string.itinerary_separator_title_on_going);
+            ItinerarySeparatorModel separatorModel = createSeparator(label);
+            scrollToElement = separatorModel;
+            return separatorModel;
+        }
+        return null;
     }
 
     private ItinerarySeparatorModel createSeparator(String label) {

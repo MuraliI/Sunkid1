@@ -117,8 +117,8 @@
 
     <!-- Fonts.Itinerary -->
     <style name="AppTheme.ItinteraryGreetingText" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_medium</item>
-        <item name="android:textSize">28sp</item>
+        <item name="fontPath">@string/roboto_regular</item>
+        <item name="android:textSize">26sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -167,9 +167,9 @@
 
     <style name="AppTheme.DiscoverTitle" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/roboto_regular</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/discover_black</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:maxLines">2</item>
         <item name="android:ellipsize">end</item>
     </style>
 

@@ -2,7 +2,7 @@ package com.rcl.excalibur.data.service.response.itinerary;
 
 import java.util.List;
 
-public class ResponseItinerary {
+public class ItineraryResponse {
     private int cruiseReservationID;
     private int guestID;
     private String sailingID;

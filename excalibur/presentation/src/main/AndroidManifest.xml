@@ -34,6 +34,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".deckmap.activity.DiscoverDeckMapActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/empty_string"/>
 
         <meta-data
             android:name="AA_DB_NAME"
