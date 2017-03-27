@@ -62,6 +62,7 @@ public class ItineraryPresenter implements BasePresenter {
     public void refreshItinerary() {
         view.setIsLoadingData(true);
         onGoingIsAdded = false;
+        scrollToElement = null;
         itineraryService.myItinerary(serviceObserver);
     }
 
