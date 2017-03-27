@@ -9,21 +9,26 @@ import java.util.Locale;
 
 public final class DateUtil {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmm", Locale.US);
+    public static final String DATE_FORMAT = "yyyyMMddHHmm";
 
     private DateUtil() {
     }
 
     @Nullable
     public static Date parseDateResponse(String dateStr, String timeStr) {
-
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.US);
         Date date = null;
         String str = dateStr + timeStr;
         try {
-            date = DATE_FORMAT.parse(str);
+            date = dateFormatter.parse(str);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static String formatDate(Date date) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.US);
+        return dateFormatter.format(date);
     }
 }

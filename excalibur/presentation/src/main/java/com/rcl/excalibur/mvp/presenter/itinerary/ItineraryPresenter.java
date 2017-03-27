@@ -1,7 +1,6 @@
 package com.rcl.excalibur.mvp.presenter.itinerary;
 
 import android.app.Activity;
-import android.content.res.Resources;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.RCLApp;
@@ -12,7 +11,6 @@ import com.rcl.excalibur.domain.service.ItineraryService;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
 import com.rcl.excalibur.model.itinerary.ItinerarySeparatorModel;
-import com.rcl.excalibur.model.itinerary.ProductStateEnum;
 import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
@@ -24,12 +22,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_ON_GOING;
+import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_UP_COMING;
+
 public class ItineraryPresenter implements BasePresenter {
 
     @Inject
     ItineraryService itineraryService;
 
     private int scrollPosition = 0;
+    private boolean onGoingIsAdded = false;
 
     private ItineraryView view;
     private ItineraryServiceObserver serviceObserver;
@@ -65,7 +67,7 @@ public class ItineraryPresenter implements BasePresenter {
         view.scrollToPosition(scrollPosition);
     }
 
-    private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products, Resources resources) {
+    private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products) {
 
         List<RecyclerViewType> viewTypeList = new ArrayList<>();
 
@@ -73,37 +75,22 @@ public class ItineraryPresenter implements BasePresenter {
             ItineraryProductModel productModel = products.get(i);
 
             switch (productModel.getState()) {
-                case ON_GOING:
+                case STATE_ON_GOING:
 
-                    String separatorOnGoing = resources.getString(R.string.itinerary_separator_title_on_going);
-
-                    if (i == 0) {
-                        addOnGoingSeparator(viewTypeList, separatorOnGoing, i);
-                    } else if (i > 0) {
-                        ItineraryProductModel prevProduct = products.get(i - 1);
-                        if (prevProduct.getState() != ProductStateEnum.ON_GOING) {
-                            addOnGoingSeparator(viewTypeList, separatorOnGoing, i);
-                        }
+                    if (!onGoingIsAdded) {
+                        addOnGoingSeparator(viewTypeList, i);
                     }
 
                     break;
-                case UP_COMING:
+                case STATE_UP_COMING:
 
-                    String separatorLabel = DateUtils.getDateHour(productModel.getStartDate(),
-                            view.getActivity().getResources());
+                    ItineraryProductModel prevProduct = i > 0 ? products.get(i - 1) : null;
 
-                    if (i == 0) {
-                        addCalendarSeparator(viewTypeList, separatorLabel, i);
-                    } else if (i > 0) {
-                        ItineraryProductModel prevProduct = products.get(i - 1);
-                        if (prevProduct.getState() != ProductStateEnum.UP_COMING
-                                || productModel.hourIsDifferent(prevProduct)) {
-                            addCalendarSeparator(viewTypeList, separatorLabel, i);
-                        }
+                    if (prevProduct == null
+                            || (prevProduct.getState() != STATE_UP_COMING || productModel.hourIsDifferent(prevProduct))) {
+                        addCalendarSeparator(viewTypeList, productModel, i);
                     }
 
-                    break;
-                case PAST:
                     break;
                 default:
                     break;
@@ -112,19 +99,24 @@ public class ItineraryPresenter implements BasePresenter {
             viewTypeList.add(productModel);
         }
 
-
         return viewTypeList;
     }
 
-    private void addCalendarSeparator(List<RecyclerViewType> list, String label, int position) {
-        if (scrollPosition == 0) {
+    private void addCalendarSeparator(List<RecyclerViewType> list, ItineraryProductModel productModel, int position) {
+
+        String separatorLabel = DateUtils.getDateHour(productModel.getStartDate().getTime(),
+                view.getActivity().getResources());
+
+        if (!onGoingIsAdded) {
             scrollPosition = position + 1;
         }
-        addSeparator(list, label);
+        addSeparator(list, separatorLabel);
     }
 
-    private void addOnGoingSeparator(List<RecyclerViewType> list, String label, int position) {
+    private void addOnGoingSeparator(List<RecyclerViewType> list, int position) {
         scrollPosition = position + 1;
+        onGoingIsAdded = true;
+        String label = view.getActivity().getString(R.string.itinerary_separator_title_on_going);
         addSeparator(list, label);
     }
 
@@ -148,7 +140,7 @@ public class ItineraryPresenter implements BasePresenter {
 
                 List<ItineraryProductModel> productModels = mapper.transform(value);
                 Collections.sort(productModels);
-                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels, view.getActivity().getResources());
+                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels);
 
                 view.setIsLoadingData(false);
                 view.addPlans(viewTypeList);
