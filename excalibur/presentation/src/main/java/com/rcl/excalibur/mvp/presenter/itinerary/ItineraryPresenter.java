@@ -80,28 +80,21 @@ public class ItineraryPresenter implements BasePresenter {
             RecyclerViewType separator = null;
             switch (productModel.getState()) {
                 case STATE_ON_GOING:
-
                     if (!onGoingIsAdded) {
                         separator = createOnGoingSeparator();
                     }
-
                     break;
                 case STATE_UP_COMING:
-
                     ItineraryProductModel prevProduct = i > 0 ? products.get(i - 1) : null;
-
                     if (prevProduct == null
                             || (prevProduct.getState() != STATE_UP_COMING || productModel.hourIsDifferent(prevProduct))) {
                         separator = createCalendarSeparator(productModel);
                     }
-
                     break;
                 default:
-
                     if (i != 0) {
                         separator = new SeparatorModel();
                     }
-
                     break;
             }
 
