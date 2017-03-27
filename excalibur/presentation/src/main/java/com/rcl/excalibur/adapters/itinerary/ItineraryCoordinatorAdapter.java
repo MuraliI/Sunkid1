@@ -42,4 +42,8 @@ public class ItineraryCoordinatorAdapter extends BaseCoordinatorAdapter {
         }
         addAll(items);
     }
+
+    public int getItemPosition(RecyclerViewType elem) {
+        return items.indexOf(elem);
+    }
 }

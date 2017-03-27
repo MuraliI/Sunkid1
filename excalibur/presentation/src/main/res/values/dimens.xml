@@ -80,6 +80,7 @@
     <dimen name="itinerary_product_view_margin_start">60dp</dimen>
     <dimen name="itinerary_product_view_margin_end">20dp</dimen>
     <dimen name="itinerary_separator_thickness">1dp</dimen>
+    <dimen name="itinerary_separator_min_width">30dp</dimen>
 
     <dimen name="ship_button_category_size">25dp</dimen>
     <dimen name="ship_button_category_top_margin">10dp</dimen>

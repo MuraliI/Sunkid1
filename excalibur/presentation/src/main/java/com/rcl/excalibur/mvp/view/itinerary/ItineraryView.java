@@ -23,8 +23,10 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
         void onRefresh();
     }
 
-    @Bind(R.id.recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.layout_swipe_refresh) SwipeRefreshLayout refreshLayout;
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @Bind(R.id.layout_swipe_refresh)
+    SwipeRefreshLayout refreshLayout;
 
     private ItineraryCoordinatorAdapter adapter;
 
@@ -52,7 +54,9 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
         refreshLayout.setRefreshing(isLoadingData);
     }
 
-    public void scrollToPosition(int pos) {
+    public void scrollToPosition(RecyclerViewType elem) {
+
+        int pos = adapter.getItemPosition(elem);
         if (pos < adapter.getItemCount()) {
             recyclerView.smoothScrollToPosition(pos);
         }
