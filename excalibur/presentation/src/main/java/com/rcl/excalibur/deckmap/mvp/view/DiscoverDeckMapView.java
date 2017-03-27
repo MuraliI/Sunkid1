@@ -3,6 +3,7 @@ package com.rcl.excalibur.deckmap.mvp.view;
 
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.deckmap.activity.DiscoverDeckMapActivity;
 import com.rcl.excalibur.deckmap.custom.view.MarkerImageView;
 import com.rcl.excalibur.deckmap.custom.view.PopupLayout;
-import com.rcl.excalibur.deckmap.model.ProductDeckMapModel;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
@@ -40,6 +40,7 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
 
         if (getActivity() != null) {
             shipImage.getViewTreeObserver().addOnGlobalLayoutListener(getActivity());
+            shipImage.setOnTouchListener(getActivity());
         }
     }
 
@@ -59,12 +60,8 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
         }
     }
 
-    public void setProductDeckMapModel(ProductDeckMapModel productDeckMapModel) {
-        shipImage.setProductDeckMap(productDeckMapModel);
-    }
-
-    public void setOnMarkerClickListener(MarkerImageView.OnMarkerClickListener listener) {
-        shipImage.setOnMarkerClickListener(listener);
+    public void setProductCoordinate(PointF productCoordinate) {
+        shipImage.setProductCoord(productCoordinate);
     }
 
     public void moveToProductCoordinate(PointF coordinate) {
@@ -95,5 +92,9 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
         if (popupWindow != null) {
             popupWindow.dismiss();
         }
+    }
+
+    public RectF getMarkerArea() {
+        return shipImage.getMarkerArea();
     }
 }

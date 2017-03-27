@@ -45,9 +45,8 @@ public class DiscoverDeckMapPresenter {
         DiscoverDeckMapActivity activity = view.getActivity();
         if (activity != null) {
             view.initDeckImage(R.drawable.map_05_fwd);
+            view.setProductCoordinate(productDeckMapModel.getCoordinate());
             view.initPopupLayout();
-            view.setProductDeckMapModel(productDeckMapModel);
-            view.setOnMarkerClickListener(activity);
         }
     }
 
@@ -84,13 +83,10 @@ public class DiscoverDeckMapPresenter {
         return productCoord;
     }
 
-    public void moveToCoordinateAndShowPopup() {
-        view.moveToProductCoordinate(productDeckMapModel.getCoordinate());
-        view.showProductOnPopupLayout(productDeckMapModel.getProduct());
-    }
-
-    public void onTouchPopupWindow() {
-        onDismissPopupWindow();
+    public void onTouchShipImage(PointF touchedLocation) {
+        if (view.isShipImageReady() && view.getMarkerArea().contains(touchedLocation.x, touchedLocation.y)) {
+            moveToCoordinateAndShowPopup();
+        }
     }
 
     public void onDismissPopupWindow() {
@@ -102,5 +98,10 @@ public class DiscoverDeckMapPresenter {
             view.removeTreeObserver();
             moveToCoordinateAndShowPopup();
         }
+    }
+
+    private void moveToCoordinateAndShowPopup() {
+        view.moveToProductCoordinate(productDeckMapModel.getCoordinate());
+        view.showProductOnPopupLayout(productDeckMapModel.getProduct());
     }
 }
