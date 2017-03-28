@@ -65,6 +65,9 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
     }
 
     public void setProductCoordinate(float xCoord, float yCoord) {
+        if (xCoord == 0 && yCoord == 0) {
+            return;
+        }
         deckMapImage.setProductCoord(new PointF(xCoord, yCoord));
     }
 
