@@ -39,9 +39,6 @@ import java.util.List;
 
 public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductResponse> {
 
-    public ProductResponseDataMapper() {
-    }
-
     @Override
     public Product transform(ProductResponse productResponse) {
         Product product = null;
