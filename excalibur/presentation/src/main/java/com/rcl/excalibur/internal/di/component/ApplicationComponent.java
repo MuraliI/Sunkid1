@@ -2,7 +2,7 @@ package com.rcl.excalibur.internal.di.component;
 
 import android.content.Context;
 
-import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
+import com.rcl.excalibur.mvp.presenter.DiscoverDeckMapPresenter;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;

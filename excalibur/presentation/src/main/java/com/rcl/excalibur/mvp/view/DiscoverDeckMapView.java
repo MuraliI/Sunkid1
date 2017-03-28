@@ -1,4 +1,4 @@
-package com.rcl.excalibur.deckmap.mvp.view;
+package com.rcl.excalibur.mvp.view;
 
 
 import android.graphics.Color;
@@ -12,9 +12,9 @@ import android.widget.PopupWindow;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.deckmap.activity.DiscoverDeckMapActivity;
-import com.rcl.excalibur.deckmap.custom.view.DeckMapImageView;
-import com.rcl.excalibur.deckmap.custom.view.PopupLayout;
+import com.rcl.excalibur.activity.DiscoverDeckMapActivity;
+import com.rcl.excalibur.custom.view.DeckMapImageView;
+import com.rcl.excalibur.custom.view.DeckMapPopupLayout;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
@@ -27,7 +27,7 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
 
     @Bind(R.id.image_deck_map) DeckMapImageView deckMapImage;
 
-    private PopupLayout popupView;
+    private DeckMapPopupLayout popupView;
     private PopupWindow popupWindow;
 
     public DiscoverDeckMapView(DiscoverDeckMapActivity activity) {
@@ -48,7 +48,7 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
     }
 
     public void initPopupLayout() {
-        popupView = new PopupLayout(getContext());
+        popupView = new DeckMapPopupLayout(getContext());
         popupWindow = new PopupWindow(
                 popupView,
                 ViewGroup.LayoutParams.WRAP_CONTENT,

@@ -1,4 +1,4 @@
-package com.rcl.excalibur.deckmap.custom.view;
+package com.rcl.excalibur.custom.view;
 
 
 import android.content.Context;
@@ -21,28 +21,28 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PopupLayout extends RelativeLayout {
+public class DeckMapPopupLayout extends RelativeLayout {
     @Bind(R.id.image_product) ImageView productImage;
     @Bind(R.id.text_title_product) TextView titleProductText;
     @Bind(R.id.text_type_product) TextView typeProductText;
     @Bind(R.id.text_type_name) TextView typeNameText;
 
-    public PopupLayout(Context context) {
+    public DeckMapPopupLayout(Context context) {
         super(context);
         initialize(context);
     }
 
-    public PopupLayout(Context context, AttributeSet attrs) {
+    public DeckMapPopupLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         initialize(context);
     }
 
-    public PopupLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DeckMapPopupLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initialize(context);
     }
 
-    public PopupLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public DeckMapPopupLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initialize(context);
     }

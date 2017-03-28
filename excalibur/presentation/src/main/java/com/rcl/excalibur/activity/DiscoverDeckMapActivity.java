@@ -1,4 +1,4 @@
-package com.rcl.excalibur.deckmap.activity;
+package com.rcl.excalibur.activity;
 
 
 import android.content.Intent;
@@ -10,10 +10,9 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.deckmap.custom.view.DeckMapImageView;
-import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
-import com.rcl.excalibur.deckmap.mvp.view.DiscoverDeckMapView;
+import com.rcl.excalibur.custom.view.DeckMapImageView;
+import com.rcl.excalibur.mvp.presenter.DiscoverDeckMapPresenter;
+import com.rcl.excalibur.mvp.view.DiscoverDeckMapView;
 
 public class DiscoverDeckMapActivity extends BaseActivity implements View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener {
     private static final String EXTRA_PRODUCT_ITEM_ID = "EXTRA_PRODUCT_ITEM_ID";

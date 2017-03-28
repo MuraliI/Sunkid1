@@ -1,7 +1,7 @@
 package com.rcl.excalibur.internal.di.component;
 
 
-import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
+import com.rcl.excalibur.mvp.presenter.DiscoverDeckMapPresenter;
 import com.rcl.excalibur.internal.di.PerActivity;
 import com.rcl.excalibur.internal.di.module.UserModule;
 import com.rcl.excalibur.mvp.presenter.DiscoverItemDetailPresenter;

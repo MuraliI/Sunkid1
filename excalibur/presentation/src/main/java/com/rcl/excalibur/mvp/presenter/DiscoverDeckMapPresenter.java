@@ -1,12 +1,12 @@
-package com.rcl.excalibur.deckmap.mvp.presenter;
+package com.rcl.excalibur.mvp.presenter;
 
 
 import android.graphics.PointF;
 import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.deckmap.activity.DiscoverDeckMapActivity;
-import com.rcl.excalibur.deckmap.mvp.view.DiscoverDeckMapView;
+import com.rcl.excalibur.activity.DiscoverDeckMapActivity;
+import com.rcl.excalibur.mvp.view.DiscoverDeckMapView;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 

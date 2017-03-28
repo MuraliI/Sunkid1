@@ -1,4 +1,4 @@
-package com.rcl.excalibur.deckmap.custom.view;
+package com.rcl.excalibur.custom.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
