@@ -171,8 +171,12 @@ public class Product {
         this.productShortDescription = productShortDescription;
     }
 
+    //TODO Improve this
     public String getProductLongDescription() {
-        return productLongDescription;
+        if (productLongDescription == null)
+            return productShortDescription;
+        else
+            return productLongDescription;
     }
 
     public void setProductLongDescription(String productLongDescription) {

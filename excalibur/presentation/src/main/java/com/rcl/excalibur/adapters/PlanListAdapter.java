@@ -53,5 +53,4 @@ public class PlanListAdapter extends FragmentStatePagerAdapter {
                 return null;
         }
     }
-
 }

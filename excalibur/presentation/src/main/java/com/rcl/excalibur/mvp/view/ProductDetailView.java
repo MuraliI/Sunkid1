@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity> {
     @Bind(R.id.frame_layout_reservation_container) ReservationDetailLayout reservationDetailLayout;
     @Bind(R.id.fab_reserve_discover_item) FloatingActionButton reserveButton;
     @Bind(R.id.image_hero) ImageView heroImage;
+    @Bind(R.id.btn_deck_map) ImageButton deckButton;
 
     private DetailViewCoordinatorAdapter adapter;
 
@@ -41,6 +43,10 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity> {
         super(activity);
         ButterKnife.bind(this, activity);
         activity.setSupportActionBar(detailToolbar);
+    }
+
+    public void hideDeckMapButton() {
+        deckButton.setVisibility(View.GONE);
     }
 
     public void setHeroImage(String url) {

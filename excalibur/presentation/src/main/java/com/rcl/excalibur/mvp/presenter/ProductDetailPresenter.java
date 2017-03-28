@@ -13,7 +13,7 @@ import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
 
-import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOPPING;
+import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOREX;
 
 public class ProductDetailPresenter implements ActivityPresenter {
     private GetProductDbUseCase getProductDbUseCase;
@@ -33,8 +33,11 @@ public class ProductDetailPresenter implements ActivityPresenter {
         DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
         if (product != null) {
             String productTypeName = product.getProductType().getProductType();
-            if (TYPE_SHOPPING.equals(productTypeName)) {
+            if (!product.isReservationRequired() && product.isScheduable()) {
                 view.showOnlyReservationIcon();
+            }
+            if (TYPE_SHOREX.equals(productTypeName)) {
+                view.hideDeckMapButton();
             }
             moduleFactory = factoryProvider.getFactory(productTypeName);
             if (moduleFactory == null) {

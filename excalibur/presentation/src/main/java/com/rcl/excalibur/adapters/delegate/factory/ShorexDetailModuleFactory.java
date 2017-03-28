@@ -3,6 +3,7 @@ package com.rcl.excalibur.adapters.delegate.factory;
 import android.content.res.Resources;
 import android.support.v4.util.SparseArrayCompat;
 
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.ExpandableDescriptionDelegateAdapter;
@@ -11,8 +12,6 @@ import com.rcl.excalibur.adapters.delegate.PricesFromDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PromotionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.StandardTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
-import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
-import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +24,6 @@ import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_ST
 import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION;
 
 class ShorexDetailModuleFactory extends DetailModuleFactory {
-    private static final int POSITION_PRICE_ADULTS = 1;
-    private static final int POSITION_PRICE_CHILDREN = 3;
-
     @Override
     public SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray() {
         SparseArrayCompat<DelegateAdapter> delegates = new SparseArrayCompat<>();
@@ -42,13 +38,13 @@ class ShorexDetailModuleFactory extends DetailModuleFactory {
 
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
-        List<RecyclerViewType> types = new ArrayList<>();
-        if (product.getStartingFromPrice() != null) {
-            types.add(new PricesFromViewType(product.getStartingFromPrice().getAdultPrice() + "",
-                    product.getStartingFromPrice().getChildPrice() + ""));
-        }
-        addTitleAndDescriptionTypes(types);
-        types.add(new ExpandableDescriptionViewType(product.getProductShortDescription()));
+        final List<RecyclerViewType> types = new ArrayList<>();
+        addPriceFromTypes(types);
+        addProductLocationTypes(types, resources);
+        addRestrictionsType(types, resources, R.string.ages);
+        addProductDurationTypes(types, resources, R.string.duration);
+        addProductLevel(types, resources);
+        addLongDescriptionTypes(types);
         return types;
     }
 }

@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -20,25 +21,27 @@ import static org.mockito.Mockito.when;
 public class PromotionMessageResponseDataMapperTest {
 
     PromotionMessageResponseDataMapper promotionMessageResponseDataMapper;
-    @Mock PromotionMessageResponse entity1;
-    @Mock PromotionMessageResponse entity2;
+    PromotionMessageResponse entity1;
+    PromotionMessageResponse entity2;
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+
         promotionMessageResponseDataMapper = new PromotionMessageResponseDataMapper();
 
-        when(entity1.getCategoryId()).thenReturn("categoryId");
-        when(entity1.getLocationCode()).thenReturn("57850");
-        when(entity1.getMessageDescription()).thenReturn("some description");
-        when(entity1.getMessageTitle()).thenReturn("My title");
-        when(entity1.getProductId()).thenReturn(new String[]{"Id1", "Id2", "Id3"});
+        entity1 = new PromotionMessageResponse();
+        entity1.setCategoryId("SHOREX");
+        entity1.setLocationCode("57850");
+        entity1.setMessageDescription("Save on invitica, Movadp, Tissot, Citizen, Bulova, Michael Kors, Ferran, Fossil, Guess, G-SHock, and more. All purchases jabe a 30-day price match gaurantee!. Whethr you'r shopping for yourself o as a gift, we have an amazing selection for you to chose from. All tax and duty free.");
+        entity1.setMessageTitle("Designer Watch Sale Up to 75% off");
+        entity1.setProductId(new String[]{"100000003007969595", "100000002783668857", "100000000024033275"});
 
-        when(entity2.getCategoryId()).thenReturn("IdCategory");
-        when(entity2.getLocationCode()).thenReturn("51200");
-        when(entity2.getMessageDescription()).thenReturn("other description");
-        when(entity2.getMessageTitle()).thenReturn("some title");
-        when(entity2.getProductId()).thenReturn(new String[]{"one", "two", "three"});
+        entity2 = new PromotionMessageResponse();
+        entity2.setCategoryId("SHOREX");
+        entity2.setLocationCode("57850");
+        entity2.setMessageDescription("Save on invitica,Movadp and more. All purchases jabe a 30-day price match gaurantee!. Whethr you'r shopping for yourself o as a gift, we have an amazing selection for you to chose from. All tax and duty free.");
+        entity2.setMessageTitle("Designer Watch Sale Up to 5% off");
+        entity2.setProductId(new String[]{"100000000024033275", "100000000024033275", "100000000024033275"});
     }
 
     @Test

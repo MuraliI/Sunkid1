@@ -2,6 +2,7 @@ package com.rcl.excalibur.data.service;
 
 
 import com.rcl.excalibur.data.mapper.BaseDataMapper;
+import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
@@ -102,6 +103,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void getActivities() {
+
+        Call<ActivitiesResponse> call = ServiceUtil.getDiscoverApi().getActivities();
+        call.enqueue(new Callback<ActivitiesResponse>() {
+            @Override
+            public void onResponse(Call<ActivitiesResponse> call, Response<ActivitiesResponse> response) {
+                Timber.d("Succesfull", response.body().getGetActivitiesResponse().getResponseStatus());
+
+            }
+
+            @Override
+            public void onFailure(Call<ActivitiesResponse> call, Throwable t) {
+                Timber.e("error", t.getMessage());
+            }
+        });
+    }
+
+    @Override
     public void getPromotionMessages() {
         Call<PromotionMessagesResponse> call = ServiceUtil.getDiscoverApi().getPromotionMessages();
         call.enqueue(new Callback<PromotionMessagesResponse>() {
@@ -117,7 +136,6 @@ public class ProductServiceImpl implements ProductService {
             }
         });
     }
-
 
     @Override
     public void getEntertainments() {

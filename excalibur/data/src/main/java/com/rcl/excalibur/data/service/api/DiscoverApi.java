@@ -1,6 +1,7 @@
 package com.rcl.excalibur.data.service.api;
 
 
+import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
@@ -34,4 +35,7 @@ public interface DiscoverApi {
 
     @GET("products/en/mobile")
     Call<ProductsResponse> getProducts();
+
+    @GET("activities/en/mobile")
+    Call<ActivitiesResponse> getActivities();
 }

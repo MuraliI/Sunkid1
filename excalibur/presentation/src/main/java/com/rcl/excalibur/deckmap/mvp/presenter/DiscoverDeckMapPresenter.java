@@ -12,7 +12,7 @@ import com.rcl.excalibur.deckmap.mvp.view.DiscoverDeckMapView;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 
-public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickListener {
+public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickListener, DiscoverDeckMapView.OnViewReadyListener {
     private static final String SPA = "SPA";
     private static final String ENTERTAINMENT = "ENTERTAINMENT";
     private static final String ACTIVITIES = "ACTIVITIES";
@@ -84,6 +84,7 @@ public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickLi
             view.initPopupLayout();
             view.setProductDeckMapModel(productDeckMapModel);
             view.setOnMarkerClickListener(this);
+            view.setListener(this);
         }
     }
 
@@ -93,12 +94,6 @@ public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickLi
             return;
         }
         /*activity.getApplicationComponent().inject(this);*/
-    }
-
-    public void onBackClicked() {
-        if (view.getActivity() != null) {
-            view.getActivity().finish();
-        }
     }
 
     @Override
@@ -112,5 +107,10 @@ public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickLi
 
     public void onDestroy() {
         view.onDestroy();
+    }
+
+    @Override
+    public void onViewReady() {
+        isInsideRegion();
     }
 }

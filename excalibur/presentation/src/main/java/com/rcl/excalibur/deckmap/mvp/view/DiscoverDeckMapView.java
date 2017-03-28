@@ -6,6 +6,7 @@ import android.graphics.PointF;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.PopupWindow;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -21,10 +22,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
+    public interface OnViewReadyListener {
+        void onViewReady();
+    }
     private static final int MINIMUM_DPI = 80;
     private static final double FACTOR = 1.3;
 
     @Bind(R.id.image_ship) MarkerImageView shipImage;
+
+    private OnViewReadyListener listener;
 
     private PopupLayout popupView;
     private PopupWindow popupWindow;
@@ -39,6 +45,20 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
         shipImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_OUTSIDE);
         //shipImage.setScaleAndCenter(shipImage.getMaxScale(), new PointF(0, 0));
         shipImage.setMinimumDpi(MINIMUM_DPI);
+        shipImage.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        if (shipImage.isReady()) {
+                            shipImage.getViewTreeObserver()
+                                    .removeOnGlobalLayoutListener(this);
+                            if (listener != null) {
+                                listener.onViewReady();
+                            }
+                        }
+                    }
+                }
+        );
     }
 
     public void initPopupLayout() {
@@ -56,6 +76,10 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
             popupWindow.dismiss();
             return true;
         });
+    }
+
+    public void setListener(OnViewReadyListener listener) {
+        this.listener = listener;
     }
 
     public void setProductDeckMapModel(ProductDeckMapModel productDeckMapModel) {
