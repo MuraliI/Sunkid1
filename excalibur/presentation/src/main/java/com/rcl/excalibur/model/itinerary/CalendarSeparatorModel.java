@@ -4,7 +4,7 @@ package com.rcl.excalibur.model.itinerary;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
-public class ItinerarySeparatorModel implements RecyclerViewType {
+public class CalendarSeparatorModel implements RecyclerViewType {
 
 
     private String label;

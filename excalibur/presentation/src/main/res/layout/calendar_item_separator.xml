@@ -13,7 +13,8 @@
         android:id="@+id/text_hour"
         style="@style/AppTheme.CalendarHour"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/itinerary_separator_min_width"/>
 
     <View
         android:layout_width="match_parent"
