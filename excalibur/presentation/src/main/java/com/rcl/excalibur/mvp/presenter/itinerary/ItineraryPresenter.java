@@ -8,9 +8,10 @@ import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
+import com.rcl.excalibur.model.itinerary.CalendarSeparatorModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
-import com.rcl.excalibur.model.itinerary.ItinerarySeparatorModel;
+import com.rcl.excalibur.model.itinerary.SeparatorModel;
 import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
@@ -27,10 +28,9 @@ import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_UP_C
 
 public class ItineraryPresenter implements BasePresenter {
 
-    @Inject
-    ItineraryService itineraryService;
+    @Inject ItineraryService itineraryService;
 
-    private int scrollPosition = 0;
+    private RecyclerViewType scrollToElement = null;
     private boolean onGoingIsAdded = false;
 
     private ItineraryView view;
@@ -63,11 +63,14 @@ public class ItineraryPresenter implements BasePresenter {
     public void refreshItinerary() {
         view.setIsLoadingData(true);
         onGoingIsAdded = false;
+        scrollToElement = null;
         itineraryService.myItinerary(serviceObserver);
     }
 
     private void refreshPositioning() {
-        view.scrollToPosition(scrollPosition);
+        if (scrollToElement != null) {
+            view.scrollToPosition(scrollToElement);
+        }
     }
 
     private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products) {
@@ -76,12 +79,12 @@ public class ItineraryPresenter implements BasePresenter {
 
         for (int i = 0; i < products.size(); i++) {
             ItineraryProductModel productModel = products.get(i);
-
+            RecyclerViewType separator = i != 0 ? new SeparatorModel() : null;
             switch (productModel.getState()) {
                 case STATE_ON_GOING:
 
                     if (!onGoingIsAdded) {
-                        addOnGoingSeparator(viewTypeList, i);
+                        separator = createOnGoingSeparator();
                     }
 
                     break;
@@ -91,7 +94,7 @@ public class ItineraryPresenter implements BasePresenter {
 
                     if (prevProduct == null
                             || (prevProduct.getState() != STATE_UP_COMING || productModel.hourIsDifferent(prevProduct))) {
-                        addCalendarSeparator(viewTypeList, productModel, i);
+                        separator = createCalendarSeparator(productModel);
                     }
 
                     break;
@@ -99,39 +102,44 @@ public class ItineraryPresenter implements BasePresenter {
                     break;
             }
 
+            if (separator != null) {
+                viewTypeList.add(separator);
+            }
             viewTypeList.add(productModel);
         }
 
         return viewTypeList;
     }
 
-    private void addCalendarSeparator(List<RecyclerViewType> list, ItineraryProductModel productModel, int position) {
-
+    private CalendarSeparatorModel createCalendarSeparator(ItineraryProductModel productModel) {
         if (view.getActivity() != null) {
             String separatorLabel = DateUtils.getDateHour(productModel.getStartDate().getTime(),
                     view.getActivity().getResources());
             separatorLabel = separatorLabel.toLowerCase();
-
-            if (!onGoingIsAdded) {
-                scrollPosition = position + 1;
+            CalendarSeparatorModel separatorModel = createSeparator(separatorLabel);
+            if (scrollToElement == null) {
+                scrollToElement = separatorModel;
             }
-            addSeparator(list, separatorLabel);
+            return separatorModel;
         }
+        return null;
     }
 
-    private void addOnGoingSeparator(List<RecyclerViewType> list, int position) {
+    private CalendarSeparatorModel createOnGoingSeparator() {
         if (view.getActivity() != null) {
-            scrollPosition = position + 1;
             onGoingIsAdded = true;
             String label = view.getActivity().getString(R.string.itinerary_separator_title_on_going);
-            addSeparator(list, label);
+            CalendarSeparatorModel separatorModel = createSeparator(label);
+            scrollToElement = separatorModel;
+            return separatorModel;
         }
+        return null;
     }
 
-    private void addSeparator(List<RecyclerViewType> list, String label) {
-        ItinerarySeparatorModel itinerarySeparatorModel = new ItinerarySeparatorModel();
-        itinerarySeparatorModel.setLabel(label);
-        list.add(itinerarySeparatorModel);
+    private CalendarSeparatorModel createSeparator(String label) {
+        CalendarSeparatorModel calendarSeparatorModel = new CalendarSeparatorModel();
+        calendarSeparatorModel.setLabel(label);
+        return calendarSeparatorModel;
     }
 
     private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
