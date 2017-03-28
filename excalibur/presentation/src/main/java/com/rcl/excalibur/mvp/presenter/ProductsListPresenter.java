@@ -71,6 +71,11 @@ public class ProductsListPresenter implements FragmentPresenter {
         }
     }
 
+    @Override
+    public ProductsListView getView() {
+        return view;
+    }
+
     public class AdapterObserver extends DefaultPresentObserver<Product, ProductsListPresenter> {
 
         AdapterObserver(ProductsListPresenter presenter) {

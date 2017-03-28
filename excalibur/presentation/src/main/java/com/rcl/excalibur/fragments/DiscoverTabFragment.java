@@ -1,13 +1,14 @@
 package com.rcl.excalibur.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.TriptychHomeActivity;
+import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.internal.di.component.FragmentComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsFragmentComponent;
 import com.rcl.excalibur.internal.di.module.products.ProductsFragmentModule;
@@ -25,6 +26,7 @@ import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SPA;
 
 public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
     private ProductsFragmentComponent productsFragmentComponent;
+    private RCLApp rclApp;
 
     public static DiscoverTabFragment newInstance() {
         return new DiscoverTabFragment();
@@ -39,12 +41,21 @@ public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        presenter.init();
+    }
+
+    @Override
     protected void createFragmentComponent() {
-        productsFragmentComponent = ((TriptychHomeActivity) getActivity()).getProductsActivityComponent().plus(new ProductsFragmentModule(this));
+        rclApp = (RCLApp) getActivity().getApplication();
+        rclApp.createProductsComponent();
+        productsFragmentComponent = rclApp.getProductsComponent().plus(new ProductsFragmentModule(this));
     }
 
     @Override
     protected void destroyFragmentComponent() {
+        rclApp.destroyProductsComponent();
         productsFragmentComponent = null;
     }
 

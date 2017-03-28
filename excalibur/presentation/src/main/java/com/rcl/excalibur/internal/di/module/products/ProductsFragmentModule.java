@@ -1,5 +1,6 @@
 package com.rcl.excalibur.internal.di.module.products;
 
+import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
 import com.rcl.excalibur.fragments.BaseFragment;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
 import com.rcl.excalibur.internal.di.scopes.product.ProductsFragmentScope;
@@ -29,7 +30,7 @@ public class ProductsFragmentModule {
     }
 
     @Provides
-    DiscoverTabPresenter providesDiscoverTabPresenter(DiscoverTabView discoverTabView) {
-        return new DiscoverTabPresenter(discoverTabView);
+    DiscoverTabPresenter providesDiscoverTabPresenter(DiscoverTabView discoverTabView, GetProductsUseCase getProductsUseCase) {
+        return new DiscoverTabPresenter(discoverTabView, getProductsUseCase);
     }
 }

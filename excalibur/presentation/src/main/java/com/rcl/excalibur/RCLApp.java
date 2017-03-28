@@ -6,10 +6,13 @@ import com.activeandroid.ActiveAndroid;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.rcl.excalibur.internal.di.component.AppComponent;
 import com.rcl.excalibur.internal.di.component.DaggerAppComponent;
+import com.rcl.excalibur.internal.di.component.itinerary.ItineraryComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductDetailComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsListComponent;
 import com.rcl.excalibur.internal.di.module.AppModule;
+import com.rcl.excalibur.internal.di.module.itinerary.ItineraryModule;
+import com.rcl.excalibur.internal.di.module.itinerary.ItineraryServicesModule;
 import com.rcl.excalibur.internal.di.module.products.ProductDetailModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsDatabaseModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsListModule;
@@ -23,6 +26,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class RCLApp extends Application {
     private AppComponent appComponent;
     private ProductsComponent productsComponent;
+    private ItineraryComponent itineraryComponent;
     private ProductsListComponent productsListComponent;
     private ProductDetailComponent productDetailComponent;
 
@@ -87,6 +91,18 @@ public class RCLApp extends Application {
 
     public void createProductListComponent(int fragmentToShow) {
         productsListComponent = productsComponent.plus(new ProductsListModule(fragmentToShow));
+    }
+
+    public void createItineraryComponent() {
+        itineraryComponent = appComponent.plus(new ItineraryServicesModule(), new ItineraryModule());
+    }
+
+    public ItineraryComponent getItineraryComponent() {
+        return itineraryComponent;
+    }
+
+    public void destroyItineraryComponent() {
+        itineraryComponent = null;
     }
 
     public ProductsListComponent getProductsListComponent() {

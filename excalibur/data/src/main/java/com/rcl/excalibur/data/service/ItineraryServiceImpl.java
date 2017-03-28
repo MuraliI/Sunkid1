@@ -1,6 +1,6 @@
 package com.rcl.excalibur.data.service;
 
-import com.rcl.excalibur.data.mapper.itinerary.ItineraryEventDataMapper;
+import com.rcl.excalibur.data.mapper.BaseDataMapper;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryEventResponse;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
@@ -10,9 +10,6 @@ import com.rcl.excalibur.domain.service.ItineraryService;
 import java.io.IOException;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,13 +17,10 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Response;
 
-@Singleton
 public class ItineraryServiceImpl implements ItineraryService {
+    private BaseDataMapper<ItineraryEvent, ItineraryEventResponse> itineraryEventDataMapper;
 
-    ItineraryEventDataMapper itineraryEventDataMapper;
-
-    @Inject
-    public ItineraryServiceImpl(ItineraryEventDataMapper itineraryEventDataMapper) {
+    public ItineraryServiceImpl(BaseDataMapper<ItineraryEvent, ItineraryEventResponse> itineraryEventDataMapper) {
         this.itineraryEventDataMapper = itineraryEventDataMapper;
     }
 

@@ -1,6 +1,7 @@
 package com.rcl.excalibur.internal.di.module;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.UIThread;
@@ -28,6 +29,11 @@ public class AppModule {
     @Provides
     Context provideApplicationContext() {
         return this.application;
+    }
+
+    @Provides
+    Resources providesResources(Context context) {
+        return context.getResources();
     }
 
     @Provides

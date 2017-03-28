@@ -1,18 +1,15 @@
 package com.rcl.excalibur.mvp.presenter.itinerary;
 
-import android.app.Activity;
-
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.RCLApp;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
+import com.rcl.excalibur.data.mapper.BaseDataMapper;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
-import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
 import com.rcl.excalibur.model.itinerary.ItinerarySeparatorModel;
-import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
+import com.rcl.excalibur.mvp.presenter.FragmentPresenter;
 import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
 import com.rcl.excalibur.utils.DateUtils;
 
@@ -20,43 +17,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_ON_GOING;
 import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_UP_COMING;
 
-public class ItineraryPresenter implements BasePresenter {
-
-    @Inject
-    ItineraryService itineraryService;
-
+public class ItineraryPresenter implements FragmentPresenter {
+    private ItineraryService itineraryService;
+    private ItineraryView view;
+    private ItineraryServiceObserver serviceObserver;
+    private BaseDataMapper<ItineraryProductModel, ItineraryEvent> mapper;
     private int scrollPosition = 0;
     private boolean onGoingIsAdded = false;
 
-    private ItineraryView view;
-    private ItineraryServiceObserver serviceObserver;
-    private ItineraryProductModelMapper mapper;
-
-    public ItineraryPresenter(ItineraryView view) {
+    public ItineraryPresenter(ItineraryView view,
+                              ItineraryService itineraryService,
+                              BaseDataMapper<ItineraryProductModel, ItineraryEvent> modelMapper) {
         this.view = view;
-        initInjection();
-        init();
+        this.itineraryService = itineraryService;
+        this.mapper = modelMapper;
+        this.serviceObserver = new ItineraryServiceObserver(this);
     }
 
-    private void initInjection() {
-        final Activity activity = view.getActivity();
-        if (activity == null) {
-            return;
-        }
-        ((RCLApp) activity.getApplication()).getApplicationComponent().inject(this);
-    }
-
-    private void init() {
-        mapper = new ItineraryProductModelMapper(view.getActivity().getResources());
+    public void init() {
         view.init();
         view.setGreetingText(new GreetingViewType());
-
-        serviceObserver = new ItineraryServiceObserver(this);
         refreshItinerary();
     }
 
@@ -132,6 +115,11 @@ public class ItineraryPresenter implements BasePresenter {
         ItinerarySeparatorModel itinerarySeparatorModel = new ItinerarySeparatorModel();
         itinerarySeparatorModel.setLabel(label);
         list.add(itinerarySeparatorModel);
+    }
+
+    @Override
+    public ItineraryView getView() {
+        return view;
     }
 
     private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
