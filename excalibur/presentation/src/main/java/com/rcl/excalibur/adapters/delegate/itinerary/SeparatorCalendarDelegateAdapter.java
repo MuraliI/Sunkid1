@@ -28,8 +28,7 @@ public class SeparatorCalendarDelegateAdapter implements DelegateAdapter<
 
     class CalendarSeparatorViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.text_hour)
-        TextView textHour;
+        @Bind(R.id.text_hour) TextView textHour;
 
         CalendarSeparatorViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.calendar_item_separator, parent, false));

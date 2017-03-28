@@ -28,8 +28,7 @@ import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_UP_C
 
 public class ItineraryPresenter implements BasePresenter {
 
-    @Inject
-    ItineraryService itineraryService;
+    @Inject ItineraryService itineraryService;
 
     private RecyclerViewType scrollToElement = null;
     private boolean onGoingIsAdded = false;
