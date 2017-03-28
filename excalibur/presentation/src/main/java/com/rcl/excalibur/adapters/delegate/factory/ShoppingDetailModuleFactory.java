@@ -10,9 +10,6 @@ import com.rcl.excalibur.adapters.delegate.ExpandableLinkDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PromotionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.StandardTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
-import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
-import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
-import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,15 +35,9 @@ class ShoppingDetailModuleFactory extends DetailModuleFactory {
 
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
-        List<RecyclerViewType> types = new ArrayList<>();
-        if (product.getStartingFromPrice() != null) {
-            if (product.getStartingFromPrice().getAdultPrice() != 0 || product.getStartingFromPrice().getChildPrice() != 0) {
-                types.add(new PricesFromViewType(StringUtils.getPriceFormated(product.getStartingFromPrice().getAdultPrice()),
-                        StringUtils.getPriceFormated(product.getStartingFromPrice().getChildPrice())));
-            }
-        }
-        addTitleAndDescriptionTypes(types);
-        types.add(new ExpandableDescriptionViewType(product.getProductLongDescription()));
+        final List<RecyclerViewType> types = new ArrayList<>();
+        addPriceFromTypes(types);
+        addLongDescriptionTypes(types);
         return types;
     }
 }

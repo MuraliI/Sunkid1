@@ -83,5 +83,13 @@
     <string name="triptych_tab_me">Me Screen</string>
     <string name="product_duration_template">%d min.</string>
     <string name="no_items_to_show">There are no items to show right now. Please try again later.</string>
+    <string name="ages">Ages</string>
+    <string name="activity_level">Activity Level</string>
+    <string name="operating_hours">Operating hours</string>
+    <string name="day_1">Day 1</string>
+    <string name="guest_should_be">Guests should be</string>
+    <string name="mins">%d mins</string>
+    <string name="duration">Duration</string>
+    <string name="sessions_from">Sessions from</string>
 
 </resources>

@@ -241,6 +241,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             productActivityLevel.setActivityLevelDescription(entity.getDescription());
             productActivityLevel.setActivityLevelId(entity.getActivityLevelId());
             productActivityLevel.setActivityLevelMedia(transform(entity.getMedia()));
+            productActivityLevel.setActivityLevelTitle(entity.getTitle());
         }
         return productActivityLevel;
     }
