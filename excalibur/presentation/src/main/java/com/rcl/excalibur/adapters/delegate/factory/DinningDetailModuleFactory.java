@@ -14,7 +14,6 @@ import com.rcl.excalibur.adapters.delegate.PricesFromDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PromotionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.StandardTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
-import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +26,10 @@ import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_PR
 import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION;
 
 class DinningDetailModuleFactory extends DetailModuleFactory {
-    private static final int VIEW_TYPES_COUNT = 6;
 
     @Override
     public SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray() {
-        SparseArrayCompat<DelegateAdapter> delegateAdapters = new SparseArrayCompat<>(VIEW_TYPES_COUNT);
+        SparseArrayCompat<DelegateAdapter> delegateAdapters = new SparseArrayCompat<>();
         delegateAdapters.append(VIEW_TYPE_PROMOTION, new PromotionDelegateAdapter());
 //        delegateAdapters.append(VIEW_TYPE_DINNER_TIMES, new DinnerTimesDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_STANDARD_TIMES, new StandardTimesDelegateAdapter());
@@ -45,10 +43,8 @@ class DinningDetailModuleFactory extends DetailModuleFactory {
 
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
-        List<RecyclerViewType> types = new ArrayList<>();
-
-        addTitleAndDescriptionTypes(types);
-        types.add(new ExpandableDescriptionViewType(product.getProductLongDescription()));
+        final List<RecyclerViewType> types = new ArrayList<>();
+        addLongDescriptionTypes(types);
         return types;
     }
 }
