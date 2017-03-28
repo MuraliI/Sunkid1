@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 
 public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
     private static final int MINIMUM_DPI = 80;
+    private static final float HALF_FACTOR = 2.0f;
 
     @Bind(R.id.image_deck_map) DeckMapImageView deckMapImage;
 
@@ -39,9 +40,10 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
         deckMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_OUTSIDE);
         deckMapImage.setMinimumDpi(MINIMUM_DPI);
 
-        if (getActivity() != null) {
-            deckMapImage.getViewTreeObserver().addOnGlobalLayoutListener(getActivity());
-            deckMapImage.setOnTouchListener(getActivity());
+        DiscoverDeckMapActivity activity = getActivity();
+        if (activity != null) {
+            deckMapImage.getViewTreeObserver().addOnGlobalLayoutListener(activity);
+            deckMapImage.setOnTouchListener(activity);
         }
     }
 
@@ -56,8 +58,9 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
         popupWindow.setTouchable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        if (getActivity() != null) {
-            popupWindow.setTouchInterceptor(getActivity());
+        DiscoverDeckMapActivity activity = getActivity();
+        if (activity != null) {
+            popupWindow.setTouchInterceptor(activity);
         }
     }
 
@@ -69,32 +72,37 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
         deckMapImage.animatePointToCenter(new PointF(xCoord, yCoord));
     }
 
-    public boolean isShipImageReady() {
+    public boolean isDeckMapImageReady() {
         return deckMapImage.isReady();
     }
 
     public void removeTreeObserver() {
-        if (getActivity() != null) {
+        DiscoverDeckMapActivity activity = getActivity();
+        if (activity != null) {
             deckMapImage.getViewTreeObserver()
-                    .removeOnGlobalLayoutListener(getActivity());
+                    .removeOnGlobalLayoutListener(activity);
         }
     }
 
     public void showProductOnPopupLayout(@NonNull Product product) {
-        popupView.setProduct(product);
-        int elevation = 0;
-        if (getActivity() != null) {
-            float elevationError = getActivity().getResources().getDimension(R.dimen.item_deck_elevation_error);
-            float popUpHeight = getActivity().getResources().getDimensionPixelOffset(R.dimen.item_deck_height);
-            elevation = (int) (popUpHeight / 2.0f + deckMapImage.getMarketHeight() - elevationError);
+        DiscoverDeckMapActivity activity = getActivity();
+        if (activity == null) {
+            return;
         }
+
+        float elevationError = activity.getResources().getDimension(R.dimen.item_deck_elevation_error);
+        float popUpHeight = activity.getResources().getDimensionPixelOffset(R.dimen.item_deck_height);
+        int elevation = (int) (popUpHeight / HALF_FACTOR + deckMapImage.getMarketHeight() - elevationError);
+
+        popupView.setProduct(product);
         popupWindow.showAtLocation(deckMapImage, Gravity.CENTER, 0, -elevation);
     }
 
     public void dismissPopupWindow() {
-        if (popupWindow != null) {
-            popupWindow.dismiss();
+        if (popupWindow == null) {
+            return;
         }
+        popupWindow.dismiss();
     }
 
     public RectF getMarkerArea() {

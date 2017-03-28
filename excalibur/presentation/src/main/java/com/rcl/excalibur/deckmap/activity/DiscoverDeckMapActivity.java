@@ -42,12 +42,13 @@ public class DiscoverDeckMapActivity extends BaseActivity implements View.OnTouc
         initGestureDetector(presenter);
     }
 
+    // Cannot be passed to View because is very expensive to implement
     private void initGestureDetector(DiscoverDeckMapPresenter presenter) {
         gestureDetector = new GestureDetector(this,
                 new GestureDetector.SimpleOnGestureListener() {
                     @Override
                     public boolean onSingleTapConfirmed(MotionEvent e) {
-                        presenter.onTouchShipImage(new PointF(e.getX(), e.getY()));
+                        presenter.onTouchDeckMapImage(new PointF(e.getX(), e.getY()));
                         return true;
                     }
                 }

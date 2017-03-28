@@ -71,17 +71,19 @@ public class DeckMapImageView extends SubsamplingScaleImageView {
 
         paint.setAntiAlias(true);
 
-        if (productCoord != null && marker != null) {
-            PointF vPin = sourceToViewCoord(productCoord);
-
-            float left = vPin.x - marker.getWidth() / 2;
-            float top = vPin.y - marker.getHeight();
-            float right = vPin.x + marker.getWidth() / 2;
-            float bottom = vPin.y;
-
-            markerArea.set(left, top, right, bottom);
-            canvas.drawBitmap(marker, left, top, paint);
+        if (productCoord == null || marker == null) {
+            return;
         }
+
+        PointF vPin = sourceToViewCoord(productCoord);
+
+        float left = vPin.x - marker.getWidth() / 2;
+        float top = vPin.y - marker.getHeight();
+        float right = vPin.x + marker.getWidth() / 2;
+        float bottom = vPin.y;
+
+        markerArea.set(left, top, right, bottom);
+        canvas.drawBitmap(marker, left, top, paint);
     }
 
     public RectF getMarkerArea() {

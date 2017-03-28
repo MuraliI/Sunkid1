@@ -3,6 +3,7 @@ package com.rcl.excalibur.deckmap.custom.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -21,8 +22,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class PopupLayout extends RelativeLayout {
-    // TODO: PENDING REFACTOR TO MVP
-
     @Bind(R.id.image_product) ImageView productImage;
     @Bind(R.id.text_title_product) TextView titleProductText;
     @Bind(R.id.text_type_product) TextView typeProductText;
@@ -59,11 +58,13 @@ public class PopupLayout extends RelativeLayout {
         typeNameText.setText(product.getProductCategory().get(0).getProductTags().get(0).getDescription());
 
         List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
-        if (!mediaItems.isEmpty()) {
-            Picasso.with(getContext())
-                    .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
-                    .placeholder(R.drawable.thumb)
-                    .into(productImage);
+        if (mediaItems.isEmpty() || TextUtils.isEmpty(mediaItems.get(0).getMediaRefLink())) {
+            return;
         }
+
+        Picasso.with(getContext())
+                .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
+                .placeholder(R.drawable.thumb)
+                .into(productImage);
     }
 }

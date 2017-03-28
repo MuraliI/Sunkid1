@@ -40,12 +40,9 @@ public class DiscoverDeckMapPresenter {
     }
 
     private void initView() {
-        DiscoverDeckMapActivity activity = view.getActivity();
-        if (activity != null) {
-            view.initDeckImage(R.drawable.map_05_fwd);
-            view.setProductCoordinate(xCoord, yCoord);
-            view.initPopupLayout();
-        }
+        view.initDeckImage(R.drawable.map_05_fwd);
+        view.setProductCoordinate(xCoord, yCoord);
+        view.initPopupLayout();
     }
 
     private void initInjection() {
@@ -86,8 +83,8 @@ public class DiscoverDeckMapPresenter {
         }
     }
 
-    public void onTouchShipImage(PointF touchedLocation) {
-        if (view.isShipImageReady() && view.getMarkerArea().contains(touchedLocation.x, touchedLocation.y)) {
+    public void onTouchDeckMapImage(PointF touchedLocation) {
+        if (view.isDeckMapImageReady() && view.getMarkerArea().contains(touchedLocation.x, touchedLocation.y)) {
             moveToCoordinateAndShowPopup();
         }
     }
@@ -97,16 +94,17 @@ public class DiscoverDeckMapPresenter {
     }
 
     public void onGlobalLayout() {
-        if (view.isShipImageReady()) {
+        if (view.isDeckMapImageReady()) {
             view.removeTreeObserver();
             moveToCoordinateAndShowPopup();
         }
     }
 
     private void moveToCoordinateAndShowPopup() {
-        if (product != null) {
-            view.moveToProductCoordinate(xCoord, yCoord);
-            view.showProductOnPopupLayout(product);
+        if (product == null) {
+            return;
         }
+        view.moveToProductCoordinate(xCoord, yCoord);
+        view.showProductOnPopupLayout(product);
     }
 }
