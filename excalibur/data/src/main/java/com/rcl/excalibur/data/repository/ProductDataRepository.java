@@ -362,8 +362,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     }
 
 
-    public List<Product> getAll(@NonNull
-                                final String type) {
+    public List<Product> getAll(@NonNull String type) {
         final TypeEntity typeEntity = new Select()
                 .from(TypeEntity.class)
                 .where(eq(TypeEntity.COLUMN_TYPE, type))

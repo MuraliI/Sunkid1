@@ -1,32 +1,30 @@
 package com.rcl.excalibur.data.service;
 
 
-import com.rcl.excalibur.data.mapper.BaseDataMapper;
+import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
-import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.ProductsResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
-import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.repository.ProductRepository;
-import com.rcl.excalibur.domain.service.ProductService;
+import com.rcl.excalibur.domain.service.DiscoverServices;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class ProductServiceImpl implements ProductService {
+public class DiscoverServicesImpl implements DiscoverServices {
     private final ProductRepository productRepository;
-    private final BaseDataMapper<Product, ProductResponse> productResponseDataMapper;
+    private final ProductResponseDataMapper productResponseDataMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, BaseDataMapper<Product, ProductResponse> productResponseDataMapper) {
+    public DiscoverServicesImpl(ProductRepository productRepository, ProductResponseDataMapper productResponseDataMapper) {
         this.productRepository = productRepository;
         this.productResponseDataMapper = productResponseDataMapper;
     }

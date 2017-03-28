@@ -5,7 +5,6 @@ import android.graphics.PointF;
 import android.support.v7.app.AppCompatActivity;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.deckmap.custom.view.MarkerImageView;
 import com.rcl.excalibur.deckmap.model.ProductDeckMapModel;
 import com.rcl.excalibur.deckmap.mvp.view.DiscoverDeckMapView;
@@ -31,7 +30,7 @@ public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickLi
     private static final int X_6 = 196;
     private static final int Y_6 = 526;
 
-    /*@Inject */ GetProductDbUseCase getProductDbUseCase;
+    GetProductDbUseCase getProductDbUseCase;
     private DiscoverDeckMapView view;
 
     private ProductDeckMapModel productDeckMapModel;
@@ -39,7 +38,6 @@ public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickLi
     public DiscoverDeckMapPresenter(DiscoverDeckMapView view, long productId) {
         this.view = view;
 
-        initInjection();
         initProductDeckMap(productId);
         initView();
     }
@@ -86,14 +84,6 @@ public class DiscoverDeckMapPresenter implements MarkerImageView.OnMarkerClickLi
             view.setOnMarkerClickListener(this);
             view.setListener(this);
         }
-    }
-
-    private void initInjection() {
-        final BaseActivity activity = (BaseActivity) view.getActivity();
-        if (activity == null) {
-            return;
-        }
-        /*activity.getApplicationComponent().inject(this);*/
     }
 
     @Override

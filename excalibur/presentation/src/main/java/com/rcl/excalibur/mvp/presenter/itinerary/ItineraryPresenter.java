@@ -26,7 +26,6 @@ public class ItineraryPresenter implements FragmentPresenter {
     private ItineraryView view;
     private ItineraryServiceObserver serviceObserver;
     private BaseDataMapper<ItineraryProductModel, ItineraryEvent> mapper;
-    private int scrollPosition = 0;
     private boolean onGoingIsAdded = false;
     private RecyclerViewType scrollToElement = null;
 

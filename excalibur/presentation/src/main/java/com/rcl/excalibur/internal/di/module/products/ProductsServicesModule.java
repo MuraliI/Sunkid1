@@ -5,12 +5,11 @@ import com.rcl.excalibur.data.mapper.BaseDataMapper;
 import com.rcl.excalibur.data.mapper.ProductEntityDataMapper;
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
-import com.rcl.excalibur.data.service.ProductServiceImpl;
-import com.rcl.excalibur.data.service.response.ProductResponse;
+import com.rcl.excalibur.data.service.DiscoverServicesImpl;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
 import com.rcl.excalibur.domain.repository.ProductRepository;
-import com.rcl.excalibur.domain.service.ProductService;
+import com.rcl.excalibur.domain.service.DiscoverServices;
 import com.rcl.excalibur.internal.di.scopes.product.ProductsScope;
 
 import dagger.Module;
@@ -31,18 +30,18 @@ public class ProductsServicesModule {
     }
 
     @Provides
-    protected BaseDataMapper<Product, ProductResponse> providesProductResponseDataMapper() {
+    protected ProductResponseDataMapper providesProductResponseDataMapper() {
         return new ProductResponseDataMapper();
     }
 
     @Provides
-    protected ProductService provideDiscoverService(ProductRepository productRepository,
-                                                    BaseDataMapper<Product, ProductResponse> baseDataMapper) {
-        return new ProductServiceImpl(productRepository, baseDataMapper);
+    protected DiscoverServices provideDiscoverService(ProductRepository productRepository,
+                                                      ProductResponseDataMapper baseDataMapper) {
+        return new DiscoverServicesImpl(productRepository, baseDataMapper);
     }
 
     @Provides
-    protected GetProductsUseCase providesGetProductsUseCase(ProductService productService) {
-        return new GetProductsUseCase(productService);
+    protected GetProductsUseCase providesGetProductsUseCase(DiscoverServices discoverServices) {
+        return new GetProductsUseCase(discoverServices);
     }
 }

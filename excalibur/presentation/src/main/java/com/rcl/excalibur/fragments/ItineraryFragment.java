@@ -17,7 +17,6 @@ import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
 
 public class ItineraryFragment extends BaseFragment<ItineraryPresenter> implements ItineraryView.OnRefreshDataListener {
     private ItineraryFragmentComponent itineraryFragmentComponent;
-    private RCLApp rclApp;
 
     public static ItineraryFragment newInstance() {
         return new ItineraryFragment();
@@ -42,9 +41,9 @@ public class ItineraryFragment extends BaseFragment<ItineraryPresenter> implemen
 
     @Override
     protected void createFragmentComponent() {
-        rclApp = ((RCLApp) getActivity().getApplication());
-        rclApp.createItineraryComponent();
-        itineraryFragmentComponent = rclApp.getItineraryComponent().plus(new ItineraryFragmentModule(this));
+        application = ((RCLApp) getActivity().getApplication());
+        application.createItineraryComponent();
+        itineraryFragmentComponent = application.getItineraryComponent().plus(new ItineraryFragmentModule(this));
     }
 
     @Override
@@ -55,6 +54,6 @@ public class ItineraryFragment extends BaseFragment<ItineraryPresenter> implemen
     @Override
     protected void destroyFragmentComponent() {
         itineraryFragmentComponent = null;
-        rclApp.destroyItineraryComponent();
+        application.destroyItineraryComponent();
     }
 }
