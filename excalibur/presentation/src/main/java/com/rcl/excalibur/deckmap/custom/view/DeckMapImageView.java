@@ -13,7 +13,7 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 
-public class MarkerImageView extends SubsamplingScaleImageView {
+public class DeckMapImageView extends SubsamplingScaleImageView {
     private static final int DELAY_ANIMATION = 250;
     private static final float DENSITY_FACTOR = 420f;
 
@@ -23,12 +23,12 @@ public class MarkerImageView extends SubsamplingScaleImageView {
     private Bitmap marker;
     private Paint paint;
 
-    public MarkerImageView(Context context, AttributeSet attr) {
+    public DeckMapImageView(Context context, AttributeSet attr) {
         super(context, attr);
         initialize();
     }
 
-    public MarkerImageView(Context context) {
+    public DeckMapImageView(Context context) {
         super(context);
         initialize();
     }
@@ -86,5 +86,9 @@ public class MarkerImageView extends SubsamplingScaleImageView {
 
     public RectF getMarkerArea() {
         return markerArea;
+    }
+
+    public float getMarketHeight() {
+        return marker.getHeight();
     }
 }

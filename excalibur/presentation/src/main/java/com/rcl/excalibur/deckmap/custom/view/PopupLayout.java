@@ -2,6 +2,7 @@ package com.rcl.excalibur.deckmap.custom.view;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -52,7 +53,7 @@ public class PopupLayout extends RelativeLayout {
         ButterKnife.bind(this, this);
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(@NonNull Product product) {
         titleProductText.setText(product.getProductTitle());
         typeProductText.setText(product.getProductType().getProductType());
         typeNameText.setText(product.getProductCategory().get(0).getProductTags().get(0).getDescription());

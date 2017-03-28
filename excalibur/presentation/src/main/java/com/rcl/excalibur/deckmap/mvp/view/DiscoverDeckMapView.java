@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
@@ -12,7 +13,7 @@ import android.widget.PopupWindow;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.deckmap.activity.DiscoverDeckMapActivity;
-import com.rcl.excalibur.deckmap.custom.view.MarkerImageView;
+import com.rcl.excalibur.deckmap.custom.view.DeckMapImageView;
 import com.rcl.excalibur.deckmap.custom.view.PopupLayout;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
 public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
     private static final int MINIMUM_DPI = 80;
 
-    @Bind(R.id.image_ship) MarkerImageView shipImage;
+    @Bind(R.id.image_deck_map) DeckMapImageView deckMapImage;
 
     private PopupLayout popupView;
     private PopupWindow popupWindow;
@@ -34,13 +35,13 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
     }
 
     public void initDeckImage(int resource) {
-        shipImage.setImage(resource);
-        shipImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_OUTSIDE);
-        shipImage.setMinimumDpi(MINIMUM_DPI);
+        deckMapImage.setImage(resource);
+        deckMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_OUTSIDE);
+        deckMapImage.setMinimumDpi(MINIMUM_DPI);
 
         if (getActivity() != null) {
-            shipImage.getViewTreeObserver().addOnGlobalLayoutListener(getActivity());
-            shipImage.setOnTouchListener(getActivity());
+            deckMapImage.getViewTreeObserver().addOnGlobalLayoutListener(getActivity());
+            deckMapImage.setOnTouchListener(getActivity());
         }
     }
 
@@ -60,32 +61,34 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
         }
     }
 
-    public void setProductCoordinate(PointF productCoordinate) {
-        shipImage.setProductCoord(productCoordinate);
+    public void setProductCoordinate(float xCoord, float yCoord) {
+        deckMapImage.setProductCoord(new PointF(xCoord, yCoord));
     }
 
-    public void moveToProductCoordinate(PointF coordinate) {
-        shipImage.animatePointToCenter(coordinate);
+    public void moveToProductCoordinate(float xCoord, float yCoord) {
+        deckMapImage.animatePointToCenter(new PointF(xCoord, yCoord));
     }
 
     public boolean isShipImageReady() {
-        return shipImage.isReady();
+        return deckMapImage.isReady();
     }
 
     public void removeTreeObserver() {
         if (getActivity() != null) {
-            shipImage.getViewTreeObserver()
+            deckMapImage.getViewTreeObserver()
                     .removeOnGlobalLayoutListener(getActivity());
         }
     }
 
-    public void showProductOnPopupLayout(Product product) {
+    public void showProductOnPopupLayout(@NonNull Product product) {
+        popupView.setProduct(product);
+        int elevation = 0;
         if (getActivity() != null) {
-            popupView.setProduct(product);
-
-            int pxHeight = getActivity().getResources().getDimensionPixelOffset(R.dimen.item_deck_height);
-            popupWindow.showAtLocation(shipImage, Gravity.CENTER, 0, (int) (-pxHeight / 1.3));
+            float elevationError = getActivity().getResources().getDimension(R.dimen.item_deck_elevation_error);
+            float popUpHeight = getActivity().getResources().getDimensionPixelOffset(R.dimen.item_deck_height);
+            elevation = (int) (popUpHeight / 2.0f + deckMapImage.getMarketHeight() - elevationError);
         }
+        popupWindow.showAtLocation(deckMapImage, Gravity.CENTER, 0, -elevation);
     }
 
     public void dismissPopupWindow() {
@@ -95,6 +98,6 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
     }
 
     public RectF getMarkerArea() {
-        return shipImage.getMarkerArea();
+        return deckMapImage.getMarkerArea();
     }
 }

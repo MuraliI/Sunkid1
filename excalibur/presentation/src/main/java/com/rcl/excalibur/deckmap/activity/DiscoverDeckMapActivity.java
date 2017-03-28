@@ -11,6 +11,7 @@ import android.view.ViewTreeObserver;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.deckmap.custom.view.DeckMapImageView;
 import com.rcl.excalibur.deckmap.mvp.presenter.DiscoverDeckMapPresenter;
 import com.rcl.excalibur.deckmap.mvp.view.DiscoverDeckMapView;
 
@@ -60,8 +61,8 @@ public class DiscoverDeckMapActivity extends BaseActivity implements View.OnTouc
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (v.getId() == R.id.image_ship) {
+    public boolean onTouch(View view, MotionEvent event) {
+        if (view instanceof DeckMapImageView) {
             return gestureDetector.onTouchEvent(event);
         }
         presenter.onDismissPopupWindow();

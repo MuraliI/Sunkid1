@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.deckmap.activity.DiscoverDeckMapActivity;
-import com.rcl.excalibur.deckmap.model.ProductDeckMapModel;
 import com.rcl.excalibur.deckmap.mvp.view.DiscoverDeckMapView;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
@@ -23,29 +22,28 @@ public class DiscoverDeckMapPresenter {
     @Inject GetProductDbUseCase getProductDbUseCase;
     private DiscoverDeckMapView view;
 
-    private ProductDeckMapModel productDeckMapModel;
+    private Product product;
+    private float xCoord;
+    private float yCoord;
 
     public DiscoverDeckMapPresenter(@NonNull DiscoverDeckMapView view, long productId) {
         this.view = view;
 
         initInjection();
-        initProductDeckMap(productId);
+
+        product = getProductDbUseCase.get(productId);
+        if (product != null) {
+            setCoordinate(product.getProductType().getProductType());
+        }
+
         initView();
-    }
-
-    private void initProductDeckMap(long productId) {
-        Product product = getProductDbUseCase.get(productId);
-
-        productDeckMapModel = new ProductDeckMapModel();
-        productDeckMapModel.setProduct(product);
-        productDeckMapModel.setCoordinate(getCoordinate(product.getProductType().getProductType()));
     }
 
     private void initView() {
         DiscoverDeckMapActivity activity = view.getActivity();
         if (activity != null) {
             view.initDeckImage(R.drawable.map_05_fwd);
-            view.setProductCoordinate(productDeckMapModel.getCoordinate());
+            view.setProductCoordinate(xCoord, yCoord);
             view.initPopupLayout();
         }
     }
@@ -58,29 +56,34 @@ public class DiscoverDeckMapPresenter {
         activity.getApplicationComponent().inject(this);
     }
 
-    private PointF getCoordinate(String productType) {
-        PointF productCoord = new PointF();
+    // TODO: In a future we'll get this coordinate from the service
+    private void setCoordinate(String productType) {
         switch (productType) {
             case SPA:
-                productCoord.set(196, 526);
+                xCoord = 196;
+                yCoord = 526;
                 break;
             case ENTERTAINMENT:
-                productCoord.set(116, 841);
+                xCoord = 116;
+                yCoord = 841;
                 break;
             case ACTIVITIES:
-                productCoord.set(192, 421);
+                xCoord = 192;
+                yCoord = 421;
                 break;
             case DINING:
-                productCoord.set(120, 539);
+                xCoord = 120;
+                yCoord = 539;
                 break;
             case SHOREX:
-                productCoord.set(243, 558);
+                xCoord = 243;
+                yCoord = 558;
                 break;
             default:
-                productCoord.set(196, 526);
+                xCoord = 196;
+                yCoord = 526;
                 break;
         }
-        return productCoord;
     }
 
     public void onTouchShipImage(PointF touchedLocation) {
@@ -101,7 +104,9 @@ public class DiscoverDeckMapPresenter {
     }
 
     private void moveToCoordinateAndShowPopup() {
-        view.moveToProductCoordinate(productDeckMapModel.getCoordinate());
-        view.showProductOnPopupLayout(productDeckMapModel.getProduct());
+        if (product != null) {
+            view.moveToProductCoordinate(xCoord, yCoord);
+            view.showProductOnPopupLayout(product);
+        }
     }
 }
