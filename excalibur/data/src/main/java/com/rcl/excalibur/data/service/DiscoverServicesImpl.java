@@ -2,6 +2,7 @@ package com.rcl.excalibur.data.service;
 
 
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
+import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
@@ -23,16 +24,19 @@ import timber.log.Timber;
 public class DiscoverServicesImpl implements DiscoverServices {
     private final ProductRepository productRepository;
     private final ProductResponseDataMapper productResponseDataMapper;
+    private final DiscoverApi discoverApi;
 
-    public DiscoverServicesImpl(ProductRepository productRepository, ProductResponseDataMapper productResponseDataMapper) {
+    public DiscoverServicesImpl(ProductRepository productRepository, ProductResponseDataMapper productResponseDataMapper,
+                                DiscoverApi discoverApi) {
         this.productRepository = productRepository;
         this.productResponseDataMapper = productResponseDataMapper;
+        this.discoverApi = discoverApi;
     }
 
     @Override
     public void getCategories() {
 
-        Call<CategoriesResponse> call = ServiceUtil.getDiscoverApi().getCategories();
+        Call<CategoriesResponse> call = discoverApi.getCategories();
 
         call.enqueue(new Callback<CategoriesResponse>() {
             @Override
@@ -50,7 +54,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getSpas() {
-        Call<SpasResponse> call = ServiceUtil.getDiscoverApi().getSpas();
+        Call<SpasResponse> call = discoverApi.getSpas();
 
         call.enqueue(new Callback<SpasResponse>() {
             @Override
@@ -68,7 +72,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
     @Override
     public void getExcursion() {
 
-        Call<ExcursionResponse> call = ServiceUtil.getDiscoverApi().getExcursion();
+        Call<ExcursionResponse> call = discoverApi.getExcursion();
 
         call.enqueue(new Callback<ExcursionResponse>() {
             @Override
@@ -85,7 +89,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getDinings() {
-        Call<DiningsResponse> call = ServiceUtil.getDiscoverApi().getDinings();
+        Call<DiningsResponse> call = discoverApi.getDinings();
 
         call.enqueue(new Callback<DiningsResponse>() {
             @Override
@@ -103,7 +107,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
     @Override
     public void getActivities() {
 
-        Call<ActivitiesResponse> call = ServiceUtil.getDiscoverApi().getActivities();
+        Call<ActivitiesResponse> call = discoverApi.getActivities();
         call.enqueue(new Callback<ActivitiesResponse>() {
             @Override
             public void onResponse(Call<ActivitiesResponse> call, Response<ActivitiesResponse> response) {
@@ -120,7 +124,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getPromotionMessages() {
-        Call<PromotionMessagesResponse> call = ServiceUtil.getDiscoverApi().getPromotionMessages();
+        Call<PromotionMessagesResponse> call = discoverApi.getPromotionMessages();
         call.enqueue(new Callback<PromotionMessagesResponse>() {
             @Override
             public void onResponse(Call<PromotionMessagesResponse> call, Response<PromotionMessagesResponse> response) {
@@ -138,7 +142,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
     @Override
     public void getEntertainments() {
 
-        Call<EntertainmentsResponse> call = ServiceUtil.getDiscoverApi().getEntertainments();
+        Call<EntertainmentsResponse> call = discoverApi.getEntertainments();
 
         call.enqueue(new Callback<EntertainmentsResponse>() {
             @Override
@@ -157,7 +161,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
     @Override
     public void getProducts() {
 
-        Call<ProductsResponse> call = ServiceUtil.getDiscoverApi().getProducts();
+        Call<ProductsResponse> call = discoverApi.getProducts();
 
         call.enqueue(new Callback<ProductsResponse>() {
             @Override

@@ -1,4 +1,4 @@
-package com.rcl.excalibur.utils;
+package com.rcl.excalibur.data.utils;
 
 
 public final class Preconditions {
@@ -8,9 +8,9 @@ public final class Preconditions {
     }
 
     /**
-     * Unrechable code.
+     * Unreachable code.
      */
-    public static void unrecheable() {
+    public static void unreachable() {
         throw new RuntimeException(MESSAGE_UNRECHEABLE);
     }
 }

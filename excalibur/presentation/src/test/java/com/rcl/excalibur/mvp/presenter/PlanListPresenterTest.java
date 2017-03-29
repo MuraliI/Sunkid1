@@ -15,8 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 public class PlanListPresenterTest extends ProductsListBaseTest {
-    @Inject
-    PlanListPresenter presenter;
+    @Inject PlanListPresenter presenter;
     private ProductsListActivityComponentTest activityComponentTest;
 
     @Override

@@ -20,7 +20,7 @@ import com.rcl.excalibur.data.entity.ProductEntity;
 import com.rcl.excalibur.data.entity.RestrictionEntity;
 import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
 import com.rcl.excalibur.data.entity.TypeEntity;
-import com.rcl.excalibur.data.mapper.BaseDataMapper;
+import com.rcl.excalibur.data.mapper.ProductEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
@@ -47,7 +47,7 @@ import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity> implements ProductRepository {
 
-    public ProductDataRepository(BaseDataMapper baseDataMapper) {
+    public ProductDataRepository(ProductEntityDataMapper baseDataMapper) {
         super(baseDataMapper, ProductEntity.class);
     }
 

@@ -1,9 +1,9 @@
 package com.rcl.excalibur.data.service;
 
-import com.rcl.excalibur.data.mapper.BaseDataMapper;
+import com.rcl.excalibur.data.mapper.itinerary.ItineraryEventDataMapper;
+import com.rcl.excalibur.data.service.api.ItineraryApi;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryEventResponse;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryResponse;
-import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
 
@@ -18,16 +18,18 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class ItineraryServiceImpl implements ItineraryService {
-    private BaseDataMapper<ItineraryEvent, ItineraryEventResponse> itineraryEventDataMapper;
+    private final ItineraryEventDataMapper itineraryEventDataMapper;
+    private final ItineraryApi itineraryApi;
 
-    public ItineraryServiceImpl(BaseDataMapper<ItineraryEvent, ItineraryEventResponse> itineraryEventDataMapper) {
+    public ItineraryServiceImpl(ItineraryEventDataMapper itineraryEventDataMapper, ItineraryApi itineraryApi) {
         this.itineraryEventDataMapper = itineraryEventDataMapper;
+        this.itineraryApi = itineraryApi;
     }
 
     public void myItinerary(Observer<List<ItineraryEvent>> observer) {
 
         Observable<List<ItineraryEvent>> observable = Observable.create(e -> {
-            Call<ItineraryResponse> call = ServiceUtil.getItineraryApi().myItinerary();
+            Call<ItineraryResponse> call = itineraryApi.myItinerary();
             try {
                 Response<ItineraryResponse> response = call.execute();
                 /* FIXME: This won't work if the response has several EventGroup, only for mocking Data with COMMERCE EVENT*/

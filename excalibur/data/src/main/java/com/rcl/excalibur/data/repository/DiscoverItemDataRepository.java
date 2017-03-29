@@ -7,6 +7,7 @@ import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.DiscoverItemEntity;
 import com.rcl.excalibur.data.mapper.DiscoverEntityDataMapper;
 import com.rcl.excalibur.data.utils.DBUtil;
+import com.rcl.excalibur.data.utils.Preconditions;
 import com.rcl.excalibur.domain.DiscoverItem;
 import com.rcl.excalibur.domain.repository.DiscoverItemRepository;
 
@@ -46,11 +47,11 @@ public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem,
 
     @Override
     public void create(List<DiscoverItem> discoverItems) {
-        throw new RuntimeException("Operation not supported");
+        Preconditions.unreachable();
     }
 
     @Override
     public void create(@NonNull DiscoverItem promotion) {
-        throw new RuntimeException("Operation not supported");
+        Preconditions.unreachable();
     }
 }

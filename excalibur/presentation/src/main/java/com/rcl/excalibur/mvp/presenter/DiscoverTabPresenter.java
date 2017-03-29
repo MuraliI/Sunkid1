@@ -1,9 +1,10 @@
 package com.rcl.excalibur.mvp.presenter;
 
-import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
-import com.rcl.excalibur.mvp.view.DiscoverTabView;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
+import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
+import com.rcl.excalibur.mvp.view.DiscoverTabView;
+
 
 public class DiscoverTabPresenter implements FragmentPresenter {
     private DiscoverTabView view;
@@ -20,7 +21,9 @@ public class DiscoverTabPresenter implements FragmentPresenter {
     }
 
     public void openListScreen(int fragmentToShow) {
+
         view.openListScreen(fragmentToShow);
+
     }
 
     @Override

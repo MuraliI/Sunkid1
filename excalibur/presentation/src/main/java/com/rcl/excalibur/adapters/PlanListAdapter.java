@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.rcl.excalibur.utils.Preconditions;
+import com.rcl.excalibur.data.utils.Preconditions;
 
 import static com.rcl.excalibur.fragments.ProductsListFragment.DINING;
 import static com.rcl.excalibur.fragments.ProductsListFragment.ENTERTAINMENT;
@@ -49,7 +49,7 @@ public class PlanListAdapter extends FragmentStatePagerAdapter {
             case POSITION_ENTERTAINMENT:
                 return newInstance(ENTERTAINMENT);
             default:
-                Preconditions.unrecheable();
+                Preconditions.unreachable();
                 return null;
         }
     }

@@ -18,7 +18,7 @@ public class DiscoverTabView extends FragmentView<DiscoverTabFragment> {
 
     public void openListScreen(int fragmentToShow) {
         BaseActivity activity = getActivity();
-        Intent intent = PlanListActivity.getStartIntent(activity);
+        Intent intent = PlanListActivity.getStartIntent(activity, fragmentToShow);
         intent.putExtra(PlanListActivity.EXTRA_FRAGMENT_TYPE, fragmentToShow);
         ActivityUtils.startActivity(activity, intent);
     }
