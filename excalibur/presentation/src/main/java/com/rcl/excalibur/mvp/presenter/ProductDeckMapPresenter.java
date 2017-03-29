@@ -7,8 +7,9 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDeckMapView;
+import com.rcl.excalibur.mvp.view.base.ActivityView;
 
-public class ProductDeckMapPresenter {
+public class ProductDeckMapPresenter implements ActivityPresenter {
     private static final String SPA = "SPA";
     private static final String ENTERTAINMENT = "ENTERTAINMENT";
     private static final String ACTIVITIES = "ACTIVITIES";
@@ -105,5 +106,10 @@ public class ProductDeckMapPresenter {
         }
         view.moveToProductCoordinate(xCoord, yCoord);
         view.showProductOnPopupLayout(product);
+    }
+
+    @Override
+    public ActivityView getView() {
+        return view;
     }
 }

@@ -15,7 +15,7 @@ import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsDeckMapActivityComponent;
 import com.rcl.excalibur.mvp.presenter.ProductDeckMapPresenter;
 
-public class ProductDeckMapActivity extends BaseActivity implements View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener {
+public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter> implements View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener {
     private static final String EXTRA_PRODUCT_ITEM_ID = "EXTRA_PRODUCT_ITEM_ID";
 
     private ProductsDeckMapActivityComponent component;
@@ -75,7 +75,7 @@ public class ProductDeckMapActivity extends BaseActivity implements View.OnTouch
 
     @Override
     protected void injectActivity(ActivityComponent activityComponent) {
-
+        component.inject(this);
     }
 
     @Override
