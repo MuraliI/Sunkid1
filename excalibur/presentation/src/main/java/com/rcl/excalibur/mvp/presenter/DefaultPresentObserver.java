@@ -9,7 +9,7 @@ import io.reactivex.disposables.Disposable;
 public class DefaultPresentObserver<T, P extends BasePresenter> implements Observer<T> {
     private WeakReference<P> weakReference;
 
-    DefaultPresentObserver(P presenter) {
+    public DefaultPresentObserver(P presenter) {
         this.weakReference = new WeakReference<>(presenter);
     }
 

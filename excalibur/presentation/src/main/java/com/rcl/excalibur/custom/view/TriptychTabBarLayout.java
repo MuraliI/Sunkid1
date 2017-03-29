@@ -2,6 +2,7 @@ package com.rcl.excalibur.custom.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.utils.ViewUtils;
 
 
 public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageChangeListener {
@@ -55,9 +55,7 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
         try {
             tabStripColor = tp.getColor(
                     R.styleable.TriptychTabBarLayout_stripColor,
-                    ViewUtils.getColor(
-                            R.color.black,
-                            context));
+                    ContextCompat.getColor(context, R.color.black));
 
             tabStripHeight = (int) tp.getDimension(
                     R.styleable.TriptychTabBarLayout_stripThickness,

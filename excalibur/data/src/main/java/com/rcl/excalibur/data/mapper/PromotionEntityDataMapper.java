@@ -6,19 +6,11 @@ import com.rcl.excalibur.domain.Promotion;
 
 import java.util.Arrays;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 /**
  * Mapper class used to transform {@link PromotionEntity} (in the data layer) to {@link Promotion} in the
  * domain layer.
  */
-@Singleton
 public class PromotionEntityDataMapper extends BaseDataMapper<Promotion, PromotionEntity> {
-
-    @Inject
-    PromotionEntityDataMapper() {
-    }
 
     @Override
     public Promotion transform(final PromotionEntity entity) {
@@ -31,7 +23,6 @@ public class PromotionEntityDataMapper extends BaseDataMapper<Promotion, Promoti
         promotion.setLocationCode(entity.getLocationCode());
         promotion.setTitle(entity.getTitle());
         promotion.setProducts(Arrays.asList(entity.getProducts()));
-
         return promotion;
     }
 }

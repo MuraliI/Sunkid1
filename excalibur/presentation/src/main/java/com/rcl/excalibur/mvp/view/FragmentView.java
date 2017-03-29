@@ -20,7 +20,7 @@ public class FragmentView<T extends Fragment> {
     protected Observer adapterObserver;
     private WeakReference<T> fragmentRef;
 
-    FragmentView(T fragment) {
+    protected FragmentView(T fragment) {
         fragmentRef = new WeakReference<>(fragment);
     }
 

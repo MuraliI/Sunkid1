@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_normal"
+    android:layout_marginEnd="@dimen/margin_large"
+    android:layout_marginStart="@dimen/margin_large"
+    android:layout_marginTop="@dimen/margin_normal"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/text_hour"
+        style="@style/AppTheme.CalendarHour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/itinerary_separator_min_width"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/itinerary_separator_thickness"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:background="@color/discover_grey"/>
+
+</LinearLayout>
+
+
