@@ -1,7 +1,5 @@
 package com.rcl.excalibur.mvp.presenter;
 
-import android.content.Intent;
-
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
@@ -26,9 +24,7 @@ public class DiscoverTabPresenter implements FragmentPresenter {
 
     public void openListScreen(int fragmentToShow) {
         BaseActivity activity = view.getActivity();
-        Intent intent = PlanListActivity.getStartIntent(activity);
-        intent.putExtra(PlanListActivity.EXTRA_FRAGMENT_TYPE, fragmentToShow);
-        ActivityUtils.startActivity(activity, intent);
+        ActivityUtils.startActivity(activity, PlanListActivity.getStartIntent(activity, fragmentToShow));
     }
 
     @Override

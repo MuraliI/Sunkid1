@@ -1,6 +1,6 @@
 package com.rcl.excalibur.data.service;
 
-import com.rcl.excalibur.data.mapper.BaseDataMapper;
+import com.rcl.excalibur.data.mapper.itinerary.ItineraryEventDataMapper;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryEventResponse;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
@@ -18,9 +18,9 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class ItineraryServiceImpl implements ItineraryService {
-    private BaseDataMapper<ItineraryEvent, ItineraryEventResponse> itineraryEventDataMapper;
+    private ItineraryEventDataMapper itineraryEventDataMapper;
 
-    public ItineraryServiceImpl(BaseDataMapper<ItineraryEvent, ItineraryEventResponse> itineraryEventDataMapper) {
+    public ItineraryServiceImpl(ItineraryEventDataMapper itineraryEventDataMapper) {
         this.itineraryEventDataMapper = itineraryEventDataMapper;
     }
 

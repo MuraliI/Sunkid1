@@ -24,10 +24,9 @@ public class ItineraryProductModelMapper extends BaseDataMapper<ItineraryProduct
         productModel.setProductId(itineraryEvent.getId());
         productModel.setName(itineraryEvent.getName());
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(DateUtils.getDateTime(itineraryEvent.getStartDate(), resources))
-                .append(resources.getString(R.string.itinerary_product_view_dash))
-                .append(DateUtils.getDateTime(itineraryEvent.getEndDate(), resources));
+        String builder = DateUtils.getDateTime(itineraryEvent.getStartDate(), resources)
+                + resources.getString(R.string.itinerary_product_view_dash)
+                + DateUtils.getDateTime(itineraryEvent.getEndDate(), resources);
 
 
         Calendar startDate = Calendar.getInstance();
@@ -37,7 +36,7 @@ public class ItineraryProductModelMapper extends BaseDataMapper<ItineraryProduct
 
         productModel.setStartDate(startDate);
         productModel.setEndDate(endDate);
-        productModel.setOperatinghours(builder.toString());
+        productModel.setOperatinghours(builder);
         productModel.setLocationPointer(itineraryEvent.getLocation());
         productModel.setImageUrl(itineraryEvent.getThumbnail());
         //TODO Map other fields remaining on the ItineraryProductModel

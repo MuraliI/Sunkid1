@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.PlanListActivity;
+import com.rcl.excalibur.data.utils.Preconditions;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
-import com.rcl.excalibur.utils.Preconditions;
 import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
@@ -68,7 +68,7 @@ public class PlanListView extends ActivityView<PlanListActivity> {
                 categorySelected = getActivity().getString(R.string.category_entertainment);
                 break;
             default:
-                Preconditions.unrecheable();
+                Preconditions.unreachable();
         }
         AnalyticsUtils.trackEvent(analyticEvent.addKeyValue(AnalyticsConstants.KEY_FILTER_CATEGORY, categorySelected));
         return fragment;

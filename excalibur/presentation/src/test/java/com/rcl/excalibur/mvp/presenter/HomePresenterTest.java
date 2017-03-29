@@ -15,8 +15,7 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 
 public class HomePresenterTest extends BaseTest {
-    @Inject
-    HomePresenter presenter;
+    @Inject HomePresenter presenter;
 
     @Override
     public void setUp() throws Exception {

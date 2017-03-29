@@ -17,8 +17,7 @@ import javax.inject.Inject;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public abstract class BaseActivity<P extends ActivityPresenter> extends AppCompatActivity {
-    @Inject
-    protected P presenter;
+    @Inject protected P presenter;
     protected RCLApp rclApp;
     private ActivityComponent activityComponent;
 
