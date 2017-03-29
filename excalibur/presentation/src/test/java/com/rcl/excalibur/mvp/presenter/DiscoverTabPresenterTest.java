@@ -1,6 +1,5 @@
 package com.rcl.excalibur.mvp.presenter;
 
-
 import com.rcl.excalibur.ProductsBaseTest;
 import com.rcl.excalibur.internal.di.component.products.ProductsFragmentComponentTest;
 import com.rcl.excalibur.internal.di.module.products.ProductsFragmentModuleTest;

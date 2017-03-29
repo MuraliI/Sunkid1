@@ -15,7 +15,7 @@ import butterknife.OnClick;
 
 public class PlanListActivity extends BaseActivity<PlanListPresenter> {
     private ProductsListActivityComponent productsListActivityComponent;
-    public static final String EXTRA_FRAGMENT_TYPE = "EXTRA_FRAGMENT_TYPE";
+    private static final String EXTRA_FRAGMENT_TYPE = "EXTRA_FRAGMENT_TYPE";
 
     public static Intent getStartIntent(final BaseActivity activity, int fragmentToShow) {
         Intent intent = new Intent(activity, PlanListActivity.class);
