@@ -13,6 +13,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.custom.view.DeckMapImageView;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsDeckMapActivityComponent;
+import com.rcl.excalibur.internal.di.module.products.ProductsDeckMapActivityModule;
 import com.rcl.excalibur.mvp.presenter.ProductDeckMapPresenter;
 
 public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter> implements View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener {
@@ -29,8 +30,7 @@ public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter
 
     @Override
     protected void createComponent() {
-        rclApp.createProductDeckMapComponent(this);
-        component = rclApp.getProductsDeckMapActivityComponent();
+        component = rclApp.getProductsComponent().plus(new ProductsDeckMapActivityModule(this));
     }
 
     @Override
@@ -70,7 +70,6 @@ public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDismissPopupWindow();
-        rclApp.destroyProductsDeckMapActivityComponent();
     }
 
     @Override
