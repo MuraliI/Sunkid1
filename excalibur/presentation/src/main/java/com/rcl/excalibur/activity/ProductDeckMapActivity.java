@@ -11,23 +11,35 @@ import android.view.ViewTreeObserver;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.custom.view.DeckMapImageView;
-import com.rcl.excalibur.mvp.presenter.DiscoverDeckMapPresenter;
-import com.rcl.excalibur.mvp.view.DiscoverDeckMapView;
+import com.rcl.excalibur.internal.di.component.ActivityComponent;
+import com.rcl.excalibur.internal.di.component.products.ProductsDeckMapActivityComponent;
+import com.rcl.excalibur.mvp.presenter.ProductDeckMapPresenter;
 
-public class DiscoverDeckMapActivity extends BaseActivity implements View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener {
+public class ProductDeckMapActivity extends BaseActivity implements View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener {
     private static final String EXTRA_PRODUCT_ITEM_ID = "EXTRA_PRODUCT_ITEM_ID";
 
-    private DiscoverDeckMapPresenter presenter;
+    private ProductsDeckMapActivityComponent component;
     private GestureDetector gestureDetector;
 
     public static Intent getIntent(final BaseActivity activity, long productItemId) {
-        Intent intent = new Intent(activity, DiscoverDeckMapActivity.class);
+        Intent intent = new Intent(activity, ProductDeckMapActivity.class);
         intent.putExtra(EXTRA_PRODUCT_ITEM_ID, productItemId);
         return intent;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void createComponent() {
+        rclApp.createProductDeckMapComponent(this);
+        component = rclApp.getProductsDeckMapActivityComponent();
+    }
+
+    @Override
+    protected void destroyComponent() {
+        component = null;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover_deck_map);
 
@@ -37,12 +49,12 @@ public class DiscoverDeckMapActivity extends BaseActivity implements View.OnTouc
             productItemId = intent.getExtras().getLong(EXTRA_PRODUCT_ITEM_ID);
         }
 
-        presenter = new DiscoverDeckMapPresenter(new DiscoverDeckMapView(this), productItemId);
+        presenter.init(productItemId);
         initGestureDetector(presenter);
     }
 
     // Cannot be passed to View because is very expensive to implement
-    private void initGestureDetector(DiscoverDeckMapPresenter presenter) {
+    private void initGestureDetector(ProductDeckMapPresenter presenter) {
         gestureDetector = new GestureDetector(this,
                 new GestureDetector.SimpleOnGestureListener() {
                     @Override
@@ -58,6 +70,12 @@ public class DiscoverDeckMapActivity extends BaseActivity implements View.OnTouc
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDismissPopupWindow();
+        rclApp.destroyProductsDeckMapActivityComponent();
+    }
+
+    @Override
+    protected void injectActivity(ActivityComponent activityComponent) {
+
     }
 
     @Override

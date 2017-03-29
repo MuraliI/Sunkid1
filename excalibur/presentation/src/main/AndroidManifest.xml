@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.DiscoverDeckMapActivity"
+            android:name=".activity.ProductDeckMapActivity"
             android:label="@string/empty_string"
             android:screenOrientation="portrait"/>
 

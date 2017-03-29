@@ -4,17 +4,20 @@ import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
+import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.internal.di.component.AppComponent;
 import com.rcl.excalibur.internal.di.component.DaggerAppComponent;
 import com.rcl.excalibur.internal.di.component.itinerary.ItineraryComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductDetailComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsComponent;
+import com.rcl.excalibur.internal.di.component.products.ProductsDeckMapActivityComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsListComponent;
 import com.rcl.excalibur.internal.di.module.AppModule;
 import com.rcl.excalibur.internal.di.module.itinerary.ItineraryModule;
 import com.rcl.excalibur.internal.di.module.itinerary.ItineraryServicesModule;
 import com.rcl.excalibur.internal.di.module.products.ProductDetailModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsDatabaseModule;
+import com.rcl.excalibur.internal.di.module.products.ProductsDeckMapActivityModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsListModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsServicesModule;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
@@ -29,6 +32,7 @@ public class RCLApp extends Application {
     private ItineraryComponent itineraryComponent;
     private ProductsListComponent productsListComponent;
     private ProductDetailComponent productDetailComponent;
+    private ProductsDeckMapActivityComponent productsDeckMapActivityComponent;
 
     @Override
     public void onCreate() {
@@ -123,5 +127,17 @@ public class RCLApp extends Application {
 
     public void destroyProductDetailComponent() {
         productDetailComponent = null;
+    }
+
+    public void createProductDeckMapComponent(BaseActivity activity) {
+        productsDeckMapActivityComponent = productsComponent.plus(new ProductsDeckMapActivityModule(activity));
+    }
+
+    public ProductsDeckMapActivityComponent getProductsDeckMapActivityComponent() {
+        return productsDeckMapActivityComponent;
+    }
+
+    public void destroyProductsDeckMapActivityComponent() {
+        productsDeckMapActivityComponent = null;
     }
 }

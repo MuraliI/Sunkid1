@@ -5,7 +5,7 @@ import android.graphics.RectF;
 
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
-import com.rcl.excalibur.mvp.view.DiscoverDeckMapView;
+import com.rcl.excalibur.mvp.view.ProductDeckMapView;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -17,8 +17,8 @@ import static org.mockito.Mockito.when;
 
 // TODO: Waiting for dagger injections
 public class DiscoverDeckMapPresenterTest {
-    DiscoverDeckMapPresenter presenter;
-    @Mock DiscoverDeckMapView view;
+    ProductDeckMapPresenter presenter;
+    @Mock ProductDeckMapView view;
     @Mock GetProductDbUseCase getProductDbUseCase;
     @Mock Product product;
 
@@ -27,7 +27,7 @@ public class DiscoverDeckMapPresenterTest {
         MockitoAnnotations.initMocks(this);
         /*when(getProductDbUseCase.get(1L)).thenReturn(product);
         when(product.getProductType().getProductType()).thenReturn("SPA");
-        presenter = new DiscoverDeckMapPresenter(view, 1L);*/
+        presenter = new ProductDeckMapPresenter(view, 1L);*/
     }
 
     @Ignore

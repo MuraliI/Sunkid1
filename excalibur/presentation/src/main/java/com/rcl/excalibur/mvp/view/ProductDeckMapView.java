@@ -12,7 +12,7 @@ import android.widget.PopupWindow;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.DiscoverDeckMapActivity;
+import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.custom.view.DeckMapImageView;
 import com.rcl.excalibur.custom.view.DeckMapPopupLayout;
 import com.rcl.excalibur.domain.Product;
@@ -21,7 +21,7 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
+public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity> {
     private static final int MINIMUM_DPI = 80;
     private static final float HALF_FACTOR = 2.0f;
 
@@ -30,7 +30,7 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
     private DeckMapPopupLayout popupView;
     private PopupWindow popupWindow;
 
-    public DiscoverDeckMapView(DiscoverDeckMapActivity activity) {
+    public ProductDeckMapView(ProductDeckMapActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
     }
@@ -40,7 +40,7 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
         deckMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_OUTSIDE);
         deckMapImage.setMinimumDpi(MINIMUM_DPI);
 
-        DiscoverDeckMapActivity activity = getActivity();
+        ProductDeckMapActivity activity = getActivity();
         if (activity != null) {
             deckMapImage.getViewTreeObserver().addOnGlobalLayoutListener(activity);
             deckMapImage.setOnTouchListener(activity);
@@ -58,7 +58,7 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
         popupWindow.setTouchable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        DiscoverDeckMapActivity activity = getActivity();
+        ProductDeckMapActivity activity = getActivity();
         if (activity != null) {
             popupWindow.setTouchInterceptor(activity);
         }
@@ -80,7 +80,7 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
     }
 
     public void removeTreeObserver() {
-        DiscoverDeckMapActivity activity = getActivity();
+        ProductDeckMapActivity activity = getActivity();
         if (activity != null) {
             deckMapImage.getViewTreeObserver()
                     .removeOnGlobalLayoutListener(activity);
@@ -88,7 +88,7 @@ public class DiscoverDeckMapView extends ActivityView<DiscoverDeckMapActivity> {
     }
 
     public void showProductOnPopupLayout(@NonNull Product product) {
-        DiscoverDeckMapActivity activity = getActivity();
+        ProductDeckMapActivity activity = getActivity();
         if (activity == null) {
             return;
         }
