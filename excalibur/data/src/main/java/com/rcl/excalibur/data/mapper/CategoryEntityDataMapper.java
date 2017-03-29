@@ -6,19 +6,11 @@ import com.rcl.excalibur.domain.Category;
 
 import java.util.Arrays;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 /**
  * Mapper class used to transform {@link CategoryEntity} (in the data layer) to {@link Category} in the
  * domain layer.
  */
-@Singleton
 public class CategoryEntityDataMapper extends BaseDataMapper<Category, CategoryEntity> {
-
-    @Inject
-    CategoryEntityDataMapper() {
-    }
 
     @Override
     public Category transform(final CategoryEntity entity) {

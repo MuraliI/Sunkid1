@@ -36,19 +36,11 @@ import com.rcl.excalibur.domain.SellingPrice;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 /**
  * Mapper class used to transform {@link ProductEntity} (in the data layer) to {@link Product} in the
  * domain layer.
  */
-@Singleton
 public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEntity> {
-
-    @Inject
-    ProductEntityDataMapper() {
-    }
 
     @Override
     public Product transform(final ProductEntity entity) {

@@ -13,7 +13,7 @@ import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 public abstract class BaseDataRepository<I, E extends Model> {
 
-    private final BaseDataMapper<I, E> baseDataMapper;
+    protected final BaseDataMapper<I, E> baseDataMapper;
     private final Class<E> claz;
 
     protected BaseDataRepository(BaseDataMapper baseDataMapper, Class<E> claz) {
