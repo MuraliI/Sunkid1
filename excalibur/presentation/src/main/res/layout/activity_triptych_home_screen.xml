@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary">
+    android:background="@drawable/sea">
 
     <com.rcl.excalibur.custom.view.TriptychTabBarLayout
         android:id="@+id/tab_triptych_tablayout"
@@ -16,17 +16,17 @@
         app:stripThickness="@dimen/triptych_strip_tickness"
         app:stripColor="@color/white">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Plans"/>
+            android:src="@drawable/tab_plans"
+            android:contentDescription="@null" />
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Ship"/>
+            android:src="@drawable/tab_discover"
+            android:contentDescription="@null" />
 
     </com.rcl.excalibur.custom.view.TriptychTabBarLayout>
 

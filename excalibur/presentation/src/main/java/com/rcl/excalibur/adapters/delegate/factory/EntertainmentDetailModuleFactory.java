@@ -14,23 +14,15 @@ import com.rcl.excalibur.adapters.delegate.PricesFromDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.PromotionDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.StandardTimesDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.TitleAndDescriptionDelegateAdapter;
-import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
-import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
-import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
-import com.rcl.excalibur.adapters.viewtype.PromotionViewType;
-import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class EntertainmentDetailModuleFactory extends DetailModuleFactory {
-    private static final int VIEW_TYPES_COUNT = 10;
-    private static final int POSITION_PRICE_ADULTS = 1;
-    private static final int POSITION_PRICE_CHILDREN = 3;
 
     @Override
     public SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray() {
-        SparseArrayCompat<DelegateAdapter> arrayCompat = new SparseArrayCompat<>(VIEW_TYPES_COUNT);
+        SparseArrayCompat<DelegateAdapter> arrayCompat = new SparseArrayCompat<>();
         arrayCompat.append(RecyclerViewConstants.VIEW_TYPE_PROMOTION, new PromotionDelegateAdapter());
         arrayCompat.append(RecyclerViewConstants.VIEW_TYPE_STANDARD_TIMES, new StandardTimesDelegateAdapter());
         arrayCompat.append(RecyclerViewConstants.VIEW_TYPE_PRICES_FROM, new PricesFromDelegateAdapter());
@@ -42,22 +34,10 @@ class EntertainmentDetailModuleFactory extends DetailModuleFactory {
 
     @Override
     public List<RecyclerViewType> getListOfDetailViewTypes(Resources resources) {
-        List<RecyclerViewType> types = new ArrayList<>();
-        types.add(new PromotionViewType(itemModel.getPromotionTitle(), itemModel.getPromotionDescription()));
-        types.add(new StandardTimesViewType(itemModel.getStandardTimesTitle(), itemModel.getStandardTimesDaysAndTimes()));
-        types.add(new PricesFromViewType(
-                itemModel.getPriceRange()[POSITION_PRICE_ADULTS],
-                itemModel.getPriceRange()[POSITION_PRICE_CHILDREN]));
-        addTitleAndDescriptionTypes(types);
-        types.add(new ExpandableDescriptionViewType(itemModel.getDescription()));
-        types.add(new ExpandableLinkViewType(
-                resources.getString(R.string.detail_module_accessibility),
-                itemModel.getAccessibility(),
-                true));
-        types.add(new ExpandableLinkViewType(
-                resources.getString(R.string.detail_module_legal),
-                new String[]{itemModel.getLegal()},
-                false));
+        final List<RecyclerViewType> types = new ArrayList<>();
+        addPriceFromTypes(types);
+        addProductDurationTypes(types, resources, R.string.duration);
+        addLongDescriptionTypes(types);
         return types;
     }
 }

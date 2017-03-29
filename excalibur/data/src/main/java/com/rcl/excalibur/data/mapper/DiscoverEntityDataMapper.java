@@ -4,19 +4,11 @@ package com.rcl.excalibur.data.mapper;
 import com.rcl.excalibur.data.entity.DiscoverItemEntity;
 import com.rcl.excalibur.domain.DiscoverItem;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 /**
  * Mapper class used to transform {@link DiscoverItemEntity} (in the data layer) to {@link DiscoverItem} in the
  * domain layer.
  */
-@Singleton
 public class DiscoverEntityDataMapper extends BaseDataMapper<DiscoverItem, DiscoverItemEntity> {
-
-    @Inject
-    DiscoverEntityDataMapper() {
-    }
 
     @Override
     public DiscoverItem transform(DiscoverItemEntity entity) {

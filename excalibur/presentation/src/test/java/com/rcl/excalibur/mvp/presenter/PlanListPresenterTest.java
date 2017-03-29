@@ -1,26 +1,43 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import com.rcl.excalibur.ProductsListBaseTest;
+import com.rcl.excalibur.internal.di.component.products.ProductsListActivityComponentTest;
+import com.rcl.excalibur.internal.di.module.products.ProductsListActivityModuleTest;
 import com.rcl.excalibur.mvp.view.PlanListView;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Matchers;
 
-public class PlanListPresenterTest {
+import javax.inject.Inject;
+
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
+public class PlanListPresenterTest extends ProductsListBaseTest {
+    @Inject
     PlanListPresenter presenter;
-    @Mock PlanListView view;
+    private ProductsListActivityComponentTest activityComponentTest;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        //TODO Fix this tests
-        //presenter = new PlanListPresenter(view);
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        activityComponentTest = productsListComponentTest.plus(new ProductsListActivityModuleTest());
+        activityComponentTest.inject(this);
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        activityComponentTest = null;
     }
 
     @Test
     public void initTest() throws Exception {
-        //verify(view).setAdapterObserver(any(PlanListPresenter.AdapterObserver.class));
-       // verify(view).init();
+        presenter.init();
+        PlanListView view = presenter.getView();
+        verify(view).setAdapterObserver(Matchers.any(PlanListPresenter.AdapterObserver.class));
+        verify(view).init(anyInt());
+        verifyNoMoreInteractions(view);
     }
 }

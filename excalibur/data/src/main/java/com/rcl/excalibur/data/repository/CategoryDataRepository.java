@@ -1,31 +1,22 @@
 package com.rcl.excalibur.data.repository;
 
 
-import com.activeandroid.query.Select;
+import android.support.annotation.NonNull;
+
 import com.rcl.excalibur.data.entity.CategoryEntity;
 import com.rcl.excalibur.data.mapper.CategoryEntityDataMapper;
 import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
-import java.util.List;
+public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity> implements CategoryRepository {
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+    public CategoryDataRepository(CategoryEntityDataMapper categoryEntityDataMapper) {
+        super(categoryEntityDataMapper, CategoryEntity.class);
 
-import static com.rcl.excalibur.data.utils.DBUtil.eq;
-
-@Singleton
-public class CategoryDataRepository implements CategoryRepository {
-
-    private final CategoryEntityDataMapper categoryEntityDataMapper;
-
-    @Inject
-    CategoryDataRepository(CategoryEntityDataMapper categoryEntityDataMapper) {
-        this.categoryEntityDataMapper = categoryEntityDataMapper;
     }
 
     @Override
-    public void create(Category category) {
+    public void create(@NonNull Category category) {
         final CategoryEntity entity = new CategoryEntity();
         entity.setCategoryId(category.getCategoryId());
         entity.setDescription(category.getDescription());
@@ -34,20 +25,8 @@ public class CategoryDataRepository implements CategoryRepository {
     }
 
     @Override
-    public List<Category> getAll() {
-        final List<CategoryEntity> entities = new Select()
-                .from(CategoryEntity.class)
-                .execute();
-        return categoryEntityDataMapper.transform(entities);
-    }
-
-    @Override
     public Category get(long id) {
-        final CategoryEntity entity = new Select()
-                .from(CategoryEntity.class)
-                .where(eq(CategoryEntity.COLUMN_CATEGORY_ID, id))
-                .executeSingle();
-        return categoryEntityDataMapper.transform(entity);
+        return get(CategoryEntity.COLUMN_CATEGORY_ID, id);
     }
 
 }

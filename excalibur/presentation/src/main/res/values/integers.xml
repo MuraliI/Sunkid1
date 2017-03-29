@@ -10,4 +10,5 @@
     <integer name="detail_standard_times_days_weight">30</integer>
     <integer name="discover_grid_columns">4</integer>
     <integer name="discover_grid_rows">2</integer>
+    <integer name="itinerary_product_view_total_weight">1</integer>
 </resources>

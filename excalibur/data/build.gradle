@@ -1,3 +1,4 @@
+
 apply plugin: 'com.android.library'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
@@ -25,9 +26,11 @@ android {
     buildTypes {
         release {
             buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.6.134:8090/v1/"'
+            buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
         }
         debug {
             buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.6.134:8090/v1/"'
+            buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
         }
     }
     compileOptions {
@@ -58,7 +61,9 @@ dependencies {
     def testDependencies = rootProject.ext.dataTestDependencies
 
     compile project(':domain')
+    apt dataDependencies.daggerCompiler
     provided dataDependencies.javaxAnnotation
+    compile dataDependencies.dagger
     compile dataDependencies.javaxInject
     compile dataDependencies.okHttp
     compile dataDependencies.gson

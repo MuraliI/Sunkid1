@@ -1,23 +1,12 @@
-
 package com.rcl.excalibur.data.service.response;
 
 import java.util.List;
 
-public class GetSpasResponse {
+public class GetSpasResponse extends BaseResponse {
 
     private List<ProductResponse> product;
-    private String responseStatus;
 
     public GetSpasResponse() {
-    }
-
-
-    public String getResponseStatus() {
-        return responseStatus;
-    }
-
-    public void setResponseStatus(String responseStatus) {
-        this.responseStatus = responseStatus;
     }
 
     public List<ProductResponse> getProduct() {

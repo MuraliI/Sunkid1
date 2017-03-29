@@ -1,55 +1,45 @@
 package com.rcl.excalibur.mvp.presenter;
 
-import android.content.Intent;
 
+import com.rcl.excalibur.ProductsBaseTest;
+import com.rcl.excalibur.internal.di.component.products.ProductsFragmentComponentTest;
+import com.rcl.excalibur.internal.di.module.products.ProductsFragmentModuleTest;
 
-import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.PlanListActivity;
-import com.rcl.excalibur.mvp.view.DiscoverTabView;
-
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowApplication;
 
-import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.times;
+import javax.inject.Inject;
+
 import static org.mockito.Mockito.verify;
 
 
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = "src/test/resources/TestAndroidManifest.xml", sdk = 21)
-public class DiscoverTabPresenterTest {
+public class DiscoverTabPresenterTest extends ProductsBaseTest {
 
-    DiscoverTabPresenter discoverTabPresenter;
-    @Mock DiscoverTabView view;
-    @Mock BaseActivity activity;
+    @Inject DiscoverTabPresenter presenter;
+    ProductsFragmentComponentTest productsFragmentComponentTest;
 
-    @Before
+
+    @Override
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(view.getActivity()).thenReturn(activity);
-        discoverTabPresenter = new DiscoverTabPresenter(view);
+        super.setUp();
+        productsFragmentComponentTest = productsComponent.plus(new ProductsFragmentModuleTest());
+        productsFragmentComponentTest.inject(this);
     }
 
 
-    @Test
-    public void initTest() {
-
-        verify(view, times(2)).getActivity();
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        productsFragmentComponentTest = null;
     }
-
 
     @Test
     public void openListScreen() {
-        discoverTabPresenter.openListScreen(0);
-        Intent startedActivity = ShadowApplication.getInstance().peekNextStartedActivity();
-        assertEquals(PlanListActivity.class.getName(), startedActivity.getComponent().getClassName());
+
+        int fragmentToShow = 0;
+        presenter.openListScreen(fragmentToShow);
+
+        verify(presenter.getView()).openListScreen(fragmentToShow);
+
     }
 
 }

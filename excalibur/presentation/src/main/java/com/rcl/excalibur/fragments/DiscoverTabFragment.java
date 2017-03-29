@@ -1,74 +1,92 @@
 package com.rcl.excalibur.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.RCLApp;
+import com.rcl.excalibur.internal.di.component.FragmentComponent;
+import com.rcl.excalibur.internal.di.component.products.ProductsFragmentComponent;
+import com.rcl.excalibur.internal.di.module.products.ProductsFragmentModule;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
-import com.rcl.excalibur.mvp.presenter.PlanListPresenter;
-import com.rcl.excalibur.mvp.view.DiscoverTabView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DiscoverTabFragment extends Fragment {
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_DINING;
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ENTERTAINMENT;
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ROYAL_ACTIVITY;
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOPPING;
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOREX;
+import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SPA;
 
-    private DiscoverTabPresenter presenter;
+public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
+    private ProductsFragmentComponent productsFragmentComponent;
+    private RCLApp rclApp;
 
     public static DiscoverTabFragment newInstance() {
         return new DiscoverTabFragment();
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        presenter = new DiscoverTabPresenter(new DiscoverTabView(this));
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_discover_tab, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        presenter.init();
+    }
+
+    @Override
+    protected void createFragmentComponent() {
+        rclApp = (RCLApp) getActivity().getApplication();
+        rclApp.createProductsComponent();
+        productsFragmentComponent = rclApp.getProductsComponent().plus(new ProductsFragmentModule(this));
+    }
+
+    @Override
+    protected void destroyFragmentComponent() {
+        rclApp.destroyProductsComponent();
+        productsFragmentComponent = null;
+    }
+
     @OnClick(R.id.button_dinning)
     public void dinningOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_DINING);
+        presenter.openListScreen(POSITION_DINING);
     }
 
     @OnClick(R.id.button_excursions)
     public void excursionsOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_SHOREX);
+        presenter.openListScreen(POSITION_SHOREX);
     }
 
     @OnClick(R.id.button_spa)
     public void spaOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_SPA);
+        presenter.openListScreen(POSITION_SPA);
     }
 
     @OnClick(R.id.button_shop)
     public void shopOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_SHOPPING);
+        presenter.openListScreen(POSITION_SHOPPING);
     }
 
     @OnClick(R.id.button_entertainment)
     public void entertainmentOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_ENTERTAINMENT);
+        presenter.openListScreen(POSITION_ENTERTAINMENT);
     }
 
     @OnClick(R.id.button_activities)
     public void activitiesOnClick() {
-        presenter.openListScreen(PlanListPresenter.POSITION_ROYAL_ACTIVITY);
-    }
-
-    @OnClick(R.id.button_services)
-    public void servicesOnClick() {
-        Toast.makeText(getActivity(), "Services Click", Toast.LENGTH_LONG).show();
+        presenter.openListScreen(POSITION_ROYAL_ACTIVITY);
     }
 
     @OnClick(R.id.button_search)
@@ -76,4 +94,8 @@ public class DiscoverTabFragment extends Fragment {
         Toast.makeText(getActivity(), "Search Click", Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    protected void inject(FragmentComponent fragmentComponent) {
+        productsFragmentComponent.inject(this);
+    }
 }

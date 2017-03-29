@@ -1,42 +1,31 @@
 package com.rcl.excalibur.mvp.presenter;
 
-import android.content.Intent;
-
-import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.PlanListActivity;
+import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
-import com.rcl.excalibur.utils.ActivityUtils;
+import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
-public class DiscoverTabPresenter implements BasePresenter {
-
+public class DiscoverTabPresenter implements FragmentPresenter {
     private DiscoverTabView view;
+    private GetProductsUseCase getProductsUseCase;
 
-    public DiscoverTabPresenter(DiscoverTabView view) {
+    public DiscoverTabPresenter(DiscoverTabView view, GetProductsUseCase getProductsUseCase) {
         this.view = view;
-        initInjection();
-        init();
+        this.getProductsUseCase = getProductsUseCase;
+        AnalyticsUtils.trackState(AnalyticsConstants.KEY_DISCOVER);
     }
 
-    private void init() {
-        final BaseActivity activity = view.getActivity();
-        if (activity == null) {
-            return;
-        }
-    }
-
-    private void initInjection() {
-        final BaseActivity activity = view.getActivity();
-        if (activity == null) {
-            return;
-        }
-        activity.getApplicationComponent().inject(this);
+    public void init() {
+        getProductsUseCase.execute(null);
     }
 
     public void openListScreen(int fragmentToShow) {
-        Intent intent = new Intent(view.getActivity(), PlanListActivity.class);
-        intent.putExtra(PlanListActivity.EXTRA_FRAGMENT_TYPE, fragmentToShow);
-        ActivityUtils.startActivity(view.getActivity(), intent);
+        view.openListScreen(fragmentToShow);
     }
 
+    @Override
+    public DiscoverTabView getView() {
+        return view;
+    }
 }
 
