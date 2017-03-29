@@ -52,7 +52,8 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
         refreshLayout.setRefreshing(isLoadingData);
     }
 
-    public void scrollToPosition(int pos) {
+    public void scrollToPosition(RecyclerViewType elem) {
+        int pos = adapter.getItemPosition(elem);
         if (pos < adapter.getItemCount()) {
             recyclerView.smoothScrollToPosition(pos);
         }

@@ -1,27 +1,21 @@
 package com.rcl.excalibur.data.repository;
 
 
+import android.support.annotation.NonNull;
+
 import com.rcl.excalibur.data.entity.PromotionEntity;
 import com.rcl.excalibur.data.mapper.PromotionEntityDataMapper;
 import com.rcl.excalibur.domain.Promotion;
 import com.rcl.excalibur.domain.repository.PromotionRepository;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-@Singleton
 public class PromotionDataRepository extends BaseDataRepository<Promotion, PromotionEntity> implements PromotionRepository {
 
-    private final PromotionEntityDataMapper promotionEntityDataMapper;
-
-    @Inject
-    PromotionDataRepository(PromotionEntityDataMapper promotionEntityDataMapper) {
+    public PromotionDataRepository(PromotionEntityDataMapper promotionEntityDataMapper) {
         super(promotionEntityDataMapper, PromotionEntity.class);
-        this.promotionEntityDataMapper = promotionEntityDataMapper;
     }
 
     @Override
-    public void create(Promotion promotion) {
+    public void create(@NonNull Promotion promotion) {
         final PromotionEntity entity = new PromotionEntity();
         entity.setCategoryId(promotion.getCategoryId());
         entity.setDescription(promotion.getDescription());

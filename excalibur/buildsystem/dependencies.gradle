@@ -111,8 +111,7 @@ ext {
             androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
             activeAndroid     : "com.michaelpardo:activeandroid:${activeAndroidVersion}",
             retrofit          : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-            retrofitGson      : "com.squareup.retrofit2:converter-gson:${retrofitGsonVersion}"
-
+            retrofitGson      : "com.squareup.retrofit2:converter-gson:${retrofitGsonVersion}",
     ]
 
     dataTestDependencies = [
