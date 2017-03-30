@@ -1,17 +1,14 @@
 package com.rcl.excalibur.data.service;
 
 import com.rcl.excalibur.data.mapper.itinerary.ItineraryEventDataMapper;
+import com.rcl.excalibur.data.service.api.ItineraryApi;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryEventResponse;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryResponse;
-import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
 
 import java.io.IOException;
 import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -20,20 +17,19 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Response;
 
-@Singleton
 public class ItineraryServiceImpl implements ItineraryService {
+    private final ItineraryEventDataMapper itineraryEventDataMapper;
+    private final ItineraryApi itineraryApi;
 
-    ItineraryEventDataMapper itineraryEventDataMapper;
-
-    @Inject
-    public ItineraryServiceImpl(ItineraryEventDataMapper itineraryEventDataMapper) {
+    public ItineraryServiceImpl(ItineraryEventDataMapper itineraryEventDataMapper, ItineraryApi itineraryApi) {
         this.itineraryEventDataMapper = itineraryEventDataMapper;
+        this.itineraryApi = itineraryApi;
     }
 
     public void myItinerary(Observer<List<ItineraryEvent>> observer) {
 
         Observable<List<ItineraryEvent>> observable = Observable.create(e -> {
-            Call<ItineraryResponse> call = ServiceUtil.getItineraryApi().myItinerary();
+            Call<ItineraryResponse> call = itineraryApi.myItinerary();
             try {
                 Response<ItineraryResponse> response = call.execute();
                 /* FIXME: This won't work if the response has several EventGroup, only for mocking Data with COMMERCE EVENT*/

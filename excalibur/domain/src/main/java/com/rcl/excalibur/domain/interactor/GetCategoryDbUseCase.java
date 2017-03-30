@@ -6,14 +6,10 @@ import com.rcl.excalibur.domain.repository.CategoryRepository;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 public class GetCategoryDbUseCase extends UseCaseSync {
-
     private final CategoryRepository categoryRepository;
 
-    @Inject
-    GetCategoryDbUseCase(CategoryRepository categoryRepository) {
+    public GetCategoryDbUseCase(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 

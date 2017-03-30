@@ -6,14 +6,11 @@ import com.rcl.excalibur.domain.repository.ProductRepository;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 public class GetProductDbUseCase extends UseCaseSync {
 
     private final ProductRepository productRepository;
 
-    @Inject
-    GetProductDbUseCase(ProductRepository productRepository) {
+    public GetProductDbUseCase(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
