@@ -15,4 +15,5 @@ public class ActivityModuleTest extends ActivityModule {
     protected HomeView providesHomeView(BaseActivity activity) {
         return mock(HomeView.class);
     }
+
 }
