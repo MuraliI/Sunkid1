@@ -14,7 +14,6 @@ import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
 import com.rcl.excalibur.data.service.response.ProductLocationResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
-import com.rcl.excalibur.data.service.response.ProductsResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
@@ -30,6 +29,13 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 public class DiscoverServicesImpl implements DiscoverServices {
+
+    private static final String SHOREX = "SHOREX";
+    private static final String ACTIVITIES = "ACTIVITIES";
+    private static final String ENTERTAINMENT = "ENTERTAINMENT";
+    private static final String DINING = "DINING";
+    private static final String SPA = "SPA";
+
     private final ProductRepository productRepository;
     private final ProductResponseDataMapper productResponseDataMapper;
     private final DiscoverApi discoverApi;
@@ -168,12 +174,14 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getProducts() {
-        Call<ProductsResponse> call = discoverApi.getProducts();
-        call.enqueue(new Callback<ProductsResponse>() {
+
+        Call<GetProductsResponse> call = discoverApi.getProducts("AL20170430", SHOREX, 50);
+
+        call.enqueue(new Callback<GetProductsResponse>() {
             @Override
-            public void onResponse(Call<ProductsResponse> call, Response<ProductsResponse> response) {
+            public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
                 if (response.isSuccessful()) {
-                    GetProductsResponse getProductsResponse = response.body().getGetProductsResponse();
+                    GetProductsResponse getProductsResponse = response.body();
                     if (ServiceUtil.isSuccess(getProductsResponse)) {
                         for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
                             productResponse.setAdvisements(getProductAdvisementResponseAttire());
@@ -185,7 +193,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
             }
 
             @Override
-            public void onFailure(Call<ProductsResponse> call, Throwable t) {
+            public void onFailure(Call<GetProductsResponse> call, Throwable t) {
                 //Handle failure
                 Timber.e("error", t.getMessage());
             }
