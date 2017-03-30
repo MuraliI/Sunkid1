@@ -116,4 +116,5 @@ public class RCLApp extends Application {
     public void destroyProductDetailComponent() {
         productDetailComponent = null;
     }
+
 }

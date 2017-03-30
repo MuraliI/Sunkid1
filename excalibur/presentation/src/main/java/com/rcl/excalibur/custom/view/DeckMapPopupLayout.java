@@ -1,7 +1,9 @@
-package com.rcl.excalibur.deckmap.custom.view;
+package com.rcl.excalibur.custom.view;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -19,30 +21,28 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PopupLayout extends RelativeLayout {
-    // TODO: PENDING REFACTOR TO MVP
-
+public class DeckMapPopupLayout extends RelativeLayout {
     @Bind(R.id.image_product) ImageView productImage;
     @Bind(R.id.text_title_product) TextView titleProductText;
     @Bind(R.id.text_type_product) TextView typeProductText;
     @Bind(R.id.text_type_name) TextView typeNameText;
 
-    public PopupLayout(Context context) {
+    public DeckMapPopupLayout(Context context) {
         super(context);
         initialize(context);
     }
 
-    public PopupLayout(Context context, AttributeSet attrs) {
+    public DeckMapPopupLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         initialize(context);
     }
 
-    public PopupLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DeckMapPopupLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initialize(context);
     }
 
-    public PopupLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public DeckMapPopupLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initialize(context);
     }
@@ -52,17 +52,19 @@ public class PopupLayout extends RelativeLayout {
         ButterKnife.bind(this, this);
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(@NonNull Product product) {
         titleProductText.setText(product.getProductTitle());
         typeProductText.setText(product.getProductType().getProductType());
         typeNameText.setText(product.getProductCategory().get(0).getProductTags().get(0).getDescription());
 
         List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
-        if (!mediaItems.isEmpty()) {
-            Picasso.with(getContext())
-                    .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
-                    .placeholder(R.drawable.thumb)
-                    .into(productImage);
+        if (mediaItems.isEmpty() || TextUtils.isEmpty(mediaItems.get(0).getMediaRefLink())) {
+            return;
         }
+
+        Picasso.with(getContext())
+                .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
+                .placeholder(R.drawable.thumb)
+                .into(productImage);
     }
 }
