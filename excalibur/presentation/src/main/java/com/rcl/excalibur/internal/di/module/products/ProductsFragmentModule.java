@@ -25,7 +25,7 @@ public class ProductsFragmentModule {
     }
 
     @Provides
-    DiscoverTabView providesDiscoverTabView(BaseFragment fragment) {
+    protected DiscoverTabView providesDiscoverTabView(BaseFragment fragment) {
         return new DiscoverTabView(((DiscoverTabFragment) fragment));
     }
 
