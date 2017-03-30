@@ -48,7 +48,6 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             return null;
         }
         final Product product = new Product();
-
         product.setProductId(entity.getProductId());
         product.setProductCode(entity.getCode());
         product.setProductType(transform(entity.getType()));
@@ -57,6 +56,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductRank(entity.getRank());
         product.setProductUpchargeIcon(entity.getUpchargeIcon());
         product.setReservationRequired(entity.isReservationRequired());
+        product.setProductReservationInformation(entity.getProductReservationInformation());
         product.setScheduable(entity.isSchedulable());
         product.setActivityLevel(transform(entity.getActivityLevel()));
         product.setProductLocation(transform(entity.getLocation()));
@@ -70,6 +70,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductShortDescription(entity.getShortDescription());
         product.setProductLongDescription(entity.getLongDescription());
         product.setProductMedia(transform(entity.getProductMedia()));
+        product.setExperience(entity.getExperience());
         return product;
     }
 

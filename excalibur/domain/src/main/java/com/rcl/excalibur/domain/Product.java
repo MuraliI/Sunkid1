@@ -22,6 +22,8 @@ public class Product {
     private String productClass;
     private String productShortDescription;
     private String productLongDescription;
+    private String productReservationInformation;
+    private String experience;
     private Media productMedia;
     private int productRank;
     private int upchargeIcon;
@@ -190,6 +192,22 @@ public class Product {
 
     public void setProductLongDescription(String productLongDescription) {
         this.productLongDescription = productLongDescription;
+    }
+
+    public String getProductReservationInformation() {
+        return productReservationInformation;
+    }
+
+    public void setProductReservationInformation(String productReservationInformation) {
+        this.productReservationInformation = productReservationInformation;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 
     public Media getProductMedia() {
