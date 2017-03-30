@@ -18,7 +18,6 @@ import com.rcl.excalibur.internal.di.module.products.ProductsDatabaseModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsListModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsServicesModule;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
-import com.squareup.leakcanary.LeakCanary;
 
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -35,7 +34,6 @@ public class RCLApp extends Application {
         super.onCreate();
         ActiveAndroid.initialize(this);
         this.initializeInjector();
-        this.initializeLeakDetection();
         this.initCalligraphy();
         AnalyticsUtils.initializeAnalyticsTool(this.getApplicationContext());
 
@@ -63,12 +61,6 @@ public class RCLApp extends Application {
 
     public AppComponent getAppComponent() {
         return appComponent;
-    }
-
-    private void initializeLeakDetection() {
-        if (BuildConfig.DEBUG) {
-            LeakCanary.install(this);
-        }
     }
 
     @Override
