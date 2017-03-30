@@ -16,7 +16,8 @@ import com.rcl.excalibur.internal.di.component.products.ProductsDeckMapActivityC
 import com.rcl.excalibur.internal.di.module.products.ProductsDeckMapActivityModule;
 import com.rcl.excalibur.mvp.presenter.ProductDeckMapPresenter;
 
-public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter> implements View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener {
+public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter> implements View.OnTouchListener,
+        ViewTreeObserver.OnGlobalLayoutListener {
     private static final String EXTRA_PRODUCT_ITEM_ID = "EXTRA_PRODUCT_ITEM_ID";
 
     private ProductsDeckMapActivityComponent component;
