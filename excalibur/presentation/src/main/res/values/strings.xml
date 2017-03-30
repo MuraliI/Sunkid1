@@ -105,5 +105,14 @@
     <string name="itinerary_accessibility_product_image">Item Image</string>
     <string name="itinerary_separator_title_on_going">On going</string>
 
+    <!-- Product Details -->
+    <plurals name="product_hr">
+        <item quantity="one">"%d hr "</item>
+        <item quantity="other">"%d hrs "</item>
+    </plurals>
+    <plurals name="product_min">
+        <item quantity="one">%d min</item>
+        <item quantity="other">%d mins</item>
+    </plurals>
 
 </resources>
