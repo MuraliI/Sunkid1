@@ -9,25 +9,26 @@ public class ProductResponse {
 
     @SerializedName("productID")
     private long productId;
-    private String productCode;
-    private ProductTypeResponse productType;
-    private String productClass;
     private List<ProductCategoryResponse> productCategory;
-    private int productRank;
-    private boolean isReservationRequired;
-    private boolean isScheduable;
+    private List<ProductAdvisementResponse> advisements;
+    private List<ProductPreferenceResponse> preferences;
+    private List<ProductRestrictionResponse> restrictions;
+    private ProductTypeResponse productType;
     private ProductActivityLevelResponse activityLevel;
     private ProductLocationResponse productLocation;
     private ProductDurationResponse productDuration;
     private ProductCostTypeResponse costType;
     private SellingPriceResponse startingFromPrice;
-    private List<ProductAdvisementResponse> advisements;
-    private List<ProductPreferenceResponse> preferences;
-    private List<ProductRestrictionResponse> restrictions;
+    private MediaResponse productMedia;
     private String productTitle;
+    private String productCode;
+    private String productClass;
     private String productShortDescription;
     private String productLongDescription;
-    private MediaResponse productMedia;
+    private int productRank;
+    private int upchargeIcon;
+    private boolean isReservationRequired;
+    private boolean isScheduable;
 
     public long getProductId() {
         return productId;
@@ -35,30 +36,6 @@ public class ProductResponse {
 
     public void setProductId(long productId) {
         this.productId = productId;
-    }
-
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
-    }
-
-    public ProductTypeResponse getProductType() {
-        return productType;
-    }
-
-    public void setProductType(ProductTypeResponse productType) {
-        this.productType = productType;
-    }
-
-    public String getProductClass() {
-        return productClass;
-    }
-
-    public void setProductClass(String productClass) {
-        this.productClass = productClass;
     }
 
     public List<ProductCategoryResponse> getProductCategory() {
@@ -69,28 +46,36 @@ public class ProductResponse {
         this.productCategory = productCategory;
     }
 
-    public int getProductRank() {
-        return productRank;
+    public List<ProductAdvisementResponse> getAdvisements() {
+        return advisements;
     }
 
-    public void setProductRank(int productRank) {
-        this.productRank = productRank;
+    public void setAdvisements(List<ProductAdvisementResponse> advisements) {
+        this.advisements = advisements;
     }
 
-    public boolean isReservationRequired() {
-        return isReservationRequired;
+    public List<ProductPreferenceResponse> getPreferences() {
+        return preferences;
     }
 
-    public void setReservationRequired(boolean reservationRequired) {
-        isReservationRequired = reservationRequired;
+    public void setPreferences(List<ProductPreferenceResponse> preferences) {
+        this.preferences = preferences;
     }
 
-    public boolean isScheduable() {
-        return isScheduable;
+    public List<ProductRestrictionResponse> getRestrictions() {
+        return restrictions;
     }
 
-    public void setScheduable(boolean scheduable) {
-        isScheduable = scheduable;
+    public void setRestrictions(List<ProductRestrictionResponse> restrictions) {
+        this.restrictions = restrictions;
+    }
+
+    public ProductTypeResponse getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductTypeResponse productType) {
+        this.productType = productType;
     }
 
     public ProductActivityLevelResponse getActivityLevel() {
@@ -133,28 +118,12 @@ public class ProductResponse {
         this.startingFromPrice = startingFromPrice;
     }
 
-    public List<ProductAdvisementResponse> getAdvisements() {
-        return advisements;
+    public MediaResponse getProductMedia() {
+        return productMedia;
     }
 
-    public void setAdvisements(List<ProductAdvisementResponse> advisements) {
-        this.advisements = advisements;
-    }
-
-    public List<ProductPreferenceResponse> getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(List<ProductPreferenceResponse> preferences) {
-        this.preferences = preferences;
-    }
-
-    public List<ProductRestrictionResponse> getRestrictions() {
-        return restrictions;
-    }
-
-    public void setRestrictions(List<ProductRestrictionResponse> restrictions) {
-        this.restrictions = restrictions;
+    public void setProductMedia(MediaResponse productMedia) {
+        this.productMedia = productMedia;
     }
 
     public String getProductTitle() {
@@ -163,6 +132,22 @@ public class ProductResponse {
 
     public void setProductTitle(String productTitle) {
         this.productTitle = productTitle;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getProductClass() {
+        return productClass;
+    }
+
+    public void setProductClass(String productClass) {
+        this.productClass = productClass;
     }
 
     public String getProductShortDescription() {
@@ -181,11 +166,35 @@ public class ProductResponse {
         this.productLongDescription = productLongDescription;
     }
 
-    public MediaResponse getProductMedia() {
-        return productMedia;
+    public int getProductRank() {
+        return productRank;
     }
 
-    public void setProductMedia(MediaResponse productMedia) {
-        this.productMedia = productMedia;
+    public void setProductRank(int productRank) {
+        this.productRank = productRank;
+    }
+
+    public int getUpchargeIcon() {
+        return upchargeIcon;
+    }
+
+    public void setUpchargeIcon(int upchargeIcon) {
+        this.upchargeIcon = upchargeIcon;
+    }
+
+    public boolean isReservationRequired() {
+        return isReservationRequired;
+    }
+
+    public void setReservationRequired(boolean reservationRequired) {
+        isReservationRequired = reservationRequired;
+    }
+
+    public boolean isScheduable() {
+        return isScheduable;
+    }
+
+    public void setScheduable(boolean scheduable) {
+        isScheduable = scheduable;
     }
 }

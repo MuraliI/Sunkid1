@@ -1,31 +1,32 @@
 package com.rcl.excalibur.domain;
 
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 public class Product {
     private static final int TIME_LENGTH = 4;
     private long productId;
-    private String productCode;
-    private ProductType productType;
-    private String productClass;
     private List<ProductCategory> productCategory;
-    private int productRank;
-    private boolean isReservationRequired;
-    private boolean isScheduable;
+    private List<ProductAdvisement> advisements;
+    private List<ProductPreference> preferences;
+    private List<ProductRestriction> restrictions;
     private ProductActivityLevel activityLevel;
     private ProductLocation productLocation;
     private ProductDuration productDuration;
     private ProductCostType costType;
+    private ProductType productType;
     private SellingPrice startingFromPrice;
-    private List<ProductAdvisement> advisements;
-    private List<ProductPreference> preferences;
-    private List<ProductRestriction> restrictions;
     private String productTitle;
+    private String productCode;
+    private String productClass;
     private String productShortDescription;
     private String productLongDescription;
     private Media productMedia;
+    private int productRank;
+    private int upchargeIcon;
+    private boolean isReservationRequired;
+    private boolean isScheduable;
 
     public long getProductId() {
         return productId;
@@ -73,6 +74,14 @@ public class Product {
 
     public void setProductRank(int productRank) {
         this.productRank = productRank;
+    }
+
+    public int getProductUpchargeIcon() {
+        return upchargeIcon;
+    }
+
+    public void setProductUpchargeIcon(int upchargeIcon) {
+        this.upchargeIcon = upchargeIcon;
     }
 
     public boolean isReservationRequired() {
@@ -202,4 +211,13 @@ public class Product {
         return "00:00";
     }
 
+    public List<ProductAdvisement> getProductAdvisementsByType(String advisementType) {
+        List<ProductAdvisement> advisementList = new ArrayList<>();
+        for (ProductAdvisement advisement : advisements) {
+            if (advisement.getAdvisementType().equals(advisementType)) {
+                advisementList.add(advisement);
+            }
+        }
+        return advisementList;
+    }
 }

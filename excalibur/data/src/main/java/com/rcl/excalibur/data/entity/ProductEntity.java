@@ -19,6 +19,7 @@ public class ProductEntity extends Model {
     public static final String COLUMN_PRODUCT_CLASS = "product_class";
     public static final String COLUMN_CATEGORY = "category";
     public static final String COLUMN_RANK = "rank";
+    public static final String COLUMN_UPCHARGE_ICON = "upcharge_icon";
     public static final String COLUMN_RESERVATION_REQUIRED = "reservation_required";
     public static final String COLUMN_SCHEDULABLE = "schedulable";
     public static final String COLUMN_ACTIVITY_LEVEL = "activity_level";
@@ -45,6 +46,8 @@ public class ProductEntity extends Model {
     public CategoryEntity category;
     @Column(name = COLUMN_RANK)
     public int rank;
+    @Column(name = COLUMN_UPCHARGE_ICON)
+    public int upchargeIcon;
     @Column(name = COLUMN_RESERVATION_REQUIRED)
     public boolean reservationRequired;
     @Column(name = COLUMN_SCHEDULABLE)
@@ -128,6 +131,14 @@ public class ProductEntity extends Model {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    public int getUpchargeIcon() {
+        return upchargeIcon;
+    }
+
+    public void setUpchargeIcon(int upchargeIcon) {
+        this.upchargeIcon = upchargeIcon;
     }
 
     public boolean isReservationRequired() {

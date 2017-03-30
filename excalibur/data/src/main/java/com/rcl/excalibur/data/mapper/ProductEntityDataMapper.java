@@ -55,6 +55,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductClass(entity.getProductClass());
         product.setProductCategory(transform(entity.getCategory()));
         product.setProductRank(entity.getRank());
+        product.setProductUpchargeIcon(entity.getUpchargeIcon());
         product.setReservationRequired(entity.isReservationRequired());
         product.setScheduable(entity.isSchedulable());
         product.setActivityLevel(transform(entity.getActivityLevel()));
@@ -73,14 +74,12 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
     }
 
     private List<ProductRestriction> transformProductRestriction(List<RestrictionEntity> entities) {
-
         ArrayList<ProductRestriction> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(entities)) {
             return items;
         }
         for (RestrictionEntity productRestrictionResponse : entities) {
-
             if (productRestrictionResponse == null) {
                 continue;
             }
@@ -153,14 +152,13 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
     }
 
     private List<ProductAdvisement> transformProductAdvisement(List<AdvisementEntity> entities) {
-
-        ArrayList<ProductAdvisement> items = new ArrayList<ProductAdvisement>();
+        ArrayList<ProductAdvisement> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(entities)) {
             return items;
         }
-        for (AdvisementEntity entity : entities) {
 
+        for (AdvisementEntity entity : entities) {
             if (entity == null) {
                 continue;
             }
@@ -174,7 +172,6 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             productAdvisement.setAdvisementDescription(entity.getDescription());
             items.add(productAdvisement);
         }
-
         return items;
     }
 
@@ -222,6 +219,10 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             productLocation.setLocationType(locationEntity.getType());
             productLocation.setOperatingHoursEnd(locationEntity.getHoursEnd());
             productLocation.setOperatingHoursStart(locationEntity.getHoursStart());
+            productLocation.setLocationVenue(locationEntity.getVenue());
+            productLocation.setLocationPort(locationEntity.getPort());
+            productLocation.setLocationDeckNumber(locationEntity.getDeckNumber());
+            productLocation.setLocationDirection(locationEntity.getDirection());
         }
         return productLocation;
     }
