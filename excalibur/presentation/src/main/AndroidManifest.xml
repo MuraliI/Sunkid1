@@ -34,9 +34,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".deckmap.activity.DiscoverDeckMapActivity"
+            android:name=".activity.ProductDeckMapActivity"
             android:label="@string/empty_string"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="AA_DB_NAME"
