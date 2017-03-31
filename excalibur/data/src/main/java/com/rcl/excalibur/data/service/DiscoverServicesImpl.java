@@ -1,6 +1,8 @@
 package com.rcl.excalibur.data.service;
 
 
+import android.support.annotation.NonNull;
+
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
@@ -176,22 +178,38 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getProducts() {
-        final GetProductsResponse[] getProductsResponse = new GetProductsResponse[1];
-        Call<GetProductsResponse> call = discoverApi.getProducts(SAILING_ID, DINING, MAX_COUNT);
-        call.enqueue(new Callback<GetProductsResponse>() {
+        Call<GetProductsResponse> dinningCall = discoverApi.getProducts(SAILING_ID, DINING, MAX_COUNT);
+        dinningCall.enqueue(getProductCallback());
+
+        Call<GetProductsResponse> shorexCall = discoverApi.getProducts(SAILING_ID, SHOREX, MAX_COUNT);
+        shorexCall.enqueue(getProductCallback());
+
+        Call<GetProductsResponse> spaCall = discoverApi.getProducts(SAILING_ID, SPA, MAX_COUNT);
+        spaCall.enqueue(getProductCallback());
+
+        Call<GetProductsResponse> entertainmentCall = discoverApi.getProducts(SAILING_ID, ENTERTAINMENT, MAX_COUNT);
+        entertainmentCall.enqueue(getProductCallback());
+
+        Call<GetProductsResponse> activitiesCall = discoverApi.getProducts(SAILING_ID, ACTIVITIES, MAX_COUNT);
+        activitiesCall.enqueue(getProductCallback());
+    }
+
+    @NonNull
+    private Callback<GetProductsResponse> getProductCallback() {
+        return new Callback<GetProductsResponse>() {
             @Override
             public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
                 if (response.isSuccessful()) {
-                    getProductsResponse[0] = response.body();
-                    if (ServiceUtil.isSuccess(getProductsResponse[0])) {
-                        for (ProductResponse productResponse : getProductsResponse[0].getProducts()) { // TODO: To be removed once the service provides this details
+                    GetProductsResponse getProductsResponse = response.body();
+                    if (ServiceUtil.isSuccess(getProductsResponse)) {
+                        for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
                             List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
                             if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
                                 productResponse.setAdvisements(getProductAdvisementResponseAttire());
                             }
                             setProductLocationExtraParameters(productResponse.getProductLocation());
                         }
-                        productRepository.create(productResponseDataMapper.transform(getProductsResponse[0].getProducts()));
+                        productRepository.create(productResponseDataMapper.transform(getProductsResponse.getProducts()));
                     }
                 }
             }
@@ -201,7 +219,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
                 //Handle failure
                 Timber.e("error", t.getMessage());
             }
-        });
+        };
     }
 
     // TODO: Hardcoded method to be removed once the service provides this details
