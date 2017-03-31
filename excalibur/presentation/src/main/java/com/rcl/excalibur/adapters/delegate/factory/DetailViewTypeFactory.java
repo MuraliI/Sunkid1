@@ -38,17 +38,10 @@ public final class DetailViewTypeFactory {
     public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product, Resources resources) {
         //TODO create all the list of view types depending on the product model fields
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
+        addMakeReservation(viewTypes, resources, product);
         addAdvisements(viewTypes, resources, product);
-
         if (product.getDuration() > NO_DURATION) {
             addProductDurationTypes(viewTypes, resources, product);
-        }
-
-        return viewTypes;
-        LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
-        addAdvisements(viewTypes, resources, product);
-        if (!TextUtils.isEmpty(product.getReservationInformation())) {
-            addMakeReservation(viewTypes, resources, product);
         }
 
         return viewTypes;
@@ -121,20 +114,6 @@ public final class DetailViewTypeFactory {
                 productActivityLevel.getActivityLevelTitle());
     }
 
-    private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
-                                       ProductModel product) {
-        // FIXME: Obtain products from database
-        product = ProductModelProvider.productModelMap.get("1");
-        LinkedHashMap<String, String> advisements = product.getAdvisements();
-
-        for (Map.Entry<String, String> entry : advisements.entrySet()) {
-            String advisementTitle = entry.getKey();
-            String advisementDescription = entry.getValue();
-            addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
-                    advisementDescription);
-        }
-    }
-
     private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
         // FIXME: Obtain products from database
         product = ProductModelProvider.productModelMap.get("1");
@@ -154,9 +133,10 @@ public final class DetailViewTypeFactory {
     private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
         // FIXME: Obtain products from database
         product = ProductModelProvider.productModelMap.get("1");
-        addTitleAndDescriptionTypes(recyclerViewTypeList, "Make a Reservation",
-                product.getReservationInformation());
-
+        if (!TextUtils.isEmpty(product.getReservationInformation())) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
+                    product.getReservationInformation());
+        }
     }
 
 }
