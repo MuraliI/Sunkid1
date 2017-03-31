@@ -3,7 +3,6 @@ package com.rcl.excalibur.custom.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -12,8 +11,9 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductCategory;
+import com.rcl.excalibur.domain.ProductTags;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -55,15 +55,17 @@ public class DeckMapPopupLayout extends RelativeLayout {
     public void setProduct(@NonNull Product product) {
         titleProductText.setText(product.getProductTitle());
         typeProductText.setText(product.getProductType().getProductType());
-        typeNameText.setText(product.getProductCategory().get(0).getProductTags().get(0).getDescription());
 
-        List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
-        if (mediaItems.isEmpty() || TextUtils.isEmpty(mediaItems.get(0).getMediaRefLink())) {
-            return;
+        List<ProductCategory> productCategories = product.getProductCategory();
+        if (!productCategories.isEmpty()) {
+            List<ProductTags> productTags = productCategories.get(0).getProductTags();
+            if (!productTags.isEmpty() && productTags.get(0).getDescription() != null) {
+                typeNameText.setText(productTags.get(0).getDescription());
+            }
         }
 
         Picasso.with(getContext())
-                .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
+                .load(BuildConfig.PREFIX_IMAGE + product.getHeroImageRefLink())
                 .placeholder(R.drawable.thumb)
                 .into(productImage);
     }

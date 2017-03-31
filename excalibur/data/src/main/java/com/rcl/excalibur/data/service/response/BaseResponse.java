@@ -7,8 +7,8 @@ public class BaseResponse {
     public BaseResponse() {
     }
 
-    public ResponseStatus getResponseStatus() {
-        return responseStatus;
+    public String getResponseStatus() {
+        return responseStatus.getResponseStatus();
     }
 
     public void setResponseStatus(ResponseStatus responseStatus) {

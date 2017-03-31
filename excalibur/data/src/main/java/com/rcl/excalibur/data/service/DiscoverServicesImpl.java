@@ -29,6 +29,8 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 public class DiscoverServicesImpl implements DiscoverServices {
+    private static final String SAILING_ID = "AL20170430";
+    private static final int MAX_COUNT = 50;
 
     private static final String SHOREX = "SHOREX";
     private static final String ACTIVITIES = "ACTIVITIES";
@@ -174,20 +176,22 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getProducts() {
-
-        Call<GetProductsResponse> call = discoverApi.getProducts("AL20170430", SHOREX, 50);
-
+        final GetProductsResponse[] getProductsResponse = new GetProductsResponse[1];
+        Call<GetProductsResponse> call = discoverApi.getProducts(SAILING_ID, DINING, MAX_COUNT);
         call.enqueue(new Callback<GetProductsResponse>() {
             @Override
             public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
                 if (response.isSuccessful()) {
-                    GetProductsResponse getProductsResponse = response.body();
-                    if (ServiceUtil.isSuccess(getProductsResponse)) {
-                        for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
-                            productResponse.setAdvisements(getProductAdvisementResponseAttire());
+                    getProductsResponse[0] = response.body();
+                    if (ServiceUtil.isSuccess(getProductsResponse[0])) {
+                        for (ProductResponse productResponse : getProductsResponse[0].getProducts()) { // TODO: To be removed once the service provides this details
+                            List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
+                            if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
+                                productResponse.setAdvisements(getProductAdvisementResponseAttire());
+                            }
                             setProductLocationExtraParameters(productResponse.getProductLocation());
                         }
-                        productRepository.create(productResponseDataMapper.transform(getProductsResponse.getProducts()));
+                        productRepository.create(productResponseDataMapper.transform(getProductsResponse[0].getProducts()));
                     }
                 }
             }

@@ -1,6 +1,8 @@
 package com.rcl.excalibur.domain;
 
 
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -226,7 +228,17 @@ public class Product {
         if (time.length() == TIME_LENGTH) {
             return time.substring(0, 2) + ":" + time.substring(2);
         }
-        return "00:00";
+        return ConstantsUtil.DEFAULT_TIME;
+    }
+
+    public String getHeroImageRefLink() {
+        if (productMedia != null) {
+            List<MediaItem> mediaItems = productMedia.getMediaItem();
+            if (!mediaItems.isEmpty()) {
+                return mediaItems.get(0).getMediaRefLink();
+            }
+        }
+        return ConstantsUtil.EMPTY;
     }
 
     public List<ProductAdvisement> getProductAdvisementsByType(String advisementType) {
