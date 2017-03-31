@@ -25,6 +25,7 @@ public class ProductModelDataMapperTest {
         ProductDuration productDuration = new ProductDuration();
         productDuration.setDurationInMinutes(125);
         entity1.setProductDuration(productDuration);
+        entity1.setProductReservationInformation("");
 
         entity2 = null;
     }
