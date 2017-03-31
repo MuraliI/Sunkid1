@@ -20,25 +20,20 @@ import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.model.ProductModel;
-import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public final class DetailViewTypeFactory {
 
     private DetailViewTypeFactory() {
     }
 
-    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product, Resources resources) {
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product) {
         //TODO create all the list of view types depending on the product model fields
-        LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
-        addAdvisements(viewTypes, resources, product);
-        return viewTypes;
+        return new LinkedList<>();
     }
 
     private static boolean isHoursEmpty(String value) {
@@ -107,22 +102,6 @@ public final class DetailViewTypeFactory {
         }
         addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
                 productActivityLevel.getActivityLevelTitle());
-    }
-
-    private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
-        // FIXME: Obtain products from database
-        product = ProductModelProvider.productModelMap.get("1");
-
-        LinkedHashMap<String, String> advisements = product.getAdvisements();
-        if (advisements.size() == 0) {
-            return;
-        }
-        for (Map.Entry<String, String> entry : advisements.entrySet()) {
-            String advisementTitle = entry.getKey();
-            String advisementDescription = entry.getValue();
-            addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
-                    advisementDescription);
-        }
     }
 
 }
