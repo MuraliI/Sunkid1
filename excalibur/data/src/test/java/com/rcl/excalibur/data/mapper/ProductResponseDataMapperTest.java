@@ -73,13 +73,13 @@ public class ProductResponseDataMapperTest {
 
         productResponse1 = new ProductResponse();
         productResponse1.setProductId(100000002814023699L);
-        productResponse1.setUpchargeIcon(0);
+        productResponse1.setUpcharge(0);
         productResponse1.setProductReservationInformation("Arrive 15 minutes early, Wear closedtoed shoes");
         productResponse1.setExperience("Enjoy!");
 
         productResponse2 = new ProductResponse();
         productResponse2.setProductId(100000002814023699L);
-        productResponse2.setUpchargeIcon(3);
+        productResponse2.setUpcharge(3);
 
         productResponse1.setProductCode("2751");
 
@@ -240,19 +240,19 @@ public class ProductResponseDataMapperTest {
         productResponse1.setProductMedia(mediaResponse);
 
         productResponse2.setProductMedia(mediaResponse);
-
     }
 
     @Test
     public void transform() throws Exception {
-
         Product product = productResponseDataMapper.transform(productResponse1);
+
         assertNotNull(product);
+
         assertEquals(productResponse1.getProductId(), product.getProductId());
         assertEquals(productResponse1.getExperience(), product.getExperience());
         assertEquals(productResponse1.getProductReservationInformation(), product.getProductReservationInformation());
         assertEquals(productResponse1.getProductCode(), product.getProductCode());
-        assertEquals(productResponse1.getUpchargeIcon(), product.getProductUpchargeIcon());
+        assertEquals(productResponse1.getUpcharge(), product.getProductUpcharge());
         assertEquals(productResponse1.getProductType().getProductType(), product.getProductType().getProductType());
         assertEquals(productResponse1.getProductType().getProductTypeName(), product.getProductType().getProductTypeName());
         assertEquals(productResponse1.getProductType().getProductTypeId(), product.getProductType().getProductTypeId());
@@ -380,21 +380,23 @@ public class ProductResponseDataMapperTest {
 
     @Test
     public void transformList() throws Exception {
-        final List<ProductResponse> productResponses = new ArrayList();
+        final List<ProductResponse> productResponses = new ArrayList<>();
         productResponses.add(productResponse1);
         productResponses.add(productResponse2);
 
         List<Product> productList = productResponseDataMapper.transform(productResponses);
+
         assertNotNull(productList);
         assertFalse(productList.isEmpty());
         assertEquals(productResponses.size(), productList.size());
 
         for (int z = 0; z < productList.size(); z++) {
-
             assertEquals(productResponses.get(z).getProductId(), productList.get(z).getProductId());
-
-
+            assertEquals(productResponses.get(z).getExperience(), productList.get(z).getExperience());
+            assertEquals(productResponses.get(z).getProductReservationInformation(), productList.get(z).getProductReservationInformation());
             assertEquals(productResponses.get(z).getProductCode(), productList.get(z).getProductCode());
+
+            assertEquals(productResponses.get(z).getUpcharge(), productList.get(z).getProductUpcharge());
 
             assertEquals(productResponses.get(z).getProductType().getProductType(), productList.get(z).getProductType().getProductType());
             assertEquals(productResponses.get(z).getProductType().getProductTypeName(), productList.get(z).getProductType().getProductTypeName());
@@ -433,6 +435,10 @@ public class ProductResponseDataMapperTest {
             assertEquals(productResponses.get(z).getProductLocation().getLocationType(), productList.get(z).getProductLocation().getLocationType());
             assertEquals(productResponses.get(z).getProductLocation().getOperatingHoursEnd(), productList.get(z).getProductLocation().getOperatingHoursEnd());
             assertEquals(productResponses.get(z).getProductLocation().getOperatingHoursStart(), productList.get(z).getProductLocation().getOperatingHoursStart());
+            assertEquals(productResponses.get(z).getProductLocation().getLocationVenue(), productList.get(z).getProductLocation().getLocationVenue());
+            assertEquals(productResponses.get(z).getProductLocation().getLocationPort(), productList.get(z).getProductLocation().getLocationPort());
+            assertEquals(productResponses.get(z).getProductLocation().getLocationDeckNumber(), productList.get(z).getProductLocation().getLocationDeckNumber());
+            assertEquals(productResponses.get(z).getProductLocation().getLocationDirection(), productList.get(z).getProductLocation().getLocationDirection());
 
             assertEquals(productResponses.get(z).getProductDuration().getDurationInMinutes(), productList.get(z).getProductDuration().getDurationInMinutes());
             assertEquals(productResponses.get(z).getProductDuration().getLagTimeInMinutes(), productList.get(z).getProductDuration().getLagTimeInMinutes());

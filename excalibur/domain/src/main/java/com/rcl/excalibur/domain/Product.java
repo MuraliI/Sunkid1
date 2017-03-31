@@ -28,7 +28,7 @@ public class Product {
     private String experience;
     private Media productMedia;
     private int productRank;
-    private int upchargeIcon;
+    private int upcharge;
     private boolean isReservationRequired;
     private boolean isScheduable;
 
@@ -80,12 +80,12 @@ public class Product {
         this.productRank = productRank;
     }
 
-    public int getProductUpchargeIcon() {
-        return upchargeIcon;
+    public int getProductUpcharge() {
+        return upcharge;
     }
 
-    public void setProductUpchargeIcon(int upchargeIcon) {
-        this.upchargeIcon = upchargeIcon;
+    public void setProductUpcharge(int upchargeIcon) {
+        this.upcharge = upchargeIcon;
     }
 
     public boolean isReservationRequired() {

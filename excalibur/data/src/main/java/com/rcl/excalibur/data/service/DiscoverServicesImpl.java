@@ -178,6 +178,10 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getProducts() {
+        // TODO: This is a provisional implementation, once we have the final response from the serves. this must be changed.
+        // As they changed the products call to multiple service we choosed to keep adding the Products from GetProductsResponse to an
+        // array and after that call once the create method of the repository because this one is deleting the database everytime.
+
         List<Product> productList = new ArrayList<>();
         Call<GetProductsResponse> dinningCall = discoverApi.getProducts(SAILING_ID, DINING, MAX_COUNT);
         dinningCall.enqueue(new Callback<GetProductsResponse>() {
@@ -253,7 +257,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
             GetProductsResponse getProductsResponse = response.body();
             if (ServiceUtil.isSuccess(getProductsResponse)) {
                 for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
-                    productResponse.setUpchargeIcon(new Random().nextInt(4));
+                    productResponse.setUpcharge(new Random().nextInt(4));
                     if (productResponse.getProductReservationInformation() == null) {
                         productResponse.setProductReservationInformation("Please Arrive 15 minutes early, Wear closedtoed shoes");
                     }

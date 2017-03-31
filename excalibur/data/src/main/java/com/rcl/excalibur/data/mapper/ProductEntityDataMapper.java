@@ -54,7 +54,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductClass(entity.getProductClass());
         product.setProductCategory(transform(entity.getCategory()));
         product.setProductRank(entity.getRank());
-        product.setProductUpchargeIcon(entity.getUpchargeIcon());
+        product.setProductUpcharge(entity.getUpcharge());
         product.setReservationRequired(entity.isReservationRequired());
         product.setProductReservationInformation(entity.getProductReservationInformation());
         product.setScheduable(entity.isSchedulable());

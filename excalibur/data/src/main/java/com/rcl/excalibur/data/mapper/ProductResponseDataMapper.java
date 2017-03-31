@@ -66,7 +66,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             product.setProductMedia(transform(productResponse.getProductMedia()));
             product.setExperience(productResponse.getExperience());
             product.setProductReservationInformation(productResponse.getProductReservationInformation());
-            product.setProductUpchargeIcon(productResponse.getUpchargeIcon());
+            product.setProductUpcharge(productResponse.getUpcharge());
         }
         return product;
     }
