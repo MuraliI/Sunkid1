@@ -11,7 +11,7 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
     @Override
     public ProductModel transform(Product item) {
         if (item == null) {
-            throw new IllegalArgumentException("Cannot transform a null value");
+            return null;
         }
         final ProductModel productModel = new ProductModel();
         productModel.setDuration(item.getProductDuration().getDurationInMinutes());

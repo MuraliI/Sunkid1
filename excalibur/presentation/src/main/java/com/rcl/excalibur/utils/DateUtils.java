@@ -11,6 +11,7 @@ import java.util.Date;
 public final class DateUtils {
 
     private static final int AFTERNOON = 12;
+    public static final int HOUR_MINUTES = 60;
 
     private DateUtils() {
 
