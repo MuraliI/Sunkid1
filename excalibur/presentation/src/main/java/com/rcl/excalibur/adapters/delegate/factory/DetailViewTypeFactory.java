@@ -19,11 +19,10 @@ import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.model.ProductModel;
-import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +37,7 @@ public final class DetailViewTypeFactory {
     public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product, Resources resources) {
         //TODO create all the list of view types depending on the product model fields
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
-        addAdvisements(viewTypes, resources, product);
+        addAdvisementsAndReestrictions(viewTypes, resources, product);
 
         if (product.getDuration() > NO_DURATION) {
             addProductDurationTypes(viewTypes, resources, product);
@@ -114,11 +113,10 @@ public final class DetailViewTypeFactory {
                 productActivityLevel.getActivityLevelTitle());
     }
 
-    private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
-                                       ProductModel product) {
-        // FIXME: Obtain products from database
-        product = ProductModelProvider.productModelMap.get("1");
-        LinkedHashMap<String, String> advisements = product.getAdvisements();
+    private static void addAdvisementsAndReestrictions(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
+                                                       ProductModel product) {
+        //product = ProductModelProvider.productModelMap.get("1");
+        HashMap<String, String> advisements = product.getAdvisementsAndReestrictions();
 
         for (Map.Entry<String, String> entry : advisements.entrySet()) {
             String advisementTitle = entry.getKey();
@@ -127,5 +125,6 @@ public final class DetailViewTypeFactory {
                     advisementDescription);
         }
     }
+
 
 }
