@@ -1,21 +1,9 @@
 package com.rcl.excalibur.data.service.response;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class ResponseStatus {
-
-    @SerializedName("responseStatus")
-    @Expose
     private String responseStatus;
-    @SerializedName("responseCode")
-    @Expose
     private String responseCode;
-    @SerializedName("responseMessage")
-    @Expose
     private String responseMessage;
-    @SerializedName("responseInternalMessage")
-    @Expose
     private String responseInternalMessage;
 
     public String getResponseStatus() {
