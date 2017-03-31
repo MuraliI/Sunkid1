@@ -85,6 +85,6 @@
     <dimen name="ship_button_category_top_margin">10dp</dimen>
 
     <!-- Deck Map -->
-    <dimen name="item_deck_height">100dp</dimen>
+    <dimen name="item_deck_height">110dp</dimen>
 
 </resources>

@@ -7,7 +7,7 @@ import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
 import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider;
-import com.rcl.excalibur.deckmap.activity.DiscoverDeckMapActivity;
+import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.model.DiscoverItemModel;
@@ -74,7 +74,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
     public void onDeckMapClicked(long productId) {
         final BaseActivity activity = view.getActivity();
         if (activity != null) {
-            activity.startActivity(DiscoverDeckMapActivity.getIntent(activity, productId));
+            activity.startActivity(ProductDeckMapActivity.getIntent(activity, productId));
         }
     }
 
