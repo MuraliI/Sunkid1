@@ -2,12 +2,9 @@ package com.rcl.excalibur.model;
 
 
 import android.content.res.Resources;
-
 import com.rcl.excalibur.R;
-
 import java.util.LinkedHashMap;
-
-import static com.rcl.excalibur.utils.DateUtils.HOUR_MINUTES;
+import static com.rcl.excalibur.utils.DateUtils.MINUTES_IN_HOUR;
 
 public class ProductModel {
     //TODO Add all your attributes here
@@ -42,8 +39,8 @@ public class ProductModel {
 
     public String getDurationFormatted(Resources resources) {
         String durationStr = "";
-        int hours = duration / HOUR_MINUTES;
-        int remainingMinutes = duration % HOUR_MINUTES;
+        int hours = duration / MINUTES_IN_HOUR;
+        int remainingMinutes = duration % MINUTES_IN_HOUR;
         if (hours > 0) {
             durationStr += resources.getQuantityString(R.plurals.product_hr, hours, hours);
         }
