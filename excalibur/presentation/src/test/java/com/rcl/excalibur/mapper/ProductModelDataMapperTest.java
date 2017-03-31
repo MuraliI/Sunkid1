@@ -19,6 +19,7 @@ public class ProductModelDataMapperTest {
 
     @Before
     public void setUp() {
+        //Todo Add all missing attributes
         productModelDataMapper = new ProductModelDataMapper();
         entity1 = new Product();
         ProductDuration productDuration = new ProductDuration();
