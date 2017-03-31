@@ -15,32 +15,44 @@ import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductActivityLevel;
-import com.rcl.excalibur.domain.ProductDuration;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.model.ProductModel;
+import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public final class DetailViewTypeFactory {
+
+    private static final int NO_DURATION = 0;
 
     private DetailViewTypeFactory() {
     }
 
-    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product) {
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product, Resources resources) {
         //TODO create all the list of view types depending on the product model fields
-        return new LinkedList<>();
+        LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
+        addAdvisements(viewTypes, resources, product);
+
+        if (product.getDuration() > NO_DURATION) {
+            addProductDurationTypes(viewTypes, resources, product);
+        }
+
+        return viewTypes;
     }
 
     private static boolean isHoursEmpty(String value) {
         return TextUtils.isEmpty(value) || "0".equals(value);
     }
 
-    private static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title, final String description) {
+    private static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title,
+                                                    final String description) {
         recyclerViewTypeList.add(new TitleAndDescriptionViewType(title, description));
     }
 
@@ -57,14 +69,12 @@ public final class DetailViewTypeFactory {
         }
     }
 
-    private void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res, @StringRes int title,
-                                         Product product) {
-        final ProductDuration productDuration = product.getProductDuration();
-        if (productDuration == null) {
+    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                ProductModel product) {
+        if (product == null) {
             return;
         }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(title),
-                res.getString(R.string.mins, productDuration.getDurationInMinutes()));
+        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
     }
 
     private void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
@@ -102,6 +112,20 @@ public final class DetailViewTypeFactory {
         }
         addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
                 productActivityLevel.getActivityLevelTitle());
+    }
+
+    private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
+                                       ProductModel product) {
+        // FIXME: Obtain products from database
+        product = ProductModelProvider.productModelMap.get("1");
+        LinkedHashMap<String, String> advisements = product.getAdvisements();
+
+        for (Map.Entry<String, String> entry : advisements.entrySet()) {
+            String advisementTitle = entry.getKey();
+            String advisementDescription = entry.getValue();
+            addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
+                    advisementDescription);
+        }
     }
 
 }
