@@ -1,7 +1,6 @@
 package com.rcl.excalibur.mvp.view;
 
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.ProductDetailActivity;
-import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DetailViewCoordinatorAdapter;
 import com.rcl.excalibur.custom.view.ReservationDetailLayout;
@@ -64,8 +62,8 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity> {
         discoverItemName.setText(title);
     }
 
-    public void render(SparseArrayCompat<DelegateAdapter> adapterList, List<RecyclerViewType> viewTypes) {
-        adapter = new DetailViewCoordinatorAdapter(viewObserver, adapterList, viewTypes);
+    public void render(List<RecyclerViewType> viewTypes) {
+        adapter = new DetailViewCoordinatorAdapter(viewObserver, viewTypes);
         planDetailRecycler.setAdapter(adapter);
 
         if (getActivity() != null) {

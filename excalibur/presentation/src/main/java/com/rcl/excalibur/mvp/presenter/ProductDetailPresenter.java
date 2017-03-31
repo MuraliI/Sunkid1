@@ -5,22 +5,23 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
-import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider;
+import com.rcl.excalibur.adapters.base.RecyclerViewType;
+import com.rcl.excalibur.adapters.delegate.factory.DetailViewTypeFactory;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.model.DiscoverItemModel;
+import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
 
-import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOREX;
+import java.util.List;
 
 public class ProductDetailPresenter implements ActivityPresenter {
     private GetProductDbUseCase getProductDbUseCase;
     private ProductDetailView view;
-    private DetailModuleFactory moduleFactory;
     private long productId;
-    private Product product;
+    private Product product; //FIXME change model to correct one
+    private List<RecyclerViewType> viewTypes;
 
     public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -29,23 +30,14 @@ public class ProductDetailPresenter implements ActivityPresenter {
     }
 
     public void init() {
-        product = getProductDbUseCase.get(productId);
-        DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
+        product = getProductDbUseCase.get(productId); /* TODO map domain to a {@link ProductModel} */
+        ProductModel productModel = new ProductModel(); //FIXME get the actual map
         if (product != null) {
-            String productTypeName = product.getProductType().getProductType();
             if (!product.isReservationRequired() && product.isScheduable()) {
                 view.showOnlyReservationIcon();
             }
-            if (TYPE_SHOREX.equals(productTypeName)) {
-                view.hideDeckMapButton();
-            }
-            moduleFactory = factoryProvider.getFactory(productTypeName);
-            if (moduleFactory == null) {
-                view.showToastAndFinishActivity("Discover Item Not Found");
-            } else {
-                moduleFactory.setProduct(product);
-                initView();
-            }
+            viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(productModel);
+            initView();
         } else {
             view.showToastAndFinishActivity("Discover Item Not Found");
         }
@@ -57,11 +49,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
             view.setDetailTitle(product.getProductTitle());
             view.setHeroImage(BuildConfig.PREFIX_IMAGE + product.getProductMedia().getMediaItem().get(0).getMediaRefLink());
             view.setAdapterObserver(new DetailAdapterObserver(this));
-            if (moduleFactory != null) {
-                view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(activity.getResources()));
-            } else {
-                view.showToastAndFinishActivity("Discover Activity Not Recognized");
-            }
+            view.render(viewTypes);
         }
     }
 

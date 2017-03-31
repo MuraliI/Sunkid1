@@ -4,11 +4,9 @@ package com.rcl.excalibur.adapters.delegate.factory;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.v4.util.SparseArrayCompat;
 import android.text.TextUtils;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
@@ -21,31 +19,32 @@ import com.rcl.excalibur.domain.ProductDuration;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
+import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public abstract class DetailModuleFactory {
-    public Product product;
+public final class DetailViewTypeFactory {
 
-    protected static boolean isHoursEmpty(String value) {
+    private DetailViewTypeFactory() {
+    }
+
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product) {
+        //TODO create all the list of view types depending on the product model fields
+        return new LinkedList<>();
+    }
+
+    private static boolean isHoursEmpty(String value) {
         return TextUtils.isEmpty(value) || "0".equals(value);
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public abstract SparseArrayCompat<DelegateAdapter> getDelegateAdapterArray();
-
-    public abstract List<RecyclerViewType> getListOfDetailViewTypes(Resources resources);
-
-    void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title, final String description) {
+    private static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title, final String description) {
         recyclerViewTypeList.add(new TitleAndDescriptionViewType(title, description));
     }
 
-    void addPriceFromTypes(final List<RecyclerViewType> recyclerViewTypeList) {
+    private void addPriceFromTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
         final SellingPrice sellingPrice = product.getStartingFromPrice();
         if (sellingPrice == null) {
             return;
@@ -58,7 +57,8 @@ public abstract class DetailModuleFactory {
         }
     }
 
-    void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res, @StringRes int title) {
+    private void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res, @StringRes int title,
+                                         Product product) {
         final ProductDuration productDuration = product.getProductDuration();
         if (productDuration == null) {
             return;
@@ -67,7 +67,7 @@ public abstract class DetailModuleFactory {
                 res.getString(R.string.mins, productDuration.getDurationInMinutes()));
     }
 
-    void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList) {
+    private void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
         final String description = product.getProductLongDescription();
         if (TextUtils.isEmpty(description)) {
             return;
@@ -75,7 +75,7 @@ public abstract class DetailModuleFactory {
         recyclerViewTypeList.add(new ExpandableDescriptionViewType(description));
     }
 
-    void addProductLocationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources) {
+    private void addProductLocationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, Product product) {
         final ProductLocation productLocation = product.getProductLocation();
         if (productLocation == null || isHoursEmpty(productLocation.getOperatingHoursEnd())) {
             return;
@@ -85,7 +85,8 @@ public abstract class DetailModuleFactory {
         recyclerViewTypeList.add(new StandardTimesViewType(resources.getString(R.string.operating_hours), arrayListTimes));
     }
 
-    void addRestrictionsType(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, @StringRes int title) {
+    private void addRestrictionsType(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, @StringRes int title,
+                                     Product product) {
         final List<ProductRestriction> restrictions = product.getRestrictions();
         if (CollectionUtils.isEmpty(restrictions)) {
             return;
@@ -94,7 +95,7 @@ public abstract class DetailModuleFactory {
                 restrictions.get(0).getRestrictionDisplayText());
     }
 
-    void addProductLevel(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources) {
+    private void addProductLevel(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, Product product) {
         final ProductActivityLevel productActivityLevel = product.getActivityLevel();
         if (productActivityLevel == null) {
             return;
