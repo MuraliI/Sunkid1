@@ -13,6 +13,10 @@ public class LocationEntity extends Model {
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_HOURS_START = "hours_start";
     public static final String COLUMN_HOURS_END = "hours_end";
+    public static final String COLUMN_VENUE = "venue";
+    public static final String COLUMN_PORT = "port";
+    public static final String COLUMN_DECK_NUMBER = "deck_number";
+    public static final String COLUMN_DIRECTION = "direction";
 
     @Column(name = COLUMN_CODE)
     private String code;
@@ -22,6 +26,14 @@ public class LocationEntity extends Model {
     private String hoursStart;
     @Column(name = COLUMN_HOURS_END)
     private String hoursEnd;
+    @Column(name = COLUMN_VENUE)
+    private String venue;
+    @Column(name = COLUMN_PORT)
+    private String port;
+    @Column(name = COLUMN_DECK_NUMBER)
+    private int deckNumber;
+    @Column(name = COLUMN_DIRECTION)
+    private String direction;
 
     public LocationEntity() {
         super();
@@ -57,5 +69,37 @@ public class LocationEntity extends Model {
 
     public void setHoursEnd(String hoursEnd) {
         this.hoursEnd = hoursEnd;
+    }
+
+    public String getVenue() {
+        return venue;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
+    public int getDeckNumber() {
+        return deckNumber;
+    }
+
+    public void setDeckNumber(int deckNumber) {
+        this.deckNumber = deckNumber;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 }

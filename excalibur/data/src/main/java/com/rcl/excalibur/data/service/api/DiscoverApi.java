@@ -6,12 +6,13 @@ import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
-import com.rcl.excalibur.data.service.response.ProductsResponse;
+import com.rcl.excalibur.data.service.response.GetProductsResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface DiscoverApi {
 
@@ -33,8 +34,9 @@ public interface DiscoverApi {
     @GET("dinings/en/mobile")
     Call<DiningsResponse> getDinings();
 
-    @GET("products/en/mobile")
-    Call<ProductsResponse> getProducts();
+    @GET("products/en/royal-mobile")
+    Call<GetProductsResponse> getProducts(@Query("sailingID") String sailingID, @Query("productType") String type,
+                                          @Query("maxCount") int maxCount);
 
     @GET("activities/en/mobile")
     Call<ActivitiesResponse> getActivities();

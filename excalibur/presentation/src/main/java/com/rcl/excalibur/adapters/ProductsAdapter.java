@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductCategory;
 import com.squareup.picasso.Picasso;
@@ -50,13 +49,10 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
             holder.rangeTextView.setText(product.getTimeFrame());
         }
 
-        List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
-        if (!mediaItems.isEmpty()) {
-            Picasso.with(context)
-                    .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
-                    .placeholder(R.drawable.thumb)
-                    .into(holder.imageView);
-        }
+        Picasso.with(context)
+                .load(BuildConfig.PREFIX_IMAGE + holder.product.getHeroImageRefLink())
+                .placeholder(R.drawable.thumb)
+                .into(holder.imageView);
 
         if (hasObserver()) {
             holder.observerRef = new WeakReference<>(getObserver());

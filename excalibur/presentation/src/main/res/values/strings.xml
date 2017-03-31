@@ -105,8 +105,5 @@
     <string name="itinerary_accessibility_product_image">Item Image</string>
     <string name="itinerary_separator_title_on_going">On going</string>
 
-    <!-- Advisements-->
-    <string name="advisement_cuisine">Cuisine</string>
-
 
 </resources>

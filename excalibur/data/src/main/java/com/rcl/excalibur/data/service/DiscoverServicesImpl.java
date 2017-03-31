@@ -9,12 +9,21 @@ import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
-import com.rcl.excalibur.data.service.response.ProductsResponse;
+import com.rcl.excalibur.data.service.response.MediaItemResponse;
+import com.rcl.excalibur.data.service.response.MediaResponse;
+import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
+import com.rcl.excalibur.data.service.response.ProductLocationResponse;
+import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
+import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,6 +31,15 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 public class DiscoverServicesImpl implements DiscoverServices {
+    private static final String SAILING_ID = "AL20170430";
+    private static final int MAX_COUNT = 50;
+
+    private static final String SHOREX = "SHOREX";
+    private static final String ACTIVITIES = "ACTIVITIES";
+    private static final String ENTERTAINMENT = "ENTERTAINMENT";
+    private static final String DINING = "DINING";
+    private static final String SPA = "SPA";
+
     private final ProductRepository productRepository;
     private final ProductResponseDataMapper productResponseDataMapper;
     private final DiscoverApi discoverApi;
@@ -160,29 +178,174 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getProducts() {
+        // TODO: This is a provisional implementation, once we have the final response from the serves. this must be changed.
+        // As they changed the products call to multiple service we choosed to keep adding the Products from GetProductsResponse to an
+        // array and after that call once the create method of the repository because this one is deleting the database everytime.
 
-        Call<ProductsResponse> call = discoverApi.getProducts();
-
-        call.enqueue(new Callback<ProductsResponse>() {
+        List<Product> productList = new ArrayList<>();
+        Call<GetProductsResponse> dinningCall = discoverApi.getProducts(SAILING_ID, DINING, MAX_COUNT);
+        dinningCall.enqueue(new Callback<GetProductsResponse>() {
             @Override
-            public void onResponse(Call<ProductsResponse> call, Response<ProductsResponse> response) {
-                if (response.isSuccessful()) {
-                    GetProductsResponse getProductsResponse = response.body().getGetProductsResponse();
-                    if (ServiceUtil.isSuccess(getProductsResponse)) {
-                        productRepository.create(productResponseDataMapper.transform(getProductsResponse.getProducts()));
-                        return;
-                    }
-                }
+            public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                saveData(response, productList);
 
+                Call<GetProductsResponse> shorexCall = discoverApi.getProducts(SAILING_ID, SHOREX, MAX_COUNT);
+                shorexCall.enqueue(new Callback<GetProductsResponse>() {
+                    @Override
+                    public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                        saveData(response, productList);
+
+                        Call<GetProductsResponse> spaCall = discoverApi.getProducts(SAILING_ID, SPA, MAX_COUNT);
+                        spaCall.enqueue(new Callback<GetProductsResponse>() {
+                            @Override
+                            public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                                saveData(response, productList);
+
+                                Call<GetProductsResponse> entertainmentCall = discoverApi.getProducts(SAILING_ID, ENTERTAINMENT, MAX_COUNT);
+                                entertainmentCall.enqueue(new Callback<GetProductsResponse>() {
+                                    @Override
+                                    public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                                        saveData(response, productList);
+
+                                        Call<GetProductsResponse> activitiesCall = discoverApi.getProducts(SAILING_ID, ACTIVITIES, MAX_COUNT);
+                                        activitiesCall.enqueue(new Callback<GetProductsResponse>() {
+                                            @Override
+                                            public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                                                saveData(response, productList);
+
+                                                productRepository.create(productList);
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+                                                Timber.e("error", t.getMessage());
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+                                        Timber.e("error", t.getMessage());
+                                    }
+                                });
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+                                Timber.e("error", t.getMessage());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+                        Timber.e("error", t.getMessage());
+                    }
+                });
             }
 
             @Override
-            public void onFailure(Call<ProductsResponse> call, Throwable t) {
-                //Handle failure
+            public void onFailure(Call<GetProductsResponse> call, Throwable t) {
                 Timber.e("error", t.getMessage());
             }
         });
     }
 
+    private void saveData(Response<GetProductsResponse> response, List<Product> productList) {
+        if (response.isSuccessful()) {
+            GetProductsResponse getProductsResponse = response.body();
+            if (ServiceUtil.isSuccess(getProductsResponse)) {
+                for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
+                    productResponse.setUpcharge(new Random().nextInt(4));
+                    if (productResponse.getProductReservationInformation() == null) {
+                        productResponse.setProductReservationInformation("Please Arrive 15 minutes early, Wear closedtoed shoes");
+                    }
+                    if (productResponse.getExperience() == null) {
+                        productResponse.setExperience("Enjoy the travel!");
+                    }
+                    List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
+                    if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
+                        productResponse.setAdvisements(getProductAdvisementResponseAttire());
+                    }
+                    setProductLocationExtraParameters(productResponse.getProductLocation());
+                }
+                productList.addAll(productResponseDataMapper.transform(getProductsResponse.getProducts()));
+            }
+        }
+    }
 
+    // TODO: Hardcoded method to be removed once the service provides this details
+    private List<ProductAdvisementResponse> getProductAdvisementResponseAttire() {
+        List<ProductAdvisementResponse> productAdvisementResponses = new ArrayList<>();
+
+        MediaItemResponse mediaItemResponse = new MediaItemResponse();
+        mediaItemResponse.setMediaType("icon");
+        mediaItemResponse.setMediaRefLink("/royal/shared_assets/icons/advisement_meals_r.png");
+
+        MediaResponse mediaResponse = new MediaResponse();
+        List<MediaItemResponse> mediaItemResponseList = new ArrayList<>();
+        mediaItemResponseList.add(mediaItemResponse);
+        mediaResponse.setMediaItem(mediaItemResponseList);
+
+        ProductAdvisementResponse advisementAttire = new ProductAdvisementResponse();
+        advisementAttire.setAdvisementId(1L);
+        advisementAttire.setAdvisementDescription("Casual");
+        advisementAttire.setAdvisementTitle("Attire");
+        advisementAttire.setAdvisementName("Attire");
+        advisementAttire.setAdvisementType("ATTIRE");
+        advisementAttire.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementAttire);
+
+        ProductAdvisementResponse advisementKnowBeforeYouGo = new ProductAdvisementResponse();
+        advisementKnowBeforeYouGo.setAdvisementId(2L);
+        advisementKnowBeforeYouGo.setAdvisementDescription("Arrive 15 minutes early, Wear closedtoed shoes");
+        advisementKnowBeforeYouGo.setAdvisementTitle("Know Before You Go");
+        advisementKnowBeforeYouGo.setAdvisementName("Know Before You Go");
+        advisementKnowBeforeYouGo.setAdvisementType("KNOW_BEFORE_YOU_GO");
+        advisementKnowBeforeYouGo.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementKnowBeforeYouGo);
+
+        ProductAdvisementResponse advisementAccessibility = new ProductAdvisementResponse();
+        advisementAccessibility.setAdvisementId(3L);
+        advisementAccessibility.setAdvisementDescription("Wheelchair accessible, Closed captions");
+        advisementAccessibility.setAdvisementTitle("Accessibility & Other Info");
+        advisementAccessibility.setAdvisementName("Accessibility & Other Info");
+        advisementAccessibility.setAdvisementType("ACCESSIBILITY");
+        advisementAccessibility.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementAccessibility);
+
+        ProductAdvisementResponse advisementLegal = new ProductAdvisementResponse();
+        advisementLegal.setAdvisementId(4L);
+        advisementLegal.setAdvisementDescription("This legal information is short enough to comfort you but long enough  to be meaninful.");
+        advisementLegal.setAdvisementTitle("Legal");
+        advisementLegal.setAdvisementName("Legal");
+        advisementLegal.setAdvisementType("LEGAL");
+        advisementLegal.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementLegal);
+
+        ProductAdvisementResponse advisementCuisine = new ProductAdvisementResponse();
+        advisementCuisine.setAdvisementId(5L);
+        advisementCuisine.setAdvisementDescription("Latin American");
+        advisementCuisine.setAdvisementTitle("Cuisine");
+        advisementCuisine.setAdvisementName("Cuisine");
+        advisementCuisine.setAdvisementType("CUISINE");
+        advisementCuisine.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementCuisine);
+
+        return productAdvisementResponses;
+    }
+
+    // TODO: Hardcoded method to be removed once the service provides this details
+    private void setProductLocationExtraParameters(ProductLocationResponse productLocationResponse) {
+        productLocationResponse.setLocationVenue("Royale Theatre");
+        productLocationResponse.setLocationPort("St. Martin");
+        productLocationResponse.setLocationDirection("AFT");
+        productLocationResponse.setLocationDeckNumber(12);
+    }
 }
