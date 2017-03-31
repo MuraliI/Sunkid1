@@ -30,6 +30,8 @@ import java.util.Map;
 
 public final class DetailViewTypeFactory {
 
+    private static final int NO_DURATION = 0;
+
     private DetailViewTypeFactory() {
     }
 
@@ -38,7 +40,7 @@ public final class DetailViewTypeFactory {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
         addAdvisements(viewTypes, resources, product);
 
-        if (product.getDuration() > 0) {
+        if (product.getDuration() > NO_DURATION) {
             addProductDurationTypes(viewTypes, resources, product);
         }
 
