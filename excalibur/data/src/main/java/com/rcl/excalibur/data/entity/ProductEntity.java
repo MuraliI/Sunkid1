@@ -19,7 +19,9 @@ public class ProductEntity extends Model {
     public static final String COLUMN_PRODUCT_CLASS = "product_class";
     public static final String COLUMN_CATEGORY = "category";
     public static final String COLUMN_RANK = "rank";
+    public static final String COLUMN_UPCHARGE = "upcharge";
     public static final String COLUMN_RESERVATION_REQUIRED = "reservation_required";
+    public static final String COLUMN_RESERVATION_INFORMATION = "reservation_information";
     public static final String COLUMN_SCHEDULABLE = "schedulable";
     public static final String COLUMN_ACTIVITY_LEVEL = "activity_level";
     public static final String COLUMN_LOCATION = "location";
@@ -31,6 +33,7 @@ public class ProductEntity extends Model {
     public static final String COLUMN_LONG_DESCRIPTION = "long_description";
     public static final String COLUMN_PREFERENCE = "preference";
     public static final String COLUMN_PRODUCT_MEDIA = "product_media";
+    public static final String COLUMN_EXPERIENCE = "experience";
 
     @Column(name = COLUMN_PRODUCT_ID, unique = true, index = true)
     public long productId;
@@ -45,8 +48,12 @@ public class ProductEntity extends Model {
     public CategoryEntity category;
     @Column(name = COLUMN_RANK)
     public int rank;
+    @Column(name = COLUMN_UPCHARGE)
+    public int upcharge;
     @Column(name = COLUMN_RESERVATION_REQUIRED)
     public boolean reservationRequired;
+    @Column(name = COLUMN_RESERVATION_INFORMATION)
+    public String productReservationInformation;
     @Column(name = COLUMN_SCHEDULABLE)
     public boolean schedulable;
     @Column(name = COLUMN_ACTIVITY_LEVEL)
@@ -69,6 +76,8 @@ public class ProductEntity extends Model {
     public PreferenceEntity preference;
     @Column(name = COLUMN_PRODUCT_MEDIA)
     public MediaEntity productMedia;
+    @Column(name = COLUMN_EXPERIENCE)
+    public String experience;
 
     public ProductEntity() {
         super();
@@ -130,12 +139,28 @@ public class ProductEntity extends Model {
         this.rank = rank;
     }
 
+    public int getUpcharge() {
+        return upcharge;
+    }
+
+    public void setUpcharge(int upcharge) {
+        this.upcharge = upcharge;
+    }
+
     public boolean isReservationRequired() {
         return reservationRequired;
     }
 
     public void setReservationRequired(boolean reservationRequired) {
         this.reservationRequired = reservationRequired;
+    }
+
+    public String getProductReservationInformation() {
+        return productReservationInformation;
+    }
+
+    public void setProductReservationInformation(String productReservationInformation) {
+        this.productReservationInformation = productReservationInformation;
     }
 
     public boolean isSchedulable() {
@@ -224,5 +249,13 @@ public class ProductEntity extends Model {
 
     public void setProductMedia(MediaEntity productMedia) {
         this.productMedia = productMedia;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 }

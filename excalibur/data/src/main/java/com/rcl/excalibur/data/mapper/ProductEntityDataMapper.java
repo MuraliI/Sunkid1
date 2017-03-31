@@ -48,14 +48,15 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             return null;
         }
         final Product product = new Product();
-
         product.setProductId(entity.getProductId());
         product.setProductCode(entity.getCode());
         product.setProductType(transform(entity.getType()));
         product.setProductClass(entity.getProductClass());
         product.setProductCategory(transform(entity.getCategory()));
         product.setProductRank(entity.getRank());
+        product.setProductUpcharge(entity.getUpcharge());
         product.setReservationRequired(entity.isReservationRequired());
+        product.setProductReservationInformation(entity.getProductReservationInformation());
         product.setScheduable(entity.isSchedulable());
         product.setActivityLevel(transform(entity.getActivityLevel()));
         product.setProductLocation(transform(entity.getLocation()));
@@ -69,18 +70,17 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductShortDescription(entity.getShortDescription());
         product.setProductLongDescription(entity.getLongDescription());
         product.setProductMedia(transform(entity.getProductMedia()));
+        product.setExperience(entity.getExperience());
         return product;
     }
 
     private List<ProductRestriction> transformProductRestriction(List<RestrictionEntity> entities) {
-
         ArrayList<ProductRestriction> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(entities)) {
             return items;
         }
         for (RestrictionEntity productRestrictionResponse : entities) {
-
             if (productRestrictionResponse == null) {
                 continue;
             }
@@ -153,14 +153,13 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
     }
 
     private List<ProductAdvisement> transformProductAdvisement(List<AdvisementEntity> entities) {
-
-        ArrayList<ProductAdvisement> items = new ArrayList<ProductAdvisement>();
+        ArrayList<ProductAdvisement> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(entities)) {
             return items;
         }
-        for (AdvisementEntity entity : entities) {
 
+        for (AdvisementEntity entity : entities) {
             if (entity == null) {
                 continue;
             }
@@ -174,7 +173,6 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             productAdvisement.setAdvisementDescription(entity.getDescription());
             items.add(productAdvisement);
         }
-
         return items;
     }
 
@@ -222,6 +220,10 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             productLocation.setLocationType(locationEntity.getType());
             productLocation.setOperatingHoursEnd(locationEntity.getHoursEnd());
             productLocation.setOperatingHoursStart(locationEntity.getHoursStart());
+            productLocation.setLocationVenue(locationEntity.getVenue());
+            productLocation.setLocationPort(locationEntity.getPort());
+            productLocation.setLocationDeckNumber(locationEntity.getDeckNumber());
+            productLocation.setLocationDirection(locationEntity.getDirection());
         }
         return productLocation;
     }

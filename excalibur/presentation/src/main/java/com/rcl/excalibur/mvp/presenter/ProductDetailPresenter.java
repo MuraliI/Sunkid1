@@ -47,7 +47,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
         AppCompatActivity activity = view.getActivity();
         if (activity != null) {
             view.setDetailTitle(product.getProductTitle());
-            view.setHeroImage(BuildConfig.PREFIX_IMAGE + product.getProductMedia().getMediaItem().get(0).getMediaRefLink());
+            view.setHeroImage(BuildConfig.PREFIX_IMAGE + product.getHeroImageRefLink());
             view.setAdapterObserver(new DetailAdapterObserver(this));
             view.render(viewTypes);
         }
