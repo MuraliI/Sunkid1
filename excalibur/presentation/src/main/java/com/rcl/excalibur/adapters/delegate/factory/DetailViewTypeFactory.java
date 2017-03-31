@@ -15,7 +15,6 @@ import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductActivityLevel;
-import com.rcl.excalibur.domain.ProductDuration;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
@@ -31,9 +30,15 @@ public final class DetailViewTypeFactory {
     private DetailViewTypeFactory() {
     }
 
-    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product) {
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product, Resources res) {
         //TODO create all the list of view types depending on the product model fields
-        return new LinkedList<>();
+        List<RecyclerViewType> viewTypeList = new LinkedList<>();
+
+        if (product.getDuration() > 0) {
+            addProductDurationTypes(viewTypeList, res, R.string.duration, product);
+        }
+
+        return viewTypeList;
     }
 
     private static boolean isHoursEmpty(String value) {
@@ -57,14 +62,12 @@ public final class DetailViewTypeFactory {
         }
     }
 
-    private void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res, @StringRes int title,
-                                         Product product) {
-        final ProductDuration productDuration = product.getProductDuration();
-        if (productDuration == null) {
+    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res, @StringRes int title,
+                                                ProductModel product) {
+        if (product == null) {
             return;
         }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(title),
-                res.getString(R.string.mins, productDuration.getDurationInMinutes()));
+        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(title), product.getDurationFormatted(res));
     }
 
     private void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {

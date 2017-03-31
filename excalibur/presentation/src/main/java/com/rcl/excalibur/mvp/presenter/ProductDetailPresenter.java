@@ -5,11 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.factory.DetailViewTypeFactory;
-import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
+import com.rcl.excalibur.mapper.ProductModelDataMapper;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
@@ -23,6 +24,8 @@ public class ProductDetailPresenter implements ActivityPresenter {
     private Product product; //FIXME change model to correct one
     private List<RecyclerViewType> viewTypes;
 
+    private int test = 125;
+
     public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
         this.productId = productId;
@@ -31,12 +34,15 @@ public class ProductDetailPresenter implements ActivityPresenter {
 
     public void init() {
         product = getProductDbUseCase.get(productId); /* TODO map domain to a {@link ProductModel} */
-        ProductModel productModel = new ProductModel(); //FIXME get the actual map
+        ProductModelDataMapper mapper = new ProductModelDataMapper();
+        ProductModel productModel = mapper.transform(product); //FIXME get the actual map
         if (product != null) {
             if (!product.isReservationRequired() && product.isScheduable()) {
                 view.showOnlyReservationIcon();
             }
-            viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(productModel);
+            productModel.setDuration(test);
+            viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(productModel, getView().getActivity().getResources());
+
             initView();
         } else {
             view.showToastAndFinishActivity("Discover Item Not Found");

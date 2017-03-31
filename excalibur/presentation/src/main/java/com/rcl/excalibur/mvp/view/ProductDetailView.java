@@ -27,13 +27,20 @@ import butterknife.ButterKnife;
 
 public class ProductDetailView extends ActivityView<ProductDetailActivity> {
 
-    @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
-    @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
-    @Bind(R.id.text_discover_item_name) TextView discoverItemName;
-    @Bind(R.id.frame_layout_reservation_container) ReservationDetailLayout reservationDetailLayout;
-    @Bind(R.id.fab_reserve_discover_item) FloatingActionButton reserveButton;
-    @Bind(R.id.image_hero) ImageView heroImage;
-    @Bind(R.id.btn_deck_map) ImageButton deckButton;
+    @Bind(R.id.recycler_discover_item_details)
+    RecyclerView planDetailRecycler;
+    @Bind(R.id.toolbar_detail)
+    Toolbar detailToolbar;
+    @Bind(R.id.text_discover_item_name)
+    TextView discoverItemName;
+    @Bind(R.id.frame_layout_reservation_container)
+    ReservationDetailLayout reservationDetailLayout;
+    @Bind(R.id.fab_reserve_discover_item)
+    FloatingActionButton reserveButton;
+    @Bind(R.id.image_hero)
+    ImageView heroImage;
+    @Bind(R.id.btn_deck_map)
+    ImageButton deckButton;
 
     private DetailViewCoordinatorAdapter adapter;
 
