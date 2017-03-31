@@ -14,9 +14,6 @@ public class ProductModel {
     private String productId;
     private int duration;
 
-    //Just for Calculation
-    private int minutesInHour = 60;
-
     public LinkedHashMap<String, String> getAdvisements() {
         return advisements;
     }
@@ -43,6 +40,7 @@ public class ProductModel {
 
     public String getDurationFormatted(Resources resources) {
         String durationStr = "";
+        final int minutesInHour = 60;
         int hours = duration / minutesInHour;
         int remainingMinutes = duration % minutesInHour;
         if (hours > 0) {

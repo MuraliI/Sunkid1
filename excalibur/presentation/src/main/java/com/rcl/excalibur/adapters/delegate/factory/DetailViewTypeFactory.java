@@ -49,7 +49,8 @@ public final class DetailViewTypeFactory {
         return TextUtils.isEmpty(value) || "0".equals(value);
     }
 
-    private static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title, final String description) {
+    private static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title,
+                                                    final String description) {
         recyclerViewTypeList.add(new TitleAndDescriptionViewType(title, description));
     }
 
@@ -109,6 +110,23 @@ public final class DetailViewTypeFactory {
         }
         addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
                 productActivityLevel.getActivityLevelTitle());
+    }
+
+    private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
+                                       ProductModel product) {
+        // FIXME: Obtain products from database
+        product = ProductModelProvider.productModelMap.get("1");
+
+        LinkedHashMap<String, String> advisements = product.getAdvisements();
+        if (advisements.size() == 0) {
+            return;
+        }
+        for (Map.Entry<String, String> entry : advisements.entrySet()) {
+            String advisementTitle = entry.getKey();
+            String advisementDescription = entry.getValue();
+            addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
+                    advisementDescription);
+        }
     }
 
 }
