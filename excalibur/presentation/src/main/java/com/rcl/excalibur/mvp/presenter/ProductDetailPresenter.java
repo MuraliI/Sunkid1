@@ -24,8 +24,6 @@ public class ProductDetailPresenter implements ActivityPresenter {
     private Product product; //FIXME change model to correct one
     private List<RecyclerViewType> viewTypes;
 
-    private int test = 125;
-
     public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
         this.productId = productId;
@@ -35,15 +33,16 @@ public class ProductDetailPresenter implements ActivityPresenter {
     public void init() {
         product = getProductDbUseCase.get(productId); /* TODO map domain to a {@link ProductModel} */
         ProductModelDataMapper mapper = new ProductModelDataMapper();
-        ProductModel productModel = mapper.transform(product); //FIXME get the actual map
+        ProductModel productModel = mapper.transform(product);
         if (product != null) {
             if (!product.isReservationRequired() && product.isScheduable()) {
                 view.showOnlyReservationIcon();
             }
-            productModel.setDuration(test);
-            viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(productModel, getView().getActivity().getResources());
-
-            initView();
+            AppCompatActivity activity = view.getActivity();
+            if (activity != null) {
+                viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(productModel, activity.getResources());
+                initView();
+            }
         } else {
             view.showToastAndFinishActivity("Discover Item Not Found");
         }

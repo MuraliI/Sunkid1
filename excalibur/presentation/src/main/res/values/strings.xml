@@ -114,5 +114,6 @@
         <item quantity="one">%d min</item>
         <item quantity="other">%d mins</item>
     </plurals>
+    <string name="advisement_cuisine">Cuisine</string>
 
 </resources>
