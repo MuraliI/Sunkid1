@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.factory.DetailViewTypeFactory;
+import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mapper.ProductModelDataMapper;
@@ -38,11 +38,8 @@ public class ProductDetailPresenter implements ActivityPresenter {
             if (!product.isReservationRequired() && product.isScheduable()) {
                 view.showOnlyReservationIcon();
             }
-            AppCompatActivity activity = view.getActivity();
-            if (activity != null) {
-                viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(productModel, activity.getResources());
-                initView();
-            }
+            viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(productModel, view.getActivity().getResources());
+            initView();
         } else {
             view.showToastAndFinishActivity("Discover Item Not Found");
         }

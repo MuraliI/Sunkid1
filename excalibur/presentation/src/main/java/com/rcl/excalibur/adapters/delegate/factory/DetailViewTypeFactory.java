@@ -37,6 +37,7 @@ public final class DetailViewTypeFactory {
         //TODO create all the list of view types depending on the product model fields
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
         addAdvisements(viewTypes, resources, product);
+
         if (product.getDuration() > 0) {
             addProductDurationTypes(viewTypes, resources, product);
         }
@@ -108,22 +109,6 @@ public final class DetailViewTypeFactory {
         }
         addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
                 productActivityLevel.getActivityLevelTitle());
-    }
-
-    private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
-        // FIXME: Obtain products from database
-        product = ProductModelProvider.productModelMap.get("1");
-
-        LinkedHashMap<String, String> advisements = product.getAdvisements();
-        if (advisements.size() == 0) {
-            return;
-        }
-        for (Map.Entry<String, String> entry : advisements.entrySet()) {
-            String advisementTitle = entry.getKey();
-            String advisementDescription = entry.getValue();
-            addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
-                    advisementDescription);
-        }
     }
 
 }

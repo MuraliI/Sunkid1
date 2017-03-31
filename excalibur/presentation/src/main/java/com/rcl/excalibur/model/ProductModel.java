@@ -1,10 +1,11 @@
 package com.rcl.excalibur.model;
 
-import java.util.LinkedHashMap;
 
 import android.content.res.Resources;
 
 import com.rcl.excalibur.R;
+
+import java.util.LinkedHashMap;
 
 public class ProductModel {
     //TODO Add all your attributes here
@@ -12,7 +13,6 @@ public class ProductModel {
     private LinkedHashMap<String, String> advisements = new LinkedHashMap<>();
     private String productId;
     private int duration;
-
 
     //Just for Calculation
     private int minutesInHour = 60;
