@@ -244,7 +244,8 @@ public class Product {
     public List<ProductAdvisement> getProductAdvisementsByType(String advisementType) {
         List<ProductAdvisement> advisementList = new ArrayList<>();
         for (ProductAdvisement advisement : advisements) {
-            if (advisement.getAdvisementType().equals(advisementType)) {
+            String currentAdvisementType = advisement.getAdvisementType();
+            if (currentAdvisementType != null && currentAdvisementType.equals(advisementType)) {
                 advisementList.add(advisement);
             }
         }

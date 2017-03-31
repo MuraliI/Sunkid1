@@ -1,8 +1,6 @@
 package com.rcl.excalibur.data.service;
 
 
-import android.support.annotation.NonNull;
-
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
@@ -19,11 +17,13 @@ import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
+import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -178,48 +178,97 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getProducts() {
+        List<Product> productList = new ArrayList<>();
         Call<GetProductsResponse> dinningCall = discoverApi.getProducts(SAILING_ID, DINING, MAX_COUNT);
-        dinningCall.enqueue(getProductCallback());
-
-        Call<GetProductsResponse> shorexCall = discoverApi.getProducts(SAILING_ID, SHOREX, MAX_COUNT);
-        shorexCall.enqueue(getProductCallback());
-
-        Call<GetProductsResponse> spaCall = discoverApi.getProducts(SAILING_ID, SPA, MAX_COUNT);
-        spaCall.enqueue(getProductCallback());
-
-        Call<GetProductsResponse> entertainmentCall = discoverApi.getProducts(SAILING_ID, ENTERTAINMENT, MAX_COUNT);
-        entertainmentCall.enqueue(getProductCallback());
-
-        Call<GetProductsResponse> activitiesCall = discoverApi.getProducts(SAILING_ID, ACTIVITIES, MAX_COUNT);
-        activitiesCall.enqueue(getProductCallback());
-    }
-
-    @NonNull
-    private Callback<GetProductsResponse> getProductCallback() {
-        return new Callback<GetProductsResponse>() {
+        dinningCall.enqueue(new Callback<GetProductsResponse>() {
             @Override
             public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
-                if (response.isSuccessful()) {
-                    GetProductsResponse getProductsResponse = response.body();
-                    if (ServiceUtil.isSuccess(getProductsResponse)) {
-                        for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
-                            List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
-                            if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
-                                productResponse.setAdvisements(getProductAdvisementResponseAttire());
+                saveData(response, productList);
+
+                Call<GetProductsResponse> shorexCall = discoverApi.getProducts(SAILING_ID, SHOREX, MAX_COUNT);
+                shorexCall.enqueue(new Callback<GetProductsResponse>() {
+                    @Override
+                    public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                        saveData(response, productList);
+
+                        Call<GetProductsResponse> spaCall = discoverApi.getProducts(SAILING_ID, SPA, MAX_COUNT);
+                        spaCall.enqueue(new Callback<GetProductsResponse>() {
+                            @Override
+                            public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                                saveData(response, productList);
+
+                                Call<GetProductsResponse> entertainmentCall = discoverApi.getProducts(SAILING_ID, ENTERTAINMENT, MAX_COUNT);
+                                entertainmentCall.enqueue(new Callback<GetProductsResponse>() {
+                                    @Override
+                                    public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                                        saveData(response, productList);
+
+                                        Call<GetProductsResponse> activitiesCall = discoverApi.getProducts(SAILING_ID, ACTIVITIES, MAX_COUNT);
+                                        activitiesCall.enqueue(new Callback<GetProductsResponse>() {
+                                            @Override
+                                            public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                                                saveData(response, productList);
+
+                                                productRepository.create(productList);
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+                                                Timber.e("error", t.getMessage());
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+                                        Timber.e("error", t.getMessage());
+                                    }
+                                });
+
                             }
-                            setProductLocationExtraParameters(productResponse.getProductLocation());
-                        }
-                        productRepository.create(productResponseDataMapper.transform(getProductsResponse.getProducts()));
+
+                            @Override
+                            public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+                                Timber.e("error", t.getMessage());
+                            }
+                        });
                     }
-                }
+
+                    @Override
+                    public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+                        Timber.e("error", t.getMessage());
+                    }
+                });
             }
 
             @Override
             public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                //Handle failure
                 Timber.e("error", t.getMessage());
             }
-        };
+        });
+    }
+
+    private void saveData(Response<GetProductsResponse> response, List<Product> productList) {
+        if (response.isSuccessful()) {
+            GetProductsResponse getProductsResponse = response.body();
+            if (ServiceUtil.isSuccess(getProductsResponse)) {
+                for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
+                    productResponse.setUpchargeIcon(new Random().nextInt(4));
+                    if (productResponse.getProductReservationInformation() == null) {
+                        productResponse.setProductReservationInformation("Please Arrive 15 minutes early, Wear closedtoed shoes");
+                    }
+                    if (productResponse.getExperience() == null) {
+                        productResponse.setExperience("Enjoy the travel!");
+                    }
+                    List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
+                    if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
+                        productResponse.setAdvisements(getProductAdvisementResponseAttire());
+                    }
+                    setProductLocationExtraParameters(productResponse.getProductLocation());
+                }
+                productList.addAll(productResponseDataMapper.transform(getProductsResponse.getProducts()));
+            }
+        }
     }
 
     // TODO: Hardcoded method to be removed once the service provides this details

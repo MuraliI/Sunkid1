@@ -19,6 +19,7 @@ import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductLocation;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -72,10 +73,13 @@ public class ProductResponseDataMapperTest {
 
         productResponse1 = new ProductResponse();
         productResponse1.setProductId(100000002814023699L);
+        productResponse1.setUpchargeIcon(0);
+        productResponse1.setProductReservationInformation("Arrive 15 minutes early, Wear closedtoed shoes");
+        productResponse1.setExperience("Enjoy!");
 
         productResponse2 = new ProductResponse();
         productResponse2.setProductId(100000002814023699L);
-
+        productResponse2.setUpchargeIcon(3);
 
         productResponse1.setProductCode("2751");
 
@@ -141,6 +145,10 @@ public class ProductResponseDataMapperTest {
         productLocationResponse.setLocationType("VENUE");
         productLocationResponse.setOperatingHoursEnd("1200");
         productLocationResponse.setOperatingHoursStart("1100");
+        productLocationResponse.setLocationVenue("Royale Theatre");
+        productLocationResponse.setLocationPort("St. Martin");
+        productLocationResponse.setLocationDirection("AFT");
+        productLocationResponse.setLocationDeckNumber(12);
         productResponse1.setProductLocation(productLocationResponse);
 
         productResponse2.setProductLocation(productLocationResponse);
@@ -241,9 +249,10 @@ public class ProductResponseDataMapperTest {
         Product product = productResponseDataMapper.transform(productResponse1);
         assertNotNull(product);
         assertEquals(productResponse1.getProductId(), product.getProductId());
-
+        assertEquals(productResponse1.getExperience(), product.getExperience());
+        assertEquals(productResponse1.getProductReservationInformation(), product.getProductReservationInformation());
         assertEquals(productResponse1.getProductCode(), product.getProductCode());
-
+        assertEquals(productResponse1.getUpchargeIcon(), product.getProductUpchargeIcon());
         assertEquals(productResponse1.getProductType().getProductType(), product.getProductType().getProductType());
         assertEquals(productResponse1.getProductType().getProductTypeName(), product.getProductType().getProductTypeName());
         assertEquals(productResponse1.getProductType().getProductTypeId(), product.getProductType().getProductTypeId());
@@ -276,11 +285,17 @@ public class ProductResponseDataMapperTest {
             assertEquals(item.getMediaType(), itemProduct.getMediaType());
         }
 
-        assertEquals(productResponse1.getProductLocation().getLocationId(), product.getProductLocation().getLocationId());
-        assertEquals(productResponse1.getProductLocation().getLocationCode(), product.getProductLocation().getLocationCode());
-        assertEquals(productResponse1.getProductLocation().getLocationType(), product.getProductLocation().getLocationType());
-        assertEquals(productResponse1.getProductLocation().getOperatingHoursEnd(), product.getProductLocation().getOperatingHoursEnd());
-        assertEquals(productResponse1.getProductLocation().getOperatingHoursStart(), product.getProductLocation().getOperatingHoursStart());
+        ProductLocationResponse locationResponse = productResponse1.getProductLocation();
+        ProductLocation location = product.getProductLocation();
+        assertEquals(locationResponse.getLocationId(), location.getLocationId());
+        assertEquals(locationResponse.getLocationCode(), location.getLocationCode());
+        assertEquals(locationResponse.getLocationType(), location.getLocationType());
+        assertEquals(locationResponse.getOperatingHoursEnd(), location.getOperatingHoursEnd());
+        assertEquals(locationResponse.getOperatingHoursStart(), location.getOperatingHoursStart());
+        assertEquals(locationResponse.getLocationVenue(), location.getLocationVenue());
+        assertEquals(locationResponse.getLocationDeckNumber(), location.getLocationDeckNumber());
+        assertEquals(locationResponse.getLocationDirection(), location.getLocationDirection());
+        assertEquals(locationResponse.getLocationPort(), location.getLocationPort());
 
         assertEquals(productResponse1.getProductDuration().getDurationInMinutes(), product.getProductDuration().getDurationInMinutes());
         assertEquals(productResponse1.getProductDuration().getLagTimeInMinutes(), product.getProductDuration().getLagTimeInMinutes());
