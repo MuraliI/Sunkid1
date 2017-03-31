@@ -38,6 +38,10 @@ public final class DetailViewTypeFactory {
         //TODO create all the list of view types depending on the product model fields
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
         addAdvisements(viewTypes, resources, product);
+        if (!TextUtils.isEmpty(product.getReservationInformation())) {
+            addMakeReservation(viewTypes, resources, product);
+        }
+
         return viewTypes;
     }
 
@@ -123,6 +127,14 @@ public final class DetailViewTypeFactory {
             addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
                     advisementDescription);
         }
+    }
+
+    private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
+        // FIXME: Obtain products from database
+        product = ProductModelProvider.productModelMap.get("1");
+        addTitleAndDescriptionTypes(recyclerViewTypeList, "Make a Reservation",
+                product.getReservationInformation());
+
     }
 
 }

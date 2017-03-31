@@ -10,6 +10,8 @@ public final class RecyclerViewConstants {
     public static final int VIEW_TYPE_EXPANDABLE_DESCRIPTION = 1000005;
     public static final int VIEW_TYPE_PRICES_FROM = 1000006;
     public static final int VIEW_TYPE_STANDARD_TIMES = 1000007;
+    public static final int VIEW_TYPE_RESERVATION_REQUIERE = 1000012;
+
 
     //Itinerary
     public static final int VIEW_TYPE_GREETINGS = 1000008;
