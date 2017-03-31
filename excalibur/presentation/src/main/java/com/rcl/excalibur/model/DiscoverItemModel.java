@@ -1,9 +1,6 @@
 package com.rcl.excalibur.model;
 
 
-import android.content.res.Resources;
-
-import com.rcl.excalibur.R;
 import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 
 import java.util.List;
@@ -35,9 +32,6 @@ public class DiscoverItemModel {
     private String standardTimesTitle;
     private List<String[]> standardTimesDaysAndTimes;
     private AnalyticEvent eventBuilder;
-    private int duration;
-
-    private int minutesInHour = 60;
 
     public String getDiscoverId() {
         return discoverId;
@@ -224,26 +218,4 @@ public class DiscoverItemModel {
         this.eventBuilder = eventBuilder;
     }
 
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public String getDurationFormatted(Resources resources) {
-
-        String durationStr = "";
-        int hours = duration / minutesInHour;
-        int remainingMinutes = duration % minutesInHour;
-        if (hours > 0) {
-            durationStr += resources.getQuantityString(R.plurals.product_hr, hours, hours);
-        }
-        if (remainingMinutes > 0) {
-            durationStr += resources.getQuantityString(R.plurals.product_min, remainingMinutes, remainingMinutes);
-        }
-
-        return durationStr;
-    }
 }
