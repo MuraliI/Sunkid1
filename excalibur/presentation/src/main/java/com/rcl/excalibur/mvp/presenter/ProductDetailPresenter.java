@@ -23,7 +23,6 @@ public class ProductDetailPresenter implements ActivityPresenter {
     private long productId;
     private Product product; //FIXME change model to correct one
     private List<RecyclerViewType> viewTypes;
-    private int test = 125;
 
     public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -35,7 +34,6 @@ public class ProductDetailPresenter implements ActivityPresenter {
         product = getProductDbUseCase.get(productId); /* TODO map domain to a {@link ProductModel} */
         ProductModelDataMapper mapper = new ProductModelDataMapper();
         ProductModel productModel = mapper.transform(product);
-        productModel.setDuration(test);
         if (product != null) {
             if (!product.isReservationRequired() && product.isScheduable()) {
                 view.showOnlyReservationIcon();
