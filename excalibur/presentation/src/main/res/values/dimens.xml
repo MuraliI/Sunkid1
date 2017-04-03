@@ -87,4 +87,8 @@
     <!-- Deck Map -->
     <dimen name="item_deck_height">110dp</dimen>
 
+    <!-- Product Detail -->
+    <dimen name="product_detail_font_size_title">18sp</dimen>
+    <dimen name="product_detail_font_size_description">16sp</dimen>
+
 </resources>
