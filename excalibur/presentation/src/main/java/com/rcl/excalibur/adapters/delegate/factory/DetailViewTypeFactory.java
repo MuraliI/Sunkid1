@@ -8,6 +8,7 @@ import android.text.TextUtils;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
+import com.rcl.excalibur.adapters.viewtype.DescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
@@ -39,6 +40,7 @@ public final class DetailViewTypeFactory {
         //TODO create all the list of view types depending on the product model fields
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
         addAdvisements(viewTypes, resources, product);
+        addDescriptionTypes(viewTypes, product.getDescription());
 
         if (product.getDuration() > NO_DURATION) {
             addProductDurationTypes(viewTypes, resources, product);
@@ -49,6 +51,13 @@ public final class DetailViewTypeFactory {
 
     private static boolean isHoursEmpty(String value) {
         return TextUtils.isEmpty(value) || "0".equals(value);
+    }
+
+    private static void addDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String description) {
+        if (TextUtils.isEmpty(description)) {
+            return;
+        }
+        recyclerViewTypeList.add(new DescriptionViewType(description));
     }
 
     private static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title,

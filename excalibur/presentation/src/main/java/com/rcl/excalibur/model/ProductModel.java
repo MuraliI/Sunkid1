@@ -11,6 +11,7 @@ public class ProductModel {
 
     private LinkedHashMap<String, String> advisements = new LinkedHashMap<>();
     private String productId;
+    private String description;
     private int duration;
 
     public LinkedHashMap<String, String> getAdvisements() {
@@ -49,5 +50,13 @@ public class ProductModel {
         }
 
         return durationStr;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

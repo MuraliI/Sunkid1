@@ -21,6 +21,7 @@ public class DetailViewCoordinatorAdapter extends BaseCoordinatorAdapter {
         //TODO each one will be in charge of adding its own module to the list of modules.
         delegateAdapters = new SparseArrayCompat<>(VIEW_TYPE_COUNT);
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DESCRIPTION, new DescriptionDelegateAdapter());
         addAll(recyclerViewTypes);
     }
 }
