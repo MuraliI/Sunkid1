@@ -2,6 +2,11 @@ package com.rcl.excalibur.domain;
 
 
 public class ProductAdvisement {
+    public static final String ATTIRE = "ATTIRE";
+    public static final String KNOW_BEFORE_YOU_GO = "KNOW_BEFORE_YOU_GO";
+    public static final String ACCESSIBILITY = "ACCESSIBILITY";
+    public static final String LEGAL = "LEGAL";
+    public static final String CUISINE = "CUISINE";
 
     private long advisementId;
     private String advisementName;

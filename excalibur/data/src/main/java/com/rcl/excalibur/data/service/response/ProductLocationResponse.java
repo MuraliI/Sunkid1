@@ -10,6 +10,10 @@ public class ProductLocationResponse {
     private String locationType;
     private String operatingHoursStart;
     private String operatingHoursEnd;
+    private String locationVenue;
+    private String locationPort;
+    private int locationDeckNumber;
+    private String locationDirection;
 
     public String getLocationId() {
         return locationId;
@@ -49,5 +53,37 @@ public class ProductLocationResponse {
 
     public void setOperatingHoursEnd(String operatingHoursEnd) {
         this.operatingHoursEnd = operatingHoursEnd;
+    }
+
+    public String getLocationVenue() {
+        return locationVenue;
+    }
+
+    public void setLocationVenue(String locationVenue) {
+        this.locationVenue = locationVenue;
+    }
+
+    public String getLocationPort() {
+        return locationPort;
+    }
+
+    public void setLocationPort(String locationPort) {
+        this.locationPort = locationPort;
+    }
+
+    public int getLocationDeckNumber() {
+        return locationDeckNumber;
+    }
+
+    public void setLocationDeckNumber(int locationDeckNumber) {
+        this.locationDeckNumber = locationDeckNumber;
+    }
+
+    public String getLocationDirection() {
+        return locationDirection;
+    }
+
+    public void setLocationDirection(String locationDirection) {
+        this.locationDirection = locationDirection;
     }
 }

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
+import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
@@ -19,14 +20,15 @@ import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.model.ProductModel;
-import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
+import static com.rcl.excalibur.domain.ProductAdvisement.ATTIRE;
+import static com.rcl.excalibur.domain.ProductAdvisement.KNOW_BEFORE_YOU_GO;
+import static com.rcl.excalibur.domain.ProductAdvisement.LEGAL;
 
 public final class DetailViewTypeFactory {
 
@@ -38,11 +40,11 @@ public final class DetailViewTypeFactory {
     public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product, Resources resources) {
         //TODO create all the list of view types depending on the product model fields
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
-        addAdvisements(viewTypes, resources, product);
 
-        if (product.getDuration() > NO_DURATION) {
-            addProductDurationTypes(viewTypes, resources, product);
-        }
+        addDurationModule(viewTypes, resources, product);
+        addAttireModule(viewTypes, resources, product);
+        addKnowBeforeYouGoModule(viewTypes, resources, product);
+        addLegalModule(viewTypes, resources, product);
 
         return viewTypes;
     }
@@ -56,6 +58,43 @@ public final class DetailViewTypeFactory {
         recyclerViewTypeList.add(new TitleAndDescriptionViewType(title, description));
     }
 
+    private static void addExpandableAndDescription(final List<RecyclerViewType> recyclerViewTypeList, final String title,
+                                                    final String description) {
+        String[] descriptionArr = {description};
+        recyclerViewTypeList.add(new ExpandableLinkViewType(title, descriptionArr, false));
+    }
+
+    private static void addDurationModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                          ProductModel product) {
+        if (product.getDuration() > NO_DURATION) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
+        }
+    }
+
+    private static void addAttireModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                 ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ATTIRE)) {
+            String description = product.getAdvisementsAndReestrictions().get(ATTIRE);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.attire), description);
+        }
+    }
+
+    private static void addKnowBeforeYouGoModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                 ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(KNOW_BEFORE_YOU_GO)) {
+            String description = product.getAdvisementsAndReestrictions().get(KNOW_BEFORE_YOU_GO);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.know_before_you_go), description);
+        }
+    }
+
+    private static void addLegalModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                 ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(LEGAL)) {
+            String description = product.getAdvisementsAndReestrictions().get(LEGAL);
+            addExpandableAndDescription(recyclerViewTypeList, res.getString(R.string.detail_module_legal), description);
+        }
+    }
+
     private void addPriceFromTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
         final SellingPrice sellingPrice = product.getStartingFromPrice();
         if (sellingPrice == null) {
@@ -67,14 +106,6 @@ public final class DetailViewTypeFactory {
             recyclerViewTypeList.add(new PricesFromViewType(StringUtils.getPriceFormated(adultPrice),
                     StringUtils.getPriceFormated(childPrice)));
         }
-    }
-
-    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                                ProductModel product) {
-        if (product == null) {
-            return;
-        }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
     }
 
     private void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
