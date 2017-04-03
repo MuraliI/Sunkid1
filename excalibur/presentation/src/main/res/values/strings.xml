@@ -33,7 +33,6 @@
     <string name="roboto_bold">fonts/Roboto-Bold.ttf</string>
     <string name="roboto_medium_italic">fonts/Roboto-MediumItalic.ttf</string>
     <string name="roboto_light">fonts/Roboto-Light.ttf</string>
-    <string name="proximanova_regular">fonts/ProximaNova-Regular</string>
 
     <!--TABS-->
     <string name="royal_activity">Activity</string>
