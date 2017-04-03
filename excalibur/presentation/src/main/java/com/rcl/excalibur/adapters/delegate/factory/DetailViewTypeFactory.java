@@ -23,10 +23,8 @@ import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import static com.rcl.excalibur.domain.ProductAdvisement.ATTIRE;
 import static com.rcl.excalibur.domain.ProductAdvisement.KNOW_BEFORE_YOU_GO;
