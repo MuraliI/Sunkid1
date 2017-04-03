@@ -42,23 +42,20 @@ public class EmailView extends ActivityView<EmailActivity> {
         editTextEmail.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // TODO Auto-generated method stub
+                
                 if (event.getKeyCode() == 66 && event.getAction() == KeyEvent.ACTION_UP) {
                     String email = editTextEmail.getText().toString().replaceAll("\n", "");
-
                     if ("".equalsIgnoreCase(email)) {
-                        imageViewNext.setClickable(false);
-                        return false;
+                        manageNavigation(false);
                     } else if (email.length() > 100) {
                         textViewEmailAddressError.setText("Email must to be smaller than 100 characters");
-                        imageViewNext.setClickable(false);
+                        manageNavigation(false);
                     } else if (!StringUtils.isValidEmail(email)) {
                         textViewEmailAddressError.setText("Incorrect email format");
-                        imageViewNext.setClickable(false);
+                        manageNavigation(false);
                     } else {
-
+                        validateEmailExist(email);
                     }
-
                 }
                 return false;
             }
@@ -76,16 +73,21 @@ public class EmailView extends ActivityView<EmailActivity> {
     }
 
     @OnClick(R.id.imageViewNext)
-    public  void onClickimageViewNext() {
+    public void onClickImageViewNext() {
 
         //TODO navigate to password activity
-        int v=0;
-        v++;
     }
 
     private void validateEmailExist(String email) {
-        imageViewNext.setClickable(true);
+        //TODO check with web services
     }
 
-
+    private void manageNavigation(boolean status) {
+        imageViewNext.setClickable(status);
+        if (status) {
+            imageViewNext.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.next_active));
+        } else {
+            imageViewNext.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.next));
+        }
+    }
 }
