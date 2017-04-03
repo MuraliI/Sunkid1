@@ -128,4 +128,10 @@ public final class DetailViewTypeFactory {
         }
     }
 
+    public static void addAccessibility(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
+                                        ProductModel product){
+
+
+    }
+
 }
