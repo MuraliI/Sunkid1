@@ -35,8 +35,8 @@
             android:layout_marginRight="32dp"
             android:gravity="center"
             android:inputType="textEmailAddress"
-            android:text="Email address"
-            style="@style/myestilo"
+            android:hint="@string/title_hint_email_address"
+
             />
 
 
@@ -52,8 +52,10 @@
             android:id="@+id/imageViewNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/next"
+            app:srcCompat="@drawable/next_active"
             android:layout_margin="@dimen/plan_list_margin_fab"
+            android:tint="@color/white"
+            android:alpha=".24"
             />
 
     </LinearLayout>

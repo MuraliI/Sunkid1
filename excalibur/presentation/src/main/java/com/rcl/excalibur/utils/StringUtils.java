@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 public final class StringUtils {
 
+    private static final String EMAILPATTERN = "^[A-Z0-9_%+-]+@[A-Z0-9]+\\.[A-Z]{2,6}$";
+
     private StringUtils() {
 
     }
@@ -31,8 +33,8 @@ public final class StringUtils {
     }
 
     public static boolean isValidEmail(String email) {
-        Pattern validEmaimlAddressRegex = Pattern.compile("^[A-Z0-9_%+-]+@[A-Z0-9]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = validEmaimlAddressRegex.matcher(email);
+        Pattern validEmailAddressRegex = Pattern.compile(EMAILPATTERN, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = validEmailAddressRegex.matcher(email);
         return matcher.find();
     }
 }

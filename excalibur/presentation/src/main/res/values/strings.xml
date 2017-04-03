@@ -108,6 +108,7 @@
 
     <!-- Email Activity -->
     <string name="title_email_address">Now let\'s get your email address</string>
+    <string name="title_hint_email_address">Email address</string>
 
 
 </resources>

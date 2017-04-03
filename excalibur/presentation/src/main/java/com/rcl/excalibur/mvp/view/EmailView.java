@@ -9,16 +9,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.EmailActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
-import com.rcl.excalibur.utils.StringUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 public class EmailView extends ActivityView<EmailActivity> {
 
@@ -40,26 +39,11 @@ public class EmailView extends ActivityView<EmailActivity> {
             return;
         }
         imageViewNext.setEnabled(false);
-        editTextEmail.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-                if (event.getKeyCode() == 66 && event.getAction() == KeyEvent.ACTION_UP) {
-                    String email = editTextEmail.getText().toString().replaceAll("\n", "");
-                    if ("".equalsIgnoreCase(email)) {
-                        manageNavigation(false);
-                    } else if (email.length() > 100) {
-                        textViewEmailAddressError.setText("Email must to be smaller than 100 characters");
-                        manageNavigation(false);
-                    } else if (!StringUtils.isValidEmail(email)) {
-                        textViewEmailAddressError.setText("Incorrect email format");
-                        manageNavigation(false);
-                    } else {
-                        validateEmailExist(email);
-                    }
-                }
-                return false;
+        editTextEmail.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getKeyCode() == 66 && event.getAction() == KeyEvent.ACTION_UP) {
+                verifyEmail();
             }
+            return false;
         });
     }
 
@@ -75,23 +59,27 @@ public class EmailView extends ActivityView<EmailActivity> {
 
     @OnClick(R.id.imageViewNext)
     public void onClickImageViewNext() {
-
-        //TODO navigate to password activity
-        Toast.makeText(getActivity(), "aqui", Toast.LENGTH_SHORT).show();
+        verifyEmail();
     }
 
-    private void validateEmailExist(String email) {
-        //TODO check with web services
 
-        manageNavigation(true);
+    private void verifyEmail() {
+        String email = editTextEmail.getText().toString().replaceAll("\n", "");
+        Observable.just(email).subscribe(viewObserver);
     }
 
-    private void manageNavigation(boolean status) {
+    public void manageNavigation(boolean status) {
         imageViewNext.setEnabled(status);
         if (status) {
-            imageViewNext.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.next_active));
+            imageViewNext.setAlpha(1f);
+            textViewEmailAddressError.setText("");
         } else {
-            imageViewNext.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.next));
+            imageViewNext.setAlpha(0.24f);
         }
+    }
+
+    public void setLabelError(String errorText) {
+        textViewEmailAddressError.setText(errorText);
+        manageNavigation(false);
     }
 }
