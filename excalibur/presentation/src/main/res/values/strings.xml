@@ -6,7 +6,7 @@
     <string name="search_hint">Search for anything</string>
     <string name="ship_time_label">ship label&#160;</string>
     <string name="next_up">next up</string>
-    <string name="empty_string"/>
+    <string name="empty_string" />
     <string name="discoverItem">Discover</string>
     <string name="my_plans">My Plans</string>
     <string name="detail_module_accessibility">Accessibility &amp; Other info</string>
@@ -104,6 +104,10 @@
     <string name="itinerary_product_view_dash">&#8210;</string>
     <string name="itinerary_accessibility_product_image">Item Image</string>
     <string name="itinerary_separator_title_on_going">On going</string>
+
+
+    <!-- Email Activity -->
+    <string name="title_email_address">Now let\'s get your email address</string>
 
 
 </resources>

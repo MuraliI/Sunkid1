@@ -1,11 +1,14 @@
 package com.rcl.excalibur.internal.di.module;
 
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.EmailActivity;
 import com.rcl.excalibur.activity.HomeActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.internal.di.scopes.ActivityScope;
+import com.rcl.excalibur.mvp.presenter.EmailPresenter;
 import com.rcl.excalibur.mvp.presenter.HomePresenter;
 import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
+import com.rcl.excalibur.mvp.view.EmailView;
 import com.rcl.excalibur.mvp.view.HomeView;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
 
@@ -44,5 +47,15 @@ public class ActivityModule {
     @Provides
     TriptychHomePresenter providesTriptychHomePresenter(TriptychHomeView triptychHomeView) {
         return new TriptychHomePresenter(triptychHomeView);
+    }
+
+    @Provides
+    protected EmailView providesEmailView(BaseActivity activity) {
+        return new EmailView(((EmailActivity) activity));
+    }
+
+    @Provides
+    EmailPresenter providesEmailPresenter(EmailView activityView) {
+        return new EmailPresenter(activityView);
     }
 }

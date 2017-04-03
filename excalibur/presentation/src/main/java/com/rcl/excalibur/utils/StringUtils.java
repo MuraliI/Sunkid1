@@ -5,6 +5,9 @@ import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public final class StringUtils {
 
     private StringUtils() {
@@ -25,5 +28,11 @@ public final class StringUtils {
             return Float.toString(price);
         }
         return Integer.toString((int) price);
+    }
+
+    public static boolean isValidEmail(String email) {
+        Pattern validEmaimlAddressRegex = Pattern.compile("^[A-Z0-9_%+-]+@[A-Z0-9]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = validEmaimlAddressRegex.matcher(email);
+        return matcher.find();
     }
 }
