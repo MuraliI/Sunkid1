@@ -24,7 +24,7 @@
     <color name="detail_item_link">#286CF5</color>
     <color name="detail_item_description">#3A4053</color>
     <color name="detail_description_transparent_white">#9FFF</color>
-    
+
     <!-- Itinerary -->
     <color name="itinerary_product_card_background">#F5F5F5</color>
     <color name="itinerary_product_card_text_grey">#999</color>
@@ -33,5 +33,9 @@
     <!-- Font colors -->
     <color name="font_detail_title_gray">#7C7E8D</color>
     <color name="font_detail_description_dark_blue">#252B40</color>
+
+    <!-- Product Detail-->
+    <color name="font_product_detail_title_gray">#363740</color>
+    <color name="font_product_detail_description_gray">#6A7582</color>
 
 </resources>
