@@ -2,6 +2,7 @@ package com.rcl.excalibur.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
@@ -12,7 +13,7 @@ import com.rcl.excalibur.mvp.presenter.ProductDetailPresenter;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> {
+public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> implements AppBarLayout.OnOffsetChangedListener {
     private static final String EXTRA_DISCOVER_ITEM_ID = "EXTRA_DISCOVER_ITEM_ID";
     private long productId = 0;
     private ProductDetailActivityComponent component;
@@ -65,5 +66,10 @@ public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> 
     @Override
     protected void injectActivity(ActivityComponent activityComponent) {
         component.inject(this);
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        presenter.onOffsetChanged(appBarLayout, verticalOffset);
     }
 }

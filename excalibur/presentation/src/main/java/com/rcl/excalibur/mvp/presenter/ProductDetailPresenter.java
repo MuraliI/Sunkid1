@@ -1,6 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import com.rcl.excalibur.BuildConfig;
@@ -48,6 +49,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
     private void initView() {
         AppCompatActivity activity = view.getActivity();
         if (activity != null) {
+            view.setupToolbar();
             view.setDetailTitle(product.getProductTitle());
             view.setHeroImage(BuildConfig.PREFIX_IMAGE + product.getHeroImageRefLink());
             view.setAdapterObserver(new DetailAdapterObserver(this));
@@ -66,6 +68,10 @@ public class ProductDetailPresenter implements ActivityPresenter {
         if (activity != null) {
             activity.startActivity(ProductDeckMapActivity.getIntent(activity, productId));
         }
+    }
+
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        view.onOffsetChanged(appBarLayout, verticalOffset);
     }
 
     @Override
