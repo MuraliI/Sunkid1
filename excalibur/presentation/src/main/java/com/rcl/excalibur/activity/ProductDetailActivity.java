@@ -2,7 +2,6 @@ package com.rcl.excalibur.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
@@ -55,12 +54,11 @@ public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> 
     }
 
     @OnClick(R.id.back_arrow)
-    void onBackClicked(View view) {
+    void onBackClicked() {
         presenter.onBackClicked();
     }
 
-    @OnClick(R.id.btn_deck_map)
-    void onDeckMapClicked() {
+    void onDeckMapClicked() { // TODO: Call this method whatever the deck map icon/item is
         presenter.onDeckMapClicked(productId);
     }
 

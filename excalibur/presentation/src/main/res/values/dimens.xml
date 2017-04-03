@@ -47,7 +47,7 @@
 
     <!-- detail screen -->
     <dimen name="detail_discover_item_description_margin_top">1dp</dimen>
-    <dimen name="detail_discover_item_app_bar_size">380dp</dimen>
+    <dimen name="detail_discover_item_app_bar_size">280dp</dimen>
     <dimen name="detail_discover_item_toolbar_size">80dp</dimen>
     <dimen name="detail_discover_item_inset_margin_side">20dp</dimen>
     <dimen name="detail_discover_item_reservation_message_container_size">60dp</dimen>

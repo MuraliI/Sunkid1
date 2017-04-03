@@ -33,45 +33,6 @@
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/layout_discover_item_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_normal"
-                    android:orientation="vertical"
-                    android:paddingEnd="@dimen/detail_discover_item_inset_margin_side"
-                    android:paddingStart="@dimen/detail_discover_item_inset_margin_side">
-
-                    <TextView
-                        android:id="@+id/text_discover_item_name"
-                        style="@style/AppTheme.PlanTitleText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="@string/hardcoded_activity_title"/>
-
-                    <TextView
-                        style="@style/AppTheme.DiscoverItemLocationText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/hardcoded_detail_activity_location"
-                        tools:text="@string/hardcoded_detail_activity_location"/>
-
-                </LinearLayout>
-
-                <com.rcl.excalibur.custom.view.ReservationDetailLayout
-                    android:id="@+id/frame_layout_reservation_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_discover_item_reservation_message_container_size"
-                    android:layout_below="@+id/layout_discover_item_description"/>
-
-            </RelativeLayout>
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_detail"
                 android:layout_width="match_parent"
@@ -88,20 +49,8 @@
                     android:background="@color/transparent"
                     android:contentDescription="@string/accessibility_back_btn_content_description"
                     android:src="@drawable/ic_white_arrow_back"/>
-
-                <ImageButton
-                    android:id="@+id/btn_deck_map"
-                    android:layout_width="@dimen/detail_discover_toolbar_icon_size"
-                    android:layout_height="@dimen/detail_discover_toolbar_icon_size"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:background="@drawable/background_map_icon"
-                    android:contentDescription="@string/accessibility_map_btn_content_description"
-                    android:src="@drawable/ic_map"/>
             </android.support.v7.widget.Toolbar>
-
         </android.support.design.widget.CollapsingToolbarLayout>
-
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -111,17 +60,4 @@
         android:background="@color/white"
         android:nestedScrollingEnabled="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_reserve_discover_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_normal"
-        android:backgroundTint="@color/fab_detail_blue"
-        android:src="@drawable/ic_agenda"
-        app:borderWidth="@dimen/no_size"
-        app:fabSize="normal"
-        app:layout_anchor="@+id/frame_layout_reservation_container"
-        app:layout_anchorGravity="top|right|end"/>
-
 </android.support.design.widget.CoordinatorLayout>
