@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.EmailActivity;
@@ -38,11 +39,11 @@ public class EmailView extends ActivityView<EmailActivity> {
         if (activity == null) {
             return;
         }
-
+        imageViewNext.setEnabled(false);
         editTextEmail.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                
+
                 if (event.getKeyCode() == 66 && event.getAction() == KeyEvent.ACTION_UP) {
                     String email = editTextEmail.getText().toString().replaceAll("\n", "");
                     if ("".equalsIgnoreCase(email)) {
@@ -76,14 +77,17 @@ public class EmailView extends ActivityView<EmailActivity> {
     public void onClickImageViewNext() {
 
         //TODO navigate to password activity
+        Toast.makeText(getActivity(), "aqui", Toast.LENGTH_SHORT).show();
     }
 
     private void validateEmailExist(String email) {
         //TODO check with web services
+
+        manageNavigation(true);
     }
 
     private void manageNavigation(boolean status) {
-        imageViewNext.setClickable(status);
+        imageViewNext.setEnabled(status);
         if (status) {
             imageViewNext.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.next_active));
         } else {
