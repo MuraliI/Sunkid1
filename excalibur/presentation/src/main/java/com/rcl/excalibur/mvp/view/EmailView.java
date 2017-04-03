@@ -47,7 +47,6 @@ public class EmailView extends ActivityView<EmailActivity> {
         });
     }
 
-
     @OnClick(R.id.email_layout)
     public void onClickEmailLayout() {
         View view = getActivity().getCurrentFocus();
@@ -61,7 +60,6 @@ public class EmailView extends ActivityView<EmailActivity> {
     public void onClickImageViewNext() {
         verifyEmail();
     }
-
 
     private void verifyEmail() {
         String email = editTextEmail.getText().toString().replaceAll("\n", "");

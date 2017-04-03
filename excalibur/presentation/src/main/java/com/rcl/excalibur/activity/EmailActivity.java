@@ -25,7 +25,6 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
         presenter.onHeaderBackOnClick();
     }
 
-
     @Override
     protected void injectActivity(ActivityComponent activityComponent) {
         activityComponent.inject(this);
