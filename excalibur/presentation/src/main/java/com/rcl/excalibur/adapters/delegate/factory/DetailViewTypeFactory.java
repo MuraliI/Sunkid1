@@ -41,9 +41,7 @@ public final class DetailViewTypeFactory {
     public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product, Resources resources) {
         //TODO create all the list of view types depending on the product model fields
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
-        addAdvisements(viewTypes, resources, product);
         addDescriptionTypes(viewTypes, product.getDescription());
-
         addDurationModule(viewTypes, resources, product);
         addAttireModule(viewTypes, resources, product);
         addKnowBeforeYouGoModule(viewTypes, resources, product);
@@ -66,6 +64,43 @@ public final class DetailViewTypeFactory {
     private static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title,
                                                     final String description) {
         recyclerViewTypeList.add(new TitleAndDescriptionViewType(title, description));
+    }
+
+    private static void addExpandableAndDescription(final List<RecyclerViewType> recyclerViewTypeList, final String title,
+                                                    final String description) {
+        String[] descriptionArr = {description};
+        recyclerViewTypeList.add(new ExpandableLinkViewType(title, descriptionArr, false));
+    }
+
+    private static void addDurationModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                          ProductModel product) {
+        if (product.getDuration() > NO_DURATION) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
+        }
+    }
+
+    private static void addAttireModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                 ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ATTIRE)) {
+            String description = product.getAdvisementsAndReestrictions().get(ATTIRE);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.attire), description);
+        }
+    }
+
+    private static void addKnowBeforeYouGoModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                 ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(KNOW_BEFORE_YOU_GO)) {
+            String description = product.getAdvisementsAndReestrictions().get(KNOW_BEFORE_YOU_GO);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.know_before_you_go), description);
+        }
+    }
+
+    private static void addLegalModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                 ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(LEGAL)) {
+            String description = product.getAdvisementsAndReestrictions().get(LEGAL);
+            addExpandableAndDescription(recyclerViewTypeList, res.getString(R.string.detail_module_legal), description);
+        }
     }
 
     private void addPriceFromTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
@@ -116,20 +151,6 @@ public final class DetailViewTypeFactory {
         }
         addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
                 productActivityLevel.getActivityLevelTitle());
-    }
-
-    private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
-                                       ProductModel product) {
-        // FIXME: Obtain products from database
-        product = ProductModelProvider.productModelMap.get("1");
-        LinkedHashMap<String, String> advisements = product.getAdvisements();
-
-        for (Map.Entry<String, String> entry : advisements.entrySet()) {
-            String advisementTitle = entry.getKey();
-            String advisementDescription = entry.getValue();
-            addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
-                    advisementDescription);
-        }
     }
 
 }
