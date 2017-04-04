@@ -1,11 +1,9 @@
-package com.rcl.excalibur.mvp.presenter.guest;
+package com.rcl.excalibur.mvp.presenter;
 
 
 import com.rcl.excalibur.activity.HomeActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.model.DiscoverItemModel;
-import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
-import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.HomeView;
 
 import java.util.ArrayList;

@@ -1,11 +1,15 @@
-package com.rcl.excalibur.mvp.presenter;
+package com.rcl.excalibur.mvp.presenter.guest;
 
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.mvp.view.guest.PasswordView;
+import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
+import com.rcl.excalibur.mvp.view.guest.PasswordView;
 import com.rcl.excalibur.utils.ActivityUtils;
+
+import static com.rcl.excalibur.utils.ValidateFieldsUtils.isValidateNext;
+import static com.rcl.excalibur.utils.ValidateFieldsUtils.isValidatePassword;
 
 public class PasswordPresenter implements ActivityPresenter {
     private PasswordView view;
@@ -34,9 +38,17 @@ public class PasswordPresenter implements ActivityPresenter {
             return;
         }
         view.setHint(activity.getString(hasFocus ? R.string.empty_string : R.string.hint_password));
+        verifyPassword();
+    }
 
-//        String error = isValidatePassword(editTextPassword.getText().toString(), getActivity());
-//        textViewError.setText(error);
+    public void verifyPassword() {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        view.setError(isValidatePassword(view.getPassword(), activity));
+        view.setNextButton(isValidateNext(view.getPassword()) ? R.drawable.next_active : R.drawable.next,
+                isValidateNext(view.getPassword()));
     }
 
     public void setVisibilityPassword(boolean isChecked) {
