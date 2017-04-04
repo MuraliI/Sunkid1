@@ -20,7 +20,7 @@ import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.mapper.ProductModelDataMapper;
 import com.rcl.excalibur.model.ProductModel;
-import com.rcl.excalibur.mapper.ProductBasicInformationMapper;
+import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
@@ -53,7 +53,7 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addHeroSectionHeader(Product product, LinkedList<RecyclerViewType> viewTypes) {
-        viewTypes.add(new ProductBasicInformationMapper().transform(product));
+        viewTypes.add(new ProductInformationMapper().transform(product));
     }
 
     private static boolean isHoursEmpty(String value) {

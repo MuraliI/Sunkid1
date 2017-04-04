@@ -11,7 +11,7 @@ import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import java.util.List;
 
 
-public class ProductBasicInformationMapper extends BaseModelDataMapper<Product, ProductInformationViewType> {
+public class ProductInformationMapper extends BaseModelDataMapper<Product, ProductInformationViewType> {
     @NonNull
     @Override
     public ProductInformationViewType transform(Product item) {
