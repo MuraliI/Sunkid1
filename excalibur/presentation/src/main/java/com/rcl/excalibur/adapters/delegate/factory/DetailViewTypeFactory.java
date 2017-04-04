@@ -41,11 +41,11 @@ public final class DetailViewTypeFactory {
     public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product, Resources resources) {
         //TODO create all the list of view types depending on the product model fields
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
-        addDescriptionTypes(viewTypes, product.getDescription());
-        addDurationModule(viewTypes, resources, product);
-        addAttireModule(viewTypes, resources, product);
-        addKnowBeforeYouGoModule(viewTypes, resources, product);
-        addLegalModule(viewTypes, resources, product);
+        addAdvisements(viewTypes, resources, product);
+
+        if (product.getDuration() > NO_DURATION) {
+            addProductDurationTypes(viewTypes, resources, product);
+        }
 
         return viewTypes;
     }
@@ -114,6 +114,14 @@ public final class DetailViewTypeFactory {
             recyclerViewTypeList.add(new PricesFromViewType(StringUtils.getPriceFormated(adultPrice),
                     StringUtils.getPriceFormated(childPrice)));
         }
+    }
+
+    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                ProductModel product) {
+        if (product == null) {
+            return;
+        }
+        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
     }
 
     private void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {

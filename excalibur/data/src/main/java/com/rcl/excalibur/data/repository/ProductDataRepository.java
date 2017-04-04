@@ -77,6 +77,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         entity.setRank(product.getProductRank());
         entity.setSchedulable(product.isScheduable());
         entity.setReservationRequired(product.isReservationRequired());
+        entity.setProductReservationInformation(product.getProductReservationInformation());
 
         //ProductType
         create(entity, product.getProductType());
