@@ -3,6 +3,8 @@ package com.rcl.excalibur.model;
 
 import android.content.res.Resources;
 import com.rcl.excalibur.R;
+
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import static com.rcl.excalibur.utils.DateUtils.MINUTES_IN_HOUR;
 
