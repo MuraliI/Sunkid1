@@ -13,7 +13,6 @@ public final class ProductModelProvider {
         ProductModel productModel = new ProductModel();
         productModel.setProductId("1");
         productModel.getAdvisements().put("Cuisine", "Colombian");
-        productModel.setReservationInformation("Arrive 15 minutes early, Wear closedtoed shoes");
         productModelMap.put("1", productModel);
     }
 
