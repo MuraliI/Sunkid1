@@ -38,4 +38,7 @@
     <color name="opacity_white_24">#40ffffff</color>
 
 
+    <!-- Email Activity -->
+    <color name="email_editText_inactive">#40ffffff</color>
+
 </resources>

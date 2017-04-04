@@ -2,7 +2,6 @@ package com.rcl.excalibur.mvp.view;
 
 
 import android.content.Context;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -13,24 +12,19 @@ import android.widget.TextView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.EmailActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
-import com.rcl.excalibur.utils.StringUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 public class EmailView extends ActivityView<EmailActivity> {
 
-    @Bind(R.id.email_layout)
-    RelativeLayout emailLayout;
-    @Bind(R.id.editTextEmail)
-    EditText editTextEmail;
-    @Bind(R.id.textViewEmailAddressError)
-    TextView textViewEmailAddressError;
-    @Bind(R.id.imageViewNext)
-    ImageView imageViewNext;
-    @Bind(R.id.imageViewBack)
-    ImageView imageViewBack;
+    @Bind(R.id.email_layout) RelativeLayout emailLayout;
+    @Bind(R.id.editTextEmail) EditText editTextEmail;
+    @Bind(R.id.textViewEmailAddressError) TextView textViewEmailAddressError;
+    @Bind(R.id.imageViewNext) ImageView imageViewNext;
+    @Bind(R.id.imageViewBack) ImageView imageViewBack;
 
 
     public EmailView(EmailActivity activity) {
@@ -43,33 +37,9 @@ public class EmailView extends ActivityView<EmailActivity> {
         if (activity == null) {
             return;
         }
-
-        editTextEmail.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // TODO Auto-generated method stub
-                if (event.getKeyCode() == 66 && event.getAction() == KeyEvent.ACTION_UP) {
-                    String email = editTextEmail.getText().toString().replaceAll("\n", "");
-
-                    if ("".equalsIgnoreCase(email)) {
-                        imageViewNext.setClickable(false);
-                        return false;
-                    } else if (email.length() > 100) {
-                        textViewEmailAddressError.setText("Email must to be smaller than 100 characters");
-                        imageViewNext.setClickable(false);
-                    } else if (!StringUtils.isValidEmail(email)) {
-                        textViewEmailAddressError.setText("Incorrect email format");
-                        imageViewNext.setClickable(false);
-                    } else {
-
-                    }
-
-                }
-                return false;
-            }
-        });
+        imageViewNext.setEnabled(false);
+        editTextEmail.setOnKeyListener(getActivity());
     }
-
 
     @OnClick(R.id.email_layout)
     public void onClickEmailLayout() {
@@ -81,16 +51,33 @@ public class EmailView extends ActivityView<EmailActivity> {
     }
 
     @OnClick(R.id.imageViewNext)
-    public void onClickimageViewNext() {
-
-        //TODO navigate to password activity
-        int v = 0;
-        v++;
+    public void onClickImageViewNext() {
+        verifyEmail();
     }
 
-    private void validateEmailExist(String email) {
-        imageViewNext.setClickable(true);
+    private void verifyEmail() {
+        String email = editTextEmail.getText().toString().replaceAll("\n", "");
+        Observable.just(email).subscribe(viewObserver);
     }
 
+    public void manageNavigation(boolean status) {
+        imageViewNext.setEnabled(status);
+        if (status) {
+            imageViewNext.setAlpha(1f);
+            textViewEmailAddressError.setText("");
+        } else {
+            imageViewNext.setAlpha(0.24f);
+        }
+    }
 
+    public void setLabelError(String errorText) {
+        textViewEmailAddressError.setText(errorText);
+        manageNavigation(false);
+    }
+
+    public void setHint(String hint) {
+        editTextEmail.setHint(hint);
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(emailLayout.getWindowToken(), 0);
+    }
 }

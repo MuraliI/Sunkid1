@@ -6,7 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.rcl.excalibur.activity.EmailActivity"
     android:background="@drawable/bg_account_email"
-    android:id="@+id/email_layout">
+    android:id="@+id/email_layout"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
 
 
@@ -28,15 +30,17 @@
 
         <EditText
             android:id="@+id/editTextEmail"
+            android:theme="@style/AppTheme.EmailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:gravity="center"
             android:inputType="textEmailAddress"
-            android:text="Email address"
-            style="@style/AppTheme.LoginFlowEditText"
+            android:textColorHint="@color/email_editText_inactive"
+            android:textSize="25sp"
+            android:hint="@string/title_hint_email_address"
+            android:textColor="@color/white"
             />
 
 
@@ -45,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/white"
              />
 
         <ImageView
@@ -52,8 +57,11 @@
             android:id="@+id/imageViewNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/next"
-            android:layout_margin="@dimen/plan_list_margin_fab"/>
+            app:srcCompat="@drawable/next_active"
+            android:layout_margin="@dimen/plan_list_margin_fab"
+            android:tint="@color/white"
+            android:alpha=".24"
+            />
 
     </LinearLayout>
 
@@ -66,8 +74,7 @@
         app:srcCompat="@drawable/ic_trending_flat"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_margin="@dimen/plan_list_margin_fab"
-        android:clickable="false"
+        android:layout_margin="14dp"
         />
 
 
