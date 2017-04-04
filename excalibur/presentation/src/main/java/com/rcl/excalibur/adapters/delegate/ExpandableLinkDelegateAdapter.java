@@ -21,6 +21,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 
 public class ExpandableLinkDelegateAdapter implements DelegateAdapter<ExpandableLinkDelegateAdapter.ExpandableLinkViewHolder,
@@ -40,7 +41,6 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         int i = 0;
         for (TextView textView : holder.contentLines) {
             textView.setText(StringUtils.fromHtml(item.getContent()[i]));
-            textView.setTextAppearance(textView.getContext(), R.style.AppTheme_ProductDetailDescriptionModuleTextView);
             i++;
         }
     }
@@ -55,6 +55,9 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         for (int i = 0; i < numberOfContentLines; i++) {
             //Create TextView;
             TextView contentLine = new TextView(context);
+            contentLine.setTextAppearance(context, R.style.AppTheme_ProductDetailDescriptionModuleTextView);
+            CalligraphyUtils.applyFontToTextView(context, contentLine, context.getResources().getString(R.string.proximanova_regular));
+
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
