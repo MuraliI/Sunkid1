@@ -2,11 +2,15 @@ package com.rcl.excalibur.model;
 
 
 import android.content.res.Resources;
+
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
+
 import java.util.LinkedHashMap;
+
 import static com.rcl.excalibur.utils.DateUtils.MINUTES_IN_HOUR;
 
-public class ProductModel {
+public class ProductModel extends ProductInformationViewType {
     //TODO Add all your attributes here
 
     private LinkedHashMap<String, String> advisements = new LinkedHashMap<>();

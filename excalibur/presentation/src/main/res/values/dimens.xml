@@ -46,14 +46,15 @@
     <dimen name="plan_list_padding_right_header">20dp</dimen>
 
     <!-- detail screen -->
-    <dimen name="detail_discover_item_description_margin_top">1dp</dimen>
-    <dimen name="detail_discover_item_app_bar_size">380dp</dimen>
-    <dimen name="detail_discover_item_toolbar_size">80dp</dimen>
-    <dimen name="detail_discover_item_inset_margin_side">20dp</dimen>
-    <dimen name="detail_discover_item_reservation_message_container_size">60dp</dimen>
-    <dimen name="detail_discover_item_reservation_message_container_elevation">12dp</dimen>
-    <dimen name="detail_discover_item_reservation_title_drawable_padding">10dp</dimen>
-    <dimen name="detail_discover_toolbar_icon_size">50dp</dimen>
+    <dimen name="product_detail_hero_image_height">250dp</dimen>
+    <dimen name="product_detail_description_margin_top">1dp</dimen>
+    <dimen name="product_detail_app_bar_size">380dp</dimen>
+    <dimen name="product_detail_toolbar_size">80dp</dimen>
+    <dimen name="product_detail_inset_margin_side">20dp</dimen>
+    <dimen name="product_detail_reservation_message_container_size">60dp</dimen>
+    <dimen name="product_detail_reservation_message_container_elevation">12dp</dimen>
+    <dimen name="product_detail_reservation_title_drawable_padding">10dp</dimen>
+    <dimen name="product_detail_toolbar_icon_size">50dp</dimen>
     <dimen name="detail_discover_item_blur_radius">5dp</dimen>
     <dimen name="plan_list_margin_top_section">20dp</dimen>
     <dimen name="plan_list_separator_section">10dp</dimen>
@@ -69,6 +70,15 @@
     <dimen name="prices_from_margin">40dp</dimen>
     <dimen name="menu_button_height">60dp</dimen>
     <dimen name="menu_button_width">0dp</dimen>
+    <dimen name="upcharge_container_corner_radious">3dp</dimen>
+    <dimen name="upcharge_container_line_width">1dp</dimen>
+    <dimen name="upcharge_container_padding">5dp</dimen>
+    <dimen name="upcharge_container_margin_top">5dp</dimen>
+    <dimen name="upcharge_icon_margin_sides">1dp</dimen>
+    <dimen name="upcharge_icon_size">13dp</dimen>
+    <dimen name="hero_image_information_margin_top">-8dp</dimen>
+    <dimen name="hero_image_information_corner_radious">5dp</dimen>
+    <dimen name="find_on_deck_drawable_padding">5dp</dimen>
 
 
     <!--Itinerary -->

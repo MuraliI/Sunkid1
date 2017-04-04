@@ -11,14 +11,14 @@ import java.util.List;
 import io.reactivex.Observer;
 
 
-public class BaseCoordinatorAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public class BaseCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT extends RecyclerViewType, T> extends RecyclerView.Adapter<VH> {
 
-    protected SparseArrayCompat<DelegateAdapter<VH, RecyclerViewType>> delegateAdapters;
-    protected List<RecyclerViewType> items;
+    protected SparseArrayCompat<DelegateAdapter<VH, VT>> delegateAdapters;
+    protected List<VT> items;
 
-    private WeakReference<Observer> observerRef;
+    private WeakReference<Observer<T>> observerRef;
 
-    public BaseCoordinatorAdapter(final Observer observer) {
+    public BaseCoordinatorAdapter(final Observer<T> observer) {
         this.observerRef = new WeakReference<>(observer);
         items = new ArrayList<>();
     }
@@ -27,7 +27,7 @@ public class BaseCoordinatorAdapter<VH extends RecyclerView.ViewHolder> extends 
         return observerRef.get() != null;
     }
 
-    protected Observer getObserver() {
+    protected Observer<T> getObserver() {
         return observerRef.get();
     }
 
@@ -38,8 +38,8 @@ public class BaseCoordinatorAdapter<VH extends RecyclerView.ViewHolder> extends 
 
     @Override
     public void onBindViewHolder(VH holder, int position) {
-        RecyclerViewType viewType = items.get(position);
-        DelegateAdapter<VH, RecyclerViewType> delegateAdapter = delegateAdapters.get(viewType.getViewType());
+        VT viewType = items.get(position);
+        DelegateAdapter<VH, VT> delegateAdapter = delegateAdapters.get(viewType.getViewType());
         if (delegateAdapter == null) {
             throw new RuntimeException("No delegate adapter for " + viewType.getViewType());
         } else {
@@ -57,12 +57,12 @@ public class BaseCoordinatorAdapter<VH extends RecyclerView.ViewHolder> extends 
         return items.size();
     }
 
-    public void addAll(List<RecyclerViewType> items) {
+    public void addAll(List<VT> items) {
         this.items.addAll(items);
         notifyDataSetChanged();
     }
 
-    public void addViewTypeOnceAndNotify(RecyclerViewType viewType) {
+    public void addViewTypeOnceAndNotify(VT viewType) {
         items.add(viewType);
         notifyItemInserted(items.indexOf(viewType));
     }

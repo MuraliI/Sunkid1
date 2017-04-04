@@ -18,7 +18,9 @@ import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
+import com.rcl.excalibur.mapper.ProductModelDataMapper;
 import com.rcl.excalibur.model.ProductModel;
+import com.rcl.excalibur.mapper.ProductBasicInformationMapper;
 import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
@@ -35,16 +37,23 @@ public final class DetailViewTypeFactory {
     private DetailViewTypeFactory() {
     }
 
-    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product, Resources resources) {
-        //TODO create all the list of view types depending on the product model fields
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
-        addAdvisements(viewTypes, resources, product);
 
-        if (product.getDuration() > NO_DURATION) {
-            addProductDurationTypes(viewTypes, resources, product);
+        addHeroSectionHeader(product, viewTypes);
+
+        //FIXME refactor this code to transform product model in each method and create a better model
+        ProductModel model = new ProductModelDataMapper().transform(product);
+        addAdvisements(viewTypes, resources, model);
+        if (model.getDuration() > NO_DURATION) {
+            addProductDurationTypes(viewTypes, resources, model);
         }
 
         return viewTypes;
+    }
+
+    private static void addHeroSectionHeader(Product product, LinkedList<RecyclerViewType> viewTypes) {
+        viewTypes.add(new ProductBasicInformationMapper().transform(product));
     }
 
     private static boolean isHoursEmpty(String value) {

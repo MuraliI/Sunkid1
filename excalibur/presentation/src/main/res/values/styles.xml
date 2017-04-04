@@ -22,13 +22,34 @@
     </style>
 
     <!-- Fonts -->
-    <style name="AppTheme.PlanTitleText" parent="@android:style/Widget.TextView">
+
+    <style name="AppTheme.Headline1" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_bold</item>
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">28sp</item>
-        <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="AppTheme.DiscoverItemReservationText" parent="@android:style/Widget.TextView">
-        <item name="android:textSize">14sp</item>
+    <style name="AppTheme.Headline5" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTheme.Body" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/font_color_body</item>
+    </style>
+
+    <style name="AppTheme.Headline5.Orange" parent="AppTheme.Headline5">
+        <item name="android:textColor">@color/font_detail_reservation</item>
+    </style>
+
+    <style name="AppTheme.Headline5.Blue" parent="AppTheme.Headline5">
+        <item name="android:textColor">@color/font_color_blue</item>
+    </style>
+
+    <style name="AppTheme.PlanTitleText" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">28sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
@@ -74,8 +95,7 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/font_detail_description_dark_blue</item>
         <item name="fontPath">@string/roboto_regular</item>
-        <item name="android:layout_marginTop">@dimen/detail_discover_item_description_margin_top
-        </item>
+        <item name="android:layout_marginTop">@dimen/product_detail_description_margin_top</item>
     </style>
 
     <style name="AppTheme.DiscoverItemModuleLinkTextView">
@@ -113,6 +133,12 @@
         <item name="fontPath">@string/roboto_light</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="AppTheme.ProductDetailLocationText" parent="@android:style/Widget.TextView">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/font_detail_title_gray</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <!-- Fonts.Itinerary -->
