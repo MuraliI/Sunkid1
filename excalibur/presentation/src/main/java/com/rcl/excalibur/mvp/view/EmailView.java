@@ -21,11 +21,16 @@ import butterknife.OnClick;
 
 public class EmailView extends ActivityView<EmailActivity> {
 
-    @Bind(R.id.email_layout) RelativeLayout emailLayout;
-    @Bind(R.id.editTextEmail) EditText editTextEmail;
-    @Bind(R.id.textViewEmailAddressError) TextView textViewEmailAddressError;
-    @Bind(R.id.imageViewNext) ImageView imageViewNext;
-    @Bind(R.id.imageViewBack) ImageView imageViewBack;
+    @Bind(R.id.email_layout)
+    RelativeLayout emailLayout;
+    @Bind(R.id.editTextEmail)
+    EditText editTextEmail;
+    @Bind(R.id.textViewEmailAddressError)
+    TextView textViewEmailAddressError;
+    @Bind(R.id.imageViewNext)
+    ImageView imageViewNext;
+    @Bind(R.id.imageViewBack)
+    ImageView imageViewBack;
 
 
     public EmailView(EmailActivity activity) {
@@ -76,10 +81,10 @@ public class EmailView extends ActivityView<EmailActivity> {
     }
 
     @OnClick(R.id.imageViewNext)
-    public  void onClickimageViewNext() {
+    public void onClickimageViewNext() {
 
         //TODO navigate to password activity
-        int v=0;
+        int v = 0;
         v++;
     }
 

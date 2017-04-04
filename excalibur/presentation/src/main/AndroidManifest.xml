@@ -26,9 +26,7 @@
         <activity
             android:name=".activity.TriptychHomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.ProductDeckMapActivity"
             android:label="@string/empty_string"
@@ -41,9 +39,15 @@
             android:name="AA_MODELS"
             android:value="com.rcl.excalibur.data.entity.DiscoverItemEntity,             com.rcl.excalibur.data.entity.AdvisementEntity,             com.rcl.excalibur.data.entity.CategoryEntity,             com.rcl.excalibur.data.entity.CostTypeEntity,             com.rcl.excalibur.data.entity.DurationEntity,             com.rcl.excalibur.data.entity.LocationEntity,             com.rcl.excalibur.data.entity.MediaEntity,             com.rcl.excalibur.data.entity.MediaValueEntity,             com.rcl.excalibur.data.entity.PreferenceEntity,             com.rcl.excalibur.data.entity.PreferenceValueEntity,             com.rcl.excalibur.data.entity.ProductEntity,             com.rcl.excalibur.data.entity.PromotionEntity,             com.rcl.excalibur.data.entity.RestrictionEntity,             com.rcl.excalibur.data.entity.StartingFromPriceEntity,             com.rcl.excalibur.data.entity.TypeEntity,             com.rcl.excalibur.data.entity.ActivityLevelEntity" />
 
-        <activity android:name=".activity.EmailActivity"
+        <activity
+            android:name=".activity.EmailActivity"
             android:screenOrientation="portrait">
 
+        </activity>
+        <activity
+            android:name=".activity.PasswordActivity"
+            android:label="@string/title_activity_password"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -87,4 +87,10 @@
     <!-- Deck Map -->
     <dimen name="item_deck_height">110dp</dimen>
 
+    <!-- Login Flow -->
+    <dimen name="size_text_big">25sp</dimen>
+    <dimen name="margin_input_text">32dp</dimen>
+    <dimen name="margin_text">7dp</dimen>
+
+
 </resources>

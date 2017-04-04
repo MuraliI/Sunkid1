@@ -131,7 +131,7 @@ public class ItineraryPresenter implements FragmentPresenter {
         return view;
     }
 
-    private class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
+    private final class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
 
         private ItineraryServiceObserver(ItineraryPresenter presenter) {
             super(presenter);
