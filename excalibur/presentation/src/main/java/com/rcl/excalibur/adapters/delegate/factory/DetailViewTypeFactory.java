@@ -39,11 +39,11 @@ public final class DetailViewTypeFactory {
 
     public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
-
         addHeroSectionHeader(product, viewTypes);
 
         //FIXME refactor this code to transform product model in each method and create a better model
         ProductModel model = new ProductModelDataMapper().transform(product);
+        addMakeReservation(viewTypes, resources, model);
         addAdvisements(viewTypes, resources, model);
         if (model.getDuration() > NO_DURATION) {
             addProductDurationTypes(viewTypes, resources, model);
@@ -134,6 +134,14 @@ public final class DetailViewTypeFactory {
             String advisementDescription = entry.getValue();
             addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
                     advisementDescription);
+        }
+    }
+
+    private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
+        // FIXME: Obtain products from database
+        if (!TextUtils.isEmpty(product.getReservationInformation())) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
+                    product.getReservationInformation());
         }
     }
 

@@ -16,6 +16,8 @@ public class ProductModel extends ProductInformationViewType {
     private LinkedHashMap<String, String> advisements = new LinkedHashMap<>();
     private String productId;
     private int duration;
+    private String reservationInformation;
+
 
     public LinkedHashMap<String, String> getAdvisements() {
         return advisements;
@@ -53,5 +55,13 @@ public class ProductModel extends ProductInformationViewType {
         }
 
         return durationStr;
+    }
+
+    public String getReservationInformation() {
+        return reservationInformation;
+    }
+
+    public void setReservationInformation(String reservationInformation) {
+        this.reservationInformation = reservationInformation;
     }
 }

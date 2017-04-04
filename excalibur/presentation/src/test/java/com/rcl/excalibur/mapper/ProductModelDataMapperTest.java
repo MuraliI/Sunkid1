@@ -25,6 +25,7 @@ public class ProductModelDataMapperTest {
         ProductDuration productDuration = new ProductDuration();
         productDuration.setDurationInMinutes(125);
         entity1.setProductDuration(productDuration);
+        entity1.setProductReservationInformation("Arrive 15 minutes early, Wear closedtoed shoes");
 
         entity2 = null;
     }
@@ -34,7 +35,7 @@ public class ProductModelDataMapperTest {
         ProductModel productModel = productModelDataMapper.transform(entity1);
         assertNotNull(productModel);
         assertEquals(entity1.getProductDuration().getDurationInMinutes(), productModel.getDuration());
-
+        assertEquals(entity1.getProductReservationInformation(), productModel.getReservationInformation());
         ProductModel productModelNull = productModelDataMapper.transform(entity2);
         assertNull(productModelNull);
     }

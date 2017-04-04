@@ -28,6 +28,7 @@
     <string name="discover_item_detail_price_range">$%1$s&#8210;$%2$s</string>
     <string name="product_detail_find_on_deck">Find on deck</string>
     <string name="product_detail_reservation_required">Reservation required</string>
+    <string name="discover_item_detail_make_a_reservation">Make a Reservation</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
