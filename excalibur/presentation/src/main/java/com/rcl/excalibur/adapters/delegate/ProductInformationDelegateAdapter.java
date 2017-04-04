@@ -13,6 +13,7 @@ import com.fernandocejas.arrow.strings.Strings;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
+import com.rcl.excalibur.domain.ProductCategory;
 
 import java.lang.ref.WeakReference;
 
@@ -46,18 +47,30 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
     public void onBindViewHolder(ProductInformationViewHolder holder, ProductInformationViewType item) {
         holder.name.setText(item.getProductName());
         holder.venue.setText(item.getVenue());
-        holder.deckAndDirection.setVisibility(!Strings.isNullOrEmpty(item.getLocation()) ? View.VISIBLE : View.GONE);
+
+        holder.deckAndDirection.setVisibility(Strings.isNullOrEmpty(item.getLocation()) || hasCategoryShorex(item)
+                ? View.GONE
+                : View.VISIBLE);
         holder.deckAndDirection.setText(item.getLocation());
         holder.port.setVisibility(!Strings.isNullOrEmpty(item.getPort()) ? View.VISIBLE : View.GONE);
         holder.port.setText(item.getPort());
         holder.reservationLayout.setVisibility(item.isReservationRequired() ? View.VISIBLE : View.GONE);
         holder.productId = item.getProductId();
-
+        holder.priceRangeContainer.setVisibility(item.getUpChargeLevel() > 0 ? View.VISIBLE : View.GONE);
         updateUpChargeIndicator(item.getUpChargeLevel(), holder);
 
         if (hasObserver()) {
             holder.findOnDeckObserver = new WeakReference<>(findOnDeckObserver.get());
         }
+    }
+
+    private boolean hasCategoryShorex(ProductInformationViewType item) {
+        for (String category : item.getProductCategories()) {
+            if (ProductCategory.SHOREX.equals(category)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean hasObserver() {
@@ -82,6 +95,7 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         @Bind(R.id.text_product_venue) TextView venue;
         @Bind(R.id.text_product_deck_and_direction) TextView deckAndDirection;
         @Bind(R.id.text_product_port) TextView port;
+        @Bind(R.id.layout_price_range_container) View priceRangeContainer;
         @Bind(R.id.price_range_module_dollar_1) ImageView imageDollar1;
         @Bind(R.id.price_range_module_dollar_2) ImageView imageDollar2;
         @Bind(R.id.price_range_module_dollar_3) ImageView imageDollar3;

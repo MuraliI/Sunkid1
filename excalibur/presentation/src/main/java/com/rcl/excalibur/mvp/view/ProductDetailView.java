@@ -36,7 +36,11 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
 
     public void setHeroImage(String url) {
         if (getActivity() != null) {
-            Picasso.with(getActivity()).load(url).placeholder(R.drawable.thumb).into(heroImage);
+            if (url != null) {
+                Picasso.with(getActivity()).load(url).placeholder(R.drawable.thumb).into(heroImage);
+            } else {
+                heroImage.setImageResource(R.drawable.placeholder_hero_image);
+            }
         }
     }
 
