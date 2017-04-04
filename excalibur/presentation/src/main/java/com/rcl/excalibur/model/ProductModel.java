@@ -16,6 +16,7 @@ public class ProductModel {
     private String description;
     private int duration;
     private String reservationInformation;
+    private String experience;
 
 
     public HashMap<String, String> getAdvisementsAndReestrictions() {
@@ -70,5 +71,13 @@ public class ProductModel {
 
     public void setReservationInformation(String reservationInformation) {
         this.reservationInformation = reservationInformation;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 }
