@@ -1,6 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.mvp.view.EmailView;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -25,26 +26,17 @@ public class EmailPresenter implements ActivityPresenter {
 
     public void init() {
         view.init();
-        view.setViewObserver(new ViewObserver(this));
     }
 
-    public class ViewObserver extends DefaultPresentObserver<String, EmailPresenter> {
-        public ViewObserver(EmailPresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(String email) {
-
-            if ("".equalsIgnoreCase(email)) {
-                view.manageNavigation(false);
-            } else if (email.length() >= 100) {
-                view.setLabelError("Email must to be smaller than 100 characters");
-            } else if (!StringUtils.isValidEmail(email)) {
-                view.setLabelError("Incorrect email format");
-            } else {
-                validateEmailExist(email);
-            }
+    public void verifyEmail(String email) {
+        if ("".equalsIgnoreCase(email)) {
+            view.manageNavigation(false);
+        } else if (email.length() >= 100) {
+            view.setLabelError("Email must to be smaller than 100 characters");
+        } else if (!StringUtils.isValidEmail(email)) {
+            view.setLabelError("Incorrect email format");
+        } else {
+            validateEmailExist(email);
         }
     }
 
@@ -54,7 +46,15 @@ public class EmailPresenter implements ActivityPresenter {
     }
 
     private void validateEmailExist(String email) {
-         view.manageNavigation(true);
+        view.manageNavigation(true);
         //TODO consume web service to verify if email already exist
+    }
+
+    public void setFocus(boolean hasFocus) {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        view.setHint(activity.getString(hasFocus ? R.string.empty_string : R.string.title_hint_email_address));
     }
 }

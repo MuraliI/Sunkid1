@@ -2,9 +2,6 @@ package com.rcl.excalibur.mvp.view;
 
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.support.v4.content.ContextCompat;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -41,26 +38,7 @@ public class EmailView extends ActivityView<EmailActivity> {
             return;
         }
         imageViewNext.setEnabled(false);
-        editTextEmail.setOnKeyListener((v, keyCode, event) -> {
-            if (event.getKeyCode() == 66 && event.getAction() == KeyEvent.ACTION_UP) {
-                verifyEmail();
-            }
-            return false;
-        });
-
-        editTextEmail.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus)
-                editTextEmail.setHint("");
-            else {
-                editTextEmail.setHint(getActivity().getString(R.string.title_hint_email_address));
-
-                if (!editTextEmail.getText().toString().isEmpty()) {
-                    int color = ContextCompat.getColor(getActivity(), R.color.white);
-                    editTextEmail.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                }
-            }
-
-        });
+        editTextEmail.setOnKeyListener(getActivity());
     }
 
     @OnClick(R.id.email_layout)
@@ -95,5 +73,11 @@ public class EmailView extends ActivityView<EmailActivity> {
     public void setLabelError(String errorText) {
         textViewEmailAddressError.setText(errorText);
         manageNavigation(false);
+    }
+
+    public void setHint(String hint) {
+        editTextEmail.setHint(hint);
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(emailLayout.getWindowToken(), 0);
     }
 }
