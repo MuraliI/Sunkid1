@@ -1,6 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.mvp.view.PasswordView;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
@@ -25,6 +26,24 @@ public class PasswordPresenter implements ActivityPresenter {
 
     private void init() {
         view.init();
+    }
+
+    public void setFocus(boolean hasFocus) {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        view.setHint(activity.getString(hasFocus ? R.string.hint_password : R.string.empty_string));
+
+//        String error = isValidatePassword(editTextPassword.getText().toString(), getActivity());
+//        textViewError.setText(error);
+    }
+
+    public void setVisibilityPassword(boolean isChecked) {
+        if (isChecked)
+            view.setVisiblePassword();
+        else
+            view.setInvisiblePassword();
     }
 
     @Override
