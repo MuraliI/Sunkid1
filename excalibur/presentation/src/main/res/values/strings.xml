@@ -38,6 +38,7 @@
     <string name="roboto_light">fonts/Roboto-Light.ttf</string>
     <string name="proxima_nova_regular">fonts/ProximaNova-Regular.otf</string>
     <string name="proxima_nova_bold">fonts/ProximaNova-Bold.otf</string>
+    <string name="proxima_nova_semi_bold">fonts/ProximaNova-Semibold.otf</string>
 
     <!--TABS-->
     <string name="royal_activity">Activity</string>
