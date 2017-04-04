@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/expandable_link_module_title"
-            style="@style/AppTheme.ProductDetailTitleModuleTextView"
+            style="@style/AppTheme.ProductDetailAccessibilityTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"

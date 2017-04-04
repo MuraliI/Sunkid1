@@ -236,4 +236,16 @@
         <item name="android:textColor">@color/font_product_detail_description_gray</item>
     </style>
 
+    <style name="AppTheme.ProductDetailSubDescriptionModuleTextView" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proximanova_regular</item>
+        <item name="android:textSize">@dimen/product_detail_font_size_subdescription</item>
+        <item name="android:textColor">@color/font_product_detail_description_gray</item>
+    </style>
+
+    <style name="AppTheme.ProductDetailAccessibilityTitleTextView" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proximanova_regular</item>
+        <item name="android:textSize">@dimen/product_detail_font_size_description</item>
+        <item name="android:textColor">@color/font_product_detail_title_gray</item>
+    </style>
+
 </resources>

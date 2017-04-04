@@ -31,20 +31,10 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/expandable_accessibility_module_content_parent"
-        android:layout_width="wrap_content"
+        android:id="@+id/expandable_link_module_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:id="@+id/expandable_accessibility_module_content_child"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_large"
-            android:layout_marginStart="@dimen/margin_large"
-            android:orientation="vertical"
-            android:visibility="gone" />
-    </LinearLayout>
+        android:orientation="vertical"
+        android:visibility="gone" />
 
 </LinearLayout>
