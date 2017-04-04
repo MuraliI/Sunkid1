@@ -22,6 +22,7 @@ public class DetailViewCoordinatorAdapter extends BaseCoordinatorAdapter {
         delegateAdapters = new SparseArrayCompat<>(VIEW_TYPE_COUNT);
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DESCRIPTION, new DescriptionDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
         addAll(recyclerViewTypes);
     }
 }

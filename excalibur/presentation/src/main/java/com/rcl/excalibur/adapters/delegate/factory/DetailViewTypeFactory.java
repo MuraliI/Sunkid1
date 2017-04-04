@@ -10,6 +10,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.DescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
+import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
@@ -20,14 +21,15 @@ import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.model.ProductModel;
-import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
+import static com.rcl.excalibur.domain.ProductAdvisement.ATTIRE;
+import static com.rcl.excalibur.domain.ProductAdvisement.KNOW_BEFORE_YOU_GO;
+import static com.rcl.excalibur.domain.ProductAdvisement.LEGAL;
 
 public final class DetailViewTypeFactory {
 
@@ -42,9 +44,10 @@ public final class DetailViewTypeFactory {
         addAdvisements(viewTypes, resources, product);
         addDescriptionTypes(viewTypes, product.getDescription());
 
-        if (product.getDuration() > NO_DURATION) {
-            addProductDurationTypes(viewTypes, resources, product);
-        }
+        addDurationModule(viewTypes, resources, product);
+        addAttireModule(viewTypes, resources, product);
+        addKnowBeforeYouGoModule(viewTypes, resources, product);
+        addLegalModule(viewTypes, resources, product);
 
         return viewTypes;
     }
@@ -76,14 +79,6 @@ public final class DetailViewTypeFactory {
             recyclerViewTypeList.add(new PricesFromViewType(StringUtils.getPriceFormated(adultPrice),
                     StringUtils.getPriceFormated(childPrice)));
         }
-    }
-
-    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                                ProductModel product) {
-        if (product == null) {
-            return;
-        }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
     }
 
     private void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {

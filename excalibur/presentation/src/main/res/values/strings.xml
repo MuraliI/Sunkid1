@@ -6,7 +6,7 @@
     <string name="search_hint">Search for anything</string>
     <string name="ship_time_label">ship label&#160;</string>
     <string name="next_up">next up</string>
-    <string name="empty_string"/>
+    <string name="empty_string" />
     <string name="discoverItem">Discover</string>
     <string name="my_plans">My Plans</string>
     <string name="detail_module_accessibility">Accessibility &amp; Other info</string>
@@ -33,6 +33,7 @@
     <string name="roboto_bold">fonts/Roboto-Bold.ttf</string>
     <string name="roboto_medium_italic">fonts/Roboto-MediumItalic.ttf</string>
     <string name="roboto_light">fonts/Roboto-Light.ttf</string>
+    <string name="proximanova_regular">fonts/ProximaNova-Regular.otf</string>
 
     <!--TABS-->
     <string name="royal_activity">Activity</string>
@@ -115,5 +116,7 @@
         <item quantity="other">%d mins</item>
     </plurals>
     <string name="advisement_cuisine">Cuisine</string>
+    <string name="know_before_you_go">Know before you go</string>
+    <string name="attire">Attire</string>
 
 </resources>

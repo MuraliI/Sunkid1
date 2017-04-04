@@ -2,24 +2,28 @@ package com.rcl.excalibur.model;
 
 
 import android.content.res.Resources;
+
 import com.rcl.excalibur.R;
+
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+
 import static com.rcl.excalibur.utils.DateUtils.MINUTES_IN_HOUR;
 
 public class ProductModel {
     //TODO Add all your attributes here
 
-    private LinkedHashMap<String, String> advisements = new LinkedHashMap<>();
+    private HashMap<String, String> advisementsAndReestrictions = new LinkedHashMap<>();
     private String productId;
     private String description;
     private int duration;
 
-    public LinkedHashMap<String, String> getAdvisements() {
-        return advisements;
+    public HashMap<String, String> getAdvisementsAndReestrictions() {
+        return advisementsAndReestrictions;
     }
 
-    public void setAdvisements(LinkedHashMap<String, String> advisements) {
-        this.advisements = advisements;
+    public void setAdvisementsAndReestrictions(LinkedHashMap<String, String> advisementsAndReestrictions) {
+        this.advisementsAndReestrictions = advisementsAndReestrictions;
     }
 
     public String getProductId() {
