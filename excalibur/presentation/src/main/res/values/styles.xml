@@ -224,10 +224,7 @@
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="AppTheme.EmailEditText" parent="@android:style/Widget.EditText">
-        <item name="android:colorControlNormal">@color/email_editText_inactive</item>
-        <item name="android:colorControlActivated">@color/white</item>
-        <item name="android:colorControlHighlight">@color/white</item>
+
     <style name="AppTheme.LoginFlowEditText" parent="@android:style/Widget.EditText">
         <item name="colorControlNormal">@color/opacity_white_24</item>
         <item name="colorControlActivated">@color/white</item>
