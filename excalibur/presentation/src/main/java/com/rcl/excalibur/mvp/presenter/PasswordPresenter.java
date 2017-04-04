@@ -33,7 +33,7 @@ public class PasswordPresenter implements ActivityPresenter {
         if (activity == null) {
             return;
         }
-        view.setHint(activity.getString(hasFocus ? R.string.hint_password : R.string.empty_string));
+        view.setHint(activity.getString(hasFocus ? R.string.empty_string : R.string.hint_password));
 
 //        String error = isValidatePassword(editTextPassword.getText().toString(), getActivity());
 //        textViewError.setText(error);
