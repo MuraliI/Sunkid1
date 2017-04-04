@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
-import com.rcl.excalibur.mvp.presenter.HomePresenter;
+import com.rcl.excalibur.mvp.presenter.guest.HomePresenter;
 
 public class HomeActivity extends BaseActivity<HomePresenter> {
 

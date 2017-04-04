@@ -1,9 +1,10 @@
-package com.rcl.excalibur.activity;
+package com.rcl.excalibur.activity.guest;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.mvp.presenter.PasswordPresenter;
 

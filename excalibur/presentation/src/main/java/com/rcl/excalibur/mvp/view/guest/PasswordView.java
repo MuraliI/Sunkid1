@@ -1,4 +1,4 @@
-package com.rcl.excalibur.mvp.view;
+package com.rcl.excalibur.mvp.view.guest;
 
 
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.PasswordActivity;
+import com.rcl.excalibur.activity.guest.PasswordActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import butterknife.Bind;

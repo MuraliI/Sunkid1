@@ -1,9 +1,10 @@
-package com.rcl.excalibur.mvp.presenter;
+package com.rcl.excalibur.mvp.presenter.guest;
 
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.mvp.view.EmailView;
+import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
+import com.rcl.excalibur.mvp.view.guest.EmailView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.StringUtils;
 

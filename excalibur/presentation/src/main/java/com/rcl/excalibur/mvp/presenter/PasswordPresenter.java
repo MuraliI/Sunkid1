@@ -3,7 +3,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.mvp.view.PasswordView;
+import com.rcl.excalibur.mvp.view.guest.PasswordView;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.utils.ActivityUtils;
 

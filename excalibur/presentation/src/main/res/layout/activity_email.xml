@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.rcl.excalibur.activity.EmailActivity"
+    tools:context="com.rcl.excalibur.activity.guest.EmailActivity"
     android:background="@drawable/bg_account_email"
     android:id="@+id/email_layout"
     android:focusable="true"
@@ -30,7 +30,7 @@
 
         <EditText
             android:id="@+id/editTextEmail"
-            android:theme="@style/AppTheme.EmailEditText"
+            android:theme="@style/AppTheme.LoginFlowEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"

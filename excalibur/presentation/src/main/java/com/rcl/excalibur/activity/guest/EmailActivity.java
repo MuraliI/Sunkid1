@@ -1,4 +1,4 @@
-package com.rcl.excalibur.activity;
+package com.rcl.excalibur.activity.guest;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
-import com.rcl.excalibur.mvp.presenter.EmailPresenter;
+import com.rcl.excalibur.mvp.presenter.guest.EmailPresenter;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

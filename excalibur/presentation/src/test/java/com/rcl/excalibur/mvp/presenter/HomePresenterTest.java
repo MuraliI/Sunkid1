@@ -5,6 +5,7 @@ import com.rcl.excalibur.internal.di.component.AppComponentTest;
 import com.rcl.excalibur.internal.di.component.DaggerAppComponentTest;
 import com.rcl.excalibur.internal.di.module.ActivityModuleTest;
 import com.rcl.excalibur.internal.di.module.AppModuleTest;
+import com.rcl.excalibur.mvp.presenter.guest.HomePresenter;
 import com.rcl.excalibur.mvp.view.HomeView;
 
 import org.junit.After;
