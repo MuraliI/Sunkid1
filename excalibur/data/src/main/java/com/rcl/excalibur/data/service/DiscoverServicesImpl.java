@@ -265,9 +265,10 @@ public class DiscoverServicesImpl implements DiscoverServices {
                         productResponse.setExperience("Enjoy the travel!");
                     }
                     List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
-                    if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
+                   /* if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
                         productResponse.setAdvisements(getProductAdvisementResponseAttire());
-                    }
+                    }*/
+                    productResponse.setAdvisements(getProductAdvisementResponseAttire());
                     setProductLocationExtraParameters(productResponse.getProductLocation());
                 }
                 productList.addAll(productResponseDataMapper.transform(getProductsResponse.getProducts()));
@@ -317,6 +318,17 @@ public class DiscoverServicesImpl implements DiscoverServices {
         advisementAccessibility.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementAccessibility);
+        //Test Gerardo
+        ProductAdvisementResponse advisementAccessibility2 = new ProductAdvisementResponse();
+        advisementAccessibility2.setAdvisementId(3L);
+        advisementAccessibility2.setAdvisementDescription("TEST");
+        advisementAccessibility2.setAdvisementTitle("TEST");
+        advisementAccessibility2.setAdvisementName("TEST");
+        advisementAccessibility2.setAdvisementType("ACCESSIBILITY");
+        advisementAccessibility2.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementAccessibility2);
+
 
         ProductAdvisementResponse advisementLegal = new ProductAdvisementResponse();
         advisementLegal.setAdvisementId(4L);

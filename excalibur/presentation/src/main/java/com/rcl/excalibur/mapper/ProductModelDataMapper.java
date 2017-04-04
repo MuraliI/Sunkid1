@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
+import com.rcl.excalibur.model.ProductAccessibilityModel;
 import com.rcl.excalibur.model.ProductModel;
 
 import java.util.List;
@@ -32,8 +33,21 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
         for (int i = 0; i < size; i++) {
             String type = advisements.get(i).getAdvisementType();
             String description = advisements.get(i).getAdvisementDescription();
-            product.getAdvisementsAndReestrictions().put(type, description);
+            if (type.equals(ProductAdvisement.ACCESSIBILITY)) {
+                addAccesibility(product, advisements.get(i));
+            } else {
+                product.getAdvisementsAndReestrictions().put(type, description);
+            }
         }
+    }
+
+    private void addAccesibility(ProductModel product, ProductAdvisement advisement) {
+        ProductAccessibilityModel accessibility = new ProductAccessibilityModel();
+        // TODO: choose the correct Media Type according the situation
+        accessibility.setDescription(advisement.getAdvisementMedia().getMediaItem().get(0).getMediaRefLink());
+        accessibility.setSubtitle(advisement.getAdvisementTitle());
+        accessibility.setDescription(advisement.getAdvisementDescription());
+        product.getAccessibilities().add(accessibility);
     }
 
     private void setRestrictions(ProductModel product, List<ProductRestriction> restrictions) {

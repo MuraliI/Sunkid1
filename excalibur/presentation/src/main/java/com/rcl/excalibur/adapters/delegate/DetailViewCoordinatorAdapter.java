@@ -13,7 +13,7 @@ import io.reactivex.Observer;
 
 public class DetailViewCoordinatorAdapter extends BaseCoordinatorAdapter {
 
-    private static final int VIEW_TYPE_COUNT = 1;
+    private static final int VIEW_TYPE_COUNT = 3;
 
     public DetailViewCoordinatorAdapter(Observer observer,
                                         List<RecyclerViewType> recyclerViewTypes) {
@@ -22,6 +22,7 @@ public class DetailViewCoordinatorAdapter extends BaseCoordinatorAdapter {
         delegateAdapters = new SparseArrayCompat<>(VIEW_TYPE_COUNT);
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ACCESSIBILITY_VIEW, new ExpandableAccessibilityDelegateAdapter());
         addAll(recyclerViewTypes);
     }
 }
