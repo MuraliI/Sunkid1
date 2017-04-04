@@ -92,6 +92,6 @@
     <dimen name="product_detail_font_size_description">18sp</dimen>
     <dimen name="product_detail_font_size_subdescription">14sp</dimen>
     <dimen name="product_detail_accessibililty_image_size">20dp</dimen>
-    <dimen name="product_detail_accessibililty_padding">20dp</dimen>
+    <dimen name="product_detail_accessibililty_padding">10dp</dimen>
 
 </resources>

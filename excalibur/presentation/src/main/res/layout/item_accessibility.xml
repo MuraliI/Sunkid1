@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image_accessibility"
-        android:paddingLeft="@dimen/product_detail_accessibililty_image_size" />
+        android:paddingLeft="@dimen/product_detail_accessibililty_padding" />
 
     <TextView
         android:id="@+id/text_description"
@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text_subtitle"
         android:layout_toRightOf="@id/image_accessibility"
-        android:paddingLeft="@dimen/product_detail_accessibililty_padding" />
+        android:paddingLeft="@dimen/product_detail_accessibililty_padding"
+        android:paddingTop="@dimen/product_detail_accessibililty_padding" />
 
 </RelativeLayout>

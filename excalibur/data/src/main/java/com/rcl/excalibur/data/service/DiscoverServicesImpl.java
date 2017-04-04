@@ -311,9 +311,9 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
         ProductAdvisementResponse advisementAccessibility = new ProductAdvisementResponse();
         advisementAccessibility.setAdvisementId(3L);
-        advisementAccessibility.setAdvisementDescription("Wheelchair accessible, Closed captions");
-        advisementAccessibility.setAdvisementTitle("Accessibility & Other Info");
-        advisementAccessibility.setAdvisementName("Accessibility & Other Info");
+        advisementAccessibility.setAdvisementDescription("");
+        advisementAccessibility.setAdvisementTitle("Wheelchair Accessible");
+        advisementAccessibility.setAdvisementName("Wheelchair Accessible");
         advisementAccessibility.setAdvisementType("ACCESSIBILITY");
         advisementAccessibility.setAdvisementMedia(mediaResponse);
 
@@ -321,9 +321,9 @@ public class DiscoverServicesImpl implements DiscoverServices {
         //Test Gerardo
         ProductAdvisementResponse advisementAccessibility2 = new ProductAdvisementResponse();
         advisementAccessibility2.setAdvisementId(3L);
-        advisementAccessibility2.setAdvisementDescription("TEST");
-        advisementAccessibility2.setAdvisementTitle("TEST");
-        advisementAccessibility2.setAdvisementName("TEST");
+        advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite but long enough to be meaningful.");
+        advisementAccessibility2.setAdvisementTitle("Closed Caption");
+        advisementAccessibility2.setAdvisementName("Closed Caption");
         advisementAccessibility2.setAdvisementType("ACCESSIBILITY");
         advisementAccessibility2.setAdvisementMedia(mediaResponse);
 
