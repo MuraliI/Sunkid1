@@ -38,8 +38,8 @@ public final class DetailViewTypeFactory {
     public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(ProductModel product, Resources resources) {
         //TODO create all the list of view types depending on the product model fields
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
+        addMakeReservation(viewTypes, resources, product);
         addAdvisements(viewTypes, resources, product);
-
         if (product.getDuration() > NO_DURATION) {
             addProductDurationTypes(viewTypes, resources, product);
         }
@@ -125,6 +125,14 @@ public final class DetailViewTypeFactory {
             String advisementDescription = entry.getValue();
             addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
                     advisementDescription);
+        }
+    }
+
+    private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
+        // FIXME: Obtain products from database
+        if (!TextUtils.isEmpty(product.getReservationInformation())) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
+                    product.getReservationInformation());
         }
     }
 
