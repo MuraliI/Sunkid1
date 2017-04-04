@@ -24,6 +24,7 @@
     <color name="detail_item_link">#286CF5</color>
     <color name="detail_item_description">#3A4053</color>
     <color name="detail_description_transparent_white">#9FFF</color>
+    <color name="product_detail_reservation_background">#FFF0EC</color>
     
     <!-- Itinerary -->
     <color name="itinerary_product_card_background">#F5F5F5</color>
@@ -33,5 +34,9 @@
     <!-- Font colors -->
     <color name="font_detail_title_gray">#7C7E8D</color>
     <color name="font_detail_description_dark_blue">#252B40</color>
+    <color name="font_color_blue">#1CA8F3</color>
+    <color name="font_detail_reservation">#F34B1C</color>
+    <color name="font_color_body">#6A7582</color>
+    <color name="font_color_dark_grey">#363740</color>
 
 </resources>

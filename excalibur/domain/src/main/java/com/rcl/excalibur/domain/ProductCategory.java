@@ -4,6 +4,9 @@ import java.util.List;
 
 
 public class ProductCategory {
+
+    public static final String SHOREX = "Shorex";
+
     private long categoryId;
     private String categoryDescription;
     private List<ProductTags> productTags;

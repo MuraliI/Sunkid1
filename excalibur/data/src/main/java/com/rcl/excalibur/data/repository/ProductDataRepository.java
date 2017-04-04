@@ -77,6 +77,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         entity.setRank(product.getProductRank());
         entity.setSchedulable(product.isScheduable());
         entity.setReservationRequired(product.isReservationRequired());
+        entity.setUpcharge(product.getProductUpcharge());
+        entity.setExperience(product.getExperience());
         entity.setProductReservationInformation(product.getProductReservationInformation());
 
         //ProductType
@@ -312,6 +314,10 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         locationEntity.setCode(productLocation.getLocationCode());
         locationEntity.setHoursStart(productLocation.getOperatingHoursStart());
         locationEntity.setHoursEnd(productLocation.getOperatingHoursEnd());
+        locationEntity.setPort(productLocation.getLocationPort());
+        locationEntity.setDeckNumber(productLocation.getLocationDeckNumber());
+        locationEntity.setDirection(productLocation.getLocationDirection());
+        locationEntity.setVenue(productLocation.getLocationVenue());
         locationEntity.save();
         entity.setLocation(locationEntity);
 
