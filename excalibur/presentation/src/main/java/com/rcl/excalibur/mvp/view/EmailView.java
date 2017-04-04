@@ -2,6 +2,8 @@ package com.rcl.excalibur.mvp.view;
 
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -44,6 +46,20 @@ public class EmailView extends ActivityView<EmailActivity> {
                 verifyEmail();
             }
             return false;
+        });
+
+        editTextEmail.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus)
+                editTextEmail.setHint("");
+            else {
+                editTextEmail.setHint(getActivity().getString(R.string.title_hint_email_address));
+
+                if (!editTextEmail.getText().toString().isEmpty()) {
+                    int color = ContextCompat.getColor(getActivity(), R.color.white);
+                    editTextEmail.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                }
+            }
+
         });
     }
 

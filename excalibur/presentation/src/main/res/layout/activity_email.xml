@@ -6,7 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.rcl.excalibur.activity.EmailActivity"
     android:background="@drawable/bg_account_email"
-    android:id="@+id/email_layout">
+    android:id="@+id/email_layout"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
 
 
