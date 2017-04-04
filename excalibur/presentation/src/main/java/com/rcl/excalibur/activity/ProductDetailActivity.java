@@ -59,11 +59,6 @@ public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> 
         presenter.onBackClicked();
     }
 
-//    @OnClick(R.id.btn_deck_map)
-//    void onDeckMapClicked() {
-//        presenter.onDeckMapClicked(productId);
-//    }
-
     @Override
     protected void injectActivity(ActivityComponent activityComponent) {
         component.inject(this);
