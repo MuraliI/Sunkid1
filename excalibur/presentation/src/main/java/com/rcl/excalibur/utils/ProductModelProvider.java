@@ -12,7 +12,7 @@ public final class ProductModelProvider {
         productModelMap = new HashMap<>();
         ProductModel productModel = new ProductModel();
         productModel.setProductId("1");
-        productModel.getAdvisementsAndReestrictions().put("Cuisine", "Colombian");
+        productModel.getAdvisements().put("Cuisine", "Colombian");
         productModelMap.put("1", productModel);
     }
 
