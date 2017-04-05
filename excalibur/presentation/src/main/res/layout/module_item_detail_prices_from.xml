@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/prices_from_module_title"
-        android:layout_marginRight="@dimen/prices_from_margin"
+        android:layout_marginEnd="@dimen/prices_from_margin"
         android:orientation="horizontal">
 
         <ImageView
@@ -29,9 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/price_range_dolar_margin_end"
-            android:layout_marginTop="@dimen/detail_discover_item_description_margin_top"
-            android:src="@drawable/icon_dolar" />
+            android:layout_marginEnd="@dimen/price_range_dolar_margin_end"
+            android:src="@drawable/ic_dolar" />
 
         <TextView
             android:id="@+id/prices_from_adult_text"
@@ -62,9 +61,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/price_range_dolar_margin_end"
-            android:layout_marginTop="@dimen/detail_discover_item_description_margin_top"
-            android:src="@drawable/icon_dolar" />
+            android:layout_marginEnd="@dimen/price_range_dolar_margin_end"
+            android:src="@drawable/ic_dolar" />
 
         <TextView
             android:id="@+id/prices_from_children_text"
@@ -80,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/prices_from_adult_content"
-        android:layout_toRightOf="@+id/prices_from_adult_content"
+        android:layout_toEndOf="@+id/prices_from_adult_content"
         android:text="@string/children" />
 
 </RelativeLayout>

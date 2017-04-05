@@ -13,9 +13,9 @@ import java.lang.ref.WeakReference;
 
 import io.reactivex.Observer;
 
-public class ActivityView<T extends BaseActivity> {
+public class ActivityView<T extends BaseActivity, H> {
     protected Observer viewObserver;
-    protected Observer adapterObserver;
+    protected Observer<H> adapterObserver;
     private WeakReference<T> activityRef;
 
     public ActivityView(T activity) {
@@ -58,7 +58,7 @@ public class ActivityView<T extends BaseActivity> {
         this.viewObserver = observer;
     }
 
-    public void setAdapterObserver(Observer observer) {
+    public void setAdapterObserver(Observer<H> observer) {
         this.adapterObserver = observer;
     }
 
