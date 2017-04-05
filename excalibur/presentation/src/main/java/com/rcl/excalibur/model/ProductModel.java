@@ -6,26 +6,29 @@ import android.content.res.Resources;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import static com.rcl.excalibur.utils.DateUtils.MINUTES_IN_HOUR;
 
 public class ProductModel extends ProductInformationViewType {
     //TODO Add all your attributes here
 
-    private LinkedHashMap<String, String> advisements = new LinkedHashMap<>();
+    private HashMap<String, String> advisementsAndReestrictions = new LinkedHashMap<>();
+    private List<ProductAccessibilityModel> accessibilities = new ArrayList<ProductAccessibilityModel>();
     private String description;
     private int duration;
     private String reservationInformation;
     private String experience;
 
-
-    public LinkedHashMap<String, String> getAdvisements() {
-        return advisements;
+    public List<ProductAccessibilityModel> getAccessibilities() {
+        return accessibilities;
     }
 
-    public void setAdvisements(LinkedHashMap<String, String> advisements) {
-        this.advisements = advisements;
+    public HashMap<String, String> getAdvisementsAndReestrictions() {
+        return advisementsAndReestrictions;
     }
 
     public int getDuration() {
