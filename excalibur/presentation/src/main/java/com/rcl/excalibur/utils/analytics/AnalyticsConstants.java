@@ -22,6 +22,11 @@ public final class AnalyticsConstants {
     public static final String KEY_DISCOVER_ITEM_DETAILS_EXPAND_LEGAL = "detailViewExpandLegal";
     public static final String KEY_DISCOVER_ITEM_DETAILS_ACTIVITY_TYPE = "activityType";
 
+
+    //Email activity
+    public static final String KEY_EMAIL_SCREEN = "emailScreen";
+    public static final String KEY_PASSWORD_SCREEN = "passwordScreen";
+
     private AnalyticsConstants() {
 
     }

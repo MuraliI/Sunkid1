@@ -13,7 +13,7 @@ import com.fernandocejas.arrow.strings.Strings;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
-import com.rcl.excalibur.domain.ProductCategory;
+import com.rcl.excalibur.domain.ProductType;
 
 import java.lang.ref.WeakReference;
 
@@ -32,9 +32,9 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
     private static final int THREE = 3;
     private static final int FOUR = 4;
 
-    private WeakReference<Observer<String>> findOnDeckObserver;
+    private WeakReference<Observer<Long>> findOnDeckObserver;
 
-    public ProductInformationDelegateAdapter(final Observer<String> findOnDeckObserver) {
+    public ProductInformationDelegateAdapter(final Observer<Long> findOnDeckObserver) {
         this.findOnDeckObserver = new WeakReference<>(findOnDeckObserver);
     }
 
@@ -48,7 +48,8 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         holder.name.setText(item.getProductName());
         holder.venue.setText(item.getVenue());
 
-        holder.deckAndDirection.setVisibility(Strings.isNullOrEmpty(item.getLocation()) || hasCategoryShorex(item)
+        holder.deckAndDirection.setVisibility(Strings.isNullOrEmpty(item.getLocation())
+                || ProductType.SHOREX_TYPE.equals(item.getProductType())
                 ? View.GONE
                 : View.VISIBLE);
         holder.deckAndDirection.setText(item.getLocation());
@@ -62,15 +63,6 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         if (hasObserver()) {
             holder.findOnDeckObserver = new WeakReference<>(findOnDeckObserver.get());
         }
-    }
-
-    private boolean hasCategoryShorex(ProductInformationViewType item) {
-        for (String category : item.getProductCategories()) {
-            if (ProductCategory.SHOREX.equals(category)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private boolean hasObserver() {
@@ -102,8 +94,8 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         @Bind(R.id.price_range_module_dollar_4) ImageView imageDollar4;
         @Bind(R.id.layout_reservation) View reservationLayout;
 
-        private String productId;
-        private WeakReference<Observer<String>> findOnDeckObserver;
+        private Long productId;
+        private WeakReference<Observer<Long>> findOnDeckObserver;
 
         ProductInformationViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_product_detail_information, parent, false));

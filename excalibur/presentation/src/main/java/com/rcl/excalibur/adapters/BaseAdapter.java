@@ -17,11 +17,11 @@ import io.reactivex.Observer;
 import static com.rcl.excalibur.data.utils.CollectionUtils.isEmpty;
 
 
-abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
     private WeakReference<Observer<T>> observerRef;
-    List<T> items;
+    protected List<T> items;
 
-    BaseAdapter(final Observer<T> observer) {
+    public BaseAdapter(final Observer<T> observer) {
         this.observerRef = new WeakReference<>(observer);
         this.items = new ArrayList<>();
     }
@@ -65,8 +65,8 @@ abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends Recycl
     }
 
     @LayoutRes
-    abstract int getLayout();
+    protected abstract int getLayout();
 
     @NonNull
-    abstract VH getViewHolder(View view);
+    protected abstract VH getViewHolder(View view);
 }

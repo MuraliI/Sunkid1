@@ -55,7 +55,8 @@
             android:layout_gravity="right"
             android:layout_margin="@dimen/plan_list_margin_fab"
             android:tint="@color/white"
-            app:srcCompat="@drawable/selector_image_next" />
+            android:src="@drawable/next_active"
+            android:alpha="@dimen/alpha"/>
 
     </LinearLayout>
 
