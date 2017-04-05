@@ -27,8 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_arrow_drop_down"
-            android:tint="@color/font_product_detail_title_gray"/>
+            android:src="@drawable/ic_chevron_down"/>
 
     </RelativeLayout>
 

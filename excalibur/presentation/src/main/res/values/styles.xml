@@ -257,7 +257,7 @@
     </style>
 
     <style name="AppTheme.ProductDetailTitleModuleTextView" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/proxima_nova_regular</item>
+        <item name="fontPath">@string/proxima_nova_bold</item>
         <item name="android:textSize">@dimen/product_detail_font_size_title</item>
         <item name="android:textColor">@color/font_product_detail_title_gray</item>
     </style>

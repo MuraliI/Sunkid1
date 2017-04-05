@@ -101,7 +101,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         private void change() {
             final boolean isGone = View.GONE == textContent.getVisibility();
             textContent.setVisibility(isGone ? View.VISIBLE : View.GONE);
-            imageArrow.setImageResource(isGone ? R.drawable.ic_arrow_drop_up : R.drawable.ic_arrow_drop_down);
+            imageArrow.setImageResource(isGone ? R.drawable.ic_chevron_up : R.drawable.ic_chevron_down);
         }
     }
 }
