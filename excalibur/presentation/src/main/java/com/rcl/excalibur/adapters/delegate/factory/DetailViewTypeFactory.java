@@ -8,9 +8,10 @@ import android.text.TextUtils;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
-import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
 import com.rcl.excalibur.adapters.viewtype.DescriptionViewType;
+import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
+import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
@@ -25,12 +26,9 @@ import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.mapper.ProductModelDataMapper;
 import com.rcl.excalibur.model.ProductAccessibilityModel;
 import com.rcl.excalibur.model.ProductModel;
-import com.rcl.excalibur.mapper.ProductInformationMapper;
-import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,7 +52,6 @@ public final class DetailViewTypeFactory {
         addMakeReservation(viewTypes, resources, model);
         addExperience(viewTypes, resources, model);
         addDescriptionTypes(viewTypes, model.getDescription());
-        addAdvisements(viewTypes, resources, model);
         addCuisineModule(viewTypes, resources, model);
         addDurationModule(viewTypes, resources, model);
         addAttireModule(viewTypes, resources, model);

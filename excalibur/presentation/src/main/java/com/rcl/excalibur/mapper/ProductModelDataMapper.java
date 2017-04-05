@@ -10,6 +10,8 @@ import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.model.ProductAccessibilityModel;
 import com.rcl.excalibur.model.ProductModel;
 
+import java.util.List;
+
 public class ProductModelDataMapper extends BaseModelDataMapper<Product, ProductModel> {
 
     @NonNull

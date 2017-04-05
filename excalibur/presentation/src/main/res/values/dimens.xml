@@ -82,7 +82,6 @@
     <dimen name="font_size_headline7">14sp</dimen>
     <dimen name="body_detail_font_size_description">16sp</dimen>
 
-
     <!--Itinerary -->
     <dimen name="itinerary_background_corner_radius">10dp</dimen>
     <dimen name="item_product_image_height">120dp</dimen>
@@ -98,7 +97,6 @@
 
     <!-- Deck Map -->
     <dimen name="item_deck_height">110dp</dimen>
-    >
 
     <!-- Login Flow -->
     <dimen name="size_text_big">25sp</dimen>
@@ -106,7 +104,6 @@
     <dimen name="margin_text">7dp</dimen>
     <dimen name="margin_edit_text">14dp</dimen>
     <dimen name="margin_general">16dp</dimen>
-
 
     <!-- Product Detail -->
     <dimen name="product_detail_font_size_title">16sp</dimen>
