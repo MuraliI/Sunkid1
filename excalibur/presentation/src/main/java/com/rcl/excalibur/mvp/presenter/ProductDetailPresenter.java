@@ -23,10 +23,9 @@ public class ProductDetailPresenter implements ActivityPresenter {
     private Product product;
     private List<RecyclerViewType> viewTypes;
 
-    private boolean isToolbarCollapsed = false;
+    protected boolean isToolbarCollapsed = false;
     private boolean isTitleVisible = false;
     private long productId;
-    private int scrollRange = -1;
 
     public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -75,13 +74,9 @@ public class ProductDetailPresenter implements ActivityPresenter {
     }
 
     public void onOffsetChanged(int verticalOffset, int totalScrollRange) {
-        view.setBlurRadiusOnImage((Math.abs(verticalOffset) * MAX_BLUR_VALUE) / totalScrollRange);
+        view.setBlurRadiusOnImage(getBlurRadius(verticalOffset, totalScrollRange));
 
-        if (scrollRange == -1) {
-            scrollRange = totalScrollRange;
-        }
-
-        if (scrollRange + verticalOffset == 0) {
+        if (totalScrollRange + verticalOffset == 0) {
             view.setContentScrimResource(R.color.colorPrimary);
             isToolbarCollapsed = true;
         } else if (isToolbarCollapsed) {
@@ -90,17 +85,21 @@ public class ProductDetailPresenter implements ActivityPresenter {
         }
     }
 
-    private class FindOnDeckClickObserver extends DefaultPresentObserver<String, ProductDetailPresenter> {
+    protected float getBlurRadius(int verticalOffset, int totalScrollRange) {
+        return (Math.abs(verticalOffset) * MAX_BLUR_VALUE) / totalScrollRange;
+    }
+
+    private class FindOnDeckClickObserver extends DefaultPresentObserver<Long, ProductDetailPresenter> {
 
         FindOnDeckClickObserver(ProductDetailPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(Long value) {
+        public void onNext(Long productId) {
             final BaseActivity activity = view.getActivity();
             if (activity != null) {
-                activity.startActivity(ProductDeckMapActivity.getIntent(activity, value));
+                activity.startActivity(ProductDeckMapActivity.getIntent(activity, productId));
             }
         }
     }
