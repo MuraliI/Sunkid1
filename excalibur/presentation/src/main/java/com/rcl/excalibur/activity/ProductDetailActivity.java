@@ -43,7 +43,7 @@ public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discover_item_detail);
+        setContentView(R.layout.activity_product_detail);
         ButterKnife.bind(this);
         presenter.init();
     }
@@ -57,10 +57,6 @@ public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> 
     @OnClick(R.id.back_arrow)
     void onBackClicked() {
         presenter.onBackClicked();
-    }
-
-    void onDeckMapClicked() { // TODO: Call this method whatever the deck map icon/item is
-        presenter.onDeckMapClicked(productId);
     }
 
     @Override
