@@ -18,7 +18,6 @@ public class ProductModel extends ProductInformationViewType {
 
     private HashMap<String, String> advisementsAndReestrictions = new LinkedHashMap<>();
     private List<ProductAccessibilityModel> accessibilities = new ArrayList<ProductAccessibilityModel>();
-    private String productId;
     private String description;
     private int duration;
     private String reservationInformation;
@@ -30,14 +29,6 @@ public class ProductModel extends ProductInformationViewType {
 
     public HashMap<String, String> getAdvisementsAndReestrictions() {
         return advisementsAndReestrictions;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
     }
 
     public int getDuration() {
