@@ -31,7 +31,7 @@
 
     <style name="AppTheme.Body" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/proxima_nova_regular</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/body_detail_font_size_description</item>
         <item name="android:textColor">@color/font_color_body</item>
     </style>
 
@@ -50,8 +50,8 @@
     
     <style name="AppTheme.Headline7">
         <item name="fontPath">@string/proxima_nova_semi_bold</item>
-        <item name="android:color">@color/font_color_dark_grey</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/font_color_dark_grey</item>
+        <item name="android:textSize">@dimen/font_size_headline7</item>
     </style>
 
     <style name="AppTheme.PlanTitleText" parent="@android:style/Widget.TextView">
@@ -255,7 +255,6 @@
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
-
 
     <style name="AppTheme.LoginFlowEditText" parent="@android:style/Widget.EditText">
         <item name="colorControlNormal">@color/opacity_white_24</item>
