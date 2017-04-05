@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 
 
-public class ProductDetailView extends ActivityView<ProductDetailActivity, String> {
+public class ProductDetailView extends ActivityView<ProductDetailActivity, Long> {
 
     @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
     @Bind(R.id.app_bar_layout_detail) AppBarLayout appBarLayout;

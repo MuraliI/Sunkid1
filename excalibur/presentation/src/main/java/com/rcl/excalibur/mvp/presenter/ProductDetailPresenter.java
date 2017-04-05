@@ -97,10 +97,10 @@ public class ProductDetailPresenter implements ActivityPresenter {
         }
 
         @Override
-        public void onNext(String value) {
+        public void onNext(Long value) {
             final BaseActivity activity = view.getActivity();
             if (activity != null) {
-                activity.startActivity(ProductDeckMapActivity.getIntent(activity, productId));
+                activity.startActivity(ProductDeckMapActivity.getIntent(activity, value));
             }
         }
     }

@@ -51,7 +51,7 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
 
         Picasso.with(context)
                 .load(BuildConfig.PREFIX_IMAGE + holder.product.getHeroImageRefLink())
-                .placeholder(R.drawable.thumb)
+                .placeholder(R.drawable.placeholder_list_item)
                 .into(holder.imageView);
 
         if (hasObserver()) {

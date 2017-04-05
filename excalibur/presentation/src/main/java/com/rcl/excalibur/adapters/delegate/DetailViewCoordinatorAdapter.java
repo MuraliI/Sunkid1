@@ -14,12 +14,12 @@ import java.util.List;
 import io.reactivex.Observer;
 
 public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT extends RecyclerViewType>
-        extends BaseCoordinatorAdapter<VH, VT, String> {
+        extends BaseCoordinatorAdapter<VH, VT, Long> {
 
     private static final int VIEW_TYPE_COUNT = 2;
 
     @SuppressWarnings("unchecked")
-    public DetailViewCoordinatorAdapter(Observer<String> observer, List<VT> recyclerViewTypes) {
+    public DetailViewCoordinatorAdapter(Observer<Long> observer, List<VT> recyclerViewTypes) {
         super(observer);
         //TODO each one will be in charge of adding its own module to the list of modules.
         delegateAdapters = new SparseArrayCompat<>(VIEW_TYPE_COUNT);
