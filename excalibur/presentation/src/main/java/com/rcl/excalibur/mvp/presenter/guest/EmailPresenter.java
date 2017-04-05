@@ -10,8 +10,7 @@ import com.rcl.excalibur.utils.StringUtils;
 
 public class EmailPresenter implements ActivityPresenter {
     private EmailView view;
-    public static final float ACTIVE = 1f;
-    public static final float INACTIVE = 0.24f;
+
 
     public EmailPresenter(EmailView view) {
         this.view = view;
@@ -38,7 +37,7 @@ public class EmailPresenter implements ActivityPresenter {
 
         if (email.isEmpty()) {
             view.cleanTextViewError();
-            view.manageNavigation(false, INACTIVE);
+            view.manageNavigation(false, EmailView.INACTIVE);
         } else if (!StringUtils.isValidEmail(email)) {
             view.setLabelError(activity.getString(R.string.incorrect_email_format));
         } else {
@@ -53,7 +52,7 @@ public class EmailPresenter implements ActivityPresenter {
 
 
     private void validateEmailExist(String email) {
-        view.manageNavigation(true, ACTIVE);
+        view.manageNavigation(true, EmailView.ACTIVE);
         view.cleanTextViewError();
         //TODO consume web service to verify if email already exist
     }

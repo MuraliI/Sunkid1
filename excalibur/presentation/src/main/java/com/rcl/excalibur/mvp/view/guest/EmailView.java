@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.guest.EmailActivity;
-import com.rcl.excalibur.mvp.presenter.guest.EmailPresenter;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import butterknife.Bind;
@@ -24,6 +23,8 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
     @Bind(R.id.image_next_screen) ImageView imageViewNext;
     @Bind(R.id.image_back_screen) ImageView imageViewBack;
     private boolean isPossibleNavigate;
+    public static final float ACTIVE = 1f;
+    public static final float INACTIVE = 0.24f;
 
 
     public EmailView(EmailActivity activity) {
@@ -64,7 +65,7 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
 
     public void setLabelError(String errorText) {
         textViewEmailAddressError.setText(errorText);
-        manageNavigation(false, EmailPresenter.INACTIVE);
+        manageNavigation(false, INACTIVE);
     }
 
     public void setHint(String hint) {
