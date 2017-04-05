@@ -49,9 +49,9 @@
     </style>
     
     <style name="AppTheme.Headline7">
-        <item name="fontPath">@string/proxima_nova_regular</item>
+        <item name="fontPath">@string/proxima_nova_semi_bold</item>
         <item name="android:textColor">@color/font_color_dark_grey</item>
-        <item name="android:textSize">@dimen/product_detail_font_size_title</item>
+        <item name="android:textSize">@dimen/font_size_headline7</item>
     </style>
 
     <style name="AppTheme.PlanTitleText" parent="@android:style/Widget.TextView">

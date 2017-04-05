@@ -79,6 +79,8 @@
     <dimen name="hero_image_information_margin_top">-2dp</dimen>
     <dimen name="hero_image_information_corner_radious">5dp</dimen>
     <dimen name="find_on_deck_drawable_padding">5dp</dimen>
+    <dimen name="font_size_headline7">14sp</dimen>
+    <dimen name="body_detail_font_size_description">16sp</dimen>
 
 
     <!--Itinerary -->
@@ -97,9 +99,7 @@
     <!-- Deck Map -->
     <dimen name="item_deck_height">110dp</dimen>
 
-    <!-- Product Detail -->
-    <dimen name="product_detail_font_size_title">14sp</dimen>
-    <dimen name="body_detail_font_size_description">16sp</dimen>
+    >
 
     <!-- Login Flow -->
     <dimen name="size_text_big">25sp</dimen>
