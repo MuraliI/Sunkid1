@@ -27,10 +27,12 @@ android {
         release {
             buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.4.8:10100/v1/"'
             buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
+            buildConfigField "String", "GUEST_API_URL", '"http://10.16.6.134:8090/v1/guestAccounts/"'
         }
         debug {
             buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.4.8:10100/v1/"'
             buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
+            buildConfigField "String", "GUEST_API_URL", '"http://10.16.6.134:8090/v1/guestAccounts/"'
         }
     }
     compileOptions {

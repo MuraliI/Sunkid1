@@ -6,11 +6,14 @@ import com.activeandroid.ActiveAndroid;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.rcl.excalibur.internal.di.component.AppComponent;
 import com.rcl.excalibur.internal.di.component.DaggerAppComponent;
+import com.rcl.excalibur.internal.di.component.guest.GuestComponent;
 import com.rcl.excalibur.internal.di.component.itinerary.ItineraryComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductDetailComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsListComponent;
 import com.rcl.excalibur.internal.di.module.AppModule;
+import com.rcl.excalibur.internal.di.module.guest.GuestModule;
+import com.rcl.excalibur.internal.di.module.guest.GuestServicesModule;
 import com.rcl.excalibur.internal.di.module.itinerary.ItineraryModule;
 import com.rcl.excalibur.internal.di.module.itinerary.ItineraryServicesModule;
 import com.rcl.excalibur.internal.di.module.products.ProductDetailModule;
@@ -28,6 +31,7 @@ public class RCLApp extends Application {
     private ItineraryComponent itineraryComponent;
     private ProductsListComponent productsListComponent;
     private ProductDetailComponent productDetailComponent;
+    private GuestComponent guestComponent;
 
     @Override
     public void onCreate() {
@@ -117,4 +121,15 @@ public class RCLApp extends Application {
         productDetailComponent = null;
     }
 
+    public void createGuestComponent() {
+        guestComponent = appComponent.plus(new GuestServicesModule(), new GuestModule());
+    }
+
+    public GuestComponent getGuestComponent() {
+        return guestComponent;
+    }
+
+    public void destroyGuestComponent() {
+        guestComponent = null;
+    }
 }

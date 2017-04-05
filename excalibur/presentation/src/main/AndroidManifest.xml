@@ -64,10 +64,14 @@
 
         <activity
             android:name=".activity.guest.EmailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.guest.PasswordActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.guest.SecurityQuestionsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
