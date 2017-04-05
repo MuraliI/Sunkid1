@@ -12,7 +12,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,6 +116,7 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity> {
                     TextView textView = (TextView) view.findViewById(R.id.text_module_title);
                     if (scrolledAmount >= view.getPaddingTop() + (textView.getHeight() / 2)) {
                         collapsingToolbar.setTitle(textView.getText().toString());
+                        upAnimationTitle();
                     } else {
                         collapsingToolbar.setTitle(ConstantsUtil.EMPTY);
                     }
