@@ -45,7 +45,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/product_detail_toolbar_size"
                 android:theme="@style/AppTheme"
-                android:title="@string/hardcoded_activity_title"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|snap">
 
@@ -56,6 +55,14 @@
                     android:background="@color/transparent"
                     android:contentDescription="@string/accessibility_back_btn_content_description"
                     android:src="@drawable/ic_white_arrow_back"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_toolbar_title"
+                    android:textColor="@color/white"
+                    style="@android:style/TextAppearance.Material.Widget.ActionBar.Title"
+                    app:title="@string/hardcoded_activity_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

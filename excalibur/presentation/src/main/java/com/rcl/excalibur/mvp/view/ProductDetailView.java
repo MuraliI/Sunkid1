@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +19,6 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DetailViewCoordinatorAdapter;
-import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.squareup.picasso.Picasso;
 
@@ -36,7 +37,10 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
     @Bind(R.id.realtime_blur_view) RealtimeBlurView realtimeBlurView;
     @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
     @Bind(R.id.image_hero) ImageView heroImage;
+    @Bind(R.id.tv_detail_toolbar_title) TextView titleToolbarTextView;
 
+    private Animation upAnimation;
+    private Animation downAnimation;
     private View detailInfoView;
     private View detailInfoContainer;
     private TextView productDetailName;
@@ -47,6 +51,11 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
     public ProductDetailView(ProductDetailActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
+    }
+
+    public void initAnimation() {
+        upAnimation = AnimationUtils.loadAnimation(activity, R.anim.toolbar_title_up);
+        downAnimation = AnimationUtils.loadAnimation(activity, R.anim.toolbar_title_down);
     }
 
     public void setupToolbar() {
@@ -67,6 +76,16 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
                 .load(url)
                 .placeholder(R.drawable.placeholder_hero_image)
                 .into(heroImage);
+    }
+
+    private void upAnimationTitle() {
+        upAnimation.reset();
+        titleToolbarTextView.startAnimation(upAnimation);
+    }
+
+    private void downAnimationTitle() {
+        downAnimation.reset();
+        titleToolbarTextView.startAnimation(downAnimation);
     }
 
     @SuppressWarnings("unchecked")
@@ -140,11 +159,12 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
     }
 
     public void showCollapsingToolbarTitle() {
-        collapsingToolbar.setTitle(productTitle);
+        titleToolbarTextView.setText(productTitle);
+        upAnimationTitle();
     }
 
     public void hideCollapsingToolbarTitle() {
-        collapsingToolbar.setTitle(ConstantsUtil.EMPTY);
+        downAnimationTitle();
     }
 
     public void setContentScrimResource(@ColorRes int scrimRes) {
