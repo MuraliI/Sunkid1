@@ -63,17 +63,17 @@ public class ProductDetailPresenter implements ActivityPresenter {
         return view;
     }
 
-    private class FindOnDeckClickObserver extends DefaultPresentObserver<String, ProductDetailPresenter> {
+    private class FindOnDeckClickObserver extends DefaultPresentObserver<Long, ProductDetailPresenter> {
 
         FindOnDeckClickObserver(ProductDetailPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(String value) {
+        public void onNext(Long value) {
             final BaseActivity activity = view.getActivity();
             if (activity != null) {
-                activity.startActivity(ProductDeckMapActivity.getIntent(activity, productId));
+                activity.startActivity(ProductDeckMapActivity.getIntent(activity, value));
             }
         }
     }
