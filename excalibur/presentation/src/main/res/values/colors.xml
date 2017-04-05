@@ -46,8 +46,4 @@
     <!-- Email Activity -->
     <color name="email_editText_inactive">#40ffffff</color>
 
-    <!-- Product Detail-->
-    <color name="font_product_detail_title_gray">#363740</color>
-    <color name="font_product_detail_description_gray">#6A7582</color>
-
 </resources>
