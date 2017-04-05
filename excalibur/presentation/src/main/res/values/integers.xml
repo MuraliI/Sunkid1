@@ -17,5 +17,5 @@
     <integer name="detail_product_name_max_lines">4</integer>
     <integer name="max_length_password">15</integer>
     <integer name="max_length_email">100</integer>
-    <integer name="detail_toolbar_title_animation_time">300</integer>
+    <integer name="detail_toolbar_title_animation_time">200</integer>
 </resources>
