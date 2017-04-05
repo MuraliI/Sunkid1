@@ -3,7 +3,6 @@ package com.rcl.excalibur.mvp.view.guest;
 
 import android.text.SpannableStringBuilder;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,9 +16,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class PasswordView extends ActivityView<PasswordActivity> {
-    @Bind(R.id.editTextPassword) EditText editTextPassword;
-    @Bind(R.id.textViewError) TextView textViewError;
-    @Bind(R.id.imageViewNext) ImageView imageViewNext;
+    @Bind(R.id.edit_create_password) EditText editTextPassword;
+    @Bind(R.id.text_show_error) TextView textViewError;
+    @Bind(R.id.image_next_screen) ImageView imageViewNext;
 
     public PasswordView(PasswordActivity activity) {
         super(activity);
@@ -34,8 +33,7 @@ public class PasswordView extends ActivityView<PasswordActivity> {
         textViewError.setText(error);
     }
 
-    public void setNextButton(int resource, boolean isEnable) {
-        imageViewNext.setImageResource(resource);
+    public void setNextButton(boolean isEnable) {
         imageViewNext.setEnabled(isEnable);
     }
 
@@ -51,8 +49,8 @@ public class PasswordView extends ActivityView<PasswordActivity> {
         editTextPassword.setTransformationMethod(new PasswordTransformationMethod());
     }
 
-    @OnClick(R.id.imageViewNext)
+    @OnClick(R.id.image_next_screen)
     public void onClickImageViewNext() {
-        Log.d("devTest", "validate password");
+        //TODO navigate to next Activity
     }
 }

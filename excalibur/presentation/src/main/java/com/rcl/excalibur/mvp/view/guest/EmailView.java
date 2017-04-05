@@ -2,7 +2,6 @@ package com.rcl.excalibur.mvp.view.guest;
 
 
 import android.content.Context;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,14 +15,13 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 
 public class EmailView extends ActivityView<EmailActivity> {
     @Bind(R.id.email_layout) RelativeLayout emailLayout;
-    @Bind(R.id.editTextEmail) EditText editTextEmail;
-    @Bind(R.id.textViewEmailAddressError) TextView textViewEmailAddressError;
-    @Bind(R.id.imageViewNext) ImageView imageViewNext;
-    @Bind(R.id.imageViewBack) ImageView imageViewBack;
+    @Bind(R.id.edit_email) EditText editTextEmail;
+    @Bind(R.id.text_show_error) TextView textViewEmailAddressError;
+    @Bind(R.id.image_next_screen) ImageView imageViewNext;
+    @Bind(R.id.image_back_screen) ImageView imageViewBack;
 
 
     public EmailView(EmailActivity activity) {
@@ -44,7 +42,7 @@ public class EmailView extends ActivityView<EmailActivity> {
         hideKeyboard();
     }
 
-    @OnClick(R.id.imageViewNext)
+    @OnClick(R.id.image_next_screen)
     public void onClickImageViewNext() {
         //TODO navigate to Password Activity
     }
@@ -52,12 +50,12 @@ public class EmailView extends ActivityView<EmailActivity> {
 
     public void manageNavigation(boolean status) {
         imageViewNext.setEnabled(status);
-        if (status) {
-            imageViewNext.setAlpha(1f);
+        if (status)
             cleanTextViewError();
-        } else {
-            imageViewNext.setAlpha(0.24f);
-        }
+    }
+
+    public String getEmail() {
+        return editTextEmail.getText().toString();
     }
 
     public void setLabelError(String errorText) {

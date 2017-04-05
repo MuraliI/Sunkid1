@@ -45,8 +45,7 @@ public class PasswordPresenter implements ActivityPresenter {
             return;
         }
         view.setError(isValidPassword(view.getPassword(), activity));
-        view.setNextButton(isValidateNext(view.getPassword()) ? R.drawable.next_active : R.drawable.next,
-                isValidateNext(view.getPassword()));
+        view.setNextButton(isValidateNext(view.getPassword()));
     }
 
     public void setVisibilityPassword(boolean isChecked) {

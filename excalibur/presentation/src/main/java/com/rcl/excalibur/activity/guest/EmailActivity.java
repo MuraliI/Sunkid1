@@ -2,9 +2,6 @@ package com.rcl.excalibur.activity.guest;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.EditText;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
@@ -13,24 +10,24 @@ import com.rcl.excalibur.mvp.presenter.guest.EmailPresenter;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import butterknife.OnFocusChange;
 
-public class EmailActivity extends BaseActivity<EmailPresenter> implements View.OnKeyListener {
+public class EmailActivity extends BaseActivity<EmailPresenter> {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email);
         ButterKnife.bind(this);
-        presenter.init();
     }
 
-    @OnClick(R.id.imageViewBack)
+    @OnClick(R.id.image_back_screen)
     public void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();
     }
 
-    @OnFocusChange(R.id.editTextEmail)
+    @OnFocusChange(R.id.edit_email)
     void onFocusChange(boolean hasFocus) {
         presenter.setFocus(hasFocus);
     }
@@ -44,12 +41,9 @@ public class EmailActivity extends BaseActivity<EmailPresenter> implements View.
         return new Intent(activity, EmailActivity.class);
     }
 
-
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (event.getKeyCode() == 66 && event.getAction() == KeyEvent.ACTION_UP) {
-            presenter.verifyEmail(((EditText) v).getText().toString().replaceAll("\n", ""));
-        }
-        return false;
+    @OnEditorAction(R.id.edit_email)
+    boolean onEditorAction() {
+        presenter.verifyEmail();
+        return true;
     }
 }

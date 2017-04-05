@@ -25,7 +25,7 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
     }
 
 
-    @OnClick(R.id.imageViewBack)
+    @OnClick(R.id.image_back_screen)
     void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();
     }
@@ -35,17 +35,17 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
         activityComponent.inject(this);
     }
 
-    @OnFocusChange(R.id.editTextPassword)
+    @OnFocusChange(R.id.edit_create_password)
     void onFocusChange(boolean hasFocus) {
         presenter.setFocus(hasFocus);
     }
 
-    @OnCheckedChanged(R.id.checkboxShowPassword)
+    @OnCheckedChanged(R.id.checkbox_show_password)
     void onCheckChange(boolean isChecked) {
         presenter.setVisibilityPassword(isChecked);
     }
 
-    @OnTextChanged(R.id.editTextPassword)
+    @OnTextChanged(R.id.edit_create_password)
     void onTextPasswordChange(Editable editable) {
         presenter.verifyPassword();
     }

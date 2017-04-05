@@ -9,7 +9,6 @@ import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.StringUtils;
 
 public class EmailPresenter implements ActivityPresenter {
-    private final int LENGTH = 100;
     private EmailView view;
 
     public EmailPresenter(EmailView view) {
@@ -28,7 +27,8 @@ public class EmailPresenter implements ActivityPresenter {
         view.init();
     }
 
-    public void verifyEmail(String email) {
+    public void verifyEmail() {
+        String email = view.getEmail();
         final BaseActivity activity = view.getActivity();
         if (activity == null) {
             return;
@@ -36,8 +36,6 @@ public class EmailPresenter implements ActivityPresenter {
 
         if (email.isEmpty()) {
             view.manageNavigation(false);
-        } else if (email.length() >= LENGTH) {
-            view.setLabelError(activity.getString(R.string.message_smaller_email));
         } else if (!StringUtils.isValidEmail(email)) {
             view.setLabelError(activity.getString(R.string.incorrect_email_format));
         } else {

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/email_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.rcl.excalibur.activity.guest.EmailActivity"
     android:background="@drawable/bg_account_email"
-    android:id="@+id/email_layout"
     android:focusable="true"
-    android:focusableInTouchMode="true">
-
+    android:focusableInTouchMode="true"
+    tools:context="com.rcl.excalibur.activity.guest.EmailActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true">
+        android:orientation="vertical">
 
 
         <TextView
@@ -25,59 +24,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:text="@string/title_email_address" />
+            android:text="@string/title_email_address"
+            android:textColor="@color/white" />
 
         <EditText
-            android:id="@+id/editTextEmail"
-            android:theme="@style/AppTheme.LoginFlowEditText"
+            android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/margin_general"
+            android:layout_marginRight="@dimen/margin_general"
             android:gravity="center"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/email_editText_inactive"
-            android:textSize="25sp"
             android:hint="@string/title_hint_email_address"
+            android:imeOptions="actionGo"
+            android:inputType="textEmailAddress"
+            android:maxLength="@integer/max_length_email"
             android:textColor="@color/white"
-            />
+            android:textColorHint="@color/email_editText_inactive"
+            android:textSize="@dimen/size_text_big"
+            android:theme="@style/AppTheme.LoginFlowEditText" />
 
 
         <TextView
-            android:id="@+id/textViewEmailAddressError"
+            android:id="@+id/text_show_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white"
-             />
+            android:textColor="@color/white" />
 
         <ImageView
-            android:layout_gravity="right"
-            android:id="@+id/imageViewNext"
+            android:id="@+id/image_next_screen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/next_active"
+            android:layout_gravity="right"
             android:layout_margin="@dimen/plan_list_margin_fab"
             android:tint="@color/white"
-            android:alpha=".24"
-            />
+            app:srcCompat="@drawable/selector_image_next" />
 
     </LinearLayout>
 
 
-
     <ImageView
-        android:id="@+id/imageViewBack"
+        android:id="@+id/image_back_screen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_trending_flat"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_margin="14dp"
-        />
-
-
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/margin_edit_text"
+        app:srcCompat="@drawable/ic_trending_flat" />
 
 
 </RelativeLayout>
