@@ -1,5 +1,6 @@
 package com.rcl.excalibur.internal.di.component.products;
 
+import com.rcl.excalibur.internal.di.component.detail.ProductDetailComponentTest;
 import com.rcl.excalibur.internal.di.module.products.ProductDetailModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsListActivityModule;
 import com.rcl.excalibur.internal.di.module.products.ProductsListModule;
@@ -14,5 +15,5 @@ public interface ProductsListComponentTest extends ProductsListComponent {
     ProductsListActivityComponentTest plus(ProductsListActivityModule module);
 
     @Override
-    ProductDetailComponent plus(ProductDetailModule module);
+    ProductDetailComponentTest plus(ProductDetailModule module);
 }

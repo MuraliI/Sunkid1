@@ -6,10 +6,8 @@ import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
 import com.rcl.excalibur.data.utils.Preconditions;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.ProductCategory;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,29 +17,23 @@ public class ProductInformationMapper extends BaseModelDataMapper<Product, Produ
     public ProductInformationViewType transform(Product item) {
         Preconditions.notNull(item);
         ProductInformationViewType productBasicInformation = new ProductInformationViewType();
-        productBasicInformation.setProductId(String.valueOf(item.getProductId()));
+        productBasicInformation.setProductId(item.getProductId());
         productBasicInformation.setProductName(item.getProductTitle());
-        productBasicInformation.setProductCategories(processProductCategories(item.getProductCategory()));
-        productBasicInformation.setVenue(item.getProductLocation().getLocationVenue());
+        productBasicInformation.setProductType(item.getProductType() != null ? item.getProductType().getProductType() : null);
         productBasicInformation.setReservationRequired(item.isReservationRequired());
-        productBasicInformation.setLocation(
-                String.valueOf(item.getProductLocation().getLocationDeckNumber())
-                        + ConstantsUtil.WHITE_SPACE + item.getProductLocation().getLocationDirection());
-        productBasicInformation.setPort(item.getProductLocation().getLocationPort());
+        if (item.getProductLocation() != null) {
+            productBasicInformation.setVenue(item.getProductLocation().getLocationVenue());
+            productBasicInformation.setLocation(
+                    String.valueOf(item.getProductLocation().getLocationDeckNumber())
+                            + ConstantsUtil.WHITE_SPACE + item.getProductLocation().getLocationDirection());
+            productBasicInformation.setPort(item.getProductLocation().getLocationPort());
+        }
         productBasicInformation.setUpChargeLevel(item.getProductUpcharge());
         productBasicInformation.setProductMedia(
                 extractProductMedia(item.getProductMedia() != null ? item.getProductMedia().getMediaItem()
                         : null));
 
         return productBasicInformation;
-    }
-
-    private List<String> processProductCategories(List<ProductCategory> productCategory) {
-        final List<String> categories = new ArrayList<>();
-        for (ProductCategory category : productCategory) {
-            categories.add(category.getCategoryDescription());
-        }
-        return categories;
     }
 
     private String[] extractProductMedia(List<MediaItem> mediaList) {
