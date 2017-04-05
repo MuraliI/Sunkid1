@@ -65,6 +65,7 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
 
     public void setHint(String hint) {
         editTextEmail.setHint(hint);
+        hideKeyboard();
     }
 
     private void cleanTextViewError() {
@@ -76,7 +77,6 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
         if (activity == null) {
             return;
         }
-        editTextEmail.clearFocus();
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(emailLayout.getWindowToken(), 0);
 
