@@ -6,7 +6,8 @@
     <string name="search_hint">Search for anything</string>
     <string name="ship_time_label">ship label&#160;</string>
     <string name="next_up">next up</string>
-    <string name="empty_string"/>
+    <string name="empty_string" />
+    <string name="space_string">&#160;</string>
     <string name="discoverItem">Discover</string>
     <string name="my_plans">My Plans</string>
     <string name="detail_module_accessibility">Accessibility &amp; Other info</string>
@@ -26,6 +27,9 @@
     <string name="discover_item_detail_see_menu">See menu</string>
     <string name="discover_item_detail_description_expanded_text">See less</string>
     <string name="discover_item_detail_price_range">$%1$s&#8210;$%2$s</string>
+    <string name="product_detail_find_on_deck">Find on deck</string>
+    <string name="product_detail_reservation_required">Reservation required</string>
+    <string name="discover_item_detail_make_a_reservation">Make a Reservation</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
@@ -33,6 +37,9 @@
     <string name="roboto_bold">fonts/Roboto-Bold.ttf</string>
     <string name="roboto_medium_italic">fonts/Roboto-MediumItalic.ttf</string>
     <string name="roboto_light">fonts/Roboto-Light.ttf</string>
+    <string name="proxima_nova_regular">fonts/ProximaNova-Regular.otf</string>
+    <string name="proxima_nova_bold">fonts/ProximaNova-Bold.otf</string>
+    <string name="proxima_nova_semi_bold">fonts/ProximaNova-Semibold.otf</string>
 
     <!--TABS-->
     <string name="royal_activity">Activity</string>
@@ -51,8 +58,10 @@
     <string name="hardcoded_destination_place">ST MARTIN</string>
     <string name="hardcoded_destination_time">in 1:40 hours</string>
     <string name="hardcoded_detail_activity_location">Location Here</string>
+    <string name="hardcoded_detail_deck_and_direction">Deck 12 AFT</string>
+    <string name="hardcoded_detail_port">St Martin</string>
     <string name="hardcoded_activity_title">Sams\'s BBQ Wild House</string>
-    <string name="hardcoded_reservation_required">Reservation required</string>
+
     <string name="hardcoded_age_restriction_title">Ages</string>
     <string name="hardcoded_age_restriction_description">All Ages</string>
     <string name="hardcoded_today">Today</string>
@@ -117,5 +126,23 @@
     <string name="advisement_cuisine">Cuisine</string>
     <string name="guest_name_label">Let\'s start with your name</string>
     <string name="guest_name_hint">First and last name</string>
+
+    <!-- Email Activity -->
+    <string name="title_email_address">Now let\'s get your email address</string>
+    <string name="title_hint_email_address">Email address</string>
+    <string name="title_activity_password">PasswordActivity</string>
+    <string name="message_smaller_email">Email must to be smaller than 100 characters</string>
+    <string name="incorrect_email_format">"Incorrect email format"</string>
+
+    <!-- Password Activity -->
+    <string name="title_password_almost">Almost there! Let\'s create a password</string>
+    <string name="hint_password">Create password</string>
+    <string name="title_checkbox_password">Show Password</string>
+    <string name="rule_password">7&#8211;15 characters, 1 uppercase, 1 lowercase, 1 special character</string>
+    <string name="min_characters"> 7&#8211;15 characters, </string>
+    <string name="must_uppercase"> 1 uppercase, </string>
+    <string name="must_lowercase"> 1 lowercase, </string>
+    <string name="must_special_character"> 1 special character </string>
+
 
 </resources>

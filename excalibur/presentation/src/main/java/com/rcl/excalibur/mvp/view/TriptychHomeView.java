@@ -18,7 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class TriptychHomeView extends ActivityView<TriptychHomeActivity> {
+public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void> {
 
     @Bind(R.id.pager_triptych_pager) ViewPager viewPager;
     @Bind(R.id.tab_triptych_tablayout) TriptychTabBarLayout tabBarLayout;

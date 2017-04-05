@@ -21,7 +21,7 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity> {
+public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity, Void> {
     private static final int MINIMUM_DPI = 80;
     private static final float HALF_FACTOR = 2.0f;
 

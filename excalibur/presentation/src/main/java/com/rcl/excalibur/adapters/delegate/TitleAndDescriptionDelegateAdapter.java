@@ -13,7 +13,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class TitleAndDescriptionDelegateAdapter implements DelegateAdapter<TitleAndDescriptionDelegateAdapter.TitleAndDescriptionViewHolder,
+public class TitleAndDescriptionDelegateAdapter
+        implements DelegateAdapter<TitleAndDescriptionDelegateAdapter.TitleAndDescriptionViewHolder,
         TitleAndDescriptionViewType> {
 
 
@@ -28,12 +29,12 @@ public class TitleAndDescriptionDelegateAdapter implements DelegateAdapter<Title
         holder.textDescription.setText(item.getDescription());
     }
 
-    public static class TitleAndDescriptionViewHolder extends RecyclerView.ViewHolder {
+    class TitleAndDescriptionViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.text_module_title) TextView title;
         @Bind(R.id.text_module_text) TextView textDescription;
 
-        public TitleAndDescriptionViewHolder(ViewGroup parent) {
+        TitleAndDescriptionViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_item_detail_title_and_text, parent, false));
             ButterKnife.bind(this, itemView);
         }

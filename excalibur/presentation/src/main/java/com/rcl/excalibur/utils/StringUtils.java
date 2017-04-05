@@ -14,6 +14,7 @@ public final class StringUtils {
 
     public static final String SPLIT_SEPARATOR = " ";
     public static final String REGEX_FULL_NAME = "^[a-zA-Z0-9 -]*$";
+    private static final String EMAILPATTERN = "^[A-Z0-9_%+-]+@[A-Z0-9]+\\.[A-Z]{2,6}$";
 
     private StringUtils() {
 
@@ -39,6 +40,12 @@ public final class StringUtils {
             return Float.toString(price);
         }
         return Integer.toString((int) price);
+    }
+
+    public static boolean isValidEmail(String email) {
+        Pattern validEmailAddressRegex = Pattern.compile(EMAILPATTERN, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = validEmailAddressRegex.matcher(email);
+        return matcher.find();
     }
 
     public static String removeBarreled(String value) {

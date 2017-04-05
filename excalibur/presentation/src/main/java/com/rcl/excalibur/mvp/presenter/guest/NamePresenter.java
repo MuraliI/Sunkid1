@@ -3,10 +3,12 @@ package com.rcl.excalibur.mvp.presenter.guest;
 
 import android.text.TextUtils;
 
+import com.rcl.excalibur.activity.guest.EmailActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.mvp.view.guest.NameView;
+import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.StringUtils;
 
 import static com.rcl.excalibur.utils.StringUtils.SPLIT_SEPARATOR;
@@ -32,11 +34,11 @@ public class NamePresenter implements ActivityPresenter {
     }
 
     public void onArrowBack() {
-        final NameActivity nameActivity = view.getActivity();
-        if (nameActivity == null) {
+        final NameActivity activity = view.getActivity();
+        if (activity == null) {
             return;
         }
-        nameActivity.finish();
+        activity.finish();
     }
 
     public void onNameChanged() {
@@ -88,4 +90,11 @@ public class NamePresenter implements ActivityPresenter {
     }
 
 
+    public void onNextClick() {
+        final NameActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        ActivityUtils.startActivity(activity, EmailActivity.getStartIntent(activity));
+    }
 }

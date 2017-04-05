@@ -13,7 +13,7 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class NameView extends ActivityView<NameActivity> {
+public class NameView extends ActivityView<NameActivity, Void> {
     private static final float ENABLE_ALPHA = 1f;
     private static final float DISABLE_ALPHA = .24f;
     @Bind(R.id.full_name) EditText fullName;

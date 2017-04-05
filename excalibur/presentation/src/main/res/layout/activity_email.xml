@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/email_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_account_email"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="com.rcl.excalibur.activity.guest.EmailActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/title_email_address"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_general"
+            android:layout_marginRight="@dimen/margin_general"
+            android:gravity="center"
+            android:hint="@string/title_hint_email_address"
+            android:imeOptions="actionGo"
+            android:inputType="textEmailAddress"
+            android:maxLength="@integer/max_length_email"
+            android:textColor="@color/white"
+            android:textColorHint="@color/email_editText_inactive"
+            android:textSize="@dimen/size_text_big"
+            android:theme="@style/AppTheme.LoginFlowEditText" />
+
+
+        <TextView
+            android:id="@+id/text_show_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/image_next_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/plan_list_margin_fab"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/selector_image_next" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/image_back_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/margin_edit_text"
+        app:srcCompat="@drawable/ic_trending_flat" />
+
+
+</RelativeLayout>

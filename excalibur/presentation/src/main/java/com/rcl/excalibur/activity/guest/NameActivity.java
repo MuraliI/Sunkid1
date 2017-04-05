@@ -42,7 +42,7 @@ public class NameActivity extends BaseActivity<NamePresenter> {
 
     @OnClick(R.id.next_button)
     public void onNextButtonClick() {
-        presenter.onArrowBack();
+        presenter.onNextClick();
     }
 
     @OnTextChanged(value = R.id.full_name, callback = AFTER_TEXT_CHANGED)
