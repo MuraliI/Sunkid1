@@ -132,7 +132,6 @@ public class DiscoverServicesImpl implements DiscoverServices {
             @Override
             public void onResponse(Call<ActivitiesResponse> call, Response<ActivitiesResponse> response) {
                 Timber.d("Succesfull", response.body().getGetActivitiesResponse().getResponseStatus());
-
             }
 
             @Override
