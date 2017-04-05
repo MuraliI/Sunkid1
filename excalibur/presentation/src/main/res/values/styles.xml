@@ -47,7 +47,7 @@
     <style name="AppTheme.Headline5.Blue" parent="AppTheme.Headline5">
         <item name="android:textColor">@color/font_color_blue</item>
     </style>
-    
+
     <style name="AppTheme.Headline7">
         <item name="fontPath">@string/proxima_nova_semi_bold</item>
         <item name="android:textColor">@color/font_color_dark_grey</item>
@@ -270,5 +270,17 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.ProductDetailTitleLarge">
+        <item name="fontPath">@string/proxima_nova_semi_bold</item>
+        <item name="android:color">@color/font_color_dark_grey</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTheme.ProductDetailDescription" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/font_color_body</item>
+    </style>
 
 </resources>

@@ -14,10 +14,12 @@ import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
 import com.rcl.excalibur.data.service.response.ProductLocationResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
+import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
 
@@ -129,7 +131,6 @@ public class DiscoverServicesImpl implements DiscoverServices {
             @Override
             public void onResponse(Call<ActivitiesResponse> call, Response<ActivitiesResponse> response) {
                 Timber.d("Succesfull", response.body().getGetActivitiesResponse().getResponseStatus());
-
             }
 
             @Override
@@ -274,6 +275,31 @@ public class DiscoverServicesImpl implements DiscoverServices {
         }
     }
 
+    private List<ProductRestrictionResponse> getProductRestrictionResponse() {
+        List<ProductRestrictionResponse> productRestrictionResponses = new ArrayList<>();
+
+        ProductRestrictionResponse ageRestriction = new ProductRestrictionResponse();
+        ageRestriction.setRestrictionId(1L);
+        ageRestriction.setRestrictionType(ProductRestriction.AGE);
+        ageRestriction.setRestrictionTitle("Age Restritions");
+        ageRestriction.setRestrictionDisplayText("12+");
+        ageRestriction.setRestrictionDescription("12+");
+
+        productRestrictionResponses.add(ageRestriction);
+
+        ProductRestrictionResponse heigthRestriction = new ProductRestrictionResponse();
+        heigthRestriction.setRestrictionId(1L);
+        heigthRestriction.setRestrictionType(ProductRestriction.HEIGHT);
+        heigthRestriction.setRestrictionTitle("Height Restrictions");
+        heigthRestriction.setRestrictionDisplayText("None");
+        heigthRestriction.setRestrictionDescription("None");
+
+        productRestrictionResponses.add(heigthRestriction);
+
+        return productRestrictionResponses;
+    }
+
+
     // TODO: Hardcoded method to be removed once the service provides this details
     private List<ProductAdvisementResponse> getProductAdvisementResponseAttire() {
         List<ProductAdvisementResponse> productAdvisementResponses = new ArrayList<>();
@@ -309,13 +335,23 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
         ProductAdvisementResponse advisementAccessibility = new ProductAdvisementResponse();
         advisementAccessibility.setAdvisementId(3L);
-        advisementAccessibility.setAdvisementDescription("Wheelchair accessible, Closed captions");
-        advisementAccessibility.setAdvisementTitle("Accessibility & Other Info");
-        advisementAccessibility.setAdvisementName("Accessibility & Other Info");
+        advisementAccessibility.setAdvisementDescription("");
+        advisementAccessibility.setAdvisementTitle("Wheelchair Accessible");
+        advisementAccessibility.setAdvisementName("Wheelchair Accessible");
         advisementAccessibility.setAdvisementType("ACCESSIBILITY");
         advisementAccessibility.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementAccessibility);
+        ProductAdvisementResponse advisementAccessibility2 = new ProductAdvisementResponse();
+        advisementAccessibility2.setAdvisementId(3L);
+        advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite but long enough to be meaningful.");
+        advisementAccessibility2.setAdvisementTitle("Closed Caption");
+        advisementAccessibility2.setAdvisementName("Closed Caption");
+        advisementAccessibility2.setAdvisementType("ACCESSIBILITY");
+        advisementAccessibility2.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementAccessibility2);
+
 
         ProductAdvisementResponse advisementLegal = new ProductAdvisementResponse();
         advisementLegal.setAdvisementId(4L);

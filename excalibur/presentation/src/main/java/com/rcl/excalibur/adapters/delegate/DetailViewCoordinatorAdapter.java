@@ -16,7 +16,7 @@ import io.reactivex.Observer;
 public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT extends RecyclerViewType>
         extends BaseCoordinatorAdapter<VH, VT, Long> {
 
-    private static final int VIEW_TYPE_COUNT = 2;
+    private static final int VIEW_TYPE_COUNT = 5;
 
     @SuppressWarnings("unchecked")
     public DetailViewCoordinatorAdapter(Observer<Long> observer, List<VT> recyclerViewTypes) {
@@ -29,6 +29,10 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
                 (DelegateAdapter<VH, VT>) new ProductInformationDelegateAdapter(getObserver()));
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DESCRIPTION,
                 (DelegateAdapter<VH, VT>) new DescriptionDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK,
+                (DelegateAdapter<VH, VT>) new ExpandableLinkDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ACCESSIBILITY_VIEW,
+                (DelegateAdapter<VH, VT>) new ExpandableAccessibilityDelegateAdapter());
         addAll(recyclerViewTypes);
     }
 }
