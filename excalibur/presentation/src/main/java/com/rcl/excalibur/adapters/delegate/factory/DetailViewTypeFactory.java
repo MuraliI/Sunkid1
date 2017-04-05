@@ -9,8 +9,8 @@ import android.text.TextUtils;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
+import com.rcl.excalibur.adapters.viewtype.DescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
-import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
@@ -25,9 +25,12 @@ import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.mapper.ProductModelDataMapper;
 import com.rcl.excalibur.model.ProductAccessibilityModel;
 import com.rcl.excalibur.model.ProductModel;
+import com.rcl.excalibur.mapper.ProductInformationMapper;
+import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,6 +52,9 @@ public final class DetailViewTypeFactory {
         //FIXME refactor this code to transform product model in each method and create a better model
         ProductModel model = new ProductModelDataMapper().transform(product);
         addMakeReservation(viewTypes, resources, model);
+        addExperience(viewTypes, resources, model);
+        addDescriptionTypes(viewTypes, model.getDescription());
+        addAdvisements(viewTypes, resources, model);
         addCuisineModule(viewTypes, resources, model);
         addDurationModule(viewTypes, resources, model);
         addAttireModule(viewTypes, resources, model);
@@ -96,6 +102,13 @@ public final class DetailViewTypeFactory {
 
     private static boolean isHoursEmpty(String value) {
         return TextUtils.isEmpty(value) || "0".equals(value);
+    }
+
+    private static void addDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String description) {
+        if (TextUtils.isEmpty(description)) {
+            return;
+        }
+        recyclerViewTypeList.add(new DescriptionViewType(description));
     }
 
     private static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title,
@@ -159,6 +172,14 @@ public final class DetailViewTypeFactory {
         }
     }
 
+    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                ProductModel product) {
+        if (product == null) {
+            return;
+        }
+        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
+    }
+
     private void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
         final String description = product.getProductLongDescription();
         if (TextUtils.isEmpty(description)) {
@@ -201,6 +222,13 @@ public final class DetailViewTypeFactory {
         if (!TextUtils.isEmpty(product.getReservationInformation())) {
             addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
                     product.getReservationInformation());
+        }
+    }
+
+    private static void addExperience(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
+        if (!TextUtils.isEmpty(product.getExperience())) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_experience),
+                    product.getExperience());
         }
     }
 

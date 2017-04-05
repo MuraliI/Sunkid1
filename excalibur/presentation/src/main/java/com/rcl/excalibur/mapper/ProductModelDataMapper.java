@@ -10,8 +10,6 @@ import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.model.ProductAccessibilityModel;
 import com.rcl.excalibur.model.ProductModel;
 
-import java.util.List;
-
 public class ProductModelDataMapper extends BaseModelDataMapper<Product, ProductModel> {
 
     @NonNull
@@ -23,6 +21,8 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
         final ProductModel productModel = new ProductModel();
         productModel.setDuration(item.getProductDuration().getDurationInMinutes());
         productModel.setReservationInformation(item.getProductReservationInformation());
+        productModel.setExperience(item.getExperience());
+        productModel.setDescription(item.getProductShortDescription());
         setAdvisements(productModel, item.getAdvisements());
         setRestrictions(productModel, item.getRestrictions());
         return productModel;

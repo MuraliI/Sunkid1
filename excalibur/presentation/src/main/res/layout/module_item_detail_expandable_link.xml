@@ -15,11 +15,11 @@
 
         <TextView
             android:id="@+id/expandable_link_module_title"
-            style="@style/AppTheme.Headline7"
+            style="@style/AppTheme.DiscoverItemTitleLinkTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"/>
 
         <ImageView
             android:id="@+id/expandable_link_module_arrow"
@@ -28,7 +28,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_arrow_drop_down"
-            android:tint="@color/font_color_dark_grey" />
+            android:tint="@color/detail_item_link"/>
 
     </RelativeLayout>
 
@@ -37,6 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 </LinearLayout>

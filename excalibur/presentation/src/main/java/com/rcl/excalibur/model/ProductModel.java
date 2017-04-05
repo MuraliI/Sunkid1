@@ -20,9 +20,11 @@ public class ProductModel extends ProductInformationViewType {
 
     private HashMap<String, String> advisementsAndReestrictions = new LinkedHashMap<>();
     private String productId;
+    private String description;
     private int duration;
     private List<ProductAccessibilityModel> accessibilities = new ArrayList<ProductAccessibilityModel>();
     private String reservationInformation;
+    private String experience;
 
 
     public List<ProductAccessibilityModel> getAccessibilities() {
@@ -71,11 +73,27 @@ public class ProductModel extends ProductInformationViewType {
         return durationStr;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getReservationInformation() {
         return reservationInformation;
     }
 
     public void setReservationInformation(String reservationInformation) {
         this.reservationInformation = reservationInformation;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 }

@@ -27,6 +27,7 @@
 
     <color name="product_detail_reservation_background">#FFF0EC</color>
 
+
     <!-- Itinerary -->
     <color name="itinerary_product_card_background">#F5F5F5</color>
     <color name="itinerary_product_card_text_grey">#999</color>
