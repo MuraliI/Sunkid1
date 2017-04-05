@@ -76,6 +76,8 @@ s
         quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
         reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
         nulla pariatur?\"</string>
+    <string name="hardcoded_detail_short_description">\"This description is short enough to whet ones
+        apetite but long enough to be meaningful\"</string>
 
     <!--Categories-->
     <string name="category_royal_activity">ACTIVITIES</string>
