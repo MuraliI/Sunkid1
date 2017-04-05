@@ -29,7 +29,7 @@
             android:src="@drawable/ic_chevron_down" />
     </RelativeLayout>
 
-    <include layout="@layout/separator_product"></include>
+    <include layout="@layout/separator_product" />
 
     <LinearLayout
         android:id="@+id/expandable_accessibility_module_content"
