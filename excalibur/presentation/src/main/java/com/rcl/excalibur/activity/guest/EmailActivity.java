@@ -7,11 +7,14 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.mvp.presenter.guest.EmailPresenter;
+import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnFocusChange;
+import butterknife.OnTextChanged;
 
 public class EmailActivity extends BaseActivity<EmailPresenter> {
 
@@ -20,6 +23,7 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email);
         ButterKnife.bind(this);
+        AnalyticsUtils.trackState(AnalyticsConstants.KEY_EMAIL_SCREEN);
     }
 
     @OnClick(R.id.image_back_screen)
@@ -41,9 +45,21 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
         return new Intent(activity, EmailActivity.class);
     }
 
+
+    @OnTextChanged(value = R.id.edit_email, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    void afterEmailInput() {
+        presenter.verifyEmail();
+    }
+
+
     @OnEditorAction(R.id.edit_email)
     boolean onEditorAction() {
-        presenter.verifyEmail();
+        presenter.checkDone();
         return true;
+    }
+
+    @OnClick(R.id.image_next_screen)
+    public void onClickImageViewNext() {
+        presenter.checkDone();
     }
 }

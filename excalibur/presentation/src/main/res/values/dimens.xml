@@ -104,6 +104,7 @@
     <dimen name="margin_text">7dp</dimen>
     <dimen name="margin_edit_text">14dp</dimen>
     <dimen name="margin_general">16dp</dimen>
+    <item name="alpha" type="dimen" format="float">.24</item>
 
     <!-- Product Detail -->
     <dimen name="product_detail_font_size_title">16sp</dimen>

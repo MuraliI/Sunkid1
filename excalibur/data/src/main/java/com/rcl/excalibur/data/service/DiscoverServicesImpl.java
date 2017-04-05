@@ -25,7 +25,6 @@ import com.rcl.excalibur.domain.service.DiscoverServices;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -258,7 +257,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
             GetProductsResponse getProductsResponse = response.body();
             if (ServiceUtil.isSuccess(getProductsResponse)) {
                 for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
-                    productResponse.setUpcharge(new Random().nextInt(4));
+                    productResponse.setUpcharge(2);
                     if (productResponse.getProductReservationInformation() == null) {
                         productResponse.setProductReservationInformation("Please Arrive 15 minutes early, Wear closedtoed shoes");
                     }

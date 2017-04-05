@@ -3,6 +3,8 @@ package com.rcl.excalibur.domain;
 
 public class ProductType {
 
+    public static final String SHOREX_TYPE = "SHOREX";
+
     private long productTypeId;
     private String productTypeName;
     private String productType;

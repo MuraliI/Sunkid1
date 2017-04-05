@@ -2,8 +2,8 @@ package com.rcl.excalibur.data.utils;
 
 
 public final class Preconditions {
-    private static final String MESSAGE_UNRECHEABLE = "Should not have access here";
-    private static final String MESSAGE_NOT_NULL = "Object cannot be null";
+    public static final String MESSAGE_UNRECHEABLE = "Should not have access here";
+    public static final String MESSAGE_NOT_NULL = "Object cannot be null";
 
     private Preconditions() {
     }
