@@ -87,4 +87,8 @@
     <!-- Deck Map -->
     <dimen name="item_deck_height">110dp</dimen>
 
+
+
+    <dimen name="guest_padding_margin">25dp</dimen>
+
 </resources>

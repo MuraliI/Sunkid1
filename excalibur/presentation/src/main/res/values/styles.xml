@@ -224,4 +224,15 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <style name="AppTheme.GuestEditText" parent="@android:style/Widget.EditText">
+        <item name="android:textSize">30sp</item>
+        <item name="android:backgroundTint">@color/opacity_white_24</item>
+        <item name="android:textColor">@color/opacity_white_24</item>
+        <item name="android:textColorHint">@color/opacity_white_24</item>
+    </style>
+    <style name="AppTheme.GuestErrorTextView" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>
