@@ -256,6 +256,22 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+
+    <style name="AppTheme.LoginFlowEditText" parent="@android:style/Widget.EditText">
+        <item name="colorControlNormal">@color/opacity_white_24</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+    </style>
+
+    <style name="CheckBoxAppTheme" parent="AppTheme">
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="AppTheme.ProductDetailTitleLarge">
         <item name="fontPath">@string/proxima_nova_semi_bold</item>
         <item name="android:color">@color/font_color_dark_grey</item>
