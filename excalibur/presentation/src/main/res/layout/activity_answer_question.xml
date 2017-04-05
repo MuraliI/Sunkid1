@@ -11,6 +11,7 @@
 
 
     <LinearLayout
+        android:id="@+id/container_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/product_detail_toolbar_size"
@@ -38,16 +39,12 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_general"
             android:layout_marginRight="@dimen/margin_general"
-            android:digits="@string/regex_answer"
             android:gravity="center"
             android:hint="@string/hint_answer_question"
-            android:imeOptions="actionGo"
-            android:inputType="text"
-            android:maxLength="@integer/max_length_email"
+            android:imeOptions="actionDone"
+            android:inputType="textNoSuggestions"
             android:textColor="@color/white"
-            android:textColorHint="@color/email_editText_inactive"
-            android:textSize="@dimen/size_text_big"
-            android:theme="@style/AppTheme.LoginFlowEditText" />
+            android:theme="@style/AppTheme.AnswerEditText" />
 
 
         <TextView
@@ -69,10 +66,7 @@
         android:layout_margin="@dimen/margin_text"
         android:background="@drawable/selector_button_done"
         android:enabled="false"
-        android:padding="@dimen/padding_button_done"
         android:text="@string/text_button_done"
-        android:textAllCaps="false"
-        android:textColor="@color/bg_color"
-        android:textStyle="bold" />
+        android:theme="@style/AppTheme.LoginFlowButtonDone" />
 
 </RelativeLayout>
