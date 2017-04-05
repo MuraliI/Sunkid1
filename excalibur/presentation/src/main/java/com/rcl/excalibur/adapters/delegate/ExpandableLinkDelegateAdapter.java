@@ -56,7 +56,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
             //Create TextView;
             TextView contentLine = new TextView(context);
             contentLine.setTextAppearance(context, R.style.AppTheme_ProductDetailDescriptionModuleTextView);
-            CalligraphyUtils.applyFontToTextView(context, contentLine, context.getResources().getString(R.string.proximanova_regular));
+            CalligraphyUtils.applyFontToTextView(context, contentLine, context.getResources().getString(R.string.proxima_nova_regular));
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
