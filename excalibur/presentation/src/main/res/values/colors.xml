@@ -43,6 +43,7 @@
 
     <!-- Login flow colors -->
     <color name="opacity_white_24">#40ffffff</color>
+    <color name="bg_color">#4a90e2</color>
 
 
     <!-- Email Activity -->

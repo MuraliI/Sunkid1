@@ -74,6 +74,11 @@
         <activity
             android:name=".activity.guest.SecurityQuestionsActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.guest.AnswerQuestionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

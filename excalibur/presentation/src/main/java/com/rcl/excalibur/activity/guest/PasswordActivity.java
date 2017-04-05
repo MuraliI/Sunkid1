@@ -27,7 +27,6 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
         AnalyticsUtils.trackState(AnalyticsConstants.KEY_PASSWORD_SCREEN);
     }
 
-
     @OnClick(R.id.image_back_screen)
     void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();

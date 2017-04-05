@@ -155,5 +155,10 @@
     <string name="questions_title">Choose a question</string>
     <string name="questions_description">Last step! Let’s pick a secret question\nin case you forget your password</string>
 
+    <!-- Answer Question Activity -->
+    <string name="hint_answer_question">Your secret answer</string>
+    <string name="text_button_done">Done</string>
+    <string name="regex_answer">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ - \'</string>
+
 
 </resources>
