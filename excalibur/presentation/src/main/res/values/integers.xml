@@ -15,4 +15,5 @@
     <integer name="discover_grid_rows">2</integer>
     <integer name="itinerary_product_view_total_weight">1</integer>
     <integer name="detail_product_name_max_lines">4</integer>
+    <integer name="detail_toolbar_title_animation_time">300</integer>
 </resources>

@@ -3,7 +3,6 @@ package com.rcl.excalibur.mvp.view;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,9 +20,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DetailViewCoordinatorAdapter;
-import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
-import com.rcl.excalibur.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,16 +37,20 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
     @Bind(R.id.realtime_blur_view) RealtimeBlurView realtimeBlurView;
     @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
     @Bind(R.id.image_hero) ImageView heroImage;
+    @Bind(R.id.tv_detail_toolbar_title) TextView titleToolbarTextView;
 
     private DetailViewCoordinatorAdapter adapter;
-    private View titleToolbar;
     private Animation upAnimation;
     private Animation downAnimation;
+
+    private boolean isTitleVisible = false;
+    private int scrolledAmount = 0;
 
     public ProductDetailView(ProductDetailActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
         upAnimation = AnimationUtils.loadAnimation(activity, R.anim.toolbar_title_up);
+        downAnimation = AnimationUtils.loadAnimation(activity, R.anim.toolbar_title_down);
     }
 
     public void setupToolbar() {
@@ -59,9 +60,6 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
         }
         activity.setSupportActionBar(detailToolbar);
         appBarLayout.addOnOffsetChangedListener(activity);
-        collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(activity,
-                android.R.color.transparent));
-        titleToolbar = ViewUtils.getToolbarTitle(detailToolbar);
     }
 
     public void setHeroImage(String url) {
@@ -70,13 +68,14 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
         }
     }
 
-    private int scrolledAmount = 0;
+    private void upAnimationTitle() {
+        upAnimation.reset();
+        titleToolbarTextView.startAnimation(upAnimation);
+    }
 
-    public void upAnimationTitle() {
-        if (titleToolbar == null) {
-            return;
-        }
-        titleToolbar.startAnimation(upAnimation);
+    private void downAnimationTitle() {
+        downAnimation.reset();
+        titleToolbarTextView.startAnimation(downAnimation);
     }
 
     @SuppressWarnings("unchecked")
@@ -106,16 +105,18 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
                         return;
                     }
 
-                    TextView textView = (TextView) view.findViewById(R.id.text_module_title);
+                    TextView textView = (TextView) view.findViewById(R.id.text_product_detail_name);
                     if (textView == null) {
                         return;
                     }
 
-                    if (scrolledAmount >= view.getPaddingTop() + (textView.getHeight() / 2)) {
-                        collapsingToolbar.setTitle(textView.getText().toString());
+                    if (scrolledAmount >= view.getPaddingTop() + (textView.getHeight() / 2) && !isTitleVisible) {
+                        isTitleVisible = true;
+                        titleToolbarTextView.setText(textView.getText().toString());
                         upAnimationTitle();
-                    } else {
-                        collapsingToolbar.setTitle(ConstantsUtil.EMPTY);
+                    } else if (scrolledAmount < view.getPaddingTop() + (textView.getHeight() / 2) && isTitleVisible) {
+                        isTitleVisible = false;
+                        downAnimationTitle();
                     }
                 }
             }
