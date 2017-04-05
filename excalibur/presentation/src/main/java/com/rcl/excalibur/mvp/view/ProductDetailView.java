@@ -3,7 +3,6 @@ package com.rcl.excalibur.mvp.view;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +26,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 
 
 public class ProductDetailView extends ActivityView<ProductDetailActivity, String> {
@@ -38,7 +38,13 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
     @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
     @Bind(R.id.image_hero) ImageView heroImage;
 
+    private View detailInfoView;
+    private View detailInfoContainer;
+    private TextView productDetailName;
+
     private DetailViewCoordinatorAdapter adapter;
+    private String productTitle;
+    private int scrolledAmount = 0;
 
     public ProductDetailView(ProductDetailActivity activity) {
         super(activity);
@@ -52,17 +58,18 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
         }
         activity.setSupportActionBar(detailToolbar);
         appBarLayout.addOnOffsetChangedListener(activity);
-        collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(activity,
-                android.R.color.transparent));
     }
 
     public void setHeroImage(String url) {
-        if (getActivity() != null) {
-            Picasso.with(getActivity()).load(url).placeholder(R.drawable.placeholder_hero_image).into(heroImage);
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
         }
+        Picasso.with(activity)
+                .load(url)
+                .placeholder(R.drawable.placeholder_hero_image)
+                .into(heroImage);
     }
-
-    private int scrolledAmount = 0;
 
     @SuppressWarnings("unchecked")
     public void render(List<RecyclerViewType> viewTypes) {
@@ -85,32 +92,44 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
 
                 scrolledAmount += dy;
 
-                if (layoutManager.findFirstVisibleItemPosition() == 0) {
-                    View view = recyclerView.getChildAt(0);
-                    if (view == null) {
-                        return;
-                    }
+                int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+                if (firstVisibleItem != 0) {
+                    return;
+                }
 
-                    TextView textView = (TextView) view.findViewById(R.id.text_module_title);
-                    if (textView == null) {
-                        return;
-                    }
+                if (detailInfoView == null) {
+                    detailInfoView = recyclerView.getChildAt(firstVisibleItem);
+                }
 
-                    if (scrolledAmount >= view.getPaddingTop() + (textView.getHeight() / 2)) {
-                        collapsingToolbar.setTitle(textView.getText().toString());
-                    } else {
-                        collapsingToolbar.setTitle(ConstantsUtil.EMPTY);
-                    }
+                if (detailInfoContainer == null && detailInfoView != null) {
+                    detailInfoContainer = ButterKnife.findById(detailInfoView, R.id.layout_information_container);
+                }
+
+                if (productDetailName == null && detailInfoView != null) {
+                    productDetailName = ButterKnife.findById(detailInfoView, R.id.text_product_detail_name);
+                }
+
+                if (productDetailName == null) {
+                    return;
+                }
+
+                productTitle = productDetailName.getText().toString();
+
+                if (viewObserver != null) {
+                    Observable.just(new int[]{scrolledAmount, detailInfoContainer.getPaddingTop(), productDetailName.getHeight()})
+                            .subscribe(viewObserver);
                 }
             }
         });
     }
 
     public void showToastAndFinishActivity(String message) {
-        if (getActivity() != null) {
-            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-            getActivity().finish();
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
         }
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+        activity.finish();
     }
 
     public void setBlurRadiusOnImage(float blurRadius) {
@@ -123,6 +142,14 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
                 blurRadius,
                 activity.getResources().getDisplayMetrics())
         );
+    }
+
+    public void showCollapsingToolbarTitle() {
+        collapsingToolbar.setTitle(productTitle);
+    }
+
+    public void hideCollapsingToolbarTitle() {
+        collapsingToolbar.setTitle(ConstantsUtil.EMPTY);
     }
 
     public void setContentScrimResource(@ColorRes int scrimRes) {

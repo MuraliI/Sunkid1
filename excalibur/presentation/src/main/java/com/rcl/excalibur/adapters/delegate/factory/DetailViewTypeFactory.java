@@ -47,6 +47,11 @@ public final class DetailViewTypeFactory {
         addAdvisements(viewTypes, resources, model);
         if (model.getDuration() > NO_DURATION) {
             addProductDurationTypes(viewTypes, resources, model);
+            addProductDurationTypes(viewTypes, resources, model);
+            addProductDurationTypes(viewTypes, resources, model);
+            addProductDurationTypes(viewTypes, resources, model);
+            addProductDurationTypes(viewTypes, resources, model);
+            addProductDurationTypes(viewTypes, resources, model);
         }
 
         return viewTypes;
