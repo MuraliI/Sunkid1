@@ -25,8 +25,6 @@
     <color name="detail_item_description">#3A4053</color>
     <color name="detail_description_transparent_white">#9FFF</color>
     <color name="product_detail_reservation_background">#FFF0EC</color>
-    <color name="font_product_detail_title_gray">#363740</color>
-    <color name="font_product_detail_description_gray">#6A7582</color>
 
     <!-- Itinerary -->
     <color name="itinerary_product_card_background">#F5F5F5</color>

@@ -27,6 +27,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_chevron_down" />
+            android:src="@drawable/ic_arrow_drop_down"
+            android:tint="@color/detail_item_link"/>
 
     </RelativeLayout>
 

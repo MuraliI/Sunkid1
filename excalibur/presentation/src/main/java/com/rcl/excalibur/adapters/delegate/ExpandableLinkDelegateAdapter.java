@@ -73,6 +73,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
                         null);
                 contentLine.setCompoundDrawablePadding((int) resources.getDimension(R.dimen.margin_normal));
             }
+
             viewHolder.textContent.addView(contentLine);
             viewHolder.contentLines.add(contentLine);
         }

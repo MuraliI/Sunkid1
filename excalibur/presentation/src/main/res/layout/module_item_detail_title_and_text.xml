@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -12,15 +12,14 @@
         style="@style/AppTheme.Headline7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@string/hardcoded_age_restriction_title" />
+        android:layout_marginStart="@dimen/margin_large"/>
 
     <TextView
         android:id="@+id/text_module_text"
         style="@style/AppTheme.Body"
-        android:layout_marginTop="@dimen/margin_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@string/hardcoded_age_restriction_description" />
+        android:layout_marginStart="@dimen/margin_large"/>
 
     <include layout="@layout/separator_product"/>
 
