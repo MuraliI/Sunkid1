@@ -12,7 +12,8 @@ import com.rcl.excalibur.adapters.viewtype.DescriptionViewType;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DescriptionDelegateAdapter implements DelegateAdapter<DescriptionDelegateAdapter.DescriptionViewHolder,
+public class DescriptionDelegateAdapter
+        implements DelegateAdapter<DescriptionDelegateAdapter.DescriptionViewHolder,
         DescriptionViewType> {
 
 
@@ -26,12 +27,12 @@ public class DescriptionDelegateAdapter implements DelegateAdapter<DescriptionDe
         holder.textDescription.setText(item.getDescription());
     }
 
-    public static class DescriptionViewHolder extends RecyclerView.ViewHolder {
+    class DescriptionViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.text_module_description)
         TextView textDescription;
 
-        public DescriptionViewHolder(ViewGroup parent) {
+        DescriptionViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_item_detail_description, parent, false));
             ButterKnife.bind(this, itemView);
         }

@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/text_module_text"
-        style="@style/AppTheme.DiscoverItemModuleDescriptionTextView"
+        style="@style/AppTheme.ProductDetailDescriptionModuleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_large"

@@ -20,10 +20,9 @@ import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
+import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.mapper.ProductModelDataMapper;
 import com.rcl.excalibur.model.ProductModel;
-import com.rcl.excalibur.mapper.ProductInformationMapper;
-import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -48,15 +47,13 @@ public final class DetailViewTypeFactory {
         //FIXME refactor this code to transform product model in each method and create a better model
         ProductModel model = new ProductModelDataMapper().transform(product);
         addMakeReservation(viewTypes, resources, model);
+        addDurationModule(viewTypes, resources, model);
+        addExperience(viewTypes, resources, model);
+        addKnowBeforeYouGoModule(viewTypes, resources, model);
+        addDescriptionTypes(viewTypes, model.getDescription());
         addAdvisements(viewTypes, resources, model);
-        if (model.getDuration() > NO_DURATION) {
-            addProductDurationTypes(viewTypes, resources, model);
-        }
-        addDescriptionTypes(viewTypes, product.getDescription());
-        addDurationModule(viewTypes, resources, product);
-        addAttireModule(viewTypes, resources, product);
-        addKnowBeforeYouGoModule(viewTypes, resources, product);
-        addLegalModule(viewTypes, resources, product);
+        addAttireModule(viewTypes, resources, model);
+        addLegalModule(viewTypes, resources, model);
 
         return viewTypes;
     }
@@ -179,6 +176,7 @@ public final class DetailViewTypeFactory {
     private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
                                        ProductModel product) {
         // FIXME: Obtain products from database
+        /*
         product = ProductModelProvider.productModelMap.get("1");
         LinkedHashMap<String, String> advisements = product.getAdvisements();
 
@@ -187,7 +185,7 @@ public final class DetailViewTypeFactory {
             String advisementDescription = entry.getValue();
             addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
                     advisementDescription);
-        }
+        }*/
     }
 
     private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
@@ -197,6 +195,7 @@ public final class DetailViewTypeFactory {
                     product.getReservationInformation());
         }
     }
+
     private static void addExperience(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
         // FIXME: Obtain products from database
         if (!TextUtils.isEmpty(product.getExperience())) {
