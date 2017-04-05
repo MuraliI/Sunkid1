@@ -54,6 +54,10 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
     }
 
     public void initAnimation() {
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
         upAnimation = AnimationUtils.loadAnimation(activity, R.anim.toolbar_title_up);
         downAnimation = AnimationUtils.loadAnimation(activity, R.anim.toolbar_title_down);
     }

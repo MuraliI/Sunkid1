@@ -48,6 +48,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
         ProductDetailActivity activity = view.getActivity();
         if (activity != null) {
             view.setupToolbar();
+            view.initAnimation();
             if (product.getProductMedia() != null
                     && product.getProductMedia().getMediaItem() != null
                     && product.getProductMedia().getMediaItem().size() > 0) {
