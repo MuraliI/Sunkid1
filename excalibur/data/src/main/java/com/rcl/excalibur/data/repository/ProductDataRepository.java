@@ -80,7 +80,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         entity.setUpcharge(product.getProductUpcharge());
         entity.setExperience(product.getExperience());
         entity.setProductReservationInformation(product.getProductReservationInformation());
-        entity.setExperience(product.getExperience());
 
         //ProductType
         create(entity, product.getProductType());

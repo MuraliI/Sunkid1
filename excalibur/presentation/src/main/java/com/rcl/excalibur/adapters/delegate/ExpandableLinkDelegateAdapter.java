@@ -40,7 +40,6 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         int i = 0;
         for (TextView textView : holder.contentLines) {
             textView.setText(StringUtils.fromHtml(item.getContent()[i]));
-            textView.setTextAppearance(textView.getContext(), R.style.AppTheme_ProductDetailDescriptionModuleTextView);
             i++;
         }
     }
@@ -70,6 +69,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
                         null);
                 contentLine.setCompoundDrawablePadding((int) resources.getDimension(R.dimen.margin_normal));
             }
+
             viewHolder.textContent.addView(contentLine);
             viewHolder.contentLines.add(contentLine);
         }

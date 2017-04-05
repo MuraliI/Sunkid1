@@ -39,7 +39,7 @@ public class ProductModelDataMapperTest {
         assertEquals(entity1.getProductDuration().getDurationInMinutes(), productModel.getDuration());
         assertEquals(entity1.getProductReservationInformation(), productModel.getReservationInformation());
         assertEquals(entity1.getProductShortDescription(), productModel.getDescription());
-
+        assertEquals(entity1.getExperience(), productModel.getExperience());
         ProductModel productModelNull = productModelDataMapper.transform(entity2);
         assertNull(productModelNull);
     }

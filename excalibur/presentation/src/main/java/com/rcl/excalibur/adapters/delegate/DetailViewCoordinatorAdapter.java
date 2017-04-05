@@ -29,8 +29,6 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
                 (DelegateAdapter<VH, VT>) new ProductInformationDelegateAdapter(getObserver()));
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DESCRIPTION,
                 (DelegateAdapter<VH, VT>) new DescriptionDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK,
-                (DelegateAdapter<VH, VT>) new ExpandableLinkDelegateAdapter());
         addAll(recyclerViewTypes);
     }
 }
