@@ -1,6 +1,8 @@
 package com.rcl.excalibur.mvp.view.guest;
 
 
+import android.content.Context;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -40,6 +42,11 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
         //TODO navigate to Password Activity
     }
 
+    @OnClick(R.id.email_layout)
+    void onClickEmailLayout() {
+        hideKeyboard();
+    }
+
 
     public void manageNavigation(boolean status) {
         imageViewNext.setEnabled(status);
@@ -62,6 +69,17 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
 
     private void cleanTextViewError() {
         textViewEmailAddressError.setText(R.string.empty_string);
+    }
+
+    private void hideKeyboard() {
+        final EmailActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        editTextEmail.clearFocus();
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(emailLayout.getWindowToken(), 0);
+
     }
 
 }
