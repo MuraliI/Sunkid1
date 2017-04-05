@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/margin_large"
+
     android:orientation="vertical">
 
     <RelativeLayout
@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginStart="@dimen/margin_large"
         android:paddingBottom="@dimen/margin_large"
         android:paddingTop="@dimen/margin_large">
 
@@ -29,15 +30,13 @@
             android:src="@drawable/ic_chevron_down" />
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/hairline_height"
-        android:background="@color/discover_grey" />
+    <include layout="@layout/separator_product"></include>
 
     <LinearLayout
         android:id="@+id/expandable_accessibility_module_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_large"
         android:orientation="vertical"
         android:visibility="gone" />
 
