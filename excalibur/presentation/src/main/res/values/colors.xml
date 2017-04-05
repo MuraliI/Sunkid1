@@ -39,4 +39,11 @@
     <color name="font_color_body">#6A7582</color>
     <color name="font_color_dark_grey">#363740</color>
 
+    <!-- Login flow colors -->
+    <color name="opacity_white_24">#40ffffff</color>
+
+
+    <!-- Email Activity -->
+    <color name="email_editText_inactive">#40ffffff</color>
+
 </resources>
