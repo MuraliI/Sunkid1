@@ -1,10 +1,10 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import com.rcl.excalibur.BuildConfig;
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
@@ -19,11 +19,16 @@ import com.rcl.excalibur.mvp.view.ProductDetailView;
 import java.util.List;
 
 public class ProductDetailPresenter implements ActivityPresenter {
+    private static final int MAX_BLUR_VALUE = 25;
+
     private GetProductDbUseCase getProductDbUseCase;
     private ProductDetailView view;
     private long productId;
     private Product product; //FIXME change model to correct one
     private List<RecyclerViewType> viewTypes;
+
+    private boolean isToolbarCollapsed = false;
+    private int scrollRange = -1;
 
     public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -70,8 +75,20 @@ public class ProductDetailPresenter implements ActivityPresenter {
         }
     }
 
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        view.onOffsetChanged(appBarLayout, verticalOffset);
+    public void onOffsetChanged(int verticalOffset, int totalScrollRange) {
+        view.setBlurRadiusOnImage((Math.abs(verticalOffset) * MAX_BLUR_VALUE) / totalScrollRange);
+
+        if (scrollRange == -1) {
+            scrollRange = totalScrollRange;
+        }
+
+        if (scrollRange + verticalOffset == 0) {
+            view.setContentScrimResource(R.color.colorPrimary);
+            isToolbarCollapsed = true;
+        } else if (isToolbarCollapsed) {
+            view.setContentScrimResource(R.color.transparent);
+            isToolbarCollapsed = false;
+        }
     }
 
     @Override

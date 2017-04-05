@@ -70,6 +70,6 @@ public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> 
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        presenter.onOffsetChanged(appBarLayout, verticalOffset);
+        presenter.onOffsetChanged(verticalOffset, appBarLayout.getTotalScrollRange());
     }
 }
