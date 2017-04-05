@@ -19,13 +19,15 @@ public class ProductInformationMapper extends BaseModelDataMapper<Product, Produ
         ProductInformationViewType productBasicInformation = new ProductInformationViewType();
         productBasicInformation.setProductId(item.getProductId());
         productBasicInformation.setProductName(item.getProductTitle());
-        productBasicInformation.setProductType(item.getProductType().getProductType());
-        productBasicInformation.setVenue(item.getProductLocation().getLocationVenue());
+        productBasicInformation.setProductType(item.getProductType() != null ? item.getProductType().getProductType() : null);
         productBasicInformation.setReservationRequired(item.isReservationRequired());
-        productBasicInformation.setLocation(
-                String.valueOf(item.getProductLocation().getLocationDeckNumber())
-                        + ConstantsUtil.WHITE_SPACE + item.getProductLocation().getLocationDirection());
-        productBasicInformation.setPort(item.getProductLocation().getLocationPort());
+        if (item.getProductLocation() != null) {
+            productBasicInformation.setVenue(item.getProductLocation().getLocationVenue());
+            productBasicInformation.setLocation(
+                    String.valueOf(item.getProductLocation().getLocationDeckNumber())
+                            + ConstantsUtil.WHITE_SPACE + item.getProductLocation().getLocationDirection());
+            productBasicInformation.setPort(item.getProductLocation().getLocationPort());
+        }
         productBasicInformation.setUpChargeLevel(item.getProductUpcharge());
         productBasicInformation.setProductMedia(
                 extractProductMedia(item.getProductMedia() != null ? item.getProductMedia().getMediaItem()
