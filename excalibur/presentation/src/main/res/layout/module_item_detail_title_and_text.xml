@@ -23,8 +23,6 @@
         android:paddingBottom="@dimen/margin_large"
         tools:text="@string/hardcoded_age_restriction_description" />
 
-    <include layout="@layout/separator_product"
-
-        ></include>
+    <include layout="@layout/separator_product"></include>
 
 </LinearLayout>
