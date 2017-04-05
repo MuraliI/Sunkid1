@@ -120,5 +120,6 @@
     <dimen name="product_detail_accessibililty_image_size">20dp</dimen>
     <dimen name="product_detail_accessibililty_padding">10dp</dimen>
     <dimen name="icon_size">10dp</dimen>
-
+    <dimen name="guest_padding_margin">25dp</dimen>
+    <dimen name="guest_next_top">20dp</dimen>
 </resources>

@@ -133,6 +133,9 @@
     <string name="accessibility">Accessibility &amp; Other Info</string>
     <string name="detail_module_height">Height Restrictions</string>
 
+    <string name="guest_name_label">Let\'s start with your name</string>
+    <string name="guest_name_hint">First and last name</string>
+
     <!-- Email Activity -->
     <string name="title_email_address">Now let\'s get your email address</string>
     <string name="title_hint_email_address">Email address</string>

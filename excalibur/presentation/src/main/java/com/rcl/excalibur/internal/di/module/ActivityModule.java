@@ -84,4 +84,15 @@ public class ActivityModule {
     AnswerQuestionPresenter provideAnswerQuestionPresenter(AnswerQuestionView answerQuestionView) {
         return new AnswerQuestionPresenter(answerQuestionView);
     }
+
+    @Provides
+    NameView providesNameView(BaseActivity activity) {
+        return new NameView(((NameActivity) activity));
+    }
+
+    @Provides
+    NamePresenter providesNamePresenter(NameView nameView) {
+        return new NamePresenter(nameView);
+    }
+
 }
