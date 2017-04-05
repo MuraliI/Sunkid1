@@ -6,7 +6,8 @@
     <string name="search_hint">Search for anything</string>
     <string name="ship_time_label">ship label&#160;</string>
     <string name="next_up">next up</string>
-    <string name="empty_string"/>
+    <string name="empty_string" />
+    <string name="space_string">&#160;</string>
     <string name="discoverItem">Discover</string>
     <string name="my_plans">My Plans</string>
     <string name="detail_module_accessibility">Accessibility &amp; Other info</string>
@@ -123,5 +124,23 @@
         <item quantity="other">%d mins</item>
     </plurals>
     <string name="advisement_cuisine">Cuisine</string>
+
+    <!-- Email Activity -->
+    <string name="title_email_address">Now let\'s get your email address</string>
+    <string name="title_hint_email_address">Email address</string>
+    <string name="title_activity_password">PasswordActivity</string>
+    <string name="message_smaller_email">Email must to be smaller than 100 characters</string>
+    <string name="incorrect_email_format">"Incorrect email format"</string>
+
+    <!-- Password Activity -->
+    <string name="title_password_almost">Almost there! Let\'s create a password</string>
+    <string name="hint_password">Create password</string>
+    <string name="title_checkbox_password">Show Password</string>
+    <string name="rule_password">7&#8211;15 characters, 1 uppercase, 1 lowercase, 1 special character</string>
+    <string name="min_characters"> 7&#8211;15 characters, </string>
+    <string name="must_uppercase"> 1 uppercase, </string>
+    <string name="must_lowercase"> 1 lowercase, </string>
+    <string name="must_special_character"> 1 special character </string>
+
 
 </resources>
