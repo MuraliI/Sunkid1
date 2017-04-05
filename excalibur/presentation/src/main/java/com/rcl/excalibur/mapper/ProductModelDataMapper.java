@@ -16,6 +16,8 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
         final ProductModel productModel = new ProductModel();
         productModel.setDuration(item.getProductDuration().getDurationInMinutes());
         productModel.setReservationInformation(item.getProductReservationInformation());
+        productModel.setExperience(item.getExperience());
+        productModel.setDescription(item.getProductShortDescription());
 
         return productModel;
     }

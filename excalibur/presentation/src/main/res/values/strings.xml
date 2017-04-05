@@ -30,7 +30,7 @@
     <string name="product_detail_find_on_deck">Find on deck</string>
     <string name="product_detail_reservation_required">Reservation required</string>
     <string name="discover_item_detail_make_a_reservation">Make a Reservation</string>
-
+    <string name="discover_item_detail_experience">Experience</string>
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
     <string name="roboto_regular">fonts/Roboto-Regular.ttf</string>
@@ -61,7 +61,7 @@
     <string name="hardcoded_detail_deck_and_direction">Deck 12 AFT</string>
     <string name="hardcoded_detail_port">St Martin</string>
     <string name="hardcoded_activity_title">Sams\'s BBQ Wild House</string>
-
+    <string name="hardcoded_reservation_required">Reservation required</string>
     <string name="hardcoded_age_restriction_title">Ages</string>
     <string name="hardcoded_age_restriction_description">All Ages</string>
     <string name="hardcoded_today">Today</string>
@@ -75,6 +75,8 @@
         quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
         reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
         nulla pariatur?\"</string>
+    <string name="hardcoded_detail_short_description">\"This description is short enough to whet ones
+        apetite but long enough to be meaningful\"</string>
 
     <!--Categories-->
     <string name="category_royal_activity">ACTIVITIES</string>
