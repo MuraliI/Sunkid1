@@ -25,7 +25,7 @@ public class ProductDetailActivityModule {
     }
 
     @Provides
-    ProductDetailView providesProductDetailView(BaseActivity activity) {
+    protected ProductDetailView providesProductDetailView(BaseActivity activity) {
         return new ProductDetailView(((ProductDetailActivity) activity));
     }
 
