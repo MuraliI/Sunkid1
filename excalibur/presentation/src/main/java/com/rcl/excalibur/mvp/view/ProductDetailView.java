@@ -92,6 +92,10 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
                     }
 
                     TextView textView = (TextView) view.findViewById(R.id.text_module_title);
+                    if (textView == null) {
+                        return;
+                    }
+
                     if (scrolledAmount >= view.getPaddingTop() + (textView.getHeight() / 2)) {
                         collapsingToolbar.setTitle(textView.getText().toString());
                     } else {
