@@ -16,7 +16,7 @@ import io.reactivex.Observer;
 public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT extends RecyclerViewType>
         extends BaseCoordinatorAdapter<VH, VT, String> {
 
-    private static final int VIEW_TYPE_COUNT = 3;
+    private static final int VIEW_TYPE_COUNT = 4;
 
     @SuppressWarnings("unchecked")
     public DetailViewCoordinatorAdapter(Observer<String> observer, List<VT> recyclerViewTypes) {
@@ -27,9 +27,8 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
                 (DelegateAdapter<VH, VT>) new TitleAndDescriptionDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRODUCT_BASIC_INFORMATION,
                 (DelegateAdapter<VH, VT>) new ProductInformationDelegateAdapter(getObserver()));
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ACCESSIBILITY_VIEW, new ExpandableAccessibilityDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, (DelegateAdapter<VH, VT>) new ExpandableLinkDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ACCESSIBILITY_VIEW, (DelegateAdapter<VH, VT>) new ExpandableAccessibilityDelegateAdapter());
         addAll(recyclerViewTypes);
     }
 }

@@ -20,11 +20,10 @@ import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
-import com.rcl.excalibur.model.ProductAccessibilityModel;
-import com.rcl.excalibur.mapper.ProductModelDataMapper;
-import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
-import com.rcl.excalibur.utils.ProductModelProvider;
+import com.rcl.excalibur.mapper.ProductModelDataMapper;
+import com.rcl.excalibur.model.ProductAccessibilityModel;
+import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -49,17 +48,13 @@ public final class DetailViewTypeFactory {
         //FIXME refactor this code to transform product model in each method and create a better model
         ProductModel model = new ProductModelDataMapper().transform(product);
         addMakeReservation(viewTypes, resources, model);
-        addAdvisements(viewTypes, resources, model);
-        if (model.getDuration() > NO_DURATION) {
-            addProductDurationTypes(viewTypes, resources, model);
-        }
-        addDurationModule(viewTypes, resources, product);
-        addAttireModule(viewTypes, resources, product);
-        addKnowBeforeYouGoModule(viewTypes, resources, product);
-        addLegalModule(viewTypes, resources, product);
-        addAgeHeight(viewTypes, resources, product);
-        addAgeModule(viewTypes, resources, product);
-        addAccessibilityModule(viewTypes, resources, product);
+        addDurationModule(viewTypes, resources, model);
+        addAttireModule(viewTypes, resources, model);
+        addKnowBeforeYouGoModule(viewTypes, resources, model);
+        addLegalModule(viewTypes, resources, model);
+        addAgeHeight(viewTypes, resources, model);
+        addAgeModule(viewTypes, resources, model);
+        addAccessibilityModule(viewTypes, resources, model);
 
         return viewTypes;
     }
@@ -191,9 +186,6 @@ public final class DetailViewTypeFactory {
         addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
                 productActivityLevel.getActivityLevelTitle());
     }
-
-
-}
 
     private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
         // FIXME: Obtain products from database

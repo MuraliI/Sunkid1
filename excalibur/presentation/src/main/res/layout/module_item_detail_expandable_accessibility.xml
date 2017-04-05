@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/margin_large"
     android:orientation="vertical"
     android:paddingBottom="@dimen/margin_large"
     android:paddingTop="@dimen/margin_large">
@@ -10,12 +11,11 @@
         android:id="@+id/expandable_accessibility_module_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_large"
-        android:layout_marginStart="@dimen/margin_large">
+        android:layout_marginEnd="@dimen/margin_large">
 
         <TextView
             android:id="@+id/expandable_accessilibility_module_title"
-            style="@style/AppTheme.ProductDetailAccessibilityTitleTextView"
+            style="@style/AppTheme.ProductDetailTitleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true" />
@@ -27,7 +27,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_arrow_drop_down"
-            android:tint="@color/font_product_detail_title_gray" />
+            android:tint="@color/font_detail_title_gray" />
     </RelativeLayout>
 
     <View
@@ -41,7 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_large"
-        android:layout_marginStart="@dimen/margin_large"
         android:orientation="vertical"
         android:visibility="gone" />
 

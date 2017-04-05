@@ -47,7 +47,7 @@
     <style name="AppTheme.Headline5.Blue" parent="AppTheme.Headline5">
         <item name="android:textColor">@color/font_color_blue</item>
     </style>
-    
+
     <style name="AppTheme.Headline7">
         <item name="fontPath">@string/proxima_nova_semi_bold</item>
         <item name="android:color">@color/font_color_dark_grey</item>
@@ -256,28 +256,16 @@
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="AppTheme.ProductDetailTitleModuleTextView" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/proximanova_regular</item>
-        <item name="android:textSize">@dimen/product_detail_font_size_title</item>
-        <item name="android:textColor">@color/font_product_detail_title_gray</item>
+    <style name="AppTheme.ProductDetailTitleLarge">
+        <item name="fontPath">@string/proxima_nova_semi_bold</item>
+        <item name="android:color">@color/font_color_dark_grey</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="AppTheme.ProductDetailDescriptionModuleTextView" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/proximanova_regular</item>
-        <item name="android:textSize">@dimen/product_detail_font_size_description</item>
-        <item name="android:textColor">@color/font_product_detail_description_gray</item>
-    </style>
-
-    <style name="AppTheme.ProductDetailSubDescriptionModuleTextView" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/proximanova_regular</item>
-        <item name="android:textSize">@dimen/product_detail_font_size_subdescription</item>
-        <item name="android:textColor">@color/font_product_detail_description_gray</item>
-    </style>
-
-    <style name="AppTheme.ProductDetailAccessibilityTitleTextView" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/proximanova_regular</item>
-        <item name="android:textSize">@dimen/product_detail_font_size_description</item>
-        <item name="android:textColor">@color/font_product_detail_title_gray</item>
+    <style name="AppTheme.ProductDetailDescription" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/font_color_body</item>
     </style>
 
 </resources>

@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/text_subtitle"
-        style="@style/AppTheme.ProductDetailDescriptionModuleTextView"
+        style="@style/AppTheme.Body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image_accessibility"
@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/text_description"
-        style="@style/AppTheme.ProductDetailSubDescriptionModuleTextView"
+        style="@style/AppTheme.ProductDetailDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_subtitle"

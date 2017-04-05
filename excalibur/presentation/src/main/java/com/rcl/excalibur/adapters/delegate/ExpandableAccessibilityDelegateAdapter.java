@@ -21,7 +21,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 public class ExpandableAccessibilityDelegateAdapter implements
         DelegateAdapter<ExpandableAccessibilityDelegateAdapter.ExpandableAccessibiltyViewHolder, ExpandableAccesibilityViewType> {
@@ -43,8 +42,7 @@ public class ExpandableAccessibilityDelegateAdapter implements
 
         for (int i = 0; i < accessibilityList.size(); i++) {
 
-            View itemView = LayoutInflater.from(context).inflate(R.layout.item_accessibility,
-                    null);
+            View itemView = LayoutInflater.from(context).inflate(R.layout.item_accessibility, null);
 
             final TextView subtitleLine = (TextView) itemView.findViewById(R.id.text_subtitle);
             final TextView descriptionLine = (TextView) itemView.findViewById(R.id.text_description);
@@ -63,15 +61,13 @@ public class ExpandableAccessibilityDelegateAdapter implements
             }
 
             String subtitle = accessibilityList.get(i).getSubtitle();
-            if (subtitle != null) {
+            if (!TextUtils.isEmpty(subtitle)) {
                 subtitleLine.setText(subtitle);
-                CalligraphyUtils.applyFontToTextView(context, descriptionLine, context.getResources().getString(R.string.proximanova_regular));
             }
 
             String description = accessibilityList.get(i).getDescription();
             if (!TextUtils.isEmpty(description)) {
                 descriptionLine.setText(description);
-                CalligraphyUtils.applyFontToTextView(context, descriptionLine, context.getResources().getString(R.string.proximanova_regular));
             } else {
                 descriptionLine.setVisibility(View.GONE);
             }
