@@ -2,24 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/margin_large"
     android:layout_marginStart="@dimen/margin_large"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/margin_large"
     android:paddingTop="@dimen/margin_large">
 
     <RelativeLayout
         android:id="@+id/expandable_link_module_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_large">
 
         <TextView
             android:id="@+id/expandable_link_module_title"
-            style="@style/AppTheme.ProductDetailTitleModuleTextView"
+            style="@style/AppTheme.Headline7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
 
         <ImageView
             android:id="@+id/expandable_link_module_arrow"
@@ -27,15 +26,24 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_chevron_down"/>
+            android:src="@drawable/ic_chevron_down" />
 
     </RelativeLayout>
+
+    <include
+        android:id="@+id/separator_top"
+        layout="@layout/separator_product"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/expandable_link_module_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_normal"
         android:orientation="vertical"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
+    <include layout="@layout/separator_product" />
 
 </LinearLayout>

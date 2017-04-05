@@ -23,14 +23,12 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
         super(observer);
         //TODO each one will be in charge of adding its own module to the list of modules.
         delegateAdapters = new SparseArrayCompat<>(VIEW_TYPE_COUNT);
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION,
-                (DelegateAdapter<VH, VT>) new TitleAndDescriptionDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRODUCT_BASIC_INFORMATION,
+                (DelegateAdapter<VH, VT>) new ProductInformationDelegateAdapter(getObserver()));
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK,
                 (DelegateAdapter<VH, VT>) new ExpandableLinkDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION,
                 (DelegateAdapter<VH, VT>) new TitleAndDescriptionDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRODUCT_BASIC_INFORMATION,
-                (DelegateAdapter<VH, VT>) new ProductInformationDelegateAdapter(getObserver()));
         addAll(recyclerViewTypes);
     }
 }

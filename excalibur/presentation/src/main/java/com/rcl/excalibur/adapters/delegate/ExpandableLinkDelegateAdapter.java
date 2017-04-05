@@ -47,7 +47,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
 
     private static void initializeContentLines(int numberOfContentLines, boolean hasCheckMarks, ExpandableLinkViewHolder viewHolder) {
         viewHolder.contentLines.clear();
-        viewHolder.textContent.removeAllViews();
+//        viewHolder.textContent.removeAllViews();
 
         Resources resources = viewHolder.itemView.getResources();
         Context context = viewHolder.itemView.getContext();
@@ -55,7 +55,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         for (int i = 0; i < numberOfContentLines; i++) {
             //Create TextView;
             TextView contentLine = new TextView(context);
-            contentLine.setTextAppearance(context, R.style.AppTheme_ProductDetailDescriptionModuleTextView);
+            contentLine.setTextAppearance(context, R.style.AppTheme_Body);
             CalligraphyUtils.applyFontToTextView(context, contentLine, context.getResources().getString(R.string.proxima_nova_regular));
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -76,6 +76,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
             viewHolder.textContent.addView(contentLine);
             viewHolder.contentLines.add(contentLine);
         }
+
     }
 
 
@@ -84,6 +85,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         @Bind(R.id.expandable_link_module_title) TextView title;
         @Bind(R.id.expandable_link_module_content) LinearLayout textContent;
         @Bind(R.id.expandable_link_module_arrow) ImageView imageArrow;
+        @Bind(R.id.separator_top) View separatorTop;
 
         private List<TextView> contentLines;
 
@@ -101,6 +103,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         private void change() {
             final boolean isGone = View.GONE == textContent.getVisibility();
             textContent.setVisibility(isGone ? View.VISIBLE : View.GONE);
+            separatorTop.setVisibility(isGone ? View.VISIBLE : View.GONE);
             imageArrow.setImageResource(isGone ? R.drawable.ic_chevron_up : R.drawable.ic_chevron_down);
         }
     }

@@ -1,6 +1,5 @@
 package com.rcl.excalibur.mvp.view;
 
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -48,7 +47,7 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
         if (getActivity() != null) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             planDetailRecycler.setLayoutManager(layoutManager);
-            planDetailRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), layoutManager.getOrientation()));
+//            planDetailRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), layoutManager.getOrientation()));
         }
     }
 

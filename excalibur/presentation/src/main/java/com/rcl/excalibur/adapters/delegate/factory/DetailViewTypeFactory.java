@@ -19,6 +19,7 @@ import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
+import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.mapper.ProductModelDataMapper;
 import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.utils.StringUtils;
@@ -34,6 +35,8 @@ import static com.rcl.excalibur.domain.ProductAdvisement.LEGAL;
 public final class DetailViewTypeFactory {
 
     private static final int NO_DURATION = 0;
+    private static final String NEXT_LINE = "\n";
+    private static final String TO_REPLACE = ", ";
 
     private DetailViewTypeFactory() {
     }
@@ -41,11 +44,9 @@ public final class DetailViewTypeFactory {
     public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
-        //FIXME refactor this code to transform product model in each method and create a better model
-        ProductModelDataMapper mapper = new ProductModelDataMapper();
-        ProductModel model = mapper.transform(product);
+        ProductModel model = new ProductModelDataMapper().transform(product);
 
-        addHeroSectionHeader(model, viewTypes);
+        addHeroSectionHeader(product, viewTypes);
         addMakeReservation(viewTypes, resources, model);
         addDurationModule(viewTypes, resources, model);
         addAttireModule(viewTypes, resources, model);
@@ -55,8 +56,8 @@ public final class DetailViewTypeFactory {
         return viewTypes;
     }
 
-    private static void addHeroSectionHeader(ProductModel product, LinkedList<RecyclerViewType> viewTypes) {
-        viewTypes.add(product);
+    private static void addHeroSectionHeader(Product product, LinkedList<RecyclerViewType> viewTypes) {
+        viewTypes.add(new ProductInformationMapper().transform(product));
     }
 
     private static boolean isHoursEmpty(String value) {
@@ -82,7 +83,7 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addAttireModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                        ProductModel product) {
+                                                 ProductModel product) {
         if (product.getAdvisementsAndReestrictions().containsKey(ATTIRE)) {
             String description = product.getAdvisementsAndReestrictions().get(ATTIRE);
             addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.attire), description);
@@ -93,12 +94,14 @@ public final class DetailViewTypeFactory {
                                                  ProductModel product) {
         if (product.getAdvisementsAndReestrictions().containsKey(KNOW_BEFORE_YOU_GO)) {
             String description = product.getAdvisementsAndReestrictions().get(KNOW_BEFORE_YOU_GO);
+            //FIXME hardcoded to match UI Design
+            description = description.replace(TO_REPLACE, NEXT_LINE);
             addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.know_before_you_go), description);
         }
     }
 
     private static void addLegalModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                       ProductModel product) {
+                                                 ProductModel product) {
         if (product.getAdvisementsAndReestrictions().containsKey(LEGAL)) {
             String description = product.getAdvisementsAndReestrictions().get(LEGAL);
             addExpandableAndDescription(recyclerViewTypeList, res.getString(R.string.detail_module_legal), description);
