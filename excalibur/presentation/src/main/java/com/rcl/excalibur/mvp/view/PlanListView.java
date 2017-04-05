@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.data.utils.Preconditions;
+import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
@@ -20,7 +21,7 @@ import static com.rcl.excalibur.fragments.ProductsListFragment.SPA;
 import static com.rcl.excalibur.fragments.ProductsListFragment.newInstance;
 
 
-public class PlanListView extends ActivityView<PlanListActivity> {
+public class PlanListView extends ActivityView<PlanListActivity, DiscoverItemModel> {
     public static final int POSITION_ROYAL_ACTIVITY = 0;
     public static final int POSITION_DINING = 1;
     public static final int POSITION_SHOPPING = 2;

@@ -2,8 +2,10 @@ package com.rcl.excalibur.adapters.delegate;
 
 
 import android.support.v4.util.SparseArrayCompat;
+import android.support.v7.widget.RecyclerView;
 
 import com.rcl.excalibur.adapters.base.BaseCoordinatorAdapter;
+import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
@@ -11,18 +13,20 @@ import java.util.List;
 
 import io.reactivex.Observer;
 
-public class DetailViewCoordinatorAdapter extends BaseCoordinatorAdapter {
+public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT extends RecyclerViewType>
+        extends BaseCoordinatorAdapter<VH, VT, String> {
 
-    private static final int VIEW_TYPE_COUNT = 1;
+    private static final int VIEW_TYPE_COUNT = 2;
 
-    public DetailViewCoordinatorAdapter(Observer observer,
-                                        List<RecyclerViewType> recyclerViewTypes) {
+    @SuppressWarnings("unchecked")
+    public DetailViewCoordinatorAdapter(Observer<String> observer, List<VT> recyclerViewTypes) {
         super(observer);
         //TODO each one will be in charge of adding its own module to the list of modules.
         delegateAdapters = new SparseArrayCompat<>(VIEW_TYPE_COUNT);
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION, new TitleAndDescriptionDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DESCRIPTION, new DescriptionDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_LINK, new ExpandableLinkDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION,
+                (DelegateAdapter<VH, VT>) new TitleAndDescriptionDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRODUCT_BASIC_INFORMATION,
+                (DelegateAdapter<VH, VT>) new ProductInformationDelegateAdapter(getObserver()));
         addAll(recyclerViewTypes);
     }
 }
