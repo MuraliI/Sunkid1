@@ -1,11 +1,14 @@
 package com.rcl.excalibur.mapper;
 
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductDuration;
 import com.rcl.excalibur.model.ProductModel;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -16,6 +19,7 @@ public class ProductModelDataMapperTest {
     ProductModelDataMapper productModelDataMapper;
     Product entity1;
     Product entity2;
+    ProductAdvisement productAdvisement;
 
     @Before
     public void setUp() {
@@ -28,6 +32,11 @@ public class ProductModelDataMapperTest {
         entity1.setProductShortDescription("Description will be a block of text");
         entity1.setProductReservationInformation("Arrive 15 minutes early, Wear closedtoed shoes");
         entity1.setExperience("Enjoy the travel!");
+        productAdvisement = new ProductAdvisement();
+        productAdvisement.setAdvisementId(1L);
+        productAdvisement.setAdvisementDescription("Casual");
+        productAdvisement.setAdvisementType("ATTIRE");
+        entity1.setAdvisements(Arrays.asList(productAdvisement));
 
         entity2 = null;
     }
@@ -42,6 +51,11 @@ public class ProductModelDataMapperTest {
         assertEquals(entity1.getExperience(), productModel.getExperience());
         ProductModel productModelNull = productModelDataMapper.transform(entity2);
         assertNull(productModelNull);
+        for (int i = 0; i < entity1.getAdvisements().size(); i++) {
+            assertEquals(entity1.getAdvisements().get(i).getAdvisementType(), productModel.getAdvisementsAndReestrictions().keySet());
+            assertEquals(entity1.getAdvisements().get(i).getAdvisementDescription(), productModel.getAdvisementsAndReestrictions().values());
+        }
+
     }
 
 }

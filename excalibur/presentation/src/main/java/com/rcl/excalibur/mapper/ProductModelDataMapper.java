@@ -37,7 +37,7 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
         for (int i = 0; i < advisements.size(); i++) {
             String type = advisements.get(i).getAdvisementType();
             String description = advisements.get(i).getAdvisementDescription();
-            if (!TextUtils.isEmpty(type)) {
+            if (!type.isEmpty()) {
                 if (type.equals(ProductAdvisement.ACCESSIBILITY)) {
                     addAccesibility(product, advisements.get(i));
                 } else {
@@ -62,7 +62,7 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
         }
         for (int i = 0; i < restrictions.size(); i++) {
             String type = restrictions.get(i).getRestrictionType();
-            if (!TextUtils.isEmpty(type)) {
+            if (!type.isEmpty()) {
                 String description = restrictions.get(i).getRestrictionDisplayText();
                 product.getAdvisementsAndReestrictions().put(type, description);
             }
