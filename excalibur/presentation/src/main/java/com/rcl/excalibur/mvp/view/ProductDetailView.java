@@ -41,7 +41,6 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
     private View detailInfoContainer;
     private TextView productDetailName;
 
-    private DetailViewCoordinatorAdapter adapter;
     private String productTitle;
     private int scrolledAmount = 0;
 
@@ -77,9 +76,9 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
             return;
         }
 
-        adapter = new DetailViewCoordinatorAdapter(adapterObserver, viewTypes);
-        planDetailRecycler.setAdapter(adapter);
-        planDetailRecycler.setLayoutManager(new LinearLayoutManager(activity));
+        planDetailRecycler.setAdapter(new DetailViewCoordinatorAdapter(adapterObserver, viewTypes));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+        planDetailRecycler.setLayoutManager(layoutManager);
         // Cannot be passed to Activity because RecyclerView.OnScrollListener is a class and not an interface
         planDetailRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
