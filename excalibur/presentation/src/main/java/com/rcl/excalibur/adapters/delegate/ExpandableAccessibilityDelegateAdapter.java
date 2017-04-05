@@ -41,12 +41,10 @@ public class ExpandableAccessibilityDelegateAdapter implements
         Context context = viewHolder.itemView.getContext();
 
         for (int i = 0; i < accessibilityList.size(); i++) {
-
             View itemView = LayoutInflater.from(context).inflate(R.layout.item_accessibility, null);
-
-            final TextView subtitleLine = (TextView) itemView.findViewById(R.id.text_subtitle);
-            final TextView descriptionLine = (TextView) itemView.findViewById(R.id.text_description);
-            final ImageView image = (ImageView) itemView.findViewById(R.id.image_accessibility);
+            TextView subtitleLine = (TextView) itemView.findViewById(R.id.text_subtitle);
+            TextView descriptionLine = (TextView) itemView.findViewById(R.id.text_description);
+            ImageView image = (ImageView) itemView.findViewById(R.id.image_accessibility);
             final int iconSize = 10;
 
             String imageUrl = accessibilityList.get(i).getImageUrl();
@@ -78,7 +76,7 @@ public class ExpandableAccessibilityDelegateAdapter implements
     static class ExpandableAccessibiltyViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.expandable_accessilibility_module_title)
         TextView title;
-        @Bind(R.id.expandable_link_module_content)
+        @Bind(R.id.expandable_accessibility_module_content)
         LinearLayout layoutContent;
         @Bind(R.id.expandable_accessilibility_module_arrow)
         ImageView imageArrow;
@@ -97,7 +95,7 @@ public class ExpandableAccessibilityDelegateAdapter implements
         public void change() {
             final boolean isGone = View.GONE == layoutContent.getVisibility();
             layoutContent.setVisibility(isGone ? View.VISIBLE : View.GONE);
-            imageArrow.setImageResource(isGone ? R.drawable.ic_arrow_drop_up : R.drawable.ic_arrow_drop_down);
+            imageArrow.setImageResource(isGone ? R.drawable.ic_chevron_up : R.drawable.ic_chevron_down);
         }
     }
 }

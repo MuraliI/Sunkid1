@@ -17,6 +17,7 @@ import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductActivityLevel;
+import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
@@ -48,15 +49,23 @@ public final class DetailViewTypeFactory {
         //FIXME refactor this code to transform product model in each method and create a better model
         ProductModel model = new ProductModelDataMapper().transform(product);
         addMakeReservation(viewTypes, resources, model);
+        addCuisineModule(viewTypes, resources, model);
         addDurationModule(viewTypes, resources, model);
         addAttireModule(viewTypes, resources, model);
         addKnowBeforeYouGoModule(viewTypes, resources, model);
         addLegalModule(viewTypes, resources, model);
-        addAgeHeight(viewTypes, resources, model);
+        addHeightModule(viewTypes, resources, model);
         addAgeModule(viewTypes, resources, model);
         addAccessibilityModule(viewTypes, resources, model);
 
         return viewTypes;
+    }
+
+    private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ProductAdvisement.CUISINE)) {
+            String description = product.getAdvisementsAndReestrictions().get(ProductAdvisement.CUISINE);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_cuisine), description);
+        }
     }
 
     private static void addHeroSectionHeader(Product product, LinkedList<RecyclerViewType> viewTypes) {
@@ -70,7 +79,7 @@ public final class DetailViewTypeFactory {
         }
     }
 
-    private static void addAgeHeight(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
+    private static void addHeightModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
         if (product.getAdvisementsAndReestrictions().containsKey(ProductRestriction.HEIGHT)) {
             String description = product.getAdvisementsAndReestrictions().get(ProductRestriction.HEIGHT);
             addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_height), description);

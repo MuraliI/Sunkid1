@@ -269,8 +269,6 @@ public class DiscoverServicesImpl implements DiscoverServices {
                     if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
                         productResponse.setAdvisements(getProductAdvisementResponseAttire());
                     }
-//                    productResponse.setAdvisements(getProductAdvisementResponseAttire());
-//                    productResponse.setRestrictions(getProductRestrictionResponse());
                     setProductLocationExtraParameters(productResponse.getProductLocation());
                 }
                 productList.addAll(productResponseDataMapper.transform(getProductsResponse.getProducts()));
@@ -285,7 +283,8 @@ public class DiscoverServicesImpl implements DiscoverServices {
         ageRestriction.setRestrictionId(1L);
         ageRestriction.setRestrictionType(ProductRestriction.AGE);
         ageRestriction.setRestrictionTitle("Age Restritions");
-        ageRestriction.setRestrictionDescription("4+");
+        ageRestriction.setRestrictionDisplayText("12+");
+        ageRestriction.setRestrictionDescription("12+");
 
         productRestrictionResponses.add(ageRestriction);
 
@@ -293,7 +292,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
         heigthRestriction.setRestrictionId(1L);
         heigthRestriction.setRestrictionType(ProductRestriction.HEIGHT);
         heigthRestriction.setRestrictionTitle("Height Restrictions");
-        heigthRestriction.setRestrictionDisplayText("Height Restrictions");
+        heigthRestriction.setRestrictionDisplayText("None");
         heigthRestriction.setRestrictionDescription("None");
 
         productRestrictionResponses.add(heigthRestriction);

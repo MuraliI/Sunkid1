@@ -12,8 +12,6 @@ import com.rcl.excalibur.model.ProductModel;
 
 import java.util.List;
 
-import timber.log.Timber;
-
 public class ProductModelDataMapper extends BaseModelDataMapper<Product, ProductModel> {
 
     @NonNull
@@ -35,15 +33,12 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
             return;
         }
         for (int i = 0; i < advisements.size(); i++) {
-
             String type = advisements.get(i).getAdvisementType();
             String description = advisements.get(i).getAdvisementDescription();
             if (!TextUtils.isEmpty(type)) {
                 if (type.equals(ProductAdvisement.ACCESSIBILITY)) {
-                    Timber.i("ProductModelDataMapper Avisements: ", type, description);
                     addAccesibility(product, advisements.get(i));
                 } else {
-                    Timber.i("ProductModelDataMapper Avisements: ", type, description);
                     product.getAdvisementsAndReestrictions().put(type, description);
                 }
             }
@@ -68,7 +63,6 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
             if (!TextUtils.isEmpty(type)) {
                 String description = restrictions.get(i).getRestrictionDisplayText();
                 product.getAdvisementsAndReestrictions().put(type, description);
-                Timber.i("ProductModelDataMapper Avisements: ", type, description);
             }
         }
     }

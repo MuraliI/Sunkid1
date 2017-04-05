@@ -13,6 +13,7 @@
     <string name="detail_module_accessibility">Accessibility &amp; Other info</string>
     <string name="detail_module_legal">Legal</string>
     <string name="detail_module_age">Age Restriction</string>
+    <string name="detail_module_cuisine">Cuisine</string>
     <string name="detail_module_promotion">Promotion</string>
     <string name="price_range">Price Range</string>
     <string name="prices_from">Prices from</string>
