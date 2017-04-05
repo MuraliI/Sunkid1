@@ -5,22 +5,21 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactory;
-import com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
+import com.rcl.excalibur.adapters.base.RecyclerViewType;
+import com.rcl.excalibur.adapters.delegate.factory.DetailViewTypeFactory;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
-import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
 
-import static com.rcl.excalibur.adapters.delegate.factory.DetailModuleFactoryProvider.TYPE_SHOREX;
+import java.util.List;
 
 public class ProductDetailPresenter implements ActivityPresenter {
     private GetProductDbUseCase getProductDbUseCase;
     private ProductDetailView view;
-    private DetailModuleFactory moduleFactory;
     private long productId;
     private Product product;
+    private List<RecyclerViewType> viewTypes;
 
     public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -30,22 +29,9 @@ public class ProductDetailPresenter implements ActivityPresenter {
 
     public void init() {
         product = getProductDbUseCase.get(productId);
-        DetailModuleFactoryProvider factoryProvider = new DetailModuleFactoryProvider();
-        if (product != null) {
-            String productTypeName = product.getProductType().getProductType();
-            if (!product.isReservationRequired() && product.isScheduable()) {
-                view.showOnlyReservationIcon();
-            }
-            if (TYPE_SHOREX.equals(productTypeName)) {
-                view.hideDeckMapButton();
-            }
-            moduleFactory = factoryProvider.getFactory(productTypeName);
-            if (moduleFactory == null) {
-                view.showToastAndFinishActivity("Discover Item Not Found");
-            } else {
-                moduleFactory.setProduct(product);
-                initView();
-            }
+        if (product != null && view.getActivity() != null) {
+            viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(product, view.getActivity().getResources());
+            initView();
         } else {
             view.showToastAndFinishActivity("Discover Item Not Found");
         }
@@ -54,14 +40,15 @@ public class ProductDetailPresenter implements ActivityPresenter {
     private void initView() {
         AppCompatActivity activity = view.getActivity();
         if (activity != null) {
-            view.setDetailTitle(product.getProductTitle());
-            view.setHeroImage(BuildConfig.PREFIX_IMAGE + product.getProductMedia().getMediaItem().get(0).getMediaRefLink());
-            view.setAdapterObserver(new DetailAdapterObserver(this));
-            if (moduleFactory != null) {
-                view.render(moduleFactory.getDelegateAdapterArray(), moduleFactory.getListOfDetailViewTypes(activity.getResources()));
+            if (product.getProductMedia() != null
+                    && product.getProductMedia().getMediaItem() != null
+                    && product.getProductMedia().getMediaItem().size() > 0) {
+                view.setHeroImage(BuildConfig.PREFIX_IMAGE + product.getProductMedia().getMediaItem().get(0));
             } else {
-                view.showToastAndFinishActivity("Discover Activity Not Recognized");
+                view.setHeroImage(null);
             }
+            view.setAdapterObserver(new FindOnDeckClickObserver(this));
+            view.render(viewTypes);
         }
     }
 
@@ -71,27 +58,23 @@ public class ProductDetailPresenter implements ActivityPresenter {
         }
     }
 
-    public void onDeckMapClicked(long productId) {
-        final BaseActivity activity = view.getActivity();
-        if (activity != null) {
-            activity.startActivity(ProductDeckMapActivity.getIntent(activity, productId));
-        }
-    }
-
     @Override
     public ProductDetailView getView() {
         return view;
     }
 
-    private class DetailAdapterObserver extends DefaultPresentObserver<DiscoverItemModel, ProductDetailPresenter> {
+    private class FindOnDeckClickObserver extends DefaultPresentObserver<String, ProductDetailPresenter> {
 
-        DetailAdapterObserver(ProductDetailPresenter presenter) {
+        FindOnDeckClickObserver(ProductDetailPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(DiscoverItemModel value) {
-            //TODO do something when a detail item is clicked.
+        public void onNext(String value) {
+            final BaseActivity activity = view.getActivity();
+            if (activity != null) {
+                activity.startActivity(ProductDeckMapActivity.getIntent(activity, productId));
+            }
         }
     }
 }

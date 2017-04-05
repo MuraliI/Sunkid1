@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/text_module_title"
-        style="@style/AppTheme.DiscoverItemModuleTitleTextView"
+        style="@style/AppTheme.Headline7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_large"
@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/text_module_text"
-        style="@style/AppTheme.DiscoverItemModuleDescriptionTextView"
+        style="@style/AppTheme.Body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_large"

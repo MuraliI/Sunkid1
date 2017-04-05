@@ -27,6 +27,9 @@
     <string name="discover_item_detail_see_menu">See menu</string>
     <string name="discover_item_detail_description_expanded_text">See less</string>
     <string name="discover_item_detail_price_range">$%1$s&#8210;$%2$s</string>
+    <string name="product_detail_find_on_deck">Find on deck</string>
+    <string name="product_detail_reservation_required">Reservation required</string>
+    <string name="discover_item_detail_make_a_reservation">Make a Reservation</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
@@ -34,6 +37,9 @@
     <string name="roboto_bold">fonts/Roboto-Bold.ttf</string>
     <string name="roboto_medium_italic">fonts/Roboto-MediumItalic.ttf</string>
     <string name="roboto_light">fonts/Roboto-Light.ttf</string>
+    <string name="proxima_nova_regular">fonts/ProximaNova-Regular.otf</string>
+    <string name="proxima_nova_bold">fonts/ProximaNova-Bold.otf</string>
+    <string name="proxima_nova_semi_bold">fonts/ProximaNova-Semibold.otf</string>
 
     <!--TABS-->
     <string name="royal_activity">Activity</string>
@@ -52,8 +58,10 @@
     <string name="hardcoded_destination_place">ST MARTIN</string>
     <string name="hardcoded_destination_time">in 1:40 hours</string>
     <string name="hardcoded_detail_activity_location">Location Here</string>
+    <string name="hardcoded_detail_deck_and_direction">Deck 12 AFT</string>
+    <string name="hardcoded_detail_port">St Martin</string>
     <string name="hardcoded_activity_title">Sams\'s BBQ Wild House</string>
-    <string name="hardcoded_reservation_required">Reservation required</string>
+
     <string name="hardcoded_age_restriction_title">Ages</string>
     <string name="hardcoded_age_restriction_description">All Ages</string>
     <string name="hardcoded_today">Today</string>
@@ -106,6 +114,16 @@
     <string name="itinerary_accessibility_product_image">Item Image</string>
     <string name="itinerary_separator_title_on_going">On going</string>
 
+    <!-- Product Details -->
+    <plurals name="product_hr">
+        <item quantity="one">"%d hr "</item>
+        <item quantity="other">"%d hrs "</item>
+    </plurals>
+    <plurals name="product_min">
+        <item quantity="one">%d min</item>
+        <item quantity="other">%d mins</item>
+    </plurals>
+    <string name="advisement_cuisine">Cuisine</string>
 
     <!-- Email Activity -->
     <string name="title_email_address">Now let\'s get your email address</string>
