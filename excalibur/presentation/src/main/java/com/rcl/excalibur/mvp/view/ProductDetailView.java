@@ -20,7 +20,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class ProductDetailView extends ActivityView<ProductDetailActivity, String> {
+public class ProductDetailView extends ActivityView<ProductDetailActivity, Long> {
 
     @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
     @Bind(R.id.toolbar_detail) Toolbar detailToolbar;

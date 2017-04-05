@@ -14,7 +14,6 @@ public class ProductModel extends ProductInformationViewType {
     //TODO Add all your attributes here
 
     private LinkedHashMap<String, String> advisements = new LinkedHashMap<>();
-    private String productId;
     private int duration;
     private String reservationInformation;
 
@@ -25,14 +24,6 @@ public class ProductModel extends ProductInformationViewType {
 
     public void setAdvisements(LinkedHashMap<String, String> advisements) {
         this.advisements = advisements;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
     }
 
     public int getDuration() {

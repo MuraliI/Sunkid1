@@ -11,7 +11,7 @@ public final class ProductModelProvider {
     static {
         productModelMap = new HashMap<>();
         ProductModel productModel = new ProductModel();
-        productModel.setProductId("1");
+        productModel.setProductId(1L);
         productModel.getAdvisements().put("Cuisine", "Colombian");
         productModelMap.put("1", productModel);
     }
