@@ -70,7 +70,9 @@
 
         <activity
             android:name=".activity.guest.PasswordActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

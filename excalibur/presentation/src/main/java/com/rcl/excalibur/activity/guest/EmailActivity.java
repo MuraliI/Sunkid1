@@ -8,6 +8,8 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.mvp.presenter.guest.EmailPresenter;
+import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,6 +24,7 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email);
         ButterKnife.bind(this);
+        AnalyticsUtils.trackState(AnalyticsConstants.KEY_EMAIL_SCREEN);
     }
 
     @OnClick(R.id.image_back_screen)
