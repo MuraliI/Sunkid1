@@ -4,6 +4,7 @@ import com.rcl.excalibur.activity.guest.EmailActivity;
 import com.rcl.excalibur.activity.HomeActivity;
 import com.rcl.excalibur.activity.guest.PasswordActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
+import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.internal.di.module.ActivityModule;
 import com.rcl.excalibur.internal.di.module.FragmentModule;
 
@@ -16,6 +17,8 @@ public interface ActivityComponent {
     void inject(HomeActivity activity);
 
     void inject(TriptychHomeActivity activity);
+
+    void inject(NameActivity activity);
 
     void inject(EmailActivity activity);
 

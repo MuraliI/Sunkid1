@@ -94,6 +94,11 @@ public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
         Toast.makeText(getActivity(), "Search Click", Toast.LENGTH_LONG).show();
     }
 
+    @OnClick(R.id.image_boat)
+    public void boatOnClick() {
+        presenter.boatOnClick();
+    }
+
     @Override
     protected void inject(FragmentComponent fragmentComponent) {
         productsFragmentComponent.inject(this);
