@@ -1,8 +1,6 @@
 package com.rcl.excalibur.mvp.view.guest;
 
 
-import android.content.Context;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,7 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EmailView extends ActivityView<EmailActivity> {
+public class EmailView extends ActivityView<EmailActivity, Void> {
     @Bind(R.id.email_layout) RelativeLayout emailLayout;
     @Bind(R.id.edit_email) EditText editTextEmail;
     @Bind(R.id.text_show_error) TextView textViewEmailAddressError;
@@ -35,11 +33,6 @@ public class EmailView extends ActivityView<EmailActivity> {
             return;
         }
         imageViewNext.setEnabled(false);
-    }
-
-    @OnClick(R.id.email_layout)
-    public void onClickEmailLayout() {
-        hideKeyboard();
     }
 
     @OnClick(R.id.image_next_screen)
@@ -65,15 +58,10 @@ public class EmailView extends ActivityView<EmailActivity> {
 
     public void setHint(String hint) {
         editTextEmail.setHint(hint);
-        hideKeyboard();
     }
 
     private void cleanTextViewError() {
         textViewEmailAddressError.setText(R.string.empty_string);
     }
 
-    private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(emailLayout.getWindowToken(), 0);
-    }
 }

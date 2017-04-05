@@ -16,6 +16,7 @@ import com.rcl.excalibur.utils.ActivityUtils;
 
 public class PasswordPresenter implements ActivityPresenter {
     private static final int MIN_CHAR = 7;
+    private static final String REGEX = ".*[$&+,:;=?@#|/'<>.^*()%!-].*";
     private PasswordView view;
 
     public PasswordPresenter(PasswordView view) {
@@ -64,7 +65,7 @@ public class PasswordPresenter implements ActivityPresenter {
         boolean hasUppercase = password.equals(password.toLowerCase());
         boolean hasLowercase = password.equals(password.toUpperCase());
         boolean isAtLeast7 = password.length() <= MIN_CHAR;
-        boolean hasSpecial = !password.matches(".*[!@#$%^&*].*");
+        boolean hasSpecial = !password.matches(REGEX);
 
         String minChars = context.getString(R.string.min_characters);
         String uppercaseChars = context.getString(R.string.must_uppercase);
@@ -88,7 +89,7 @@ public class PasswordPresenter implements ActivityPresenter {
         boolean hasUppercase = password.equals(password.toLowerCase());
         boolean hasLowercase = password.equals(password.toUpperCase());
         boolean isAtLeast7 = password.length() <= MIN_CHAR;
-        boolean hasSpecial = !password.matches(".*[$&+,:;=?@#|/'<>.^*()%!-].*");
+        boolean hasSpecial = !password.matches(REGEX);
 
         return !isAtLeast7 && !hasUppercase && !hasLowercase && !hasSpecial;
     }

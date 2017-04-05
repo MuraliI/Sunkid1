@@ -15,7 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PasswordView extends ActivityView<PasswordActivity> {
+public class PasswordView extends ActivityView<PasswordActivity, Void> {
     @Bind(R.id.edit_create_password) EditText editTextPassword;
     @Bind(R.id.text_show_error) TextView textViewError;
     @Bind(R.id.image_next_screen) ImageView imageViewNext;
