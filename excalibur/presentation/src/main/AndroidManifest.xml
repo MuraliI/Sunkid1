@@ -21,8 +21,7 @@
             android:theme="@style/AppTheme.Home" />
         <activity
             android:name=".activity.guest.NameActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Home"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.ProductDetailActivity"
             android:label="@string/empty_string"

@@ -67,7 +67,6 @@ public class NamePresenter implements ActivityPresenter {
     private boolean validate(String value) {
 
         if (TextUtils.isEmpty(value)) {
-//            view.showError(R.string.guest_error_name_empty);
             return false;
         }
 //        A Guest shall be able to enter a first name composed of any English characters, given that they are not all whitespace characters
@@ -83,7 +82,6 @@ public class NamePresenter implements ActivityPresenter {
         }
 //        A Guest shall be able to enter a first name that is 50 or less characters
         if (length > LIMIT_MAX) {
-//            view.showError();
             return false;
         }
         return true;

@@ -2,17 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_name"
-    android:paddingLeft="@dimen/guest_padding_margin"
-    android:paddingRight="@dimen/guest_padding_margin"
-    android:paddingTop="45dp">
+    android:background="@drawable/bg_name">
 
     <ImageView
         android:id="@+id/arrow_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/guest_padding_margin"
         android:src="@drawable/ic_trending_flat" />
-
 
     <TextView
         android:id="@+id/name_label"
@@ -28,18 +25,39 @@
     <EditText
         android:id="@+id/full_name"
         style="@style/AppTheme.GuestEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_above="@+id/name_error"
+        android:layout_marginLeft="@dimen/guest_padding_margin"
+        android:layout_marginRight="@dimen/guest_padding_margin"
         android:hint="@string/guest_name_hint"
         android:inputType="textNoSuggestions" />
+
+    <!--<EditText-->
+        <!--android:id="@+id/edit_email"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/margin_general"-->
+        <!--android:layout_marginRight="@dimen/margin_general"-->
+        <!--android:gravity="center"-->
+        <!--android:hint="@string/title_hint_email_address"-->
+        <!--android:imeOptions="actionGo"-->
+        <!--android:inputType="textEmailAddress"-->
+        <!--android:maxLength="@integer/max_length_email"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textColorHint="@color/email_editText_inactive"-->
+        <!--android:textSize="@dimen/size_text_big"-->
+        <!--android:theme="@style/AppTheme.LoginFlowEditText" />-->
 
     <TextView
         android:id="@+id/name_error"
         style="@style/AppTheme.GuestErrorTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/full_name"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/guest_padding_margin"
+        android:layout_marginRight="@dimen/guest_padding_margin"
         android:layout_centerHorizontal="true"
         android:gravity="center" />
 
@@ -49,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/name_error"
-        android:layout_marginTop="20dp"
-        android:alpha=".24"
+        android:layout_marginRight="@dimen/guest_padding_margin"
         android:src="@drawable/next_active" />
+
 </RelativeLayout>

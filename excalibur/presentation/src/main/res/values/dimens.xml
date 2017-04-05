@@ -104,9 +104,7 @@
     <dimen name="margin_edit_text">14dp</dimen>
     <dimen name="margin_general">16dp</dimen>
 
-
-
-
     <dimen name="guest_padding_margin">25dp</dimen>
+    <dimen name="guest_next_top">20dp</dimen>
 
 </resources>
