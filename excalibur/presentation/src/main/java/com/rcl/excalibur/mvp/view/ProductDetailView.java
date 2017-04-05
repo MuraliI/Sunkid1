@@ -32,7 +32,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class ProductDetailView extends ActivityView<ProductDetailActivity> {
+public class ProductDetailView extends ActivityView<ProductDetailActivity, String> {
 
     @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
     @Bind(R.id.app_bar_layout_detail) AppBarLayout appBarLayout;
@@ -66,16 +66,8 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity> {
 
     public void setHeroImage(String url) {
         if (getActivity() != null) {
-            Picasso.with(getActivity()).load(url).placeholder(R.drawable.thumb).into(heroImage);
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.placeholder_hero_image).into(heroImage);
         }
-    }
-
-    public void showOnlyReservationIcon() {
-        // TODO: Check if there is going to be use for this method once the change on the details has been made
-    }
-
-    public void setDetailTitle(String title) {
-        //collapsingToolbar.setTitle(title);
     }
 
     private int scrolledAmount = 0;
@@ -87,8 +79,9 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity> {
         titleToolbar.startAnimation(upAnimation);
     }
 
+    @SuppressWarnings("unchecked")
     public void render(List<RecyclerViewType> viewTypes) {
-        adapter = new DetailViewCoordinatorAdapter(viewObserver, viewTypes);
+        adapter = new DetailViewCoordinatorAdapter(adapterObserver, viewTypes);
         planDetailRecycler.setAdapter(adapter);
 
         ProductDetailActivity activity = getActivity();
@@ -114,6 +107,10 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity> {
                     }
 
                     TextView textView = (TextView) view.findViewById(R.id.text_module_title);
+                    if (textView == null) {
+                        return;
+                    }
+
                     if (scrolledAmount >= view.getPaddingTop() + (textView.getHeight() / 2)) {
                         collapsingToolbar.setTitle(textView.getText().toString());
                         upAnimationTitle();
