@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.guest.EmailActivity;
+import com.rcl.excalibur.mvp.presenter.guest.EmailPresenter;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import butterknife.Bind;
@@ -22,9 +23,8 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
     @Bind(R.id.text_show_error) TextView textViewEmailAddressError;
     @Bind(R.id.image_next_screen) ImageView imageViewNext;
     @Bind(R.id.image_back_screen) ImageView imageViewBack;
+    private boolean isPossibleNavigate;
 
-    public static final float ACTIVE = 1f;
-    public static final float INACTIVE = 0.24f;
 
     public EmailView(EmailActivity activity) {
         super(activity);
@@ -36,12 +36,11 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
         if (activity == null) {
             return;
         }
-        imageViewNext.setEnabled(false);
+
     }
 
-    @OnClick(R.id.image_next_screen)
-    public void onClickImageViewNext() {
-        navigate();
+    public boolean getIsposibleNavigate() {
+        return isPossibleNavigate;
     }
 
     @OnClick(R.id.email_layout)
@@ -53,28 +52,19 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
         //TODO navigate to Password Activity
     }
 
-    public void manageNavigation(boolean status) {
-        imageViewNext.setEnabled(status);
-
-        if (status) {
-            imageViewNext.setAlpha(ACTIVE);
-            cleanTextViewError();
-        } else {
-            imageViewNext.setAlpha(INACTIVE);
-        }
+    public void manageNavigation(boolean status, float alpha) {
+        isPossibleNavigate = status;
+        imageViewNext.setAlpha(alpha);
     }
 
     public String getEmail() {
         return editTextEmail.getText().toString();
     }
 
-    public boolean isPossibleNavigate() {
-        return imageViewNext.isEnabled();
-    }
 
     public void setLabelError(String errorText) {
         textViewEmailAddressError.setText(errorText);
-        manageNavigation(false);
+        manageNavigation(false, EmailPresenter.INACTIVE);
     }
 
     public void setHint(String hint) {

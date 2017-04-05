@@ -2,7 +2,6 @@ package com.rcl.excalibur.activity.guest;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
@@ -48,7 +47,7 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
 
 
     @OnTextChanged(value = R.id.edit_email, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    void afterEmailInput(Editable editable) {
+    void afterEmailInput() {
         presenter.verifyEmail();
     }
 
@@ -57,5 +56,10 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
     boolean onEditorAction() {
         presenter.checkDone();
         return true;
+    }
+
+    @OnClick(R.id.image_next_screen)
+    public void onClickImageViewNext() {
+        presenter.checkDone();
     }
 }
