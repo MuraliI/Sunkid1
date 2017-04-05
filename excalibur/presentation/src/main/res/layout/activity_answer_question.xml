@@ -14,7 +14,7 @@
         android:id="@+id/container_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/product_detail_toolbar_size"
+        android:layout_marginTop="@dimen/spacing_top_bar_answer_screen"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
