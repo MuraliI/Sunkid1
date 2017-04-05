@@ -42,13 +42,10 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
 
     @SuppressWarnings("unchecked")
     public void render(List<RecyclerViewType> viewTypes) {
-        adapter = new DetailViewCoordinatorAdapter(adapterObserver, viewTypes);
-        planDetailRecycler.setAdapter(adapter);
-
         if (getActivity() != null) {
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            planDetailRecycler.setLayoutManager(layoutManager);
-            planDetailRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), layoutManager.getOrientation()));
+            adapter = new DetailViewCoordinatorAdapter(adapterObserver, viewTypes);
+            planDetailRecycler.setAdapter(adapter);
+            planDetailRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
     }
 
