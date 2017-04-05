@@ -111,6 +111,8 @@
     <string name="title_email_address">Now let\'s get your email address</string>
     <string name="title_hint_email_address">Email address</string>
     <string name="title_activity_password">PasswordActivity</string>
+    <string name="message_smaller_email">Email must to be smaller than 100 characters</string>
+    <string name="incorrect_email_format">"Incorrect email format"</string>
 
     <!-- Password Activity -->
     <string name="title_password_almost">Almost there! Let\'s create a password</string>

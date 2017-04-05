@@ -101,7 +101,6 @@ dependencies {
 
     //Development
     compile files('libs/adobeMobileLibrary-4.13.4.jar')
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 apply plugin: 'checkstyle'

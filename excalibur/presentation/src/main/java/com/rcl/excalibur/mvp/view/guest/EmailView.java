@@ -19,7 +19,6 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 
 public class EmailView extends ActivityView<EmailActivity> {
-
     @Bind(R.id.email_layout) RelativeLayout emailLayout;
     @Bind(R.id.editTextEmail) EditText editTextEmail;
     @Bind(R.id.textViewEmailAddressError) TextView textViewEmailAddressError;
@@ -38,33 +37,24 @@ public class EmailView extends ActivityView<EmailActivity> {
             return;
         }
         imageViewNext.setEnabled(false);
-        editTextEmail.setOnKeyListener(getActivity());
     }
 
     @OnClick(R.id.email_layout)
     public void onClickEmailLayout() {
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+        hideKeyboard();
     }
 
     @OnClick(R.id.imageViewNext)
     public void onClickImageViewNext() {
-        verifyEmail();
+        //TODO navigate to Password Activity
     }
 
-    private void verifyEmail() {
-        String email = editTextEmail.getText().toString().replaceAll("\n", "");
-        Observable.just(email).subscribe(viewObserver);
-    }
 
     public void manageNavigation(boolean status) {
         imageViewNext.setEnabled(status);
         if (status) {
             imageViewNext.setAlpha(1f);
-            textViewEmailAddressError.setText("");
+            cleanTextViewError();
         } else {
             imageViewNext.setAlpha(0.24f);
         }
@@ -77,6 +67,14 @@ public class EmailView extends ActivityView<EmailActivity> {
 
     public void setHint(String hint) {
         editTextEmail.setHint(hint);
+        hideKeyboard();
+    }
+
+    private void cleanTextViewError() {
+        textViewEmailAddressError.setText(R.string.empty_string);
+    }
+
+    private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(emailLayout.getWindowToken(), 0);
     }

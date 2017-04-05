@@ -9,12 +9,11 @@ import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.StringUtils;
 
 public class EmailPresenter implements ActivityPresenter {
-
+    private final int LENGTH = 100;
     private EmailView view;
 
     public EmailPresenter(EmailView view) {
         this.view = view;
-        init();
     }
 
     public void onHeaderBackOnClick() {
@@ -25,17 +24,22 @@ public class EmailPresenter implements ActivityPresenter {
         ActivityUtils.onBackActivity(activity);
     }
 
-    public void init() {
+    private void init() {
         view.init();
     }
 
     public void verifyEmail(String email) {
-        if ("".equalsIgnoreCase(email)) {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        if (email.isEmpty()) {
             view.manageNavigation(false);
-        } else if (email.length() >= 100) {
-            view.setLabelError("Email must to be smaller than 100 characters");
+        } else if (email.length() >= LENGTH) {
+            view.setLabelError(activity.getString(R.string.message_smaller_email));
         } else if (!StringUtils.isValidEmail(email)) {
-            view.setLabelError("Incorrect email format");
+            view.setLabelError(activity.getString(R.string.incorrect_email_format));
         } else {
             validateEmailExist(email);
         }

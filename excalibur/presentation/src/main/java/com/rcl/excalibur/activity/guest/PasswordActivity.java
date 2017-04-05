@@ -49,10 +49,4 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
     void onTextPasswordChange(Editable editable) {
         presenter.verifyPassword();
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-    }
 }

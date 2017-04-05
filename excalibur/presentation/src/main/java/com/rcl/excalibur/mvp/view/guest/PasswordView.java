@@ -1,12 +1,9 @@
 package com.rcl.excalibur.mvp.view.guest;
 
 
-import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,14 +25,6 @@ public class PasswordView extends ActivityView<PasswordActivity> {
         super(activity);
         ButterKnife.bind(this, activity);
     }
-
-    public void init() {
-        final PasswordActivity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-    }
-
 
     public void setHint(String hint) {
         editTextPassword.setHint(hint);
@@ -60,21 +49,6 @@ public class PasswordView extends ActivityView<PasswordActivity> {
 
     public void setInvisiblePassword() {
         editTextPassword.setTransformationMethod(new PasswordTransformationMethod());
-    }
-
-
-    @OnClick(R.id.password_layout)
-    public void onClickEmailLayout() {
-        final PasswordActivity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     @OnClick(R.id.imageViewNext)
