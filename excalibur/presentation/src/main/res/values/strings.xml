@@ -31,7 +31,6 @@
     <string name="product_detail_reservation_required">Reservation required</string>
     <string name="discover_item_detail_make_a_reservation">Make a Reservation</string>
     <string name="discover_item_detail_experience">Experience</string>
-s
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
     <string name="roboto_regular">fonts/Roboto-Regular.ttf</string>
