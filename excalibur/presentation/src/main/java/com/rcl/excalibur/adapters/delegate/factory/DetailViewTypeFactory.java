@@ -28,8 +28,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import timber.log.Timber;
-
 import static com.rcl.excalibur.domain.ProductAdvisement.ATTIRE;
 import static com.rcl.excalibur.domain.ProductAdvisement.KNOW_BEFORE_YOU_GO;
 import static com.rcl.excalibur.domain.ProductAdvisement.LEGAL;
@@ -49,9 +47,25 @@ public final class DetailViewTypeFactory {
         addAttireModule(viewTypes, resources, product);
         addKnowBeforeYouGoModule(viewTypes, resources, product);
         addLegalModule(viewTypes, resources, product);
+        addAgeHeight(viewTypes, resources, product);
+        addAgeModule(viewTypes, resources, product);
         addAccessibilityModule(viewTypes, resources, product);
 
         return viewTypes;
+    }
+
+    private static void addAgeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ProductRestriction.AGE)) {
+            String description = product.getAdvisementsAndReestrictions().get(ProductRestriction.AGE);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_age), description);
+        }
+    }
+
+    private static void addAgeHeight(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ProductRestriction.HEIGHT)) {
+            String description = product.getAdvisementsAndReestrictions().get(ProductRestriction.HEIGHT);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_height), description);
+        }
     }
 
     public static void addAccessibilityModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
@@ -73,9 +87,7 @@ public final class DetailViewTypeFactory {
 
     private static void addExpandableAccessibilityTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                                         final List<ProductAccessibilityModel> accessibilities) {
-        if (accessibilities == null) {
-            Timber.i("accesibilities es null");
-        }
+
         recyclerViewTypeList.add(new ExpandableAccesibilityViewType(res.getString(R.string.accessibility), accessibilities));
     }
 

@@ -1,7 +1,9 @@
 package com.rcl.excalibur.mapper;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
+import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
@@ -26,17 +28,19 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
     }
 
     private void setAdvisements(ProductModel product, List<ProductAdvisement> advisements) {
-        int size = advisements.size();
-        if (advisements.size() == 0) {
+        if (CollectionUtils.isEmpty(advisements)) {
             return;
         }
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < advisements.size(); i++) {
+
             String type = advisements.get(i).getAdvisementType();
             String description = advisements.get(i).getAdvisementDescription();
-            if (type.equals(ProductAdvisement.ACCESSIBILITY)) {
-                addAccesibility(product, advisements.get(i));
-            } else {
-                product.getAdvisementsAndReestrictions().put(type, description);
+            if (!TextUtils.isEmpty(type)) {
+                if (type.equals(ProductAdvisement.ACCESSIBILITY)) {
+                    addAccesibility(product, advisements.get(i));
+                } else {
+                    product.getAdvisementsAndReestrictions().put(type, description);
+                }
             }
         }
     }
@@ -51,14 +55,15 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
     }
 
     private void setRestrictions(ProductModel product, List<ProductRestriction> restrictions) {
-        int size = restrictions.size();
-        if (restrictions.size() == 0) {
+        if (CollectionUtils.isEmpty(restrictions)) {
             return;
         }
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < restrictions.size(); i++) {
             String type = restrictions.get(i).getRestrictionType();
-            String description = restrictions.get(i).getRestrictionDescription();
-            product.getAdvisementsAndReestrictions().put(type, description);
+            if (!TextUtils.isEmpty(type)) {
+                String description = restrictions.get(i).getRestrictionDisplayText();
+                product.getAdvisementsAndReestrictions().put(type, description);
+            }
         }
     }
 }

@@ -14,10 +14,12 @@ import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
 import com.rcl.excalibur.data.service.response.ProductLocationResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
+import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
 
@@ -265,16 +267,41 @@ public class DiscoverServicesImpl implements DiscoverServices {
                         productResponse.setExperience("Enjoy the travel!");
                     }
                     List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
-                   /* if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
+                    if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
                         productResponse.setAdvisements(getProductAdvisementResponseAttire());
-                    }*/
-                    productResponse.setAdvisements(getProductAdvisementResponseAttire());
+                    }
+//                    productResponse.setAdvisements(getProductAdvisementResponseAttire());
+//                    productResponse.setRestrictions(getProductRestrictionResponse());
                     setProductLocationExtraParameters(productResponse.getProductLocation());
                 }
                 productList.addAll(productResponseDataMapper.transform(getProductsResponse.getProducts()));
             }
         }
     }
+
+    private List<ProductRestrictionResponse> getProductRestrictionResponse() {
+        List<ProductRestrictionResponse> productRestrictionResponses = new ArrayList<>();
+
+        ProductRestrictionResponse ageRestriction = new ProductRestrictionResponse();
+        ageRestriction.setRestrictionId(1L);
+        ageRestriction.setRestrictionType(ProductRestriction.AGE);
+        ageRestriction.setRestrictionTitle("Age Restritions");
+        ageRestriction.setRestrictionDescription("4+");
+
+        productRestrictionResponses.add(ageRestriction);
+
+        ProductRestrictionResponse heigthRestriction = new ProductRestrictionResponse();
+        heigthRestriction.setRestrictionId(1L);
+        heigthRestriction.setRestrictionType(ProductRestriction.HEIGHT);
+        heigthRestriction.setRestrictionTitle("Height Restrictions");
+        heigthRestriction.setRestrictionDisplayText("Height Restrictions");
+        heigthRestriction.setRestrictionDescription("None");
+
+        productRestrictionResponses.add(heigthRestriction);
+
+        return productRestrictionResponses;
+    }
+
 
     // TODO: Hardcoded method to be removed once the service provides this details
     private List<ProductAdvisementResponse> getProductAdvisementResponseAttire() {
