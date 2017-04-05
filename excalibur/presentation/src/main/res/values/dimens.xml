@@ -103,6 +103,8 @@
     <dimen name="margin_text">7dp</dimen>
     <dimen name="margin_edit_text">14dp</dimen>
     <dimen name="margin_general">16dp</dimen>
+    <dimen name="padding_button_done">20dp</dimen>
+
 
 
 </resources>

@@ -24,7 +24,6 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
         ButterKnife.bind(this);
     }
 
-
     @OnClick(R.id.image_back_screen)
     void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();

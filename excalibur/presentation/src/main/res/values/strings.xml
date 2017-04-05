@@ -142,5 +142,10 @@
     <string name="must_lowercase"> 1 lowercase, </string>
     <string name="must_special_character"> 1 special character </string>
 
+    <!-- Answer Question Activity -->
+    <string name="hint_answer_question">Your secret answer</string>
+    <string name="text_button_done">Done</string>
+    <string name="regex_answer">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ - \'</string>
+
 
 </resources>

@@ -1,5 +1,6 @@
 package com.rcl.excalibur.internal.di.component;
 
+import com.rcl.excalibur.activity.guest.AnswerQuestionActivity;
 import com.rcl.excalibur.activity.guest.EmailActivity;
 import com.rcl.excalibur.activity.HomeActivity;
 import com.rcl.excalibur.activity.guest.PasswordActivity;
@@ -20,4 +21,6 @@ public interface ActivityComponent {
     void inject(EmailActivity activity);
 
     void inject(PasswordActivity activity);
+
+    void inject(AnswerQuestionActivity activity);
 }
