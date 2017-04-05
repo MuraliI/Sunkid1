@@ -101,4 +101,12 @@
     <dimen name="product_detail_font_size_title">14sp</dimen>
     <dimen name="product_detail_font_size_description">16sp</dimen>
 
+    <!-- Login Flow -->
+    <dimen name="size_text_big">25sp</dimen>
+    <dimen name="margin_input_text">32dp</dimen>
+    <dimen name="margin_text">7dp</dimen>
+    <dimen name="margin_edit_text">14dp</dimen>
+    <dimen name="margin_general">16dp</dimen>
+
+
 </resources>
