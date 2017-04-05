@@ -11,6 +11,7 @@ import com.rcl.excalibur.utils.StringUtils;
 public class EmailPresenter implements ActivityPresenter {
     private EmailView view;
 
+
     public EmailPresenter(EmailView view) {
         this.view = view;
     }
@@ -35,7 +36,8 @@ public class EmailPresenter implements ActivityPresenter {
         }
 
         if (email.isEmpty()) {
-            view.manageNavigation(false);
+            view.cleanTextViewError();
+            view.manageNavigation(false, EmailView.INACTIVE);
         } else if (!StringUtils.isValidEmail(email)) {
             view.setLabelError(activity.getString(R.string.incorrect_email_format));
         } else {
@@ -48,8 +50,10 @@ public class EmailPresenter implements ActivityPresenter {
         return view;
     }
 
+
     private void validateEmailExist(String email) {
-        view.manageNavigation(true);
+        view.manageNavigation(true, EmailView.ACTIVE);
+        view.cleanTextViewError();
         //TODO consume web service to verify if email already exist
     }
 
@@ -59,5 +63,11 @@ public class EmailPresenter implements ActivityPresenter {
             return;
         }
         view.setHint(activity.getString(hasFocus ? R.string.empty_string : R.string.title_hint_email_address));
+    }
+
+    public void checkDone() {
+         if (view.getIsposibleNavigate()) {
+             view.navigate();
+         }
     }
 }
