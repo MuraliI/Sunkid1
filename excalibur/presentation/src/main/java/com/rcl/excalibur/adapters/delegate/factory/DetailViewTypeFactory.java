@@ -50,17 +50,16 @@ public final class DetailViewTypeFactory {
         //FIXME refactor this code to transform product model in each method and create a better model
         ProductModel model = new ProductModelDataMapper().transform(product);
         addMakeReservation(viewTypes, resources, model);
-        addExperience(viewTypes, resources, model);
-        addDescriptionTypes(viewTypes, model.getDescription());
         addCuisineModule(viewTypes, resources, model);
         addDurationModule(viewTypes, resources, model);
+        addExperience(viewTypes, resources, model);
         addAttireModule(viewTypes, resources, model);
-        addKnowBeforeYouGoModule(viewTypes, resources, model);
-        addLegalModule(viewTypes, resources, model);
-        addHeightModule(viewTypes, resources, model);
         addAgeModule(viewTypes, resources, model);
+        addHeightModule(viewTypes, resources, model);
+        addKnowBeforeYouGoModule(viewTypes, resources, model);
+        addDescriptionTypes(viewTypes, model.getDescription());
         addAccessibilityModule(viewTypes, resources, model);
-
+        addLegalModule(viewTypes, resources, model);
         return viewTypes;
     }
 
