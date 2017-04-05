@@ -19,9 +19,9 @@ import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
-import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.mapper.ProductModelDataMapper;
 import com.rcl.excalibur.model.ProductModel;
+import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
