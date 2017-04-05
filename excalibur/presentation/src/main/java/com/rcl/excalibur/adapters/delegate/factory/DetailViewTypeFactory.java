@@ -158,7 +158,8 @@ public final class DetailViewTypeFactory {
                 productActivityLevel.getActivityLevelTitle());
     }
 
-    private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
+    private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList,
+                                           @NonNull Resources resources, ProductModel product) {
         // FIXME: Obtain products from database
         if (!TextUtils.isEmpty(product.getReservationInformation())) {
             addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
