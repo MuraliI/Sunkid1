@@ -342,7 +342,6 @@ public class DiscoverServicesImpl implements DiscoverServices {
         advisementAccessibility.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementAccessibility);
-        //Test Gerardo
         ProductAdvisementResponse advisementAccessibility2 = new ProductAdvisementResponse();
         advisementAccessibility2.setAdvisementId(3L);
         advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite but long enough to be meaningful.");

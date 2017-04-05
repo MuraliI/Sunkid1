@@ -1,6 +1,7 @@
 package com.rcl.excalibur.adapters.delegate;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -39,24 +40,21 @@ public class ExpandableAccessibilityDelegateAdapter implements
                                          List<ProductAccessibilityModel> accessibilityList) {
         viewHolder.layoutContent.removeAllViews();
         Context context = viewHolder.itemView.getContext();
+        Resources resources = viewHolder.itemView.getResources();
 
         for (int i = 0; i < accessibilityList.size(); i++) {
             View itemView = LayoutInflater.from(context).inflate(R.layout.item_accessibility, null);
             TextView subtitleLine = (TextView) itemView.findViewById(R.id.text_subtitle);
             TextView descriptionLine = (TextView) itemView.findViewById(R.id.text_description);
             ImageView image = (ImageView) itemView.findViewById(R.id.image_accessibility);
-            final int iconSize = 10;
+            final int iconSize = (int) resources.getDimension(R.dimen.icon_size);
 
             String imageUrl = accessibilityList.get(i).getImageUrl();
-            if (!TextUtils.isEmpty(imageUrl)) {
-                Picasso.with(context)
-                        .load(accessibilityList.get(i).getImageUrl())
-                        .resize(iconSize, iconSize)
-                        .placeholder(R.drawable.ic_blue_checkbox)
-                        .into(image);
-            } else {
-                image.setBackgroundResource(R.drawable.ic_blue_checkbox);
-            }
+            Picasso.with(context)
+                    .load(imageUrl)
+                    .resize(iconSize, iconSize)
+                    .placeholder(R.drawable.ic_blue_checkbox)
+                    .into(image);
 
             String subtitle = accessibilityList.get(i).getSubtitle();
             if (!TextUtils.isEmpty(subtitle)) {
@@ -74,12 +72,9 @@ public class ExpandableAccessibilityDelegateAdapter implements
     }
 
     static class ExpandableAccessibiltyViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.expandable_accessilibility_module_title)
-        TextView title;
-        @Bind(R.id.expandable_accessibility_module_content)
-        LinearLayout layoutContent;
-        @Bind(R.id.expandable_accessilibility_module_arrow)
-        ImageView imageArrow;
+        @Bind(R.id.expandable_accessilibility_module_title) TextView title;
+        @Bind(R.id.expandable_accessibility_module_content) LinearLayout layoutContent;
+        @Bind(R.id.expandable_accessilibility_module_arrow) ImageView imageArrow;
 
         ExpandableAccessibiltyViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_item_detail_expandable_accessibility,
