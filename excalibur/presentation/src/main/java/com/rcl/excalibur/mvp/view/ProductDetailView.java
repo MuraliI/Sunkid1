@@ -3,7 +3,6 @@ package com.rcl.excalibur.mvp.view;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -73,17 +72,14 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Strin
 
     @SuppressWarnings("unchecked")
     public void render(List<RecyclerViewType> viewTypes) {
-        adapter = new DetailViewCoordinatorAdapter(adapterObserver, viewTypes);
-        planDetailRecycler.setAdapter(adapter);
-
         ProductDetailActivity activity = getActivity();
         if (activity == null) {
             return;
         }
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
-        planDetailRecycler.setLayoutManager(layoutManager);
-        planDetailRecycler.addItemDecoration(new DividerItemDecoration(activity, layoutManager.getOrientation()));
+        adapter = new DetailViewCoordinatorAdapter(adapterObserver, viewTypes);
+        planDetailRecycler.setAdapter(adapter);
+        planDetailRecycler.setLayoutManager(new LinearLayoutManager(activity));
         // Cannot be passed to Activity because RecyclerView.OnScrollListener is a class and not an interface
         planDetailRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

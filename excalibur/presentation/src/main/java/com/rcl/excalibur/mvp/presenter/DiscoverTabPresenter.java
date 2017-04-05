@@ -21,9 +21,7 @@ public class DiscoverTabPresenter implements FragmentPresenter {
     }
 
     public void openListScreen(int fragmentToShow) {
-
         view.openListScreen(fragmentToShow);
-
     }
 
     @Override
