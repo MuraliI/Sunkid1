@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,6 +20,7 @@ import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DetailViewCoordinatorAdapter;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
+import com.rcl.excalibur.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -36,10 +40,14 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity> {
     @Bind(R.id.image_hero) ImageView heroImage;
 
     private DetailViewCoordinatorAdapter adapter;
+    private View titleToolbar;
+    private Animation upAnimation;
+    private Animation downAnimation;
 
     public ProductDetailView(ProductDetailActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
+        upAnimation = AnimationUtils.loadAnimation(activity, R.anim.toolbar_title_up);
     }
 
     public void setupToolbar() {
@@ -51,6 +59,7 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity> {
         appBarLayout.addOnOffsetChangedListener(activity);
         collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(activity,
                 android.R.color.transparent));
+        titleToolbar = ViewUtils.getToolbarTitle(detailToolbar);
     }
 
     public void setHeroImage(String url) {
@@ -65,6 +74,13 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity> {
 
     public void setDetailTitle(String title) {
         collapsingToolbar.setTitle(title);
+    }
+
+    public void upAnimationTitle() {
+        if (titleToolbar == null) {
+            return;
+        }
+        titleToolbar.startAnimation(upAnimation);
     }
 
     public void render(List<RecyclerViewType> viewTypes) {
