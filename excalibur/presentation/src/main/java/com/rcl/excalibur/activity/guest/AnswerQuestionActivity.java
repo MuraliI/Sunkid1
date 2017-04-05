@@ -20,8 +20,6 @@ public class AnswerQuestionActivity extends BaseActivity<AnswerQuestionPresenter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_question);
         ButterKnife.bind(this);
-
-        presenter.setTitleQuestion("This is a mock title");
     }
 
     @Override
