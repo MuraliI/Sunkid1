@@ -41,6 +41,8 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
         return new Intent(activity, EmailActivity.class);
     }
 
+    
+
     @OnEditorAction(R.id.edit_email)
     boolean onEditorAction() {
         presenter.verifyEmail();
