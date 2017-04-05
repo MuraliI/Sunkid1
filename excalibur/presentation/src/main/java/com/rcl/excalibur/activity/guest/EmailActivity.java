@@ -2,6 +2,7 @@ package com.rcl.excalibur.activity.guest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
@@ -12,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnFocusChange;
+import butterknife.OnTextChanged;
 
 public class EmailActivity extends BaseActivity<EmailPresenter> {
 
@@ -41,11 +43,16 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
         return new Intent(activity, EmailActivity.class);
     }
 
-    
+
+    @OnTextChanged(value = R.id.edit_email, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    void afterEmailInput(Editable editable) {
+        presenter.verifyEmail();
+    }
+
 
     @OnEditorAction(R.id.edit_email)
     boolean onEditorAction() {
-        presenter.verifyEmail();
+        presenter.checkDone();
         return true;
     }
 }

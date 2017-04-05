@@ -23,6 +23,8 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
     @Bind(R.id.image_next_screen) ImageView imageViewNext;
     @Bind(R.id.image_back_screen) ImageView imageViewBack;
 
+    public static final float ACTIVE = 1f;
+    public static final float INACTIVE = 0.24f;
 
     public EmailView(EmailActivity activity) {
         super(activity);
@@ -39,7 +41,7 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
 
     @OnClick(R.id.image_next_screen)
     public void onClickImageViewNext() {
-        //TODO navigate to Password Activity
+        navigate();
     }
 
     @OnClick(R.id.email_layout)
@@ -47,15 +49,27 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
         hideKeyboard();
     }
 
+    public void navigate() {
+        //TODO navigate to Password Activity
+    }
 
     public void manageNavigation(boolean status) {
         imageViewNext.setEnabled(status);
-        if (status)
+
+        if (status) {
+            imageViewNext.setAlpha(ACTIVE);
             cleanTextViewError();
+        } else {
+            imageViewNext.setAlpha(INACTIVE);
+        }
     }
 
     public String getEmail() {
         return editTextEmail.getText().toString();
+    }
+
+    public boolean isPossibleNavigate() {
+        return imageViewNext.isEnabled();
     }
 
     public void setLabelError(String errorText) {
@@ -68,7 +82,7 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
         hideKeyboard();
     }
 
-    private void cleanTextViewError() {
+    public void cleanTextViewError() {
         textViewEmailAddressError.setText(R.string.empty_string);
     }
 
@@ -81,5 +95,4 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
         imm.hideSoftInputFromWindow(emailLayout.getWindowToken(), 0);
 
     }
-
 }

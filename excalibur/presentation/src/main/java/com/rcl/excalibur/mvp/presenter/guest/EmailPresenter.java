@@ -35,6 +35,7 @@ public class EmailPresenter implements ActivityPresenter {
         }
 
         if (email.isEmpty()) {
+            view.cleanTextViewError();
             view.manageNavigation(false);
         } else if (!StringUtils.isValidEmail(email)) {
             view.setLabelError(activity.getString(R.string.incorrect_email_format));
@@ -59,5 +60,11 @@ public class EmailPresenter implements ActivityPresenter {
             return;
         }
         view.setHint(activity.getString(hasFocus ? R.string.empty_string : R.string.title_hint_email_address));
+    }
+
+    public void checkDone() {
+         if (view.isPossibleNavigate()) {
+             view.navigate();
+         }
     }
 }
