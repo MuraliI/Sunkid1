@@ -88,6 +88,7 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
 
     @OnEditorAction(R.id.edit_create_password)
     boolean onEditorAction() {
+        AnalyticsUtils.trackEvent(new AnalyticEvent(AnalyticsConstants.KEY_GUEST_ACCOUNT_SUBMIT_CREDENTIALS));
         if (presenter.isValidData()) {
             presenter.onClickImageViewNext();
         }
