@@ -60,7 +60,10 @@
                     android:id="@+id/tv_detail_toolbar_title"
                     android:textColor="@color/white"
                     style="@style/AppTheme.ToolBar.Title"
+                    android:lines="1"
+                    android:ellipsize="end"
                     app:title="@string/hardcoded_activity_title"
+                    android:layout_marginEnd="@dimen/margin_large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </android.support.v7.widget.Toolbar>
