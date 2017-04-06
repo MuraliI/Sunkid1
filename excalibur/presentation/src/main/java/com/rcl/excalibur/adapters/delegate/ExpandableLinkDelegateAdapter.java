@@ -33,25 +33,20 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
     @Override
     public void onBindViewHolder(ExpandableLinkViewHolder holder, ExpandableLinkViewType item) {
         holder.title.setText(item.getTitle());
-
-        initializeContentLines(item.getContent().length, holder);
-
-        int i = 0;
-        for (TextView textView : holder.contentLines) {
-            textView.setText(StringUtils.fromHtml(item.getContent()[i]));
-            i++;
-        }
+        initializeContentLines(item, holder);
     }
 
-    private static void initializeContentLines(int numberOfContentLines, ExpandableLinkViewHolder viewHolder) {
+    private static void initializeContentLines(ExpandableLinkViewType item, ExpandableLinkViewHolder viewHolder) {
         viewHolder.contentLines.clear();
         viewHolder.textContent.removeAllViews();
 
         Context context = viewHolder.itemView.getContext();
 
-        for (int i = 0; i < numberOfContentLines; i++) {
+        for (int i = 0; i < item.getContent().length; i++) {
             //Create TextView;
             TextView contentLine = (TextView) LayoutInflater.from(context).inflate(R.layout.item_expandable_link, null);
+            contentLine.setText(StringUtils.fromHtml(item.getContent()[i]));
+
             viewHolder.textContent.addView(contentLine);
             viewHolder.contentLines.add(contentLine);
         }
