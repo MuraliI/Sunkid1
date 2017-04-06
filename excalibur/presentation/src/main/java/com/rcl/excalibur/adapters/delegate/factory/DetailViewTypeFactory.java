@@ -3,7 +3,6 @@ package com.rcl.excalibur.adapters.delegate.factory;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
 import com.rcl.excalibur.R;
@@ -92,7 +91,7 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addAccessibilityModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
-                                              ProductModel product) {
+                                               ProductModel product) {
         if (CollectionUtils.isEmpty(product.getAccessibilities())) {
             return;
         }
@@ -205,16 +204,6 @@ public final class DetailViewTypeFactory {
         ArrayList<String[]> arrayListTimes = new ArrayList<>();
         arrayListTimes.add(new String[]{resources.getString(R.string.day_1), product.getTimeFrame()});
         recyclerViewTypeList.add(new StandardTimesViewType(resources.getString(R.string.operating_hours), arrayListTimes));
-    }
-
-    private void addRestrictionsType(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, @StringRes int title,
-                                     Product product) {
-        final List<ProductRestriction> restrictions = product.getRestrictions();
-        if (CollectionUtils.isEmpty(restrictions)) {
-            return;
-        }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(title),
-                restrictions.get(0).getRestrictionDisplayText());
     }
 
     private void addProductLevel(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, Product product) {
