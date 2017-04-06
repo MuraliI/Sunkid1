@@ -9,6 +9,8 @@ import android.text.style.StyleSpan;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.guest.SecurityQuestionsActivity;
+import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.mvp.view.guest.PasswordView;
@@ -18,9 +20,17 @@ public class PasswordPresenter implements ActivityPresenter {
     private static final int MIN_CHAR = 7;
     private static final String REGEX = ".*[$&+,:;=?@#|/'<>.^*()%!-].*";
     private PasswordView view;
+    private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
-    public PasswordPresenter(PasswordView view) {
+    public PasswordPresenter(PasswordView view, GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
         this.view = view;
+        this.getGuestPreferencesUseCase = getGuestPreferencesUseCase;
+    }
+
+    private static SpannableString getSpannableString(String errorString, boolean isError) {
+        SpannableString spannableString = new SpannableString(errorString);
+        spannableString.setSpan(isError ? new StyleSpan(Typeface.BOLD) : null, 0, spannableString.length(), 0);
+        return spannableString;
     }
 
     public void onHeaderBackOnClick() {
@@ -94,9 +104,13 @@ public class PasswordPresenter implements ActivityPresenter {
         return !isAtLeast7 && !hasUppercase && !hasLowercase && !hasSpecial;
     }
 
-    private static SpannableString getSpannableString(String errorString, boolean isError) {
-        SpannableString spannableString = new SpannableString(errorString);
-        spannableString.setSpan(isError ? new StyleSpan(Typeface.BOLD) : null, 0, spannableString.length(), 0);
-        return spannableString;
+    public void onClickImageViewNext() {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        getGuestPreferencesUseCase.putPassword(view.getPassword());
+        ActivityUtils.startActivity(activity, SecurityQuestionsActivity.getActivityIntent(activity));
     }
 }

@@ -23,9 +23,20 @@ public final class AnalyticsConstants {
     public static final String KEY_DISCOVER_ITEM_DETAILS_ACTIVITY_TYPE = "activityType";
 
 
-    //Email activity
-    public static final String KEY_EMAIL_SCREEN = "emailScreen";
-    public static final String KEY_PASSWORD_SCREEN = "passwordScreen";
+
+    public static final String KEY_GUEST_ACCOUNT_NAME = "GuestAccountName";
+
+    public static final String KEY_GUEST_ACCOUNT_PASSWORD = "GuestAccountPassword";
+
+    public static final String KEY_GUEST_ACCOUNT_EMAIL = "GuestAccountEmail";
+
+    public static final String KEY_GUEST_ACCOUNT_SUBMIT_CREDENTIALS = "GuestAccountSubmitCredentials";
+
+    public static final String KEY_GUEST_ACCOUNT_SECURITY_QUESTION = "GuestAccountSecurityQuestion";
+
+    public static final String KEY_GUEST_ACCOUNT_SECURITY_QUESTION_ANSWER = "GuestAccountSecurityQuestionAnswer";
+
+    public static final String KEY_GUEST_ACCOUNT_CREATE_ACCOUNT_SUBMIT = "GuestAccountCreateAccountSubmit";
 
     private AnalyticsConstants() {
 

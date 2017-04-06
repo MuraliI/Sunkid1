@@ -31,13 +31,13 @@ public class PlanAdapter extends BaseAdapter<DiscoverItemModel, PlanAdapter.Plan
     }
 
     @Override
-    int getLayout() {
+    protected int getLayout() {
         return R.layout.item_plan;
     }
 
     @NonNull
     @Override
-    PlanViewHolder getViewHolder(View view) {
+    protected PlanViewHolder getViewHolder(View view) {
         return new PlanViewHolder(view);
     }
 

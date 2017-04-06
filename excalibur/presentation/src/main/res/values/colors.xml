@@ -24,8 +24,10 @@
     <color name="detail_item_link">#286CF5</color>
     <color name="detail_item_description">#3A4053</color>
     <color name="detail_description_transparent_white">#9FFF</color>
+
     <color name="product_detail_reservation_background">#FFF0EC</color>
-    
+
+
     <!-- Itinerary -->
     <color name="itinerary_product_card_background">#F5F5F5</color>
     <color name="itinerary_product_card_text_grey">#999</color>
@@ -41,6 +43,7 @@
 
     <!-- Login flow colors -->
     <color name="opacity_white_24">#40ffffff</color>
+    <color name="bg_color">#4a90e2</color>
 
 
     <!-- Email Activity -->

@@ -17,14 +17,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class EmailView extends ActivityView<EmailActivity, Void> {
+    public static final float ACTIVE = 1f;
+    public static final float INACTIVE = 0.24f;
     @Bind(R.id.email_layout) RelativeLayout emailLayout;
     @Bind(R.id.edit_email) EditText editTextEmail;
     @Bind(R.id.text_show_error) TextView textViewEmailAddressError;
     @Bind(R.id.image_next_screen) ImageView imageViewNext;
     @Bind(R.id.image_back_screen) ImageView imageViewBack;
     private boolean isPossibleNavigate;
-    public static final float ACTIVE = 1f;
-    public static final float INACTIVE = 0.24f;
 
 
     public EmailView(EmailActivity activity) {
@@ -47,10 +47,6 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
     @OnClick(R.id.email_layout)
     void onClickEmailLayout() {
         hideKeyboard();
-    }
-
-    public void navigate() {
-        //TODO navigate to Password Activity
     }
 
     public void manageNavigation(boolean status, float alpha) {

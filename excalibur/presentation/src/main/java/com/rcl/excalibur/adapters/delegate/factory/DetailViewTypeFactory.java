@@ -9,27 +9,32 @@ import android.text.TextUtils;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.DescriptionViewType;
+import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
+import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductActivityLevel;
+import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
-import com.rcl.excalibur.mapper.ProductModelDataMapper;
-import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
-import com.rcl.excalibur.utils.ProductModelProvider;
+import com.rcl.excalibur.mapper.ProductModelDataMapper;
+import com.rcl.excalibur.model.ProductAccessibilityModel;
+import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
+import static com.rcl.excalibur.domain.ProductAdvisement.ATTIRE;
+import static com.rcl.excalibur.domain.ProductAdvisement.KNOW_BEFORE_YOU_GO;
+import static com.rcl.excalibur.domain.ProductAdvisement.LEGAL;
 
 public final class DetailViewTypeFactory {
 
@@ -45,23 +50,50 @@ public final class DetailViewTypeFactory {
         //FIXME refactor this code to transform product model in each method and create a better model
         ProductModel model = new ProductModelDataMapper().transform(product);
         addMakeReservation(viewTypes, resources, model);
+        addCuisineModule(viewTypes, resources, model);
+        addDurationModule(viewTypes, resources, model);
         addExperience(viewTypes, resources, model);
+        addAttireModule(viewTypes, resources, model);
+        addAgeModule(viewTypes, resources, model);
+        addHeightModule(viewTypes, resources, model);
+        addKnowBeforeYouGoModule(viewTypes, resources, model);
         addDescriptionTypes(viewTypes, model.getDescription());
-        addAdvisements(viewTypes, resources, model);
-        if (model.getDuration() > NO_DURATION) {
-            addProductDurationTypes(viewTypes, resources, model);
-            addProductDurationTypes(viewTypes, resources, model);
-            addProductDurationTypes(viewTypes, resources, model);
-            addProductDurationTypes(viewTypes, resources, model);
-            addProductDurationTypes(viewTypes, resources, model);
-            addProductDurationTypes(viewTypes, resources, model);
-        }
-
+        addAccessibilityModule(viewTypes, resources, model);
+        addLegalModule(viewTypes, resources, model);
         return viewTypes;
+    }
+
+    private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ProductAdvisement.CUISINE)) {
+            String description = product.getAdvisementsAndReestrictions().get(ProductAdvisement.CUISINE);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_cuisine), description);
+        }
     }
 
     private static void addHeroSectionHeader(Product product, LinkedList<RecyclerViewType> viewTypes) {
         viewTypes.add(new ProductInformationMapper().transform(product));
+    }
+
+    private static void addAgeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ProductRestriction.AGE)) {
+            String description = product.getAdvisementsAndReestrictions().get(ProductRestriction.AGE);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_age), description);
+        }
+    }
+
+    private static void addHeightModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ProductRestriction.HEIGHT)) {
+            String description = product.getAdvisementsAndReestrictions().get(ProductRestriction.HEIGHT);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_height), description);
+        }
+    }
+
+    public static void addAccessibilityModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
+                                              ProductModel product) {
+        if (CollectionUtils.isEmpty(product.getAccessibilities())) {
+            return;
+        }
+        addExpandableAccessibilityTypes(recyclerViewTypeList, resources, product.getAccessibilities());
     }
 
     private static boolean isHoursEmpty(String value) {
@@ -80,6 +112,74 @@ public final class DetailViewTypeFactory {
         recyclerViewTypeList.add(new TitleAndDescriptionViewType(title, description));
     }
 
+    private static void addExpandableAccessibilityTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                        final List<ProductAccessibilityModel> accessibilities) {
+
+        recyclerViewTypeList.add(new ExpandableAccesibilityViewType(res.getString(R.string.accessibility), accessibilities));
+    }
+
+    private static void addExpandableAndDescription(final List<RecyclerViewType> recyclerViewTypeList, final String title,
+                                                    final String description) {
+        String[] descriptionArr = {description};
+        recyclerViewTypeList.add(new ExpandableLinkViewType(title, descriptionArr, false));
+    }
+
+    private static void addDurationModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                          ProductModel product) {
+        if (product.getDuration() > NO_DURATION) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
+        }
+    }
+
+    private static void addAttireModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                        ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ATTIRE)) {
+            String description = product.getAdvisementsAndReestrictions().get(ATTIRE);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.attire), description);
+        }
+    }
+
+    private static void addKnowBeforeYouGoModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                 ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(KNOW_BEFORE_YOU_GO)) {
+            String description = product.getAdvisementsAndReestrictions().get(KNOW_BEFORE_YOU_GO);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.know_before_you_go), description);
+        }
+    }
+
+    private static void addLegalModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                       ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(LEGAL)) {
+            String description = product.getAdvisementsAndReestrictions().get(LEGAL);
+            addExpandableAndDescription(recyclerViewTypeList, res.getString(R.string.detail_module_legal), description);
+        }
+    }
+
+    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                ProductModel product) {
+        if (product == null) {
+            return;
+        }
+        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
+    }
+
+    private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
+                                           ProductModel product) {
+        // FIXME: Obtain products from database
+        if (!TextUtils.isEmpty(product.getReservationInformation())) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
+                    product.getReservationInformation());
+        }
+    }
+
+    private static void addExperience(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
+                                      ProductModel product) {
+        if (!TextUtils.isEmpty(product.getExperience())) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_experience),
+                    product.getExperience());
+        }
+    }
+
     private void addPriceFromTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
         final SellingPrice sellingPrice = product.getStartingFromPrice();
         if (sellingPrice == null) {
@@ -91,14 +191,6 @@ public final class DetailViewTypeFactory {
             recyclerViewTypeList.add(new PricesFromViewType(StringUtils.getPriceFormated(adultPrice),
                     StringUtils.getPriceFormated(childPrice)));
         }
-    }
-
-    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                                ProductModel product) {
-        if (product == null) {
-            return;
-        }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
     }
 
     private void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
@@ -136,36 +228,6 @@ public final class DetailViewTypeFactory {
         }
         addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
                 productActivityLevel.getActivityLevelTitle());
-    }
-
-    private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
-                                       ProductModel product) {
-        // FIXME: Obtain products from database
-        product = ProductModelProvider.productModelMap.get("1");
-        LinkedHashMap<String, String> advisements = product.getAdvisements();
-
-        for (Map.Entry<String, String> entry : advisements.entrySet()) {
-            String advisementTitle = entry.getKey();
-            String advisementDescription = entry.getValue();
-            addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
-                    advisementDescription);
-        }
-    }
-
-    private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList,
-                                           @NonNull Resources resources, ProductModel product) {
-        // FIXME: Obtain products from database
-        if (!TextUtils.isEmpty(product.getReservationInformation())) {
-            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
-                    product.getReservationInformation());
-        }
-    }
-
-    private static void addExperience(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, ProductModel product) {
-        if (!TextUtils.isEmpty(product.getExperience())) {
-            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_experience),
-                    product.getExperience());
-        }
     }
 
 }
