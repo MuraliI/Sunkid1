@@ -46,7 +46,6 @@ public final class DetailViewTypeFactory {
 
     public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
-
         ProductModel model = new ProductModelDataMapper().transform(product);
 
         addHeroSectionHeader(product, viewTypes);
