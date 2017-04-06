@@ -18,7 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SecurityQuestionsView extends ActivityView<SecurityQuestionsActivity, Void> {
+public class SecurityQuestionsView extends ActivityView<SecurityQuestionsActivity, String> {
     private static final String ERROR_MESSAGE = "Something went wrong, please try again";
     @Bind(R.id.recycler_questions)
     RecyclerView recyclerView;
