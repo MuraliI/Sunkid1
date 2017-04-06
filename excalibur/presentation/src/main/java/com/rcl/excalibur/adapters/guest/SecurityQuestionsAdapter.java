@@ -65,12 +65,12 @@ public class SecurityQuestionsAdapter extends BaseAdapter<String, SecurityQuesti
             notifyItemChanged(buffer);
             notifyItemChanged(selectedPosition);
             onNext(question.getText().toString());
-
         }
 
         @OnCheckedChanged(R.id.radio_question)
         void itemChecked() {
             startActivity(activity, AnswerQuestionActivity.getStartIntent(activity));
+            onNext(question.getText().toString());
         }
     }
 }
