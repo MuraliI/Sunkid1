@@ -1,60 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_name"
-    android:focusable="true">
+    android:focusable="true"
+    android:padding="@dimen/margin_general"
+    tools:context=".activity.guest.NameActivity">
 
     <ImageView
         android:id="@+id/arrow_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/guest_padding_margin"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_normal"
         android:src="@drawable/ic_trending_flat" />
 
-    <TextView
-        android:id="@+id/name_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/full_name"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="@string/guest_name_label"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/full_name"
+    <LinearLayout
+        android:id="@+id/name_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/name_error"
-        android:layout_marginLeft="@dimen/guest_padding_margin"
-        android:layout_marginRight="@dimen/guest_padding_margin"
-        android:gravity="center"
-        android:hint="@string/guest_name_hint"
-        android:inputType="textNoSuggestions"
-        android:textColor="@color/white"
-        android:theme="@style/AppTheme.GuestEditText" />
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin_general"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/name_error"
-        style="@style/AppTheme.GuestErrorTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/guest_padding_margin"
-        android:layout_marginRight="@dimen/guest_padding_margin"
-        android:gravity="center" />
+        <TextView
+            android:id="@+id/name_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/guest_name_label"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/guest_padding_margin"
+            android:layout_marginRight="@dimen/guest_padding_margin"
+            android:gravity="center"
+            android:hint="@string/guest_name_hint"
+            android:inputType="textNoSuggestions"
+            android:textColor="@color/white"
+            android:theme="@style/AppTheme.GuestEditText" />
+
+        <TextView
+            android:id="@+id/name_error"
+            style="@style/AppTheme.GuestErrorTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/guest_padding_margin"
+            android:layout_marginRight="@dimen/guest_padding_margin"
+            android:gravity="center" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/name_error"
-        android:layout_marginRight="@dimen/guest_padding_margin"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/name_container"
+        android:contentDescription="@null"
         android:src="@drawable/selector_image_next" />
 
 </RelativeLayout>
