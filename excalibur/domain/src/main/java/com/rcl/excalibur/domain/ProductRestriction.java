@@ -5,6 +5,8 @@ import java.util.List;
 
 
 public class ProductRestriction {
+    public static final String AGE = "AGE";
+    public static final String HEIGHT = "HEIGHT";
 
     private long restrictionId;
     private String restrictionType;

@@ -14,10 +14,11 @@ public final class RecyclerViewConstants {
     public static final int VIEW_TYPE_DESCRIPTION = 10000009;
 
     //Itinerary
-    public static final int VIEW_TYPE_GREETINGS = 10000010;
+    public static final int VIEW_TYPE_GREETINGS = 1000010;
     public static final int VIEW_TYPE_ITINERARY_PRODUCT_VIEW = 1000011;
     public static final int VIEW_TYPE_CALENDAR_VIEW = 1000012;
     public static final int VIEW_TYPE_SEPARATOR_VIEW = 1000013;
+    public static final int VIEW_TYPE_ACCESSIBILITY_VIEW = 1000014;
 
     private RecyclerViewConstants() {
 

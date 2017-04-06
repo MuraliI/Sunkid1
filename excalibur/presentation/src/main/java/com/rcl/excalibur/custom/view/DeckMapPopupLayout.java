@@ -66,7 +66,7 @@ public class DeckMapPopupLayout extends RelativeLayout {
 
         Picasso.with(getContext())
                 .load(BuildConfig.PREFIX_IMAGE + product.getHeroImageRefLink())
-                .placeholder(R.drawable.thumb)
+                .placeholder(R.drawable.placeholder_list_item)
                 .into(productImage);
     }
 }

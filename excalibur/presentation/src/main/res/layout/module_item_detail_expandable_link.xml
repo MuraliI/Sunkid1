@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_large"
     android:orientation="vertical"
     android:paddingTop="@dimen/margin_large">
 
@@ -10,11 +9,13 @@
         android:id="@+id/expandable_link_module_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_large">
+        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginStart="@dimen/margin_large">
 
         <TextView
             android:id="@+id/expandable_link_module_title"
-            style="@style/AppTheme.Headline7"
+            style="@style/AppTheme.ProductDetailTitleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -27,8 +28,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_chevron_down" />
-        android:src="@drawable/ic_arrow_drop_down"
-        android:tint="@color/detail_item_link"/>
 
     </RelativeLayout>
 
@@ -39,9 +38,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginStart="@dimen/margin_large"
         android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginBottom="@dimen/margin_normal"
         android:orientation="vertical"
         android:visibility="gone" />
-
 
 </LinearLayout>

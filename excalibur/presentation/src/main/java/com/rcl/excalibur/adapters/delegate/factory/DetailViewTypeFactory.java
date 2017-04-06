@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.DescriptionViewType;
+import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
@@ -17,11 +18,13 @@ import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductActivityLevel;
+import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.mapper.ProductModelDataMapper;
+import com.rcl.excalibur.model.ProductAccessibilityModel;
 import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.utils.StringUtils;
 
@@ -49,27 +52,59 @@ public final class DetailViewTypeFactory {
 
         addHeroSectionHeader(product, viewTypes);
         addMakeReservation(viewTypes, resources, model);
+        addCuisineModule(viewTypes, resources, model);
         addDurationModule(viewTypes, resources, model);
-        addExperience(viewTypes, resources, model);
+        addExperienceModule(viewTypes, resources, model);
         addAttireModule(viewTypes, resources, model);
+        addAgeModule(viewTypes, resources, model);
+        addHeightModule(viewTypes, resources, model);
         addKnowBeforeYouGoModule(viewTypes, resources, model);
         addDescriptionTypes(viewTypes, model.getDescription());
+        addAccessibilityModule(viewTypes, resources, model);
         addLegalModule(viewTypes, resources, model);
 
-
         return viewTypes;
+    }
+
+    private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ProductAdvisement.CUISINE)) {
+            String description = product.getAdvisementsAndReestrictions().get(ProductAdvisement.CUISINE);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_cuisine), description);
+        }
     }
 
     private static void addHeroSectionHeader(Product product, LinkedList<RecyclerViewType> viewTypes) {
         viewTypes.add(new ProductInformationMapper().transform(product));
     }
 
+    private static void addAgeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ProductRestriction.AGE)) {
+            String description = product.getAdvisementsAndReestrictions().get(ProductRestriction.AGE);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_age), description);
+        }
+    }
+
+    private static void addHeightModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
+        if (product.getAdvisementsAndReestrictions().containsKey(ProductRestriction.HEIGHT)) {
+            String description = product.getAdvisementsAndReestrictions().get(ProductRestriction.HEIGHT);
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_height), description);
+        }
+    }
+
+    private static void addAccessibilityModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
+                                              ProductModel product) {
+        if (CollectionUtils.isEmpty(product.getAccessibilities())) {
+            return;
+        }
+        addExpandableAccessibilityTypes(recyclerViewTypeList, resources, product.getAccessibilities());
+    }
+
     private static boolean isHoursEmpty(String value) {
         return TextUtils.isEmpty(value) || "0".equals(value);
     }
 
-    private static void addExpandableAndDescription(final List<RecyclerViewType> recyclerViewTypeList, final String title,
-                                                    final String description) {
+    private static void addExpandableAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title,
+                                                         final String description) {
         String[] descriptionArr = {description};
         recyclerViewTypeList.add(new ExpandableLinkViewType(title, descriptionArr, false));
     }
@@ -103,7 +138,7 @@ public final class DetailViewTypeFactory {
                                        ProductModel product) {
         if (product.getAdvisementsAndReestrictions().containsKey(LEGAL)) {
             String description = product.getAdvisementsAndReestrictions().get(LEGAL);
-            addExpandableAndDescription(recyclerViewTypeList, res.getString(R.string.detail_module_legal), description);
+            addExpandableAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.detail_module_legal), description);
         }
     }
 
@@ -127,20 +162,18 @@ public final class DetailViewTypeFactory {
         }
     }
 
-    private static void addExperience(final List<RecyclerViewType> recyclerViewTypeList,
-                                      @NonNull Resources resources, ProductModel product) {
+    private static void addExperienceModule(final List<RecyclerViewType> recyclerViewTypeList,
+                                            @NonNull Resources resources, ProductModel product) {
         if (!TextUtils.isEmpty(product.getExperience())) {
             addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_experience),
                     product.getExperience());
         }
     }
 
-    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                                ProductModel product) {
-        if (product == null) {
-            return;
-        }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
+    private static void addExpandableAccessibilityTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                        final List<ProductAccessibilityModel> accessibilities) {
+
+        recyclerViewTypeList.add(new ExpandableAccesibilityViewType(res.getString(R.string.accessibility), accessibilities));
     }
 
     private void addPriceFromTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
@@ -192,4 +225,5 @@ public final class DetailViewTypeFactory {
         addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
                 productActivityLevel.getActivityLevelTitle());
     }
+
 }

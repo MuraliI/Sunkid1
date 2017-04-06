@@ -3,14 +3,12 @@ package com.rcl.excalibur.adapters.viewtype;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
-import java.util.List;
-
 
 public class ProductInformationViewType implements RecyclerViewType {
 
-    private String productId;
+    private Long productId;
     private String productName;
-    private List<String> productCategories;
+    private String productType;
     private String[] productMedia;
     private String venue;
     private String location;
@@ -18,11 +16,11 @@ public class ProductInformationViewType implements RecyclerViewType {
     private int upChargeLevel;
     private boolean isReservationRequired;
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -82,12 +80,12 @@ public class ProductInformationViewType implements RecyclerViewType {
         this.location = location;
     }
 
-    public List<String> getProductCategories() {
-        return productCategories;
+    public String getProductType() {
+        return productType;
     }
 
-    public void setProductCategories(List<String> productCategories) {
-        this.productCategories = productCategories;
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
     @Override
