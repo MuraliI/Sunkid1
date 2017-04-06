@@ -4,8 +4,13 @@
     android:id="@+id/email_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_account_email"
     android:focusable="true">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_account_email" />
 
 
     <LinearLayout
@@ -65,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/plan_list_margin_fab"
+        android:layout_margin="@dimen/guest_padding_margin"
         android:alpha="@dimen/alpha"
         android:src="@drawable/next_active"
         android:tint="@color/white" />

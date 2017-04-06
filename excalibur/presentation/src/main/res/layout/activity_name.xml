@@ -3,8 +3,14 @@
     android:id="@+id/container_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_name"
     android:focusable="true">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_name" />
 
     <ImageView
         android:id="@+id/arrow_back"
@@ -52,9 +58,9 @@
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/name_error"
-        android:layout_marginRight="@dimen/guest_padding_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/guest_padding_margin"
         android:src="@drawable/selector_image_next" />
 
 </RelativeLayout>
