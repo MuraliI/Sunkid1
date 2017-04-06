@@ -315,61 +315,55 @@ public class DiscoverServicesImpl implements DiscoverServices {
         mediaResponse.setMediaItem(mediaItemResponseList);
 
         ProductAdvisementResponse advisementAttire = new ProductAdvisementResponse();
-        advisementAttire.setAdvisementId(1L);
+        advisementAttire.setAdvisementId(ProductAdvisement.ATTIRE);
         advisementAttire.setAdvisementDescription("Casual");
         advisementAttire.setAdvisementTitle("Attire");
         advisementAttire.setAdvisementName("Attire");
-        advisementAttire.setAdvisementType(ProductAdvisement.ATTIRE);
         advisementAttire.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementAttire);
 
         ProductAdvisementResponse advisementKnowBeforeYouGo = new ProductAdvisementResponse();
-        advisementKnowBeforeYouGo.setAdvisementId(2L);
+        advisementKnowBeforeYouGo.setAdvisementId(ProductAdvisement.KNOW_BEFORE_YOU_GO);
         advisementKnowBeforeYouGo.setAdvisementDescription("Arrive 15 minutes early, Wear closedtoed shoes");
         advisementKnowBeforeYouGo.setAdvisementTitle("Know Before You Go");
         advisementKnowBeforeYouGo.setAdvisementName("Know Before You Go");
-        advisementKnowBeforeYouGo.setAdvisementType(ProductAdvisement.KNOW_BEFORE_YOU_GO);
         advisementKnowBeforeYouGo.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementKnowBeforeYouGo);
 
         ProductAdvisementResponse advisementAccessibility = new ProductAdvisementResponse();
-        advisementAccessibility.setAdvisementId(3L);
+        advisementAccessibility.setAdvisementId(ProductAdvisement.ACCESSIBILITY);
         advisementAccessibility.setAdvisementDescription("");
         advisementAccessibility.setAdvisementTitle("Wheelchair Accessible");
         advisementAccessibility.setAdvisementName("Wheelchair Accessible");
-        advisementAccessibility.setAdvisementType(ProductAdvisement.ACCESSIBILITY);
         advisementAccessibility.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementAccessibility);
         ProductAdvisementResponse advisementAccessibility2 = new ProductAdvisementResponse();
-        advisementAccessibility2.setAdvisementId(3L);
+        advisementAccessibility2.setAdvisementId(ProductAdvisement.ACCESSIBILITY);
         advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite but long enough to be meaningful.");
         advisementAccessibility2.setAdvisementTitle("Closed Caption");
         advisementAccessibility2.setAdvisementName("Closed Caption");
-        advisementAccessibility2.setAdvisementType(ProductAdvisement.ACCESSIBILITY);
         advisementAccessibility2.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementAccessibility2);
 
 
         ProductAdvisementResponse advisementLegal = new ProductAdvisementResponse();
-        advisementLegal.setAdvisementId(4L);
+        advisementLegal.setAdvisementId(ProductAdvisement.LEGAL);
         advisementLegal.setAdvisementDescription("This legal information is short enough to comfort you but long enough  to be meaninful.");
         advisementLegal.setAdvisementTitle("Legal");
         advisementLegal.setAdvisementName("Legal");
-        advisementLegal.setAdvisementType(ProductAdvisement.LEGAL);
         advisementLegal.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementLegal);
 
         ProductAdvisementResponse advisementCuisine = new ProductAdvisementResponse();
-        advisementCuisine.setAdvisementId(5L);
+        advisementCuisine.setAdvisementId(ProductAdvisement.CUISINE);
         advisementCuisine.setAdvisementDescription("Latin American");
         advisementCuisine.setAdvisementTitle("Cuisine");
         advisementCuisine.setAdvisementName("Cuisine");
-        advisementCuisine.setAdvisementType(ProductAdvisement.CUISINE);
         advisementCuisine.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementCuisine);

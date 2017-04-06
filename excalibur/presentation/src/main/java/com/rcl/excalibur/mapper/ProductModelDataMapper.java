@@ -35,13 +35,13 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
             return;
         }
         for (int i = 0; i < advisements.size(); i++) {
-            String type = advisements.get(i).getAdvisementType();
+            String id = advisements.get(i).getAdvisementId();
             String description = advisements.get(i).getAdvisementDescription();
-            if (!TextUtils.isEmpty(type)) {
-                if (type.equals(ProductAdvisement.ACCESSIBILITY)) {
+            if (!TextUtils.isEmpty(id)) {
+                if (id.equals(ProductAdvisement.ACCESSIBILITY)) {
                     addAccesibility(product, advisements.get(i));
                 } else {
-                    product.getAdvisementsAndReestrictions().put(type, description);
+                    product.getAdvisementsAndReestrictions().put(id, description);
                 }
             }
         }
