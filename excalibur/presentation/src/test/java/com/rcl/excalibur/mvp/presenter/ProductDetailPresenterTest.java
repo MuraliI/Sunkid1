@@ -45,6 +45,11 @@ public class ProductDetailPresenterTest {
     private static final int TOTAL_SCROLL_RANGE_ZERO = 50;
     private static final float BLUR_RADIUS_ZERO = 25.0f;
 
+    private static final int SCROLLED_AMOUNT_SHOW = 86;
+    private static final int SCROLLED_AMOUNT_HIDE = 82;
+    private static final int PARENT_PADDING_TOP = 40;
+    private static final int TITLE_HEIGHT = 180;
+
     @Before
     public void setUp() {
         appComponentTest = DaggerAppComponentTest.builder().appModule(new AppModuleTest()).build();
@@ -81,5 +86,29 @@ public class ProductDetailPresenterTest {
     @Test
     public void getBlurRadius() {
         assertEquals(BLUR_RADIUS, presenter.getBlurRadius(VERTICAL_OFFSET, TOTAL_SCROLL_RANGE));
+    }
+
+    @Test
+    public void calculateScrollToShowTitle() {
+        ProductDetailView view = presenter.getView();
+        int values[] = new int[]{SCROLLED_AMOUNT_SHOW, PARENT_PADDING_TOP, TITLE_HEIGHT};
+
+        presenter.isTitleVisible = false;
+        presenter.calculateScrollToTitle(values);
+
+        verify(view).showCollapsingToolbarTitle();
+        assertTrue(presenter.isTitleVisible);
+    }
+
+    @Test
+    public void calculateScrollToHideTitle() {
+        ProductDetailView view = presenter.getView();
+        int values[] = new int[]{SCROLLED_AMOUNT_HIDE, PARENT_PADDING_TOP, TITLE_HEIGHT};
+
+        presenter.isTitleVisible = true;
+        presenter.calculateScrollToTitle(values);
+
+        verify(view).hideCollapsingToolbarTitle();
+        assertFalse(presenter.isTitleVisible);
     }
 }

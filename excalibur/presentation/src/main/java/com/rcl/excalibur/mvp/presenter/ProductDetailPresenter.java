@@ -24,7 +24,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
     private List<RecyclerViewType> viewTypes;
 
     protected boolean isToolbarCollapsed = false;
-    private boolean isTitleVisible = false;
+    protected boolean isTitleVisible = false;
     private long productId;
 
     public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
@@ -112,19 +112,23 @@ public class ProductDetailPresenter implements ActivityPresenter {
 
         @Override
         public void onNext(int[] values) {
-            int scrolledAmount = values[0];
-            int parentPaddingTop = values[1];
-            int titleHeight = values[2];
+            calculateScrollToTitle(values);
+        }
+    }
 
-            if (scrolledAmount >= parentPaddingTop + titleHeight / HEIGHT_FACTOR
-                    && !isTitleVisible) {
-                isTitleVisible = true;
-                view.showCollapsingToolbarTitle();
-            } else if (scrolledAmount < parentPaddingTop + titleHeight / HEIGHT_FACTOR
-                    && isTitleVisible) {
-                isTitleVisible = false;
-                view.hideCollapsingToolbarTitle();
-            }
+    protected void calculateScrollToTitle(int[] values) {
+        int scrolledAmount = values[0];
+        int parentPaddingTop = values[1];
+        int titleHeight = values[2];
+
+        if (scrolledAmount >= parentPaddingTop + titleHeight / HEIGHT_FACTOR
+                && !isTitleVisible) {
+            isTitleVisible = true;
+            view.showCollapsingToolbarTitle();
+        } else if (scrolledAmount < parentPaddingTop + titleHeight / HEIGHT_FACTOR
+                && isTitleVisible) {
+            isTitleVisible = false;
+            view.hideCollapsingToolbarTitle();
         }
     }
 }
