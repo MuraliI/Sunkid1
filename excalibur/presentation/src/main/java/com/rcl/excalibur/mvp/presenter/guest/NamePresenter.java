@@ -1,6 +1,8 @@
 package com.rcl.excalibur.mvp.presenter.guest;
 
 
+import android.text.TextUtils;
+
 import com.rcl.excalibur.activity.guest.EmailActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
@@ -66,7 +68,7 @@ public class NamePresenter implements ActivityPresenter {
 
     private boolean validate(String value) {
 
-        if (value.isEmpty()) {
+        if (TextUtils.isEmpty(value)) {
             return false;
         }
 //        A Guest shall be able to enter a first name composed of any English characters, given that they are not all whitespace characters
@@ -81,10 +83,7 @@ public class NamePresenter implements ActivityPresenter {
             length += v.length();
         }
 //        A Guest shall be able to enter a first name that is 50 or less characters
-        if (length > LIMIT_MAX) {
-            return false;
-        }
-        return true;
+        return length <= LIMIT_MAX;
     }
 
     public void hideKeyboard() {

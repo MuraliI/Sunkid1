@@ -1,16 +1,13 @@
 package com.rcl.excalibur.mvp.view.guest;
 
 
-import android.app.Activity;
 import android.text.SpannableStringBuilder;
 import android.text.method.PasswordTransformationMethod;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.guest.PasswordActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
@@ -49,14 +46,6 @@ public class PasswordView extends ActivityView<PasswordActivity, Void> {
 
     public void setInvisiblePassword() {
         editTextPassword.setTransformationMethod(new PasswordTransformationMethod());
-    }
-
-    public void hideKeyboard() {
-        final BaseActivity activity = getActivity();
-        if (activity == null)
-            return;
-        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(editTextPassword.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     public boolean isValidData() {

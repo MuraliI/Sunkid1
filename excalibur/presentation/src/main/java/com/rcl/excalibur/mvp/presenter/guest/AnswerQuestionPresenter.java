@@ -14,9 +14,6 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.mvp.view.guest.AnswerQuestionView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class AnswerQuestionPresenter implements ActivityPresenter {
     private static final int MIN_CHARS = 3;
     private AnswerQuestionView view;
@@ -48,6 +45,10 @@ public class AnswerQuestionPresenter implements ActivityPresenter {
 
     public void setTitleQuestion(String titleQuestion) {
         view.setTitleQuestion(titleQuestion);
+    }
+
+    public void hideKeyBoard() {
+        view.hideKeyboard();
     }
 
     @Override

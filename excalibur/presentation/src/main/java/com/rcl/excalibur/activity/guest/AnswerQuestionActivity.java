@@ -69,6 +69,5 @@ public class AnswerQuestionActivity extends BaseActivity<AnswerQuestionPresenter
 
     @OnClick(R.id.container_layout)
     void onClickContainer() {
-        presenter.hideKeyboard();
     }
 }

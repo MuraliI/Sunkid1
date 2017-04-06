@@ -1,15 +1,12 @@
 package com.rcl.excalibur.mvp.view.guest;
 
 
-import android.app.Activity;
 import android.support.annotation.StringRes;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
@@ -38,14 +35,6 @@ public class NameView extends ActivityView<NameActivity, Void> {
 
     public void setNextButton(boolean isEnable) {
         nextButton.setEnabled(isEnable);
-    }
-
-    public void hideKeyboard() {
-        final BaseActivity activity = getActivity();
-        if (activity == null)
-            return;
-        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(fullName.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     public void showError(@StringRes int message) {
