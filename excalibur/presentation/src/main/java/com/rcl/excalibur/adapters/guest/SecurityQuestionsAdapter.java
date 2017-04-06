@@ -20,8 +20,8 @@ import io.reactivex.Observer;
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
 public class SecurityQuestionsAdapter extends BaseAdapter<String, SecurityQuestionsAdapter.SecurityQuestionsHolder> {
-    private int selectedPosition = -1;
     SecurityQuestionsActivity activity;
+    private int selectedPosition = -1;
 
     public SecurityQuestionsAdapter(Observer<String> observer, SecurityQuestionsActivity activity) {
         super(observer);
@@ -50,10 +50,8 @@ public class SecurityQuestionsAdapter extends BaseAdapter<String, SecurityQuesti
     }
 
     class SecurityQuestionsHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.radio_question)
-        RadioButton radioButton;
-        @Bind(R.id.text_question)
-        TextView question;
+        @Bind(R.id.radio_question) RadioButton radioButton;
+        @Bind(R.id.text_question) TextView question;
 
         SecurityQuestionsHolder(View itemView) {
             super(itemView);
@@ -66,6 +64,8 @@ public class SecurityQuestionsAdapter extends BaseAdapter<String, SecurityQuesti
             selectedPosition = getAdapterPosition();
             notifyItemChanged(buffer);
             notifyItemChanged(selectedPosition);
+            onNext(question.getText().toString());
+
         }
 
         @OnCheckedChanged(R.id.radio_question)

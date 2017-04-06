@@ -3,7 +3,6 @@ package com.rcl.excalibur.domain.interactor;
 
 import com.rcl.excalibur.domain.preference.GuestPreference;
 
-import java.util.Set;
 
 public class GetGuestPreferencesUseCase extends UseCaseSync {
 
@@ -45,20 +44,20 @@ public class GetGuestPreferencesUseCase extends UseCaseSync {
         return guestPreference.getEmail();
     }
 
-    public void putQuestions(Set<String> values) {
-        guestPreference.putQuestions(values);
+    public void putQuestion(String value) {
+        guestPreference.putQuestion(value);
     }
 
-    public Set<String> getQuestions() {
-        return guestPreference.getQuestions();
+    public String getQuestion() {
+        return guestPreference.getQuestion();
     }
 
-    public void putAnswers(Set<String> values) {
-        guestPreference.getAnswers(values);
+    public void putAnswer(String value) {
+        guestPreference.getAnswer(value);
     }
 
-    public Set<String> getAnswers() {
-        return guestPreference.getAnswers();
+    public String getAnswer() {
+        return guestPreference.getAnswer();
     }
 
     public void putVersion(String value) {
