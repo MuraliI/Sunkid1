@@ -19,6 +19,7 @@ import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
@@ -318,7 +319,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
         advisementAttire.setAdvisementDescription("Casual");
         advisementAttire.setAdvisementTitle("Attire");
         advisementAttire.setAdvisementName("Attire");
-        advisementAttire.setAdvisementType("ATTIRE");
+        advisementAttire.setAdvisementType(ProductAdvisement.ATTIRE);
         advisementAttire.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementAttire);
@@ -328,7 +329,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
         advisementKnowBeforeYouGo.setAdvisementDescription("Arrive 15 minutes early, Wear closedtoed shoes");
         advisementKnowBeforeYouGo.setAdvisementTitle("Know Before You Go");
         advisementKnowBeforeYouGo.setAdvisementName("Know Before You Go");
-        advisementKnowBeforeYouGo.setAdvisementType("KNOW_BEFORE_YOU_GO");
+        advisementKnowBeforeYouGo.setAdvisementType(ProductAdvisement.KNOW_BEFORE_YOU_GO);
         advisementKnowBeforeYouGo.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementKnowBeforeYouGo);
@@ -338,7 +339,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
         advisementAccessibility.setAdvisementDescription("");
         advisementAccessibility.setAdvisementTitle("Wheelchair Accessible");
         advisementAccessibility.setAdvisementName("Wheelchair Accessible");
-        advisementAccessibility.setAdvisementType("ACCESSIBILITY");
+        advisementAccessibility.setAdvisementType(ProductAdvisement.ACCESSIBILITY);
         advisementAccessibility.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementAccessibility);
@@ -347,7 +348,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
         advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite but long enough to be meaningful.");
         advisementAccessibility2.setAdvisementTitle("Closed Caption");
         advisementAccessibility2.setAdvisementName("Closed Caption");
-        advisementAccessibility2.setAdvisementType("ACCESSIBILITY");
+        advisementAccessibility2.setAdvisementType(ProductAdvisement.ACCESSIBILITY);
         advisementAccessibility2.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementAccessibility2);
@@ -358,7 +359,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
         advisementLegal.setAdvisementDescription("This legal information is short enough to comfort you but long enough  to be meaninful.");
         advisementLegal.setAdvisementTitle("Legal");
         advisementLegal.setAdvisementName("Legal");
-        advisementLegal.setAdvisementType("LEGAL");
+        advisementLegal.setAdvisementType(ProductAdvisement.LEGAL);
         advisementLegal.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementLegal);
@@ -368,7 +369,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
         advisementCuisine.setAdvisementDescription("Latin American");
         advisementCuisine.setAdvisementTitle("Cuisine");
         advisementCuisine.setAdvisementName("Cuisine");
-        advisementCuisine.setAdvisementType("CUISINE");
+        advisementCuisine.setAdvisementType(ProductAdvisement.CUISINE);
         advisementCuisine.setAdvisementMedia(mediaResponse);
 
         productAdvisementResponses.add(advisementCuisine);

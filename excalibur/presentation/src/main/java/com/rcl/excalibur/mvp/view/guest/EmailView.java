@@ -1,8 +1,6 @@
 package com.rcl.excalibur.mvp.view.guest;
 
 
-import android.content.Context;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -40,7 +38,7 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
 
     }
 
-    public boolean getIsposibleNavigate() {
+    public boolean isPossibleNavigate() {
         return isPossibleNavigate;
     }
 
@@ -71,15 +69,5 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
 
     public void cleanTextViewError() {
         textViewEmailAddressError.setText(R.string.empty_string);
-    }
-
-    private void hideKeyboard() {
-        final EmailActivity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(emailLayout.getWindowToken(), 0);
-
     }
 }
