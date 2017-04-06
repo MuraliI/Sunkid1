@@ -15,15 +15,15 @@ import retrofit2.http.Query;
 
 public interface GuestApi {
 
-    @GET("securityQuestions")
+    @GET("guestAccounts/securityQuestions")
     Call<SecurityQuestionsResponse> getSecurityQuestions();
 
-    @GET("securityQuestions")
+    @GET("guestAccounts/securityQuestions")
     Call<SecurityQuestionsResponse> getSecurityQuestionByEmail(@Query("emailId") String email);
 
-    @POST(" ")
+    @POST("guestAccounts")
     Call<CreateAccountResponse> createAccount(@Header("Content-Type") String contentType, @Body CreateAccountRequest requestBody);
 
-    @GET("{emailId}/validation")
+    @GET("guestAccounts/{emailId}/validation")
     Call<ValidateEmailResponse> validateEmail(@Path("emailId") String email);
 }
