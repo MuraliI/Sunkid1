@@ -104,6 +104,14 @@ public class PasswordPresenter implements ActivityPresenter {
         return !isAtLeast7 && !hasUppercase && !hasLowercase && !hasSpecial;
     }
 
+    public void hideKeyBoard() {
+        view.hideKeyboard();
+    }
+
+    public boolean isValidData() {
+        return view.isValidData();
+    }
+
     public void onClickImageViewNext() {
         final BaseActivity activity = view.getActivity();
         if (activity == null) {

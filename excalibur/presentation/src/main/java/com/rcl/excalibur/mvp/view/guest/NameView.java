@@ -14,8 +14,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class NameView extends ActivityView<NameActivity, Void> {
-    private static final float ENABLE_ALPHA = 1f;
-    private static final float DISABLE_ALPHA = .24f;
     @Bind(R.id.full_name) EditText fullName;
     @Bind(R.id.name_error) TextView error;
     @Bind(R.id.next_button) ImageView nextButton;
@@ -35,14 +33,8 @@ public class NameView extends ActivityView<NameActivity, Void> {
         fullName.setSelection(selectionEnd);
     }
 
-    public void enableNextButton() {
-        nextButton.setEnabled(true);
-        nextButton.setAlpha(ENABLE_ALPHA);
-    }
-
-    public void disableNextButton() {
-        nextButton.setEnabled(false);
-        nextButton.setAlpha(DISABLE_ALPHA);
+    public void setNextButton(boolean isEnable) {
+        nextButton.setEnabled(isEnable);
     }
 
     public void showError(@StringRes int message) {

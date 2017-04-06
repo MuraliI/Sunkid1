@@ -20,7 +20,7 @@ public class NamePresenter implements ActivityPresenter {
     private static final String BRAND = "r";
     private static final String VERSION = "1.0";
     private static final int LIMIT_MAX = 50;
-    boolean canChange = true;
+    private boolean canChange = true;
     private NameView view;
     private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
@@ -33,8 +33,7 @@ public class NamePresenter implements ActivityPresenter {
         getGuestPreferencesUseCase.putBrand(BRAND);
         getGuestPreferencesUseCase.putVersion(VERSION);
         getGuestPreferencesUseCase.putAcceptTime(System.currentTimeMillis());
-
-        view.disableNextButton();
+        view.setNextButton(false);
     }
 
     @Override
@@ -55,18 +54,12 @@ public class NamePresenter implements ActivityPresenter {
             return;
         }
         try {
-
             canChange = false;
             final String valueWithoutBarreled = removeBarreled(view.getFullName());
             final String valueCapitalize = capitalizeAllWords(valueWithoutBarreled);
 
             view.changeValue(valueCapitalize);
-            if (!validate(valueCapitalize)) {
-                view.disableNextButton();
-                return;
-            }
-            view.enableNextButton();
-
+            view.setNextButton(validate(valueCapitalize));
         } finally {
             canChange = true;
         }
@@ -90,21 +83,26 @@ public class NamePresenter implements ActivityPresenter {
             length += v.length();
         }
 //        A Guest shall be able to enter a first name that is 50 or less characters
-        if (length > LIMIT_MAX) {
-            return false;
-        }
-        return true;
+        return length <= LIMIT_MAX;
+    }
+
+    public void hideKeyboard() {
+        view.hideKeyboard();
     }
 
 
     public void onNextClick() {
+        String fullName = view.getFullName();
+        if (!validate(fullName)) {
+            return;
+        }
         final NameActivity activity = view.getActivity();
         if (activity == null) {
             return;
         }
         //TODO view this repeat the name and the lastname
-        getGuestPreferencesUseCase.putName(view.getFullName());
-        getGuestPreferencesUseCase.putLastname(view.getFullName());
+        getGuestPreferencesUseCase.putName(fullName);
+        getGuestPreferencesUseCase.putLastname(fullName);
         ActivityUtils.startActivity(activity, EmailActivity.getStartIntent(activity));
     }
 }

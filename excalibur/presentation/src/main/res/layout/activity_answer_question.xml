@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/email_layout"
+    android:id="@+id/container_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
+    android:clickable="true"
     tools:context="com.rcl.excalibur.activity.guest.EmailActivity">
 
 
@@ -23,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_edit_text"
-            android:src="@drawable/ic_white_arrow_back" />
+            android:src="@drawable/icon_arrow_round_back" />
 
         <TextView
             android:id="@+id/text_title_question"
@@ -31,6 +30,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/margin_general"
+            android:layout_marginRight="@dimen/margin_general"
             android:textSize="@dimen/size_text_big" />
 
         <EditText

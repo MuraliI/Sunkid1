@@ -15,9 +15,8 @@ import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
-
-import static butterknife.OnTextChanged.Callback.AFTER_TEXT_CHANGED;
 
 
 public class NameActivity extends BaseActivity<NamePresenter> {
@@ -64,8 +63,20 @@ public class NameActivity extends BaseActivity<NamePresenter> {
         presenter.onNextClick();
     }
 
-    @OnTextChanged(value = R.id.full_name, callback = AFTER_TEXT_CHANGED)
+    @OnTextChanged(R.id.full_name)
     public void onNameChanged() {
         presenter.onNameChanged();
     }
+
+    @OnClick(R.id.container_layout)
+    public void onContainerClick() {
+        presenter.hideKeyboard();
+    }
+
+    @OnEditorAction(R.id.full_name)
+    boolean onEditorAction() {
+        presenter.onNextClick();
+        return true;
+    }
+
 }

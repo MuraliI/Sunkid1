@@ -7,6 +7,9 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.mvp.presenter.guest.CreateAccountDonePresenter;
+import com.rcl.excalibur.utils.analytics.AnalyticEvent;
+import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,6 +29,7 @@ public class CreateAccountDoneActivity extends BaseActivity<CreateAccountDonePre
 
     @OnClick(R.id.create_account_done_layout)
     public void onActivityClick() {
+        AnalyticsUtils.trackEvent(new AnalyticEvent(AnalyticsConstants.KEY_GUEST_ACCOUNT_CREATE_ACCOUNT_SUBMIT));
         presenter.onActivityClick();
     }
 

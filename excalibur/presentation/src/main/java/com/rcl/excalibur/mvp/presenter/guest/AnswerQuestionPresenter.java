@@ -16,8 +16,8 @@ import com.rcl.excalibur.utils.ActivityUtils;
 
 public class AnswerQuestionPresenter implements ActivityPresenter {
     private static final int MIN_CHARS = 3;
-    GuestServices guestServices;
     private AnswerQuestionView view;
+    private GuestServices guestServices;
     private CreateAccountServiceObserver serviceObserver;
     private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
@@ -27,6 +27,7 @@ public class AnswerQuestionPresenter implements ActivityPresenter {
         this.guestServices = guestServices;
         this.serviceObserver = new CreateAccountServiceObserver(this);
         this.getGuestPreferencesUseCase = getGuestPreferencesUseCase;
+        setTitleQuestion(getGuestPreferencesUseCase.getQuestion());
     }
 
     public void onPressDoneBtn() {
@@ -45,6 +46,10 @@ public class AnswerQuestionPresenter implements ActivityPresenter {
 
     public void setTitleQuestion(String titleQuestion) {
         view.setTitleQuestion(titleQuestion);
+    }
+
+    public void hideKeyBoard() {
+        view.hideKeyboard();
     }
 
     @Override

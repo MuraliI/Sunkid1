@@ -5,18 +5,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProductAdvisementResponse {
     @SerializedName("advisementID")
-    private long advisementId;
+    private String advisementId;
     private String advisementName;
     private String advisementType;
     private String advisementTitle;
     private String advisementDescription;
     private MediaResponse advisementMedia;
 
-    public long getAdvisementId() {
+    public String getAdvisementId() {
         return advisementId;
     }
 
-    public void setAdvisementId(long advisementId) {
+    public void setAdvisementId(String advisementId) {
         this.advisementId = advisementId;
     }
 
