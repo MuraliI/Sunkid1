@@ -155,6 +155,31 @@ public final class DetailViewTypeFactory {
         }
     }
 
+    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                ProductModel product) {
+        if (product == null) {
+            return;
+        }
+        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
+    }
+
+    private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
+                                           ProductModel product) {
+        // FIXME: Obtain products from database
+        if (!TextUtils.isEmpty(product.getReservationInformation())) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
+                    product.getReservationInformation());
+        }
+    }
+
+    private static void addExperience(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
+                                      ProductModel product) {
+        if (!TextUtils.isEmpty(product.getExperience())) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_experience),
+                    product.getExperience());
+        }
+    }
+
     private void addPriceFromTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
         final SellingPrice sellingPrice = product.getStartingFromPrice();
         if (sellingPrice == null) {
@@ -166,14 +191,6 @@ public final class DetailViewTypeFactory {
             recyclerViewTypeList.add(new PricesFromViewType(StringUtils.getPriceFormated(adultPrice),
                     StringUtils.getPriceFormated(childPrice)));
         }
-    }
-
-    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                                ProductModel product) {
-        if (product == null) {
-            return;
-        }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
     }
 
     private void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
@@ -211,23 +228,6 @@ public final class DetailViewTypeFactory {
         }
         addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
                 productActivityLevel.getActivityLevelTitle());
-    }
-
-    private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
-                                           ProductModel product) {
-        // FIXME: Obtain products from database
-        if (!TextUtils.isEmpty(product.getReservationInformation())) {
-            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
-                    product.getReservationInformation());
-        }
-    }
-
-    private static void addExperience(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
-                                      ProductModel product) {
-        if (!TextUtils.isEmpty(product.getExperience())) {
-            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_experience),
-                    product.getExperience());
-        }
     }
 
 }

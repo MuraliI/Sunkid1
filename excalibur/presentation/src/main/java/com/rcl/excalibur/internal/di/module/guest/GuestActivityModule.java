@@ -3,6 +3,7 @@ package com.rcl.excalibur.internal.di.module.guest;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.guest.AnswerQuestionActivity;
 import com.rcl.excalibur.activity.guest.SecurityQuestionsActivity;
+import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.domain.interactor.GetSecurityQuestionsUseCase;
 import com.rcl.excalibur.domain.service.GuestServices;
 import com.rcl.excalibur.internal.di.scopes.guest.GuestActivityScope;
@@ -35,8 +36,9 @@ public class GuestActivityModule {
 
     @Provides
     SecurityQuestionsPresenter providesSecurityQuestionsPresenter(SecurityQuestionsView view,
-                                                                  GetSecurityQuestionsUseCase getSecurityQuestionsUseCase) {
-        return new SecurityQuestionsPresenter(view, getSecurityQuestionsUseCase);
+                                                                  GetSecurityQuestionsUseCase getSecurityQuestionsUseCase,
+                                                                  GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
+        return new SecurityQuestionsPresenter(view, getSecurityQuestionsUseCase, getGuestPreferencesUseCase);
     }
 
     @Provides

@@ -1,9 +1,13 @@
 package com.rcl.excalibur.internal.di.module.guest;
 
+import android.content.Context;
+
 import com.rcl.excalibur.data.BuildConfig;
+import com.rcl.excalibur.data.GuestPreferenceImpl;
 import com.rcl.excalibur.data.mapper.guest.SecurityQuestionsResponseMapper;
 import com.rcl.excalibur.data.service.GuestServicesImpl;
 import com.rcl.excalibur.data.service.api.GuestApi;
+import com.rcl.excalibur.domain.preference.GuestPreference;
 import com.rcl.excalibur.domain.service.GuestServices;
 import com.rcl.excalibur.internal.di.scopes.guest.GuestScope;
 
@@ -17,6 +21,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @GuestScope
 @Module
 public class GuestServicesModule {
+    private Context context;
+
+    public GuestServicesModule(Context context) {
+        this.context = context;
+    }
+
 
     @Provides
     SecurityQuestionsResponseMapper providesSecurityQuestionsResponseMapper() {
@@ -43,5 +53,10 @@ public class GuestServicesModule {
     @Provides
     GuestServices providesGuestServices(GuestApi guestApi, SecurityQuestionsResponseMapper mapper) {
         return new GuestServicesImpl(guestApi, mapper);
+    }
+
+    @Provides
+    GuestPreference providesGuestPreference() {
+        return new GuestPreferenceImpl(context);
     }
 }
