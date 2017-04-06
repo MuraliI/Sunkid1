@@ -17,6 +17,8 @@ public class EmailPresenter implements ActivityPresenter {
     private EmailView view;
     private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
     private GuestServices guestServices;
+    //TODO improve this
+    private static final String NON_EXISTING_EMAIL = "DoesNotExist";
 
 
     public EmailPresenter(EmailView view, GetGuestPreferencesUseCase getGuestPreferencesUseCase, GuestServices guestServices) {
@@ -78,7 +80,11 @@ public class EmailPresenter implements ActivityPresenter {
             guestServices.validateEmail(new DefaultPresentObserver<ValidateEmailEvent, EmailPresenter>(this) {
                                             @Override
                                             public void onNext(ValidateEmailEvent event) {
-                                                view.showMessage(event.getMessage());
+                                                if (!NON_EXISTING_EMAIL.equals(event.getMessage())) {
+                                                    view.showMessage(R.string.email_exists_message);
+                                                    return;
+                                                }
+
                                                 getGuestPreferencesUseCase.putEmail(view.getEmail());
                                                 final BaseActivity activity = view.getActivity();
                                                 if (activity == null) {
