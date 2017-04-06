@@ -11,15 +11,13 @@
         android:id="@+id/text_module_title"
         style="@style/AppTheme.Headline7"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_large"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/text_module_text"
         style="@style/AppTheme.Body"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_large"/>
+        android:layout_height="wrap_content"/>
 
     <include layout="@layout/separator_product"/>
 

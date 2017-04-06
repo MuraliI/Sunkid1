@@ -23,14 +23,11 @@ import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.mapper.ProductModelDataMapper;
 import com.rcl.excalibur.model.ProductModel;
-import com.rcl.excalibur.utils.ProductModelProvider;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import static com.rcl.excalibur.domain.ProductAdvisement.ATTIRE;
 import static com.rcl.excalibur.domain.ProductAdvisement.KNOW_BEFORE_YOU_GO;
@@ -53,15 +50,12 @@ public final class DetailViewTypeFactory {
         addHeroSectionHeader(product, viewTypes);
         addMakeReservation(viewTypes, resources, model);
         addDurationModule(viewTypes, resources, model);
+        addExperience(viewTypes, resources, model);
         addAttireModule(viewTypes, resources, model);
         addKnowBeforeYouGoModule(viewTypes, resources, model);
-        addLegalModule(viewTypes, resources, model);
-        addExperience(viewTypes, resources, model);
         addDescriptionTypes(viewTypes, model.getDescription());
-        addAdvisements(viewTypes, resources, model);
-        if (model.getDuration() > NO_DURATION) {
-            addProductDurationTypes(viewTypes, resources, model);
-        }
+        addLegalModule(viewTypes, resources, model);
+
 
         return viewTypes;
     }
@@ -125,28 +119,6 @@ public final class DetailViewTypeFactory {
         recyclerViewTypeList.add(new TitleAndDescriptionViewType(title, description));
     }
 
-    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                                ProductModel product) {
-        if (product == null) {
-            return;
-        }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
-    }
-
-    private static void addAdvisements(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
-                                       ProductModel product) {
-        // FIXME: Obtain products from database
-        product = ProductModelProvider.productModelMap.get("1");
-        HashMap<String, String> advisements = product.getAdvisementsAndReestrictions();
-
-        for (Map.Entry<String, String> entry : advisements.entrySet()) {
-            String advisementTitle = entry.getKey();
-            String advisementDescription = entry.getValue();
-            addTitleAndDescriptionTypes(recyclerViewTypeList, advisementTitle,
-                    advisementDescription);
-        }
-    }
-
     private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList,
                                            @NonNull Resources resources, ProductModel product) {
         if (!TextUtils.isEmpty(product.getReservationInformation())) {
@@ -161,6 +133,14 @@ public final class DetailViewTypeFactory {
             addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_experience),
                     product.getExperience());
         }
+    }
+
+    private static void addProductDurationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
+                                                ProductModel product) {
+        if (product == null) {
+            return;
+        }
+        addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
     }
 
     private void addPriceFromTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {

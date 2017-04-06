@@ -27,15 +27,12 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_chevron_down" />
-            android:src="@drawable/ic_arrow_drop_down"
-            android:tint="@color/detail_item_link"/>
+        android:src="@drawable/ic_arrow_drop_down"
+        android:tint="@color/detail_item_link"/>
 
     </RelativeLayout>
 
-    <include
-        android:id="@+id/separator_top"
-        layout="@layout/separator_product"
-        android:visibility="gone" />
+    <include layout="@layout/separator_product" />
 
     <LinearLayout
         android:id="@+id/expandable_link_module_content"
@@ -46,6 +43,5 @@
         android:orientation="vertical"
         android:visibility="gone" />
 
-    <include layout="@layout/separator_product" />
 
 </LinearLayout>

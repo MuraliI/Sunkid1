@@ -47,7 +47,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
 
     private static void initializeContentLines(int numberOfContentLines, boolean hasCheckMarks, ExpandableLinkViewHolder viewHolder) {
         viewHolder.contentLines.clear();
-//        viewHolder.textContent.removeAllViews();
+        viewHolder.textContent.removeAllViews();
 
         Resources resources = viewHolder.itemView.getResources();
         Context context = viewHolder.itemView.getContext();
@@ -86,7 +86,6 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         @Bind(R.id.expandable_link_module_title) TextView title;
         @Bind(R.id.expandable_link_module_content) LinearLayout textContent;
         @Bind(R.id.expandable_link_module_arrow) ImageView imageArrow;
-        @Bind(R.id.separator_top) View separatorTop;
 
         private List<TextView> contentLines;
 
@@ -104,7 +103,6 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         private void change() {
             final boolean isGone = View.GONE == textContent.getVisibility();
             textContent.setVisibility(isGone ? View.VISIBLE : View.GONE);
-            separatorTop.setVisibility(isGone ? View.VISIBLE : View.GONE);
             imageArrow.setImageResource(isGone ? R.drawable.ic_chevron_up : R.drawable.ic_chevron_down);
         }
     }
