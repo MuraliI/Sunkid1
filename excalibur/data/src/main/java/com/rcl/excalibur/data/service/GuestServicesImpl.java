@@ -89,11 +89,11 @@ public class GuestServicesImpl implements GuestServices {
                 if (createAccountResponse != null) {
                     responseEvent.setSuccesfull(true);
                     responseEvent.setMessage(response.body().getAccountId());
-                    e.onNext(responseEvent);
                 } else {
                     responseEvent.setSuccesfull(false);
                     responseEvent.setMessage("Invalid Response");
                 }
+                e.onNext(responseEvent);
             } catch (IOException ex) {
                 e.onError(ex);
             }
