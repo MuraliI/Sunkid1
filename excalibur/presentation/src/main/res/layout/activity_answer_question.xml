@@ -30,6 +30,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/margin_general"
+            android:layout_marginRight="@dimen/margin_general"
             android:textSize="@dimen/size_text_big" />
 
         <EditText

@@ -36,7 +36,7 @@ public class SecurityQuestionsView extends ActivityView<SecurityQuestionsActivit
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new SecurityQuestionsAdapter(null, getActivity());
+        adapter = new SecurityQuestionsAdapter(this.getAdapterObserver(), getActivity());
         recyclerView.setAdapter(adapter);
     }
 
