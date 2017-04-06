@@ -6,6 +6,7 @@ import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
 import com.rcl.excalibur.data.utils.Preconditions;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 
 import java.util.List;
@@ -22,11 +23,14 @@ public class ProductInformationMapper extends BaseModelDataMapper<Product, Produ
         productBasicInformation.setProductType(item.getProductType() != null ? item.getProductType().getProductType() : null);
         productBasicInformation.setReservationRequired(item.isReservationRequired());
         if (item.getProductLocation() != null) {
-            productBasicInformation.setVenue(item.getProductLocation().getLocationVenue());
-            productBasicInformation.setLocation(
-                    String.valueOf(item.getProductLocation().getLocationDeckNumber())
-                            + ConstantsUtil.WHITE_SPACE + item.getProductLocation().getLocationDirection());
-            productBasicInformation.setPort(item.getProductLocation().getLocationPort());
+            if (item.getProductType().equals(ProductType.SHOREX_TYPE)) {
+                productBasicInformation.setPort(item.getProductLocation().getLocationPort());
+            } else {
+                productBasicInformation.setVenue(item.getProductLocation().getLocationVenue());
+                productBasicInformation.setLocation(
+                        String.valueOf(item.getProductLocation().getLocationDeckNumber())
+                                + ConstantsUtil.WHITE_SPACE + item.getProductLocation().getLocationDirection());
+            }
         }
         productBasicInformation.setUpChargeLevel(item.getProductUpcharge());
         productBasicInformation.setProductMedia(
