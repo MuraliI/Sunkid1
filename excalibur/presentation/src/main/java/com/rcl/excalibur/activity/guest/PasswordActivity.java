@@ -1,5 +1,6 @@
 package com.rcl.excalibur.activity.guest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -7,6 +8,8 @@ import android.text.Editable;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
+import com.rcl.excalibur.internal.di.component.guest.GuestPasswordActivityComponent;
+import com.rcl.excalibur.internal.di.module.guest.GuestPasswordActivityModule;
 import com.rcl.excalibur.mvp.presenter.guest.PasswordPresenter;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
@@ -18,6 +21,11 @@ import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 
 public class PasswordActivity extends BaseActivity<PasswordPresenter> {
+    private GuestPasswordActivityComponent guestActivityComponent;
+
+    public static Intent getStartIntent(BaseActivity activity) {
+        return new Intent(activity, PasswordActivity.class);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,15 +35,32 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
         AnalyticsUtils.trackState(AnalyticsConstants.KEY_PASSWORD_SCREEN);
     }
 
-
     @OnClick(R.id.image_back_screen)
     void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();
     }
 
     @Override
+    protected void createComponent() {
+        rclApp.createGuestComponent();
+        guestActivityComponent = rclApp.getGuestComponent().plus(new GuestPasswordActivityModule(this));
+    }
+
+    @Override
+    protected void destroyComponent() {
+        guestActivityComponent = null;
+        rclApp.destroyGuestComponent();
+    }
+
+    @Override
     protected void injectActivity(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+        guestActivityComponent.inject(this);
+    }
+
+
+    @OnClick(R.id.image_next_screen)
+    public void onClickImageViewNext() {
+        presenter.onClickImageViewNext();
     }
 
     @OnFocusChange(R.id.edit_create_password)

@@ -3,6 +3,8 @@ package com.rcl.excalibur.mvp.presenter.guest;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.guest.PasswordActivity;
+import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
 import com.rcl.excalibur.mvp.view.guest.EmailView;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -10,10 +12,12 @@ import com.rcl.excalibur.utils.StringUtils;
 
 public class EmailPresenter implements ActivityPresenter {
     private EmailView view;
+    private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
 
-    public EmailPresenter(EmailView view) {
+    public EmailPresenter(EmailView view, GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
         this.view = view;
+        this.getGuestPreferencesUseCase = getGuestPreferencesUseCase;
     }
 
     public void onHeaderBackOnClick() {
@@ -66,8 +70,13 @@ public class EmailPresenter implements ActivityPresenter {
     }
 
     public void checkDone() {
-         if (view.getIsposibleNavigate()) {
-             view.navigate();
-         }
+        if (view.getIsposibleNavigate()) {
+            final BaseActivity activity = view.getActivity();
+            if (activity == null) {
+                return;
+            }
+            getGuestPreferencesUseCase.putEmail(view.getEmail());
+            ActivityUtils.startActivity(activity, PasswordActivity.getStartIntent(activity));
+        }
     }
 }

@@ -13,7 +13,6 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class PasswordView extends ActivityView<PasswordActivity, Void> {
     @Bind(R.id.edit_create_password) EditText editTextPassword;
@@ -49,8 +48,4 @@ public class PasswordView extends ActivityView<PasswordActivity, Void> {
         editTextPassword.setTransformationMethod(new PasswordTransformationMethod());
     }
 
-    @OnClick(R.id.image_next_screen)
-    public void onClickImageViewNext() {
-        //TODO navigate to next Activity
-    }
 }

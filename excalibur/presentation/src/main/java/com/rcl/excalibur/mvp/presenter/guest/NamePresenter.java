@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.rcl.excalibur.activity.guest.EmailActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
+import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.mvp.view.guest.NameView;
@@ -19,12 +20,18 @@ public class NamePresenter implements ActivityPresenter {
     private static final int LIMIT_MAX = 50;
     boolean canChange = true;
     private NameView view;
+    private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
-    public NamePresenter(NameView view) {
+    public NamePresenter(NameView view, GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
         this.view = view;
+        this.getGuestPreferencesUseCase = getGuestPreferencesUseCase;
     }
 
     public void init() {
+        getGuestPreferencesUseCase.putBrand("r");
+        getGuestPreferencesUseCase.putVersion("1.0");
+        getGuestPreferencesUseCase.putAcceptTime(System.currentTimeMillis());
+
         view.disableNextButton();
     }
 
@@ -93,6 +100,9 @@ public class NamePresenter implements ActivityPresenter {
         if (activity == null) {
             return;
         }
+        //TODO view this repeat the name and the lastname
+        getGuestPreferencesUseCase.putName(view.getFullName());
+        getGuestPreferencesUseCase.putLastname(view.getFullName());
         ActivityUtils.startActivity(activity, EmailActivity.getStartIntent(activity));
     }
 }
