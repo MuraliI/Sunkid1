@@ -11,7 +11,6 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class AnswerQuestionView extends ActivityView<AnswerQuestionActivity, Void> {
     @Bind(R.id.edit_answer) EditText editTextAnswer;
@@ -33,10 +32,5 @@ public class AnswerQuestionView extends ActivityView<AnswerQuestionActivity, Voi
 
     public void setTitleQuestion(String titleQuestion) {
         textViewTitleQuestion.setText(titleQuestion);
-    }
-
-    @OnClick(R.id.button_done_answer)
-    void onClick() {
-        //TODO navigate to next Activity
     }
 }

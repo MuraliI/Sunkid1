@@ -30,11 +30,6 @@
             android:name=".activity.TriptychHomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -78,7 +73,19 @@
         <activity
             android:name=".activity.guest.AnswerQuestionActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".activity.guest.CreateAccountDoneActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Home" />
     </application>
 
 </manifest>

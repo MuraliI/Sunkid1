@@ -124,4 +124,8 @@
     <dimen name="guest_next_top">20dp</dimen>
 
     <dimen name="spacing_top_bar_answer_screen">60dp</dimen>
+
+    <!-- create account done Flow -->
+    <dimen name="create_account_text_size_title">48sp</dimen>
+    <dimen name="create_account_text_size_sub_title">18sp</dimen>
 </resources>
