@@ -2,14 +2,14 @@ package com.rcl.excalibur.data.service.request.guest;
 
 public class TermsAndConditionsAgreementRequest {
 
-    private Integer acceptTime;
+    private long acceptTime;
     private String version;
 
-    public Integer getAcceptTime() {
+    public long getAcceptTime() {
         return acceptTime;
     }
 
-    public void setAcceptTime(Integer acceptTime) {
+    public void setAcceptTime(long acceptTime) {
         this.acceptTime = acceptTime;
     }
 

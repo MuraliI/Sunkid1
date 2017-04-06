@@ -10,6 +10,7 @@ import com.rcl.excalibur.data.service.response.guest.SecurityQuestionsResponse;
 import com.rcl.excalibur.data.service.response.guest.ValidateEmailResponse;
 import com.rcl.excalibur.domain.guest.CreateAccountEvent;
 import com.rcl.excalibur.domain.guest.ValidateEmailEvent;
+import com.rcl.excalibur.domain.preference.GuestPreference;
 import com.rcl.excalibur.domain.service.GuestServices;
 
 import java.io.IOException;
@@ -27,10 +28,13 @@ public class GuestServicesImpl implements GuestServices {
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
     private final GuestApi guestApi;
     private final SecurityQuestionsResponseMapper securityQuestionsResponseMapper;
+    private GuestPreference guestPreferences;
 
-    public GuestServicesImpl(GuestApi guestApi, SecurityQuestionsResponseMapper securityQuestionsResponseMapper) {
+    public GuestServicesImpl(GuestApi guestApi, SecurityQuestionsResponseMapper securityQuestionsResponseMapper,
+                             GuestPreference guestPreferences) {
         this.guestApi = guestApi;
         this.securityQuestionsResponseMapper = securityQuestionsResponseMapper;
+        this.guestPreferences = guestPreferences;
     }
 
     @Override
@@ -61,16 +65,15 @@ public class GuestServicesImpl implements GuestServices {
 
         //TODO improve this
         CreateAccountRequest request = new CreateAccountRequest();
-        request.setFirstName("Brad");
-        request.setLastName("Pitt");
-        request.setEmail("lawn@order.com");
-        request.setPassword("insecurepassword");
-        request.setBrand("r");
+        request.setFirstName(guestPreferences.getName());
+        request.setLastName(guestPreferences.getLastname());
+        request.setEmail(guestPreferences.getEmail());
+        request.setPassword(guestPreferences.getPassword());
+        request.setBrand(guestPreferences.getBrand());
 
         TermsAndConditionsAgreementRequest terms = new TermsAndConditionsAgreementRequest();
-        //review Integer exacple to large for INTEGER -> 1490108091640
-        terms.setAcceptTime(1490108091);
-        terms.setVersion("1.0");
+        terms.setAcceptTime(guestPreferences.getAcceptTime());
+        terms.setVersion(guestPreferences.getVersion());
         request.setTermsAndConditionsAgreement(terms);
 
         SecurityQuestionRequest question = new SecurityQuestionRequest();

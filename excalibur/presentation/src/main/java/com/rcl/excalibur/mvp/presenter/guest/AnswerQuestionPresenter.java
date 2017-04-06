@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.guest.CreateAccountDoneActivity;
 import com.rcl.excalibur.domain.guest.CreateAccountEvent;
+import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.domain.service.GuestServices;
 import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
@@ -13,19 +14,28 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.mvp.view.guest.AnswerQuestionView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AnswerQuestionPresenter implements ActivityPresenter {
     private static final int MIN_CHARS = 3;
     private AnswerQuestionView view;
     GuestServices guestServices;
     private CreateAccountServiceObserver serviceObserver;
+    private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
-    public AnswerQuestionPresenter(AnswerQuestionView view, GuestServices guestServices) {
+    public AnswerQuestionPresenter(AnswerQuestionView view, GuestServices guestServices,
+                                   GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
         this.view = view;
         this.guestServices = guestServices;
         this.serviceObserver = new CreateAccountServiceObserver(this);
+        this.getGuestPreferencesUseCase = getGuestPreferencesUseCase;
     }
 
     public void onPressDoneBtn() {
+        Set<String> answer = new HashSet<>();
+        answer.add(view.getAnswer());
+        getGuestPreferencesUseCase.putAnswers(answer);
         guestServices.createAccount(serviceObserver);
     }
 

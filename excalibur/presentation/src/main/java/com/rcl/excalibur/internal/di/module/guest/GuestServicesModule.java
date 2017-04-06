@@ -51,8 +51,9 @@ public class GuestServicesModule {
     }
 
     @Provides
-    GuestServices providesGuestServices(GuestApi guestApi, SecurityQuestionsResponseMapper mapper) {
-        return new GuestServicesImpl(guestApi, mapper);
+    GuestServices providesGuestServices(GuestApi guestApi, SecurityQuestionsResponseMapper mapper,
+                                        GuestPreference guestPreference) {
+        return new GuestServicesImpl(guestApi, mapper, guestPreference);
     }
 
     @Provides
