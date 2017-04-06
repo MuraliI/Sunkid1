@@ -1,11 +1,11 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import android.support.v7.app.AppCompatActivity;
-
 import com.rcl.excalibur.BuildConfig;
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
+import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.factory.DetailViewTypeFactory;
 import com.rcl.excalibur.domain.Product;
@@ -15,11 +15,17 @@ import com.rcl.excalibur.mvp.view.ProductDetailView;
 import java.util.List;
 
 public class ProductDetailPresenter implements ActivityPresenter {
+    private static final int MAX_BLUR_VALUE = 25;
+    private static final int HEIGHT_FACTOR = 4;
+
     private GetProductDbUseCase getProductDbUseCase;
     private ProductDetailView view;
-    private long productId;
     private Product product;
     private List<RecyclerViewType> viewTypes;
+
+    protected boolean isToolbarCollapsed = false;
+    protected boolean isTitleVisible = false;
+    private long productId;
 
     public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -38,8 +44,10 @@ public class ProductDetailPresenter implements ActivityPresenter {
     }
 
     private void initView() {
-        AppCompatActivity activity = view.getActivity();
+        ProductDetailActivity activity = view.getActivity();
         if (activity != null) {
+            view.setupToolbar();
+            view.initAnimation();
             if (product.getProductMedia() != null
                     && product.getProductMedia().getMediaItem() != null
                     && product.getProductMedia().getMediaItem().size() > 0) {
@@ -47,20 +55,38 @@ public class ProductDetailPresenter implements ActivityPresenter {
             } else {
                 view.setHeroImage(null);
             }
+            view.setViewObserver(new OnScrollObserver(this));
             view.setAdapterObserver(new FindOnDeckClickObserver(this));
             view.render(viewTypes);
         }
     }
 
     public void onBackClicked() {
-        if (view.getActivity() != null) {
-            view.getActivity().finish();
+        ProductDetailActivity activity = view.getActivity();
+        if (activity != null) {
+            activity.finish();
         }
     }
 
     @Override
     public ProductDetailView getView() {
         return view;
+    }
+
+    public void onOffsetChanged(int verticalOffset, int totalScrollRange) {
+        view.setBlurRadiusOnImage(getBlurRadius(verticalOffset, totalScrollRange));
+
+        if (totalScrollRange + verticalOffset == 0) {
+            view.setContentScrimResource(R.color.colorPrimary);
+            isToolbarCollapsed = true;
+        } else if (isToolbarCollapsed) {
+            view.setContentScrimResource(R.color.transparent);
+            isToolbarCollapsed = false;
+        }
+    }
+
+    protected float getBlurRadius(int verticalOffset, int totalScrollRange) {
+        return (Math.abs(verticalOffset) * MAX_BLUR_VALUE) / totalScrollRange;
     }
 
     private class FindOnDeckClickObserver extends DefaultPresentObserver<Long, ProductDetailPresenter> {
@@ -70,11 +96,39 @@ public class ProductDetailPresenter implements ActivityPresenter {
         }
 
         @Override
-        public void onNext(Long value) {
+        public void onNext(Long productId) {
             final BaseActivity activity = view.getActivity();
             if (activity != null) {
-                activity.startActivity(ProductDeckMapActivity.getIntent(activity, value));
+                activity.startActivity(ProductDeckMapActivity.getIntent(activity, productId));
             }
+        }
+    }
+
+    private class OnScrollObserver extends DefaultPresentObserver<int[], ProductDetailPresenter> {
+
+        OnScrollObserver(ProductDetailPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(int[] values) {
+            calculateScrollToTitle(values);
+        }
+    }
+
+    protected void calculateScrollToTitle(int[] values) {
+        int scrolledAmount = values[0];
+        int parentPaddingTop = values[1];
+        int titleHeight = values[2];
+
+        if (scrolledAmount >= parentPaddingTop + titleHeight / HEIGHT_FACTOR
+                && !isTitleVisible) {
+            isTitleVisible = true;
+            view.showCollapsingToolbarTitle();
+        } else if (scrolledAmount < parentPaddingTop + titleHeight / HEIGHT_FACTOR
+                && isTitleVisible) {
+            isTitleVisible = false;
+            view.hideCollapsingToolbarTitle();
         }
     }
 }
