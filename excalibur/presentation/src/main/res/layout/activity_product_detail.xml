@@ -59,7 +59,7 @@
                 <TextView
                     android:id="@+id/tv_detail_toolbar_title"
                     android:textColor="@color/white"
-                    style="@android:style/TextAppearance.Material.Widget.ActionBar.Title"
+                    style="@style/AppTheme.ToolBar.Title"
                     app:title="@string/hardcoded_activity_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
