@@ -11,6 +11,7 @@ import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.internal.di.component.guest.GuestPasswordActivityComponent;
 import com.rcl.excalibur.internal.di.module.guest.GuestPasswordActivityModule;
 import com.rcl.excalibur.mvp.presenter.guest.PasswordPresenter;
+import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
@@ -61,6 +62,7 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
 
     @OnClick(R.id.image_next_screen)
     public void onClickImageViewNext() {
+        AnalyticsUtils.trackEvent(new AnalyticEvent(AnalyticsConstants.KEY_GUEST_ACCOUNT_SUBMIT_CREDENTIALS));
         presenter.onClickImageViewNext();
     }
 
@@ -86,6 +88,7 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
 
     @OnEditorAction(R.id.edit_create_password)
     boolean onEditorAction() {
+        AnalyticsUtils.trackEvent(new AnalyticEvent(AnalyticsConstants.KEY_GUEST_ACCOUNT_SUBMIT_CREDENTIALS));
         if (presenter.isValidData()) {
             presenter.onClickImageViewNext();
         }
