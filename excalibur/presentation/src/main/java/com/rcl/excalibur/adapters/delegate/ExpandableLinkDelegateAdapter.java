@@ -1,7 +1,6 @@
 package com.rcl.excalibur.adapters.delegate;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,41 +33,19 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
     @Override
     public void onBindViewHolder(ExpandableLinkViewHolder holder, ExpandableLinkViewType item) {
         holder.title.setText(item.getTitle());
-
-        initializeContentLines(item.getContent().length, item.isContentWithCheckMark(), holder);
-
-        int i = 0;
-        for (TextView textView : holder.contentLines) {
-            textView.setText(StringUtils.fromHtml(item.getContent()[i]));
-            i++;
-        }
+        initializeContentLines(item, holder);
     }
 
-    private static void initializeContentLines(int numberOfContentLines, boolean hasCheckMarks, ExpandableLinkViewHolder viewHolder) {
+    private static void initializeContentLines(ExpandableLinkViewType item, ExpandableLinkViewHolder viewHolder) {
         viewHolder.contentLines.clear();
         viewHolder.textContent.removeAllViews();
 
-        Resources resources = viewHolder.itemView.getResources();
         Context context = viewHolder.itemView.getContext();
 
-        for (int i = 0; i < numberOfContentLines; i++) {
+        for (int i = 0; i < item.getContent().length; i++) {
             //Create TextView;
-            TextView contentLine = new TextView(context);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.topMargin = (int) resources.getDimension(R.dimen.margin_normal);
-            contentLine.setLayoutParams(params);
-
-            //Add checkmark
-            if (hasCheckMarks) {
-                contentLine.setCompoundDrawablesWithIntrinsicBounds(
-                        resources.getDrawable(R.drawable.ic_blue_checkbox, context.getTheme()),
-                        null,
-                        null,
-                        null);
-                contentLine.setCompoundDrawablePadding((int) resources.getDimension(R.dimen.margin_normal));
-            }
+            TextView contentLine = (TextView) LayoutInflater.from(context).inflate(R.layout.item_expandable_link, null);
+            contentLine.setText(StringUtils.fromHtml(item.getContent()[i]));
 
             viewHolder.textContent.addView(contentLine);
             viewHolder.contentLines.add(contentLine);
@@ -98,7 +75,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         private void change() {
             final boolean isGone = View.GONE == textContent.getVisibility();
             textContent.setVisibility(isGone ? View.VISIBLE : View.GONE);
-            imageArrow.setImageResource(isGone ? R.drawable.ic_arrow_drop_up : R.drawable.ic_arrow_drop_down);
+            imageArrow.setImageResource(isGone ? R.drawable.ic_chevron_up : R.drawable.ic_chevron_down);
         }
     }
 }

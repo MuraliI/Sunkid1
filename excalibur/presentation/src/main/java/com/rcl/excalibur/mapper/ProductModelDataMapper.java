@@ -27,6 +27,7 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
         productModel.setDescription(item.getProductShortDescription());
         setAdvisements(productModel, item.getAdvisements());
         setRestrictions(productModel, item.getRestrictions());
+
         return productModel;
     }
 

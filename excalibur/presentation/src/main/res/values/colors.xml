@@ -16,6 +16,7 @@
     <color name="plan_list_grey">#D8D8D8</color>
     <color name="discover_black">#34323d</color>
     <color name="discover_grey">#D8D8D8</color>
+    <color name="discover_separator">#F4F4F4</color>
 
     <!-- Discover Item Detail -->
     <color name="transparent_black">#66000000</color>
@@ -26,7 +27,6 @@
     <color name="detail_description_transparent_white">#9FFF</color>
 
     <color name="product_detail_reservation_background">#FFF0EC</color>
-
 
     <!-- Itinerary -->
     <color name="itinerary_product_card_background">#F5F5F5</color>
