@@ -128,7 +128,6 @@
     </plurals>
     <plurals name="product_min">
         <item quantity="one">%d min</item>
-        <item quantity="other">%d mins</item>
     </plurals>
     <string name="advisement_cuisine">Cuisine</string>
     <string name="know_before_you_go">Know before you go</string>
