@@ -1,8 +1,6 @@
 package com.rcl.excalibur.domain.preference;
 
 
-import java.util.Set;
-
 public interface GuestPreference {
 
     void putName(String value);
@@ -21,13 +19,13 @@ public interface GuestPreference {
 
     String getEmail();
 
-    void putQuestions(Set<String> values);
+    void putQuestion(String value);
 
-    Set<String> getQuestions();
+    String getQuestion();
 
-    void getAnswers(Set<String> values);
+    void getAnswer(String value);
 
-    Set<String> getAnswers();
+    String getAnswer();
 
     void putVersion(String value);
 

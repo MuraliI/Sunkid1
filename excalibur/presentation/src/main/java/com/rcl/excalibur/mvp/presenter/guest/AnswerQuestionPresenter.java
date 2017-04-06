@@ -33,9 +33,7 @@ public class AnswerQuestionPresenter implements ActivityPresenter {
     }
 
     public void onPressDoneBtn() {
-        Set<String> answer = new HashSet<>();
-        answer.add(view.getAnswer());
-        getGuestPreferencesUseCase.putAnswers(answer);
+        getGuestPreferencesUseCase.putAnswer(view.getAnswer());
         guestServices.createAccount(serviceObserver);
     }
 
@@ -55,10 +53,6 @@ public class AnswerQuestionPresenter implements ActivityPresenter {
     @Override
     public ActivityView getView() {
         return view;
-    }
-
-    public void hideKeyboard() {
-        view.hideKeyboard();
     }
 
     public void setValidateAnswer() {
