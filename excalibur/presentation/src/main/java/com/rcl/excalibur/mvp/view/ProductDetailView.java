@@ -1,8 +1,6 @@
 package com.rcl.excalibur.mvp.view;
 
-import android.support.annotation.ColorRes;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,7 +31,6 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
 
     @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
     @Bind(R.id.app_bar_layout_detail) AppBarLayout appBarLayout;
-    @Bind(R.id.collapsing_toolbar_detail) CollapsingToolbarLayout collapsingToolbar;
     @Bind(R.id.realtime_blur_view) RealtimeBlurView realtimeBlurView;
     @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
     @Bind(R.id.image_hero) ImageView heroImage;
@@ -169,9 +166,5 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
 
     public void hideCollapsingToolbarTitle() {
         downAnimationTitle();
-    }
-
-    public void setContentScrimResource(@ColorRes int scrimRes) {
-        collapsingToolbar.setContentScrimResource(scrimRes);
     }
 }

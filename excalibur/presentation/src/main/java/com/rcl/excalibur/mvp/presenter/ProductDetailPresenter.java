@@ -2,7 +2,6 @@ package com.rcl.excalibur.mvp.presenter;
 
 
 import com.rcl.excalibur.BuildConfig;
-import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
@@ -23,7 +22,6 @@ public class ProductDetailPresenter implements ActivityPresenter {
     private Product product;
     private List<RecyclerViewType> viewTypes;
 
-    protected boolean isToolbarCollapsed = false;
     protected boolean isTitleVisible = false;
     private long productId;
 
@@ -75,14 +73,6 @@ public class ProductDetailPresenter implements ActivityPresenter {
 
     public void onOffsetChanged(int verticalOffset, int totalScrollRange) {
         view.setBlurRadiusOnImage(getBlurRadius(verticalOffset, totalScrollRange));
-
-        if (totalScrollRange + verticalOffset == 0) {
-            view.setContentScrimResource(R.color.colorPrimary);
-            isToolbarCollapsed = true;
-        } else if (isToolbarCollapsed) {
-            view.setContentScrimResource(R.color.transparent);
-            isToolbarCollapsed = false;
-        }
     }
 
     protected float getBlurRadius(int verticalOffset, int totalScrollRange) {
