@@ -77,8 +77,8 @@ public class GuestServicesImpl implements GuestServices {
         request.setTermsAndConditionsAgreement(terms);
 
         SecurityQuestionRequest question = new SecurityQuestionRequest();
-        question.setQuestion("What is your mother's phone number?");
-        question.setAnswer("8675309");
+        question.setQuestion(guestPreferences.getQuestion());
+        question.setAnswer(guestPreferences.getAnswer());
         ArrayList<SecurityQuestionRequest> questions = new ArrayList<>();
         questions.add(question);
         request.setSecurityQuestions(questions);
