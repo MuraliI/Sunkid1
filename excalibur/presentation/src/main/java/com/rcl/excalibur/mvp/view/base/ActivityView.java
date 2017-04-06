@@ -64,6 +64,9 @@ public class ActivityView<T extends BaseActivity, H> {
         this.adapterObserver = observer;
     }
 
+    public Observer<H> getAdapterObserver() {
+        return this.adapterObserver;
+    }
 
     public void hideKeyboard() {
         final T activity = getActivity();

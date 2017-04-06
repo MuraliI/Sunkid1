@@ -27,6 +27,7 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
         productModel.setDescription(item.getProductShortDescription());
         setAdvisements(productModel, item.getAdvisements());
         setRestrictions(productModel, item.getRestrictions());
+
         return productModel;
     }
 
@@ -35,13 +36,13 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
             return;
         }
         for (int i = 0; i < advisements.size(); i++) {
-            String type = advisements.get(i).getAdvisementType();
+            String id = advisements.get(i).getAdvisementId();
             String description = advisements.get(i).getAdvisementDescription();
-            if (!TextUtils.isEmpty(type)) {
-                if (type.equals(ProductAdvisement.ACCESSIBILITY)) {
+            if (!TextUtils.isEmpty(id)) {
+                if (id.equals(ProductAdvisement.ACCESSIBILITY)) {
                     addAccesibility(product, advisements.get(i));
                 } else {
-                    product.getAdvisementsAndReestrictions().put(type, description);
+                    product.getAdvisementsAndReestrictions().put(id, description);
                 }
             }
         }
@@ -50,7 +51,9 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
     private void addAccesibility(ProductModel product, ProductAdvisement advisement) {
         ProductAccessibilityModel accessibility = new ProductAccessibilityModel();
         // TODO: choose the correct Media Type according the situation
-        accessibility.setImageUrl(advisement.getAdvisementMedia().getMediaItem().get(0).getMediaRefLink());
+        accessibility.setImageUrl(advisement.getAdvisementMedia() != null
+                ? advisement.getAdvisementMedia().getMediaItem().get(0).getMediaRefLink()
+                : null);
         accessibility.setSubtitle(advisement.getAdvisementTitle());
         accessibility.setDescription(advisement.getAdvisementDescription());
         product.getAccessibilities().add(accessibility);

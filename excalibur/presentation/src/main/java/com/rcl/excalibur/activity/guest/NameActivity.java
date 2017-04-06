@@ -15,6 +15,7 @@ import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
 
 
@@ -71,4 +72,11 @@ public class NameActivity extends BaseActivity<NamePresenter> {
     public void onContainerClick() {
         presenter.hideKeyboard();
     }
+
+    @OnEditorAction(R.id.full_name)
+    boolean onEditorAction() {
+        presenter.onNextClick();
+        return true;
+    }
+
 }

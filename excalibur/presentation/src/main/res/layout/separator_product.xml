@@ -3,4 +3,4 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/hairline_height"
     android:layout_marginStart="@dimen/margin_large"
-    android:background="@color/discover_grey" />
+    android:background="@color/discover_separator" />

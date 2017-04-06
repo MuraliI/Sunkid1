@@ -23,6 +23,11 @@
 
     <!-- Fonts -->
 
+    <style name="AppTheme.ToolBar.Title" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="fontPath">@string/proxima_nova_bold</item>
+    </style>
+
     <style name="AppTheme.Headline1" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/proxima_nova_bold</item>
         <item name="android:textColor">@android:color/black</item>
