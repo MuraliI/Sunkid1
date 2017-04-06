@@ -1,5 +1,6 @@
 package com.rcl.excalibur.activity.guest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -27,6 +28,10 @@ public class AnswerQuestionActivity extends BaseActivity<AnswerQuestionPresenter
         setContentView(R.layout.activity_answer_question);
         ButterKnife.bind(this);
         AnalyticsUtils.trackState(AnalyticsConstants.KEY_GUEST_ACCOUNT_SECURITY_QUESTION_ANSWER);
+    }
+
+    public static Intent getStartIntent(final BaseActivity activity) {
+        return new Intent(activity, AnswerQuestionActivity.class);
     }
 
     @OnClick(R.id.image_back_screen)

@@ -33,4 +33,9 @@ public class CreateAccountDoneActivity extends BaseActivity<CreateAccountDonePre
     protected void injectActivity(ActivityComponent activityComponent) {
         activityComponent.inject(this);
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

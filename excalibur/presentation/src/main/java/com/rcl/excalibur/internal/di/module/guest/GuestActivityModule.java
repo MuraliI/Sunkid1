@@ -47,7 +47,8 @@ public class GuestActivityModule {
     }
 
     @Provides
-    AnswerQuestionPresenter providesAnswerQuestionPresenter(AnswerQuestionView activityView, GuestServices guestService) {
-        return new AnswerQuestionPresenter(activityView, guestService);
+    AnswerQuestionPresenter providesAnswerQuestionPresenter(AnswerQuestionView activityView, GuestServices guestService,
+                                                            GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
+        return new AnswerQuestionPresenter(activityView, guestService, getGuestPreferencesUseCase);
     }
 }

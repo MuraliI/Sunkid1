@@ -7,18 +7,25 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.guest.AnswerQuestionActivity;
+import com.rcl.excalibur.activity.guest.SecurityQuestionsActivity;
 import com.rcl.excalibur.adapters.BaseAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 
+import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
+
 public class SecurityQuestionsAdapter extends BaseAdapter<String, SecurityQuestionsAdapter.SecurityQuestionsHolder> {
     private int selectedPosition = -1;
+    SecurityQuestionsActivity activity;
 
-    public SecurityQuestionsAdapter(Observer<String> observer) {
+    public SecurityQuestionsAdapter(Observer<String> observer, SecurityQuestionsActivity activity) {
         super(observer);
+        this.activity = activity;
     }
 
     @Override
@@ -59,6 +66,11 @@ public class SecurityQuestionsAdapter extends BaseAdapter<String, SecurityQuesti
             selectedPosition = getAdapterPosition();
             notifyItemChanged(buffer);
             notifyItemChanged(selectedPosition);
+        }
+
+        @OnCheckedChanged(R.id.radio_question)
+        void itemChecked() {
+            startActivity(activity, AnswerQuestionActivity.getStartIntent(activity));
         }
     }
 }
