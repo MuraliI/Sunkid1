@@ -23,7 +23,7 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email);
         ButterKnife.bind(this);
-        AnalyticsUtils.trackState(AnalyticsConstants.KEY_EMAIL_SCREEN);
+        AnalyticsUtils.trackState(AnalyticsConstants.KEY_GUEST_ACCOUNT_EMAIL);
     }
 
     @OnClick(R.id.image_back_screen)
