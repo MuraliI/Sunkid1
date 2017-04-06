@@ -27,6 +27,7 @@ public class AnswerQuestionPresenter implements ActivityPresenter {
         this.guestServices = guestServices;
         this.serviceObserver = new CreateAccountServiceObserver(this);
         this.getGuestPreferencesUseCase = getGuestPreferencesUseCase;
+        setTitleQuestion(getGuestPreferencesUseCase.getQuestion());
     }
 
     public void onPressDoneBtn() {

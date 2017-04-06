@@ -163,5 +163,5 @@
     <!-- done Activity -->
     <string name="create_done_title">Done!</string>
     <string name="create_done_sub_title">Let´s explore </string>
-    <string name="email_exists_message">This email exists or needs to be migrated.</string>
+    <string name="email_exists_message">This email exists, please log in or reset your password.</string>
 </resources>
