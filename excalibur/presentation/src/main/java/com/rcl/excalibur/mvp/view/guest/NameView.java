@@ -1,12 +1,15 @@
 package com.rcl.excalibur.mvp.view.guest;
 
 
+import android.app.Activity;
 import android.support.annotation.StringRes;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
@@ -14,8 +17,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class NameView extends ActivityView<NameActivity, Void> {
-    private static final float ENABLE_ALPHA = 1f;
-    private static final float DISABLE_ALPHA = .24f;
     @Bind(R.id.full_name) EditText fullName;
     @Bind(R.id.name_error) TextView error;
     @Bind(R.id.next_button) ImageView nextButton;
@@ -35,14 +36,16 @@ public class NameView extends ActivityView<NameActivity, Void> {
         fullName.setSelection(selectionEnd);
     }
 
-    public void enableNextButton() {
-        nextButton.setEnabled(true);
-        nextButton.setAlpha(ENABLE_ALPHA);
+    public void setNextButton(boolean isEnable) {
+        nextButton.setEnabled(isEnable);
     }
 
-    public void disableNextButton() {
-        nextButton.setEnabled(false);
-        nextButton.setAlpha(DISABLE_ALPHA);
+    public void hideKeyboard() {
+        final BaseActivity activity = getActivity();
+        if (activity == null)
+            return;
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(fullName.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     public void showError(@StringRes int message) {

@@ -74,7 +74,7 @@ public class EmailPresenter implements ActivityPresenter {
     }
 
     public void checkDone() {
-        if (view.getIsposibleNavigate()) {
+        if (view.isPossibleNavigate()) {
             guestServices.validateEmail(new DefaultPresentObserver<ValidateEmailEvent, EmailPresenter>(this) {
                                             @Override
                                             public void onNext(ValidateEmailEvent event) {
@@ -88,6 +88,10 @@ public class EmailPresenter implements ActivityPresenter {
                                                 ActivityUtils.startActivity(activity, PasswordActivity.getStartIntent(activity));
                                             }
 
+                                            @Override
+                                            public void onError(Throwable e) {
+                                                super.onError(e);
+                                            }
                                         }
                     , view.getEmail());
 

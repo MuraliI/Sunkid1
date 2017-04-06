@@ -20,7 +20,7 @@ import java.util.Set;
 public class AnswerQuestionPresenter implements ActivityPresenter {
     private static final int MIN_CHARS = 3;
     private AnswerQuestionView view;
-    GuestServices guestServices;
+    private GuestServices guestServices;
     private CreateAccountServiceObserver serviceObserver;
     private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
@@ -55,6 +55,10 @@ public class AnswerQuestionPresenter implements ActivityPresenter {
     @Override
     public ActivityView getView() {
         return view;
+    }
+
+    public void hideKeyboard() {
+        view.hideKeyboard();
     }
 
     public void setValidateAnswer() {

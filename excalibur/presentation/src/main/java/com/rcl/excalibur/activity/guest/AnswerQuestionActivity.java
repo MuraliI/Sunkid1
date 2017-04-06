@@ -66,4 +66,9 @@ public class AnswerQuestionActivity extends BaseActivity<AnswerQuestionPresenter
         guestActivityComponent = null;
         rclApp.destroyGuestComponent();
     }
+
+    @OnClick(R.id.container_layout)
+    void onClickContainer() {
+        presenter.hideKeyboard();
+    }
 }

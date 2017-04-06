@@ -40,7 +40,7 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
 
     }
 
-    public boolean getIsposibleNavigate() {
+    public boolean isPossibleNavigate() {
         return isPossibleNavigate;
     }
 
@@ -80,6 +80,5 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
         }
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(emailLayout.getWindowToken(), 0);
-
     }
 }
