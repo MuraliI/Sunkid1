@@ -31,7 +31,7 @@
                 android:contentDescription="@string/accessibility_hero_image_content_description"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="1.0" />
+                app:layout_collapseParallaxMultiplier="@integer/detail_parallax_multiplier" />
 
             <com.github.mmin18.widget.RealtimeBlurView
                 android:id="@+id/realtime_blur_view"
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_large"
                     android:ellipsize="end"
-                    android:lines="1"
+                    android:lines="@integer/detail_toolbar_title_lines"
                     android:textColor="@color/white"
                     app:title="@string/hardcoded_activity_title" />
             </android.support.v7.widget.Toolbar>
