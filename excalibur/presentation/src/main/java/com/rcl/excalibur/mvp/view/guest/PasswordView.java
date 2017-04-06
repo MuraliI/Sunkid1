@@ -48,4 +48,7 @@ public class PasswordView extends ActivityView<PasswordActivity, Void> {
         editTextPassword.setTransformationMethod(new PasswordTransformationMethod());
     }
 
+    public boolean isValidData() {
+        return imageViewNext.isEnabled();
+    }
 }

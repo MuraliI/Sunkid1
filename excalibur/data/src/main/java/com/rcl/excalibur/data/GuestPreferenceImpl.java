@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.domain.preference.GuestPreference;
 
-import java.util.Set;
-
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -68,23 +66,23 @@ public class GuestPreferenceImpl extends BasePreferenceImpl implements GuestPref
     }
 
     @Override
-    public void putQuestions(Set<String> values) {
-        put(KEY_QUESTIONS, values);
+    public void putQuestion(String value) {
+        put(KEY_QUESTIONS, value);
     }
 
     @Override
-    public Set<String> getQuestions() {
-        return getStringSet(KEY_QUESTIONS);
+    public String getQuestion() {
+        return getString(KEY_QUESTIONS);
     }
 
     @Override
-    public void getAnswers(Set<String> values) {
-        put(KEY_ANSWERS, values);
+    public void getAnswer(String value) {
+        put(KEY_ANSWERS, value);
     }
 
     @Override
-    public Set<String> getAnswers() {
-        return getStringSet(KEY_ANSWERS);
+    public String getAnswer() {
+        return getString(KEY_ANSWERS);
     }
 
     @Override

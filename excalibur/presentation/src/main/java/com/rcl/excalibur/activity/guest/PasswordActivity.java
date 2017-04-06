@@ -18,6 +18,7 @@ import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 
@@ -78,5 +79,18 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
     @OnTextChanged(R.id.edit_create_password)
     void onTextPasswordChange(Editable editable) {
         presenter.verifyPassword();
+    }
+
+    @OnClick(R.id.container_layout)
+    void onClickContainer() {
+        presenter.hideKeyBoard();
+    }
+
+    @OnEditorAction(R.id.edit_create_password)
+    boolean onEditorAction() {
+        if (presenter.isValidData()) {
+            presenter.onClickImageViewNext();
+        }
+        return true;
     }
 }
