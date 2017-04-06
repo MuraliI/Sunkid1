@@ -214,7 +214,7 @@ public class ProductResponseDataMapperTest {
         productRestrictionResponse.setRestrictionMedia(mediaResponse);
         productRestrictionResponse.setRestrictionDescription("RestrictionDescription");
         productRestrictionResponse.setRestrictionDisplayText("RestrictionDisplayText");
-        productRestrictionResponse.setRestrictionId(123456L);
+        productRestrictionResponse.setRestrictionId("123456");
         productRestrictionResponse.setRestrictionQuestion("RestrictionQuestion");
         productRestrictionResponse.setRestrictionTitle("RestrictionTitle");
         productRestrictionResponse.setRestrictionType("RestrictionType");

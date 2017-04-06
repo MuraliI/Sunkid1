@@ -64,7 +64,7 @@ public class ProductModelDataMapperTest {
 
         List<ProductRestriction> productRestrictionList = new ArrayList<>();
         ageRestriction = new ProductRestriction();
-        ageRestriction.setRestrictionId(1L);
+        ageRestriction.setRestrictionId("1");
         ageRestriction.setRestrictionType(ProductRestriction.AGE);
         ageRestriction.setRestrictionTitle("Age Restritions");
         ageRestriction.setRestrictionDisplayText("12+");
@@ -72,7 +72,7 @@ public class ProductModelDataMapperTest {
 
         productRestrictionList.add(ageRestriction);
         heigthRestriction = new ProductRestriction();
-        heigthRestriction.setRestrictionId(1L);
+        heigthRestriction.setRestrictionId("2");
         heigthRestriction.setRestrictionType(ProductRestriction.HEIGHT);
         heigthRestriction.setRestrictionTitle("WEIGHT");
         heigthRestriction.setRestrictionDisplayText("Should be less than 200 pounds");
@@ -95,22 +95,20 @@ public class ProductModelDataMapperTest {
         assertEquals(entity1.getExperience(), productModel.getExperience());
 
         for (int i = 0; i < entity1.getAdvisements().size(); i++) {
-            if(entity1.getAdvisements().get(i).getAdvisementId().equals(ProductAdvisement.ACCESSIBILITY)){
+            if (entity1.getAdvisements().get(i).getAdvisementId().equals(ProductAdvisement.ACCESSIBILITY)) {
                 assertEquals(entity1.getAdvisements().get(i).getAdvisementDescription(), productModel.getAccessibilities().get(i).getDescription());
                 assertEquals(entity1.getAdvisements().get(i).getAdvisementMedia().getMediaItem().get(0).getMediaRefLink(), productModel.getAccessibilities().get(i).getImageUrl());
                 assertEquals(entity1.getAdvisements().get(i).getAdvisementTitle(), productModel.getAccessibilities().get(i).getSubtitle());
-            }
-            else{
+            } else {
                 assertEquals(entity1.getAdvisements().get(i).getAdvisementDescription(),
                         productModel.getAdvisementsAndReestrictions().get(entity1.getAdvisements().get(i).getAdvisementId()));
 
             }
         }
         for (int i = 0; i < entity1.getRestrictions().size(); i++) {
-            if(entity1.getRestrictions().get(i).getRestrictionType().equals(ProductRestriction.AGE)) {
+            if (entity1.getRestrictions().get(i).getRestrictionType().equals(ProductRestriction.AGE)) {
                 assertEquals(entity1.getRestrictions().get(i).getRestrictionDisplayText(), productModel.getAdvisementsAndReestrictions().get(ProductRestriction.AGE));
-            }
-            else if (entity1.getRestrictions().get(i).getRestrictionType().equals(ProductRestriction.HEIGHT)){
+            } else if (entity1.getRestrictions().get(i).getRestrictionType().equals(ProductRestriction.HEIGHT)) {
                 assertEquals(entity1.getRestrictions().get(i).getRestrictionDisplayText(), productModel.getAdvisementsAndReestrictions().get(ProductRestriction.HEIGHT));
             }
         }
