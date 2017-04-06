@@ -13,7 +13,6 @@ import com.rcl.excalibur.adapters.BaseAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 
@@ -49,6 +48,7 @@ public class SecurityQuestionsAdapter extends BaseAdapter<String, SecurityQuesti
         return selectedPosition;
     }
 
+
     class SecurityQuestionsHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.radio_question) RadioButton radioButton;
         @Bind(R.id.text_question) TextView question;
@@ -58,19 +58,14 @@ public class SecurityQuestionsAdapter extends BaseAdapter<String, SecurityQuesti
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick(R.id.container_questions)
-        void clickItem() {
+        @OnClick(R.id.radio_question)
+        void itemChecked() {
             int buffer = selectedPosition;
             selectedPosition = getAdapterPosition();
             notifyItemChanged(buffer);
             notifyItemChanged(selectedPosition);
             onNext(question.getText().toString());
-        }
-
-        @OnCheckedChanged(R.id.radio_question)
-        void itemChecked() {
             startActivity(activity, AnswerQuestionActivity.getStartIntent(activity));
-            onNext(question.getText().toString());
         }
     }
 }
