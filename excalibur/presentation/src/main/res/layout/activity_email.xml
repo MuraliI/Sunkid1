@@ -33,12 +33,13 @@
             android:gravity="center"
             android:text="@string/title_email_address"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/text_questions_description_size" />
 
         <EditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_general"
             android:gravity="center"
             android:hint="@string/title_hint_email_address"
             android:imeOptions="actionGo"

@@ -32,14 +32,13 @@
             android:gravity="center"
             android:text="@string/guest_name_label"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/text_questions_description_size" />
 
         <EditText
             android:id="@+id/full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/guest_padding_margin"
-            android:layout_marginRight="@dimen/guest_padding_margin"
+            android:layout_marginTop="@dimen/margin_general"
             android:gravity="center"
             android:hint="@string/guest_name_hint"
             android:inputType="textNoSuggestions"
@@ -51,8 +50,6 @@
             style="@style/AppTheme.GuestErrorTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/guest_padding_margin"
-            android:layout_marginRight="@dimen/guest_padding_margin"
             android:gravity="center" />
 
     </LinearLayout>
