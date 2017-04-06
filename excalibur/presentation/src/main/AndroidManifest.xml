@@ -79,6 +79,11 @@
             android:name=".activity.guest.AnswerQuestionActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".activity.guest.CreateAccountDoneActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Home" />
     </application>
 
 </manifest>
