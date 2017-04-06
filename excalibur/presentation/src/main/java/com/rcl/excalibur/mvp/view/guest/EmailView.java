@@ -30,14 +30,6 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
         ButterKnife.bind(this, activity);
     }
 
-    public void init() {
-        final EmailActivity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-
-    }
-
     public boolean isPossibleNavigate() {
         return isPossibleNavigate;
     }
