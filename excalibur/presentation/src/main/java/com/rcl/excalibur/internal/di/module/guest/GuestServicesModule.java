@@ -7,7 +7,6 @@ import com.rcl.excalibur.data.GuestPreferenceImpl;
 import com.rcl.excalibur.data.mapper.guest.SecurityQuestionsResponseMapper;
 import com.rcl.excalibur.data.service.GuestServicesImpl;
 import com.rcl.excalibur.data.service.api.GuestApi;
-import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.domain.preference.GuestPreference;
 import com.rcl.excalibur.domain.service.GuestServices;
 import com.rcl.excalibur.internal.di.scopes.guest.GuestScope;
@@ -53,8 +52,8 @@ public class GuestServicesModule {
 
     @Provides
     GuestServices providesGuestServices(GuestApi guestApi, SecurityQuestionsResponseMapper mapper,
-                                        GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
-        return new GuestServicesImpl(guestApi, mapper, getGuestPreferencesUseCase);
+                                        GuestPreference guestPreference) {
+        return new GuestServicesImpl(guestApi, mapper, guestPreference);
     }
 
     @Provides

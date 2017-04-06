@@ -10,7 +10,7 @@ import com.rcl.excalibur.data.service.response.guest.SecurityQuestionsResponse;
 import com.rcl.excalibur.data.service.response.guest.ValidateEmailResponse;
 import com.rcl.excalibur.domain.guest.CreateAccountEvent;
 import com.rcl.excalibur.domain.guest.ValidateEmailEvent;
-import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
+import com.rcl.excalibur.domain.preference.GuestPreference;
 import com.rcl.excalibur.domain.service.GuestServices;
 
 import java.io.IOException;
@@ -28,13 +28,13 @@ public class GuestServicesImpl implements GuestServices {
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
     private final GuestApi guestApi;
     private final SecurityQuestionsResponseMapper securityQuestionsResponseMapper;
-    private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
+    private GuestPreference guestPreferences;
 
     public GuestServicesImpl(GuestApi guestApi, SecurityQuestionsResponseMapper securityQuestionsResponseMapper,
-                             GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
+                             GuestPreference guestPreferences) {
         this.guestApi = guestApi;
         this.securityQuestionsResponseMapper = securityQuestionsResponseMapper;
-        this.getGuestPreferencesUseCase = getGuestPreferencesUseCase;
+        this.guestPreferences = guestPreferences;
     }
 
     @Override
@@ -65,15 +65,15 @@ public class GuestServicesImpl implements GuestServices {
 
         //TODO improve this
         CreateAccountRequest request = new CreateAccountRequest();
-        request.setFirstName(getGuestPreferencesUseCase.getName());
-        request.setLastName(getGuestPreferencesUseCase.getLastname());
-        request.setEmail(getGuestPreferencesUseCase.getEmail());
-        request.setPassword(getGuestPreferencesUseCase.getPassword());
-        request.setBrand(getGuestPreferencesUseCase.getBrand());
+        request.setFirstName(guestPreferences.getName());
+        request.setLastName(guestPreferences.getLastname());
+        request.setEmail(guestPreferences.getEmail());
+        request.setPassword(guestPreferences.getPassword());
+        request.setBrand(guestPreferences.getBrand());
 
         TermsAndConditionsAgreementRequest terms = new TermsAndConditionsAgreementRequest();
-        terms.setAcceptTime(getGuestPreferencesUseCase.getAcceptTime());
-        terms.setVersion(getGuestPreferencesUseCase.getVersion());
+        terms.setAcceptTime(guestPreferences.getAcceptTime());
+        terms.setVersion(guestPreferences.getVersion());
         request.setTermsAndConditionsAgreement(terms);
 
         SecurityQuestionRequest question = new SecurityQuestionRequest();
