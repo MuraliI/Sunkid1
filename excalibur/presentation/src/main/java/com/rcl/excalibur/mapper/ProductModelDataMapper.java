@@ -50,7 +50,9 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
     private void addAccesibility(ProductModel product, ProductAdvisement advisement) {
         ProductAccessibilityModel accessibility = new ProductAccessibilityModel();
         // TODO: choose the correct Media Type according the situation
-        accessibility.setImageUrl(advisement.getAdvisementMedia().getMediaItem().get(0).getMediaRefLink());
+        accessibility.setImageUrl(advisement.getAdvisementMedia() != null
+                ? advisement.getAdvisementMedia().getMediaItem().get(0).getMediaRefLink()
+                : null);
         accessibility.setSubtitle(advisement.getAdvisementTitle());
         accessibility.setDescription(advisement.getAdvisementDescription());
         product.getAccessibilities().add(accessibility);
