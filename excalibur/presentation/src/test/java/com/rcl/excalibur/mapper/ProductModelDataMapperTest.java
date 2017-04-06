@@ -1,6 +1,5 @@
 package com.rcl.excalibur.mapper;
 
-import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductDuration;
@@ -11,12 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 public class ProductModelDataMapperTest {
 
