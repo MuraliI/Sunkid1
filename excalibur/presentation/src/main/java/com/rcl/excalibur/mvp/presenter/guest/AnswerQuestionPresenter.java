@@ -14,13 +14,10 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.mvp.view.guest.AnswerQuestionView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class AnswerQuestionPresenter implements ActivityPresenter {
     private static final int MIN_CHARS = 3;
-    private AnswerQuestionView view;
     GuestServices guestServices;
+    private AnswerQuestionView view;
     private CreateAccountServiceObserver serviceObserver;
     private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
@@ -33,9 +30,7 @@ public class AnswerQuestionPresenter implements ActivityPresenter {
     }
 
     public void onPressDoneBtn() {
-        Set<String> answer = new HashSet<>();
-        answer.add(view.getAnswer());
-        getGuestPreferencesUseCase.putAnswers(answer);
+        getGuestPreferencesUseCase.putAnswer(view.getAnswer());
         guestServices.createAccount(serviceObserver);
     }
 
