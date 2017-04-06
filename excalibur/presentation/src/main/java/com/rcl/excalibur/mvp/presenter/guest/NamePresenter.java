@@ -92,13 +92,17 @@ public class NamePresenter implements ActivityPresenter {
 
 
     public void onNextClick() {
+        String fullName = view.getFullName();
+        if (!validate(fullName)) {
+            return;
+        }
         final NameActivity activity = view.getActivity();
         if (activity == null) {
             return;
         }
         //TODO view this repeat the name and the lastname
-        getGuestPreferencesUseCase.putName(view.getFullName());
-        getGuestPreferencesUseCase.putLastname(view.getFullName());
+        getGuestPreferencesUseCase.putName(fullName);
+        getGuestPreferencesUseCase.putLastname(fullName);
         ActivityUtils.startActivity(activity, EmailActivity.getStartIntent(activity));
     }
 }
