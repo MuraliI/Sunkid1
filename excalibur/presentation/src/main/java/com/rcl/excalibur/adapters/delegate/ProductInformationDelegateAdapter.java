@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.fernandocejas.arrow.strings.Strings;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
@@ -45,18 +44,23 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
 
     @Override
     public void onBindViewHolder(ProductInformationViewHolder holder, ProductInformationViewType item) {
+        holder.productId = item.getProductId();
         holder.name.setText(item.getProductName());
+
+        boolean isShorex = ProductType.SHOREX_TYPE.equals(item.getProductType());
+        holder.findOnDeck.setVisibility(isShorex ? View.GONE : View.VISIBLE);
+
+        holder.venue.setVisibility(isShorex ? View.GONE : View.VISIBLE);
         holder.venue.setText(item.getVenue());
 
-        holder.deckAndDirection.setVisibility(Strings.isNullOrEmpty(item.getLocation())
-                || ProductType.SHOREX_TYPE.equals(item.getProductType())
-                ? View.GONE
-                : View.VISIBLE);
+        holder.deckAndDirection.setVisibility(isShorex ? View.GONE : View.VISIBLE);
         holder.deckAndDirection.setText(item.getLocation());
-        holder.port.setVisibility(!Strings.isNullOrEmpty(item.getPort()) ? View.VISIBLE : View.GONE);
+
+        holder.port.setVisibility(isShorex ? View.VISIBLE : View.GONE);
         holder.port.setText(item.getPort());
+
         holder.reservationLayout.setVisibility(item.isReservationRequired() ? View.VISIBLE : View.GONE);
-        holder.productId = item.getProductId();
+
         holder.priceRangeContainer.setVisibility(item.getUpChargeLevel() > 0 ? View.VISIBLE : View.GONE);
         updateUpChargeIndicator(item.getUpChargeLevel(), holder);
 
@@ -93,6 +97,7 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         @Bind(R.id.price_range_module_dollar_3) ImageView imageDollar3;
         @Bind(R.id.price_range_module_dollar_4) ImageView imageDollar4;
         @Bind(R.id.layout_reservation) View reservationLayout;
+        @Bind(R.id.button_find_on_deck) View findOnDeck;
 
         private Long productId;
         private WeakReference<Observer<Long>> findOnDeckObserver;
