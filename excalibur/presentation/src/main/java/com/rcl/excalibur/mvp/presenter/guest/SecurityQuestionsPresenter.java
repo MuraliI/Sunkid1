@@ -11,7 +11,6 @@ import com.rcl.excalibur.mvp.view.guest.SecurityQuestionsView;
 
 import java.util.List;
 
-import io.reactivex.Observer;
 import timber.log.Timber;
 
 public class SecurityQuestionsPresenter implements ActivityPresenter {
@@ -27,7 +26,7 @@ public class SecurityQuestionsPresenter implements ActivityPresenter {
     }
 
     public void init() {
-        view.setAdapterObserver((Observer) new AdapterObserver(this));
+        view.setAdapterObserver(new AdapterObserver(this));
 
         view.init();
         getSecurityQuestionsUseCase.execute(new DefaultObserver<List<String>>() {

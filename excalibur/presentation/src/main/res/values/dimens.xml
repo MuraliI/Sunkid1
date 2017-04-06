@@ -49,12 +49,13 @@
     <dimen name="product_detail_hero_image_height">250dp</dimen>
     <dimen name="product_detail_description_margin_top">1dp</dimen>
     <dimen name="product_detail_app_bar_size">380dp</dimen>
-    <dimen name="product_detail_toolbar_size">80dp</dimen>
+    <dimen name="product_detail_toolbar_size">56dp</dimen>
     <dimen name="product_detail_inset_margin_side">20dp</dimen>
     <dimen name="product_detail_reservation_message_container_size">60dp</dimen>
     <dimen name="product_detail_reservation_message_container_elevation">12dp</dimen>
     <dimen name="product_detail_reservation_title_drawable_padding">10dp</dimen>
     <dimen name="product_detail_toolbar_icon_size">50dp</dimen>
+    <dimen name="product_detail_blur_default_radius">0dp</dimen>
     <dimen name="detail_discover_item_blur_radius">5dp</dimen>
     <dimen name="plan_list_margin_top_section">20dp</dimen>
     <dimen name="plan_list_separator_section">10dp</dimen>

@@ -31,7 +31,8 @@ public class GuestEmailActivityModule {
     }
 
     @Provides
-    EmailPresenter providesEmailPresenter(EmailView activityView, GetGuestPreferencesUseCase getGuestPreferencesUseCase, GuestServices guestServices) {
+    EmailPresenter providesEmailPresenter(EmailView activityView, GetGuestPreferencesUseCase getGuestPreferencesUseCase,
+                                          GuestServices guestServices) {
         return new EmailPresenter(activityView, getGuestPreferencesUseCase, guestServices);
     }
 

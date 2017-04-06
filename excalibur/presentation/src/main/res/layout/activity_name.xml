@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_name">
+    android:background="@drawable/bg_name"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/arrow_back"
@@ -24,41 +26,26 @@
 
     <EditText
         android:id="@+id/full_name"
-        style="@style/AppTheme.GuestEditText"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_above="@+id/name_error"
         android:layout_marginLeft="@dimen/guest_padding_margin"
         android:layout_marginRight="@dimen/guest_padding_margin"
+        android:gravity="center"
         android:hint="@string/guest_name_hint"
-        android:inputType="textNoSuggestions" />
-
-    <!--<EditText-->
-        <!--android:id="@+id/edit_email"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="@dimen/margin_general"-->
-        <!--android:layout_marginRight="@dimen/margin_general"-->
-        <!--android:gravity="center"-->
-        <!--android:hint="@string/title_hint_email_address"-->
-        <!--android:imeOptions="actionGo"-->
-        <!--android:inputType="textEmailAddress"-->
-        <!--android:maxLength="@integer/max_length_email"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textColorHint="@color/email_editText_inactive"-->
-        <!--android:textSize="@dimen/size_text_big"-->
-        <!--android:theme="@style/AppTheme.LoginFlowEditText" />-->
+        android:inputType="textNoSuggestions"
+        android:textColor="@color/white"
+        android:theme="@style/AppTheme.GuestEditText" />
 
     <TextView
         android:id="@+id/name_error"
         style="@style/AppTheme.GuestErrorTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/guest_padding_margin"
         android:layout_marginRight="@dimen/guest_padding_margin"
-        android:layout_centerHorizontal="true"
         android:gravity="center" />
 
     <ImageView
@@ -68,6 +55,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/name_error"
         android:layout_marginRight="@dimen/guest_padding_margin"
-        android:src="@drawable/next_active" />
+        android:src="@drawable/selector_image_next" />
 
 </RelativeLayout>
