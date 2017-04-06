@@ -3,6 +3,7 @@ package com.rcl.excalibur.internal.di.module.guest;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.guest.EmailActivity;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
+import com.rcl.excalibur.domain.service.GuestServices;
 import com.rcl.excalibur.internal.di.scopes.guest.GuestActivityScope;
 import com.rcl.excalibur.mvp.presenter.guest.EmailPresenter;
 import com.rcl.excalibur.mvp.view.guest.EmailView;
@@ -30,8 +31,8 @@ public class GuestEmailActivityModule {
     }
 
     @Provides
-    EmailPresenter providesEmailPresenter(EmailView activityView, GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
-        return new EmailPresenter(activityView, getGuestPreferencesUseCase);
+    EmailPresenter providesEmailPresenter(EmailView activityView, GetGuestPreferencesUseCase getGuestPreferencesUseCase, GuestServices guestServices) {
+        return new EmailPresenter(activityView, getGuestPreferencesUseCase, guestServices);
     }
 
 

@@ -4,8 +4,11 @@ package com.rcl.excalibur.mvp.presenter.guest;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.guest.PasswordActivity;
+import com.rcl.excalibur.domain.guest.ValidateEmailEvent;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
+import com.rcl.excalibur.domain.service.GuestServices;
 import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
+import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.guest.EmailView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.StringUtils;
@@ -13,11 +16,13 @@ import com.rcl.excalibur.utils.StringUtils;
 public class EmailPresenter implements ActivityPresenter {
     private EmailView view;
     private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
+    private GuestServices guestServices;
 
 
-    public EmailPresenter(EmailView view, GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
+    public EmailPresenter(EmailView view, GetGuestPreferencesUseCase getGuestPreferencesUseCase, GuestServices guestServices) {
         this.view = view;
         this.getGuestPreferencesUseCase = getGuestPreferencesUseCase;
+        this.guestServices = guestServices;
     }
 
     public void onHeaderBackOnClick() {
@@ -58,7 +63,6 @@ public class EmailPresenter implements ActivityPresenter {
     private void validateEmailExist(String email) {
         view.manageNavigation(true, EmailView.ACTIVE);
         view.cleanTextViewError();
-        //TODO consume web service to verify if email already exist
     }
 
     public void setFocus(boolean hasFocus) {
@@ -71,12 +75,22 @@ public class EmailPresenter implements ActivityPresenter {
 
     public void checkDone() {
         if (view.getIsposibleNavigate()) {
-            final BaseActivity activity = view.getActivity();
-            if (activity == null) {
-                return;
-            }
-            getGuestPreferencesUseCase.putEmail(view.getEmail());
-            ActivityUtils.startActivity(activity, PasswordActivity.getStartIntent(activity));
+            guestServices.validateEmail(new DefaultPresentObserver<ValidateEmailEvent, EmailPresenter>(this) {
+                                            @Override
+                                            public void onNext(ValidateEmailEvent event) {
+                                                view.showMessage(event.getMessage());
+                                                getGuestPreferencesUseCase.putEmail(view.getEmail());
+                                                final BaseActivity activity = view.getActivity();
+                                                if (activity == null) {
+                                                    return;
+                                                }
+
+                                                ActivityUtils.startActivity(activity, PasswordActivity.getStartIntent(activity));
+                                            }
+
+                                        }
+                    , view.getEmail());
+
         }
     }
 }

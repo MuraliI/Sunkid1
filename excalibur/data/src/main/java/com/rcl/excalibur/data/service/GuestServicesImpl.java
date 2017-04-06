@@ -7,7 +7,9 @@ import com.rcl.excalibur.data.service.request.guest.SecurityQuestionRequest;
 import com.rcl.excalibur.data.service.request.guest.TermsAndConditionsAgreementRequest;
 import com.rcl.excalibur.data.service.response.guest.CreateAccountResponse;
 import com.rcl.excalibur.data.service.response.guest.SecurityQuestionsResponse;
+import com.rcl.excalibur.data.service.response.guest.ValidateEmailResponse;
 import com.rcl.excalibur.domain.guest.CreateAccountEvent;
+import com.rcl.excalibur.domain.guest.ValidateEmailEvent;
 import com.rcl.excalibur.domain.service.GuestServices;
 
 import java.io.IOException;
@@ -103,5 +105,29 @@ public class GuestServicesImpl implements GuestServices {
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+    }
+
+    @Override
+    public void validateEmail(Observer<ValidateEmailEvent> observer, String email) {
+        Observable<ValidateEmailEvent> observable = Observable.create(e -> {
+            Call<ValidateEmailResponse> call = guestApi.validateEmail(email);
+            try {
+                Response<ValidateEmailResponse> response = call.execute();
+                ValidateEmailResponse validateEmailResponse = response.body();
+                if (validateEmailResponse != null) {
+                    e.onNext(new ValidateEmailEvent(response.isSuccessful(), validateEmailResponse.getStatus()));
+                } else {
+                    e.onError(new RuntimeException("Invalid Response"));
+                }
+            } catch (IOException ex) {
+                e.onError(ex);
+            }
+            e.onComplete();
+        });
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
     }
 }
