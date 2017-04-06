@@ -35,10 +35,6 @@ public class EmailPresenter implements ActivityPresenter {
         ActivityUtils.onBackActivity(activity);
     }
 
-    private void init() {
-        view.init();
-    }
-
     public void verifyEmail() {
         String email = view.getEmail();
         final BaseActivity activity = view.getActivity();
