@@ -43,7 +43,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
             if (product.getProductMedia() != null
                     && product.getProductMedia().getMediaItem() != null
                     && product.getProductMedia().getMediaItem().size() > 0) {
-                view.setHeroImage(BuildConfig.PREFIX_IMAGE + product.getProductMedia().getMediaItem().get(0));
+                view.setHeroImage(BuildConfig.PREFIX_IMAGE + product.getHeroImageRefLink());
             } else {
                 view.setHeroImage(null);
             }
