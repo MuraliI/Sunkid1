@@ -1,7 +1,6 @@
 package com.rcl.excalibur.adapters.delegate;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 
 public class ExpandableLinkDelegateAdapter implements DelegateAdapter<ExpandableLinkDelegateAdapter.ExpandableLinkViewHolder,
@@ -36,7 +34,7 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
     public void onBindViewHolder(ExpandableLinkViewHolder holder, ExpandableLinkViewType item) {
         holder.title.setText(item.getTitle());
 
-        initializeContentLines(item.getContent().length, item.isContentWithCheckMark(), holder);
+        initializeContentLines(item.getContent().length, holder);
 
         int i = 0;
         for (TextView textView : holder.contentLines) {
@@ -45,39 +43,18 @@ public class ExpandableLinkDelegateAdapter implements DelegateAdapter<Expandable
         }
     }
 
-    private static void initializeContentLines(int numberOfContentLines, boolean hasCheckMarks, ExpandableLinkViewHolder viewHolder) {
+    private static void initializeContentLines(int numberOfContentLines, ExpandableLinkViewHolder viewHolder) {
         viewHolder.contentLines.clear();
         viewHolder.textContent.removeAllViews();
 
-        Resources resources = viewHolder.itemView.getResources();
         Context context = viewHolder.itemView.getContext();
 
         for (int i = 0; i < numberOfContentLines; i++) {
             //Create TextView;
-            TextView contentLine = new TextView(context);
-            contentLine.setTextAppearance(context, R.style.AppTheme_Body);
-            CalligraphyUtils.applyFontToTextView(context, contentLine, context.getResources().getString(R.string.proxima_nova_regular));
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.topMargin = (int) resources.getDimension(R.dimen.margin_normal);
-            contentLine.setLayoutParams(params);
-
-            //Add checkmark
-            if (hasCheckMarks) {
-                contentLine.setCompoundDrawablesWithIntrinsicBounds(
-                        resources.getDrawable(R.drawable.ic_blue_checkbox, context.getTheme()),
-                        null,
-                        null,
-                        null);
-                contentLine.setCompoundDrawablePadding((int) resources.getDimension(R.dimen.margin_normal));
-            }
-
+            TextView contentLine = (TextView) LayoutInflater.from(context).inflate(R.layout.item_expandable_link, null);
             viewHolder.textContent.addView(contentLine);
             viewHolder.contentLines.add(contentLine);
         }
-
     }
 
 

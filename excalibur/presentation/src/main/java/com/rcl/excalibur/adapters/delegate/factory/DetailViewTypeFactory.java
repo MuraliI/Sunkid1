@@ -104,7 +104,7 @@ public final class DetailViewTypeFactory {
     private static void addExpandableAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title,
                                                          final String description) {
         String[] descriptionArr = {description};
-        recyclerViewTypeList.add(new ExpandableLinkViewType(title, descriptionArr, false));
+        recyclerViewTypeList.add(new ExpandableLinkViewType(title, descriptionArr));
     }
 
     private static void addDurationModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
