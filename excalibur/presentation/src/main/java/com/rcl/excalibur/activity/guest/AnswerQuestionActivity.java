@@ -8,6 +8,8 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.mvp.presenter.guest.AnswerQuestionPresenter;
+import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +22,7 @@ public class AnswerQuestionActivity extends BaseActivity<AnswerQuestionPresenter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_question);
         ButterKnife.bind(this);
+        AnalyticsUtils.trackState(AnalyticsConstants.KEY_GUEST_ACCOUNT_SECURITY_QUESTION_ANSWER);
     }
 
     @Override
