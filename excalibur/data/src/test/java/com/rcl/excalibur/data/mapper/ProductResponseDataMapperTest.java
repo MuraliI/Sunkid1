@@ -19,6 +19,7 @@ import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductLocation;
 
 import org.junit.Before;
@@ -182,7 +183,7 @@ public class ProductResponseDataMapperTest {
 
         productAdvisementResponse = new ProductAdvisementResponse();
         productAdvisementResponse.setAdvisementDescription("AdvisementDescription");
-        productAdvisementResponse.setAdvisementId(1234L);
+        productAdvisementResponse.setAdvisementId( ProductAdvisement.ACCESSIBILITY);
         productAdvisementResponse.setAdvisementName("AdvisementName");
         productAdvisementResponse.setAdvisementTitle("AdvisementTitle");
         productAdvisementResponse.setAdvisementType("AdvisementType");
@@ -213,7 +214,7 @@ public class ProductResponseDataMapperTest {
         productRestrictionResponse.setRestrictionMedia(mediaResponse);
         productRestrictionResponse.setRestrictionDescription("RestrictionDescription");
         productRestrictionResponse.setRestrictionDisplayText("RestrictionDisplayText");
-        productRestrictionResponse.setRestrictionId(123456L);
+        productRestrictionResponse.setRestrictionId("123456");
         productRestrictionResponse.setRestrictionQuestion("RestrictionQuestion");
         productRestrictionResponse.setRestrictionTitle("RestrictionTitle");
         productRestrictionResponse.setRestrictionType("RestrictionType");

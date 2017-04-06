@@ -25,7 +25,7 @@ public class RestrictionEntity extends Model {
 
 
     @Column(name = COLUMN_RESTRICTION_ID)
-    public long restrictionId;
+    public String restrictionId;
     @Column(name = COLUMN_TYPE)
     public String type;
     @Column(name = COLUMN_MANDATORY)
@@ -61,13 +61,6 @@ public class RestrictionEntity extends Model {
         this.answersJson = new Gson().toJson(answers);
     }
 
-    public long getRestrictionId() {
-        return restrictionId;
-    }
-
-    public void setRestrictionId(long restrictionId) {
-        this.restrictionId = restrictionId;
-    }
 
     public String getType() {
         return type;
@@ -131,5 +124,13 @@ public class RestrictionEntity extends Model {
 
     public void setMedia(MediaEntity media) {
         this.media = media;
+    }
+
+    public String getRestrictionId() {
+        return restrictionId;
+    }
+
+    public void setRestrictionId(String restrictionId) {
+        this.restrictionId = restrictionId;
     }
 }

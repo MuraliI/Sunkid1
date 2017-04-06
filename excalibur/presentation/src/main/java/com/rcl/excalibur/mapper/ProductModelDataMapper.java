@@ -1,7 +1,6 @@
 package com.rcl.excalibur.mapper;
 
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
@@ -38,7 +37,7 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
         for (int i = 0; i < advisements.size(); i++) {
             String id = advisements.get(i).getAdvisementId();
             String description = advisements.get(i).getAdvisementDescription();
-            if (!TextUtils.isEmpty(id)) {
+            if (!id.isEmpty()) {
                 if (id.equals(ProductAdvisement.ACCESSIBILITY)) {
                     addAccesibility(product, advisements.get(i));
                 } else {
@@ -65,7 +64,7 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
         }
         for (int i = 0; i < restrictions.size(); i++) {
             String type = restrictions.get(i).getRestrictionType();
-            if (!TextUtils.isEmpty(type)) {
+            if (!type.isEmpty()) {
                 String description = restrictions.get(i).getRestrictionDisplayText();
                 product.getAdvisementsAndReestrictions().put(type, description);
             }

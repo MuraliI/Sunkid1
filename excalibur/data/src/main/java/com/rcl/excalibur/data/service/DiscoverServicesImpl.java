@@ -280,7 +280,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
         List<ProductRestrictionResponse> productRestrictionResponses = new ArrayList<>();
 
         ProductRestrictionResponse ageRestriction = new ProductRestrictionResponse();
-        ageRestriction.setRestrictionId(1L);
+        ageRestriction.setRestrictionId("1");
         ageRestriction.setRestrictionType(ProductRestriction.AGE);
         ageRestriction.setRestrictionTitle("Age Restritions");
         ageRestriction.setRestrictionDisplayText("12+");
@@ -289,7 +289,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
         productRestrictionResponses.add(ageRestriction);
 
         ProductRestrictionResponse heigthRestriction = new ProductRestrictionResponse();
-        heigthRestriction.setRestrictionId(1L);
+        heigthRestriction.setRestrictionId("2");
         heigthRestriction.setRestrictionType(ProductRestriction.HEIGHT);
         heigthRestriction.setRestrictionTitle("Height Restrictions");
         heigthRestriction.setRestrictionDisplayText("None");
