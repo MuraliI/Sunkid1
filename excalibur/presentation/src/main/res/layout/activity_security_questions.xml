@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_security_question"
     android:orientation="vertical"
-    android:paddingEnd="@dimen/margin_edit_text"
-    android:paddingStart="@dimen/margin_edit_text"
-    android:paddingTop="@dimen/margin_edit_text"
+    android:paddingEnd="@dimen/margin_general"
+    android:paddingStart="@dimen/margin_general"
+    android:paddingTop="@dimen/margin_general"
     tools:context=".activity.guest.SecurityQuestionsActivity">
 
     <ImageView
