@@ -1,5 +1,7 @@
 package com.rcl.excalibur.mvp.presenter.guest;
 
+import android.content.Context;
+
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetSecurityQuestionsUseCase;
 import com.rcl.excalibur.internal.di.component.AppComponentTest;
@@ -16,6 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 
 import java.util.List;
 
@@ -28,6 +31,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class SecurityQuestionsPresenterTest {
     @Inject SecurityQuestionsPresenter presenter;
+    @Mock Context context;
     private AppComponentTest appComponentTest;
     private GuestComponentTest guestComponentTest;
     private GuestActivityComponentTest guestActivityComponentTest;
@@ -37,7 +41,7 @@ public class SecurityQuestionsPresenterTest {
         appComponentTest = DaggerAppComponentTest.builder()
                 .appModule(new AppModuleTest())
                 .build();
-        guestComponentTest = appComponentTest.plus(new GuestServicesModuleTest(), new GuestModuleTest());
+        guestComponentTest = appComponentTest.plus(new GuestServicesModuleTest(context), new GuestModuleTest());
         guestActivityComponentTest = guestComponentTest.plus(new GuestActivityModuleTest());
         guestActivityComponentTest.inject(this);
     }

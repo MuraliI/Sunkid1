@@ -18,12 +18,20 @@ import static com.rcl.excalibur.data.utils.CollectionUtils.isEmpty;
 
 
 public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
-    private WeakReference<Observer<T>> observerRef;
     protected List<T> items;
+    private WeakReference<Observer<T>> observerRef;
 
     public BaseAdapter(final Observer<T> observer) {
         this.observerRef = new WeakReference<>(observer);
         this.items = new ArrayList<>();
+    }
+
+    protected void onNext(T value) {
+        final Observer<T> observer = observerRef.get();
+        if (observer == null) {
+            return;
+        }
+        observer.onNext(value);
     }
 
     boolean hasObserver() {

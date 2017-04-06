@@ -122,7 +122,7 @@ public class RCLApp extends Application {
     }
 
     public void createGuestComponent() {
-        guestComponent = appComponent.plus(new GuestServicesModule(), new GuestModule());
+        guestComponent = appComponent.plus(new GuestServicesModule(getApplicationContext()), new GuestModule());
     }
 
     public GuestComponent getGuestComponent() {
