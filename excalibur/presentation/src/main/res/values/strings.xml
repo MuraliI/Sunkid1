@@ -147,13 +147,20 @@
     <string name="title_password_almost">Almost there! Let\'s create a password</string>
     <string name="hint_password">Create password</string>
     <string name="title_checkbox_password">Show Password</string>
-    <string name="rule_password">7&#8211;15 characters, 1 uppercase, 1 lowercase, 1 special character</string>
-    <string name="min_characters"> 7&#8211;15 characters, </string>
+    <string name="rule_password">7 characters min, 15 characters max, 1 uppercase, 1 lowercase, 1 special character</string>
+    <string name="min_characters"> 7 characters min, 15 characters max, </string>
     <string name="must_uppercase"> 1 uppercase, </string>
     <string name="must_lowercase"> 1 lowercase, </string>
     <string name="must_special_character"> 1 special character </string>
     <string name="questions_title">Choose a question</string>
     <string name="questions_description">Last step! Let’s pick a secret question\nin case you forget your password</string>
 
+    <!-- Answer Question Activity -->
+    <string name="hint_answer_question">Your secret answer</string>
+    <string name="text_button_done">Done</string>
+    <string name="regex_answer">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ - \'</string>
 
+    <!-- done Activity -->
+    <string name="create_done_title">Done!</string>
+    <string name="create_done_sub_title">Let´s explore </string>
 </resources>

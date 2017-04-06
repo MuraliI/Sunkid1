@@ -11,6 +11,8 @@ import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.internal.di.component.guest.GuestActivityComponent;
 import com.rcl.excalibur.internal.di.module.guest.GuestActivityModule;
 import com.rcl.excalibur.mvp.presenter.guest.SecurityQuestionsPresenter;
+import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 public class SecurityQuestionsActivity extends BaseActivity<SecurityQuestionsPresenter> {
     private GuestActivityComponent guestActivityComponent;
@@ -24,6 +26,7 @@ public class SecurityQuestionsActivity extends BaseActivity<SecurityQuestionsPre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_questions);
         presenter.init();
+        AnalyticsUtils.trackState(AnalyticsConstants.KEY_GUEST_ACCOUNT_SECURITY_QUESTION);
     }
 
     @Override

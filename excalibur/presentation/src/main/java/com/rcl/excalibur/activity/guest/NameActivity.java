@@ -10,6 +10,8 @@ import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.internal.di.component.guest.GuestNameActivityComponent;
 import com.rcl.excalibur.internal.di.module.guest.GuestNameActivityModule;
 import com.rcl.excalibur.mvp.presenter.guest.NamePresenter;
+import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +33,7 @@ public class NameActivity extends BaseActivity<NamePresenter> {
         setContentView(R.layout.activity_name);
         ButterKnife.bind(this);
         presenter.init();
+        AnalyticsUtils.trackState(AnalyticsConstants.KEY_GUEST_ACCOUNT_NAME);
     }
 
     @Override

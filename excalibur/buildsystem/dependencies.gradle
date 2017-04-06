@@ -37,6 +37,7 @@ ext {
     retrofitVersion = "2.1.0"
     retrofitGsonVersion = "2.1.0"
     subsamplingScaleImageViewVersion = '3.6.0'
+    okHttpLoggingVersion = '3.3.0'
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -68,7 +69,8 @@ ext {
             supportDesign   : "com.android.support:design:${designSupportLibraryVersion}",
             realTimeBlurView: "com.github.mmin18:realtimeblurview:${realTimeBlurLibVersion}",
             appcompat       : "com.android.support:appcompat-v7:${appcompatVersion}",
-            scaleImageView  : "com.davemorrissey.labs:subsampling-scale-image-view:${subsamplingScaleImageViewVersion}"
+            scaleImageView  : "com.davemorrissey.labs:subsampling-scale-image-view:${subsamplingScaleImageViewVersion}",
+            okHttpLogging   : "com.squareup.okhttp3:logging-interceptor:${okHttpLoggingVersion}"
     ]
 
     presentationTestDependencies = [

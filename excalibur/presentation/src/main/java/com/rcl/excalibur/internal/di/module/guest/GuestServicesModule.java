@@ -14,6 +14,7 @@ import com.rcl.excalibur.internal.di.scopes.guest.GuestScope;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -34,10 +35,17 @@ public class GuestServicesModule {
 
     @Provides
     GuestApi providesGuestApi(OkHttpClient okHttpClient) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.GUEST_API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        //show request log in debug mode
+        if (BuildConfig.DEBUG) {
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            okHttpClient = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        }
+
+        Retrofit retrofit = new Retrofit.Builder().
+                baseUrl(BuildConfig.GUEST_API_URL).
+                addConverterFactory(GsonConverterFactory.create()).
+                client(okHttpClient)
                 .build();
         return retrofit.create(GuestApi.class);
     }

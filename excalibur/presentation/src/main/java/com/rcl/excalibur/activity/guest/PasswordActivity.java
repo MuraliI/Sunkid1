@@ -32,7 +32,7 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password);
         ButterKnife.bind(this);
-        AnalyticsUtils.trackState(AnalyticsConstants.KEY_PASSWORD_SCREEN);
+        AnalyticsUtils.trackState(AnalyticsConstants.KEY_GUEST_ACCOUNT_PASSWORD);
     }
 
     @OnClick(R.id.image_back_screen)
