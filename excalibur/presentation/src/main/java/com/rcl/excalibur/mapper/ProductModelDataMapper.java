@@ -1,7 +1,6 @@
 package com.rcl.excalibur.mapper;
 
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
