@@ -17,6 +17,8 @@ import static com.rcl.excalibur.utils.StringUtils.capitalizeAllWords;
 import static com.rcl.excalibur.utils.StringUtils.removeBarreled;
 
 public class NamePresenter implements ActivityPresenter {
+    private static final String BRAND = "r";
+    private static final String VERSION = "1.0";
     private static final int LIMIT_MAX = 50;
     boolean canChange = true;
     private NameView view;
@@ -28,8 +30,8 @@ public class NamePresenter implements ActivityPresenter {
     }
 
     public void init() {
-        getGuestPreferencesUseCase.putBrand("r");
-        getGuestPreferencesUseCase.putVersion("1.0");
+        getGuestPreferencesUseCase.putBrand(BRAND);
+        getGuestPreferencesUseCase.putVersion(VERSION);
         getGuestPreferencesUseCase.putAcceptTime(System.currentTimeMillis());
 
         view.disableNextButton();
