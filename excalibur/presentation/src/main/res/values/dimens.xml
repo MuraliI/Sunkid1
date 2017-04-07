@@ -56,7 +56,6 @@
     <dimen name="product_detail_reservation_message_container_elevation">12dp</dimen>
     <dimen name="product_detail_reservation_title_drawable_padding">10dp</dimen>
     <dimen name="product_detail_toolbar_icon_size">50dp</dimen>
-    <dimen name="product_detail_blur_default_radius">0dp</dimen>
     <dimen name="detail_discover_item_blur_radius">5dp</dimen>
     <dimen name="plan_list_margin_top_section">20dp</dimen>
     <dimen name="plan_list_separator_section">10dp</dimen>
