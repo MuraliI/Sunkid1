@@ -14,9 +14,8 @@ import com.rcl.excalibur.mvp.view.ProductDetailView;
 import java.util.List;
 
 public class ProductDetailPresenter implements ActivityPresenter {
-    private static final int MAX_BLUR_VALUE = 25;
-    private static final int HEIGHT_FACTOR = 4;
     private static final float MULTIPLIER_LOCATION_Y = 0.85f;
+    private static final int MAX_BLUR_VALUE = 25;
 
     private GetProductDbUseCase getProductDbUseCase;
     private ProductDetailView view;
@@ -108,7 +107,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
         }
     }
 
-    private void checkLocationOnScreen(int[] values) {
+    protected void checkLocationOnScreen(int[] values) {
         int outLocationY = values[0];
         float limitLocationY = (values[1] + values[2]) * MULTIPLIER_LOCATION_Y;
 
@@ -116,34 +115,6 @@ public class ProductDetailPresenter implements ActivityPresenter {
             isTitleVisible = true;
             view.showCollapsingToolbarTitle();
         } else if (outLocationY >= limitLocationY && isTitleVisible) {
-            isTitleVisible = false;
-            view.hideCollapsingToolbarTitle();
-        }
-    }
-
-    private class OnScrollObserver extends DefaultPresentObserver<int[], ProductDetailPresenter> {
-
-        OnScrollObserver(ProductDetailPresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(int[] values) {
-            calculateScrollToTitle(values);
-        }
-    }
-
-    protected void calculateScrollToTitle(int[] values) {
-        int scrolledAmount = values[0];
-        int parentPaddingTop = values[1];
-        int titleHeight = values[2];
-
-        if (scrolledAmount >= parentPaddingTop + titleHeight / HEIGHT_FACTOR
-                && !isTitleVisible) {
-            isTitleVisible = true;
-            view.showCollapsingToolbarTitle();
-        } else if (scrolledAmount < parentPaddingTop + titleHeight / HEIGHT_FACTOR
-                && isTitleVisible) {
             isTitleVisible = false;
             view.hideCollapsingToolbarTitle();
         }

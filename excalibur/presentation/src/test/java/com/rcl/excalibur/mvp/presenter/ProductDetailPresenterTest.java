@@ -40,10 +40,10 @@ public class ProductDetailPresenterTest {
     private static final int TOTAL_SCROLL_RANGE = 100;
     private static final float BLUR_RADIUS = 12.0f;
 
-    private static final int SCROLLED_AMOUNT_SHOW = 86;
-    private static final int SCROLLED_AMOUNT_HIDE = 82;
-    private static final int PARENT_PADDING_TOP = 40;
-    private static final int TITLE_HEIGHT = 180;
+    private static final int OUT_LOCATION_Y_SHOW = 230;
+    private static final int OUT_LOCATION_Y_HIDE = 240;
+    private static final int STATUS_BAR_HEIGHT = 195;
+    private static final int TOOLBAR_HEIGHT = 85;
 
     @Before
     public void setUp() {
@@ -61,24 +61,24 @@ public class ProductDetailPresenterTest {
     }
 
     @Test
-    public void calculateScrollToShowTitle() {
+    public void checkLocationOnScreenToShowTitle() {
         ProductDetailView view = presenter.getView();
-        int values[] = new int[]{SCROLLED_AMOUNT_SHOW, PARENT_PADDING_TOP, TITLE_HEIGHT};
+        int values[] = new int[]{OUT_LOCATION_Y_SHOW, STATUS_BAR_HEIGHT, TOOLBAR_HEIGHT};
 
         presenter.isTitleVisible = false;
-        presenter.calculateScrollToTitle(values);
+        presenter.checkLocationOnScreen(values);
 
         verify(view).showCollapsingToolbarTitle();
         assertTrue(presenter.isTitleVisible);
     }
 
     @Test
-    public void calculateScrollToHideTitle() {
+    public void checkLocationOnScreenToHideTitle() {
         ProductDetailView view = presenter.getView();
-        int values[] = new int[]{SCROLLED_AMOUNT_HIDE, PARENT_PADDING_TOP, TITLE_HEIGHT};
+        int values[] = new int[]{OUT_LOCATION_Y_HIDE, STATUS_BAR_HEIGHT, TOOLBAR_HEIGHT};
 
         presenter.isTitleVisible = true;
-        presenter.calculateScrollToTitle(values);
+        presenter.checkLocationOnScreen(values);
 
         verify(view).hideCollapsingToolbarTitle();
         assertFalse(presenter.isTitleVisible);
