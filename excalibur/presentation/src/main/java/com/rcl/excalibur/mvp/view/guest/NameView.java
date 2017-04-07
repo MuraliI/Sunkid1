@@ -12,6 +12,7 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class NameView extends ActivityView<NameActivity, Void> {
     @Bind(R.id.full_name) EditText fullName;
@@ -30,7 +31,13 @@ public class NameView extends ActivityView<NameActivity, Void> {
     public void changeValue(final String value) {
         final int selectionEnd = fullName.getSelectionEnd();
         fullName.setText(value);
-        fullName.setSelection(selectionEnd);
+
+        //TODO improve this
+        try {
+            fullName.setSelection(selectionEnd);
+        } catch (Exception e) {
+            Timber.e(e.getMessage());
+        }
     }
 
     public void setNextButton(boolean isEnable) {

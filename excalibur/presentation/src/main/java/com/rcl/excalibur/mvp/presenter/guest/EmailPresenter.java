@@ -48,7 +48,7 @@ public class EmailPresenter implements ActivityPresenter {
         } else if (!StringUtils.isValidEmail(email)) {
             view.setLabelError(activity.getString(R.string.incorrect_email_format));
         } else {
-            validateEmailExist(email);
+            validateEmailExist();
         }
     }
 
@@ -58,17 +58,9 @@ public class EmailPresenter implements ActivityPresenter {
     }
 
 
-    private void validateEmailExist(String email) {
+    private void validateEmailExist() {
         view.manageNavigation(true, EmailView.ACTIVE);
         view.cleanTextViewError();
-    }
-
-    public void setFocus(boolean hasFocus) {
-        final BaseActivity activity = view.getActivity();
-        if (activity == null) {
-            return;
-        }
-        view.setHint(activity.getString(hasFocus ? R.string.empty_string : R.string.title_hint_email_address));
     }
 
     public void checkDone() {
@@ -93,6 +85,7 @@ public class EmailPresenter implements ActivityPresenter {
                                             @Override
                                             public void onError(Throwable e) {
                                                 super.onError(e);
+                                                view.showMessage(R.string.error_message_no_connection);
                                             }
                                         }
                     , view.getEmail());

@@ -131,4 +131,6 @@
     <dimen name="create_account_text_size_title">48sp</dimen>
     <dimen name="create_account_text_size_sub_title">18sp</dimen>
     <dimen name="default_status_bar_height">24dp</dimen>
+
+    <dimen name="guest_padding_top">156dp</dimen>
 </resources>

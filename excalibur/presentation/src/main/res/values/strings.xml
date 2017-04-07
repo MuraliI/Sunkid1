@@ -147,8 +147,8 @@
     <string name="title_password_almost">Almost there! Let\'s create a password</string>
     <string name="hint_password">Create password</string>
     <string name="title_checkbox_password">Show Password</string>
-    <string name="rule_password">7 characters min, 15 characters max, 1 uppercase, 1 lowercase, 1 special character</string>
-    <string name="min_characters"> 7 characters min, 15 characters max, </string>
+    <string name="rule_password">7 characters min, 1 special character</string>
+    <string name="min_characters"> 7 characters min, </string>
     <string name="must_uppercase"> 1 uppercase, </string>
     <string name="must_lowercase"> 1 lowercase, </string>
     <string name="must_special_character"> 1 special character </string>
@@ -164,4 +164,6 @@
     <string name="create_done_title">Done!</string>
     <string name="create_done_sub_title">Let´s explore </string>
     <string name="email_exists_message">This email exists, please log in or reset your password.</string>
+
+    <string name="error_message_no_connection">We were not able to connect. Please check your internet connection and try again.</string>
 </resources>
