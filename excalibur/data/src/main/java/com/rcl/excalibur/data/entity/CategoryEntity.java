@@ -17,7 +17,7 @@ public class CategoryEntity extends Model {
     public static final String COLUMN_TAGS = "tags";
 
     @Column(name = COLUMN_CATEGORY_ID)
-    public long categoryId;
+    public String categoryId;
     @Column(name = COLUMN_DESCRIPTION)
     public String description;
     @Column(name = COLUMN_TAGS)
@@ -27,11 +27,11 @@ public class CategoryEntity extends Model {
         super();
     }
 
-    public long getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 

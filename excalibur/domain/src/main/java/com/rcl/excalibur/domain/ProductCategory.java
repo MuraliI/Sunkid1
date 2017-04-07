@@ -5,15 +5,15 @@ import java.util.List;
 
 public class ProductCategory {
 
-    private long categoryId;
+    private String categoryId;
     private String categoryDescription;
     private List<ProductTags> productTags;
 
-    public long getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 

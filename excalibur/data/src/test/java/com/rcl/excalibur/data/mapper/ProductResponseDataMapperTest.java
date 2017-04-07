@@ -104,7 +104,7 @@ public class ProductResponseDataMapperTest {
         productTagsResponse.setTagId("1232");
         productCategoryResponse = new ProductCategoryResponse();
         productCategoryResponse.setCategoryDescription("Entertainment");
-        productCategoryResponse.setCategoryId(333333L);
+        productCategoryResponse.setCategoryId("333333");
         productCategoryResponse.setProductTags(Arrays.asList(productTagsResponse));
         productResponse1.setProductCategory(Arrays.asList(productCategoryResponse));
 
@@ -183,7 +183,7 @@ public class ProductResponseDataMapperTest {
 
         productAdvisementResponse = new ProductAdvisementResponse();
         productAdvisementResponse.setAdvisementDescription("AdvisementDescription");
-        productAdvisementResponse.setAdvisementId(1234L);
+        productAdvisementResponse.setAdvisementId(ProductAdvisement.ACCESSIBILITY);
         productAdvisementResponse.setAdvisementName("AdvisementName");
         productAdvisementResponse.setAdvisementTitle("AdvisementTitle");
         productAdvisementResponse.setAdvisementType("AdvisementType");
