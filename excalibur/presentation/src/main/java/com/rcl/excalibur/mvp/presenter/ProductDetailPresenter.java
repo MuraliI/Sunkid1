@@ -53,7 +53,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
             } else {
                 view.setHeroImage(null);
             }
-            view.setViewObserver(new OnScrollObserver(this));
+            view.setViewObserver(new LocationOnScreenObserver(this));
             view.setAdapterObserver(new FindOnDeckClickObserver(this));
             view.render(viewTypes);
         }
@@ -91,6 +91,28 @@ public class ProductDetailPresenter implements ActivityPresenter {
             if (activity != null) {
                 activity.startActivity(ProductDeckMapActivity.getIntent(activity, productId));
             }
+        }
+    }
+
+    private class LocationOnScreenObserver extends DefaultPresentObserver<Integer, ProductDetailPresenter> {
+
+        public LocationOnScreenObserver(ProductDetailPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Integer outLocationY) {
+            checkLocationOnScreen(outLocationY);
+        }
+    }
+
+    private void checkLocationOnScreen(Integer outLocationY) {
+        if (outLocationY < 230 && !isTitleVisible) {
+            isTitleVisible = true;
+            view.showCollapsingToolbarTitle();
+        } else if (outLocationY >= 230 && isTitleVisible) {
+            isTitleVisible = false;
+            view.hideCollapsingToolbarTitle();
         }
     }
 

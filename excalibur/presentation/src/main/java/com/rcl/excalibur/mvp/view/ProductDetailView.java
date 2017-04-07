@@ -39,11 +39,9 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
     private Animation upAnimation;
     private Animation downAnimation;
     private View detailInfoView;
-    private View detailInfoContainer;
     private TextView productDetailName;
 
     private String productTitle;
-    private int scrolledAmount = 0;
 
     public ProductDetailView(ProductDetailActivity activity) {
         super(activity);
@@ -103,10 +101,6 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
         planDetailRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                scrolledAmount += dy;
-
                 int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
                 if (firstVisibleItem != 0) {
                     return;
@@ -114,10 +108,6 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
 
                 if (detailInfoView == null) {
                     detailInfoView = recyclerView.getChildAt(firstVisibleItem);
-                }
-
-                if (detailInfoContainer == null && detailInfoView != null) {
-                    detailInfoContainer = ButterKnife.findById(detailInfoView, R.id.layout_information_container);
                 }
 
                 if (productDetailName == null && detailInfoView != null) {
@@ -130,9 +120,11 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
 
                 productTitle = productDetailName.getText().toString();
 
+                int[] outLocation = new int[2];
+                productDetailName.getLocationOnScreen(outLocation);
+
                 if (viewObserver != null) {
-                    Observable.just(new int[]{scrolledAmount, detailInfoContainer.getPaddingTop(), productDetailName.getHeight()})
-                            .subscribe(viewObserver);
+                    Observable.just(outLocation[1]).subscribe(viewObserver);
                 }
             }
         });
