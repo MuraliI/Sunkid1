@@ -11,14 +11,14 @@
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:paddingTop="@dimen/margin_large"
-        android:paddingBottom="@dimen/margin_large"
+        android:paddingTop="@dimen/margin_medium"
+        android:paddingBottom="@dimen/margin_normal"
         android:weightSum="@integer/detail_header_total_weight">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_large"
+            android:layout_marginStart="@dimen/margin_normal"
             android:layout_weight="@integer/detail_header_left_weight"
             android:orientation="vertical">
 
@@ -27,6 +27,7 @@
                 style="@style/AppTheme.Headline1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/product_name_margin_bottom"
                 android:maxLines="@integer/detail_product_name_max_lines"
                 android:ellipsize="end"
                 android:text="@string/hardcoded_activity_title"/>
@@ -57,7 +58,7 @@
                 style="@style/AppTheme.Headline5.Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:drawablePadding="@dimen/find_on_deck_drawable_padding"
                 android:drawableStart="@drawable/ic_deck_map"
                 android:gravity="center_vertical"
@@ -68,7 +69,7 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginTop="@dimen/upcharge_container_margin_top"
             android:layout_weight="@integer/detail_header_right_weight">
 
@@ -90,9 +91,9 @@
             style="@style/AppTheme.Headline5.Orange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_large"
-            android:paddingBottom="@dimen/margin_large"
-            android:paddingTop="@dimen/margin_large"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:paddingBottom="@dimen/margin_normal"
+            android:paddingTop="@dimen/margin_normal"
             android:text="@string/product_detail_reservation_required"/>
     </FrameLayout>
 </LinearLayout>
