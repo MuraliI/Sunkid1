@@ -35,6 +35,19 @@ public class CategoryEntity extends Model {
         this.categoryId = categoryId;
     }
 
+
+    public String[] getTags() {
+        return new Gson().fromJson( tags, String[].class );
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = new Gson().toJson( tags );
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = new Gson().toJson( tags );
+    }
+
     public String getDescription() {
         return description;
     }
@@ -43,15 +56,4 @@ public class CategoryEntity extends Model {
         this.description = description;
     }
 
-    public String[] getTags() {
-        return new Gson().fromJson(tags, String[].class);
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = new Gson().toJson(tags);
-    }
-
-    public void setTags(String[] tags) {
-        this.tags = new Gson().toJson(tags);
-    }
 }
