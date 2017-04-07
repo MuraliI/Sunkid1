@@ -29,12 +29,12 @@
     <string name="discover_item_detail_see_menu">See menu</string>
     <string name="discover_item_detail_description_expanded_text">See less</string>
     <string name="discover_item_detail_price_range">$%1$s&#8210;$%2$s</string>
-    <string name="product_detail_find_on_deck">Find on deck</string>
+    <string name="product_detail_find_on_deck">Find on Deck</string>
     <string name="product_detail_reservation_required">Reservation required</string>
     <string name="discover_item_detail_make_a_reservation">Make a Reservation</string>
     <string name="discover_item_detail_experience">Experience</string>
     <string name="discover_item_detail_attire">Attire</string>
-    <string name="discover_item_detail_know">Know before you go</string>
+    <string name="discover_item_detail_know">Know Before You Go</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
@@ -130,8 +130,6 @@
         <item quantity="other">%d min</item>
     </plurals>
     <string name="advisement_cuisine">Cuisine</string>
-    <string name="know_before_you_go">Know Before You Go</string>
-    <string name="attire">Attire</string>
     <string name="accessibility">Accessibility &amp; Other Info</string>
     <string name="detail_module_height">Height Restriction</string>
 
