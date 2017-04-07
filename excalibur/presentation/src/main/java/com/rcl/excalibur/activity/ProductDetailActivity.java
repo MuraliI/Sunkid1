@@ -15,10 +15,10 @@ import butterknife.OnClick;
 
 public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> implements AppBarLayout.OnOffsetChangedListener {
     private static final String EXTRA_DISCOVER_ITEM_ID = "EXTRA_DISCOVER_ITEM_ID";
-    private long productId = 0;
+    private String productId = "0";
     private ProductDetailActivityComponent component;
 
-    public static Intent getIntent(final BaseActivity activity, long productId) {
+    public static Intent getIntent(final BaseActivity activity, String productId) {
         Intent intent = new Intent(activity, ProductDetailActivity.class);
         intent.putExtra(EXTRA_DISCOVER_ITEM_ID, productId);
         return intent;
@@ -28,7 +28,7 @@ public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> 
     protected void createComponent() {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_DISCOVER_ITEM_ID)) {
-            productId = getIntent().getExtras().getLong(EXTRA_DISCOVER_ITEM_ID);
+            productId = getIntent().getExtras().getString(EXTRA_DISCOVER_ITEM_ID);
         }
         rclApp.createProductDetailComponent(productId);
 

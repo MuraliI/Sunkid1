@@ -6,7 +6,7 @@ import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
 public class ProductInformationViewType implements RecyclerViewType {
 
-    private Long productId;
+    private String productId;
     private String productName;
     private String productType;
     private String[] productMedia;
@@ -16,11 +16,11 @@ public class ProductInformationViewType implements RecyclerViewType {
     private int upChargeLevel;
     private boolean isReservationRequired;
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

@@ -42,7 +42,7 @@ public class ProductDeckMapPresenter implements ActivityPresenter {
         this.getProductDbUseCase = getProductDbUseCase;
     }
 
-    public void init(long productId) {
+    public void init(String productId) {
         product = getProductDbUseCase.get(productId);
         if (product != null) {
             setCoordinate(product.getProductType().getProductType());
