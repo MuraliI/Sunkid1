@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@null"
-        android:padding="@dimen/margin_normal"
+        android:padding="@dimen/margin_small"
         android:src="@drawable/ic_trending_flat" />
 
     <TextView

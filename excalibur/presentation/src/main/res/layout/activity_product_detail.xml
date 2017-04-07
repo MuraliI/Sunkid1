@@ -61,7 +61,7 @@
                     style="@style/AppTheme.ToolBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_normal"
                     android:ellipsize="end"
                     android:lines="@integer/detail_toolbar_title_lines"
                     android:textColor="@color/white"

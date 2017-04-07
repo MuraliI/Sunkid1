@@ -2,5 +2,5 @@
 <View xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/hairline_height"
-    android:layout_marginStart="@dimen/margin_large"
+    android:layout_marginStart="@dimen/margin_normal"
     android:background="@color/discover_separator" />
