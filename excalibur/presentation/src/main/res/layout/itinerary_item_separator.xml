@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/itinerary_separator_thickness"
     android:layout_gravity="center_vertical"
-    android:layout_marginBottom="@dimen/margin_normal"
-    android:layout_marginEnd="@dimen/margin_large"
+    android:layout_marginBottom="@dimen/margin_small"
+    android:layout_marginEnd="@dimen/margin_normal"
     android:layout_marginStart="@dimen/itinerary_product_view_margin_start"
-    android:layout_marginTop="@dimen/margin_normal"
+    android:layout_marginTop="@dimen/margin_small"
     android:background="@color/discover_grey" />
 
 
