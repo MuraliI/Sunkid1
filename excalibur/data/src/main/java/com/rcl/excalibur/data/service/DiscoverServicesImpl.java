@@ -188,6 +188,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
         dinningCall.enqueue(new Callback<GetProductsResponse>() {
             @Override
             public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                Timber.d(response.message() + " " + response.errorBody());
                 saveData(response, productList);
 
                 Call<GetProductsResponse> shorexCall = discoverApi.getProducts(SAILING_ID, SHOREX, MAX_COUNT);

@@ -11,8 +11,8 @@
         android:id="@+id/tab_triptych_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:layout_marginBottom="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
         app:stripThickness="@dimen/triptych_strip_tickness"
         app:stripColor="@color/white">
 

@@ -7,8 +7,8 @@
         style="@style/AppTheme.DiscoverItemDescriptionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_large"
-        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginEnd="@dimen/margin_normal"
         tools:maxLines="@integer/detail_expandable_description_max_lines"
         tools:text="@string/hardcoded_detail_description"/>
 
@@ -23,8 +23,8 @@
         android:id="@+id/layout_show_more_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_large"
-        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginEnd="@dimen/margin_normal"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         tools:ignore="UseCompoundDrawables">

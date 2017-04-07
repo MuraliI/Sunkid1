@@ -17,7 +17,7 @@
         android:id="@+id/linear_times_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_small"
         android:orientation="horizontal"
         android:weightSum="@integer/detail_standard_times_container_weight">
 
