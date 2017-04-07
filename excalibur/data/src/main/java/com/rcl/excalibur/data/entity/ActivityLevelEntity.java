@@ -15,7 +15,7 @@ public class ActivityLevelEntity extends Model {
     public static final String COLUMN_MEDIA = "media";
 
     @Column(name = COLUMN_ACTIVITY_LEVEL_ID, unique = true, index = true)
-    private long activityLevelId;
+    private String activityLevelId;
     @Column(name = COLUMN_TITLE)
     private String title;
     @Column(name = COLUMN_DESCRIPTION)
@@ -27,11 +27,11 @@ public class ActivityLevelEntity extends Model {
         super();
     }
 
-    public long getActivityLevelId() {
+    public String getActivityLevelId() {
         return activityLevelId;
     }
 
-    public void setActivityLevelId(long activityLevelId) {
+    public void setActivityLevelId(String activityLevelId) {
         this.activityLevelId = activityLevelId;
     }
 

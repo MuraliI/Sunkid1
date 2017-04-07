@@ -132,7 +132,7 @@ public class ProductResponseDataMapperTest {
         productActivityLevelResponse = new ProductActivityLevelResponse();
         productActivityLevelResponse = new ProductActivityLevelResponse();
         productActivityLevelResponse.setActivityLevelDescription("ActivityLevelDescription");
-        productActivityLevelResponse.setActivityLevelId(21234L);
+        productActivityLevelResponse.setActivityLevelId("AL");
         productActivityLevelResponse.setActivityLevelTitle("ActivityLevelTitle");
         productActivityLevelResponse.setActivityLevelMedia(mediaResponse);
         productResponse1.setActivityLevel(productActivityLevelResponse);
@@ -182,7 +182,7 @@ public class ProductResponseDataMapperTest {
 
         productAdvisementResponse = new ProductAdvisementResponse();
         productAdvisementResponse.setAdvisementDescription("AdvisementDescription");
-        productAdvisementResponse.setAdvisementId(1234L);
+        productAdvisementResponse.setAdvisementId("AL");
         productAdvisementResponse.setAdvisementName("AdvisementName");
         productAdvisementResponse.setAdvisementTitle("AdvisementTitle");
         productAdvisementResponse.setAdvisementType("AdvisementType");
