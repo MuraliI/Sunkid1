@@ -2,44 +2,46 @@ package com.rcl.excalibur.adapters.delegate;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.adapters.base.DelegateAdapter;
+import com.rcl.excalibur.adapters.base.ExpandableContentDelegateAdapter;
+import com.rcl.excalibur.adapters.delegate.viewholder.ExpandableAccessibiltyViewHolder;
+import com.rcl.excalibur.adapters.delegate.viewholder.base.ExpandableContentViewHolder;
 import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
 import com.rcl.excalibur.model.ProductAccessibilityModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+public class ExpandableAccessibilityDelegateAdapter<VT extends ExpandableAccesibilityViewType> extends
+        ExpandableContentDelegateAdapter<ExpandableAccessibiltyViewHolder<VT>, VT, VT> {
 
-public class ExpandableAccessibilityDelegateAdapter implements
-        DelegateAdapter<ExpandableAccessibilityDelegateAdapter.ExpandableAccessibiltyViewHolder, ExpandableAccesibilityViewType> {
-    @Override
-    public ExpandableAccessibiltyViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new ExpandableAccessibiltyViewHolder(parent);
+    public ExpandableAccessibilityDelegateAdapter(ExpandableContentViewHolder.OnViewExpandedListener<VT> listener) {
+        super(listener);
     }
 
     @Override
-    public void onBindViewHolder(ExpandableAccessibiltyViewHolder holder, ExpandableAccesibilityViewType item) {
-        holder.title.setText(item.getTitle());
+    public ExpandableAccessibiltyViewHolder<VT> onCreateViewHolder(ViewGroup parent) {
+        return new ExpandableAccessibiltyViewHolder<>(parent, listener.get());
+    }
+
+    @Override
+    public void onBindViewHolder(ExpandableAccessibiltyViewHolder<VT> holder, VT item) {
+        holder.getTitle().setText(item.getTitle());
+        holder.setViewType(item);
         fillContentLines(holder, item.getAccessibilities());
     }
 
     private static void fillContentLines(ExpandableAccessibiltyViewHolder viewHolder,
                                          List<ProductAccessibilityModel> accessibilityList) {
-        viewHolder.layoutContent.removeAllViews();
+        viewHolder.getLayoutContent().removeAllViews();
         Context context = viewHolder.itemView.getContext();
         Resources resources = viewHolder.itemView.getResources();
 
@@ -68,30 +70,7 @@ public class ExpandableAccessibilityDelegateAdapter implements
             } else {
                 descriptionLine.setVisibility(View.GONE);
             }
-            viewHolder.layoutContent.addView(itemView);
-        }
-    }
-
-    static class ExpandableAccessibiltyViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.expandable_accessilibility_module_title) TextView title;
-        @Bind(R.id.expandable_accessibility_module_content) LinearLayout layoutContent;
-        @Bind(R.id.expandable_accessilibility_module_arrow) ImageView imageArrow;
-
-        ExpandableAccessibiltyViewHolder(ViewGroup parent) {
-            super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_item_detail_expandable_accessibility,
-                    parent, false));
-            ButterKnife.bind(this, itemView);
-        }
-
-        @OnClick(R.id.expandable_accessibility_module_container)
-        public void onTitleClick() {
-            change();
-        }
-
-        public void change() {
-            final boolean isGone = View.GONE == layoutContent.getVisibility();
-            layoutContent.setVisibility(isGone ? View.VISIBLE : View.GONE);
-            imageArrow.setImageResource(isGone ? R.drawable.ic_chevron_up : R.drawable.ic_chevron_down);
+            viewHolder.getLayoutContent().addView(itemView);
         }
     }
 }

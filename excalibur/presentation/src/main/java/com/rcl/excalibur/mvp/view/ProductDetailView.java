@@ -96,9 +96,13 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
             return;
         }
 
-        planDetailRecycler.setAdapter(new DetailViewCoordinatorAdapter(adapterObserver, viewTypes));
+        DetailViewCoordinatorAdapter adapter = new DetailViewCoordinatorAdapter(adapterObserver, viewTypes);
+        adapter.setOnViewExpandedListener(position -> planDetailRecycler.smoothScrollToPosition(position));
+
+        planDetailRecycler.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         planDetailRecycler.setLayoutManager(layoutManager);
+
         // Cannot be passed to Activity because RecyclerView.OnScrollListener is a class and not an interface
         planDetailRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
