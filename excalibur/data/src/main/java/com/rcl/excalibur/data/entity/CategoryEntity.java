@@ -37,15 +37,15 @@ public class CategoryEntity extends Model {
 
 
     public String[] getTags() {
-        return new Gson().fromJson( tags, String[].class );
+        return new Gson().fromJson(tags, String[].class);
     }
 
     public void setTags(List<String> tags) {
-        this.tags = new Gson().toJson( tags );
+        this.tags = new Gson().toJson(tags);
     }
 
     public void setTags(String[] tags) {
-        this.tags = new Gson().toJson( tags );
+        this.tags = new Gson().toJson(tags);
     }
 
     public String getDescription() {
