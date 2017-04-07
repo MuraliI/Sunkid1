@@ -12,6 +12,7 @@ import java.util.List;
 public class CategoryEntity extends Model {
 
     public static final String TABLE_NAME = "category";
+
     public static final String COLUMN_CATEGORY_ID = "category_id";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_TAGS = "tags";
