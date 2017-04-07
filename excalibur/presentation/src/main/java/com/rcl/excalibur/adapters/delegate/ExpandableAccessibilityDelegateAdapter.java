@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
@@ -51,7 +52,7 @@ public class ExpandableAccessibilityDelegateAdapter implements
 
             String imageUrl = accessibilityList.get(i).getImageUrl();
             Picasso.with(context)
-                    .load(imageUrl)
+                    .load(BuildConfig.PREFIX_IMAGE + imageUrl)
                     .resize(iconSize, iconSize)
                     .placeholder(R.drawable.ic_blue_checkbox)
                     .into(image);
