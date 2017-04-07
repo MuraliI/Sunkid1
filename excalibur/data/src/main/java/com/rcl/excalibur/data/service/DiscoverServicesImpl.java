@@ -219,14 +219,14 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
                                             @Override
                                             public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                                                Timber.e("error", t.getMessage());
+                                                logOnFailureError(t, ACTIVITIES);
                                             }
                                         });
                                     }
 
                                     @Override
                                     public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                                        Timber.e("error", t.getMessage());
+                                        logOnFailureError(t, ENTERTAINMENT);
                                     }
                                 });
 
@@ -234,23 +234,27 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
                             @Override
                             public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                                Timber.e("error", t.getMessage());
+                                logOnFailureError(t, SPA);
                             }
                         });
                     }
 
                     @Override
                     public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                        Timber.e("error", t.getMessage());
+                        logOnFailureError(t, SHOREX);
                     }
                 });
             }
 
             @Override
             public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                Timber.e("error", t.getMessage());
+                logOnFailureError(t, DINING);
             }
         });
+    }
+
+    private void logOnFailureError(Throwable t, String category) {
+        Timber.e(t, "Error on %s call, message = %s", category, t.getMessage());
     }
 
     private void saveData(Response<GetProductsResponse> response, List<Product> productList) {

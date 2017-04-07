@@ -1,5 +1,6 @@
 package com.rcl.excalibur.mvp.view;
 
+import android.content.res.Resources;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,8 +27,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
 
-
 public class ProductDetailView extends ActivityView<ProductDetailActivity, Long> {
+
+    private static final String STATUS_BAR_HEIGHT_ID = "status_bar_height";
+    private static final String DIMEN = "dimen";
+    private static final String ANDROID = "android";
+    private static final int NOT_FOUND_STATUS_BAR = -1;
 
     @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
     @Bind(R.id.app_bar_layout_detail) AppBarLayout appBarLayout;
@@ -39,11 +44,10 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
     private Animation upAnimation;
     private Animation downAnimation;
     private View detailInfoView;
-    private View detailInfoContainer;
     private TextView productDetailName;
 
     private String productTitle;
-    private int scrolledAmount = 0;
+    private int statusBarHeight = NOT_FOUND_STATUS_BAR;
 
     public ProductDetailView(ProductDetailActivity activity) {
         super(activity);
@@ -79,6 +83,20 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
                 .into(heroImage);
     }
 
+    public void initStatusBarHeight() {
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        Resources resources = activity.getResources();
+        int resourceId = resources.getIdentifier(STATUS_BAR_HEIGHT_ID, DIMEN, ANDROID);
+        if (resourceId > 0) {
+            statusBarHeight = resources.getDimensionPixelSize(resourceId);
+        } else {
+            statusBarHeight = resources.getDimensionPixelSize(R.dimen.default_status_bar_height);
+        }
+    }
+
     private void upAnimationTitle() {
         upAnimation.reset();
         titleToolbarTextView.startAnimation(upAnimation);
@@ -95,7 +113,6 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
         if (activity == null) {
             return;
         }
-
         planDetailRecycler.setAdapter(new DetailViewCoordinatorAdapter(adapterObserver, viewTypes));
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         planDetailRecycler.setLayoutManager(layoutManager);
@@ -103,9 +120,9 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
         planDetailRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                scrolledAmount += dy;
+                if (statusBarHeight == NOT_FOUND_STATUS_BAR) {
+                    return;
+                }
 
                 int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
                 if (firstVisibleItem != 0) {
@@ -114,10 +131,6 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
 
                 if (detailInfoView == null) {
                     detailInfoView = recyclerView.getChildAt(firstVisibleItem);
-                }
-
-                if (detailInfoContainer == null && detailInfoView != null) {
-                    detailInfoContainer = ButterKnife.findById(detailInfoView, R.id.layout_information_container);
                 }
 
                 if (productDetailName == null && detailInfoView != null) {
@@ -130,9 +143,11 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
 
                 productTitle = productDetailName.getText().toString();
 
+                int[] outLocation = new int[2];
+                productDetailName.getLocationOnScreen(outLocation);
+
                 if (viewObserver != null) {
-                    Observable.just(new int[]{scrolledAmount, detailInfoContainer.getPaddingTop(), productDetailName.getHeight()})
-                            .subscribe(viewObserver);
+                    Observable.just(new int[]{outLocation[1], statusBarHeight, detailToolbar.getHeight()}).subscribe(viewObserver);
                 }
             }
         });
