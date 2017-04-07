@@ -9,7 +9,7 @@ public class CategoryResponse {
 
     private String categoryDescription;
     @SerializedName("categoryid")
-    private long categoryId;
+    private String categoryId;
     private List<String> productTags;
 
     public CategoryResponse() {
@@ -31,11 +31,11 @@ public class CategoryResponse {
         this.productTags = productTags;
     }
 
-    public long getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 }

@@ -87,7 +87,7 @@ public class ProductResponseDataMapperTest {
         productResponse2.setProductCode("2751");
 
         productTypeResponse = new ProductTypeResponse();
-        productTypeResponse.setProductTypeId(27L);
+        productTypeResponse.setProductTypeId("27");
         productTypeResponse.setProductTypeName("Show Tickets");
         productTypeResponse.setProductType("ENTERTAINMENT");
         productResponse1.setProductType(productTypeResponse);
@@ -104,7 +104,7 @@ public class ProductResponseDataMapperTest {
         productTagsResponse.setTagId("1232");
         productCategoryResponse = new ProductCategoryResponse();
         productCategoryResponse.setCategoryDescription("Entertainment");
-        productCategoryResponse.setCategoryId(333333L);
+        productCategoryResponse.setCategoryId("333333");
         productCategoryResponse.setProductTags(Arrays.asList(productTagsResponse));
         productResponse1.setProductCategory(Arrays.asList(productCategoryResponse));
 
@@ -133,7 +133,7 @@ public class ProductResponseDataMapperTest {
         productActivityLevelResponse = new ProductActivityLevelResponse();
         productActivityLevelResponse = new ProductActivityLevelResponse();
         productActivityLevelResponse.setActivityLevelDescription("ActivityLevelDescription");
-        productActivityLevelResponse.setActivityLevelId(21234L);
+        productActivityLevelResponse.setActivityLevelId("AL");
         productActivityLevelResponse.setActivityLevelTitle("ActivityLevelTitle");
         productActivityLevelResponse.setActivityLevelMedia(mediaResponse);
         productResponse1.setActivityLevel(productActivityLevelResponse);
@@ -183,7 +183,7 @@ public class ProductResponseDataMapperTest {
 
         productAdvisementResponse = new ProductAdvisementResponse();
         productAdvisementResponse.setAdvisementDescription("AdvisementDescription");
-        productAdvisementResponse.setAdvisementId( ProductAdvisement.ACCESSIBILITY);
+        productAdvisementResponse.setAdvisementId(ProductAdvisement.ACCESSIBILITY);
         productAdvisementResponse.setAdvisementName("AdvisementName");
         productAdvisementResponse.setAdvisementTitle("AdvisementTitle");
         productAdvisementResponse.setAdvisementType("AdvisementType");

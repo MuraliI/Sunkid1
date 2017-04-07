@@ -14,7 +14,7 @@ public class TypeEntity extends Model {
     public static final String COLUMN_TYPE = "type";
 
     @Column(name = COLUMN_TYPE_ID, unique = true, index = true)
-    private long typeId;
+    private String typeId;
     @Column(name = COLUMN_NAME)
     private String name;
     @Column(name = COLUMN_TYPE, unique = true, index = true)
@@ -24,11 +24,11 @@ public class TypeEntity extends Model {
         super();
     }
 
-    public long getTypeId() {
+    public String getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(long typeId) {
+    public void setTypeId(String typeId) {
         this.typeId = typeId;
     }
 

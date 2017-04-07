@@ -27,10 +27,10 @@ public class CategoryEntityDataMapperTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         categoryEntityDataMapper = new CategoryEntityDataMapper();
-        Mockito.when(entity1.getCategoryId()).thenReturn(1234L);
+        Mockito.when(entity1.getCategoryId()).thenReturn("1234");
         Mockito.when(entity1.getDescription()).thenReturn("description1");
         Mockito.when(entity1.getTags()).thenReturn(new String[]{"tag1", "tag2"});
-        Mockito.when(entity2.getCategoryId()).thenReturn(1255L);
+        Mockito.when(entity2.getCategoryId()).thenReturn("1255");
         Mockito.when(entity2.getDescription()).thenReturn("description2");
         Mockito.when(entity2.getTags()).thenReturn(new String[]{"tag3", "tag4"});
     }

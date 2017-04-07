@@ -5,15 +5,15 @@ public class ProductType {
 
     public static final String SHOREX_TYPE = "SHOREX";
 
-    private long productTypeId;
+    private String productTypeId;
     private String productTypeName;
     private String productType;
 
-    public long getProductTypeId() {
+    public String getProductTypeId() {
         return productTypeId;
     }
 
-    public void setProductTypeId(long productTypeId) {
+    public void setProductTypeId(String productTypeId) {
         this.productTypeId = productTypeId;
     }
 
