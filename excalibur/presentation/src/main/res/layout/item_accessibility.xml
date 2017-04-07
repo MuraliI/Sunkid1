@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginEnd="@dimen/margin_large"
-    android:paddingTop="@dimen/margin_normal">
+    android:layout_marginEnd="@dimen/margin_normal"
+    android:paddingTop="@dimen/margin_small">
 
     <ImageView
         android:id="@+id/image_accessibility"

@@ -8,7 +8,7 @@ import java.util.List;
 public class ProductRestrictionResponse {
 
     @SerializedName("restrictionID")
-    private long restrictionId;
+    private String restrictionId;
     private String restrictionType;
     private boolean isMandatory;
     private String restrictionDisplayText;
@@ -18,13 +18,6 @@ public class ProductRestrictionResponse {
     private List<ProductRestrictionAnswerResponse> restrictionAnswers;
     private MediaResponse restrictionMedia;
 
-    public long getRestrictionId() {
-        return restrictionId;
-    }
-
-    public void setRestrictionId(long restrictionId) {
-        this.restrictionId = restrictionId;
-    }
 
     public String getRestrictionType() {
         return restrictionType;
@@ -88,5 +81,13 @@ public class ProductRestrictionResponse {
 
     public void setRestrictionMedia(MediaResponse restrictionMedia) {
         this.restrictionMedia = restrictionMedia;
+    }
+
+    public String getRestrictionId() {
+        return restrictionId;
+    }
+
+    public void setRestrictionId(String restrictionId) {
+        this.restrictionId = restrictionId;
     }
 }

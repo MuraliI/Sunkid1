@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/margin_large">
+    android:paddingTop="@dimen/margin_normal">
 
     <TextView
         android:id="@+id/text_module_title"
         style="@style/AppTheme.Headline7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_large"
-        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginBottom="@dimen/margin_xsmall"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginStart="@dimen/margin_normal"
         tools:text="@string/hardcoded_age_restriction_title" />
 
     <TextView
@@ -20,11 +21,11 @@
         style="@style/AppTheme.Body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_large"
-        android:layout_marginStart="@dimen/margin_large"
-        android:paddingBottom="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:paddingBottom="@dimen/margin_normal"
         tools:text="@string/hardcoded_age_restriction_description" />
 
-    <include layout="@layout/separator_product"></include>
+    <include layout="@layout/separator_product"/>
 
 </LinearLayout>

@@ -8,7 +8,7 @@ public class ProductRestriction {
     public static final String AGE = "AGE";
     public static final String HEIGHT = "HEIGHT";
 
-    private long restrictionId;
+    private String restrictionId;
     private String restrictionType;
     private boolean isMandatory;
     private String restrictionDisplayText;
@@ -18,13 +18,6 @@ public class ProductRestriction {
     private List<ProductRestrictionAnswer> restrictionAnswers;
     private Media restrictionMedia;
 
-    public long getRestrictionId() {
-        return restrictionId;
-    }
-
-    public void setRestrictionId(long restrictionId) {
-        this.restrictionId = restrictionId;
-    }
 
     public String getRestrictionType() {
         return restrictionType;
@@ -88,5 +81,13 @@ public class ProductRestriction {
 
     public void setRestrictionMedia(Media restrictionMedia) {
         this.restrictionMedia = restrictionMedia;
+    }
+
+    public String getRestrictionId() {
+        return restrictionId;
+    }
+
+    public void setRestrictionId(String restrictionId) {
+        this.restrictionId = restrictionId;
     }
 }
