@@ -34,7 +34,7 @@ public class ProductDetailPresenterTest {
     ProductDetailComponentTest productDetailComponentTest;
     ProductDetailActivityComponentTest productDetailActivityComponentTest;
 
-    private static final Long PRODUCT_ID = 1L;
+    private static final String PRODUCT_ID = "1L";
 
     private static final int VERTICAL_OFFSET = 50;
     private static final int TOTAL_SCROLL_RANGE = 100;

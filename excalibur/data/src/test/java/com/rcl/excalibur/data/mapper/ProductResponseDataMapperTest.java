@@ -73,13 +73,13 @@ public class ProductResponseDataMapperTest {
         productResponseDataMapper = new ProductResponseDataMapper();
 
         productResponse1 = new ProductResponse();
-        productResponse1.setProductId(100000002814023699L);
+        productResponse1.setProductId("100000002814023699");
         productResponse1.setUpcharge(0);
         productResponse1.setProductReservationInformation("Arrive 15 minutes early, Wear closedtoed shoes");
         productResponse1.setExperience("Enjoy!");
 
         productResponse2 = new ProductResponse();
-        productResponse2.setProductId(100000002814023699L);
+        productResponse2.setProductId("100000002814023699");
         productResponse2.setUpcharge(3);
 
         productResponse1.setProductCode("2751");

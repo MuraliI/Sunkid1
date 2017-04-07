@@ -27,8 +27,8 @@ public class GetProductDbUseCaseTest {
 
     @Test
     public void get() throws Exception {
-        getProductDbUseCase.get(1);
-        Mockito.verify(productRepository).get(1);
+        getProductDbUseCase.get("1");
+        Mockito.verify(productRepository).get("1");
     }
 
     @Test

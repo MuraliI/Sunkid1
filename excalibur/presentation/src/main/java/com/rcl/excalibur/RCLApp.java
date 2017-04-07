@@ -109,7 +109,7 @@ public class RCLApp extends Application {
         productsListComponent = null;
     }
 
-    public void createProductDetailComponent(long productId) {
+    public void createProductDetailComponent(String productId) {
         productDetailComponent = productsListComponent.plus(new ProductDetailModule(productId));
     }
 

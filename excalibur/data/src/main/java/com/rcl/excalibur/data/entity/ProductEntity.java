@@ -36,7 +36,7 @@ public class ProductEntity extends Model {
     public static final String COLUMN_EXPERIENCE = "experience";
 
     @Column(name = COLUMN_PRODUCT_ID, unique = true, index = true)
-    public long productId;
+    public String productId;
     @Column(name = COLUMN_CODE)
     public String code;
     @Column(name = COLUMN_TYPE)
@@ -91,11 +91,11 @@ public class ProductEntity extends Model {
         return getMany(RestrictionEntity.class, RestrictionEntity.COLUMN_PRODUCT);
     }
 
-    public long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
