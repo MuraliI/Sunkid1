@@ -98,7 +98,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
 
     private class LocationOnScreenObserver extends DefaultPresentObserver<int[], ProductDetailPresenter> {
 
-        public LocationOnScreenObserver(ProductDetailPresenter presenter) {
+        LocationOnScreenObserver(ProductDetailPresenter presenter) {
             super(presenter);
         }
 

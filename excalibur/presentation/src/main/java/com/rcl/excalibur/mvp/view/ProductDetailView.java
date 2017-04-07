@@ -114,7 +114,6 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, Long>
         if (activity == null) {
             return;
         }
-
         planDetailRecycler.setAdapter(new DetailViewCoordinatorAdapter(adapterObserver, viewTypes));
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         planDetailRecycler.setLayoutManager(layoutManager);
