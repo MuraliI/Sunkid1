@@ -18,7 +18,7 @@ public class GetProductDbUseCase extends UseCaseSync {
         return productRepository.getAll();
     }
 
-    public Product get(long productId) {
+    public Product get(String productId) {
         return productRepository.get(productId);
     }
 

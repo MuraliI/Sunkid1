@@ -44,10 +44,10 @@ public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover_deck_map);
 
-        long productItemId = 0L;
+        String productItemId = "0L";
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_PRODUCT_ITEM_ID)) {
-            productItemId = intent.getExtras().getLong(EXTRA_PRODUCT_ITEM_ID);
+            productItemId = intent.getExtras().getString(EXTRA_PRODUCT_ITEM_ID);
         }
 
         presenter.init(productItemId);

@@ -50,7 +50,7 @@ public class ProductDeckMapPresenterTest {
 
     @Test
     public void initTest() throws Exception {
-        presenter.init(1L);
+        presenter.init("1L");
         ProductDeckMapView view = presenter.getView();
 
         Product product = new Product();
@@ -59,7 +59,7 @@ public class ProductDeckMapPresenterTest {
         product.setProductType(productType);
         product.setProductTitle("Mock Tittle");
 
-        when(presenter.getGetProductDbUseCase().get(1L)).thenReturn(product);
+        when(presenter.getGetProductDbUseCase().get("1L")).thenReturn(product);
 
         verify(view).initDeckImage(R.drawable.map_05_fwd);
         verify(view).setProductCoordinate(0f, 0f);

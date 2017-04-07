@@ -30,7 +30,7 @@ public class ProductDetailActivityModule {
     }
 
     @Provides
-    ProductDetailPresenter providesProductDetailPresenter(long productId, ProductDetailView productDetailView,
+    ProductDetailPresenter providesProductDetailPresenter(String productId, ProductDetailView productDetailView,
                                                           GetProductDbUseCase getProductDbUseCase) {
         return new ProductDetailPresenter(productId, productDetailView, getProductDbUseCase);
     }

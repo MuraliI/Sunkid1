@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ProductInformationMapperTest {
 
-    private static final Long PRODUCT_ID = 10001L;
+    private static final String PRODUCT_ID = "10001";
     private static final String PRODUCT_NAME = "Excursion with dolphins";
     private static final int PRODUCT_DECK_NUMBER = 12;
     private static final String PRODUCT_DIRECTION = "AFT";
