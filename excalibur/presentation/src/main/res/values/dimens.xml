@@ -57,7 +57,6 @@
     <dimen name="product_detail_reservation_message_container_elevation">12dp</dimen>
     <dimen name="product_detail_reservation_title_drawable_padding">10dp</dimen>
     <dimen name="product_detail_toolbar_icon_size">50dp</dimen>
-    <dimen name="product_detail_blur_default_radius">0dp</dimen>
     <dimen name="detail_discover_item_blur_radius">5dp</dimen>
     <dimen name="plan_list_margin_top_section">20dp</dimen>
     <dimen name="plan_list_separator_section">10dp</dimen>
@@ -71,8 +70,8 @@
     <dimen name="ic_drop_down_arrow_blue_size">16dp</dimen>
     <dimen name="price_range_dolar_margin_end">1dp</dimen>
     <dimen name="prices_from_margin">40dp</dimen>
-    <dimen name="menu_button_height">60dp</dimen>
-    <dimen name="menu_button_width">0dp</dimen>
+    <dimen name="menu_button_height">@dimen/menu_button_width</dimen>
+    <dimen name="menu_button_width">75dp</dimen>
     <dimen name="upcharge_container_corner_radious">3dp</dimen>
     <dimen name="upcharge_container_line_width">1dp</dimen>
     <dimen name="upcharge_container_padding">5dp</dimen>
@@ -132,4 +131,5 @@
     <!-- create account done Flow -->
     <dimen name="create_account_text_size_title">48sp</dimen>
     <dimen name="create_account_text_size_sub_title">18sp</dimen>
+    <dimen name="default_status_bar_height">24dp</dimen>
 </resources>

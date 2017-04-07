@@ -5,17 +5,17 @@ import java.util.List;
 
 public class ProductPreference {
 
-    private long preferenceId;
+    private String preferenceId;
     private String preferenceName;
     private boolean mandatoryPreferenceFlag;
     private String preferenceType;
     private List<ProductPreferenceValue> preferenceValue;
 
-    public long getPreferenceId() {
+    public String getPreferenceId() {
         return preferenceId;
     }
 
-    public void setPreferenceId(long preferenceId) {
+    public void setPreferenceId(String preferenceId) {
         this.preferenceId = preferenceId;
     }
 

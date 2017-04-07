@@ -17,7 +17,7 @@ public class PreferenceEntity extends Model {
     public static final String COLUMN_TYPE = "type";
 
     @Column(name = COLUMN_PREFERENCE_ID)
-    private long preferenceId;
+    private String preferenceId;
     @Column(name = COLUMN_NAME)
     private String name;
     @Column(name = COLUMN_TYPE)
@@ -29,11 +29,11 @@ public class PreferenceEntity extends Model {
         super();
     }
 
-    public long getPreferenceId() {
+    public String getPreferenceId() {
         return preferenceId;
     }
 
-    public void setPreferenceId(long preferenceId) {
+    public void setPreferenceId(String preferenceId) {
         this.preferenceId = preferenceId;
     }
 

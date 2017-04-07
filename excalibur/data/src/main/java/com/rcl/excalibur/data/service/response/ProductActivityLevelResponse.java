@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProductActivityLevelResponse {
     @SerializedName("activityLevelID")
-    private long activityLevelId;
+    private String activityLevelId;
     private String activityLevelTitle;
     private String activityLevelDescription;
     private MediaResponse activityLevelMedia;
@@ -22,14 +22,6 @@ public class ProductActivityLevelResponse {
         this.activityLevelDescription = activityLevelDescription;
     }
 
-    public long getActivityLevelId() {
-        return activityLevelId;
-    }
-
-    public void setActivityLevelId(long activityLevelId) {
-        this.activityLevelId = activityLevelId;
-    }
-
     public String getActivityLevelTitle() {
         return activityLevelTitle;
     }
@@ -44,5 +36,13 @@ public class ProductActivityLevelResponse {
 
     public void setActivityLevelMedia(MediaResponse activityLevelMedia) {
         this.activityLevelMedia = activityLevelMedia;
+    }
+
+    public String getActivityLevelId() {
+        return activityLevelId;
+    }
+
+    public void setActivityLevelId(String activityLevelId) {
+        this.activityLevelId = activityLevelId;
     }
 }

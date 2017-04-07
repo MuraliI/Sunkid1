@@ -7,15 +7,15 @@ import java.util.List;
 
 public class ProductCategoryResponse {
     @SerializedName("categoryid")
-    private long categoryId;
+    private String categoryId;
     private String categoryDescription;
     private List<ProductTagsResponse> productTags;
 
-    public long getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
