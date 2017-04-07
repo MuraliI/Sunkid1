@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProductTypeResponse {
     @SerializedName("productTypeID")
-    private long productTypeId;
+    private String productTypeId;
     private String productTypeName;
     private String productType;
 
-    public long getProductTypeId() {
+    public String getProductTypeId() {
         return productTypeId;
     }
 
-    public void setProductTypeId(long productTypeId) {
+    public void setProductTypeId(String productTypeId) {
         this.productTypeId = productTypeId;
     }
 
