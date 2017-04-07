@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ExpandableAccessibilityDelegateAdapter<VT extends ExpandableAccesibilityViewType> extends
-        ExpandableContentDelegateAdapter<ExpandableAccessibiltyViewHolder<VT>, VT, VT> {
+        ExpandableContentDelegateAdapter<ExpandableAccessibiltyViewHolder<VT>, VT> {
 
     public ExpandableAccessibilityDelegateAdapter(ExpandableContentViewHolder.OnViewExpandedListener<VT> listener) {
         super(listener);

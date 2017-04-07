@@ -6,13 +6,12 @@ import com.rcl.excalibur.adapters.delegate.viewholder.base.ExpandableContentView
 
 import java.lang.ref.WeakReference;
 
-public abstract class ExpandableContentDelegateAdapter<EVH extends ExpandableContentViewHolder<EXVT>,
-        DVT extends RecyclerViewType,
-        EXVT extends RecyclerViewType> implements DelegateAdapter<EVH, DVT> {
+public abstract class ExpandableContentDelegateAdapter<EVH extends ExpandableContentViewHolder<DVT>,
+        DVT extends RecyclerViewType> implements DelegateAdapter<EVH, DVT> {
 
-    protected WeakReference<ExpandableAccessibiltyViewHolder.OnViewExpandedListener<EXVT>> listener;
+    protected WeakReference<ExpandableAccessibiltyViewHolder.OnViewExpandedListener<DVT>> listener;
 
-    public ExpandableContentDelegateAdapter(ExpandableAccessibiltyViewHolder.OnViewExpandedListener<EXVT> listener) {
+    public ExpandableContentDelegateAdapter(ExpandableAccessibiltyViewHolder.OnViewExpandedListener<DVT> listener) {
         this.listener = new WeakReference<>(listener);
     }
 }

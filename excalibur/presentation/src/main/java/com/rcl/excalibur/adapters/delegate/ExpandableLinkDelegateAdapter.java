@@ -14,9 +14,7 @@ import com.rcl.excalibur.utils.StringUtils;
 
 
 public class ExpandableLinkDelegateAdapter<VT extends ExpandableLinkViewType> extends
-        ExpandableContentDelegateAdapter<ExpandableLinkViewHolder<VT>,
-                VT,
-                VT> {
+        ExpandableContentDelegateAdapter<ExpandableLinkViewHolder<VT>, VT> {
 
     public ExpandableLinkDelegateAdapter(ExpandableContentViewHolder.OnViewExpandedListener<VT> listener) {
         super(listener);
