@@ -21,7 +21,7 @@
         android:id="@+id/name_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:paddingTop="@dimen/guest_padding_top"
         android:layout_margin="@dimen/margin_general"
         android:orientation="vertical">
 
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_general"
-            android:gravity="center"
+            android:gravity="left"
             android:hint="@string/guest_name_hint"
             android:inputType="textNoSuggestions"
             android:textColor="@color/white"
@@ -50,7 +50,8 @@
             style="@style/AppTheme.GuestErrorTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:gravity="center"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

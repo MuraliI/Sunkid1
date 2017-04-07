@@ -19,7 +19,6 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
-import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 
 public class PasswordActivity extends BaseActivity<PasswordPresenter> {
@@ -64,11 +63,6 @@ public class PasswordActivity extends BaseActivity<PasswordPresenter> {
     public void onClickImageViewNext() {
         AnalyticsUtils.trackEvent(new AnalyticEvent(AnalyticsConstants.KEY_GUEST_ACCOUNT_SUBMIT_CREDENTIALS));
         presenter.onClickImageViewNext();
-    }
-
-    @OnFocusChange(R.id.edit_create_password)
-    void onFocusChange(boolean hasFocus) {
-        presenter.setFocus(hasFocus);
     }
 
     @OnCheckedChanged(R.id.checkbox_show_password)

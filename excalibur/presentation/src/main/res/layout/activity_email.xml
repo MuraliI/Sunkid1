@@ -23,7 +23,7 @@
         android:id="@+id/email_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:paddingTop="@dimen/guest_padding_top"
         android:layout_margin="@dimen/margin_general"
         android:orientation="vertical">
 
@@ -40,22 +40,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_general"
-            android:gravity="center"
+            android:gravity="left"
             android:hint="@string/title_hint_email_address"
-            android:imeOptions="actionGo"
             android:inputType="textEmailAddress"
             android:maxLength="@integer/max_length_email"
             android:textColor="@color/white"
-            android:textColorHint="@color/email_editText_inactive"
-            android:textSize="@dimen/size_text_big"
-            android:theme="@style/AppTheme.LoginFlowEditText" />
+            android:theme="@style/AppTheme.GuestEditText" />
 
         <TextView
             android:id="@+id/text_show_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

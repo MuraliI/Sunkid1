@@ -60,6 +60,15 @@ public class SecurityQuestionsAdapter extends BaseAdapter<String, SecurityQuesti
 
         @OnClick(R.id.radio_question)
         void itemChecked() {
+            selectItem();
+        }
+
+        @OnClick(R.id.text_question)
+        void itemTextChecked() {
+            selectItem();
+        }
+
+        private void selectItem() {
             int buffer = selectedPosition;
             selectedPosition = getAdapterPosition();
             notifyItemChanged(buffer);
