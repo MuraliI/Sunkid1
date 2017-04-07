@@ -16,6 +16,7 @@ import java.util.List;
 public class ProductDetailPresenter implements ActivityPresenter {
     private static final int MAX_BLUR_VALUE = 25;
     private static final int HEIGHT_FACTOR = 4;
+    private static final float MULTIPLIER_LOCATION_Y = 0.85f;
 
     private GetProductDbUseCase getProductDbUseCase;
     private ProductDetailView view;
@@ -44,6 +45,7 @@ public class ProductDetailPresenter implements ActivityPresenter {
     private void initView() {
         ProductDetailActivity activity = view.getActivity();
         if (activity != null) {
+            view.initStatusBarHeight();
             view.setupToolbar();
             view.initAnimation();
             if (product.getProductMedia() != null
@@ -94,23 +96,26 @@ public class ProductDetailPresenter implements ActivityPresenter {
         }
     }
 
-    private class LocationOnScreenObserver extends DefaultPresentObserver<Integer, ProductDetailPresenter> {
+    private class LocationOnScreenObserver extends DefaultPresentObserver<int[], ProductDetailPresenter> {
 
         public LocationOnScreenObserver(ProductDetailPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(Integer outLocationY) {
-            checkLocationOnScreen(outLocationY);
+        public void onNext(int[] values) {
+            checkLocationOnScreen(values);
         }
     }
 
-    private void checkLocationOnScreen(Integer outLocationY) {
-        if (outLocationY < 230 && !isTitleVisible) {
+    private void checkLocationOnScreen(int[] values) {
+        int outLocationY = values[0];
+        float limitLocationY = (values[1] + values[2]) * MULTIPLIER_LOCATION_Y;
+
+        if (outLocationY < limitLocationY && !isTitleVisible) {
             isTitleVisible = true;
             view.showCollapsingToolbarTitle();
-        } else if (outLocationY >= 230 && isTitleVisible) {
+        } else if (outLocationY >= limitLocationY && isTitleVisible) {
             isTitleVisible = false;
             view.hideCollapsingToolbarTitle();
         }
