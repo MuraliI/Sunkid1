@@ -87,7 +87,7 @@ public class ProductResponseDataMapperTest {
         productResponse2.setProductCode("2751");
 
         productTypeResponse = new ProductTypeResponse();
-        productTypeResponse.setProductTypeId(27L);
+        productTypeResponse.setProductTypeId("27");
         productTypeResponse.setProductTypeName("Show Tickets");
         productTypeResponse.setProductType("ENTERTAINMENT");
         productResponse1.setProductType(productTypeResponse);
