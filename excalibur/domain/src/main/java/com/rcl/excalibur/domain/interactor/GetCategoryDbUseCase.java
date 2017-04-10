@@ -17,7 +17,7 @@ public class GetCategoryDbUseCase extends UseCaseSync {
         return categoryRepository.getAll();
     }
 
-    Category get(long categoryId) {
+    Category get(String categoryId) {
         return categoryRepository.get(categoryId);
     }
 }

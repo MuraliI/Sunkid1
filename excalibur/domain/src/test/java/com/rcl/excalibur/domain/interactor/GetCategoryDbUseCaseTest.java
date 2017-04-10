@@ -27,7 +27,7 @@ public class GetCategoryDbUseCaseTest {
 
     @Test
     public void get() throws Exception {
-        final long categoryId = 1;
+        final String categoryId = "1";
         useCase.get(categoryId);
         verify(categoryRepository).get(categoryId);
     }

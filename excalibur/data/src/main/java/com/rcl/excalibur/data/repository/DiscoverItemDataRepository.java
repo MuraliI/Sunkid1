@@ -41,8 +41,8 @@ public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem,
     }
 
     @Override
-    public DiscoverItem get(int id) {
-        return get(DiscoverItemEntity.COLUMN_DISCOVER_ITEM_ID, String.valueOf(id));
+    public DiscoverItem get(String id) {
+        return get(DiscoverItemEntity.COLUMN_DISCOVER_ITEM_ID, id);
     }
 
     @Override
