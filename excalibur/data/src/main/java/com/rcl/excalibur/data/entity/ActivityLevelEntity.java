@@ -14,6 +14,7 @@ public class ActivityLevelEntity extends Model {
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_MEDIA = "media";
 
+    //TODO create unique constraints and indexes when services are defined
     @Column(name = COLUMN_ACTIVITY_LEVEL_ID)
     private String activityLevelId;
     @Column(name = COLUMN_TITLE)
