@@ -37,7 +37,8 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
         holder.product = product;
 
         List<ProductCategory> productCategory = product.getProductCategory();
-        if (!productCategory.isEmpty()) {
+        if (!productCategory.isEmpty() && productCategory.get(0).getProductTags() != null
+                && !productCategory.get(0).getProductTags().isEmpty()) {
             holder.categoryTextView.setText(productCategory.get(0).getProductTags().get(0).getDescription());
         }
 
