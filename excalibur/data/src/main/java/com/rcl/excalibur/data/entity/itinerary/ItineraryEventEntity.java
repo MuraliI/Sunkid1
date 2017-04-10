@@ -16,7 +16,7 @@ public class ItineraryEventEntity extends Model {
     public static final String COLUMN_EVENT_START_TIME = "event_start_time";
     public static final String COLUMN_EVENT_END_TIME = "event_end_time";
 
-    @Column(name = COLUMN_EVENT_ID, unique = true)
+    @Column(name = COLUMN_EVENT_ID)
     public String eventID;
     @Column(name = COLUMN_EVENT_TYPE)
     public String eventType;

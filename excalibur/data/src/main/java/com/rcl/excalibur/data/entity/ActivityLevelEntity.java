@@ -14,7 +14,7 @@ public class ActivityLevelEntity extends Model {
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_MEDIA = "media";
 
-    @Column(name = COLUMN_ACTIVITY_LEVEL_ID, unique = true, index = true)
+    @Column(name = COLUMN_ACTIVITY_LEVEL_ID)
     private String activityLevelId;
     @Column(name = COLUMN_TITLE)
     private String title;
