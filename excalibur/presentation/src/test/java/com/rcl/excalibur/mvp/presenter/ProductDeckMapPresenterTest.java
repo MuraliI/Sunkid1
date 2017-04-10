@@ -24,7 +24,8 @@ import static org.mockito.Mockito.when;
 
 
 public class ProductDeckMapPresenterTest {
-    @Inject ProductDeckMapPresenter presenter;
+    @Inject
+    ProductDeckMapPresenter presenter;
     private AppComponentTest appComponentTest;
     private ProductsComponentTest productsComponentTest;
     private ProductsDeckMapActivityComponentTest activityComponentTest;
@@ -50,7 +51,7 @@ public class ProductDeckMapPresenterTest {
 
     @Test
     public void initTest() throws Exception {
-        presenter.init("1L");
+        presenter.init("1");
         ProductDeckMapView view = presenter.getView();
 
         Product product = new Product();
@@ -59,7 +60,7 @@ public class ProductDeckMapPresenterTest {
         product.setProductType(productType);
         product.setProductTitle("Mock Tittle");
 
-        when(presenter.getGetProductDbUseCase().get("1L")).thenReturn(product);
+        when(presenter.getGetProductDbUseCase().get("1")).thenReturn(product);
 
         verify(view).initDeckImage(R.drawable.map_05_fwd);
         verify(view).setProductCoordinate(0f, 0f);

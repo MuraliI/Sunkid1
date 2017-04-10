@@ -27,14 +27,15 @@ import static org.mockito.Mockito.verify;
 
 public class ProductDetailPresenterTest {
 
-    @Inject ProductDetailPresenter presenter;
+    @Inject
+    ProductDetailPresenter presenter;
     AppComponentTest appComponentTest;
     ProductsComponentTest productsComponentTest;
     ProductsListComponentTest productsListComponentTest;
     ProductDetailComponentTest productDetailComponentTest;
     ProductDetailActivityComponentTest productDetailActivityComponentTest;
 
-    private static final String PRODUCT_ID = "1L";
+    private static final String PRODUCT_ID = "1";
 
     private static final int VERTICAL_OFFSET = 50;
     private static final int TOTAL_SCROLL_RANGE = 100;

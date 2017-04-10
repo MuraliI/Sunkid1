@@ -11,6 +11,7 @@ import android.view.ViewTreeObserver;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.custom.view.DeckMapImageView;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.internal.di.component.ActivityComponent;
 import com.rcl.excalibur.internal.di.component.products.ProductsDeckMapActivityComponent;
 import com.rcl.excalibur.internal.di.module.products.ProductsDeckMapActivityModule;
@@ -44,7 +45,7 @@ public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover_deck_map);
 
-        String productItemId = "0L";
+        String productItemId = ConstantsUtil.EMPTY;
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_PRODUCT_ITEM_ID)) {
             productItemId = intent.getExtras().getString(EXTRA_PRODUCT_ITEM_ID);
