@@ -41,6 +41,8 @@ public class DiscoverServicesImpl implements DiscoverServices {
     private static final String ENTERTAINMENT = "ENTERTAINMENT";
     private static final String DINING = "DINING";
     private static final String SPA = "SPA";
+    private static final String SHOPPING = "SHOPPING";
+    private static final String GUEST_SERVICES = "GUEST_SERVICES";
 
     private final ProductRepository productRepository;
     private final ProductResponseDataMapper productResponseDataMapper;
@@ -214,19 +216,34 @@ public class DiscoverServicesImpl implements DiscoverServices {
                                             public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
                                                 saveData(response, productList);
 
-                                                productRepository.create(productList);
+                                                Call<GetProductsResponse> shoppingCall = discoverApi.getProducts(SAILING_ID, SHOPPING, MAX_COUNT);
+                                                shoppingCall.enqueue(new Callback<GetProductsResponse>() {
+                                                    @Override
+                                                    public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                                                        //Fixme Mock product SHOP productType
+                                                        mockResponseProductType(response, SHOPPING);
+                                                        saveData(response, productList);
+
+                                                        productRepository.create(productList);
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+                                                        logOnFailureError(t, ACTIVITIES);
+                                                    }
+                                                });
                                             }
 
                                             @Override
                                             public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                                                Timber.e("error", t.getMessage());
+                                                logOnFailureError(t, ACTIVITIES);
                                             }
                                         });
                                     }
 
                                     @Override
                                     public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                                        Timber.e("error", t.getMessage());
+                                        logOnFailureError(t, ENTERTAINMENT);
                                     }
                                 });
 
@@ -234,23 +251,27 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
                             @Override
                             public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                                Timber.e("error", t.getMessage());
+                                logOnFailureError(t, SPA);
                             }
                         });
                     }
 
                     @Override
                     public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                        Timber.e("error", t.getMessage());
+                        logOnFailureError(t, SHOREX);
                     }
                 });
             }
 
             @Override
             public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                Timber.e("error", t.getMessage());
+                logOnFailureError(t, DINING);
             }
         });
+    }
+
+    private void logOnFailureError(Throwable t, String category) {
+        Timber.e(t, "Error on %s call, message = %s", category, t.getMessage());
     }
 
     private void saveData(Response<GetProductsResponse> response, List<Product> productList) {
@@ -377,5 +398,11 @@ public class DiscoverServicesImpl implements DiscoverServices {
         productLocationResponse.setLocationPort("St. Martin");
         productLocationResponse.setLocationDirection("AFT");
         productLocationResponse.setLocationDeckNumber(12);
+    }
+
+    private void mockResponseProductType(Response<GetProductsResponse> response, String type) {
+        for (ProductResponse product : response.body().getProducts()) {
+            product.getProductType().setProductType(type);
+        }
     }
 }

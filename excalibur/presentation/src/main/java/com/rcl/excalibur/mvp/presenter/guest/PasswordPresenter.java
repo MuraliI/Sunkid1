@@ -41,15 +41,6 @@ public class PasswordPresenter implements ActivityPresenter {
         ActivityUtils.onBackActivity(activity);
     }
 
-    public void setFocus(boolean hasFocus) {
-        final BaseActivity activity = view.getActivity();
-        if (activity == null) {
-            return;
-        }
-        view.setHint(activity.getString(hasFocus ? R.string.empty_string : R.string.hint_password));
-        verifyPassword();
-    }
-
     public void verifyPassword() {
         final BaseActivity activity = view.getActivity();
         if (activity == null) {
@@ -72,23 +63,15 @@ public class PasswordPresenter implements ActivityPresenter {
     }
 
     private SpannableStringBuilder isValidPassword(String password, Context context) {
-        boolean hasUppercase = password.equals(password.toLowerCase());
-        boolean hasLowercase = password.equals(password.toUpperCase());
         boolean isAtLeast7 = password.length() <= MIN_CHAR;
         boolean hasSpecial = !password.matches(REGEX);
 
         String minChars = context.getString(R.string.min_characters);
-        String uppercaseChars = context.getString(R.string.must_uppercase);
-        String lowercaseChars = context.getString(R.string.must_lowercase);
         String specialChars = context.getString(R.string.must_special_character);
         String whiteSpace = context.getString(R.string.space_string);
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append(getSpannableString(minChars, isAtLeast7));
-        builder.append(whiteSpace);
-        builder.append(getSpannableString(uppercaseChars, hasUppercase));
-        builder.append(whiteSpace);
-        builder.append(getSpannableString(lowercaseChars, hasLowercase));
         builder.append(whiteSpace);
         builder.append(getSpannableString(specialChars, hasSpecial));
 
@@ -96,12 +79,10 @@ public class PasswordPresenter implements ActivityPresenter {
     }
 
     private boolean isValidateNext(String password) {
-        boolean hasUppercase = password.equals(password.toLowerCase());
-        boolean hasLowercase = password.equals(password.toUpperCase());
         boolean isAtLeast7 = password.length() <= MIN_CHAR;
         boolean hasSpecial = !password.matches(REGEX);
 
-        return !isAtLeast7 && !hasUppercase && !hasLowercase && !hasSpecial;
+        return !isAtLeast7 && !hasSpecial;
     }
 
     public void hideKeyBoard() {

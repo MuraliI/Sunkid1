@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DescriptionViewType;
+import com.rcl.excalibur.utils.StringUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,7 +25,7 @@ public class DescriptionDelegateAdapter
 
     @Override
     public void onBindViewHolder(DescriptionViewHolder holder, DescriptionViewType item) {
-        holder.textDescription.setText(item.getDescription());
+        holder.textDescription.setText(StringUtils.fromHtml(item.getDescription()));
     }
 
     class DescriptionViewHolder extends RecyclerView.ViewHolder {

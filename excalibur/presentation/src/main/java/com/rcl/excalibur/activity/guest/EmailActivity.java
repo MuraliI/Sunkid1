@@ -15,7 +15,6 @@ import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
-import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 
 public class EmailActivity extends BaseActivity<EmailPresenter> {
@@ -36,11 +35,6 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
     @OnClick(R.id.image_back_screen)
     public void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();
-    }
-
-    @OnFocusChange(R.id.edit_email)
-    void onFocusChange(boolean hasFocus) {
-        presenter.setFocus(hasFocus);
     }
 
     @OnTextChanged(value = R.id.edit_email, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)

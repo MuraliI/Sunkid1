@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public final class StringUtils {
 
     public static final String SPLIT_SEPARATOR = " ";
-    public static final String REGEX_FULL_NAME = "^[a-zA-Z0-9 -]*$";
+    public static final String REGEX_FULL_NAME = "^[a-zA-Z0-9 - ! # $ % & ' * + - / = ? ^ _ ` { | } ~]*$";
     private static final String EMAILPATTERN = "^[A-Z0-9_%+-]+@[A-Z0-9]+\\.[A-Z]{2,6}$";
 
     private StringUtils() {

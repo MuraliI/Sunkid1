@@ -54,11 +54,6 @@ public class EmailView extends ActivityView<EmailActivity, Void> {
         manageNavigation(false, INACTIVE);
     }
 
-    public void setHint(String hint) {
-        editTextEmail.setHint(hint);
-        hideKeyboard();
-    }
-
     public void cleanTextViewError() {
         textViewEmailAddressError.setText(R.string.empty_string);
     }
