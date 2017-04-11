@@ -169,7 +169,7 @@ public final class DetailViewTypeFactory {
             addExpandableAndDescriptionTypes(recyclerViewTypeList,
                     res.getString(R.string.detail_module_legal),
                     advisement.getAdvisementDescription());
-
+        }
     }
 
     private static void addDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
