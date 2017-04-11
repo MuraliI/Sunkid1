@@ -24,4 +24,8 @@
     <integer name="detail_toolbar_title_animation_time">200</integer>
 
     <integer name="detail_parallax_multiplier">1</integer>
+
+    <!-- Itinerary view -->
+    <integer name="itinerary_product_item_max_range" >6</integer>
+
 </resources>
