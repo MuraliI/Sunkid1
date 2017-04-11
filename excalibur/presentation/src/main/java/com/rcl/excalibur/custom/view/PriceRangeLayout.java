@@ -61,7 +61,7 @@ public class PriceRangeLayout extends LinearLayout {
         this.maxRange = maxRange;
         dollars = new ImageView[maxRange];
         for (int i = 0; i < maxRange; i++) {
-            dollars[i] = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.view_price_range_dollar, null, false);
+            dollars[i] = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.view_price_range_dollar, rootLayout, false);
             rootLayout.addView(dollars[i]);
         }
         invalidate();

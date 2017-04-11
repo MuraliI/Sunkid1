@@ -3,6 +3,8 @@
     android:id="@+id/image_price_range_dollar"
     android:layout_width="@dimen/upcharge_icon_size"
     android:layout_height="@dimen/upcharge_icon_size"
+    android:layout_marginStart="@dimen/upcharge_icon_margin_sides"
     android:layout_marginEnd="@dimen/upcharge_icon_margin_sides"
     android:src="@drawable/ic_dolar"
+    android:contentDescription="@null"
     android:tint="@color/grey"/>
