@@ -8,10 +8,12 @@ import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.utils.DateUtils;
 
 import java.util.Calendar;
+import java.util.Random;
 
 
 public class ItineraryProductModelMapper extends BaseDataMapper<ItineraryProductModel, ItineraryEvent> {
 
+    private static final String SPACE_STRING = " ";
     private Resources resources;
 
     public ItineraryProductModelMapper(Resources resources) {
@@ -24,21 +26,30 @@ public class ItineraryProductModelMapper extends BaseDataMapper<ItineraryProduct
         productModel.setProductId(itineraryEvent.getId());
         productModel.setName(itineraryEvent.getName());
 
-        String builder = DateUtils.getDateTime(itineraryEvent.getStartDate(), resources)
+        String dateBuilder = DateUtils.getDateTime(itineraryEvent.getStartDate(), resources)
+                + SPACE_STRING
                 + resources.getString(R.string.itinerary_product_view_dash)
+                + SPACE_STRING
                 + DateUtils.getDateTime(itineraryEvent.getEndDate(), resources);
 
+        // TODO: these are a mock values
+        String deckAndDirectionValue = "Deck 12 " + "AFT";
+        int resourceIdIcon = R.drawable.ic_blue_checkbox;
+        boolean isFavorite = new Random().nextBoolean();
 
         Calendar startDate = Calendar.getInstance();
         startDate.setTime(itineraryEvent.getStartDate());
         Calendar endDate = Calendar.getInstance();
         endDate.setTime(itineraryEvent.getEndDate());
 
+        productModel.setResourceIdIcon(resourceIdIcon);
+        productModel.setFavorite(isFavorite);
         productModel.setStartDate(startDate);
         productModel.setEndDate(endDate);
-        productModel.setOperatinghours(builder);
+        productModel.setOperatingHours(dateBuilder);
         productModel.setLocationPointer(itineraryEvent.getLocation());
         productModel.setImageUrl(itineraryEvent.getThumbnail());
+        productModel.setDeckAndDirection(deckAndDirectionValue);
         //TODO Map other fields remaining on the ItineraryProductModel
         return productModel;
     }

@@ -1,5 +1,6 @@
 package com.rcl.excalibur.model.itinerary;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
@@ -19,16 +20,36 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
     public static final int STATE_ON_GOING = 2;
     public static final int STATE_UP_COMING = 1;
 
-
+    private boolean isFavorite;
+    @DrawableRes
+    private int resourceIdIcon;
     private String productId;
     private String imageUrl;
     private String name;
     private String venue;
     private String deckNumber;
     private String locationPointer;
-    private String operatinghours;
+    private String operatingHours;
     private Calendar startDate;
     private Calendar endDate;
+    private String deckAndDirection;
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    @DrawableRes
+    public int getResourceIdIcon() {
+        return resourceIdIcon;
+    }
+
+    public void setResourceIdIcon(@DrawableRes int resourceIdIcon) {
+        this.resourceIdIcon = resourceIdIcon;
+    }
 
     public String getProductId() {
         return productId;
@@ -78,12 +99,12 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
         this.locationPointer = locationPointer;
     }
 
-    public String getOperatinghours() {
-        return operatinghours;
+    public String getOperatingHours() {
+        return operatingHours;
     }
 
-    public void setOperatinghours(String operatinghours) {
-        this.operatinghours = operatinghours;
+    public void setOperatingHours(String operatingHours) {
+        this.operatingHours = operatingHours;
     }
 
     public Calendar getStartDate() {
@@ -158,6 +179,14 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
         else
             return -1;
 
+    }
+
+    public void setDeckAndDirection(String deckAndDirection) {
+        this.deckAndDirection = deckAndDirection;
+    }
+
+    public String getDeckAndDirection() {
+        return deckAndDirection;
     }
 }
 

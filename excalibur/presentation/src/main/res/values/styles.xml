@@ -223,9 +223,11 @@
     </style>
 
     <style name="AppTheme.ProductTitle" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_regular</item>
+        <item name="fontPath">@string/roboto_bold</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/itinerary_product_card_text_dark_grey</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <style name="AppTheme.ProductDate" parent="@android:style/Widget.TextView">

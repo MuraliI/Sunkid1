@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- General -->
+    <integer name="text_one_line">1</integer>
+    <integer name="text_two_lines">2</integer>
+
     <integer name="ic_arrow_viewport_size">24</integer>
 
     <!-- Detail view integers -->
@@ -20,5 +24,4 @@
     <integer name="detail_toolbar_title_animation_time">200</integer>
 
     <integer name="detail_parallax_multiplier">1</integer>
-    <integer name="detail_toolbar_title_lines">1</integer>
 </resources>
