@@ -44,15 +44,15 @@ public final class DetailViewTypeFactory {
 
         addHeroSectionHeader(product, viewTypes);
         addMakeReservation(viewTypes, resources, product);
-        addCuisineModule(viewTypes, resources, product); //
-        addDurationModule(viewTypes, resources, product); //
+        addCuisineModule(viewTypes, resources, product);
+        addDurationModule(viewTypes, resources, product);
         addExperienceModule(viewTypes, resources, product);
-        addAttireModule(viewTypes, resources, product); //
-        addRestrictionModules(viewTypes, resources, product); //
-        addKnowBeforeYouGoModule(viewTypes, resources, product); //
-        addDescriptionTypes(viewTypes, product); //
-        addAccessibilityModule(viewTypes, resources, product); //
-        addLegalModule(viewTypes, resources, product); //
+        addAttireModule(viewTypes, resources, product);
+        addRestrictionModules(viewTypes, resources, product);
+        addKnowBeforeYouGoModule(viewTypes, resources, product);
+        addDescriptionTypes(viewTypes, product);
+        addAccessibilityModule(viewTypes, resources, product);
+        addLegalModule(viewTypes, resources, product);
 
         return viewTypes;
     }
@@ -169,7 +169,7 @@ public final class DetailViewTypeFactory {
             addExpandableAndDescriptionTypes(recyclerViewTypeList,
                     res.getString(R.string.detail_module_legal),
                     advisement.getAdvisementDescription());
-        }
+
     }
 
     private static void addDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
