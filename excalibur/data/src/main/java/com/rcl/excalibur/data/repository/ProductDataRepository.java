@@ -109,7 +109,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         createRestriction(entity, product.getRestrictions());
     }
 
-    private void deleteAll() {
+    @Override
+    public void deleteAll() {
         new Delete().from(RestrictionEntity.class).execute();
         new Delete().from(AdvisementEntity.class).execute();
         new Delete().from(ProductEntity.class).execute();
