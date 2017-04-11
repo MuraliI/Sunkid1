@@ -80,7 +80,6 @@ dependencies {
             presentationDependencies.supportDesign,
             presentationDependencies.realTimeBlurView,
             presentationDependencies.scaleImageView
-//            presentationDependencies.okHttpLogging
 
     testCompile presentationTestDependencies.junit,
                 presentationTestDependencies.mockito,

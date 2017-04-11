@@ -363,10 +363,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     }
 
-    @Override
-    public Product get(long id) {
-        return get(ProductEntity.COLUMN_PRODUCT_ID, id);
-    }
+
 
 
     public List<Product> getAll(@NonNull String type) {
@@ -383,4 +380,11 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
                 .execute();
         return getMapper().transform(entities);
     }
+
+    @Override
+    public Product get(String id) {
+        return get(ProductEntity.COLUMN_PRODUCT_ID, id);
+    }
+
+
 }

@@ -11,5 +11,5 @@ public interface PromotionRepository {
 
     List<Promotion> getAll();
 
-    Promotion get(long id);
+    Promotion get(String id);
 }

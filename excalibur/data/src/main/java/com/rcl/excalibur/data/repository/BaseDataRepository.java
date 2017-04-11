@@ -34,7 +34,7 @@ public abstract class BaseDataRepository<I, E extends Model> {
         return dataMapper.transform(entities);
     }
 
-    public I get(@NonNull String column, final long value) {
+    public I get(@NonNull String column, final String value) {
         final E entity = new Select()
                 .from(claz)
                 .where(eq(column, value))

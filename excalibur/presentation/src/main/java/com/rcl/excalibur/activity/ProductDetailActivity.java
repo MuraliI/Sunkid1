@@ -15,10 +15,9 @@ import butterknife.OnClick;
 
 public class ProductDetailActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener {
     private static final String EXTRA_DISCOVER_ITEM_ID = "EXTRA_DISCOVER_ITEM_ID";
-    private long productId = 0;
     protected ProductDetailPresenter presenter;
 
-    public static Intent getIntent(final BaseActivity activity, long productId) {
+    public static Intent getIntent(final BaseActivity activity, String productId) {
         Intent intent = new Intent(activity, ProductDetailActivity.class);
         intent.putExtra(EXTRA_DISCOVER_ITEM_ID, productId);
         return intent;
@@ -33,7 +32,7 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
         if (intent == null || !intent.hasExtra(EXTRA_DISCOVER_ITEM_ID)) {
             return;
         }
-        productId = getIntent().getExtras().getLong(EXTRA_DISCOVER_ITEM_ID);
+        String productId = intent.getExtras().getString(EXTRA_DISCOVER_ITEM_ID);
         presenter = new ProductDetailPresenter(new ProductDetailView(this), new GetProductDbUseCase(new ProductDataRepository()));
         presenter.init(productId);
     }

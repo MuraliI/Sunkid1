@@ -11,5 +11,5 @@ public interface CategoryRepository {
 
     List<Category> getAll();
 
-    Category get(long id);
+    Category get(String id);
 }

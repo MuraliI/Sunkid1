@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
+import com.rcl.excalibur.data.utils.Preconditions;
+
 import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -18,6 +20,7 @@ public class BasePreferenceImpl {
     private SharedPreferences preferences;
 
     public BasePreferenceImpl(final Context context, final String name) {
+        Preconditions.notNull(context);
         this.preferences = context.getApplicationContext().getSharedPreferences(name, MODE_PRIVATE);
 
     }

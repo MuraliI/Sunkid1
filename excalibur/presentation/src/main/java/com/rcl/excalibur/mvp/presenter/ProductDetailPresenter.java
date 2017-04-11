@@ -26,7 +26,7 @@ public class ProductDetailPresenter implements BasePresenter {
         this.getProductDbUseCase = getProductDbUseCase;
     }
 
-    public void init(long productId) {
+    public void init(String productId) {
         final ProductDetailActivity activity = view.getActivity();
         final Product product = getProductDbUseCase.get(productId);
         if (activity == null || product == null) {

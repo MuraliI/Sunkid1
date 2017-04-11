@@ -15,5 +15,5 @@ public interface ProductRepository {
 
     List<Product> getAll(String type);
 
-    Product get(long id);
+    Product get(String id);
 }

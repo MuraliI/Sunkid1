@@ -38,7 +38,7 @@ public class ProductDeckMapActivity extends BaseActivity implements View.OnTouch
         if (intent == null || !intent.hasExtra(EXTRA_PRODUCT_ITEM_ID)) {
             return;
         }
-        final long productItemId = intent.getLongExtra(EXTRA_PRODUCT_ITEM_ID, 0);
+        final String productItemId = intent.getStringExtra(EXTRA_PRODUCT_ITEM_ID);
         presenter = new ProductDeckMapPresenter(new ProductDeckMapView(this),
                 new GetProductDbUseCase(new ProductDataRepository()));
         presenter.init(productItemId);

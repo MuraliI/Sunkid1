@@ -45,7 +45,6 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
                 holder.categoryTextView.setText(tagsList.get(0).getDescription());
             }
         }
-
         holder.titleTextView.setText(product.getProductTitle());
 
         if ("0".equals(product.getProductLocation().getOperatingHoursEnd())) {
