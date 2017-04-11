@@ -15,7 +15,7 @@ import com.rcl.excalibur.adapters.base.ExpandableContentDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.viewholder.ExpandableAccessibiltyViewHolder;
 import com.rcl.excalibur.adapters.delegate.viewholder.base.ExpandableContentViewHolder;
 import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
-import com.rcl.excalibur.model.ProductAccessibilityModel;
+import com.rcl.excalibur.domain.ProductAdvisement;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class ExpandableAccessibilityDelegateAdapter<VT extends ExpandableAccesib
     }
 
     private static void fillContentLines(ExpandableAccessibiltyViewHolder viewHolder,
-                                         List<ProductAccessibilityModel> accessibilityList) {
+                                         List<ProductAdvisement> accessibilityList) {
         viewHolder.getLayoutContent().removeAllViews();
         Context context = viewHolder.itemView.getContext();
         Resources resources = viewHolder.itemView.getResources();
@@ -52,19 +52,23 @@ public class ExpandableAccessibilityDelegateAdapter<VT extends ExpandableAccesib
             ImageView image = (ImageView) itemView.findViewById(R.id.image_accessibility);
             final int iconSize = (int) resources.getDimension(R.dimen.icon_size);
 
-            String imageUrl = accessibilityList.get(i).getImageUrl();
+            String imageUrl = "";
+            if (accessibilityList.get(i).getAdvisementMedia() != null) {
+                //TODO: Choose the correct media type according to the situation
+                imageUrl = accessibilityList.get(i).getAdvisementMedia().getMediaItem().get(0).getMediaRefLink();
+            }
             Picasso.with(context)
                     .load(BuildConfig.PREFIX_IMAGE + imageUrl)
                     .resize(iconSize, iconSize)
                     .placeholder(R.drawable.ic_blue_checkbox)
                     .into(image);
 
-            String subtitle = accessibilityList.get(i).getSubtitle();
+            String subtitle = accessibilityList.get(i).getAdvisementTitle();
             if (!TextUtils.isEmpty(subtitle)) {
                 subtitleLine.setText(subtitle);
             }
 
-            String description = accessibilityList.get(i).getDescription();
+            String description = accessibilityList.get(i).getAdvisementDescription();
             if (!TextUtils.isEmpty(description)) {
                 descriptionLine.setText(description);
             } else {
