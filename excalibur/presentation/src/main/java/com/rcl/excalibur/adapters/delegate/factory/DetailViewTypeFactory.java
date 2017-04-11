@@ -58,11 +58,11 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
-        if (CollectionUtils.isEmpty(product.getAdvisements()) || CollectionUtils.isEmpty(product.getProductAdvisementsById(ProductAdvisement.CUISINE))) {
+        List<ProductAdvisement> advisementsCuisine = product.getProductAdvisementsById(ProductAdvisement.CUISINE);
+        if (CollectionUtils.isEmpty(advisementsCuisine)) {
             return;
         }
-
-        ProductAdvisement advisement = product.getProductAdvisementsById(ProductAdvisement.CUISINE).get(0);
+        ProductAdvisement advisement = advisementsCuisine.get(0);
         if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
             addTitleAndDescriptionTypes(recyclerViewTypeList,
                     resources.getString(R.string.detail_module_cuisine),
@@ -133,10 +133,11 @@ public final class DetailViewTypeFactory {
 
     private static void addAttireModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                         Product product) {
-        if (CollectionUtils.isEmpty(product.getAdvisements()) || CollectionUtils.isEmpty(product.getProductAdvisementsById(ProductAdvisement.ATTIRE))) {
+        List<ProductAdvisement> advisementsAttire = product.getProductAdvisementsById(ProductAdvisement.ATTIRE);
+        if (CollectionUtils.isEmpty(advisementsAttire)) {
             return;
         }
-        ProductAdvisement advisement = product.getProductAdvisementsById(ProductAdvisement.ATTIRE).get(0);
+        ProductAdvisement advisement = advisementsAttire.get(0);
         if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
             addTitleAndDescriptionTypes(recyclerViewTypeList,
                     res.getString(R.string.discover_item_detail_attire),
@@ -146,10 +147,11 @@ public final class DetailViewTypeFactory {
 
     private static void addKnowBeforeYouGoModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                                  Product product) {
-        if (CollectionUtils.isEmpty(product.getAdvisements()) || CollectionUtils.isEmpty(product.getProductAdvisementsById(ProductAdvisement.KNOW_BEFORE_YOU_GO))) {
+        List<ProductAdvisement> advisementsKnow = product.getProductAdvisementsById(ProductAdvisement.KNOW_BEFORE_YOU_GO);
+        if (CollectionUtils.isEmpty(advisementsKnow)) {
             return;
         }
-        ProductAdvisement advisement = product.getProductAdvisementsById(ProductAdvisement.KNOW_BEFORE_YOU_GO).get(0);
+        ProductAdvisement advisement = advisementsKnow.get(0);
         String description = advisement.getAdvisementDescription();
         if (advisement != null && !TextUtils.isEmpty(description)) {
             //FIXME hardcoded to match UI Design
@@ -162,10 +164,11 @@ public final class DetailViewTypeFactory {
 
     private static void addLegalModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                        Product product) {
-        if (CollectionUtils.isEmpty(product.getAdvisements()) || CollectionUtils.isEmpty(product.getProductAdvisementsById(ProductAdvisement.LEGAL))) {
+        List<ProductAdvisement> advisementsLegal = product.getProductAdvisementsById(ProductAdvisement.LEGAL);
+        if (CollectionUtils.isEmpty(advisementsLegal)) {
             return;
         }
-        ProductAdvisement advisement = product.getProductAdvisementsById(ProductAdvisement.LEGAL).get(0);
+        ProductAdvisement advisement = advisementsLegal.get(0);
         if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
             addExpandableAndDescriptionTypes(recyclerViewTypeList,
                     res.getString(R.string.detail_module_legal),
