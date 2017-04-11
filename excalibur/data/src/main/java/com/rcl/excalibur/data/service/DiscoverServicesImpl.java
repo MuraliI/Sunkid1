@@ -344,7 +344,6 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
         @Override
         public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
-
             mapData(response, productList);
             productRepository.create(productList);
         }
