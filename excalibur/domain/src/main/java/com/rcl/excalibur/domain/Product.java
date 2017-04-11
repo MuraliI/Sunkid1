@@ -31,6 +31,7 @@ public class Product {
     private int upcharge;
     private boolean isReservationRequired;
     private boolean isScheduable;
+    private List<Offering> offerings;
 
     public String getProductId() {
         return productId;
@@ -250,5 +251,13 @@ public class Product {
             }
         }
         return advisementList;
+    }
+
+    public List<Offering> getOfferings() {
+        return offerings;
+    }
+
+    public void setOfferings(List<Offering> offerings) {
+        this.offerings = offerings;
     }
 }
