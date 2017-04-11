@@ -23,9 +23,9 @@ public class ProductDetailPresenter implements ActivityPresenter {
     private List<RecyclerViewType> viewTypes;
 
     protected boolean isTitleVisible = false;
-    private long productId;
+    private String productId;
 
-    public ProductDetailPresenter(long productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
+    public ProductDetailPresenter(String productId, ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
         this.productId = productId;
         this.getProductDbUseCase = getProductDbUseCase;

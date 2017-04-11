@@ -8,14 +8,14 @@ import dagger.Provides;
 @ProductDetailScope
 @Module
 public class ProductDetailModule {
-    private final long productId;
+    private final String productId;
 
-    public ProductDetailModule(long productId) {
+    public ProductDetailModule(String productId) {
         this.productId = productId;
     }
 
     @Provides
-    long providesProductId() {
+    String providesProductId() {
         return productId;
     }
 }
