@@ -153,12 +153,17 @@
     </style>
 
     <!-- Fonts.Itinerary -->
-    <style name="AppTheme.ItinteraryGreetingText" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_regular</item>
+    <style name="AppTheme.ItineraryGreetingText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_bold</item>
         <item name="android:textSize">26sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="AppTheme.ItineraryGreetingExpandableText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/plan_list_lightblue</item>
+    </style>
 
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <!--<item name="tabMaxWidth">@dimen/tab_max_width</item>-->

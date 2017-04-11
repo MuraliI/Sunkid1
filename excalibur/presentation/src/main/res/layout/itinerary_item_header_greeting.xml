@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+    android:paddingTop="@dimen/margin_small"
+    android:paddingBottom="@dimen/margin_small"
+    android:paddingEnd="@dimen/margin_normal"
+    android:paddingStart="@dimen/margin_normal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/text_greeting"
-        style="@style/AppTheme.ItinteraryGreetingText"
+        tools:text="Morning"
+        android:id="@+id/text_itinerary_greeting_title"
+        style="@style/AppTheme.ItineraryGreetingText"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/text_itinerary_greeting_expandable_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginStart="@dimen/margin_normal"/>
+        android:layout_centerVertical="true"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/hairline_height"
-        android:background="@color/grey"/>
-
-</LinearLayout>
+    <TextView
+        android:id="@+id/text_itinerary_greeting_expandable_title"
+        style="@style/AppTheme.ItineraryGreetingExpandableText"
+        android:text="@string/itinerary_product_list_see_all"
+        android:drawableEnd="@drawable/ic_chevron_down"
+        android:drawablePadding="@dimen/margin_xsmall"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
