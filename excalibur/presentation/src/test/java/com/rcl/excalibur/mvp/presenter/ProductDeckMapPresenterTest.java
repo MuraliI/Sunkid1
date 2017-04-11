@@ -30,6 +30,11 @@ public class ProductDeckMapPresenterTest {
     private ProductsComponentTest productsComponentTest;
     private ProductsDeckMapActivityComponentTest activityComponentTest;
 
+    private static final String PRODUCT_ID = "1";
+    private static final String PRODUCT_TYPE = "SPA";
+    private static final String PRODUCT_TITLE = "Mock Tittle";
+
+
     @Before
     public void setUp() throws Exception {
         appComponentTest = DaggerAppComponentTest.builder()
@@ -51,16 +56,16 @@ public class ProductDeckMapPresenterTest {
 
     @Test
     public void initTest() throws Exception {
-        presenter.init("1");
+        presenter.init(PRODUCT_ID);
         ProductDeckMapView view = presenter.getView();
 
         Product product = new Product();
         ProductType productType = new ProductType();
-        productType.setProductType("SPA");
+        productType.setProductType(PRODUCT_TYPE);
         product.setProductType(productType);
-        product.setProductTitle("Mock Tittle");
+        product.setProductTitle(PRODUCT_TITLE);
 
-        when(presenter.getGetProductDbUseCase().get("1")).thenReturn(product);
+        when(presenter.getGetProductDbUseCase().get(PRODUCT_ID)).thenReturn(product);
 
         verify(view).initDeckImage(R.drawable.map_05_fwd);
         verify(view).setProductCoordinate(0f, 0f);
