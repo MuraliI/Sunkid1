@@ -48,8 +48,6 @@ public class DiscoverServicesImpl implements DiscoverServices {
     private final ProductResponseDataMapper productResponseDataMapper;
     private final DiscoverApi discoverApi;
 
-    private long id = -1;
-
     public DiscoverServicesImpl(ProductRepository productRepository, ProductResponseDataMapper productResponseDataMapper,
                                 DiscoverApi discoverApi) {
         this.productRepository = productRepository;
