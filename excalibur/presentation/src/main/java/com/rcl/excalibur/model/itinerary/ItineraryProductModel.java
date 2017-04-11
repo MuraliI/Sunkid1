@@ -20,9 +20,11 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
     public static final int STATE_ON_GOING = 2;
     public static final int STATE_UP_COMING = 1;
 
+    private boolean isCostVisible;
     private boolean isFavorite;
     @DrawableRes
     private int resourceIdIcon;
+    private int priceRange;
     private String productId;
     private String imageUrl;
     private String name;
@@ -33,6 +35,14 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
     private Calendar startDate;
     private Calendar endDate;
     private String deckAndDirection;
+
+    public boolean isCostVisible() {
+        return isCostVisible;
+    }
+
+    public void setCostVisible(boolean costVisible) {
+        isCostVisible = costVisible;
+    }
 
     public boolean isFavorite() {
         return isFavorite;
@@ -49,6 +59,14 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
 
     public void setResourceIdIcon(@DrawableRes int resourceIdIcon) {
         this.resourceIdIcon = resourceIdIcon;
+    }
+
+    public int getPriceRange() {
+        return priceRange;
+    }
+
+    public void setPriceRange(int priceRange) {
+        this.priceRange = priceRange;
     }
 
     public String getProductId() {

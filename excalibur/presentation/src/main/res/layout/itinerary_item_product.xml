@@ -80,6 +80,7 @@
                 android:src="@drawable/ic_deck_map" />
 
             <com.rcl.excalibur.custom.view.PriceRangeLayout
+                android:id="@+id/view_itinerary_product_price_range"
                 app:maxRange="@integer/itinerary_product_item_max_range"
                 app:onColor="@color/black"
                 app:offColor="@color/grey"

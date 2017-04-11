@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
+import com.rcl.excalibur.custom.view.PriceRangeLayout;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 import com.squareup.picasso.Picasso;
 
@@ -41,6 +42,12 @@ public class ItineraryProductDelegateAdapter implements DelegateAdapter<
         } else {
             holder.productFavorite.setVisibility(View.GONE);
         }
+        if (item.isCostVisible()) {
+            holder.priceRange.setVisibility(View.VISIBLE);
+            holder.priceRange.setValue(item.getPriceRange());
+        } else {
+            holder.priceRange.setVisibility(View.GONE);
+        }
         holder.productName.setText(item.getName());
         holder.productOperatingHours.setText(item.getOperatingHours());
         holder.productLocation.setText(item.getLocationPointer());
@@ -56,6 +63,7 @@ public class ItineraryProductDelegateAdapter implements DelegateAdapter<
         @Bind(R.id.image_itinerary_product_picture) ImageView productImage;
         @Bind(R.id.image_itinerary_product_icon) ImageView productIcon;
         @Bind(R.id.image_itinerary_product_favorite) ImageView productFavorite;
+        @Bind(R.id.view_itinerary_product_price_range) PriceRangeLayout priceRange;
 
         ItineraryProductViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.itinerary_item_product, parent, false));

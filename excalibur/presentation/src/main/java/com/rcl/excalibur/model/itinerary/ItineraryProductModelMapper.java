@@ -32,10 +32,12 @@ public class ItineraryProductModelMapper extends BaseDataMapper<ItineraryProduct
                 + SPACE_STRING
                 + DateUtils.getDateTime(itineraryEvent.getEndDate(), resources);
 
-        // TODO: these are a mock values
+        // TODO: these are mock values
         String deckAndDirectionValue = "Deck 12 " + "AFT";
         int resourceIdIcon = R.drawable.ic_blue_checkbox;
         boolean isFavorite = new Random().nextBoolean();
+        boolean isCostVisible = new Random().nextBoolean();
+        int priceRange = new Random().nextInt(5);
 
         Calendar startDate = Calendar.getInstance();
         startDate.setTime(itineraryEvent.getStartDate());
@@ -44,6 +46,8 @@ public class ItineraryProductModelMapper extends BaseDataMapper<ItineraryProduct
 
         productModel.setResourceIdIcon(resourceIdIcon);
         productModel.setFavorite(isFavorite);
+        productModel.setCostVisible(isCostVisible);
+        productModel.setPriceRange(priceRange);
         productModel.setStartDate(startDate);
         productModel.setEndDate(endDate);
         productModel.setOperatingHours(dateBuilder);
