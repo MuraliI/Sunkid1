@@ -1,5 +1,14 @@
 package com.rcl.excalibur.domain.interactor;
 
-public abstract class UseCaseSync {
+public class UseCaseSync<T> {
 
+    private T data;
+
+    protected UseCaseSync(T data) {
+        this.data = data;
+    }
+
+    protected T getData() {
+        return data;
+    }
 }

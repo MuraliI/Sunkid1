@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.frogermcs.androiddevmetrics'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -67,11 +66,8 @@ dependencies {
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     compile project(':domain')
     compile project(':data')
-    apt presentationDependencies.daggerCompiler
-    testApt presentationDependencies.daggerCompiler
 
-    compile presentationDependencies.dagger,
-            presentationDependencies.butterKnife,
+    compile presentationDependencies.butterKnife,
             presentationDependencies.recyclerView,
             presentationDependencies.activeAndroid,
             presentationDependencies.appSupport,
@@ -83,16 +79,15 @@ dependencies {
             generalDependencies.timber,
             presentationDependencies.supportDesign,
             presentationDependencies.realTimeBlurView,
-            presentationDependencies.scaleImageView,
-            presentationDependencies.okHttpLogging
+            presentationDependencies.scaleImageView
+//            presentationDependencies.okHttpLogging
 
-    testCompile presentationDependencies.dagger,
-            presentationTestDependencies.junit,
-            presentationTestDependencies.mockito,
-            presentationTestDependencies.assertj,
-            presentationTestDependencies.powermockCore,
-            presentationTestDependencies.powermockModuleJunit4,
-            presentationTestDependencies.powermockApiMockitoV
+    testCompile presentationTestDependencies.junit,
+                presentationTestDependencies.mockito,
+                presentationTestDependencies.assertj,
+                presentationTestDependencies.powermockCore,
+                presentationTestDependencies.powermockModuleJunit4,
+                presentationTestDependencies.powermockApiMockitoV
 
     androidTestCompile presentationTestDependencies.mockito,
             presentationTestDependencies.dexmaker,

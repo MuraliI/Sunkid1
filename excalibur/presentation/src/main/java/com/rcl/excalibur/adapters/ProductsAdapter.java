@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductCategory;
+import com.rcl.excalibur.domain.ProductTags;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -37,8 +39,11 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
         holder.product = product;
 
         List<ProductCategory> productCategory = product.getProductCategory();
-        if (!productCategory.isEmpty()) {
-            holder.categoryTextView.setText(productCategory.get(0).getProductTags().get(0).getDescription());
+        if (!CollectionUtils.isEmpty(productCategory)) {
+            final List<ProductTags> tagsList = productCategory.get(0).getProductTags();
+            if (!CollectionUtils.isEmpty(tagsList)) {
+                holder.categoryTextView.setText(tagsList.get(0).getDescription());
+            }
         }
 
         holder.titleTextView.setText(product.getProductTitle());

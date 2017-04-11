@@ -3,14 +3,14 @@ package com.rcl.excalibur.mvp.presenter.itinerary;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
-import com.rcl.excalibur.data.mapper.BaseDataMapper;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
 import com.rcl.excalibur.model.itinerary.CalendarSeparatorModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
+import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
 import com.rcl.excalibur.model.itinerary.SeparatorModel;
+import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
-import com.rcl.excalibur.mvp.presenter.FragmentPresenter;
 import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
 import com.rcl.excalibur.utils.DateUtils;
 
@@ -21,17 +21,17 @@ import java.util.List;
 import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_ON_GOING;
 import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_UP_COMING;
 
-public class ItineraryPresenter implements FragmentPresenter {
+public class ItineraryPresenter implements BasePresenter {
     private ItineraryService itineraryService;
     private ItineraryView view;
     private ItineraryServiceObserver serviceObserver;
-    private BaseDataMapper<ItineraryProductModel, ItineraryEvent> mapper;
+    private ItineraryProductModelMapper mapper;
     private boolean onGoingIsAdded = false;
     private RecyclerViewType scrollToElement = null;
 
     public ItineraryPresenter(ItineraryView view,
                               ItineraryService itineraryService,
-                              BaseDataMapper<ItineraryProductModel, ItineraryEvent> modelMapper) {
+                              ItineraryProductModelMapper modelMapper) {
         this.view = view;
         this.itineraryService = itineraryService;
         this.mapper = modelMapper;
@@ -124,11 +124,6 @@ public class ItineraryPresenter implements FragmentPresenter {
         CalendarSeparatorModel calendarSeparatorModel = new CalendarSeparatorModel();
         calendarSeparatorModel.setLabel(label);
         return calendarSeparatorModel;
-    }
-
-    @Override
-    public ItineraryView getView() {
-        return view;
     }
 
     private final class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {

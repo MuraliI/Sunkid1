@@ -7,9 +7,9 @@ public interface GuestPreference {
 
     String getName();
 
-    void putLastname(String value);
+    void putLastName(String value);
 
-    String getLastname();
+    String getLastName();
 
     void putPassword(String value);
 

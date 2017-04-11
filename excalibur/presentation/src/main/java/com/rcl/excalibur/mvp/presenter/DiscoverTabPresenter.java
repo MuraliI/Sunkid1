@@ -9,7 +9,7 @@ import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 
-public class DiscoverTabPresenter implements FragmentPresenter {
+public class DiscoverTabPresenter implements BasePresenter {
     private static final int LIMIT_CLICKS = 5;
     private DiscoverTabView view;
     private GetProductsUseCase getProductsUseCase;
@@ -27,11 +27,6 @@ public class DiscoverTabPresenter implements FragmentPresenter {
 
     public void openListScreen(int fragmentToShow) {
         view.openListScreen(fragmentToShow);
-    }
-
-    @Override
-    public DiscoverTabView getView() {
-        return view;
     }
 
     public void boatOnClick() {

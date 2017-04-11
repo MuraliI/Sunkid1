@@ -13,12 +13,16 @@ import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 public abstract class BaseDataRepository<I, E extends Model> {
 
-    protected final BaseDataMapper<I, E> baseDataMapper;
+    private final BaseDataMapper<I, E> dataMapper;
     private final Class<E> claz;
 
-    protected BaseDataRepository(BaseDataMapper baseDataMapper, Class<E> claz) {
-        this.baseDataMapper = baseDataMapper;
+    protected BaseDataRepository(BaseDataMapper dataMapper, Class<E> claz) {
+        this.dataMapper = dataMapper;
         this.claz = claz;
+    }
+
+    protected BaseDataMapper<I, E> getMapper() {
+        return dataMapper;
     }
 
     public abstract void create(@NonNull I promotion);
@@ -27,7 +31,7 @@ public abstract class BaseDataRepository<I, E extends Model> {
         final List<E> entities = new Select()
                 .from(claz)
                 .execute();
-        return baseDataMapper.transform(entities);
+        return dataMapper.transform(entities);
     }
 
     public I get(@NonNull String column, final long value) {
@@ -35,7 +39,7 @@ public abstract class BaseDataRepository<I, E extends Model> {
                 .from(claz)
                 .where(eq(column, value))
                 .executeSingle();
-        return baseDataMapper.transform(entity);
+        return dataMapper.transform(entity);
     }
 
 }

@@ -18,7 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void> {
+public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, Void> {
 
     @Bind(R.id.pager_triptych_pager) ViewPager viewPager;
     @Bind(R.id.tab_triptych_tablayout) TriptychTabBarLayout tabBarLayout;
@@ -29,13 +29,15 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void> {
     }
 
     public void init() {
-        if (getActivity() != null) {
-            List<Fragment> triptychFragments = new ArrayList<>();
-            triptychFragments.add(ItineraryFragment.newInstance());
-            triptychFragments.add(DiscoverTabFragment.newInstance());
-
-            viewPager.setAdapter(new TriptychPagerAdapter(getActivity().getSupportFragmentManager(), triptychFragments));
-            tabBarLayout.setViewPager(viewPager);
+        final TriptychHomeActivity activity = getActivity();
+        if (activity == null) {
+            return;
         }
+        List<Fragment> triptychFragments = new ArrayList<>();
+        triptychFragments.add(ItineraryFragment.newInstance());
+        triptychFragments.add(DiscoverTabFragment.newInstance());
+
+        viewPager.setAdapter(new TriptychPagerAdapter(activity.getSupportFragmentManager(), triptychFragments));
+        tabBarLayout.setViewPager(viewPager);
     }
 }

@@ -17,8 +17,8 @@ import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem, DiscoverItemEntity> implements DiscoverItemRepository {
 
-    public DiscoverItemDataRepository(DiscoverEntityDataMapper discoverEntityDataMapper) {
-        super(discoverEntityDataMapper, DiscoverItemEntity.class);
+    public DiscoverItemDataRepository() {
+        super(new DiscoverEntityDataMapper(), DiscoverItemEntity.class);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem,
                 .from(DiscoverItemEntity.class)
                 .where(eq(DiscoverItemEntity.COLUMN_TYPE, type))
                 .execute();
-        return baseDataMapper.transform(entities);
+        return getMapper().transform(entities);
 
     }
 

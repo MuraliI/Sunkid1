@@ -4,84 +4,83 @@ package com.rcl.excalibur.domain.interactor;
 import com.rcl.excalibur.domain.preference.GuestPreference;
 
 
-public class GetGuestPreferencesUseCase extends UseCaseSync {
+public class GetGuestPreferencesUseCase extends UseCaseSync<GuestPreference> {
 
-    private final GuestPreference guestPreference;
 
     public GetGuestPreferencesUseCase(GuestPreference guestPreference) {
-        this.guestPreference = guestPreference;
+        super(guestPreference);
     }
 
     public void putName(String value) {
-        guestPreference.putName(value);
+        getData().putName(value);
     }
 
     public String getName() {
-        return guestPreference.getName();
+        return getData().getName();
     }
 
     public void putLastname(String value) {
-        guestPreference.putLastname(value);
+        getData().putLastName(value);
     }
 
     public String getLastname() {
-        return guestPreference.getLastname();
+        return getData().getLastName();
     }
 
     public void putPassword(String value) {
-        guestPreference.putPassword(value);
+        getData().putPassword(value);
     }
 
     public String getPassword() {
-        return guestPreference.getPassword();
+        return getData().getPassword();
     }
 
     public void putEmail(String value) {
-        guestPreference.putEmail(value);
+        getData().putEmail(value);
     }
 
     public String getEmail() {
-        return guestPreference.getEmail();
+        return getData().getEmail();
     }
 
     public void putQuestion(String value) {
-        guestPreference.putQuestion(value);
+        getData().putQuestion(value);
     }
 
     public String getQuestion() {
-        return guestPreference.getQuestion();
+        return getData().getQuestion();
     }
 
     public void putAnswer(String value) {
-        guestPreference.getAnswer(value);
+        getData().getAnswer(value);
     }
 
     public String getAnswer() {
-        return guestPreference.getAnswer();
+        return getData().getAnswer();
     }
 
     public void putVersion(String value) {
-        guestPreference.putVersion(value);
+        getData().putVersion(value);
     }
 
     public String getVersion() {
-        return guestPreference.getVersion();
+        return getData().getVersion();
     }
 
     public void putAcceptTime(long value) {
-        guestPreference.putAcceptTime(value);
+        getData().putAcceptTime(value);
     }
 
     public long getAcceptTime() {
-        return guestPreference.getAcceptTime();
+        return getData().getAcceptTime();
     }
 
     public void putBrand(String value) {
-        guestPreference.putBrand(value);
+        getData().putBrand(value);
     }
 
     public String getBrand() {
-        return guestPreference.getBrand();
+        return getData().getBrand();
     }
 
 }

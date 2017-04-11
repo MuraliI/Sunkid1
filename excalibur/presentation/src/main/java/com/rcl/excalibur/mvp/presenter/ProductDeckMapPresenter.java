@@ -8,7 +8,7 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDeckMapView;
 
-public class ProductDeckMapPresenter implements ActivityPresenter {
+public class ProductDeckMapPresenter implements BasePresenter {
     private static final String SPA = "SPA";
     private static final String ENTERTAINMENT = "ENTERTAINMENT";
     private static final String ACTIVITIES = "ACTIVITIES";
@@ -33,13 +33,13 @@ public class ProductDeckMapPresenter implements ActivityPresenter {
     private float xCoord;
     private float yCoord;
 
-    GetProductDbUseCase getGetProductDbUseCase() {
-        return getProductDbUseCase;
-    }
-
     public ProductDeckMapPresenter(ProductDeckMapView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
         this.getProductDbUseCase = getProductDbUseCase;
+    }
+
+    GetProductDbUseCase getGetProductDbUseCase() {
+        return getProductDbUseCase;
     }
 
     public void init(long productId) {
@@ -109,10 +109,5 @@ public class ProductDeckMapPresenter implements ActivityPresenter {
         }
         view.moveToProductCoordinate(xCoord, yCoord);
         view.showProductOnPopupLayout(product);
-    }
-
-    @Override
-    public ProductDeckMapView getView() {
-        return view;
     }
 }

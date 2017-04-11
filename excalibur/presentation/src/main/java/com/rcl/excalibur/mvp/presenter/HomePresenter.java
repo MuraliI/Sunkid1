@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
-public class HomePresenter implements ActivityPresenter {
+public class HomePresenter implements BasePresenter {
 
     private HomeView view;
 
@@ -27,11 +27,6 @@ public class HomePresenter implements ActivityPresenter {
         List<DiscoverItemModel> discoverItemModels = new ArrayList<>();
         discoverItemModels.add(new DiscoverItemModel());
         view.addAll(discoverItemModels);
-    }
-
-    @Override
-    public HomeView getView() {
-        return view;
     }
 
     public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, HomePresenter> {

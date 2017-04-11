@@ -3,7 +3,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
 
-public class TriptychHomePresenter implements ActivityPresenter {
+public class TriptychHomePresenter implements BasePresenter {
     private TriptychHomeView view;
 
     public TriptychHomePresenter(TriptychHomeView view) {
@@ -14,8 +14,4 @@ public class TriptychHomePresenter implements ActivityPresenter {
         view.init();
     }
 
-    @Override
-    public TriptychHomeView getView() {
-        return view;
-    }
 }
