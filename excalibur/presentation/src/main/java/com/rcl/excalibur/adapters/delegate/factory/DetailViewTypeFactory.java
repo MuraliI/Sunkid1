@@ -58,9 +58,10 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
-        if (CollectionUtils.isEmpty(product.getAdvisements())) {
+        if (CollectionUtils.isEmpty(product.getAdvisements()) || CollectionUtils.isEmpty(product.getProductAdvisementsById(ProductAdvisement.CUISINE))) {
             return;
         }
+
         ProductAdvisement advisement = product.getProductAdvisementsById(ProductAdvisement.CUISINE).get(0);
         if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
             addTitleAndDescriptionTypes(recyclerViewTypeList,
@@ -132,7 +133,7 @@ public final class DetailViewTypeFactory {
 
     private static void addAttireModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                         Product product) {
-        if (CollectionUtils.isEmpty(product.getAdvisements())) {
+        if (CollectionUtils.isEmpty(product.getAdvisements()) || CollectionUtils.isEmpty(product.getProductAdvisementsById(ProductAdvisement.ATTIRE))) {
             return;
         }
         ProductAdvisement advisement = product.getProductAdvisementsById(ProductAdvisement.ATTIRE).get(0);
@@ -145,7 +146,7 @@ public final class DetailViewTypeFactory {
 
     private static void addKnowBeforeYouGoModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                                  Product product) {
-        if (CollectionUtils.isEmpty(product.getAdvisements())) {
+        if (CollectionUtils.isEmpty(product.getAdvisements()) || CollectionUtils.isEmpty(product.getProductAdvisementsById(ProductAdvisement.KNOW_BEFORE_YOU_GO))) {
             return;
         }
         ProductAdvisement advisement = product.getProductAdvisementsById(ProductAdvisement.KNOW_BEFORE_YOU_GO).get(0);
@@ -161,7 +162,7 @@ public final class DetailViewTypeFactory {
 
     private static void addLegalModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                        Product product) {
-        if (CollectionUtils.isEmpty(product.getAdvisements())) {
+        if (CollectionUtils.isEmpty(product.getAdvisements()) || CollectionUtils.isEmpty(product.getProductAdvisementsById(ProductAdvisement.LEGAL))) {
             return;
         }
         ProductAdvisement advisement = product.getProductAdvisementsById(ProductAdvisement.LEGAL).get(0);
