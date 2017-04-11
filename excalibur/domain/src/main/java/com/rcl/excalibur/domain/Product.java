@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Product {
     private static final int TIME_LENGTH = 4;
-    private long productId;
+    private String productId;
     private List<ProductCategory> productCategory;
     private List<ProductAdvisement> advisements;
     private List<ProductPreference> preferences;
@@ -32,11 +32,11 @@ public class Product {
     private boolean isReservationRequired;
     private boolean isScheduable;
 
-    public long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

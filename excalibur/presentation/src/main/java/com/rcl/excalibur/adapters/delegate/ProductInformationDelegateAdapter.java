@@ -31,9 +31,9 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
     private static final int THREE = 3;
     private static final int FOUR = 4;
 
-    private WeakReference<Observer<Long>> findOnDeckObserver;
+    private WeakReference<Observer<String>> findOnDeckObserver;
 
-    public ProductInformationDelegateAdapter(final Observer<Long> findOnDeckObserver) {
+    public ProductInformationDelegateAdapter(final Observer<String> findOnDeckObserver) {
         this.findOnDeckObserver = new WeakReference<>(findOnDeckObserver);
     }
 
@@ -99,8 +99,8 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         @Bind(R.id.layout_reservation) View reservationLayout;
         @Bind(R.id.button_find_on_deck) View findOnDeck;
 
-        private Long productId;
-        private WeakReference<Observer<Long>> findOnDeckObserver;
+        private String productId;
+        private WeakReference<Observer<String>> findOnDeckObserver;
 
         ProductInformationViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_product_detail_information, parent, false));

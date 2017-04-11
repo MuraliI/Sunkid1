@@ -4,7 +4,7 @@ import com.rcl.excalibur.internal.di.module.products.ProductDetailModule;
 
 
 public class ProductDetailModuleTest extends ProductDetailModule {
-    public ProductDetailModuleTest(long productId) {
+    public ProductDetailModuleTest(String productId) {
         super(productId);
     }
 }
