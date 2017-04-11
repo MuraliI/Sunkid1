@@ -176,6 +176,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             restrictionEntity.setMandatory(productRestriction.isMandatory());
             restrictionEntity.setQuestion(productRestriction.getRestrictionQuestion());
             restrictionEntity.setRestrictionId(productRestriction.getRestrictionId());
+            restrictionEntity.setTitle(productRestriction.getRestrictionTitle());
             restrictionEntity.setProduct(entity);
             final List<ProductRestrictionAnswer> answers = productRestriction.getRestrictionAnswers();
             if (!CollectionUtils.isEmpty(answers)) {
@@ -362,8 +363,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
 
     }
-
-
 
 
     public List<Product> getAll(@NonNull String type) {
