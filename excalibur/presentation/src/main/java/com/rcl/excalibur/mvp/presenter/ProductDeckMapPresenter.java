@@ -8,7 +8,7 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDeckMapView;
 
-public class ProductDeckMapPresenter implements BasePresenter {
+public class ProductDeckMapPresenter {
     private static final String SPA = "SPA";
     private static final String ENTERTAINMENT = "ENTERTAINMENT";
     private static final String ACTIVITIES = "ACTIVITIES";

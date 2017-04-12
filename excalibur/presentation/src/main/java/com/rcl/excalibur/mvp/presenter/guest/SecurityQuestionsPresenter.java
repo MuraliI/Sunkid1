@@ -6,7 +6,6 @@ import com.rcl.excalibur.activity.guest.SecurityQuestionsActivity;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.domain.interactor.GetSecurityQuestionsUseCase;
-import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.guest.SecurityQuestionsView;
 
@@ -16,7 +15,7 @@ import timber.log.Timber;
 
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
-public class SecurityQuestionsPresenter implements BasePresenter {
+public class SecurityQuestionsPresenter {
     private SecurityQuestionsView view;
     private GetSecurityQuestionsUseCase getSecurityQuestionsUseCase;
     private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
@@ -52,7 +51,7 @@ public class SecurityQuestionsPresenter implements BasePresenter {
         }, null);
     }
 
-    public class AdapterObserver extends DefaultPresentObserver<String, SecurityQuestionsPresenter> {
+    public static class AdapterObserver extends DefaultPresentObserver<String, SecurityQuestionsPresenter> {
 
         public AdapterObserver(SecurityQuestionsPresenter presenter) {
             super(presenter);
@@ -60,8 +59,8 @@ public class SecurityQuestionsPresenter implements BasePresenter {
 
         @Override
         public void onNext(String value) {
-            getGuestPreferencesUseCase.putQuestion(value);
-            final SecurityQuestionsActivity activity = view.getActivity();
+            getPresenter().getGuestPreferencesUseCase.putQuestion(value);
+            final SecurityQuestionsActivity activity = getPresenter().view.getActivity();
             if (activity == null) {
                 return;
             }

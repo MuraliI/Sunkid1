@@ -7,13 +7,12 @@ import com.rcl.excalibur.activity.guest.PasswordActivity;
 import com.rcl.excalibur.domain.guest.ValidateEmailEvent;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.domain.service.GuestServices;
-import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.guest.EmailView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.StringUtils;
 
-public class EmailPresenter implements BasePresenter {
+public class EmailPresenter {
     //TODO improve this
     private static final String EXISTING_EMAIL = "Exists";
     private EmailView view;

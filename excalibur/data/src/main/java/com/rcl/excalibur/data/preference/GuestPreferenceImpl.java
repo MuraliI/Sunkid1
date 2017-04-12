@@ -74,7 +74,7 @@ public class GuestPreferenceImpl extends BasePreferenceImpl implements GuestPref
     }
 
     @Override
-    public void getAnswer(String value) {
+    public void putAnswer(String value) {
         put(KEY_ANSWERS, value);
     }
 

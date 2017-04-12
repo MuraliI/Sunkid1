@@ -8,12 +8,11 @@ import com.rcl.excalibur.activity.guest.CreateAccountDoneActivity;
 import com.rcl.excalibur.domain.guest.CreateAccountEvent;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.domain.service.GuestServices;
-import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.guest.AnswerQuestionView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
-public class AnswerQuestionPresenter implements BasePresenter {
+public class AnswerQuestionPresenter {
     private static final int MIN_CHARS = 3;
     private AnswerQuestionView view;
     private GuestServices guestServices;

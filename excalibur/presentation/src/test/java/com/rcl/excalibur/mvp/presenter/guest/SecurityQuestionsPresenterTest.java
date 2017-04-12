@@ -1,38 +1,35 @@
 package com.rcl.excalibur.mvp.presenter.guest;
 
-import android.content.Context;
+import com.rcl.excalibur.domain.interactor.DefaultObserver;
+import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
+import com.rcl.excalibur.domain.interactor.GetSecurityQuestionsUseCase;
+import com.rcl.excalibur.mvp.view.guest.SecurityQuestionsView;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
+import static org.mockito.Mockito.verify;
 
 public class SecurityQuestionsPresenterTest {
-    //    @Inject SecurityQuestionsPresenter presenter;
-    @Mock Context context;
+    SecurityQuestionsPresenter presenter;
+    @Mock SecurityQuestionsView view;
+    @Mock GetSecurityQuestionsUseCase getSecurityQuestionsUseCase;
+    @Mock GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
     @Before
     public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-//        guestActivityComponentTest = null;
-//        guestComponentTest = null;
-//        appComponentTest = null;
+        MockitoAnnotations.initMocks(this);
+        presenter = new SecurityQuestionsPresenter(view, getSecurityQuestionsUseCase, getGuestPreferencesUseCase);
     }
 
     @Test
-    public void testInit_viewCalledInitOnceAndUseCaseWasExecutedOnce() throws Exception {
-//        SecurityQuestionsView view = presenter.getView();
-//        GetSecurityQuestionsUseCase useCase = presenter.getGetSecurityQuestionsUseCase();
-//        ArgumentCaptor<DefaultObserver> argumentCaptor = ArgumentCaptor.forClass(DefaultObserver.class);
-//
-//        presenter.init();
-//        verify(view, times(1)).init();
-//        verify(useCase, times(1)).execute(argumentCaptor.capture(), eq(null));
-//
-//        DefaultObserver<List<String>> defaultObserver = argumentCaptor.getValue();
-//        assertNotNull(defaultObserver);
+    public void testInit() throws Exception {
+        presenter.init();
+        verify(view).setAdapterObserver(Mockito.any(SecurityQuestionsPresenter.AdapterObserver.class));
+        verify(view).init();
+        verify(getSecurityQuestionsUseCase).execute(Mockito.any(DefaultObserver.class), Mockito.any());
     }
 }

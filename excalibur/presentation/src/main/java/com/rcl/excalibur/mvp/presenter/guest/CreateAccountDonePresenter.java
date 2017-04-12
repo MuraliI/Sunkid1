@@ -2,12 +2,11 @@ package com.rcl.excalibur.mvp.presenter.guest;
 
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
-import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.view.guest.CreateAccountDoneView;
 
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
-public class CreateAccountDonePresenter implements BasePresenter {
+public class CreateAccountDonePresenter {
     private CreateAccountDoneView view;
 
     public CreateAccountDonePresenter(CreateAccountDoneView view) {

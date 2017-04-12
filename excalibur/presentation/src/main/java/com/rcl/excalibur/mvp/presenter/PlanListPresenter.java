@@ -6,7 +6,7 @@ import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.PlanListView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
-public class PlanListPresenter implements BasePresenter {
+public class PlanListPresenter {
     private final PlanListView view;
 
     public PlanListPresenter(PlanListView view) {

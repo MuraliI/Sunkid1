@@ -9,7 +9,6 @@ import com.rcl.excalibur.model.itinerary.CalendarSeparatorModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
 import com.rcl.excalibur.model.itinerary.SeparatorModel;
-import com.rcl.excalibur.mvp.presenter.BasePresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
 import com.rcl.excalibur.utils.DateUtils;
@@ -21,7 +20,7 @@ import java.util.List;
 import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_ON_GOING;
 import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_UP_COMING;
 
-public class ItineraryPresenter implements BasePresenter {
+public class ItineraryPresenter {
     private ItineraryService itineraryService;
     private ItineraryView view;
     private ItineraryServiceObserver serviceObserver;

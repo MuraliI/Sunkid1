@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
-public class HomePresenter implements BasePresenter {
+public class HomePresenter {
 
     private HomeView view;
 

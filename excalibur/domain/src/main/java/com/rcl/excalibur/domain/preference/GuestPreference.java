@@ -23,7 +23,7 @@ public interface GuestPreference {
 
     String getQuestion();
 
-    void getAnswer(String value);
+    void putAnswer(String value);
 
     String getAnswer();
 

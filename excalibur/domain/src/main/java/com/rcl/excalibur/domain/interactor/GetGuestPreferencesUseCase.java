@@ -52,7 +52,7 @@ public class GetGuestPreferencesUseCase extends UseCaseSync<GuestPreference> {
     }
 
     public void putAnswer(String value) {
-        getData().getAnswer(value);
+        getData().putAnswer(value);
     }
 
     public String getAnswer() {

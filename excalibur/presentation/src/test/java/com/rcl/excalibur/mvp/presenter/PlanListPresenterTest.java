@@ -1,42 +1,32 @@
 package com.rcl.excalibur.mvp.presenter;
 
-import org.junit.After;
+import com.rcl.excalibur.mvp.view.PlanListView;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 public class PlanListPresenterTest {
     PlanListPresenter presenter;
-//    private AppComponentTest appComponentTest;
-//    private ProductsComponentTest productsComponentTest;
-//    private ProductsListComponentTest productsListComponentTest;
-//    private ProductsListActivityComponentTest productsListActivityComponentTest;
+    @Mock PlanListView view;
 
     @Before
     public void setUp() throws Exception {
-//        appComponentTest = DaggerAppComponentTest.builder()
-//                .appModule(new AppModuleTest())
-//                .build();
-//        productsComponentTest = appComponentTest.plus(new ProductsServicesModuleTest(),
-//                new ProductsDatabaseModuleTest());
-//        productsListComponentTest = productsComponentTest.plus(new ProductsListModuleTest());
-//        productsListActivityComponentTest = productsListComponentTest.plus(new ProductsListActivityModuleTest());
-//        productsListActivityComponentTest.inject(this);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-//        productsListActivityComponentTest = null;
-//        productsListComponentTest = null;
-//        productsComponentTest = null;
-//        appComponentTest = null;
+        MockitoAnnotations.initMocks(this);
+        presenter = new PlanListPresenter(view);
     }
 
     @Test
     public void initTest() throws Exception {
-//        presenter.init();
-//        PlanListView view = presenter.getView();
-//        verify(view).setAdapterObserver(Matchers.any(PlanListPresenter.AdapterObserver.class));
-//        verify(view).init(anyInt());
-//        verifyNoMoreInteractions(view);
+        int fragmentShow = 1;
+        presenter.init(fragmentShow);
+        verify(view).setAdapterObserver(any(PlanListPresenter.AdapterObserver.class));
+        verify(view).init(fragmentShow);
+        verifyNoMoreInteractions(view);
     }
 }

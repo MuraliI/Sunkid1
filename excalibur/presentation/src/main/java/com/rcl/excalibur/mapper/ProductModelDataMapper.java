@@ -30,6 +30,7 @@ public class ProductModelDataMapper extends BaseModelDataMapper<Product, Product
         return productModel;
     }
 
+
     private void setAdvisements(ProductModel product, List<ProductAdvisement> advisements) {
         if (CollectionUtils.isEmpty(advisements)) {
             return;

@@ -30,7 +30,6 @@ dependencies {
 
     provided domainDependencies.javaxAnnotation
 
-//    compile domainDependencies.javaxInject
     compile domainDependencies.rxJava
     compile domainDependencies.arrow
     compile generalDependencies.timber

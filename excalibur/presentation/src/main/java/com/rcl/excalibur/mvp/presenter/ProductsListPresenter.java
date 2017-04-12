@@ -14,7 +14,7 @@ import com.rcl.excalibur.mvp.view.ProductsListView;
 import java.util.List;
 
 
-public class ProductsListPresenter implements BasePresenter {
+public class ProductsListPresenter {
     private GetProductDbUseCase getProductDbUseCase;
     private ProductsListView view;
 

@@ -11,10 +11,11 @@ import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
+import com.rcl.excalibur.utils.ActivityUtils;
 
 import java.util.List;
 
-public class ProductDetailPresenter implements BasePresenter {
+public class ProductDetailPresenter {
     private static final float MULTIPLIER_LOCATION_Y = 0.85f;
     private static final int MAX_BLUR_VALUE = 25;
     protected boolean isTitleVisible = false;
@@ -28,8 +29,11 @@ public class ProductDetailPresenter implements BasePresenter {
 
     public void init(String productId) {
         final ProductDetailActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
         final Product product = getProductDbUseCase.get(productId);
-        if (activity == null || product == null) {
+        if (product == null) {
             view.showToastAndFinishActivity("Discover Item Not Found");
             return;
         }
@@ -78,7 +82,7 @@ public class ProductDetailPresenter implements BasePresenter {
         }
     }
 
-    private class FindOnDeckClickObserver extends DefaultPresentObserver<Long, ProductDetailPresenter> {
+    public static class FindOnDeckClickObserver extends DefaultPresentObserver<Long, ProductDetailPresenter> {
 
         FindOnDeckClickObserver(ProductDetailPresenter presenter) {
             super(presenter);
@@ -86,14 +90,15 @@ public class ProductDetailPresenter implements BasePresenter {
 
         @Override
         public void onNext(Long productId) {
-            final BaseActivity activity = view.getActivity();
-            if (activity != null) {
-                activity.startActivity(ProductDeckMapActivity.getIntent(activity, productId));
+            final BaseActivity activity = getPresenter().view.getActivity();
+            if (activity == null) {
+                return;
             }
+            ActivityUtils.startActivity(activity, ProductDeckMapActivity.getIntent(activity, productId));
         }
     }
 
-    private class LocationOnScreenObserver extends DefaultPresentObserver<int[], ProductDetailPresenter> {
+    public static class LocationOnScreenObserver extends DefaultPresentObserver<int[], ProductDetailPresenter> {
 
         LocationOnScreenObserver(ProductDetailPresenter presenter) {
             super(presenter);
@@ -101,7 +106,7 @@ public class ProductDetailPresenter implements BasePresenter {
 
         @Override
         public void onNext(int[] values) {
-            checkLocationOnScreen(values);
+            getPresenter().checkLocationOnScreen(values);
         }
     }
 }

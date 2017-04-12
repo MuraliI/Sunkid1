@@ -2,6 +2,7 @@ package com.rcl.excalibur.domain.interactor;
 
 import com.rcl.excalibur.domain.repository.ProductRepository;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -17,6 +18,11 @@ public class GetProductDbUseCaseTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         getProductDbUseCase = new GetProductDbUseCase(productRepository);
+    }
+
+    @Test
+    public void getData() throws Exception {
+        Assert.assertEquals(productRepository, getProductDbUseCase.getData());
     }
 
     @Test

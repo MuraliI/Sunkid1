@@ -1,34 +1,31 @@
 package com.rcl.excalibur.mvp.presenter;
 
-import org.junit.After;
+import com.rcl.excalibur.mvp.view.HomeView;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.List;
+
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.verify;
 
 public class HomePresenterTest {
-//    @Inject HomePresenter presenter;
-//    private AppComponentTest appComponentTest;
-//    private ActivityComponentTest activityComponentTest;
+    HomePresenter presenter;
+    @Mock HomeView view;
 
     @Before
     public void setUp() throws Exception {
-//        appComponentTest = DaggerAppComponentTest.builder()
-//                .appModule(new AppModuleTest())
-//                .build();
-//        activityComponentTest = appComponentTest.plus(new ActivityModuleTest());
-//        activityComponentTest.inject(this);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-//        activityComponentTest = null;
-//        appComponentTest = null;
+        MockitoAnnotations.initMocks(this);
+        presenter = new HomePresenter(view);
     }
 
     @Test
     public void initTest() throws Exception {
-//        HomeView view = presenter.getView();
-//        verify(view).setAdapterObserver(any(HomePresenter.AdapterObserver.class));
-//        verify(view).init();
-//        verify(view).addAll(any(List.class));
+        verify(view).setAdapterObserver(any(HomePresenter.AdapterObserver.class));
+        verify(view).init();
+        verify(view).addAll(any(List.class));
     }
 }

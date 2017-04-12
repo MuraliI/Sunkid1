@@ -19,6 +19,9 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 public final class ServiceUtil {
 
     private static final String SUCCESS = "SUCCESS";
+    private static DiscoverApi discoverApi;
+    private static GuestApi guestApi;
+    private static ItineraryApi itineraryApi;
 
     private ServiceUtil() {
     }
@@ -28,30 +31,39 @@ public final class ServiceUtil {
     }
 
     public static DiscoverApi getDiscoverApi() {
-        Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(BuildConfig.DISCOVER_API_URL).
-                addConverterFactory(GsonConverterFactory.create()).
-                client(getClient())
-                .build();
-        return retrofit.create(DiscoverApi.class);
+        if (discoverApi == null) {
+            Retrofit retrofit = new Retrofit.Builder().
+                    baseUrl(BuildConfig.DISCOVER_API_URL).
+                    addConverterFactory(GsonConverterFactory.create()).
+                    client(getClient())
+                    .build();
+            discoverApi = retrofit.create(DiscoverApi.class);
+        }
+        return discoverApi;
     }
 
     public static GuestApi getGuestApi() {
-        Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(BuildConfig.GUEST_API_URL).
-                addConverterFactory(GsonConverterFactory.create()).
-                client(getClient())
-                .build();
-        return retrofit.create(GuestApi.class);
+        if (guestApi == null) {
+            Retrofit retrofit = new Retrofit.Builder().
+                    baseUrl(BuildConfig.GUEST_API_URL).
+                    addConverterFactory(GsonConverterFactory.create()).
+                    client(getClient())
+                    .build();
+            guestApi = retrofit.create(GuestApi.class);
+        }
+        return guestApi;
     }
 
     public static ItineraryApi getItineraryApi() {
-        Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(BuildConfig.ITINERARY_API_URL).
-                addConverterFactory(GsonConverterFactory.create()).
-                client(getClient())
-                .build();
-        return retrofit.create(ItineraryApi.class);
+        if (itineraryApi == null) {
+            Retrofit retrofit = new Retrofit.Builder().
+                    baseUrl(BuildConfig.ITINERARY_API_URL).
+                    addConverterFactory(GsonConverterFactory.create()).
+                    client(getClient())
+                    .build();
+            itineraryApi = retrofit.create(ItineraryApi.class);
+        }
+        return itineraryApi;
     }
 
     private static OkHttpClient getClient() {
