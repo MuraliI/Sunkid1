@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductCategory;
 import com.rcl.excalibur.domain.ProductTags;
@@ -27,8 +28,6 @@ import static io.reactivex.Observable.just;
 
 public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.DiscoverViewHolder> {
 
-    private static final int ZERO_INDEX = 0;
-
     public ProductsAdapter(final Observer<Product> observer) {
         super(observer);
     }
@@ -40,10 +39,10 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
         holder.product = product;
 
         List<ProductCategory> productCategory = product.getProductCategory();
-        if (!productCategory.isEmpty()) {
-            List<ProductTags> tagsList = productCategory.get(ZERO_INDEX).getProductTags();
-            if (tagsList != null && !tagsList.isEmpty()) {
-                holder.categoryTextView.setText(tagsList.get(ZERO_INDEX).getDescription());
+        if (!CollectionUtils.isEmpty(productCategory)) {
+            final List<ProductTags> tagsList = productCategory.get(0).getProductTags();
+            if (!CollectionUtils.isEmpty(tagsList)) {
+                holder.categoryTextView.setText(tagsList.get(0).getDescription());
             }
         }
         holder.titleTextView.setText(product.getProductTitle());

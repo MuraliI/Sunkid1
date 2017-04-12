@@ -5,18 +5,17 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.internal.di.component.ActivityComponent;
-import com.rcl.excalibur.internal.di.component.products.ProductDetailActivityComponent;
-import com.rcl.excalibur.internal.di.module.products.ProductDetailActivityModule;
+import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.presenter.ProductDetailPresenter;
+import com.rcl.excalibur.mvp.view.ProductDetailView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> implements AppBarLayout.OnOffsetChangedListener {
+public class ProductDetailActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener {
     private static final String EXTRA_DISCOVER_ITEM_ID = "EXTRA_DISCOVER_ITEM_ID";
-    private String productId = "0";
-    private ProductDetailActivityComponent component;
+    protected ProductDetailPresenter presenter;
 
     public static Intent getIntent(final BaseActivity activity, String productId) {
         Intent intent = new Intent(activity, ProductDetailActivity.class);
@@ -25,43 +24,22 @@ public class ProductDetailActivity extends BaseActivity<ProductDetailPresenter> 
     }
 
     @Override
-    protected void createComponent() {
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra(EXTRA_DISCOVER_ITEM_ID)) {
-            productId = getIntent().getExtras().getString(EXTRA_DISCOVER_ITEM_ID);
-        }
-        rclApp.createProductDetailComponent(productId);
-
-        component = rclApp.getProductDetailComponent().plus(new ProductDetailActivityModule(this));
-    }
-
-    @Override
-    protected void destroyComponent() {
-        component = null;
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         ButterKnife.bind(this);
-        presenter.init();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        rclApp.destroyProductDetailComponent();
+        Intent intent = getIntent();
+        if (intent == null || !intent.hasExtra(EXTRA_DISCOVER_ITEM_ID)) {
+            return;
+        }
+        String productId = intent.getExtras().getString(EXTRA_DISCOVER_ITEM_ID);
+        presenter = new ProductDetailPresenter(new ProductDetailView(this), new GetProductDbUseCase(new ProductDataRepository()));
+        presenter.init(productId);
     }
 
     @OnClick(R.id.back_arrow)
     void onBackClicked() {
         presenter.onBackClicked();
-    }
-
-    @Override
-    protected void injectActivity(ActivityComponent activityComponent) {
-        component.inject(this);
     }
 
     @Override

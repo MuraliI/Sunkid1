@@ -14,7 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EmailView extends ActivityView<EmailActivity, Void> {
+public class EmailView extends ActivityView<EmailActivity, Void, Void> {
     public static final float ACTIVE = 1f;
     public static final float INACTIVE = 0.24f;
     @Bind(R.id.email_layout) RelativeLayout emailLayout;

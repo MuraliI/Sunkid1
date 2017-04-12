@@ -12,7 +12,7 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class AnswerQuestionView extends ActivityView<AnswerQuestionActivity, Void> {
+public class AnswerQuestionView extends ActivityView<AnswerQuestionActivity, Void, Void> {
     @Bind(R.id.edit_answer) EditText editTextAnswer;
     @Bind(R.id.button_done_answer) Button buttonDoneAnswer;
     @Bind(R.id.text_title_question) TextView textViewTitleQuestion;

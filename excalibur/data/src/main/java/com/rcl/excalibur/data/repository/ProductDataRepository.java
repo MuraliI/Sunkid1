@@ -47,15 +47,14 @@ import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity> implements ProductRepository {
 
-    public ProductDataRepository(ProductEntityDataMapper baseDataMapper) {
-        super(baseDataMapper, ProductEntity.class);
+    public ProductDataRepository() {
+        super(new ProductEntityDataMapper(), ProductEntity.class);
     }
 
     @Override
     public void create(List<Product> products) {
         ActiveAndroid.beginTransaction();
         try {
-            deleteAll();
             for (Product product : products) {
                 create(product);
             }
@@ -109,7 +108,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         createRestriction(entity, product.getRestrictions());
     }
 
-    private void deleteAll() {
+    @Override
+    public void deleteAll() {
         new Delete().from(RestrictionEntity.class).execute();
         new Delete().from(AdvisementEntity.class).execute();
         new Delete().from(ProductEntity.class).execute();
@@ -378,7 +378,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
                 .from(ProductEntity.class)
                 .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
                 .execute();
-        return baseDataMapper.transform(entities);
+        return getMapper().transform(entities);
     }
 
     @Override
