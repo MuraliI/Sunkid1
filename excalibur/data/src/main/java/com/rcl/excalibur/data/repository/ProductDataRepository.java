@@ -55,7 +55,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     public void create(List<Product> products) {
         ActiveAndroid.beginTransaction();
         try {
-            deleteAll();
             for (Product product : products) {
                 create(product);
             }
