@@ -110,8 +110,6 @@ public final class DetailViewTypeFactory {
 
     private static void addDurationModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                           Product product) {
-
-
         if (product.getProductType() == null || product.getProductType().getProductType() == null || product.getProductDuration() == null) {
             return;
         }
