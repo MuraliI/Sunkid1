@@ -2,19 +2,24 @@ package com.rcl.excalibur.domain;
 
 
 public class ProductAdvisement {
+    public static final String ATTIRE = "ATT";
+    public static final String KNOW_BEFORE_YOU_GO = "KNOW";
+    public static final String ACCESSIBILITY = "ACC";
+    public static final String LEGAL = "LEG";
+    public static final String CUISINE = "CUI";
 
-    private long advisementId;
+    private String advisementId;
     private String advisementName;
     private String advisementType;
     private String advisementTitle;
     private String advisementDescription;
     private Media advisementMedia;
 
-    public long getAdvisementId() {
+    public String getAdvisementId() {
         return advisementId;
     }
 
-    public void setAdvisementId(long advisementId) {
+    public void setAdvisementId(String advisementId) {
         this.advisementId = advisementId;
     }
 

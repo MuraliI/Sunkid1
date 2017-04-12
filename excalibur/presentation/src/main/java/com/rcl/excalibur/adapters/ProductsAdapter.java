@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductCategory;
+import com.rcl.excalibur.domain.ProductTags;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -27,6 +27,8 @@ import static io.reactivex.Observable.just;
 
 public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.DiscoverViewHolder> {
 
+    private static final int ZERO_INDEX = 0;
+
     public ProductsAdapter(final Observer<Product> observer) {
         super(observer);
     }
@@ -39,9 +41,11 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
 
         List<ProductCategory> productCategory = product.getProductCategory();
         if (!productCategory.isEmpty()) {
-            holder.categoryTextView.setText(productCategory.get(0).getProductTags().get(0).getDescription());
+            List<ProductTags> tagsList = productCategory.get(ZERO_INDEX).getProductTags();
+            if (tagsList != null && !tagsList.isEmpty()) {
+                holder.categoryTextView.setText(tagsList.get(ZERO_INDEX).getDescription());
+            }
         }
-
         holder.titleTextView.setText(product.getProductTitle());
 
         if ("0".equals(product.getProductLocation().getOperatingHoursEnd())) {
@@ -50,13 +54,10 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
             holder.rangeTextView.setText(product.getTimeFrame());
         }
 
-        List<MediaItem> mediaItems = product.getProductMedia().getMediaItem();
-        if (!mediaItems.isEmpty()) {
-            Picasso.with(context)
-                    .load(BuildConfig.PREFIX_IMAGE + mediaItems.get(0).getMediaRefLink())
-                    .placeholder(R.drawable.thumb)
-                    .into(holder.imageView);
-        }
+        Picasso.with(context)
+                .load(BuildConfig.PREFIX_IMAGE + holder.product.getHeroImageRefLink())
+                .placeholder(R.drawable.placeholder_list_item)
+                .into(holder.imageView);
 
         if (hasObserver()) {
             holder.observerRef = new WeakReference<>(getObserver());
@@ -64,13 +65,13 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
     }
 
     @Override
-    int getLayout() {
+    protected int getLayout() {
         return R.layout.item_discover;
     }
 
     @NonNull
     @Override
-    DiscoverViewHolder getViewHolder(View view) {
+    protected DiscoverViewHolder getViewHolder(View view) {
         return new DiscoverViewHolder(view);
     }
 

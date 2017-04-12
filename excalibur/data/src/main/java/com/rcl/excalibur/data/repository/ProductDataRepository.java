@@ -77,6 +77,9 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         entity.setRank(product.getProductRank());
         entity.setSchedulable(product.isScheduable());
         entity.setReservationRequired(product.isReservationRequired());
+        entity.setUpcharge(product.getProductUpcharge());
+        entity.setExperience(product.getExperience());
+        entity.setProductReservationInformation(product.getProductReservationInformation());
 
         //ProductType
         create(entity, product.getProductType());
@@ -311,6 +314,10 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         locationEntity.setCode(productLocation.getLocationCode());
         locationEntity.setHoursStart(productLocation.getOperatingHoursStart());
         locationEntity.setHoursEnd(productLocation.getOperatingHoursEnd());
+        locationEntity.setPort(productLocation.getLocationPort());
+        locationEntity.setDeckNumber(productLocation.getLocationDeckNumber());
+        locationEntity.setDirection(productLocation.getLocationDirection());
+        locationEntity.setVenue(productLocation.getLocationVenue());
         locationEntity.save();
         entity.setLocation(locationEntity);
 
@@ -356,10 +363,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     }
 
-    @Override
-    public Product get(long id) {
-        return get(ProductEntity.COLUMN_PRODUCT_ID, id);
-    }
+
 
 
     public List<Product> getAll(@NonNull String type) {
@@ -376,4 +380,11 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
                 .execute();
         return baseDataMapper.transform(entities);
     }
+
+    @Override
+    public Product get(String id) {
+        return get(ProductEntity.COLUMN_PRODUCT_ID, id);
+    }
+
+
 }

@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/margin_large"
-    android:paddingBottom="@dimen/margin_large"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/margin_normal">
 
     <TextView
         android:id="@+id/text_module_title"
-        style="@style/AppTheme.DiscoverItemModuleTitleTextView"
+        style="@style/AppTheme.Headline7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_large"
-        tools:text="@string/hardcoded_age_restriction_title"/>
+        android:layout_marginBottom="@dimen/margin_xsmall"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginStart="@dimen/margin_normal"
+        tools:text="@string/hardcoded_age_restriction_title" />
 
     <TextView
         android:id="@+id/text_module_text"
-        style="@style/AppTheme.DiscoverItemModuleDescriptionTextView"
+        style="@style/AppTheme.Body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_large"
-        tools:text="@string/hardcoded_age_restriction_description"/>
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:paddingBottom="@dimen/margin_normal"
+        tools:text="@string/hardcoded_age_restriction_description" />
+
+    <include layout="@layout/separator_product"/>
 
 </LinearLayout>

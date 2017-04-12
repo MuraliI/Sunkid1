@@ -19,7 +19,7 @@ public class AdvisementEntity extends Model {
     public static final String COLUMN_MEDIA = "media";
 
     @Column(name = COLUMN_ADVISEMENT_ID)
-    private long advisementId;
+    private String advisementId;
     @Column(name = COLUMN_NAME)
     private String name;
     @Column(name = COLUMN_TYPE)
@@ -37,11 +37,11 @@ public class AdvisementEntity extends Model {
         super();
     }
 
-    public long getAdvisementId() {
+    public String getAdvisementId() {
         return advisementId;
     }
 
-    public void setAdvisementId(long advisementId) {
+    public void setAdvisementId(String advisementId) {
         this.advisementId = advisementId;
     }
 

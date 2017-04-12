@@ -1,37 +1,42 @@
 package com.rcl.excalibur.domain;
 
 
-import java.util.List;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Product {
     private static final int TIME_LENGTH = 4;
-    private long productId;
-    private String productCode;
-    private ProductType productType;
-    private String productClass;
+    private String productId;
     private List<ProductCategory> productCategory;
-    private int productRank;
-    private boolean isReservationRequired;
-    private boolean isScheduable;
+    private List<ProductAdvisement> advisements;
+    private List<ProductPreference> preferences;
+    private List<ProductRestriction> restrictions;
     private ProductActivityLevel activityLevel;
     private ProductLocation productLocation;
     private ProductDuration productDuration;
     private ProductCostType costType;
+    private ProductType productType;
     private SellingPrice startingFromPrice;
-    private List<ProductAdvisement> advisements;
-    private List<ProductPreference> preferences;
-    private List<ProductRestriction> restrictions;
     private String productTitle;
+    private String productCode;
+    private String productClass;
     private String productShortDescription;
     private String productLongDescription;
+    private String productReservationInformation;
+    private String experience;
     private Media productMedia;
+    private int productRank;
+    private int upcharge;
+    private boolean isReservationRequired;
+    private boolean isScheduable;
 
-    public long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -73,6 +78,14 @@ public class Product {
 
     public void setProductRank(int productRank) {
         this.productRank = productRank;
+    }
+
+    public int getProductUpcharge() {
+        return upcharge;
+    }
+
+    public void setProductUpcharge(int upchargeIcon) {
+        this.upcharge = upchargeIcon;
     }
 
     public boolean isReservationRequired() {
@@ -183,6 +196,22 @@ public class Product {
         this.productLongDescription = productLongDescription;
     }
 
+    public String getProductReservationInformation() {
+        return productReservationInformation;
+    }
+
+    public void setProductReservationInformation(String productReservationInformation) {
+        this.productReservationInformation = productReservationInformation;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
     public Media getProductMedia() {
         return productMedia;
     }
@@ -199,7 +228,27 @@ public class Product {
         if (time.length() == TIME_LENGTH) {
             return time.substring(0, 2) + ":" + time.substring(2);
         }
-        return "00:00";
+        return ConstantsUtil.DEFAULT_TIME;
     }
 
+    public String getHeroImageRefLink() {
+        if (productMedia != null) {
+            List<MediaItem> mediaItems = productMedia.getMediaItem();
+            if (!mediaItems.isEmpty()) {
+                return mediaItems.get(0).getMediaRefLink();
+            }
+        }
+        return ConstantsUtil.EMPTY;
+    }
+
+    public List<ProductAdvisement> getProductAdvisementsById(String advisementId) {
+        List<ProductAdvisement> advisementList = new ArrayList<>();
+        for (ProductAdvisement advisement : advisements) {
+            String currentAdvisementId = advisement.getAdvisementId();
+            if (currentAdvisementId != null && currentAdvisementId.equals(advisementId)) {
+                advisementList.add(advisement);
+            }
+        }
+        return advisementList;
+    }
 }

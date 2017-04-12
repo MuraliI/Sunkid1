@@ -217,4 +217,5 @@ public class DiscoverItemModel {
     public void setEventBuilder(AnalyticEvent eventBuilder) {
         this.eventBuilder = eventBuilder;
     }
+
 }

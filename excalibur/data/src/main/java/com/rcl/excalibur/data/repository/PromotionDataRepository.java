@@ -26,7 +26,7 @@ public class PromotionDataRepository extends BaseDataRepository<Promotion, Promo
     }
 
     @Override
-    public Promotion get(long id) {
+    public Promotion get(String id) {
         return get(PromotionEntity.COLUMN_CATEGORY_ID, id);
     }
 

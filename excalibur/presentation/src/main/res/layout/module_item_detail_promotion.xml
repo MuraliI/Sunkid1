@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/margin_large"
-    android:layout_marginStart="@dimen/margin_large"
+    android:layout_marginEnd="@dimen/margin_normal"
+    android:layout_marginStart="@dimen/margin_normal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/margin_large"
-    android:paddingTop="@dimen/margin_large">
+    android:paddingBottom="@dimen/margin_normal"
+    android:paddingTop="@dimen/margin_normal">
 
     <TextView
         android:id="@+id/promotion_module_title"

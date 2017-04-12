@@ -1,23 +1,23 @@
 package com.rcl.excalibur.mvp.view;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.util.SparseArrayCompat;
-import android.support.v7.widget.DividerItemDecoration;
+import android.content.res.Resources;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageButton;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mmin18.widget.RealtimeBlurView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.ProductDetailActivity;
-import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.DetailViewCoordinatorAdapter;
-import com.rcl.excalibur.custom.view.ReservationDetailLayout;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.squareup.picasso.Picasso;
 
@@ -25,60 +25,166 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 
+public class ProductDetailView extends ActivityView<ProductDetailActivity, Long> {
 
-public class ProductDetailView extends ActivityView<ProductDetailActivity> {
+    private static final String STATUS_BAR_HEIGHT_ID = "status_bar_height";
+    private static final String DIMEN = "dimen";
+    private static final String ANDROID = "android";
+    private static final int NOT_FOUND_STATUS_BAR = -1;
 
     @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
+    @Bind(R.id.app_bar_layout_detail) AppBarLayout appBarLayout;
+    @Bind(R.id.realtime_blur_view) RealtimeBlurView realtimeBlurView;
     @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
-    @Bind(R.id.text_discover_item_name) TextView discoverItemName;
-    @Bind(R.id.frame_layout_reservation_container) ReservationDetailLayout reservationDetailLayout;
-    @Bind(R.id.fab_reserve_discover_item) FloatingActionButton reserveButton;
     @Bind(R.id.image_hero) ImageView heroImage;
-    @Bind(R.id.btn_deck_map) ImageButton deckButton;
+    @Bind(R.id.tv_detail_toolbar_title) TextView titleToolbarTextView;
 
-    private DetailViewCoordinatorAdapter adapter;
+    private Animation upAnimation;
+    private Animation downAnimation;
+    private View detailInfoView;
+    private TextView productDetailName;
+
+    private String productTitle;
+    private int statusBarHeight = NOT_FOUND_STATUS_BAR;
 
     public ProductDetailView(ProductDetailActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
-        activity.setSupportActionBar(detailToolbar);
     }
 
-    public void hideDeckMapButton() {
-        deckButton.setVisibility(View.GONE);
+    public void initAnimation() {
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        upAnimation = AnimationUtils.loadAnimation(activity, R.anim.toolbar_title_up);
+        downAnimation = AnimationUtils.loadAnimation(activity, R.anim.toolbar_title_down);
+    }
+
+    public void setupToolbar() {
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        activity.setSupportActionBar(detailToolbar);
+        appBarLayout.addOnOffsetChangedListener(activity);
     }
 
     public void setHeroImage(String url) {
-        if (getActivity() != null) {
-            Picasso.with(getActivity()).load(url).placeholder(R.drawable.thumb).into(heroImage);
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        Picasso.with(activity)
+                .load(url)
+                .placeholder(R.drawable.placeholder_hero_image)
+                .into(heroImage);
+    }
+
+    public void initStatusBarHeight() {
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        Resources resources = activity.getResources();
+        int resourceId = resources.getIdentifier(STATUS_BAR_HEIGHT_ID, DIMEN, ANDROID);
+        if (resourceId > 0) {
+            statusBarHeight = resources.getDimensionPixelSize(resourceId);
+        } else {
+            statusBarHeight = resources.getDimensionPixelSize(R.dimen.default_status_bar_height);
         }
     }
 
-    public void showOnlyReservationIcon() {
-        reservationDetailLayout.showOnlyReservationIcon();
-        reserveButton.setVisibility(View.GONE);
+    private void upAnimationTitle() {
+        upAnimation.reset();
+        titleToolbarTextView.startAnimation(upAnimation);
     }
 
-    public void setDetailTitle(String title) {
-        discoverItemName.setText(title);
+    private void downAnimationTitle() {
+        downAnimation.reset();
+        titleToolbarTextView.startAnimation(downAnimation);
     }
 
-    public void render(SparseArrayCompat<DelegateAdapter> adapterList, List<RecyclerViewType> viewTypes) {
-        adapter = new DetailViewCoordinatorAdapter(viewObserver, adapterList, viewTypes);
+    @SuppressWarnings("unchecked")
+    public void render(List<RecyclerViewType> viewTypes) {
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        DetailViewCoordinatorAdapter adapter = new DetailViewCoordinatorAdapter(adapterObserver, viewTypes);
+        adapter.setOnViewExpandedListener(position -> planDetailRecycler.smoothScrollToPosition(position));
+
         planDetailRecycler.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+        planDetailRecycler.setLayoutManager(layoutManager);
 
-        if (getActivity() != null) {
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            planDetailRecycler.setLayoutManager(layoutManager);
-            planDetailRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), layoutManager.getOrientation()));
-        }
+        // Cannot be passed to Activity because RecyclerView.OnScrollListener is a class and not an interface
+        planDetailRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (statusBarHeight == NOT_FOUND_STATUS_BAR) {
+                    return;
+                }
+
+                int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+                if (firstVisibleItem != 0) {
+                    return;
+                }
+
+                if (detailInfoView == null) {
+                    detailInfoView = recyclerView.getChildAt(firstVisibleItem);
+                }
+
+                if (productDetailName == null && detailInfoView != null) {
+                    productDetailName = ButterKnife.findById(detailInfoView, R.id.text_product_detail_name);
+                }
+
+                if (productDetailName == null) {
+                    return;
+                }
+
+                productTitle = productDetailName.getText().toString();
+
+                int[] outLocation = new int[2];
+                productDetailName.getLocationOnScreen(outLocation);
+
+                if (viewObserver != null) {
+                    Observable.just(new int[]{outLocation[1], statusBarHeight, detailToolbar.getHeight()}).subscribe(viewObserver);
+                }
+            }
+        });
     }
 
     public void showToastAndFinishActivity(String message) {
-        if (getActivity() != null) {
-            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-            getActivity().finish();
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
         }
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+        activity.finish();
+    }
+
+    public void setBlurRadiusOnImage(float blurRadius) {
+        ProductDetailActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        realtimeBlurView.setBlurRadius(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                blurRadius,
+                activity.getResources().getDisplayMetrics())
+        );
+    }
+
+    public void showCollapsingToolbarTitle() {
+        titleToolbarTextView.setText(productTitle);
+        upAnimationTitle();
+    }
+
+    public void hideCollapsingToolbarTitle() {
+        downAnimationTitle();
     }
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:clickable="true"
+    tools:context="com.rcl.excalibur.activity.guest.EmailActivity">
+
+
+    <LinearLayout
+        android:id="@+id/container_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_top_bar_answer_screen"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/image_back_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_edit_text"
+            android:src="@drawable/icon_arrow_round_back" />
+
+        <TextView
+            android:id="@+id/text_title_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/margin_general"
+            android:layout_marginRight="@dimen/margin_general"
+            android:textSize="@dimen/size_text_big" />
+
+        <EditText
+            android:id="@+id/edit_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_general"
+            android:layout_marginRight="@dimen/margin_general"
+            android:gravity="center"
+            android:hint="@string/hint_answer_question"
+            android:imeOptions="actionDone"
+            android:inputType="textNoSuggestions"
+            android:textColor="@color/white"
+            android:theme="@style/AppTheme.AnswerEditText" />
+
+
+        <TextView
+            android:id="@+id/text_show_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/button_done_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/margin_text"
+        android:background="@drawable/selector_button_done"
+        android:enabled="false"
+        android:text="@string/text_button_done"
+        android:theme="@style/AppTheme.LoginFlowButtonDone" />
+
+</RelativeLayout>

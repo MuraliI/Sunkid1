@@ -8,12 +8,10 @@ public class ExpandableLinkViewType implements RecyclerViewType {
 
     private String title;
     private String[] content;
-    private boolean contentWithCheckMark;
 
-    public ExpandableLinkViewType(String title, String[] content, boolean contentWithCheckMark) {
+    public ExpandableLinkViewType(String title, String[] content) {
         this.title = title;
         this.content = content;
-        this.contentWithCheckMark = contentWithCheckMark;
     }
 
     public String getTitle() {
@@ -22,14 +20,6 @@ public class ExpandableLinkViewType implements RecyclerViewType {
 
     public String[] getContent() {
         return content;
-    }
-
-    public boolean isContentWithCheckMark() {
-        return contentWithCheckMark;
-    }
-
-    public void setContentWithCheckMark(boolean contentWithCheckMark) {
-        this.contentWithCheckMark = contentWithCheckMark;
     }
 
     @Override

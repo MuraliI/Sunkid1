@@ -14,8 +14,9 @@ public class ActivityLevelEntity extends Model {
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_MEDIA = "media";
 
-    @Column(name = COLUMN_ACTIVITY_LEVEL_ID, unique = true, index = true)
-    private long activityLevelId;
+    //TODO create unique constraints and indexes when services are defined
+    @Column(name = COLUMN_ACTIVITY_LEVEL_ID)
+    private String activityLevelId;
     @Column(name = COLUMN_TITLE)
     private String title;
     @Column(name = COLUMN_DESCRIPTION)
@@ -27,11 +28,11 @@ public class ActivityLevelEntity extends Model {
         super();
     }
 
-    public long getActivityLevelId() {
+    public String getActivityLevelId() {
         return activityLevelId;
     }
 
-    public void setActivityLevelId(long activityLevelId) {
+    public void setActivityLevelId(String activityLevelId) {
         this.activityLevelId = activityLevelId;
     }
 

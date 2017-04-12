@@ -1,23 +1,20 @@
 package com.rcl.excalibur.domain.interactor;
 
 import io.reactivex.observers.DisposableObserver;
+import timber.log.Timber;
 
 /**
  * Default {@link DisposableObserver} base class to be used whenever you want default error handling.
  */
-public class DefaultObserver<T> extends DisposableObserver<T> {
-    @Override
-    public void onNext(T t) {
-        // no-op by default.
-    }
+public abstract class DefaultObserver<T> extends DisposableObserver<T> {
 
     @Override
     public void onComplete() {
-        // no-op by default.
+        // Optional
     }
 
     @Override
     public void onError(Throwable exception) {
-        // no-op by default.
+        Timber.e(exception.getMessage(), exception);
     }
 }

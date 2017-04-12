@@ -1,10 +1,12 @@
 package com.rcl.excalibur.mvp.view.base;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.rcl.excalibur.activity.BaseActivity;
@@ -13,9 +15,9 @@ import java.lang.ref.WeakReference;
 
 import io.reactivex.Observer;
 
-public class ActivityView<T extends BaseActivity> {
+public class ActivityView<T extends BaseActivity, H> {
     protected Observer viewObserver;
-    protected Observer adapterObserver;
+    protected Observer<H> adapterObserver;
     private WeakReference<T> activityRef;
 
     public ActivityView(T activity) {
@@ -58,9 +60,19 @@ public class ActivityView<T extends BaseActivity> {
         this.viewObserver = observer;
     }
 
-    public void setAdapterObserver(Observer observer) {
+    public void setAdapterObserver(Observer<H> observer) {
         this.adapterObserver = observer;
     }
 
+    public Observer<H> getAdapterObserver() {
+        return this.adapterObserver;
+    }
 
+    public void hideKeyboard() {
+        final T activity = getActivity();
+        if (activity == null || activity.getCurrentFocus() == null)
+            return;
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
 }

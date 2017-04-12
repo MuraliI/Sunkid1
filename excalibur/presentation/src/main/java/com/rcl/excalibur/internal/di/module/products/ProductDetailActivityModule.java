@@ -25,12 +25,12 @@ public class ProductDetailActivityModule {
     }
 
     @Provides
-    ProductDetailView providesProductDetailView(BaseActivity activity) {
+    protected ProductDetailView providesProductDetailView(BaseActivity activity) {
         return new ProductDetailView(((ProductDetailActivity) activity));
     }
 
     @Provides
-    ProductDetailPresenter providesProductDetailPresenter(long productId, ProductDetailView productDetailView,
+    ProductDetailPresenter providesProductDetailPresenter(String productId, ProductDetailView productDetailView,
                                                           GetProductDbUseCase getProductDbUseCase) {
         return new ProductDetailPresenter(productId, productDetailView, getProductDbUseCase);
     }

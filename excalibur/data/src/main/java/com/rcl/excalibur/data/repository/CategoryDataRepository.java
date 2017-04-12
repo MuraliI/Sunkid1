@@ -25,7 +25,7 @@ public class CategoryDataRepository extends BaseDataRepository<Category, Categor
     }
 
     @Override
-    public Category get(long id) {
+    public Category get(String id) {
         return get(CategoryEntity.COLUMN_CATEGORY_ID, id);
     }
 

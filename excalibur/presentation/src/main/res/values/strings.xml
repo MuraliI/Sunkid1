@@ -6,11 +6,14 @@
     <string name="search_hint">Search for anything</string>
     <string name="ship_time_label">ship label&#160;</string>
     <string name="next_up">next up</string>
-    <string name="empty_string"/>
+    <string name="empty_string" />
+    <string name="space_string">&#160;</string>
     <string name="discoverItem">Discover</string>
     <string name="my_plans">My Plans</string>
     <string name="detail_module_accessibility">Accessibility &amp; Other info</string>
     <string name="detail_module_legal">Legal</string>
+    <string name="detail_module_age">Age Restriction</string>
+    <string name="detail_module_cuisine">Cuisine</string>
     <string name="detail_module_promotion">Promotion</string>
     <string name="price_range">Price Range</string>
     <string name="prices_from">Prices from</string>
@@ -26,6 +29,12 @@
     <string name="discover_item_detail_see_menu">See menu</string>
     <string name="discover_item_detail_description_expanded_text">See less</string>
     <string name="discover_item_detail_price_range">$%1$s&#8210;$%2$s</string>
+    <string name="product_detail_find_on_deck">Find on Deck</string>
+    <string name="product_detail_reservation_required">Reservation Required</string>
+    <string name="discover_item_detail_make_a_reservation">Make a Reservation</string>
+    <string name="discover_item_detail_experience">Experience</string>
+    <string name="discover_item_detail_attire">Attire</string>
+    <string name="discover_item_detail_know">Know Before You Go</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
@@ -33,6 +42,9 @@
     <string name="roboto_bold">fonts/Roboto-Bold.ttf</string>
     <string name="roboto_medium_italic">fonts/Roboto-MediumItalic.ttf</string>
     <string name="roboto_light">fonts/Roboto-Light.ttf</string>
+    <string name="proxima_nova_regular">fonts/ProximaNova-Regular.otf</string>
+    <string name="proxima_nova_bold">fonts/ProximaNova-Bold.otf</string>
+    <string name="proxima_nova_semi_bold">fonts/ProximaNova-Semibold.otf</string>
 
     <!--TABS-->
     <string name="royal_activity">Activity</string>
@@ -51,6 +63,8 @@
     <string name="hardcoded_destination_place">ST MARTIN</string>
     <string name="hardcoded_destination_time">in 1:40 hours</string>
     <string name="hardcoded_detail_activity_location">Location Here</string>
+    <string name="hardcoded_detail_deck_and_direction">Deck 12 AFT</string>
+    <string name="hardcoded_detail_port">St Martin</string>
     <string name="hardcoded_activity_title">Sams\'s BBQ Wild House</string>
     <string name="hardcoded_reservation_required">Reservation required</string>
     <string name="hardcoded_age_restriction_title">Ages</string>
@@ -66,6 +80,8 @@
         quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
         reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
         nulla pariatur?\"</string>
+    <string name="hardcoded_detail_short_description">\"This description is short enough to whet ones
+        apetite but long enough to be meaningful\"</string>
 
     <!--Categories-->
     <string name="category_royal_activity">ACTIVITIES</string>
@@ -105,5 +121,49 @@
     <string name="itinerary_accessibility_product_image">Item Image</string>
     <string name="itinerary_separator_title_on_going">On going</string>
 
+    <!-- Product Details -->
+    <plurals name="product_hr">
+        <item quantity="one">"%d hr "</item>
+        <item quantity="other">"%d hrs "</item>
+    </plurals>
+    <plurals name="product_min">
+        <item quantity="other">%d min</item>
+    </plurals>
+    <string name="advisement_cuisine">Cuisine</string>
+    <string name="accessibility">Accessibility &amp; Other Info</string>
+    <string name="detail_module_height">Height Restriction</string>
 
+    <string name="guest_name_label">Let\'s start with your name</string>
+    <string name="guest_name_hint">First and last name</string>
+
+    <!-- Email Activity -->
+    <string name="title_email_address">Now let\'s get your email address</string>
+    <string name="title_hint_email_address">Email address</string>
+    <string name="title_activity_password">PasswordActivity</string>
+    <string name="message_smaller_email">Email must to be smaller than 100 characters</string>
+    <string name="incorrect_email_format">"Incorrect email format"</string>
+
+    <!-- Password Activity -->
+    <string name="title_password_almost">Almost there! Let\'s create a password</string>
+    <string name="hint_password">Create password</string>
+    <string name="title_checkbox_password">Show Password</string>
+    <string name="rule_password">7 characters min, 1 special character</string>
+    <string name="min_characters"> 7 characters min, </string>
+    <string name="must_uppercase"> 1 uppercase, </string>
+    <string name="must_lowercase"> 1 lowercase, </string>
+    <string name="must_special_character"> 1 special character </string>
+    <string name="questions_title">Choose a question</string>
+    <string name="questions_description">Last step! Let’s pick a secret question\nin case you forget your password</string>
+
+    <!-- Answer Question Activity -->
+    <string name="hint_answer_question">Your secret answer</string>
+    <string name="text_button_done">Done</string>
+    <string name="regex_answer">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ - \'</string>
+
+    <!-- done Activity -->
+    <string name="create_done_title">Done!</string>
+    <string name="create_done_sub_title">Let´s explore </string>
+    <string name="email_exists_message">This email exists, please log in or reset your password.</string>
+
+    <string name="error_message_no_connection">We were not able to connect. Please check your internet connection and try again.</string>
 </resources>

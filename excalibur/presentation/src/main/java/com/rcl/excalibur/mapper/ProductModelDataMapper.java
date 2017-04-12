@@ -1,0 +1,74 @@
+package com.rcl.excalibur.mapper;
+
+import android.support.annotation.NonNull;
+
+import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductAdvisement;
+import com.rcl.excalibur.domain.ProductRestriction;
+import com.rcl.excalibur.model.ProductAccessibilityModel;
+import com.rcl.excalibur.model.ProductModel;
+
+import java.util.List;
+
+public class ProductModelDataMapper extends BaseModelDataMapper<Product, ProductModel> {
+
+    @NonNull
+    @Override
+    public ProductModel transform(Product item) {
+        if (item == null) {
+            return null;
+        }
+        final ProductModel productModel = new ProductModel();
+        productModel.setDuration(item.getProductDuration().getDurationInMinutes());
+        productModel.setReservationInformation(item.getProductReservationInformation());
+        productModel.setExperience(item.getExperience());
+        productModel.setDescription(item.getProductShortDescription());
+        setAdvisements(productModel, item.getAdvisements());
+        setRestrictions(productModel, item.getRestrictions());
+
+        return productModel;
+    }
+
+    private void setAdvisements(ProductModel product, List<ProductAdvisement> advisements) {
+        if (CollectionUtils.isEmpty(advisements)) {
+            return;
+        }
+        for (int i = 0; i < advisements.size(); i++) {
+            String id = advisements.get(i).getAdvisementId();
+            String description = advisements.get(i).getAdvisementDescription();
+            if (!id.isEmpty()) {
+                if (id.equals(ProductAdvisement.ACCESSIBILITY)) {
+                    addAccesibility(product, advisements.get(i));
+                } else {
+                    product.getAdvisementsAndReestrictions().put(id, description);
+                }
+            }
+        }
+    }
+
+    private void addAccesibility(ProductModel product, ProductAdvisement advisement) {
+        ProductAccessibilityModel accessibility = new ProductAccessibilityModel();
+        // TODO: choose the correct Media Type according the situation
+        accessibility.setImageUrl(advisement.getAdvisementMedia() != null
+                ? advisement.getAdvisementMedia().getMediaItem().get(0).getMediaRefLink()
+                : null);
+        accessibility.setSubtitle(advisement.getAdvisementTitle());
+        accessibility.setDescription(advisement.getAdvisementDescription());
+        product.getAccessibilities().add(accessibility);
+    }
+
+    private void setRestrictions(ProductModel product, List<ProductRestriction> restrictions) {
+        if (CollectionUtils.isEmpty(restrictions)) {
+            return;
+        }
+        for (int i = 0; i < restrictions.size(); i++) {
+            String type = restrictions.get(i).getRestrictionType();
+            if (!type.isEmpty()) {
+                String description = restrictions.get(i).getRestrictionDisplayText();
+                product.getAdvisementsAndReestrictions().put(type, description);
+            }
+        }
+    }
+}
+
