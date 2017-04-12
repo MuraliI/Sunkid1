@@ -20,6 +20,7 @@ import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
+import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.utils.StringUtils;
@@ -109,7 +110,15 @@ public final class DetailViewTypeFactory {
 
     private static void addDurationModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                           Product product) {
-        if (product.getProductDuration() == null) {
+
+
+        if (product.getProductType() == null || product.getProductType().getProductType() == null || product.getProductDuration() == null) {
+            return;
+        }
+        if (product.getProductType().getProductType().equals(ProductType.DINING_TYPE)) {
+            return;
+        }
+        if ((!product.isReservationRequired() && !product.isScheduable())) {
             return;
         }
         long duration = product.getProductDuration().getDurationInMinutes();
@@ -120,15 +129,21 @@ public final class DetailViewTypeFactory {
 
     public static String getDurationFormatted(Resources resources, int duration) {
         String durationStr = "";
-        int hours = duration / MINUTES_IN_HOUR;
-        int remainingMinutes = duration % MINUTES_IN_HOUR;
-        if (hours > 0) {
-            durationStr += resources.getQuantityString(R.plurals.product_hr, hours, hours);
+        if (duration >= MINUTES_IN_HOUR) {
+            int hours = duration / MINUTES_IN_HOUR;
+            int remainingMinutes = duration % MINUTES_IN_HOUR;
+            if (hours > 0) {
+                durationStr += resources.getQuantityString(R.plurals.product_hr, hours, hours);
+            }
+            if (remainingMinutes > 0) {
+                durationStr += resources.getQuantityString(R.plurals.product_min, remainingMinutes, remainingMinutes);
+            }
+        } else {
+            durationStr += resources.getQuantityString(R.plurals.product_min, duration, duration);
         }
-        if (remainingMinutes > 0) {
-            durationStr += resources.getQuantityString(R.plurals.product_min, remainingMinutes, remainingMinutes);
-        }
+
         return durationStr;
+
     }
 
     private static void addAttireModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,

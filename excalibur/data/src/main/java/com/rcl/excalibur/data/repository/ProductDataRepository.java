@@ -43,6 +43,8 @@ import com.rcl.excalibur.domain.repository.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity> implements ProductRepository {
@@ -371,6 +373,13 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     @Override
     public Product get(String id) {
+        Product temp = get(ProductEntity.COLUMN_PRODUCT_ID, id);
+        if (!CollectionUtils.isEmpty(temp.getRestrictions())) {
+            Timber.i("Product Size:" + temp.getRestrictions().size());
+            for (int i = 0; i < temp.getRestrictions().size(); i++) {
+                Timber.i("Product type: " + temp.getRestrictions().get(i).getRestrictionType());
+            }
+        }
         return get(ProductEntity.COLUMN_PRODUCT_ID, id);
     }
 
