@@ -8,7 +8,8 @@ import com.rcl.excalibur.data.mapper.CategoryEntityDataMapper;
 import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
-public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity> implements CategoryRepository {
+public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity, CategoryEntityDataMapper>
+        implements CategoryRepository {
 
     public CategoryDataRepository() {
         super(new CategoryEntityDataMapper(), CategoryEntity.class);

@@ -35,6 +35,8 @@ public class ProductEntity extends Model {
     public static final String COLUMN_PRODUCT_MEDIA = "product_media";
     public static final String COLUMN_EXPERIENCE = "experience";
     public static final String COLUMN_OFFERINGS = "offerings";
+    public static final String COLUMN_IS_FEATURED = "featured";
+    public static final String COLUMN_IS_HIGHLIGHTED = "highlighted";
 
     @Column(name = COLUMN_PRODUCT_ID, unique = true, index = true)
     public String productId;
@@ -79,6 +81,10 @@ public class ProductEntity extends Model {
     public MediaEntity productMedia;
     @Column(name = COLUMN_EXPERIENCE)
     public String experience;
+    @Column(name = COLUMN_IS_FEATURED)
+    public boolean isFeatured;
+    @Column(name = COLUMN_IS_HIGHLIGHTED)
+    public boolean isHighlighted;
 
     public ProductEntity() {
         super();
@@ -258,5 +264,25 @@ public class ProductEntity extends Model {
 
     public void setExperience(String experience) {
         this.experience = experience;
+    }
+
+    public List<OfferingEntity> getOfferings() {
+        return getMany(OfferingEntity.class, COLUMN_OFFERINGS);
+    }
+
+    public boolean isFeatured() {
+        return isFeatured;
+    }
+
+    public void setFeatured(boolean featured) {
+        isFeatured = featured;
+    }
+
+    public boolean isHighlighted() {
+        return isHighlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        isHighlighted = highlighted;
     }
 }
