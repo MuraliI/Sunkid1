@@ -24,7 +24,7 @@
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_dining"
+                android:src="@drawable/ic_dinning"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -50,7 +50,7 @@
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_excursion"
+                android:src="@drawable/ic_excursions"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -76,7 +76,7 @@
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_spa"
+                android:src="@drawable/ic_spa"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -102,7 +102,7 @@
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_shopping"
+                android:src="@drawable/ic_shops"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -137,7 +137,7 @@
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_entertainment"
+                android:src="@drawable/ic_entertainment"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -164,7 +164,7 @@
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_activity"
+                android:src="@drawable/ic_activities"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -191,7 +191,7 @@
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_search"
+                android:src="@drawable/ic_services"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -199,7 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/search"
+                android:text="@string/services"
                 android:textColor="@color/white" />
 
         </LinearLayout>

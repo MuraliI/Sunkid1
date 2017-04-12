@@ -47,10 +47,10 @@
     <string name="proxima_nova_semi_bold">fonts/ProximaNova-Semibold.otf</string>
 
     <!--TABS-->
-    <string name="royal_activity">Activity</string>
+    <string name="royal_activity">Activities</string>
     <string name="spa">Spa</string>
     <string name="dining">Dining</string>
-    <string name="shopping">Shop</string>
+    <string name="shopping">Shops</string>
     <string name="shorex">Excursions</string>
     <string name="entertainment">Entertainment</string>
     <string name="services">Services</string>
