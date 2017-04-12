@@ -82,14 +82,14 @@ public class ProductDetailPresenter {
         }
     }
 
-    public static class FindOnDeckClickObserver extends DefaultPresentObserver<Long, ProductDetailPresenter> {
+    public static class FindOnDeckClickObserver extends DefaultPresentObserver<String, ProductDetailPresenter> {
 
         FindOnDeckClickObserver(ProductDetailPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(Long productId) {
+        public void onNext(String productId) {
             final BaseActivity activity = getPresenter().view.getActivity();
             if (activity == null) {
                 return;

@@ -23,7 +23,7 @@ public class ProductDeckMapActivity extends BaseActivity implements View.OnTouch
     protected ProductDeckMapPresenter presenter;
     private GestureDetector gestureDetector;
 
-    public static Intent getIntent(final BaseActivity activity, long productItemId) {
+    public static Intent getIntent(final BaseActivity activity, String productItemId) {
         Intent intent = new Intent(activity, ProductDeckMapActivity.class);
         intent.putExtra(EXTRA_PRODUCT_ITEM_ID, productItemId);
         return intent;
