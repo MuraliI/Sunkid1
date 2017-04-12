@@ -124,7 +124,7 @@
     <!-- Product Details -->
     <plurals name="product_hr">
         <item quantity="one">"%d hr "</item>
-        <item quantity="other">"%d hrs "</item>
+        <item quantity="other">"%d hours "</item>
     </plurals>
     <plurals name="product_min">
         <item quantity="other">%d min</item>
@@ -166,4 +166,6 @@
     <string name="email_exists_message">This email exists, please log in or reset your password.</string>
 
     <string name="error_message_no_connection">We were not able to connect. Please check your internet connection and try again.</string>
+    <string name="error_message_security_questions">Something went wrong, please try again.</string>
+
 </resources>

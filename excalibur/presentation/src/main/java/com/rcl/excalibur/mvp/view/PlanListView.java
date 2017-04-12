@@ -21,7 +21,7 @@ import static com.rcl.excalibur.fragments.ProductsListFragment.SPA;
 import static com.rcl.excalibur.fragments.ProductsListFragment.newInstance;
 
 
-public class PlanListView extends ActivityView<PlanListActivity, DiscoverItemModel> {
+public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverItemModel> {
     public static final int POSITION_ROYAL_ACTIVITY = 0;
     public static final int POSITION_DINING = 1;
     public static final int POSITION_SHOPPING = 2;
@@ -34,39 +34,44 @@ public class PlanListView extends ActivityView<PlanListActivity, DiscoverItemMod
     }
 
     public void init(int fragmentToShow) {
-        Fragment fragment = createFragment(fragmentToShow);
-        callFragment(fragment);
+        final PlanListActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        Fragment fragment = createFragment(activity, fragmentToShow);
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.full_content,
+                fragment).commit();
     }
 
-    private Fragment createFragment(int fragmentToShow) {
-        Fragment fragment = newInstance(ROYAL_ACTIVITY);
+    private Fragment createFragment(PlanListActivity activity, int fragmentToShow) {
+        Fragment fragment = null;
         //Objects needed for Analytics tracking
         AnalyticEvent analyticEvent = new AnalyticEvent(AnalyticsConstants.KEY_FILTER_DISCOVER);
         String categorySelected = "";
         switch (fragmentToShow) {
             case POSITION_ROYAL_ACTIVITY:
                 fragment = newInstance(ROYAL_ACTIVITY);
-                categorySelected = getActivity().getString(R.string.category_royal_activity);
+                categorySelected = activity.getString(R.string.category_royal_activity);
                 break;
             case POSITION_DINING:
                 fragment = newInstance(DINING);
-                categorySelected = getActivity().getString(R.string.category_dining);
+                categorySelected = activity.getString(R.string.category_dining);
                 break;
             case POSITION_SHOPPING:
                 fragment = newInstance(SHOPPING);
-                categorySelected = getActivity().getString(R.string.category_shopping);
+                categorySelected = activity.getString(R.string.category_shopping);
                 break;
             case POSITION_SPA:
                 fragment = newInstance(SPA);
-                categorySelected = getActivity().getString(R.string.category_spa);
+                categorySelected = activity.getString(R.string.category_spa);
                 break;
             case POSITION_SHOREX:
                 fragment = newInstance(SHOREX);
-                categorySelected = getActivity().getString(R.string.category_shorex);
+                categorySelected = activity.getString(R.string.category_shorex);
                 break;
             case POSITION_ENTERTAINMENT:
                 fragment = newInstance(ENTERTAINMENT);
-                categorySelected = getActivity().getString(R.string.category_entertainment);
+                categorySelected = activity.getString(R.string.category_entertainment);
                 break;
             default:
                 Preconditions.unreachable();
@@ -75,8 +80,4 @@ public class PlanListView extends ActivityView<PlanListActivity, DiscoverItemMod
         return fragment;
     }
 
-    private void callFragment(Fragment fragment) {
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.full_content,
-                fragment).commit();
-    }
 }

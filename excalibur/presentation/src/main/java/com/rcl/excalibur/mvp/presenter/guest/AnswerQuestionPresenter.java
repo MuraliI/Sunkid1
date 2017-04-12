@@ -8,31 +8,27 @@ import com.rcl.excalibur.activity.guest.CreateAccountDoneActivity;
 import com.rcl.excalibur.domain.guest.CreateAccountEvent;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.domain.service.GuestServices;
-import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
-import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.mvp.view.guest.AnswerQuestionView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
-public class AnswerQuestionPresenter implements ActivityPresenter {
+public class AnswerQuestionPresenter {
     private static final int MIN_CHARS = 3;
     private AnswerQuestionView view;
     private GuestServices guestServices;
-    private CreateAccountServiceObserver serviceObserver;
     private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
     public AnswerQuestionPresenter(AnswerQuestionView view, GuestServices guestServices,
                                    GetGuestPreferencesUseCase getGuestPreferencesUseCase) {
         this.view = view;
         this.guestServices = guestServices;
-        this.serviceObserver = new CreateAccountServiceObserver(this);
         this.getGuestPreferencesUseCase = getGuestPreferencesUseCase;
         setTitleQuestion(getGuestPreferencesUseCase.getQuestion());
     }
 
     public void onPressDoneBtn() {
         getGuestPreferencesUseCase.putAnswer(view.getAnswer());
-        guestServices.createAccount(serviceObserver);
+        guestServices.createAccount(new CreateAccountServiceObserver(this));
     }
 
 
@@ -50,11 +46,6 @@ public class AnswerQuestionPresenter implements ActivityPresenter {
 
     public void hideKeyBoard() {
         view.hideKeyboard();
-    }
-
-    @Override
-    public ActivityView getView() {
-        return view;
     }
 
     public void setValidateAnswer() {

@@ -15,10 +15,8 @@ ext {
 
     //Libraries
     butterKnifeVersion = '7.0.1'
-    daggerVersion = '2.8'
     recyclerViewVersion = '25.0.0'
     javaxAnnotationVersion = '1.0'
-    javaxInjectVersion = '1'
     gsonVersion = '2.3'
     activeAndroidVersion = '3.1.0-SNAPSHOT'
     appSupportVersion = '25.1.0'
@@ -58,8 +56,6 @@ ext {
     presentationDependencies = [
             butterKnife     : "com.jakewharton:butterknife:${butterKnifeVersion}",
             recyclerView    : "com.android.support:recyclerview-v7:${recyclerViewVersion}",
-            daggerCompiler  : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            dagger          : "com.google.dagger:dagger:${daggerVersion}",
             activeAndroid   : "com.michaelpardo:activeandroid:${activeAndroidVersion}",
             appSupport      : "com.android.support:appcompat-v7:${appSupportVersion}",
             rxAndroid       : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
@@ -69,8 +65,7 @@ ext {
             supportDesign   : "com.android.support:design:${designSupportLibraryVersion}",
             realTimeBlurView: "com.github.mmin18:realtimeblurview:${realTimeBlurLibVersion}",
             appcompat       : "com.android.support:appcompat-v7:${appcompatVersion}",
-            scaleImageView  : "com.davemorrissey.labs:subsampling-scale-image-view:${subsamplingScaleImageViewVersion}",
-            okHttpLogging   : "com.squareup.okhttp3:logging-interceptor:${okHttpLoggingVersion}"
+            scaleImageView  : "com.davemorrissey.labs:subsampling-scale-image-view:${subsamplingScaleImageViewVersion}"
     ]
 
     presentationTestDependencies = [
@@ -89,7 +84,6 @@ ext {
 
     domainDependencies = [
             javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            javaxInject    : "javax.inject:javax.inject:${javaxInjectVersion}",
             rxJava         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             arrow          : "com.fernandocejas:arrow:${arrowVersion}"
     ]
@@ -102,18 +96,17 @@ ext {
     ]
 
     dataDependencies = [
-            daggerCompiler    : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            dagger            : "com.google.dagger:dagger:${daggerVersion}",
             okHttp            : "com.squareup.okhttp:okhttp:${okHttpVersion}",
             gson              : "com.google.code.gson:gson:${gsonVersion}",
             rxJava            : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             rxAndroid         : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             javaxAnnotation   : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            javaxInject       : "javax.inject:javax.inject:${javaxInjectVersion}",
             androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
             activeAndroid     : "com.michaelpardo:activeandroid:${activeAndroidVersion}",
             retrofit          : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             retrofitGson      : "com.squareup.retrofit2:converter-gson:${retrofitGsonVersion}",
+            okHttpLogging   : "com.squareup.okhttp3:logging-interceptor:${okHttpLoggingVersion}"
+
     ]
 
     dataTestDependencies = [

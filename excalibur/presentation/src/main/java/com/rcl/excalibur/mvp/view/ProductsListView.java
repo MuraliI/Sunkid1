@@ -9,13 +9,14 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.ProductsAdapter;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.fragments.ProductsListFragment;
+import com.rcl.excalibur.mvp.view.base.FragmentView;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ProductsListView extends FragmentView<ProductsListFragment> {
+public class ProductsListView extends FragmentView<ProductsListFragment, Void, Product> {
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
 
     private ProductsAdapter adapter;

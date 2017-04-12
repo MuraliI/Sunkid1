@@ -63,10 +63,7 @@ dependencies {
     def testDependencies = rootProject.ext.dataTestDependencies
 
     compile project(':domain')
-    apt dataDependencies.daggerCompiler
     provided dataDependencies.javaxAnnotation
-    compile dataDependencies.dagger
-    compile dataDependencies.javaxInject
     compile dataDependencies.okHttp
     compile dataDependencies.gson
     compile dataDependencies.rxJava
@@ -75,6 +72,7 @@ dependencies {
     compile dataDependencies.activeAndroid
     compile dataDependencies.retrofit
     compile dataDependencies.retrofitGson
+    compile dataDependencies.okHttpLogging
     compile generalDependencies.timber
 
     testCompile testDependencies.junit
