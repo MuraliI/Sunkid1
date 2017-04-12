@@ -1,7 +1,6 @@
 package com.rcl.excalibur.data.service;
 
 import com.rcl.excalibur.data.mapper.itinerary.ItineraryEventDataMapper;
-import com.rcl.excalibur.data.service.api.ItineraryApi;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryEventResponse;
 import com.rcl.excalibur.data.service.response.itinerary.ItineraryResponse;
 import com.rcl.excalibur.domain.ItineraryEvent;
@@ -17,26 +16,25 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class ItineraryServiceImpl implements ItineraryService {
-    private final ItineraryEventDataMapper itineraryEventDataMapper;
-    private final ItineraryApi itineraryApi;
+import static com.rcl.excalibur.data.utils.ServiceUtil.getItineraryApi;
 
-    public ItineraryServiceImpl(ItineraryEventDataMapper itineraryEventDataMapper, ItineraryApi itineraryApi) {
-        this.itineraryEventDataMapper = itineraryEventDataMapper;
-        this.itineraryApi = itineraryApi;
+public class ItineraryServiceImpl extends BaseDataService<ItineraryEvent, ItineraryEventResponse> implements ItineraryService {
+
+    public ItineraryServiceImpl() {
+        super(new ItineraryEventDataMapper());
     }
 
     public void myItinerary(Observer<List<ItineraryEvent>> observer) {
 
         Observable<List<ItineraryEvent>> observable = Observable.create(e -> {
-            Call<ItineraryResponse> call = itineraryApi.myItinerary();
+            Call<ItineraryResponse> call = getItineraryApi().myItinerary();
             try {
                 Response<ItineraryResponse> response = call.execute();
                 /* FIXME: This won't work if the response has several EventGroup, only for mocking Data with COMMERCE EVENT*/
                 List<ItineraryEventResponse> itineraryEventResponseList = response.body()
                         .getItineraryEventGroups()
                         .get(0).getItineraryEvents();
-                List<ItineraryEvent> itineraryEventList = itineraryEventDataMapper.transform(itineraryEventResponseList);
+                List<ItineraryEvent> itineraryEventList = getMapper().transform(itineraryEventResponseList);
 
                 e.onNext(itineraryEventList);
             } catch (IOException exception) {

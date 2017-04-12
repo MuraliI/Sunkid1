@@ -18,6 +18,7 @@ public class TypeEntity extends Model {
     private String typeId;
     @Column(name = COLUMN_NAME)
     private String name;
+    //TODO create unique constraints and indexes when services are defined
     @Column(name = COLUMN_TYPE)
     private String type;
 

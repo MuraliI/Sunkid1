@@ -6,21 +6,14 @@ import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.PlanListView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
-public class PlanListPresenter implements ActivityPresenter {
+public class PlanListPresenter {
     private final PlanListView view;
-    private final int fragmentToShow;
 
-    public PlanListPresenter(PlanListView view, int fragmentToShow) {
+    public PlanListPresenter(PlanListView view) {
         this.view = view;
-        this.fragmentToShow = fragmentToShow;
     }
 
-    @Override
-    public PlanListView getView() {
-        return view;
-    }
-
-    public void init() {
+    public void init(int fragmentToShow) {
         view.setAdapterObserver(new AdapterObserver(this));
         view.init(fragmentToShow);
     }

@@ -2,17 +2,18 @@ package com.rcl.excalibur.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.RCLApp;
-import com.rcl.excalibur.internal.di.component.FragmentComponent;
-import com.rcl.excalibur.internal.di.component.products.ProductsFragmentComponent;
-import com.rcl.excalibur.internal.di.module.products.ProductsFragmentModule;
+import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.data.service.DiscoverServicesImpl;
+import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
+import com.rcl.excalibur.mvp.view.DiscoverTabView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,9 +25,9 @@ import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOPPING;
 import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOREX;
 import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SPA;
 
-public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
-    private ProductsFragmentComponent productsFragmentComponent;
-    private RCLApp rclApp;
+public class DiscoverTabFragment extends Fragment {
+
+    protected DiscoverTabPresenter presenter;
 
     public static DiscoverTabFragment newInstance() {
         return new DiscoverTabFragment();
@@ -43,21 +44,11 @@ public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenter = new DiscoverTabPresenter(new DiscoverTabView(this)
+                , new GetProductsUseCase(new DiscoverServicesImpl(new ProductDataRepository())));
         presenter.init();
     }
 
-    @Override
-    protected void createFragmentComponent() {
-        rclApp = (RCLApp) getActivity().getApplication();
-        rclApp.createProductsComponent();
-        productsFragmentComponent = rclApp.getProductsComponent().plus(new ProductsFragmentModule(this));
-    }
-
-    @Override
-    protected void destroyFragmentComponent() {
-        rclApp.destroyProductsComponent();
-        productsFragmentComponent = null;
-    }
 
     @OnClick(R.id.button_dinning)
     public void dinningOnClick() {
@@ -99,8 +90,4 @@ public class DiscoverTabFragment extends BaseFragment<DiscoverTabPresenter> {
         presenter.boatOnClick();
     }*/
 
-    @Override
-    protected void inject(FragmentComponent fragmentComponent) {
-        productsFragmentComponent.inject(this);
-    }
 }

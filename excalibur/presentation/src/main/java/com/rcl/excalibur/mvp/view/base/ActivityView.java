@@ -15,9 +15,9 @@ import java.lang.ref.WeakReference;
 
 import io.reactivex.Observer;
 
-public class ActivityView<T extends BaseActivity, H> {
-    protected Observer viewObserver;
-    protected Observer<H> adapterObserver;
+public class ActivityView<T extends BaseActivity, HV, HA> {
+    protected Observer<HV> viewObserver;
+    protected Observer<HA> adapterObserver;
     private WeakReference<T> activityRef;
 
     public ActivityView(T activity) {
@@ -56,16 +56,20 @@ public class ActivityView<T extends BaseActivity, H> {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
 
-    public void setViewObserver(Observer observer) {
-        this.viewObserver = observer;
+    public Observer<HA> getAdapterObserver() {
+        return this.adapterObserver;
     }
 
-    public void setAdapterObserver(Observer<H> observer) {
+    public void setAdapterObserver(Observer<HA> observer) {
         this.adapterObserver = observer;
     }
 
-    public Observer<H> getAdapterObserver() {
-        return this.adapterObserver;
+    public Observer<HV> getViewObserver() {
+        return this.viewObserver;
+    }
+
+    public void setViewObserver(Observer<HV> observer) {
+        this.viewObserver = observer;
     }
 
     public void hideKeyboard() {
