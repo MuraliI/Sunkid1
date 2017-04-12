@@ -2,6 +2,7 @@ package com.rcl.excalibur.domain.interactor;
 
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -20,6 +21,11 @@ public class GetCategoryDbUseCaseTest {
     }
 
     @Test
+    public void getData() throws Exception {
+        Assert.assertEquals(categoryRepository, useCase.getData());
+    }
+
+    @Test
     public void getAll() throws Exception {
         useCase.getAll();
         verify(categoryRepository).getAll();
@@ -27,7 +33,7 @@ public class GetCategoryDbUseCaseTest {
 
     @Test
     public void get() throws Exception {
-        final long categoryId = 1;
+        final String categoryId = "1";
         useCase.get(categoryId);
         verify(categoryRepository).get(categoryId);
     }

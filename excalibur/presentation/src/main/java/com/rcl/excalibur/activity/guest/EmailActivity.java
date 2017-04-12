@@ -5,10 +5,12 @@ import android.os.Bundle;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.internal.di.component.ActivityComponent;
-import com.rcl.excalibur.internal.di.component.guest.GuestEmailActivityComponent;
-import com.rcl.excalibur.internal.di.module.guest.GuestEmailActivityModule;
+import com.rcl.excalibur.data.preference.GuestPreferenceImpl;
+import com.rcl.excalibur.data.service.GuestServicesImpl;
+import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
+import com.rcl.excalibur.domain.preference.GuestPreference;
 import com.rcl.excalibur.mvp.presenter.guest.EmailPresenter;
+import com.rcl.excalibur.mvp.view.guest.EmailView;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
@@ -17,8 +19,8 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
 
-public class EmailActivity extends BaseActivity<EmailPresenter> {
-    private GuestEmailActivityComponent guestActivityComponent;
+public class EmailActivity extends BaseActivity {
+    private EmailPresenter presenter;
 
     public static Intent getStartIntent(final BaseActivity activity) {
         return new Intent(activity, EmailActivity.class);
@@ -30,6 +32,11 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
         setContentView(R.layout.activity_email);
         ButterKnife.bind(this);
         AnalyticsUtils.trackState(AnalyticsConstants.KEY_GUEST_ACCOUNT_EMAIL);
+        final GuestPreference guestPreference = new GuestPreferenceImpl(this);
+
+        presenter = new EmailPresenter(new EmailView(this)
+                , new GetGuestPreferencesUseCase(guestPreference)
+                , new GuestServicesImpl(guestPreference));
     }
 
     @OnClick(R.id.image_back_screen)
@@ -53,22 +60,4 @@ public class EmailActivity extends BaseActivity<EmailPresenter> {
     public void onClickImageViewNext() {
         presenter.checkDone();
     }
-
-    @Override
-    protected void createComponent() {
-        rclApp.createGuestComponent();
-        guestActivityComponent = rclApp.getGuestComponent().plus(new GuestEmailActivityModule(this));
-    }
-
-    @Override
-    protected void destroyComponent() {
-        guestActivityComponent = null;
-        rclApp.destroyGuestComponent();
-    }
-
-    @Override
-    protected void injectActivity(ActivityComponent activityComponent) {
-        guestActivityComponent.inject(this);
-    }
-
 }

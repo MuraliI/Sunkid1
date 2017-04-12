@@ -7,4 +7,11 @@ public class PreconditionsTest {
     public void testUnreachableThrowsException() throws Exception {
         Preconditions.unreachable();
     }
+
+    @Test(expected = RuntimeException.class)
+    public void testNotNull() throws Exception {
+        Preconditions.notNull(null);
+    }
+
+
 }

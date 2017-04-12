@@ -1,69 +1,35 @@
 package com.rcl.excalibur.mvp.presenter.guest;
 
-import android.content.Context;
-
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
+import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.domain.interactor.GetSecurityQuestionsUseCase;
-import com.rcl.excalibur.internal.di.component.AppComponentTest;
-import com.rcl.excalibur.internal.di.component.DaggerAppComponentTest;
-import com.rcl.excalibur.internal.di.component.guest.GuestActivityComponentTest;
-import com.rcl.excalibur.internal.di.component.guest.GuestComponentTest;
-import com.rcl.excalibur.internal.di.module.AppModuleTest;
-import com.rcl.excalibur.internal.di.module.guest.GuestActivityModuleTest;
-import com.rcl.excalibur.internal.di.module.guest.GuestModuleTest;
-import com.rcl.excalibur.internal.di.module.guest.GuestServicesModuleTest;
 import com.rcl.excalibur.mvp.view.guest.SecurityQuestionsView;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
-import static junit.framework.Assert.assertNotNull;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class SecurityQuestionsPresenterTest {
-    @Inject SecurityQuestionsPresenter presenter;
-    @Mock Context context;
-    private AppComponentTest appComponentTest;
-    private GuestComponentTest guestComponentTest;
-    private GuestActivityComponentTest guestActivityComponentTest;
+    SecurityQuestionsPresenter presenter;
+    @Mock SecurityQuestionsView view;
+    @Mock GetSecurityQuestionsUseCase getSecurityQuestionsUseCase;
+    @Mock GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
     @Before
     public void setUp() throws Exception {
-        appComponentTest = DaggerAppComponentTest.builder()
-                .appModule(new AppModuleTest())
-                .build();
-        guestComponentTest = appComponentTest.plus(new GuestServicesModuleTest(context), new GuestModuleTest());
-        guestActivityComponentTest = guestComponentTest.plus(new GuestActivityModuleTest());
-        guestActivityComponentTest.inject(this);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        guestActivityComponentTest = null;
-        guestComponentTest = null;
-        appComponentTest = null;
+        MockitoAnnotations.initMocks(this);
+        presenter = new SecurityQuestionsPresenter(view, getSecurityQuestionsUseCase, getGuestPreferencesUseCase);
     }
 
     @Test
-    public void testInit_viewCalledInitOnceAndUseCaseWasExecutedOnce() throws Exception {
-        SecurityQuestionsView view = presenter.getView();
-        GetSecurityQuestionsUseCase useCase = presenter.getGetSecurityQuestionsUseCase();
-        ArgumentCaptor<DefaultObserver> argumentCaptor = ArgumentCaptor.forClass(DefaultObserver.class);
-
+    public void testInit() throws Exception {
         presenter.init();
-        verify(view, times(1)).init();
-        verify(useCase, times(1)).execute(argumentCaptor.capture(), eq(null));
-
-        DefaultObserver<List<String>> defaultObserver = argumentCaptor.getValue();
-        assertNotNull(defaultObserver);
+        verify(view).setAdapterObserver(Mockito.any(SecurityQuestionsPresenter.AdapterObserver.class));
+        verify(view).init();
+        verify(getSecurityQuestionsUseCase).execute(Mockito.any(DefaultObserver.class), Mockito.any());
     }
 }

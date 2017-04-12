@@ -10,9 +10,8 @@ import com.rcl.excalibur.domain.repository.CategoryRepository;
 
 public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity> implements CategoryRepository {
 
-    public CategoryDataRepository(CategoryEntityDataMapper categoryEntityDataMapper) {
-        super(categoryEntityDataMapper, CategoryEntity.class);
-
+    public CategoryDataRepository() {
+        super(new CategoryEntityDataMapper(), CategoryEntity.class);
     }
 
     @Override
@@ -25,7 +24,7 @@ public class CategoryDataRepository extends BaseDataRepository<Category, Categor
     }
 
     @Override
-    public Category get(long id) {
+    public Category get(String id) {
         return get(CategoryEntity.COLUMN_CATEGORY_ID, id);
     }
 

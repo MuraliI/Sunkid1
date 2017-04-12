@@ -173,4 +173,6 @@
     <string name="email_exists_message">This email exists, please log in or reset your password.</string>
 
     <string name="error_message_no_connection">We were not able to connect. Please check your internet connection and try again.</string>
+    <string name="error_message_security_questions">Something went wrong, please try again.</string>
+
 </resources>

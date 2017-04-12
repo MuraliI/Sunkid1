@@ -10,8 +10,8 @@ import com.rcl.excalibur.domain.repository.PromotionRepository;
 
 public class PromotionDataRepository extends BaseDataRepository<Promotion, PromotionEntity> implements PromotionRepository {
 
-    public PromotionDataRepository(PromotionEntityDataMapper promotionEntityDataMapper) {
-        super(promotionEntityDataMapper, PromotionEntity.class);
+    public PromotionDataRepository() {
+        super(new PromotionEntityDataMapper(), PromotionEntity.class);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class PromotionDataRepository extends BaseDataRepository<Promotion, Promo
     }
 
     @Override
-    public Promotion get(long id) {
+    public Promotion get(String id) {
         return get(PromotionEntity.COLUMN_CATEGORY_ID, id);
     }
 

@@ -27,7 +27,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
 
-public class ProductDetailView extends ActivityView<ProductDetailActivity, Long> {
+public class ProductDetailView extends ActivityView<ProductDetailActivity, int[], String> {
 
     private static final String STATUS_BAR_HEIGHT_ID = "status_bar_height";
     private static final String DIMEN = "dimen";

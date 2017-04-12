@@ -2,12 +2,11 @@ package com.rcl.excalibur.mvp.presenter.guest;
 
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
-import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
 import com.rcl.excalibur.mvp.view.guest.CreateAccountDoneView;
 
 import static com.rcl.excalibur.utils.ActivityUtils.startActivity;
 
-public class CreateAccountDonePresenter implements ActivityPresenter {
+public class CreateAccountDonePresenter {
     private CreateAccountDoneView view;
 
     public CreateAccountDonePresenter(CreateAccountDoneView view) {
@@ -23,8 +22,4 @@ public class CreateAccountDonePresenter implements ActivityPresenter {
         startActivity(activity, TriptychHomeActivity.getStartIntent(activity));
     }
 
-    @Override
-    public CreateAccountDoneView getView() {
-        return view;
-    }
 }

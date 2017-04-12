@@ -1,9 +1,14 @@
-package com.rcl.excalibur.data;
+package com.rcl.excalibur.data.preference;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
+import com.rcl.excalibur.data.utils.Preconditions;
+
 import java.util.Set;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class BasePreferenceImpl {
@@ -14,8 +19,10 @@ public class BasePreferenceImpl {
     private static final long DEFAULT_LONG = -1;
     private SharedPreferences preferences;
 
-    public BasePreferenceImpl(SharedPreferences preferences) {
-        this.preferences = preferences;
+    public BasePreferenceImpl(final Context context, final String name) {
+        Preconditions.notNull(context);
+        this.preferences = context.getApplicationContext().getSharedPreferences(name, MODE_PRIVATE);
+
     }
 
     protected void put(@NonNull String key, String value) {

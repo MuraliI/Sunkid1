@@ -7,10 +7,12 @@ import android.text.Editable;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.internal.di.component.ActivityComponent;
-import com.rcl.excalibur.internal.di.component.guest.GuestActivityComponent;
-import com.rcl.excalibur.internal.di.module.guest.GuestActivityModule;
+import com.rcl.excalibur.data.preference.GuestPreferenceImpl;
+import com.rcl.excalibur.data.service.GuestServicesImpl;
+import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
+import com.rcl.excalibur.domain.preference.GuestPreference;
 import com.rcl.excalibur.mvp.presenter.guest.AnswerQuestionPresenter;
+import com.rcl.excalibur.mvp.view.guest.AnswerQuestionView;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
@@ -18,9 +20,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class AnswerQuestionActivity extends BaseActivity<AnswerQuestionPresenter> {
+public class AnswerQuestionActivity extends BaseActivity {
 
-    GuestActivityComponent guestActivityComponent;
+    protected AnswerQuestionPresenter presenter;
+
+    public static Intent getStartIntent(final BaseActivity activity) {
+        return new Intent(activity, AnswerQuestionActivity.class);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,10 +34,10 @@ public class AnswerQuestionActivity extends BaseActivity<AnswerQuestionPresenter
         setContentView(R.layout.activity_answer_question);
         ButterKnife.bind(this);
         AnalyticsUtils.trackState(AnalyticsConstants.KEY_GUEST_ACCOUNT_SECURITY_QUESTION_ANSWER);
-    }
-
-    public static Intent getStartIntent(final BaseActivity activity) {
-        return new Intent(activity, AnswerQuestionActivity.class);
+        final GuestPreference guestPreference = new GuestPreferenceImpl(this);
+        presenter = new AnswerQuestionPresenter(new AnswerQuestionView(this)
+                , new GuestServicesImpl(guestPreference)
+                , new GetGuestPreferencesUseCase(guestPreference));
     }
 
     @OnClick(R.id.image_back_screen)
@@ -49,23 +55,6 @@ public class AnswerQuestionActivity extends BaseActivity<AnswerQuestionPresenter
         presenter.setValidateAnswer();
     }
 
-    @Override
-    protected void injectActivity(ActivityComponent activityComponent) {
-        guestActivityComponent.inject(this);
-    }
-
-    @Override
-    protected void createComponent() {
-        rclApp.createGuestComponent();
-        guestActivityComponent = rclApp.getGuestComponent().plus(new GuestActivityModule(this));
-
-    }
-
-    @Override
-    protected void destroyComponent() {
-        guestActivityComponent = null;
-        rclApp.destroyGuestComponent();
-    }
 
     @OnClick(R.id.container_layout)
     void onClickContainer() {

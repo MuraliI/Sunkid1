@@ -15,7 +15,7 @@ import java.util.List;
 import io.reactivex.Observer;
 
 public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT extends RecyclerViewType>
-        extends BaseCoordinatorAdapter<VH, VT, Long> implements ExpandableContentViewHolder.OnViewExpandedListener<VT> {
+        extends BaseCoordinatorAdapter<VH, VT, String> implements ExpandableContentViewHolder.OnViewExpandedListener<VT> {
 
     public interface OnViewExpandedListener {
         void onViewExpanded(Integer integer);
@@ -26,7 +26,7 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
     private OnViewExpandedListener listener;
 
     @SuppressWarnings("unchecked")
-    public DetailViewCoordinatorAdapter(Observer<Long> observer, List<VT> recyclerViewTypes) {
+    public DetailViewCoordinatorAdapter(Observer<String> observer, List<VT> recyclerViewTypes) {
         super(observer);
         //TODO each one will be in charge of adding its own module to the list of modules.
         delegateAdapters = new SparseArrayCompat<>(VIEW_TYPE_COUNT);

@@ -9,7 +9,7 @@ public interface DiscoverItemRepository {
 
     List<DiscoverItem> listAll(String type);
 
-    DiscoverItem get(int id);
+    DiscoverItem get(String id);
 
     void create(List<DiscoverItem> discoverItems);
 }

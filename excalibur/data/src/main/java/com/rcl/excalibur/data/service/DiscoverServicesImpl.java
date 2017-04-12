@@ -2,7 +2,6 @@ package com.rcl.excalibur.data.service;
 
 
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
-import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
@@ -17,7 +16,6 @@ import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
-import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
@@ -32,7 +30,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class DiscoverServicesImpl implements DiscoverServices {
+import static com.rcl.excalibur.data.utils.ServiceUtil.getDiscoverApi;
+import static com.rcl.excalibur.data.utils.ServiceUtil.isSuccess;
+
+public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse> implements DiscoverServices {
     private static final String SAILING_ID = "AL20170430";
     private static final int MAX_COUNT = 50;
 
@@ -45,20 +46,16 @@ public class DiscoverServicesImpl implements DiscoverServices {
     private static final String GUEST_SERVICES = "GUEST_SERVICES";
 
     private final ProductRepository productRepository;
-    private final ProductResponseDataMapper productResponseDataMapper;
-    private final DiscoverApi discoverApi;
 
-    public DiscoverServicesImpl(ProductRepository productRepository, ProductResponseDataMapper productResponseDataMapper,
-                                DiscoverApi discoverApi) {
+    public DiscoverServicesImpl(ProductRepository productRepository) {
+        super(new ProductResponseDataMapper());
         this.productRepository = productRepository;
-        this.productResponseDataMapper = productResponseDataMapper;
-        this.discoverApi = discoverApi;
     }
 
     @Override
     public void getCategories() {
 
-        Call<CategoriesResponse> call = discoverApi.getCategories();
+        Call<CategoriesResponse> call = getDiscoverApi().getCategories();
 
         call.enqueue(new Callback<CategoriesResponse>() {
             @Override
@@ -76,7 +73,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getSpas() {
-        Call<SpasResponse> call = discoverApi.getSpas();
+        Call<SpasResponse> call = getDiscoverApi().getSpas();
 
         call.enqueue(new Callback<SpasResponse>() {
             @Override
@@ -94,7 +91,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
     @Override
     public void getExcursion() {
 
-        Call<ExcursionResponse> call = discoverApi.getExcursion();
+        Call<ExcursionResponse> call = getDiscoverApi().getExcursion();
 
         call.enqueue(new Callback<ExcursionResponse>() {
             @Override
@@ -111,7 +108,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getDinings() {
-        Call<DiningsResponse> call = discoverApi.getDinings();
+        Call<DiningsResponse> call = getDiscoverApi().getDinings();
 
         call.enqueue(new Callback<DiningsResponse>() {
             @Override
@@ -129,7 +126,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
     @Override
     public void getActivities() {
 
-        Call<ActivitiesResponse> call = discoverApi.getActivities();
+        Call<ActivitiesResponse> call = getDiscoverApi().getActivities();
         call.enqueue(new Callback<ActivitiesResponse>() {
             @Override
             public void onResponse(Call<ActivitiesResponse> call, Response<ActivitiesResponse> response) {
@@ -145,7 +142,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
 
     @Override
     public void getPromotionMessages() {
-        Call<PromotionMessagesResponse> call = discoverApi.getPromotionMessages();
+        Call<PromotionMessagesResponse> call = getDiscoverApi().getPromotionMessages();
         call.enqueue(new Callback<PromotionMessagesResponse>() {
             @Override
             public void onResponse(Call<PromotionMessagesResponse> call, Response<PromotionMessagesResponse> response) {
@@ -163,7 +160,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
     @Override
     public void getEntertainments() {
 
-        Call<EntertainmentsResponse> call = discoverApi.getEntertainments();
+        Call<EntertainmentsResponse> call = getDiscoverApi().getEntertainments();
 
         call.enqueue(new Callback<EntertainmentsResponse>() {
             @Override
@@ -186,37 +183,37 @@ public class DiscoverServicesImpl implements DiscoverServices {
         // array and after that call once the create method of the repository because this one is deleting the database everytime.
 
         List<Product> productList = new ArrayList<>();
-        Call<GetProductsResponse> dinningCall = discoverApi.getProducts(SAILING_ID, DINING, MAX_COUNT);
+        Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING, MAX_COUNT);
         dinningCall.enqueue(new Callback<GetProductsResponse>() {
             @Override
             public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
                 saveData(response, productList);
 
-                Call<GetProductsResponse> shorexCall = discoverApi.getProducts(SAILING_ID, SHOREX, MAX_COUNT);
+                Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX, MAX_COUNT);
                 shorexCall.enqueue(new Callback<GetProductsResponse>() {
                     @Override
                     public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
                         saveData(response, productList);
 
-                        Call<GetProductsResponse> spaCall = discoverApi.getProducts(SAILING_ID, SPA, MAX_COUNT);
+                        Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA, MAX_COUNT);
                         spaCall.enqueue(new Callback<GetProductsResponse>() {
                             @Override
                             public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
                                 saveData(response, productList);
 
-                                Call<GetProductsResponse> entertainmentCall = discoverApi.getProducts(SAILING_ID, ENTERTAINMENT, MAX_COUNT);
+                                Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT, MAX_COUNT);
                                 entertainmentCall.enqueue(new Callback<GetProductsResponse>() {
                                     @Override
                                     public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
                                         saveData(response, productList);
 
-                                        Call<GetProductsResponse> activitiesCall = discoverApi.getProducts(SAILING_ID, ACTIVITIES, MAX_COUNT);
+                                        Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES, MAX_COUNT);
                                         activitiesCall.enqueue(new Callback<GetProductsResponse>() {
                                             @Override
                                             public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
                                                 saveData(response, productList);
 
-                                                Call<GetProductsResponse> shoppingCall = discoverApi.getProducts(SAILING_ID, SHOPPING, MAX_COUNT);
+                                                Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING, MAX_COUNT);
                                                 shoppingCall.enqueue(new Callback<GetProductsResponse>() {
                                                     @Override
                                                     public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
@@ -277,7 +274,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
     private void saveData(Response<GetProductsResponse> response, List<Product> productList) {
         if (response.isSuccessful()) {
             GetProductsResponse getProductsResponse = response.body();
-            if (ServiceUtil.isSuccess(getProductsResponse)) {
+            if (isSuccess(getProductsResponse)) {
                 for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
                     productResponse.setUpcharge(2);
                     if (productResponse.getProductReservationInformation() == null) {
@@ -292,7 +289,7 @@ public class DiscoverServicesImpl implements DiscoverServices {
                     }
                     setProductLocationExtraParameters(productResponse.getProductLocation());
                 }
-                productList.addAll(productResponseDataMapper.transform(getProductsResponse.getProducts()));
+                productList.addAll(getMapper().transform(getProductsResponse.getProducts()));
             }
         }
     }

@@ -26,7 +26,7 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
 
     private WeakReference<Observer<Long>> findOnDeckObserver;
 
-    public ProductInformationDelegateAdapter(final Observer<Long> findOnDeckObserver) {
+    public ProductInformationDelegateAdapter(final Observer<String> findOnDeckObserver) {
         this.findOnDeckObserver = new WeakReference<>(findOnDeckObserver);
     }
 
@@ -75,8 +75,8 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         @Bind(R.id.button_find_on_deck) View findOnDeck;
         @Bind(R.id.price_range_product) PriceRangeLayout priceRange;
 
-        private Long productId;
-        private WeakReference<Observer<Long>> findOnDeckObserver;
+        private String productId;
+        private WeakReference<Observer<String>> findOnDeckObserver;
 
         ProductInformationViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_product_detail_information, parent, false));

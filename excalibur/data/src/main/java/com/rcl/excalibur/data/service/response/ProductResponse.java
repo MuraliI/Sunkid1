@@ -8,7 +8,7 @@ import java.util.List;
 public class ProductResponse {
 
     @SerializedName("productID")
-    private long productId;
+    private String productId;
     private List<ProductCategoryResponse> productCategory;
     private List<ProductAdvisementResponse> advisements;
     private List<ProductPreferenceResponse> preferences;
@@ -32,11 +32,11 @@ public class ProductResponse {
     private boolean isReservationRequired;
     private boolean isScheduable;
 
-    public long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
