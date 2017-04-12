@@ -50,10 +50,10 @@
     <string name="royal_activity">Activities</string>
     <string name="spa">Spa</string>
     <string name="dining">Dining</string>
-    <string name="shopping">Shops</string>
+    <string name="shopping">Shopping</string>
     <string name="shorex">Excursions</string>
     <string name="entertainment">Entertainment</string>
-    <string name="services">Services</string>
+    <string name="services">Guest Services</string>
     <string name="search">Search</string>
 
     <!--FIXME hardcoded values-->

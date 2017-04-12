@@ -80,7 +80,7 @@ public class DiscoverTabFragment extends Fragment {
         presenter.openListScreen(POSITION_ROYAL_ACTIVITY);
     }
 
-    @OnClick(R.id.button_search)
+    @OnClick(R.id.button_guest_services)
     public void searchOnClick() {
         Toast.makeText(getActivity(), "Search Click", Toast.LENGTH_LONG).show();
     }
