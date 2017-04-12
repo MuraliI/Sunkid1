@@ -47,8 +47,8 @@ import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity> implements ProductRepository {
 
-    public ProductDataRepository(ProductEntityDataMapper baseDataMapper) {
-        super(baseDataMapper, ProductEntity.class);
+    public ProductDataRepository() {
+        super(new ProductEntityDataMapper(), ProductEntity.class);
     }
 
     @Override
@@ -379,7 +379,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
                 .from(ProductEntity.class)
                 .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
                 .execute();
-        return baseDataMapper.transform(entities);
+        return getMapper().transform(entities);
     }
 
     @Override

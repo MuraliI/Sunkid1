@@ -10,22 +10,17 @@ import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.itinerary.ItineraryCoordinatorAdapter;
 import com.rcl.excalibur.custom.itinerary.RoyalLinearLayoutManager;
 import com.rcl.excalibur.fragments.ItineraryFragment;
-import com.rcl.excalibur.mvp.view.FragmentView;
+import com.rcl.excalibur.mvp.view.base.FragmentView;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ItineraryView extends FragmentView<ItineraryFragment> {
-
-    public interface OnRefreshDataListener {
-        void onRefresh();
-    }
+public class ItineraryView extends FragmentView<ItineraryFragment, Void, Void> {
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_swipe_refresh) SwipeRefreshLayout refreshLayout;
-
     private ItineraryCoordinatorAdapter adapter;
 
     public ItineraryView(ItineraryFragment fragment) {
@@ -65,6 +60,10 @@ public class ItineraryView extends FragmentView<ItineraryFragment> {
 
     public void addPlans(List<RecyclerViewType> productModelList) {
         adapter.clearAndAddAll(productModelList);
+    }
+
+    public interface OnRefreshDataListener {
+        void onRefresh();
     }
 
 }

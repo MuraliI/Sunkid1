@@ -11,17 +11,16 @@ import android.view.ViewTreeObserver;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.custom.view.DeckMapImageView;
-import com.rcl.excalibur.domain.utils.ConstantsUtil;
-import com.rcl.excalibur.internal.di.component.ActivityComponent;
-import com.rcl.excalibur.internal.di.component.products.ProductsDeckMapActivityComponent;
-import com.rcl.excalibur.internal.di.module.products.ProductsDeckMapActivityModule;
+import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.presenter.ProductDeckMapPresenter;
+import com.rcl.excalibur.mvp.view.ProductDeckMapView;
 
-public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter> implements View.OnTouchListener,
+public class ProductDeckMapActivity extends BaseActivity implements View.OnTouchListener,
         ViewTreeObserver.OnGlobalLayoutListener {
     private static final String EXTRA_PRODUCT_ITEM_ID = "EXTRA_PRODUCT_ITEM_ID";
 
-    private ProductsDeckMapActivityComponent component;
+    protected ProductDeckMapPresenter presenter;
     private GestureDetector gestureDetector;
 
     public static Intent getIntent(final BaseActivity activity, long productItemId) {
@@ -31,26 +30,17 @@ public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter
     }
 
     @Override
-    protected void createComponent() {
-        component = rclApp.getProductsComponent().plus(new ProductsDeckMapActivityModule(this));
-    }
-
-    @Override
-    protected void destroyComponent() {
-        component = null;
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover_deck_map);
 
-        String productItemId = ConstantsUtil.EMPTY;
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra(EXTRA_PRODUCT_ITEM_ID)) {
-            productItemId = intent.getExtras().getString(EXTRA_PRODUCT_ITEM_ID);
+        if (intent == null || !intent.hasExtra(EXTRA_PRODUCT_ITEM_ID)) {
+            return;
         }
-
+        final String productItemId = intent.getStringExtra(EXTRA_PRODUCT_ITEM_ID);
+        presenter = new ProductDeckMapPresenter(new ProductDeckMapView(this),
+                new GetProductDbUseCase(new ProductDataRepository()));
         presenter.init(productItemId);
         initGestureDetector(presenter);
     }
@@ -72,11 +62,6 @@ public class ProductDeckMapActivity extends BaseActivity<ProductDeckMapPresenter
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDismissPopupWindow();
-    }
-
-    @Override
-    protected void injectActivity(ActivityComponent activityComponent) {
-        component.inject(this);
     }
 
     @Override

@@ -1,11 +1,9 @@
-package com.rcl.excalibur.data;
+package com.rcl.excalibur.data.preference;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.domain.preference.GuestPreference;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 public class GuestPreferenceImpl extends BasePreferenceImpl implements GuestPreference {
@@ -22,7 +20,7 @@ public class GuestPreferenceImpl extends BasePreferenceImpl implements GuestPref
     private static final String KEY_ACCEPT_TIME = "accept_time";
 
     public GuestPreferenceImpl(Context context) {
-        super(context.getSharedPreferences(GUEST_PREFERENCES, MODE_PRIVATE));
+        super(context, GUEST_PREFERENCES);
     }
 
     @Override
@@ -36,12 +34,12 @@ public class GuestPreferenceImpl extends BasePreferenceImpl implements GuestPref
     }
 
     @Override
-    public void putLastname(@NonNull String value) {
+    public void putLastName(@NonNull String value) {
         put(KEY_LASTNAME, value);
     }
 
     @Override
-    public String getLastname() {
+    public String getLastName() {
         return getString(KEY_LASTNAME);
     }
 
@@ -76,7 +74,7 @@ public class GuestPreferenceImpl extends BasePreferenceImpl implements GuestPref
     }
 
     @Override
-    public void getAnswer(String value) {
+    public void putAnswer(String value) {
         put(KEY_ANSWERS, value);
     }
 

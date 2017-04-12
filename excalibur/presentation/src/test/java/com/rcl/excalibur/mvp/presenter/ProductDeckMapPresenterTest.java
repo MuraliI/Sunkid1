@@ -1,74 +1,87 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import android.graphics.PointF;
+import android.graphics.RectF;
+
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductType;
-import com.rcl.excalibur.internal.di.component.AppComponentTest;
-import com.rcl.excalibur.internal.di.component.DaggerAppComponentTest;
-import com.rcl.excalibur.internal.di.component.products.ProductsComponentTest;
-import com.rcl.excalibur.internal.di.component.products.ProductsDeckMapActivityComponentTest;
-import com.rcl.excalibur.internal.di.module.AppModuleTest;
-import com.rcl.excalibur.internal.di.module.products.ProductsDatabaseModuleTest;
-import com.rcl.excalibur.internal.di.module.products.ProductsDeckMapActivityModuleTest;
-import com.rcl.excalibur.internal.di.module.products.ProductsServicesModuleTest;
+import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDeckMapView;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import javax.inject.Inject;
-
+import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
 public class ProductDeckMapPresenterTest {
-    @Inject
+    final String productId = "1";
     ProductDeckMapPresenter presenter;
-    private AppComponentTest appComponentTest;
-    private ProductsComponentTest productsComponentTest;
-    private ProductsDeckMapActivityComponentTest activityComponentTest;
-
-    private static final String PRODUCT_ID = "1";
-    private static final String PRODUCT_TYPE = "SPA";
-    private static final String PRODUCT_TITLE = "Mock Tittle";
-
+    @Mock ProductDeckMapView view;
+    @Mock GetProductDbUseCase getProductDbUseCase;
+    @Mock RectF rectF;
+    Product product;
 
     @Before
     public void setUp() throws Exception {
-        appComponentTest = DaggerAppComponentTest.builder()
-                .appModule(new AppModuleTest())
-                .build();
-        productsComponentTest = appComponentTest.plus(new ProductsServicesModuleTest(),
-                new ProductsDatabaseModuleTest());
+        MockitoAnnotations.initMocks(this);
+        presenter = new ProductDeckMapPresenter(view, getProductDbUseCase);
 
-        activityComponentTest = productsComponentTest.plus(new ProductsDeckMapActivityModuleTest());
-        activityComponentTest.inject(this);
-    }
+        product = new Product();
+        product.setProductId(productId);
+        ProductType productType = new ProductType();
+        productType.setProductType("SPA");
+        product.setProductType(productType);
+        product.setProductTitle("Mock Tittle");
 
-    @After
-    public void tearDown() throws Exception {
-        appComponentTest = null;
-        activityComponentTest = null;
-        productsComponentTest = null;
+        when(getProductDbUseCase.get(productId)).thenReturn(product);
     }
 
     @Test
     public void initTest() throws Exception {
-        presenter.init(PRODUCT_ID);
-        ProductDeckMapView view = presenter.getView();
-
-        Product product = new Product();
-        ProductType productType = new ProductType();
-        productType.setProductType(PRODUCT_TYPE);
-        product.setProductType(productType);
-        product.setProductTitle(PRODUCT_TITLE);
-
-        when(presenter.getGetProductDbUseCase().get(PRODUCT_ID)).thenReturn(product);
-
+        presenter.init(productId);
         verify(view).initDeckImage(R.drawable.map_05_fwd);
-        verify(view).setProductCoordinate(0f, 0f);
+        verify(view).setProductCoordinate(196, 526);
         verify(view).initPopupLayout();
     }
+
+
+    @Test
+    public void onTouchDeckMapImageTest() throws Exception {
+        when(view.isDeckMapImageReady()).thenReturn(true);
+        when(view.getMarkerArea()).thenReturn(rectF);
+        PointF touchedLocation = new PointF(1f, 2f);
+
+        when(rectF.contains(touchedLocation.x, touchedLocation.y)).thenReturn(true);
+        presenter.init(productId);
+        presenter.onTouchDeckMapImage(touchedLocation);
+        verify(view).isDeckMapImageReady();
+        verify(view).moveToProductCoordinate(196, 526);
+        verify(view).showProductOnPopupLayout(product);
+
+    }
+
+    @Test
+    public void onDismissPopupWindowTest() throws Exception {
+        presenter.onDismissPopupWindow();
+        verify(view).dismissPopupWindow();
+    }
+
+    @Test
+    public void onGlobalLayoutTest() throws Exception {
+        when(view.isDeckMapImageReady()).thenReturn(true);
+        presenter.init(productId);
+        presenter.onGlobalLayout();
+        verify(view).removeTreeObserver();
+        verify(view).moveToProductCoordinate(anyFloat(), anyFloat());
+        verify(view).showProductOnPopupLayout(product);
+
+    }
+
+
 }

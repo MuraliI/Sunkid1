@@ -6,8 +6,6 @@ import android.text.TextUtils;
 import com.rcl.excalibur.activity.guest.EmailActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
-import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
-import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.mvp.view.guest.NameView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.StringUtils;
@@ -16,7 +14,7 @@ import static com.rcl.excalibur.utils.StringUtils.SPLIT_SEPARATOR;
 import static com.rcl.excalibur.utils.StringUtils.capitalizeAllWords;
 import static com.rcl.excalibur.utils.StringUtils.removeBarreled;
 
-public class NamePresenter implements ActivityPresenter {
+public class NamePresenter {
     private static final String BRAND = "r";
     private static final String VERSION = "1.0";
     private static final int LIMIT_MAX = 50;
@@ -34,11 +32,6 @@ public class NamePresenter implements ActivityPresenter {
         getGuestPreferencesUseCase.putVersion(VERSION);
         getGuestPreferencesUseCase.putAcceptTime(System.currentTimeMillis());
         view.setNextButton(false);
-    }
-
-    @Override
-    public ActivityView getView() {
-        return view;
     }
 
     public void onArrowBack() {

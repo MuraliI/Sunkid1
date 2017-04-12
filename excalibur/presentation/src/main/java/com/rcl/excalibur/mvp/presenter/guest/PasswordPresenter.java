@@ -11,12 +11,10 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.guest.SecurityQuestionsActivity;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
-import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
-import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.mvp.view.guest.PasswordView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
-public class PasswordPresenter implements ActivityPresenter {
+public class PasswordPresenter {
     private static final int MIN_CHAR = 7;
     private static final String REGEX = ".*[$&+,:;=?@#|/'<>.^*()%!-].*";
     private PasswordView view;
@@ -55,11 +53,6 @@ public class PasswordPresenter implements ActivityPresenter {
             view.setVisiblePassword();
         else
             view.setInvisiblePassword();
-    }
-
-    @Override
-    public ActivityView getView() {
-        return view;
     }
 
     private SpannableStringBuilder isValidPassword(String password, Context context) {
