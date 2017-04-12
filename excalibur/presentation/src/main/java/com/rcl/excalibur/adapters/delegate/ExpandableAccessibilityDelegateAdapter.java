@@ -52,29 +52,34 @@ public class ExpandableAccessibilityDelegateAdapter<VT extends ExpandableAccesib
             ImageView image = (ImageView) itemView.findViewById(R.id.image_accessibility);
             final int iconSize = (int) resources.getDimension(R.dimen.icon_size);
 
-            String imageUrl = "";
-            if (accessibilityList.get(i).getAdvisementMedia() != null) {
-                //TODO: Choose the correct media type according to the situation
-                imageUrl = accessibilityList.get(i).getAdvisementMedia().getMediaItem().get(0).getMediaRefLink();
-            }
-            Picasso.with(context)
-                    .load(BuildConfig.PREFIX_IMAGE + imageUrl)
-                    .resize(iconSize, iconSize)
-                    .placeholder(R.drawable.ic_blue_checkbox)
-                    .into(image);
+            ProductAdvisement accessibilityItem = accessibilityList.get(i);
 
-            String subtitle = accessibilityList.get(i).getAdvisementTitle();
-            if (!TextUtils.isEmpty(subtitle)) {
-                subtitleLine.setText(subtitle);
-            }
+            if (accessibilityItem != null) {
 
-            String description = accessibilityList.get(i).getAdvisementDescription();
-            if (!TextUtils.isEmpty(description)) {
-                descriptionLine.setText(description);
-            } else {
-                descriptionLine.setVisibility(View.GONE);
+                String imageUrl = "";
+                if (accessibilityItem.getAdvisementMedia() != null) {
+                    //TODO: Choose the correct media type according to the situation
+                    imageUrl = accessibilityItem.getAdvisementMedia().getMediaItem().get(0).getMediaRefLink();
+                }
+                Picasso.with(context)
+                        .load(BuildConfig.PREFIX_IMAGE + imageUrl)
+                        .resize(iconSize, iconSize)
+                        .placeholder(R.drawable.ic_blue_checkbox)
+                        .into(image);
+
+                String subtitle = accessibilityItem.getAdvisementTitle();
+                if (!TextUtils.isEmpty(subtitle)) {
+                    subtitleLine.setText(subtitle);
+                }
+
+                String description = accessibilityItem.getAdvisementDescription();
+                if (!TextUtils.isEmpty(description)) {
+                    descriptionLine.setText(description);
+                } else {
+                    descriptionLine.setVisibility(View.GONE);
+                }
+                viewHolder.getLayoutContent().addView(itemView);
             }
-            viewHolder.getLayoutContent().addView(itemView);
         }
     }
 }
