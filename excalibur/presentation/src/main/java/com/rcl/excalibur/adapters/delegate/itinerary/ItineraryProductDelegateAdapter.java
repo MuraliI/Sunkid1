@@ -31,24 +31,15 @@ public class ItineraryProductDelegateAdapter implements DelegateAdapter<
         if (item.getImageUrl() != null) {
             Picasso.with(holder.itemView.getContext()).load(item.getImageUrl()).into(holder.productImage);
         }
-        if (item.getResourceIdIcon() > 0) {
-            holder.productIcon.setVisibility(View.VISIBLE);
-            holder.productIcon.setImageResource(item.getResourceIdIcon());
-        } else {
-            holder.productIcon.setVisibility(View.GONE);
-        }
-        if (item.isFavorite()) {
-            holder.productFavorite.setVisibility(View.VISIBLE);
-        } else {
-            holder.productFavorite.setVisibility(View.GONE);
-        }
-        if (item.isCostVisible()) {
+        holder.productPromoted.setVisibility(item.isPromoted() ? View.VISIBLE : View.GONE);
+        if (item.getPriceRange() > 0) {
             holder.priceRange.setVisibility(View.VISIBLE);
             holder.priceRange.setValue(item.getPriceRange());
         } else {
             holder.priceRange.setVisibility(View.GONE);
         }
         holder.productName.setText(item.getName());
+        holder.productCategoryIcon.setImageResource(item.getResourceIdCategoryIcon());
         holder.productOperatingHours.setText(item.getOperatingHours());
         holder.productLocation.setText(item.getLocationPointer());
         holder.productDeckAndDirection.setText(item.getDeckAndDirection());
@@ -61,8 +52,8 @@ public class ItineraryProductDelegateAdapter implements DelegateAdapter<
         @Bind(R.id.text_itinerary_product_location) TextView productLocation;
         @Bind(R.id.text_itinerary_product_deck_and_direction) TextView productDeckAndDirection;
         @Bind(R.id.image_itinerary_product_picture) ImageView productImage;
-        @Bind(R.id.image_itinerary_product_icon) ImageView productIcon;
-        @Bind(R.id.image_itinerary_product_favorite) ImageView productFavorite;
+        @Bind(R.id.image_itinerary_product_icon) ImageView productCategoryIcon;
+        @Bind(R.id.image_itinerary_product_favorite) ImageView productPromoted;
         @Bind(R.id.view_itinerary_product_price_range) PriceRangeLayout priceRange;
 
         ItineraryProductViewHolder(ViewGroup parent) {

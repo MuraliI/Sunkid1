@@ -34,19 +34,17 @@ public class ItineraryProductModelMapper extends BaseDataMapper<ItineraryProduct
 
         // TODO: these are mock values
         String deckAndDirectionValue = "Deck 12 " + "AFT";
-        int resourceIdIcon = R.drawable.ic_blue_checkbox;
-        boolean isFavorite = new Random().nextBoolean();
-        boolean isCostVisible = new Random().nextBoolean();
-        int priceRange = new Random().nextInt(5);
+        int resourceIdCategoryIcon = R.drawable.ic_blue_checkbox;
+        boolean isPromoted = new Random().nextBoolean();
+        int priceRange = new Random().nextInt(4);
 
         Calendar startDate = Calendar.getInstance();
         startDate.setTime(itineraryEvent.getStartDate());
         Calendar endDate = Calendar.getInstance();
         endDate.setTime(itineraryEvent.getEndDate());
 
-        productModel.setResourceIdIcon(resourceIdIcon);
-        productModel.setFavorite(isFavorite);
-        productModel.setCostVisible(isCostVisible);
+        productModel.setResourceIdCategoryIcon(resourceIdCategoryIcon);
+        productModel.setPromoted(isPromoted);
         productModel.setPriceRange(priceRange);
         productModel.setStartDate(startDate);
         productModel.setEndDate(endDate);

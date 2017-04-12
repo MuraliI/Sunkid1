@@ -10,20 +10,14 @@ import java.util.Calendar;
 
 public class ItineraryProductModel implements RecyclerViewType, Comparable<ItineraryProductModel> {
 
-    public static final String LOCATION_POINTER_FWD = "Forward";
-    public static final String LOCATION_POINTER_AFT = "After";
-    public static final String LOCATION_POINTER_MID = "Middle";
-
-
     //STATE value represent priority in list Higher priority go on top
     public static final int STATE_PAST = 3;
     public static final int STATE_ON_GOING = 2;
     public static final int STATE_UP_COMING = 1;
 
-    private boolean isCostVisible;
-    private boolean isFavorite;
+    private boolean isPromoted;
     @DrawableRes
-    private int resourceIdIcon;
+    private int resourceIdCategoryIcon;
     private int priceRange;
     private String productId;
     private String imageUrl;
@@ -36,29 +30,21 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
     private Calendar endDate;
     private String deckAndDirection;
 
-    public boolean isCostVisible() {
-        return isCostVisible;
+    public boolean isPromoted() {
+        return isPromoted;
     }
 
-    public void setCostVisible(boolean costVisible) {
-        isCostVisible = costVisible;
-    }
-
-    public boolean isFavorite() {
-        return isFavorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
+    public void setPromoted(boolean promoted) {
+        isPromoted = promoted;
     }
 
     @DrawableRes
-    public int getResourceIdIcon() {
-        return resourceIdIcon;
+    public int getResourceIdCategoryIcon() {
+        return resourceIdCategoryIcon;
     }
 
-    public void setResourceIdIcon(@DrawableRes int resourceIdIcon) {
-        this.resourceIdIcon = resourceIdIcon;
+    public void setResourceIdCategoryIcon(@DrawableRes int resourceIdCategoryIcon) {
+        this.resourceIdCategoryIcon = resourceIdCategoryIcon;
     }
 
     public int getPriceRange() {
@@ -145,6 +131,14 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
         return this.getStartDate().get(Calendar.HOUR) != o.getStartDate().get(Calendar.HOUR);
     }
 
+    public void setDeckAndDirection(String deckAndDirection) {
+        this.deckAndDirection = deckAndDirection;
+    }
+
+    public String getDeckAndDirection() {
+        return deckAndDirection;
+    }
+
     public int getState() {
 
         Calendar now = Calendar.getInstance();
@@ -198,14 +192,4 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
             return -1;
 
     }
-
-    public void setDeckAndDirection(String deckAndDirection) {
-        this.deckAndDirection = deckAndDirection;
-    }
-
-    public String getDeckAndDirection() {
-        return deckAndDirection;
-    }
 }
-
-
