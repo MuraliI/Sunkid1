@@ -7,6 +7,7 @@ import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.itinerary.GreetingsDelegateAdapter;
+import com.rcl.excalibur.adapters.delegate.itinerary.ItineraryBottomDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.itinerary.ItineraryProductDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.itinerary.SeparatorDelegateAdapter;
 
@@ -17,13 +18,14 @@ import io.reactivex.Observer;
 
 public class ItineraryCoordinatorAdapter extends BaseCoordinatorAdapter {
 
-    private static final int VIEW_TYPE_COUNT = 2;
+    private static final int VIEW_TYPE_COUNT = 3;
 
     public ItineraryCoordinatorAdapter(Observer observer) {
         super(observer);
         delegateAdapters = new SparseArrayCompat<DelegateAdapter>(VIEW_TYPE_COUNT);
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_GREETINGS, new GreetingsDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW, new ItineraryProductDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_BOTTOM_VIEW, new ItineraryBottomDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_SEPARATOR_VIEW, new SeparatorDelegateAdapter());
     }
 

@@ -19,6 +19,7 @@ public final class RecyclerViewConstants {
     public static final int VIEW_TYPE_CALENDAR_VIEW = 2000003;
     public static final int VIEW_TYPE_SEPARATOR_VIEW = 2000004;
     public static final int VIEW_TYPE_ACCESSIBILITY_VIEW = 2000005;
+    public static final int VIEW_TYPE_ITINERARY_BOTTOM_VIEW = 2000006;
 
     private RecyclerViewConstants() {
 

@@ -5,6 +5,7 @@ import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
 import com.rcl.excalibur.data.mapper.BaseDataMapper;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
+import com.rcl.excalibur.model.itinerary.ItineraryBottomModel;
 import com.rcl.excalibur.model.itinerary.ItineraryProductModel;
 import com.rcl.excalibur.model.itinerary.SeparatorModel;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
@@ -58,6 +59,7 @@ public class ItineraryPresenter implements FragmentPresenter {
             viewTypeList.add(new SeparatorModel());
             viewTypeList.add(productModel);
         }
+        viewTypeList.add(new ItineraryBottomModel());
         return viewTypeList;
     }
 
