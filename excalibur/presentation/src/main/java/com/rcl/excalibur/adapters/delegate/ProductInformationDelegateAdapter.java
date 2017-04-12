@@ -24,7 +24,7 @@ import io.reactivex.Observer;
 public class ProductInformationDelegateAdapter implements DelegateAdapter<ProductInformationDelegateAdapter.ProductInformationViewHolder,
         ProductInformationViewType> {
 
-    private WeakReference<Observer<Long>> findOnDeckObserver;
+    private WeakReference<Observer<String>> findOnDeckObserver;
 
     public ProductInformationDelegateAdapter(final Observer<String> findOnDeckObserver) {
         this.findOnDeckObserver = new WeakReference<>(findOnDeckObserver);

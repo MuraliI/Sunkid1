@@ -15,10 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_ON_GOING;
-import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_UP_COMING;
-
-public class ItineraryPresenter implements FragmentPresenter {
+public class ItineraryPresenter {
     private ItineraryService itineraryService;
     private ItineraryView view;
     private ItineraryServiceObserver serviceObserver;
@@ -63,11 +60,6 @@ public class ItineraryPresenter implements FragmentPresenter {
         }
         viewTypeList.add(new ItineraryBottomModel());
         return viewTypeList;
-    }
-
-    @Override
-    public ItineraryView getView() {
-        return view;
     }
 
     private final class ItineraryServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, ItineraryPresenter> {
