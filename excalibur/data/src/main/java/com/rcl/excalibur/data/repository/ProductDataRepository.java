@@ -160,7 +160,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             }
             activityLevelEntity.setMedia(mediaEntity);
         }
-
         activityLevelEntity.save();
         entity.setActivityLevel(activityLevelEntity);
     }
@@ -176,6 +175,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             restrictionEntity.setMandatory(productRestriction.isMandatory());
             restrictionEntity.setQuestion(productRestriction.getRestrictionQuestion());
             restrictionEntity.setRestrictionId(productRestriction.getRestrictionId());
+            restrictionEntity.setTitle(productRestriction.getRestrictionTitle());
             restrictionEntity.setProduct(entity);
             final List<ProductRestrictionAnswer> answers = productRestriction.getRestrictionAnswers();
             if (!CollectionUtils.isEmpty(answers)) {
@@ -187,7 +187,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             }
             restrictionEntity.save();
         }
-
     }
 
     private void createAdvisements(final ProductEntity entity, final List<ProductAdvisement> productAdvisements) {
@@ -215,7 +214,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
                 }
                 advisementEntity.setMedia(mediaEntity);
             }
-
             advisementEntity.save();
         }
     }
@@ -234,8 +232,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             mediaValueEntity.save();
         }
         entity.setProductMedia(mediaEntity);
-
-
     }
 
     private void createPreferences(final ProductEntity entity, final List<ProductPreference> preferences) {
@@ -262,7 +258,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             }
             entity.setPreference(preferenceEntity);
         }
-
     }
 
     private void create(final ProductEntity entity, final ProductCostType productCostType) {
@@ -287,8 +282,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             costTypeEntity.setMedia(mediaEntity);
         }
         entity.setCostTypeEntity(costTypeEntity);
-
-
     }
 
     private void create(final ProductEntity entity, final ProductDuration productDuration) {
@@ -359,12 +352,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         categoryEntity.setTags(tags);
         categoryEntity.save();
         entity.setCategory(categoryEntity);
-
-
     }
-
-
-
 
     public List<Product> getAll(@NonNull String type) {
         final TypeEntity typeEntity = new Select()
