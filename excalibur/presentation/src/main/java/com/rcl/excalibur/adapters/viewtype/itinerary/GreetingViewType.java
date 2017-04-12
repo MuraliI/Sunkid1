@@ -21,6 +21,6 @@ public class GreetingViewType implements RecyclerViewType {
 
     @Override
     public int getViewType() {
-        return RecyclerViewConstants.VIEW_TYPE_GREETINGS;
+        return RecyclerViewConstants.VIEW_TYPE_ITINERARY_GREETINGS;
     }
 }

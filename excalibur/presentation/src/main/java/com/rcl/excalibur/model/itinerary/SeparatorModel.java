@@ -8,6 +8,6 @@ public class SeparatorModel implements RecyclerViewType {
 
     @Override
     public int getViewType() {
-        return RecyclerViewConstants.VIEW_TYPE_SEPARATOR_VIEW;
+        return RecyclerViewConstants.VIEW_TYPE_ITINERARY_SEPARATOR_VIEW;
     }
 }

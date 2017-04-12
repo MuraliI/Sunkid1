@@ -23,16 +23,17 @@ public class ItineraryCoordinatorAdapter extends BaseCoordinatorAdapter {
     public ItineraryCoordinatorAdapter(Observer observer) {
         super(observer);
         delegateAdapters = new SparseArrayCompat<DelegateAdapter>(VIEW_TYPE_COUNT);
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_GREETINGS, new GreetingsDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_GREETINGS, new GreetingsDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW, new ItineraryProductDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_BOTTOM_VIEW, new ItineraryBottomDelegateAdapter());
-        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_SEPARATOR_VIEW, new SeparatorDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_SEPARATOR_VIEW, new SeparatorDelegateAdapter());
     }
 
     public void clearAndAddAll(List<RecyclerViewType> items) {
+        // TODO: This is temporal, we need to add items according new rules
         RecyclerViewType greetings = null;
         for (Object item : this.items) {
-            if (RecyclerViewConstants.VIEW_TYPE_GREETINGS == ((RecyclerViewType) item).getViewType()) {
+            if (RecyclerViewConstants.VIEW_TYPE_ITINERARY_GREETINGS == ((RecyclerViewType) item).getViewType()) {
                 greetings = (RecyclerViewType) item;
                 break;
             }
