@@ -1,7 +1,6 @@
 package com.rcl.excalibur.data.service;
 
 import com.rcl.excalibur.data.mapper.guest.SecurityQuestionsResponseMapper;
-import com.rcl.excalibur.data.service.api.GuestApi;
 import com.rcl.excalibur.data.service.request.guest.CreateAccountRequest;
 import com.rcl.excalibur.data.service.request.guest.SecurityQuestionRequest;
 import com.rcl.excalibur.data.service.request.guest.TermsAndConditionsAgreementRequest;
@@ -24,28 +23,26 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class GuestServicesImpl implements GuestServices {
+import static com.rcl.excalibur.data.utils.ServiceUtil.getGuestApi;
+
+public class GuestServicesImpl extends BaseDataService<List<String>, SecurityQuestionsResponse> implements GuestServices {
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
-    private final GuestApi guestApi;
-    private final SecurityQuestionsResponseMapper securityQuestionsResponseMapper;
     private GuestPreference guestPreferences;
 
-    public GuestServicesImpl(GuestApi guestApi, SecurityQuestionsResponseMapper securityQuestionsResponseMapper,
-                             GuestPreference guestPreferences) {
-        this.guestApi = guestApi;
-        this.securityQuestionsResponseMapper = securityQuestionsResponseMapper;
+    public GuestServicesImpl(GuestPreference guestPreferences) {
+        super(new SecurityQuestionsResponseMapper());
         this.guestPreferences = guestPreferences;
     }
 
     @Override
     public void getSecurityQuestions(Observer<List<String>> observer) {
         Observable<List<String>> observable = Observable.create(e -> {
-            Call<SecurityQuestionsResponse> call = guestApi.getSecurityQuestions();
+            Call<SecurityQuestionsResponse> call = getGuestApi().getSecurityQuestions();
             try {
                 Response<SecurityQuestionsResponse> response = call.execute();
                 SecurityQuestionsResponse securityQuestionsResponse = response.body();
                 if (securityQuestionsResponse != null) {
-                    e.onNext(securityQuestionsResponseMapper.transform(securityQuestionsResponse));
+                    e.onNext(getMapper().transform(securityQuestionsResponse));
                 } else {
                     e.onError(new RuntimeException("Invalid Response"));
                 }
@@ -66,7 +63,7 @@ public class GuestServicesImpl implements GuestServices {
         //TODO improve this
         CreateAccountRequest request = new CreateAccountRequest();
         request.setFirstName(guestPreferences.getName());
-        request.setLastName(guestPreferences.getLastname());
+        request.setLastName(guestPreferences.getLastName());
         request.setEmail(guestPreferences.getEmail());
         request.setPassword(guestPreferences.getPassword());
         request.setBrand(guestPreferences.getBrand());
@@ -86,7 +83,7 @@ public class GuestServicesImpl implements GuestServices {
 
 
         Observable<CreateAccountEvent> observable = Observable.create(e -> {
-            Call<CreateAccountResponse> call = guestApi.createAccount(CONTENT_TYPE_APPLICATION_JSON, request);
+            Call<CreateAccountResponse> call = getGuestApi().createAccount(CONTENT_TYPE_APPLICATION_JSON, request);
             try {
                 Response<CreateAccountResponse> response = call.execute();
                 CreateAccountEvent responseEvent = new CreateAccountEvent();
@@ -113,7 +110,7 @@ public class GuestServicesImpl implements GuestServices {
     @Override
     public void validateEmail(Observer<ValidateEmailEvent> observer, String email) {
         Observable<ValidateEmailEvent> observable = Observable.create(e -> {
-            Call<ValidateEmailResponse> call = guestApi.validateEmail(email);
+            Call<ValidateEmailResponse> call = getGuestApi().validateEmail(email);
             try {
                 Response<ValidateEmailResponse> response = call.execute();
                 ValidateEmailResponse validateEmailResponse = response.body();

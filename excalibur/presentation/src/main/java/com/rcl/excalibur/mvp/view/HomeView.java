@@ -15,7 +15,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class HomeView extends ActivityView<HomeActivity, DiscoverItemModel> {
+public class HomeView extends ActivityView<HomeActivity, Void, DiscoverItemModel> {
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     private PlanAdapter adapter;

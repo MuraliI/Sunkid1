@@ -14,7 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public class NameView extends ActivityView<NameActivity, Void> {
+public class NameView extends ActivityView<NameActivity, Void, Void> {
     @Bind(R.id.full_name) EditText fullName;
     @Bind(R.id.name_error) TextView error;
     @Bind(R.id.next_button) ImageView nextButton;

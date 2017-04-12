@@ -3,20 +3,19 @@ package com.rcl.excalibur.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.RCLApp;
-import com.rcl.excalibur.internal.di.component.FragmentComponent;
-import com.rcl.excalibur.internal.di.component.itinerary.ItineraryFragmentComponent;
-import com.rcl.excalibur.internal.di.module.itinerary.ItineraryFragmentModule;
+import com.rcl.excalibur.data.service.ItineraryServiceImpl;
+import com.rcl.excalibur.model.itinerary.ItineraryProductModelMapper;
 import com.rcl.excalibur.mvp.presenter.itinerary.ItineraryPresenter;
 import com.rcl.excalibur.mvp.view.itinerary.ItineraryView;
 
-public class ItineraryFragment extends BaseFragment<ItineraryPresenter> implements ItineraryView.OnRefreshDataListener {
-    private ItineraryFragmentComponent itineraryFragmentComponent;
+public class ItineraryFragment extends Fragment implements ItineraryView.OnRefreshDataListener {
+    private ItineraryPresenter presenter;
 
     public static ItineraryFragment newInstance() {
         return new ItineraryFragment();
@@ -31,29 +30,14 @@ public class ItineraryFragment extends BaseFragment<ItineraryPresenter> implemen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenter = new ItineraryPresenter(new ItineraryView(this)
+                , new ItineraryServiceImpl()
+                , new ItineraryProductModelMapper(getResources()));
         presenter.init();
     }
 
     @Override
     public void onRefresh() {
         presenter.refreshItinerary();
-    }
-
-    @Override
-    protected void createFragmentComponent() {
-        application = ((RCLApp) getActivity().getApplication());
-        application.createItineraryComponent();
-        itineraryFragmentComponent = application.getItineraryComponent().plus(new ItineraryFragmentModule(this));
-    }
-
-    @Override
-    protected void inject(FragmentComponent fragmentComponent) {
-        itineraryFragmentComponent.inject(this);
-    }
-
-    @Override
-    protected void destroyFragmentComponent() {
-        itineraryFragmentComponent = null;
-        application.destroyItineraryComponent();
     }
 }

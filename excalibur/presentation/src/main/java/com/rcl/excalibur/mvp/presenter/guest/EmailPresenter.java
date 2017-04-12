@@ -7,18 +7,17 @@ import com.rcl.excalibur.activity.guest.PasswordActivity;
 import com.rcl.excalibur.domain.guest.ValidateEmailEvent;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.domain.service.GuestServices;
-import com.rcl.excalibur.mvp.presenter.ActivityPresenter;
 import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.guest.EmailView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.StringUtils;
 
-public class EmailPresenter implements ActivityPresenter {
+public class EmailPresenter {
+    //TODO improve this
+    private static final String EXISTING_EMAIL = "Exists";
     private EmailView view;
     private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
     private GuestServices guestServices;
-    //TODO improve this
-    private static final String EXISTING_EMAIL = "Exists";
 
 
     public EmailPresenter(EmailView view, GetGuestPreferencesUseCase getGuestPreferencesUseCase, GuestServices guestServices) {
@@ -51,12 +50,6 @@ public class EmailPresenter implements ActivityPresenter {
             validateEmailExist();
         }
     }
-
-    @Override
-    public EmailView getView() {
-        return view;
-    }
-
 
     private void validateEmailExist() {
         view.manageNavigation(true, EmailView.ACTIVE);

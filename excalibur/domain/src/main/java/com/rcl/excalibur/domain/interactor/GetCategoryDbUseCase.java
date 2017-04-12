@@ -6,18 +6,17 @@ import com.rcl.excalibur.domain.repository.CategoryRepository;
 
 import java.util.List;
 
-public class GetCategoryDbUseCase extends UseCaseSync {
-    private final CategoryRepository categoryRepository;
+public class GetCategoryDbUseCase extends UseCaseSync<CategoryRepository> {
 
     public GetCategoryDbUseCase(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+        super(categoryRepository);
     }
 
     List<Category> getAll() {
-        return categoryRepository.getAll();
+        return getData().getAll();
     }
 
     Category get(String categoryId) {
-        return categoryRepository.get(categoryId);
+        return getData().get(categoryId);
     }
 }

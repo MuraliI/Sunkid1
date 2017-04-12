@@ -13,25 +13,24 @@ import com.rcl.excalibur.mvp.view.ProductsListView;
 
 import java.util.List;
 
-public class ProductsListPresenter implements FragmentPresenter {
+
+public class ProductsListPresenter {
     private GetProductDbUseCase getProductDbUseCase;
     private ProductsListView view;
-    private int type;
 
-    public ProductsListPresenter(int type, ProductsListView view, GetProductDbUseCase getProductDbUseCase) {
+    public ProductsListPresenter(ProductsListView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
-        this.type = type;
         this.getProductDbUseCase = getProductDbUseCase;
     }
 
-    public void init() {
+    public void init(int type) {
         final BaseActivity activity = view.getActivity();
-        if (activity != null) {
-            view.setAdapterObserver(new AdapterObserver(this));
-            view.init();
-            final String type = getType(activity, this.type);
-            showCollectionInView(getProductDbUseCase.getAll(type));
+        if (activity == null) {
+            return;
         }
+        view.setAdapterObserver(new AdapterObserver(this));
+        view.init();
+        showCollectionInView(getProductDbUseCase.getAll(getType(activity, type)));
     }
 
     private String getType(final BaseActivity activity, int type) {
@@ -68,11 +67,6 @@ public class ProductsListPresenter implements FragmentPresenter {
         } else {
             view.addAll(products);
         }
-    }
-
-    @Override
-    public ProductsListView getView() {
-        return view;
     }
 
     public class AdapterObserver extends DefaultPresentObserver<Product, ProductsListPresenter> {
