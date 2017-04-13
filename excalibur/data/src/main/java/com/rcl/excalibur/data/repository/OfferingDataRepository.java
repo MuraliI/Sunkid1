@@ -30,6 +30,7 @@ public class OfferingDataRepository extends BaseDataRepository<Offering, Offerin
         entityDataMapper.setProductEntity(product);
         OfferingEntity offering = entityDataMapper.transform(input);
         if (offering != null) {
+            offering.getPrice().save();
             offering.save();
         }
     }

@@ -267,7 +267,7 @@ public class ProductEntity extends Model {
     }
 
     public List<OfferingEntity> getOfferings() {
-        return getMany(OfferingEntity.class, COLUMN_OFFERINGS);
+        return getMany(OfferingEntity.class, OfferingEntity.COLUMN_PRODUCT);
     }
 
     public boolean isFeatured() {
