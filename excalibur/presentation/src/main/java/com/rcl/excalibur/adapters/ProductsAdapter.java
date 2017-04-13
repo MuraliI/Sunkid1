@@ -78,8 +78,8 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
 
         @Bind(R.id.card_image) ImageView imageView;
         @Bind(R.id.card_title) TextView titleTextView;
-        @Bind(R.id.card_range) TextView rangeTextView;
-        @Bind(R.id.card_category) TextView categoryTextView;
+        @Bind(R.id.card_venue) TextView rangeTextView;
+        @Bind(R.id.card_location) TextView categoryTextView;
         private Product product;
         private WeakReference<Observer<Product>> observerRef;
 

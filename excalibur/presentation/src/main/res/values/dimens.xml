@@ -134,4 +134,7 @@
     <dimen name="default_status_bar_height">24dp</dimen>
 
     <dimen name="guest_padding_top">156dp</dimen>
+
+    <!-- Cue Card Discovery Tab -->
+    <dimen name="item_discovery_margin">5dp</dimen>
 </resources>
