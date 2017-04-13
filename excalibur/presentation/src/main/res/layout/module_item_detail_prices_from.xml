@@ -24,15 +24,15 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginStart="@dimen/margin_normal"
-        android:paddingBottom="@dimen/margin_normal"
         tools:text="@string/starting_from" />
 
     <LinearLayout
         android:id="@+id/prices_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:layout_marginTop="@dimen/margin_small"
+        android:orientation="vertical" />
 
-    <include layout="@layout/separator_product"/>
+    <include layout="@layout/separator_product" />
 
 </LinearLayout>

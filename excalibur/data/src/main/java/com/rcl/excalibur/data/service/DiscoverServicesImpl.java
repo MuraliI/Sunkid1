@@ -30,7 +30,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-import static com.rcl.excalibur.data.utils.CategoryUtil.*;
+import static com.rcl.excalibur.data.utils.CategoryUtil.DINING;
+import static com.rcl.excalibur.data.utils.CategoryUtil.SPA;
+import static com.rcl.excalibur.data.utils.CategoryUtil.SHOREX;
+import static com.rcl.excalibur.data.utils.CategoryUtil.SHOPPING;
+import static com.rcl.excalibur.data.utils.CategoryUtil.ENTERTAINMENT;
+import static com.rcl.excalibur.data.utils.CategoryUtil.ACTIVITIES;
 import static com.rcl.excalibur.data.utils.ServiceUtil.getDiscoverApi;
 import static com.rcl.excalibur.data.utils.ServiceUtil.isSuccess;
 
