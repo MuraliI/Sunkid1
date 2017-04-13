@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_normal">
+
+    <TextView
+        android:id="@+id/text"
+        style="@style/AppTheme.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_xsmall"
+        android:layout_weight="0"
+        tools:text="Adult" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dashline_height"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/margin_xxsmall"
+        android:layout_weight="1"
+        android:background="@drawable/line_dashed"
+        android:layerType="software" />
+
+    <TextView
+        android:id="@+id/price"
+        style="@style/AppTheme.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="@dimen/margin_xsmall"
+        android:layout_weight="0"
+        tools:text="$10" />
+
+</LinearLayout>

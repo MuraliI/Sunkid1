@@ -15,6 +15,11 @@
     <string name="detail_module_age">Age Restriction</string>
     <string name="detail_module_cuisine">Cuisine</string>
     <string name="detail_module_promotion">Promotion</string>
+    <string name="prices">Prices</string>
+    <string name="starting_from">Starting from</string>
+    <string name="adult">Adult</string>
+    <string name="child">Child</string>
+    <string name="item_price">$%1$s</string>
     <string name="price_range">Price Range</string>
     <string name="prices_from">Prices from</string>
 

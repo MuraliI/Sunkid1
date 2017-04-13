@@ -30,20 +30,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
+import static com.rcl.excalibur.data.utils.CategoryUtil.*;
 import static com.rcl.excalibur.data.utils.ServiceUtil.getDiscoverApi;
 import static com.rcl.excalibur.data.utils.ServiceUtil.isSuccess;
 
 public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse> implements DiscoverServices {
     private static final String SAILING_ID = "AL20170430";
     private static final int MAX_COUNT = 50;
-
-    private static final String SHOREX = "SHOREX";
-    private static final String ACTIVITIES = "ACTIVITIES";
-    private static final String ENTERTAINMENT = "ENTERTAINMENT";
-    private static final String DINING = "DINING";
-    private static final String SPA = "SPA";
-    private static final String SHOPPING = "SHOPPING";
-    private static final String GUEST_SERVICES = "GUEST_SERVICES";
 
     private final ProductRepository productRepository;
 

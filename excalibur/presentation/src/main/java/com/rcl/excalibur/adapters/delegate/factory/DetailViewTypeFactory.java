@@ -20,20 +20,20 @@ import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
-import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
 import com.rcl.excalibur.mapper.ProductModelDataMapper;
 import com.rcl.excalibur.model.ProductAccessibilityModel;
 import com.rcl.excalibur.model.ProductModel;
-import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import static com.rcl.excalibur.domain.ProductAdvisement.ATTIRE;
 import static com.rcl.excalibur.domain.ProductAdvisement.KNOW_BEFORE_YOU_GO;
 import static com.rcl.excalibur.domain.ProductAdvisement.LEGAL;
+import static com.rcl.excalibur.utils.StringUtils.getPriceFormatted;
 
 public final class DetailViewTypeFactory {
 
@@ -50,6 +50,7 @@ public final class DetailViewTypeFactory {
 
         addHeroSectionHeader(product, viewTypes);
         addMakeReservation(viewTypes, resources, model);
+        addPricesModule(viewTypes, resources, model);
         addCuisineModule(viewTypes, resources, model);
         addDurationModule(viewTypes, resources, model);
         addExperienceModule(viewTypes, resources, model);
@@ -174,16 +175,22 @@ public final class DetailViewTypeFactory {
         recyclerViewTypeList.add(new ExpandableAccesibilityViewType(res.getString(R.string.accessibility), accessibilities));
     }
 
-    private void addPriceFromTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
-        final SellingPrice sellingPrice = product.getStartingFromPrice();
-        if (sellingPrice == null) {
-            return;
-        }
-        final float adultPrice = sellingPrice.getAdultPrice();
-        final float childPrice = sellingPrice.getChildPrice();
+    private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res, ProductModel product) {
+        final float adultPrice = 20;
+        final float childPrice = 10;
         if (adultPrice != 0 || childPrice != 0) {
-            recyclerViewTypeList.add(new PricesFromViewType(StringUtils.getPriceFormated(adultPrice),
-                    StringUtils.getPriceFormated(childPrice)));
+            HashMap<String, String> map = new HashMap<>();
+
+            if (adultPrice > 0) {
+                map.put(res.getString(R.string.adult), res.getString(R.string.item_price, getPriceFormatted(adultPrice)));
+            }
+            if (childPrice > 0) {
+                map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
+            }
+
+            PricesFromViewType pricesFromViewType = new PricesFromViewType(res.getString(R.string.prices),
+                    res.getString(R.string.starting_from), map);
+            recyclerViewTypeList.add(pricesFromViewType);
         }
     }
 
