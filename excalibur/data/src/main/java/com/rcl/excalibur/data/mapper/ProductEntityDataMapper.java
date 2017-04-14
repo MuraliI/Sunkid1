@@ -44,6 +44,12 @@ import java.util.List;
  */
 public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEntity> {
 
+    private OfferingDataMapper offeringEntityDataMapper;
+
+    public ProductEntityDataMapper() {
+        offeringEntityDataMapper = new OfferingDataMapper();
+    }
+
     @Override
     public Product transform(final ProductEntity entity) {
         if (entity == null) {
@@ -73,7 +79,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductLongDescription(entity.getLongDescription());
         product.setProductMedia(transform(entity.getProductMedia()));
         product.setExperience(entity.getExperience());
-        product.setOfferings(transformOfferings(entity.getOfferings()));
+        product.setOfferings(offeringEntityDataMapper.transform(entity.getOfferings()));
         return product;
     }
 

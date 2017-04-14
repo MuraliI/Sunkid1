@@ -34,7 +34,6 @@ public class ProductEntity extends Model {
     public static final String COLUMN_PREFERENCE = "preference";
     public static final String COLUMN_PRODUCT_MEDIA = "product_media";
     public static final String COLUMN_EXPERIENCE = "experience";
-    public static final String COLUMN_OFFERINGS = "offerings";
     public static final String COLUMN_IS_FEATURED = "featured";
     public static final String COLUMN_IS_HIGHLIGHTED = "highlighted";
 
