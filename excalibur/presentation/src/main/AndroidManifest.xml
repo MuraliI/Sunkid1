@@ -86,6 +86,8 @@
                     com.rcl.excalibur.data.entity.RestrictionEntity,
                     com.rcl.excalibur.data.entity.StartingFromPriceEntity,
                     com.rcl.excalibur.data.entity.TypeEntity,
-                    com.rcl.excalibur.data.entity.ActivityLevelEntity"/>
+                    com.rcl.excalibur.data.entity.ActivityLevelEntity,
+                    com.rcl.excalibur.data.entity.PriceEntity,
+                    com.rcl.excalibur.data.entity.OfferingEntity"/>
     </application>
 </manifest>

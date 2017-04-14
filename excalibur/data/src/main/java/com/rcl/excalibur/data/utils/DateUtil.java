@@ -12,6 +12,7 @@ import timber.log.Timber;
 public final class DateUtil {
 
     public static final String DATE_FORMAT = "yyyyMMddHHmm";
+    public static final String DATE_PARSING_ERROR = "Date parsing failed in %s1, parser exception: %s2";
 
     private DateUtil() {
     }
@@ -32,5 +33,9 @@ public final class DateUtil {
     public static String formatDate(Date date) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.US);
         return dateFormatter.format(date);
+    }
+
+    public static SimpleDateFormat getStandardDateParser() {
+        return new SimpleDateFormat(DATE_FORMAT, Locale.US);
     }
 }
