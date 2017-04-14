@@ -1,53 +1,33 @@
 package com.rcl.excalibur.utils;
 
 
-import com.rcl.excalibur.R;
-
 import java.util.Calendar;
 
-import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_AFTERNOON;
-import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_EVENING;
-import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_LATE_NIGHT;
-import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_MORNING;
+import static com.rcl.excalibur.model.PlannerProductModel.STATE_AFTERNOON;
+import static com.rcl.excalibur.model.PlannerProductModel.STATE_EVENING;
+import static com.rcl.excalibur.model.PlannerProductModel.STATE_LATE_NIGHT;
+import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 
 public final class PartOfDayUtils {
     private static final int NUMBER_OF_MINUTES_IN_HOUR = 60;
-    private static final int MINUTES_BOUNDARY_MORNING = 719;
-    private static final int MINUTES_BOUNDARY_AFTERNOON = 1079;
-    private static final int MINUTES_BOUNDARY_EVENING = 1259;
-    private static final int MINUTES_BOUNDARY_NIGHT = 1439;
+
+    private static final int MINUTES_START_MORNING = 360;
+    private static final int MINUTES_START_AFTERNOON = 720;
+    private static final int MINUTES_START_EVENING = 1020;
+    private static final int MINUTES_START_LATE_NIGHT = 1380;
 
     private PartOfDayUtils() {
-    }
-
-    public static int getPartOfDayResource(Calendar date) {
-        int value;
-        int currentHourInMinutes = getCurrentHourInMinutes(date);
-
-        if (currentHourInMinutes <= MINUTES_BOUNDARY_MORNING) {
-            value = R.string.title_morning;
-        } else if (currentHourInMinutes >= MINUTES_BOUNDARY_MORNING + 1 && currentHourInMinutes <= MINUTES_BOUNDARY_AFTERNOON) {
-            value = R.string.title_afternoon;
-        } else if (currentHourInMinutes >= MINUTES_BOUNDARY_AFTERNOON + 1 && currentHourInMinutes <= MINUTES_BOUNDARY_EVENING) {
-            value = R.string.title_evening;
-        } else if (currentHourInMinutes >= MINUTES_BOUNDARY_EVENING + 1 && currentHourInMinutes <= MINUTES_BOUNDARY_NIGHT) {
-            value = R.string.title_late_night;
-        } else {
-            value = R.string.empty_string;
-        }
-
-        return value;
     }
 
     public static int getPartOfDayState(Calendar date) {
         int state;
 
         int currentHourInMinutes = getCurrentHourInMinutes(date);
-        if (currentHourInMinutes <= MINUTES_BOUNDARY_MORNING) {
+        if (currentHourInMinutes >= MINUTES_START_MORNING && currentHourInMinutes < MINUTES_START_AFTERNOON) {
             state = STATE_MORNING;
-        } else if (currentHourInMinutes >= MINUTES_BOUNDARY_MORNING + 1 && currentHourInMinutes <= MINUTES_BOUNDARY_AFTERNOON) {
+        } else if (currentHourInMinutes >= MINUTES_START_MORNING && currentHourInMinutes < MINUTES_START_EVENING) {
             state = STATE_AFTERNOON;
-        } else if (currentHourInMinutes >= MINUTES_BOUNDARY_AFTERNOON + 1 && currentHourInMinutes <= MINUTES_BOUNDARY_EVENING) {
+        } else if (currentHourInMinutes >= MINUTES_START_EVENING && currentHourInMinutes < MINUTES_START_LATE_NIGHT) {
             state = STATE_EVENING;
         } else {
             state = STATE_LATE_NIGHT;
@@ -56,7 +36,7 @@ public final class PartOfDayUtils {
         return state;
     }
 
-    public static int getCurrentHourInMinutes(Calendar date) {
+    static int getCurrentHourInMinutes(Calendar date) {
         int currentHour = date.get(Calendar.HOUR_OF_DAY);
         int currentMinutes = date.get(Calendar.MINUTE);
         return currentHour * NUMBER_OF_MINUTES_IN_HOUR + currentMinutes;
