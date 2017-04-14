@@ -37,7 +37,14 @@ import com.rcl.excalibur.domain.SellingPrice;
 import java.util.ArrayList;
 import java.util.List;
 
+//FIXME this class is violating SRP (Single Responsibility Principle) take out all other transforms add them through composition
 public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductResponse> {
+
+    private OfferingResponseMapper offeringResponseMapper;
+
+    public ProductResponseDataMapper() {
+        offeringResponseMapper = new OfferingResponseMapper();
+    }
 
     @Override
     public Product transform(ProductResponse productResponse) {
@@ -67,6 +74,9 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             product.setExperience(productResponse.getExperience());
             product.setProductReservationInformation(productResponse.getProductReservationInformation());
             product.setProductUpcharge(productResponse.getUpcharge());
+            product.setFeatured(productResponse.isFeatured());
+            product.setHighlighted(productResponse.isHighlighted());
+            product.setOfferings(offeringResponseMapper.transform(productResponse.getOffering()));
         }
         return product;
     }

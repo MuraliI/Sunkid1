@@ -31,6 +31,10 @@ public class ProductResponse {
     private int upcharge;
     private boolean isReservationRequired;
     private boolean isScheduable;
+    private boolean isFeatured;
+    private boolean isHighlighted;
+    @SerializedName("offering")
+    private List<OfferingResponse> offerings;
 
     public String getProductId() {
         return productId;
@@ -214,5 +218,29 @@ public class ProductResponse {
 
     public void setScheduable(boolean scheduable) {
         isScheduable = scheduable;
+    }
+
+    public boolean isFeatured() {
+        return isFeatured;
+    }
+
+    public void setFeatured(boolean featured) {
+        isFeatured = featured;
+    }
+
+    public boolean isHighlighted() {
+        return isHighlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        isHighlighted = highlighted;
+    }
+
+    public List<OfferingResponse> getOffering() {
+        return offerings;
+    }
+
+    public void setOffering(List<OfferingResponse> offerings) {
+        this.offerings = offerings;
     }
 }

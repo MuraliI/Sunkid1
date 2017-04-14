@@ -15,7 +15,8 @@ import java.util.List;
 
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem, DiscoverItemEntity> implements DiscoverItemRepository {
+public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem, DiscoverItemEntity, DiscoverEntityDataMapper>
+        implements DiscoverItemRepository {
 
     public DiscoverItemDataRepository() {
         super(new DiscoverEntityDataMapper(), DiscoverItemEntity.class);
