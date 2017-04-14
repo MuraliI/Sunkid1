@@ -233,15 +233,11 @@ public final class DetailViewTypeFactory {
         List<Offering> offerings = product.getOfferings();
 
         if (!CollectionUtils.isEmpty(offerings)) {
-            offerings.sort(new Comparator<Offering>() {
-                @Override
-                public int compare(Offering o1, Offering o2) {
-
-                    if (o1.getPrice().getAvgPrice() < o2.getPrice().getAvgPrice()) {
-                        return -1;
-                    } else {
-                        return 1;
-                    }
+            offerings.sort((o1, o2) -> {
+                if (o1.getPrice().getAvgPrice() < o2.getPrice().getAvgPrice()) {
+                    return -1;
+                } else {
+                    return 1;
                 }
             });
 
