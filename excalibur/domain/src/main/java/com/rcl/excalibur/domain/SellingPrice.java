@@ -2,6 +2,8 @@ package com.rcl.excalibur.domain;
 
 
 public class SellingPrice {
+    private static final float PRICES_COUNT = 3;
+
     private String currency;
     private float adultPrice;
     private float childPrice;
@@ -37,5 +39,9 @@ public class SellingPrice {
 
     public void setInfantPrice(float infantPrice) {
         this.infantPrice = infantPrice;
+    }
+
+    public float getAvgPrice() {
+        return (adultPrice + childPrice + infantPrice) / PRICES_COUNT;
     }
 }
