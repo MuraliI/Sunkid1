@@ -1,8 +1,10 @@
 package com.rcl.excalibur.mvp.presenter.itinerary;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
-import com.rcl.excalibur.adapters.viewtype.itinerary.GreetingViewType;
+import com.rcl.excalibur.adapters.viewtype.itinerary.ExpandableHeaderViewType;
+import com.rcl.excalibur.data.mapper.BaseDataMapper;
 import com.rcl.excalibur.domain.ItineraryEvent;
 import com.rcl.excalibur.domain.service.ItineraryService;
 import com.rcl.excalibur.model.itinerary.CalendarSeparatorModel;
@@ -17,16 +19,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_ON_GOING;
-import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_UP_COMING;
+import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_AFTERNOON;
+import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_EVENING;
+import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_LATE_NIGHT;
+import static com.rcl.excalibur.model.itinerary.ItineraryProductModel.STATE_MORNING;
 
 public class ItineraryPresenter {
     private ItineraryService itineraryService;
     private ItineraryView view;
     private ItineraryServiceObserver serviceObserver;
     private ItineraryProductModelMapper mapper;
-    private boolean onGoingIsAdded = false;
     private RecyclerViewType scrollToElement = null;
+
+    private boolean onGoingIsAdded = false;
+
+    private boolean morningAdded = false;
+    private boolean afternoonAdded = false;
+    private boolean eveningAdded = false;
+    private boolean lateNightAdded = false;
 
     public ItineraryPresenter(ItineraryView view,
                               ItineraryService itineraryService,
@@ -39,13 +49,19 @@ public class ItineraryPresenter {
 
     public void init() {
         view.init();
-        view.setGreetingText(new GreetingViewType());
+        //view.setGreetingText(new GreetingViewType());
         refreshItinerary();
     }
 
     public void refreshItinerary() {
         view.setIsLoadingData(true);
         onGoingIsAdded = false;
+
+        morningAdded = false;
+        afternoonAdded = false;
+        eveningAdded = false;
+        lateNightAdded = false;
+
         scrollToElement = null;
         itineraryService.myItinerary(serviceObserver);
     }
@@ -57,14 +73,13 @@ public class ItineraryPresenter {
     }
 
     private List<RecyclerViewType> groupEventByDate(List<ItineraryProductModel> products) {
-
         List<RecyclerViewType> viewTypeList = new ArrayList<>();
 
         for (int i = 0; i < products.size(); i++) {
             ItineraryProductModel productModel = products.get(i);
             RecyclerViewType separator = i != 0 ? new SeparatorModel() : null;
             switch (productModel.getState()) {
-                case STATE_ON_GOING:
+                /*case STATE_ON_GOING:
 
                     if (!onGoingIsAdded) {
                         separator = createOnGoingSeparator();
@@ -80,6 +95,31 @@ public class ItineraryPresenter {
                         separator = createCalendarSeparator(productModel);
                     }
 
+                    break;*/
+
+                case STATE_MORNING:
+                    if (!morningAdded) {
+                        viewTypeList.add(createExpandableHeader(R.string.title_morning));
+                        morningAdded = true;
+                    }
+                    break;
+                case STATE_AFTERNOON:
+                    if (!afternoonAdded) {
+                        viewTypeList.add(createExpandableHeader(R.string.title_afternoon));
+                        afternoonAdded = true;
+                    }
+                    break;
+                case STATE_EVENING:
+                    if (!eveningAdded) {
+                        viewTypeList.add(createExpandableHeader(R.string.title_evening));
+                        eveningAdded = true;
+                    }
+                    break;
+                case STATE_LATE_NIGHT:
+                    if (!lateNightAdded) {
+                        viewTypeList.add(createExpandableHeader(R.string.title_late_night));
+                        lateNightAdded = true;
+                    }
                     break;
                 default:
                     break;
@@ -92,6 +132,17 @@ public class ItineraryPresenter {
         }
 
         return viewTypeList;
+    }
+
+    private ExpandableHeaderViewType createExpandableHeader(int textRes) {
+        BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return null;
+        }
+
+        ExpandableHeaderViewType expandableHeaderViewType = new ExpandableHeaderViewType();
+        expandableHeaderViewType.setLabel(view.getActivity().getString(textRes));
+        return expandableHeaderViewType;
     }
 
     private CalendarSeparatorModel createCalendarSeparator(ItineraryProductModel productModel) {

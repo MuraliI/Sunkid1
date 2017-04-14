@@ -121,6 +121,11 @@
     <string name="itinerary_accessibility_product_image">Item Image</string>
     <string name="itinerary_separator_title_on_going">On going</string>
 
+    <string name="title_morning">Morning</string>
+    <string name="title_afternoon">Afternoon</string>
+    <string name="title_evening">Evening</string>
+    <string name="title_late_night">Late night</string>
+
     <!-- Product Details -->
     <plurals name="product_hr">
         <item quantity="one">"%d hr "</item>

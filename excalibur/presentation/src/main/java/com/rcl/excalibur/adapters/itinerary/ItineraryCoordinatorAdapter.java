@@ -6,6 +6,7 @@ import com.rcl.excalibur.adapters.base.BaseCoordinatorAdapter;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
+import com.rcl.excalibur.adapters.delegate.itinerary.ExpandableHeaderDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.itinerary.GreetingsDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.itinerary.ItineraryProductDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.itinerary.SeparatorCalendarDelegateAdapter;
@@ -23,6 +24,7 @@ public class ItineraryCoordinatorAdapter extends BaseCoordinatorAdapter {
     public ItineraryCoordinatorAdapter(Observer observer) {
         super(observer);
         delegateAdapters = new SparseArrayCompat<DelegateAdapter>(VIEW_TYPE_COUNT);
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_HEADER_VIEW, new ExpandableHeaderDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_GREETINGS, new GreetingsDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW, new ItineraryProductDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_CALENDAR_VIEW, new SeparatorCalendarDelegateAdapter());
@@ -47,5 +49,21 @@ public class ItineraryCoordinatorAdapter extends BaseCoordinatorAdapter {
 
     public int getItemPosition(RecyclerViewType elem) {
         return items.indexOf(elem);
+    }
+
+    public void add(List<Integer> positions, List<RecyclerViewType> itemsToAdd) {
+        for (int i = 0; i < itemsToAdd.size(); i++) {
+            int positionToInsert = positions.get(i);
+
+            items.add(positionToInsert, itemsToAdd.get(i));
+            notifyItemInserted(positionToInsert);
+        }
+    }
+
+    public void remove(List<Integer> positions, List<RecyclerViewType> itemsToRemove) {
+        for (int i = itemsToRemove.size() - 1; i >= 0; i--) {
+            items.remove(itemsToRemove.get(i));
+            notifyItemRemoved(positions.get(i));
+        }
     }
 }

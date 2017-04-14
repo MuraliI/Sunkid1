@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_medium">
+
+        <TextView
+            android:id="@+id/text_part_of_day"
+            style="@style/AppTheme.ItineraryPartOfDayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_morning" />
+
+        <TextView
+            android:id="@+id/text_see_all"
+            style="@style/AppTheme.Headline5.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/image_dropdown_arrow"
+            android:layout_centerVertical="true"
+            android:text="See all" />
+
+        <ImageView
+            android:id="@+id/image_dropdown_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_xsmall"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_chevron_down"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hairline_height"
+        android:visibility="gone"
+        android:background="@color/grey" />
+</LinearLayout>

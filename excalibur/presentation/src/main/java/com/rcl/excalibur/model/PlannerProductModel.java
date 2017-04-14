@@ -1,4 +1,4 @@
-package com.rcl.excalibur.model.itinerary;
+package com.rcl.excalibur.model;
 
 import android.support.annotation.NonNull;
 
@@ -8,16 +8,9 @@ import com.rcl.excalibur.utils.PartOfDayUtils;
 
 import java.util.Calendar;
 
-public class ItineraryProductModel implements RecyclerViewType, Comparable<ItineraryProductModel> {
-    public static final String LOCATION_POINTER_FWD = "Forward";
-    public static final String LOCATION_POINTER_AFT = "After";
-    public static final String LOCATION_POINTER_MID = "Middle";
+public class PlannerProductModel implements RecyclerViewType, Comparable<PlannerProductModel> {
 
-    //STATE value represent priority in list Higher priority go on top
-    public static final int STATE_PAST = 3;
-    public static final int STATE_ON_GOING = 2;
-    public static final int STATE_UP_COMING = 1;
-
+    // STATE value represent priority in list Higher priority go on top
     public static final int STATE_MORNING = 3;
     public static final int STATE_AFTERNOON = 2;
     public static final int STATE_EVENING = 1;
@@ -105,7 +98,7 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
         this.endDate = endDate;
     }
 
-    public boolean hourIsDifferent(ItineraryProductModel o) {
+    public boolean hourIsDifferent(PlannerProductModel o) {
         return this.getStartDate().get(Calendar.HOUR) != o.getStartDate().get(Calendar.HOUR);
     }
 
@@ -149,20 +142,20 @@ public class ItineraryProductModel implements RecyclerViewType, Comparable<Itine
     }
 
     @Override
-    public int compareTo(@NonNull ItineraryProductModel o) {
-
+    public int compareTo(@NonNull PlannerProductModel o) { //TODO: Missing compare by same hour and by name
         if (getState() > o.getState()) {
             return -1;
         } else if (getState() < o.getState()) {
             return 1;
         }
 
-        //case state equal priority
-        if (this.getStartDate().getTime().getTime() > o.getStartDate().getTime().getTime())
+        // Case state equal priority
+        if (this.getStartDate().getTime().getTime()
+                > o.getStartDate().getTime().getTime()) {
             return 1;
-        else
+        } else {
             return -1;
-
+        }
     }
 }
 
