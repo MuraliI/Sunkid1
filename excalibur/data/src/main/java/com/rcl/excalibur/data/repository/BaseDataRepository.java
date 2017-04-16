@@ -10,6 +10,13 @@ import com.rcl.excalibur.data.mapper.BaseDataMapper;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
+
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataMapper<O, I>> {
@@ -29,22 +36,32 @@ public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataM
     public abstract void create(@NonNull O input);
 
     public void create(List<O> inputList) {
-        ActiveAndroid.beginTransaction();
-        try {
-            for (O item : inputList) {
-                create(item);
+        new Thread(() -> {
+            try {
+                ActiveAndroid.beginTransaction();
+                try {
+                    for (O item : inputList) {
+                        create(item);
+                    }
+                    ActiveAndroid.setTransactionSuccessful();
+                } finally {
+                    ActiveAndroid.endTransaction();
+                }
+            } catch (Exception e) {
+                Timber.e(e.getMessage());
             }
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-        }
+        }).start();
     }
 
-    public List<O> getAll() {
-        final List<I> entities = new Select()
-                .from(claz)
-                .execute();
-        return dataMapper.transform(entities);
+    public void getAll(Observer<List<O>> observer) {
+        Observable.create((ObservableOnSubscribe<List<O>>) e -> {
+            final List<I> entities = new Select()
+                    .from(claz)
+                    .execute();
+            e.onNext(dataMapper.transform(entities));
+        }).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 
     public O get(@NonNull String column, final String value) {
@@ -54,5 +71,7 @@ public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataM
                 .executeSingle();
         return dataMapper.transform(entity);
     }
+
+    public abstract void deleteAll();
 
 }

@@ -52,6 +52,11 @@ public class DiscoverItemDataRepository extends BaseDataRepository<DiscoverItem,
     }
 
     @Override
+    public void deleteAll() {
+        // no op
+    }
+
+    @Override
     public void create(@NonNull DiscoverItem promotion) {
         Preconditions.unreachable();
     }

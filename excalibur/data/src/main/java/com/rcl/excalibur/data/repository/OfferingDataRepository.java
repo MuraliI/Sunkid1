@@ -34,4 +34,9 @@ public class OfferingDataRepository extends BaseDataRepository<Offering, Offerin
             offering.save();
         }
     }
+
+    @Override
+    public void deleteAll() {
+        //TODO implement delete all offerings
+    }
 }

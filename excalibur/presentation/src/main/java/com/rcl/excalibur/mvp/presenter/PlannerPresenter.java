@@ -1,18 +1,21 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import android.os.Handler;
+import android.support.v4.util.SparseArrayCompat;
+
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.planner.PlannerHeaderViewType;
 import com.rcl.excalibur.adapters.viewtype.planner.SeparatorViewType;
-import com.rcl.excalibur.domain.ItineraryEvent;
-import com.rcl.excalibur.domain.service.PlannerService;
+import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.interactor.DefaultObserver;
+import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.model.PlannerProductModel;
 import com.rcl.excalibur.mvp.view.PlannerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.rcl.excalibur.model.PlannerProductModel.STATE_AFTERNOON;
@@ -21,8 +24,8 @@ import static com.rcl.excalibur.model.PlannerProductModel.STATE_LATE_NIGHT;
 import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 
 public class PlannerPresenter {
-    private PlannerService plannerService;
-    private PlannerServiceObserver serviceObserver;
+    private GetProductDbUseCase productUseCase;
+    private ProductUseCaseObserver serviceObserver;
 
     private PlannerProductModelMapper mapper;
     private PlannerView view;
@@ -34,16 +37,16 @@ public class PlannerPresenter {
     private boolean eveningAdded = false;
     private boolean lateNightAdded = false;
 
-    public PlannerPresenter(PlannerView view, PlannerService plannerService, PlannerProductModelMapper modelMapper) {
+    public PlannerPresenter(PlannerView view, GetProductDbUseCase productUseCase, PlannerProductModelMapper modelMapper) {
         this.view = view;
-        this.plannerService = plannerService;
+        this.productUseCase = productUseCase;
         this.mapper = modelMapper;
-        this.serviceObserver = new PlannerServiceObserver(this);
+        this.serviceObserver = new ProductUseCaseObserver();
     }
 
     public void init() {
         view.init();
-        plannerService.myItinerary(serviceObserver);
+        new Handler().postDelayed(() -> productUseCase.getAll(serviceObserver), 3000);
     }
 
     private void refreshPositioning() {
@@ -102,22 +105,25 @@ public class PlannerPresenter {
         return plannerHeaderViewType;
     }
 
-    private final class PlannerServiceObserver extends DefaultPresentObserver<List<ItineraryEvent>, PlannerPresenter> {
+    private List<RecyclerViewType> addAllDayItemsAndHeader(final List<PlannerProductModel> plannerProductModels) {
+        List<RecyclerViewType> allDayPlusHeader = new ArrayList<>();
+        allDayPlusHeader.add(createHeader(R.string.planner_all_day_item));
+        allDayPlusHeader.addAll(plannerProductModels);
+        return allDayPlusHeader;
+    }
 
-        private PlannerServiceObserver(PlannerPresenter presenter) {
-            super(presenter);
-        }
-
+    private final class ProductUseCaseObserver extends DefaultObserver<List<Product>> {
         @Override
-        public void onNext(List<ItineraryEvent> value) {
+        public void onNext(List<Product> value) {
             if (view.getActivity() != null) {
-                List<PlannerProductModel> productModels = mapper.transform(value);
-                Collections.sort(productModels);
-                List<RecyclerViewType> viewTypeList = groupEventByDate(productModels);
-
+                SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(value);
+                List<RecyclerViewType> viewTypeList = addAllDayItemsAndHeader(
+                        plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
+                viewTypeList.addAll(groupEventByDate(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
                 view.addPlans(viewTypeList);
                 refreshPositioning();
             }
         }
+
     }
 }

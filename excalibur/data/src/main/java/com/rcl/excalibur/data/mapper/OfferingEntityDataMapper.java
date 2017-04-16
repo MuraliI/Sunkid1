@@ -16,9 +16,11 @@ public class OfferingEntityDataMapper extends BaseDataMapper<OfferingEntity, Off
     private final SimpleDateFormat simpleDateFormat;
 
     private ProductEntity productEntity;
+    private PriceEntityDataMapper priceEntityDataMapper;
 
     public OfferingEntityDataMapper() {
         simpleDateFormat = getStandardDateParser();
+        priceEntityDataMapper = new PriceEntityDataMapper();
     }
 
     @Nullable
@@ -28,7 +30,7 @@ public class OfferingEntityDataMapper extends BaseDataMapper<OfferingEntity, Off
         offeringEntity.setOfferingId(input.getId());
         offeringEntity.setProductEntity(productEntity);
         offeringEntity.setDate(simpleDateFormat.format(input.getDate()));
-        offeringEntity.setPrice(new PriceEntityDataMapper().transform(input.getPrice()));
+        offeringEntity.setPrice(priceEntityDataMapper.transform(input.getPrice()));
 
         return offeringEntity;
     }

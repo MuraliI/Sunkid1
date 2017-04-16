@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.data.service.PlannerServiceImpl;
+import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.mvp.presenter.PlannerPresenter;
 import com.rcl.excalibur.mvp.view.PlannerView;
@@ -32,7 +33,7 @@ public class PlannerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         presenter = new PlannerPresenter(
                 new PlannerView(this),
-                new PlannerServiceImpl(),
+                new GetProductDbUseCase(new ProductDataRepository()),
                 new PlannerProductModelMapper(getResources())
         );
         presenter.init();

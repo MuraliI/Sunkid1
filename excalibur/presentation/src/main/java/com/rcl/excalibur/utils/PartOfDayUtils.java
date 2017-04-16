@@ -1,6 +1,8 @@
 package com.rcl.excalibur.utils;
 
 
+import android.support.annotation.NonNull;
+
 import java.util.Calendar;
 
 import static com.rcl.excalibur.model.PlannerProductModel.STATE_AFTERNOON;
@@ -19,7 +21,7 @@ public final class PartOfDayUtils {
     private PartOfDayUtils() {
     }
 
-    public static int getPartOfDayState(Calendar date) {
+    public static int getPartOfDayState(@NonNull Calendar date) {
         int state;
 
         int currentHourInMinutes = getCurrentHourInMinutes(date);
@@ -36,7 +38,7 @@ public final class PartOfDayUtils {
         return state;
     }
 
-    static int getCurrentHourInMinutes(Calendar date) {
+    static int getCurrentHourInMinutes(@NonNull Calendar date) {
         int currentHour = date.get(Calendar.HOUR_OF_DAY);
         int currentMinutes = date.get(Calendar.MINUTE);
         return currentHour * NUMBER_OF_MINUTES_IN_HOUR + currentMinutes;

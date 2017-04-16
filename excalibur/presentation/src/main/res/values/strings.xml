@@ -108,7 +108,7 @@
     <string name="duration">Duration</string>
     <string name="sessions_from">Sessions from</string>
 
-    <!-- Itinerary -->
+    <!-- Planner -->
     <string name="title_good_morning">Good Morning!</string>
     <string name="title_good_afternoon">Good Afternoon!</string>
     <string name="title_good_evening">Good Evening!</string>
@@ -120,6 +120,8 @@
     <string name="itinerary_product_view_dash">&#8210;</string>
     <string name="itinerary_accessibility_product_image">Item Image</string>
     <string name="itinerary_separator_title_on_going">On going</string>
+    <string name="planner_all_day_item">All day</string>
+    <string name="planner_operating_hours">%1$s &#8210; %2$s</string>
 
     <string name="title_morning">Morning</string>
     <string name="title_afternoon">Afternoon</string>

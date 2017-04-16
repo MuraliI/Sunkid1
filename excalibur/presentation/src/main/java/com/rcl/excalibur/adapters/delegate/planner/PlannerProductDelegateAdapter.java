@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.model.PlannerProductModel;
@@ -26,12 +27,17 @@ public class PlannerProductDelegateAdapter implements DelegateAdapter<
 
     @Override
     public void onBindViewHolder(ItineraryProductViewHolder holder, PlannerProductModel item) {
-        if (item.getImageUrl() != null) {
-            Picasso.with(holder.itemView.getContext()).load(item.getImageUrl()).into(holder.productImage);
+        if (item.getProductMedia() != null && item.getProductMedia().length > 0) {
+            Picasso.with(holder.itemView.getContext())
+                    .load(BuildConfig.PREFIX_IMAGE + item.getProductMedia()[0])
+                    .placeholder(R.drawable.placeholder_list_item)
+                    .into(holder.productImage);
+        } else {
+            holder.productImage.setImageResource(R.drawable.placeholder_list_item);
         }
-        holder.productName.setText(item.getName());
+        holder.productName.setText(item.getProductName());
         holder.productOperatingHours.setText(item.getOperatinghours());
-        holder.productLocation.setText(item.getLocationPointer());
+        holder.productLocation.setText(item.getLocation());
     }
 
     class ItineraryProductViewHolder extends RecyclerView.ViewHolder {

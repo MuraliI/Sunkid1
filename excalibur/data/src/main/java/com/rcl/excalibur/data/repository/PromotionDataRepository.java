@@ -27,6 +27,11 @@ public class PromotionDataRepository extends BaseDataRepository<Promotion, Promo
     }
 
     @Override
+    public void deleteAll() {
+        //no op
+    }
+
+    @Override
     public Promotion get(String id) {
         return get(PromotionEntity.COLUMN_CATEGORY_ID, id);
     }

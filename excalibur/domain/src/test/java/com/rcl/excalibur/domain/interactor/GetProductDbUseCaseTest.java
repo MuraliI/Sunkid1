@@ -1,5 +1,6 @@
 package com.rcl.excalibur.domain.interactor;
 
+import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 
 import org.junit.Assert;
@@ -9,13 +10,19 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
+import io.reactivex.observers.TestObserver;
+
 public class GetProductDbUseCaseTest {
 
-    GetProductDbUseCase getProductDbUseCase;
     @Mock ProductRepository productRepository;
+    GetProductDbUseCase getProductDbUseCase;
+    TestObserver<List<Product>> testObserver;
 
     @Before
     public void setUp() throws Exception {
+        testObserver  = new TestObserver<>();
         MockitoAnnotations.initMocks(this);
         getProductDbUseCase = new GetProductDbUseCase(productRepository);
     }
@@ -27,8 +34,8 @@ public class GetProductDbUseCaseTest {
 
     @Test
     public void getAll() throws Exception {
-        getProductDbUseCase.getAll();
-        Mockito.verify(productRepository).getAll();
+        getProductDbUseCase.getAll(testObserver);
+        Mockito.verify(productRepository).getAll(testObserver);
     }
 
     @Test
@@ -39,7 +46,7 @@ public class GetProductDbUseCaseTest {
 
     @Test
     public void getAllByType() throws Exception {
-        getProductDbUseCase.getAll("type");
-        Mockito.verify(productRepository).getAll("type");
+        getProductDbUseCase.getAll("type", testObserver);
+        Mockito.verify(productRepository).getAll("type", testObserver);
     }
 }

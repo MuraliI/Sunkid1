@@ -1,5 +1,6 @@
 package com.rcl.excalibur.domain.interactor;
 
+import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
 import org.junit.Assert;
@@ -8,14 +9,20 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
+import io.reactivex.observers.TestObserver;
+
 import static org.mockito.Mockito.verify;
 
 public class GetCategoryDbUseCaseTest {
     @Mock CategoryRepository categoryRepository;
     GetCategoryDbUseCase useCase;
+    TestObserver<List<Category>> observer;
 
     @Before
     public void setUp() throws Exception {
+        observer = new TestObserver<>();
         MockitoAnnotations.initMocks(this);
         useCase = new GetCategoryDbUseCase(categoryRepository);
     }
@@ -27,8 +34,8 @@ public class GetCategoryDbUseCaseTest {
 
     @Test
     public void getAll() throws Exception {
-        useCase.getAll();
-        verify(categoryRepository).getAll();
+        useCase.getAll(observer);
+        verify(categoryRepository).getAll(observer);
     }
 
     @Test
