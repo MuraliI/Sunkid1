@@ -86,19 +86,22 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     }
 
     @Override
-    public int compareTo(@NonNull PlannerProductModel o) { //TODO: Missing compare by same hour and by name
-        if (getState() > o.getState()) {
+    public int compareTo(@NonNull PlannerProductModel input) {
+        if (getState() > input.getState()) {
             return -1;
-        } else if (getState() < o.getState()) {
+        } else if (getState() < input.getState()) {
             return 1;
         }
 
         // Case state equal priority
         if (this.getStartDate().getTime().getTime()
-                > o.getStartDate().getTime().getTime()) {
+                > input.getStartDate().getTime().getTime()) {
             return 1;
-        } else {
+        } else if (this.getStartDate().getTime().getTime()
+                < input.getStartDate().getTime().getTime()) {
             return -1;
+        } else {
+            return this.getProductName().compareTo(input.getProductName());
         }
     }
 }
