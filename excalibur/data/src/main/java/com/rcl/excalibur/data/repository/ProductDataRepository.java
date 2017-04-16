@@ -44,6 +44,12 @@ import com.rcl.excalibur.domain.repository.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, ProductEntityDataMapper>
@@ -108,6 +114,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     public void deleteAll() {
         new Delete().from(RestrictionEntity.class).execute();
         new Delete().from(AdvisementEntity.class).execute();
+        new Delete().from(OfferingEntity.class).execute();
+        new Delete().from(PriceEntity.class).execute();
         new Delete().from(ProductEntity.class).execute();
         new Delete().from(StartingFromPriceEntity.class).execute();
         new Delete().from(ActivityLevelEntity.class).execute();
@@ -120,8 +128,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         new Delete().from(TypeEntity.class).execute();
         new Delete().from(MediaValueEntity.class).execute();
         new Delete().from(MediaEntity.class).execute();
-        new Delete().from(OfferingEntity.class).execute();
-        new Delete().from(PriceEntity.class).execute();
     }
 
     private void create(final ProductEntity entity, final SellingPrice startingFromPrice) {
@@ -352,19 +358,29 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         entity.setCategory(categoryEntity);
     }
 
-    public List<Product> getAll(@NonNull String type) {
-        final TypeEntity typeEntity = new Select()
-                .from(TypeEntity.class)
-                .where(eq(TypeEntity.COLUMN_TYPE, type))
-                .executeSingle();
-        if (typeEntity == null) {
-            return null;
-        }
-        final List<ProductEntity> entities = new Select()
-                .from(ProductEntity.class)
-                .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
-                .execute();
-        return getMapper().transform(entities);
+    @Override
+    public void getAll(Observer<List<Product>> observer) {
+        super.getAll(observer);
+    }
+
+    @Override
+    public void getAll(@NonNull final String type, Observer<List<Product>> observer) {
+        Observable.create(((ObservableOnSubscribe<List<Product>>) e -> {
+            final TypeEntity typeEntity = new Select()
+                    .from(TypeEntity.class)
+                    .where(eq(TypeEntity.COLUMN_TYPE, type))
+                    .executeSingle();
+            if (typeEntity == null) {
+                return;
+            }
+            final List<ProductEntity> entities = new Select()
+                    .from(ProductEntity.class)
+                    .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
+                    .execute();
+            e.onNext(getMapper().transform(entities));
+        })).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 
     @Override
