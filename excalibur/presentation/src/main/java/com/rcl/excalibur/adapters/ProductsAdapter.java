@@ -10,9 +10,8 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.mapper.ProductInformationMapper;
+import com.rcl.excalibur.utils.LocationUtils;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -35,13 +34,10 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
         final Product product = items.get(position);
         Context context = holder.imageView.getContext();
         holder.product = product;
-        ProductInformationMapper productInformationMapper = new ProductInformationMapper();
-        ProductInformationViewType productInformationViewType;
-        productInformationViewType = productInformationMapper.transform(product);
 
         holder.titleTextView.setText(product.getProductTitle());
-        holder.venueTextView.setText(productInformationViewType.getVenue());
-        holder.locationTextView.setText(productInformationViewType.getLocation());
+        holder.venueTextView.setText(LocationUtils.getProductVenue(product.getProductLocation()));
+        holder.locationTextView.setText(LocationUtils.getProductLocation(product.getProductLocation()));
         Picasso.with(context)
                 .load(BuildConfig.PREFIX_IMAGE + holder.product.getHeroImageRefLink())
                 .placeholder(R.drawable.placeholder_list_item)
