@@ -33,7 +33,7 @@ public class ItineraryBottomDelegateAdapter implements DelegateAdapter<
         @Bind(R.id.text_itinerary_list_bottom_about) TextView aboutText;
 
         ItineraryBottomViewHolder(ViewGroup parent) {
-            super(LayoutInflater.from(parent.getContext()).inflate(R.layout.itinerary_item_bottom, parent, false));
+            super(LayoutInflater.from(parent.getContext()).inflate(R.layout.planner_item_bottom, parent, false));
             ButterKnife.bind(this, itemView);
         }
     }

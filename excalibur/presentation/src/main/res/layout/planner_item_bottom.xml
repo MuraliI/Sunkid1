@@ -6,9 +6,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!-- TODO: set correct resource -->
     <ImageView
-        android:src="@drawable/placeholder_list_item"
+        android:src="@drawable/icon_all_for_today"
         android:contentDescription="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

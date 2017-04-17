@@ -75,7 +75,7 @@ public class PlannerProductModelMapper {
     // TODO: these are mock values, Delete when response get all values
     private void setMockValues(PlannerProductModel productModel) {
         String deckAndDirectionValue = "Deck 12 " + "AFT";
-        int resourceIdCategoryIcon = R.drawable.ic_blue_checkbox;
+        int resourceIdCategoryIcon = R.drawable.icon_dining_color;
         boolean isPromoted = new Random().nextBoolean();
         int priceRange = new Random().nextInt(4);
         productModel.setResourceIdCategoryIcon(resourceIdCategoryIcon);
