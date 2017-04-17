@@ -115,7 +115,7 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-    <style name="AppTheme.DayPickerText" parent="@android:style/Widget.TextView">
+    <style name="AppTheme.DayPickerDescription" parent="@android:style/Widget.TextView">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="fontPath">@string/roboto_medium_italic</item>
