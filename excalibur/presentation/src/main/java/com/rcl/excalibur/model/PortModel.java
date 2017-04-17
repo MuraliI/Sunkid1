@@ -1,82 +1,70 @@
 
 package com.rcl.excalibur.model;
 
-import javax.annotation.Generated;
-import com.google.gson.annotations.SerializedName;
-
-@Generated("net.hexar.json2pojo")
-@SuppressWarnings("unused")
 public class PortModel {
 
-    @SerializedName("arrivalDate")
-    private String mArrivalDate;
-    @SerializedName("arrivalTime")
-    private Long mArrivalTime;
-    @SerializedName("departureDate")
-    private String mDepartureDate;
-    @SerializedName("departureTime")
-    private Long mDepartureTime;
-    @SerializedName("portCode")
-    private String mPortCode;
-    @SerializedName("portName")
-    private String mPortName;
-    @SerializedName("portType")
-    private String mPortType;
+    private String arrivalDate;
+    private Long arrivalTime;
+    private String departureDate;
+    private Long departureTime;
+    private String portCode;
+    private String portName;
+    private String portType;
+
 
     public String getArrivalDate() {
-        return mArrivalDate;
+        return arrivalDate;
     }
 
     public void setArrivalDate(String arrivalDate) {
-        mArrivalDate = arrivalDate;
+        this.arrivalDate = arrivalDate;
     }
 
     public Long getArrivalTime() {
-        return mArrivalTime;
+        return arrivalTime;
     }
 
     public void setArrivalTime(Long arrivalTime) {
-        mArrivalTime = arrivalTime;
+        this.arrivalTime = arrivalTime;
     }
 
     public String getDepartureDate() {
-        return mDepartureDate;
+        return departureDate;
     }
 
     public void setDepartureDate(String departureDate) {
-        mDepartureDate = departureDate;
+        this.departureDate = departureDate;
     }
 
     public Long getDepartureTime() {
-        return mDepartureTime;
+        return departureTime;
     }
 
     public void setDepartureTime(Long departureTime) {
-        mDepartureTime = departureTime;
+        this.departureTime = departureTime;
     }
 
     public String getPortCode() {
-        return mPortCode;
+        return portCode;
     }
 
     public void setPortCode(String portCode) {
-        mPortCode = portCode;
+        this.portCode = portCode;
     }
 
     public String getPortName() {
-        return mPortName;
+        return portName;
     }
 
     public void setPortName(String portName) {
-        mPortName = portName;
+        this.portName = portName;
     }
 
     public String getPortType() {
-        return mPortType;
+        return portType;
     }
 
     public void setPortType(String portType) {
-        mPortType = portType;
+        this.portType = portType;
     }
-
 }
