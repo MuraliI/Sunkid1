@@ -10,21 +10,19 @@
         android:id="@+id/tab_triptych_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_small"
         app:stripColor="@color/white"
-        app:stripThickness="@dimen/triptych_strip_tickness">
+        app:stripThickness="@dimen/triptych_strip_tickness"
+        app:tabsPadding="@dimen/margin_normal">
+
+        <include
+            android:id="@+id/collapsible_tab"
+            layout="@layout/custom_tabview_triptychtab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:contentDescription="@null"
-            android:src="@drawable/tab_plans" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
             android:contentDescription="@null"
             android:src="@drawable/tab_discover" />
 

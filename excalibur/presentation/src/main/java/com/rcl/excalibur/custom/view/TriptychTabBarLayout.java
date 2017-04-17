@@ -7,55 +7,60 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.rcl.excalibur.R;
 
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.widget.ListPopupWindow.WRAP_CONTENT;
+
 
 public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageChangeListener {
-    public static final int POSITION_OFFSET_FOR_FIRST_CHILD = 1;
+    private static final float TABS_WEIGHT = 0.5f;
     private ViewPager viewPager;
+    private LinearLayout container;
     private View tabStrip;
-    private View currentSelectedChild;
-    private int currentSelectedItem = POSITION_OFFSET_FOR_FIRST_CHILD;
+    private View collapsibleView;
+    private View collapsibleSibling;
+    private int tabsPadding;
+    private int currentSelectedItem = 0;
     private float scrollOffset = 0.0f;
+    private int collapsibleWidth = -1;
 
     public TriptychTabBarLayout(Context context) {
         super(context);
-        initialize(context, null, 0, 0);
+        initialize(context, null, 0);
     }
 
     public TriptychTabBarLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initialize(context, attrs, 0, 0);
+        initialize(context, attrs, 0);
     }
 
     public TriptychTabBarLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initialize(context, attrs, defStyleAttr, 0);
+        initialize(context, attrs, defStyleAttr);
     }
 
-    public TriptychTabBarLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        initialize(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-    private void initialize(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.TriptychTabBarLayout, defStyleAttr,
-                defStyleRes);
+    private void initialize(Context context, AttributeSet attrs, int defStyleAttr) {
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.TriptychTabBarLayout, defStyleAttr, 0);
         int tabStripHeight;
         int tabStripColor;
         try {
             tabStripColor = typedArray.getColor(R.styleable.TriptychTabBarLayout_stripColor,
                     ContextCompat.getColor(context, R.color.black));
-            tabStripHeight = (int) typedArray.getDimension(R.styleable.TriptychTabBarLayout_stripThickness, getResources().getDimension(R.dimen.triptych_strip_tickness));
+            tabStripHeight = (int) typedArray.getDimension(R.styleable.TriptychTabBarLayout_stripThickness, getResources()
+                    .getDimension(R.dimen.triptych_strip_tickness));
+            tabsPadding = (int) typedArray.getDimension(R.styleable.TriptychTabBarLayout_tabsPadding, 0);
         } finally {
             typedArray.recycle();
         }
         tabStrip = new View(context);
         tabStrip.setBackgroundColor(tabStripColor);
-        addView(tabStrip, LayoutParams.WRAP_CONTENT, tabStripHeight);
+        addView(tabStrip, 0, new LayoutParams(LayoutParams.WRAP_CONTENT, tabStripHeight));
     }
 
     public void attachToViewPager(ViewPager viewPager) {
@@ -66,18 +71,34 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        for (int index = POSITION_OFFSET_FOR_FIRST_CHILD; index < getChildCount(); index++) {
-            View child = getChildAt(index);
+        container = new LinearLayout(getContext());
+        container.setOrientation(LinearLayout.HORIZONTAL);
+        container.setGravity(Gravity.CENTER_VERTICAL);
+        View child = getChildAt(1);
+        do {
             child.setOnClickListener(((View v) -> {
-                for (int position = 0; position < getChildCount(); position++) {
-                    View newCurrent = getChildAt(position + 1);
+                for (int position = 0; position < container.getChildCount(); position++) {
+                    View newCurrent = container.getChildAt(position);
                     if (newCurrent.equals(v)) {
                         viewPager.setCurrentItem(position);
                         break;
                     }
                 }
             }));
+
+            if (R.id.collapsible_tab == child.getId()) {
+                collapsibleView = child.findViewById(R.id.date_picker_plans_tab);
+                collapsibleSibling = child.findViewById(R.id.image_plans_tab);
+            }
+            removeView(child);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, WRAP_CONTENT);
+            params.weight = TABS_WEIGHT;
+            child.setPadding(tabsPadding, tabsPadding, tabsPadding, tabsPadding);
+            container.addView(child, params);
+            child = getChildAt(1);
         }
+        while (child != null);
+        addView(container, MATCH_PARENT, WRAP_CONTENT);
     }
 
     @Override
@@ -86,37 +107,27 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
         int maxHeight = 0;
         //This will determine how broad this layout should be
         int widthUsed = 0;
-
-        for (int i = 0; i < getChildCount(); i++) {
+        int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
 
             measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, 0);
 
-            int topMargin = ((MarginLayoutParams) child.getLayoutParams()).topMargin;
-            int rightMargin = ((MarginLayoutParams) child.getLayoutParams()).rightMargin;
-            int leftMargin = ((MarginLayoutParams) child.getLayoutParams()).leftMargin;
-            int bottomMargin = ((MarginLayoutParams) child.getLayoutParams()).bottomMargin;
-
-            int childHeight = child.getMeasuredHeight() + topMargin + bottomMargin;
-            int childWidth = child.getMeasuredWidth() + leftMargin + rightMargin;
+            int childHeight = child.getMeasuredHeight();
+            int childWidth = child.getMeasuredWidth();
 
             maxHeight = childHeight > maxHeight ? childHeight : maxHeight;
             widthUsed += childWidth;
         }
 
-        //Calculate margins to include it in laying out the whole view
-        //TODO include padding calculation
-        int topMargin = ((MarginLayoutParams) getLayoutParams()).topMargin;
-        int bottomMargin = ((MarginLayoutParams) getLayoutParams()).bottomMargin;
-
         //We need to add the tabStrip height to the maximum layout height so it can be displayed
-        maxHeight += tabStrip.getMeasuredHeight() + topMargin + bottomMargin;
+        maxHeight += tabStrip.getMeasuredHeight();
 
         //Set this viewgroup width and height
         setMeasuredDimension(resolveSize(widthUsed, widthMeasureSpec), resolveSize(maxHeight, heightMeasureSpec));
 
         //Get current child and calculate the tab strip width
-        currentSelectedChild = getChildAt(currentSelectedItem);
+        View currentSelectedChild = container.getChildAt(currentSelectedItem);
         int tabStripWidthMeasureSpec = MeasureSpec.makeMeasureSpec(currentSelectedChild.getMeasuredWidth(), MeasureSpec.EXACTLY);
         int tabStripHeightMeasureSpec = MeasureSpec.makeMeasureSpec(tabStrip.getMeasuredHeight(), MeasureSpec.EXACTLY);
         tabStrip.measure(tabStripWidthMeasureSpec, tabStripHeightMeasureSpec);
@@ -126,26 +137,20 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         layoutForChildren();
         layoutForTabStrip();
+        layoutForCollapsible();
     }
 
     private void layoutForChildren() {
         int childCount = getChildCount();
         int dx = getWidth() / childCount;
-
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
-
             if (!child.equals(tabStrip)) {
-                int topMargin = ((MarginLayoutParams) child.getLayoutParams()).topMargin;
-                int rightMargin = ((MarginLayoutParams) child.getLayoutParams()).rightMargin;
-                int leftMargin = ((MarginLayoutParams) child.getLayoutParams()).leftMargin;
-                int bottomMargin = ((MarginLayoutParams) child.getLayoutParams()).bottomMargin;
-
-                int calculatedLeft = getLeft() + (i * dx) - (child.getMeasuredWidth() / 2) + leftMargin;
+                int calculatedLeft = getLeft() + (i * dx) - (child.getMeasuredWidth() / 2);
                 child.layout(calculatedLeft,
-                        getTop() + tabStrip.getMeasuredHeight() + topMargin,
-                        child.getMeasuredWidth() + calculatedLeft - rightMargin,
-                        child.getMeasuredHeight() + getTop() + topMargin - bottomMargin);
+                        getTop() + tabStrip.getMeasuredHeight(),
+                        child.getMeasuredWidth() + calculatedLeft,
+                        child.getMeasuredHeight() + getTop());
             }
         }
     }
@@ -158,12 +163,48 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
                 tabStrip.getMeasuredHeight());
     }
 
+    private void layoutForCollapsible() {
+        collapsibleView.layout(collapsibleView.getLeft(),
+                collapsibleView.getTop(),
+                getCollapsibleWidth(),
+                collapsibleView.getBottom());
+        collapsibleSibling.layout(collapsibleSibling.getLeft(),
+                collapsibleSibling.getTop(),
+                getCollapsibleSiblingWidth(),
+                collapsibleSibling.getBottom());
+    }
+
+    private int getCollapsibleWidth() {
+        if (collapsibleWidth == -1) {
+            collapsibleWidth = collapsibleView.getMeasuredWidth();
+        }
+        int newWidth;
+        if (scrollOffset > 0.0f) {
+            newWidth = collapsibleWidth - (int) (collapsibleWidth * scrollOffset);
+            collapsibleView.setAlpha(1.0f - scrollOffset);
+        } else {
+            newWidth = currentSelectedItem == 0 ? collapsibleWidth : 0;
+            collapsibleView.setAlpha(1.0f);
+        }
+        return collapsibleView.getLeft() + newWidth;
+    }
+
+    private int getCollapsibleSiblingWidth() {
+        int newWidth = collapsibleSibling.getLeft() + collapsibleSibling.getMeasuredWidth();
+        if (scrollOffset > 0.0f) {
+            newWidth += (int) (collapsibleWidth * scrollOffset);
+        } else {
+            newWidth += currentSelectedItem == 0 ? 0 : collapsibleWidth;
+        }
+        return newWidth;
+    }
+
     @NonNull
     private Pair<Integer, Integer> getTabStartAndEnd() {
-        int tabWidth = getMeasuredWidth() / (getChildCount() - 1);
+        int tabWidth = getMeasuredWidth() / container.getChildCount();
         int tabLeft;
         int tabRight;
-        if (currentSelectedItem == POSITION_OFFSET_FOR_FIRST_CHILD) {
+        if (currentSelectedItem == 0) {
             tabLeft = getLeft();
             tabRight = tabWidth;
             if (scrollOffset > 0.0f) {
@@ -193,7 +234,7 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
 
     @Override
     protected LayoutParams generateDefaultLayoutParams() {
-        return new MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        return new MarginLayoutParams(MATCH_PARENT, MATCH_PARENT);
     }
 
     @Override
@@ -210,8 +251,7 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int position) {
-        currentSelectedItem = POSITION_OFFSET_FOR_FIRST_CHILD + position;
-        currentSelectedChild = getChildAt(currentSelectedItem);
+        currentSelectedItem = position;
     }
 
     @Override

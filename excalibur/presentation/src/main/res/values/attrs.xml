@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ExpandableDescriptionLayout">
-        <attr name="descriptionText" format="string"/>
-        <attr name="seeMoreCollapsedButtonText" format="string"/>
+        <attr name="descriptionText" format="string" />
+        <attr name="seeMoreCollapsedButtonText" format="string" />
         <attr name="seeMoreExpandedButtonText" format="string" />
         <attr name="collapseLinesCount" format="integer" />
         <attr name="animationDuration" format="integer" />
@@ -11,5 +11,6 @@
     <declare-styleable name="TriptychTabBarLayout">
         <attr name="stripThickness" format="dimension" />
         <attr name="stripColor" format="color" />
+        <attr name="tabsPadding" format="dimension" />
     </declare-styleable>
 </resources>
