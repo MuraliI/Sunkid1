@@ -236,19 +236,7 @@ public final class DetailViewTypeFactory {
                 || !CategoryUtil.isShopping(productType)
                 || !CategoryUtil.isDining(productType)) {
 
-            offerings.sort((o1, o2) -> {
-                if (o1.getPrice().getAdultPrice() == o2.getPrice().getAdultPrice()) {
-                    if (o1.getPrice().getChildPrice() < o1.getPrice().getChildPrice()) {
-                        return -1;
-                    } else {
-                        return 1;
-                    }
-                } else if (o1.getPrice().getAdultPrice() < o2.getPrice().getAdultPrice()) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            });
+            offerings.sort((o1, o2) -> o1.compareByPrice(o2));
 
             Offering offeringFirst = offerings.get(0);
             final float adultPrice = offeringFirst.getPrice().getAdultPrice();
@@ -256,13 +244,15 @@ public final class DetailViewTypeFactory {
 
             HashMap<String, String> map = new HashMap<>();
 
-            //Default behavior for SPA, SHOREX, ACTIVITIES, ENTERTAINMENT
+            //Default behavior for SPA, SHOREX, ACTIVITIES, ENTERTAINMENT, GUEST_SERVICES
             if (adultPrice > 0) {
                 map.put(res.getString(R.string.adult), res.getString(R.string.item_price, getPriceFormatted(adultPrice)));
             }
 
             if(CategoryUtil.isShorex(productType)
-                    || CategoryUtil.isGuestServices(productType)){
+                    || CategoryUtil.isGuestServices(productType)
+                    || CategoryUtil.isActivities(productType)
+                    || CategoryUtil.isEntertainment(productType)){
                 if (childPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
                 }
@@ -272,10 +262,6 @@ public final class DetailViewTypeFactory {
                     || CategoryUtil.isEntertainment(productType)) {
                 if (childPrice == 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.price_free));
-                }
-
-                if (childPrice > 0) {
-                    map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
                 }
             }
 
