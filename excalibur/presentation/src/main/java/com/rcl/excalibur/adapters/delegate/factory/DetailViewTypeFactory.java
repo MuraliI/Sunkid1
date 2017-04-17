@@ -233,26 +233,25 @@ public final class DetailViewTypeFactory {
         List<Offering> offerings = product.getOfferings();
 
         if (!CollectionUtils.isEmpty(offerings)
-                || !CategoryUtil.isShopping(productType)
-                || !CategoryUtil.isDining(productType)) {
+                && !CategoryUtil.isShopping(productType)
+                && !CategoryUtil.isDining(productType)) {
 
             offerings.sort((o1, o2) -> o1.compareByPrice(o2));
 
+            HashMap<String, String> map = new HashMap<>();
             Offering offeringFirst = offerings.get(0);
             final float adultPrice = offeringFirst.getPrice().getAdultPrice();
             final float childPrice = offeringFirst.getPrice().getChildPrice();
-
-            HashMap<String, String> map = new HashMap<>();
 
             //Default behavior for SPA, SHOREX, ACTIVITIES, ENTERTAINMENT, GUEST_SERVICES
             if (adultPrice > 0) {
                 map.put(res.getString(R.string.adult), res.getString(R.string.item_price, getPriceFormatted(adultPrice)));
             }
 
-            if(CategoryUtil.isShorex(productType)
+            if (CategoryUtil.isShorex(productType)
                     || CategoryUtil.isGuestServices(productType)
                     || CategoryUtil.isActivities(productType)
-                    || CategoryUtil.isEntertainment(productType)){
+                    || CategoryUtil.isEntertainment(productType)) {
                 if (childPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
                 }
@@ -265,7 +264,7 @@ public final class DetailViewTypeFactory {
                 }
             }
 
-            if(!map.isEmpty()){
+            if (!map.isEmpty()) {
                 PricesFromViewType pricesFromViewType = new PricesFromViewType(res.getString(R.string.prices),
                         res.getString(R.string.starting_from), map);
                 recyclerViewTypeList.add(pricesFromViewType);
