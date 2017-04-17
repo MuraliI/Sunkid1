@@ -41,6 +41,11 @@ public class Offering {
     }
 
     public int compareByPrice(Offering o2) {
+
+        if(this.getPrice() == null || o2.getPrice() == null) {
+            return 0;
+        }
+
         if (this.getPrice().getAdultPrice() == o2.getPrice().getAdultPrice()) {
             if (this.getPrice().getChildPrice() < this.getPrice().getChildPrice()) {
                 return -1;

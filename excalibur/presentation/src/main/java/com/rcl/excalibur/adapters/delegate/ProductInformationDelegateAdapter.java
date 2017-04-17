@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
+import com.rcl.excalibur.data.utils.CategoryUtil;
 
 import java.lang.ref.WeakReference;
 
@@ -48,7 +49,7 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         holder.productId = item.getProductId();
         holder.name.setText(item.getProductName());
 
-        boolean isShorex = SHOREX.equals(item.getProductType());
+        boolean isShorex = CategoryUtil.isShorex(item.getProductType());
         holder.findOnDeck.setVisibility(isShorex ? View.GONE : View.VISIBLE);
 
         holder.venue.setVisibility(isShorex ? View.GONE : View.VISIBLE);

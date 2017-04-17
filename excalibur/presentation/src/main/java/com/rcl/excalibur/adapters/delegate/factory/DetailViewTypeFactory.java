@@ -258,9 +258,7 @@ public final class DetailViewTypeFactory {
             }
 
             if (CategoryUtil.isShorex(productType)
-                    || CategoryUtil.isGuestServices(productType)
-                    || CategoryUtil.isActivities(productType)
-                    || CategoryUtil.isEntertainment(productType)) {
+                    || CategoryUtil.isGuestServices(productType)) {
                 if (childPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
                 }
@@ -268,7 +266,9 @@ public final class DetailViewTypeFactory {
 
             if (CategoryUtil.isActivities(productType)
                     || CategoryUtil.isEntertainment(productType)) {
-                if (childPrice == 0) {
+                if (childPrice > 0) {
+                    map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
+                } else if (childPrice == 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.price_free));
                 }
             }
