@@ -57,6 +57,10 @@
     <string name="services">Services</string>
     <string name="search">Search</string>
 
+
+    <!-- Day picker-->
+    <string name="change_dates">Change Dates</string>
+
     <!--FIXME hardcoded values-->
     <string name="hardcoded_ship_time">14:07</string>
     <string name="hardcoded_place">Masquerade Theater</string>
@@ -83,6 +87,9 @@
         nulla pariatur?\"</string>
     <string name="hardcoded_detail_short_description">\"This description is short enough to whet ones
         apetite but long enough to be meaningful\"</string>
+    <string name="hardcoded_day_picker_date_footer">Feb 15 - Mar 3</string>
+    <string name="hardcoded_day_picker_description">7 Day Eastern Caribbean Cruise</string>
+    <string name="hardcoded_day_picker_calendar_day">Day 2</string>
 
     <!--Categories-->
     <string name="category_royal_activity">ACTIVITIES</string>
@@ -168,5 +175,4 @@
 
     <string name="error_message_no_connection">We were not able to connect. Please check your internet connection and try again.</string>
     <string name="error_message_security_questions">Something went wrong, please try again.</string>
-
 </resources>

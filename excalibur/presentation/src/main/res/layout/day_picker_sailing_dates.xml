@@ -5,19 +5,23 @@
               android:layout_height="wrap_content"
               android:background="@color/discover_grey"
               android:gravity="bottom|center"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/margin_normal"
+              android:paddingTop="@dimen/margin_normal">
 
     <TextView
         android:id="@+id/day_picker_startandend_date"
         style="@style/AppTheme.DiscoverItemModuleDescriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Feb 15 - Mar 3"/>
+        tools:text="@string/hardcoded_day_picker_date_footer"
+        android:layout_marginBottom="@dimen/margin_xsmall"
+        />
 
     <TextView
         android:id="@+id/tv_change_dates"
         style="@style/AppTheme.DiscoverItemModuleLinkTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Dates"/>
+        android:text="@string/change_dates"/>
 </LinearLayout>

@@ -5,26 +5,28 @@
               android:layout_height="wrap_content"
               android:background="@color/bg_color"
               android:gravity="top|center"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/margin_normal"
+              android:paddingTop="@dimen/margin_normal">
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/day_picker_header_calendar_day"
         style="@style/AppTheme.TimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_xsmall"
         android:drawableLeft="@drawable/calendar_add"
-        android:drawableRight="@drawable/arrow"
-        android:drawableStart="@drawable/calendar_add"
+        android:drawableRight="@drawable/ic_arrow_drop_down"
         android:gravity="center"
-        android:text="Day 2"/>
+        tools:text="@string/hardcoded_day_picker_calendar_day"
+        />
 
     <TextView
-        android:id="@+id/textView"
-        style="@style/AppTheme.DayPickerText"
+        android:id="@+id/day_picker_header_description"
+        style="@style/AppTheme.DayPickerDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="7 Day Eastern Caribbean Cruise"
-        tools:text="7 Day Eastern Caribbean Cruise"/>
+        tools:text="@string/hardcoded_day_picker_description"/>
 </LinearLayout>
