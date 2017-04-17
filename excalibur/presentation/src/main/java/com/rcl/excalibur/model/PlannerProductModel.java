@@ -11,6 +11,7 @@ import java.util.Calendar;
 public class PlannerProductModel extends ProductInformationViewType implements Comparable<PlannerProductModel> {
 
     // STATE value represent priority in list Higher priority go on top
+    public static final int STATE_ALL_DAY = 4;
     public static final int STATE_MORNING = 3;
     public static final int STATE_AFTERNOON = 2;
     public static final int STATE_EVENING = 1;

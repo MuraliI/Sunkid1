@@ -1,4 +1,4 @@
-package com.rcl.excalibur.adapters.itinerary;
+package com.rcl.excalibur.adapters.planner;
 
 import android.support.v4.util.SparseArrayCompat;
 
@@ -17,12 +17,12 @@ import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_IT
 import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_SEPARATOR_VIEW;
 
 
-public class ItineraryCoordinatorAdapter extends BaseCoordinatorAdapter {
+public class PlannerCoordinatorAdapter extends BaseCoordinatorAdapter {
 
     private static final int VIEW_TYPE_COUNT = 3;
 
     @SuppressWarnings("unchecked")
-    public ItineraryCoordinatorAdapter(Observer observer) {
+    public PlannerCoordinatorAdapter(Observer observer) {
         super(observer);
 
         delegateAdapters = new SparseArrayCompat<>(VIEW_TYPE_COUNT);
