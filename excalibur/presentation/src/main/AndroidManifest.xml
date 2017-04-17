@@ -62,10 +62,26 @@
             android:value="testDB.db"/>
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.rcl.excalibur.data.entity.DiscoverItemEntity,                     com.rcl.excalibur.data.entity.AdvisementEntity,                     com.rcl.excalibur.data.entity.CategoryEntity,                     com.rcl.excalibur.data.entity.CostTypeEntity,                     com.rcl.excalibur.data.entity.DurationEntity,                     com.rcl.excalibur.data.entity.LocationEntity,                     com.rcl.excalibur.data.entity.MediaEntity,                     com.rcl.excalibur.data.entity.MediaValueEntity,                     com.rcl.excalibur.data.entity.PreferenceEntity,                     com.rcl.excalibur.data.entity.PreferenceValueEntity,                     com.rcl.excalibur.data.entity.ProductEntity,                     com.rcl.excalibur.data.entity.PromotionEntity,                     com.rcl.excalibur.data.entity.RestrictionEntity,                     com.rcl.excalibur.data.entity.StartingFromPriceEntity,                     com.rcl.excalibur.data.entity.TypeEntity,                     com.rcl.excalibur.data.entity.ActivityLevelEntity,                     com.rcl.excalibur.data.entity.PriceEntity,                     com.rcl.excalibur.data.entity.OfferingEntity"/>
-
-        <activity android:name=".activity.DayPickerActivity">
-        </activity>
+            android:value="com.rcl.excalibur.data.entity.DiscoverItemEntity,
+                    com.rcl.excalibur.data.entity.AdvisementEntity,
+                    com.rcl.excalibur.data.entity.CategoryEntity,
+                    com.rcl.excalibur.data.entity.CostTypeEntity,
+                    com.rcl.excalibur.data.entity.DurationEntity,
+                    com.rcl.excalibur.data.entity.LocationEntity,
+                    com.rcl.excalibur.data.entity.MediaEntity,
+                    com.rcl.excalibur.data.entity.MediaValueEntity,
+                    com.rcl.excalibur.data.entity.PreferenceEntity,
+                    com.rcl.excalibur.data.entity.PreferenceValueEntity,
+                    com.rcl.excalibur.data.entity.ProductEntity,
+                    com.rcl.excalibur.data.entity.PromotionEntity,
+                    com.rcl.excalibur.data.entity.RestrictionEntity,
+                    com.rcl.excalibur.data.entity.StartingFromPriceEntity,
+                    com.rcl.excalibur.data.entity.TypeEntity,
+                    com.rcl.excalibur.data.entity.ActivityLevelEntity,
+                    com.rcl.excalibur.data.entity.PriceEntity,
+                    com.rcl.excalibur.data.entity.OfferingEntity,
+                    com.rcl.excalibur.data.entity.SubCategoryEntity,
+                    com.rcl.excalibur.data.entity.ChildCategoryEntity"/>
     </application>
 
 </manifest>
