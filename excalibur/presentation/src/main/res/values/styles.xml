@@ -216,6 +216,16 @@
         <item name="android:textColor">@color/discover_grey</item>
     </style>
 
+    <style name="AppTheme.DiscoverLocationVenue" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/font_color_body</item>
+    </style>
+
+    <style name="AppTheme.DiscoverTitleCueCard" parent="AppTheme.DiscoverTitle">
+        <item name="fontPath">@string/roboto_bold</item>
+    </style>
+
     <style name="AppTheme.DiscoverItemTitleLinkTextView">
         <item name="fontPath">@string/roboto_medium</item>
         <item name="android:textSize">18sp</item>

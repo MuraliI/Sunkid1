@@ -138,4 +138,6 @@
     <!-- Cue Card Discovery Tab -->
     <dimen name="item_discovery_margin">10dp</dimen>
     <dimen name="item_discovery_margin_start">20dp</dimen>
+    <dimen name="item_discovery_title_margin_end">40dp</dimen>
+    <dimen name="item_discovery_title_margin_top">10dp</dimen>
 </resources>
