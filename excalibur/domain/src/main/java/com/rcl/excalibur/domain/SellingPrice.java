@@ -40,8 +40,4 @@ public class SellingPrice {
     public void setInfantPrice(float infantPrice) {
         this.infantPrice = infantPrice;
     }
-
-    public float getAvgPrice() {
-        return (adultPrice + childPrice + infantPrice) / PRICES_COUNT;
-    }
 }
