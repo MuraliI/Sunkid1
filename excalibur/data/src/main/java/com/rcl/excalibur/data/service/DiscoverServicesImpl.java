@@ -76,8 +76,19 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
 
         Call<GetSubCategoriesResponse> subCategoriesCall = getDiscoverApi().getSubCategories(SAILING_ID);
 
-        subCategoriesCall.enqueue(new SubCategoryCallBack(subCategories));
+        subCategoriesCall.enqueue(new Callback<GetSubCategoriesResponse>() {
 
+            @Override
+            public void onResponse(Call<GetSubCategoriesResponse> call, Response<GetSubCategoriesResponse> response) {
+                mapSubCategories(response, subCategories);
+                subCategoryRepository.create(subCategories);
+            }
+
+            @Override
+            public void onFailure(Call<GetSubCategoriesResponse> call, Throwable t) {
+                logOnFailureError(t, "");
+            }
+        });
     }
 
     @Override
@@ -388,24 +399,4 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         }
     }
 
-    class SubCategoryCallBack implements Callback<GetSubCategoriesResponse> {
-
-        private List<SubCategory> subCategories = new ArrayList<>();
-
-
-        public SubCategoryCallBack(List<SubCategory> subCategories) {
-            this.subCategories = subCategories;
-        }
-
-        @Override
-        public void onResponse(Call<GetSubCategoriesResponse> call, Response<GetSubCategoriesResponse> response) {
-            mapSubCategories(response, subCategories);
-            subCategoryRepository.create(subCategories);
-        }
-
-        @Override
-        public void onFailure(Call<GetSubCategoriesResponse> call, Throwable t) {
-            logOnFailureError(t, "");
-        }
-    }
 }
