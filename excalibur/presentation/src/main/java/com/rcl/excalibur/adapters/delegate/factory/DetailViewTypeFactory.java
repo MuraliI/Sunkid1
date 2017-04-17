@@ -25,7 +25,6 @@ import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -247,14 +246,12 @@ public final class DetailViewTypeFactory {
 
             if (adultPrice != 0 || childPrice != 0) {
                 HashMap<String, String> map = new HashMap<>();
-
                 if (adultPrice > 0) {
                     map.put(res.getString(R.string.adult), res.getString(R.string.item_price, getPriceFormatted(adultPrice)));
                 }
                 if (childPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
                 }
-
                 PricesFromViewType pricesFromViewType = new PricesFromViewType(res.getString(R.string.prices),
                         res.getString(R.string.starting_from), map);
                 recyclerViewTypeList.add(pricesFromViewType);
