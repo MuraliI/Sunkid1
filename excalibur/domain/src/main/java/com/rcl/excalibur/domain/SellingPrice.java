@@ -2,7 +2,6 @@ package com.rcl.excalibur.domain;
 
 
 public class SellingPrice {
-    private static final float PRICES_COUNT = 3;
 
     private String currency;
     private float adultPrice;

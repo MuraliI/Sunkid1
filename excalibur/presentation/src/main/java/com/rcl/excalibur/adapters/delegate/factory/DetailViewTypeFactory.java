@@ -232,16 +232,25 @@ public final class DetailViewTypeFactory {
         String productType = product.getProductType().getProductType();
         List<Offering> offerings = product.getOfferings();
 
-        if (!CollectionUtils.isEmpty(offerings)
-                && !CategoryUtil.isShopping(productType)
+        if (!CategoryUtil.isShopping(productType)
                 && !CategoryUtil.isDining(productType)) {
 
             offerings.sort((o1, o2) -> o1.compareByPrice(o2));
 
             HashMap<String, String> map = new HashMap<>();
-            Offering offeringFirst = offerings.get(0);
-            final float adultPrice = offeringFirst.getPrice().getAdultPrice();
-            final float childPrice = offeringFirst.getPrice().getChildPrice();
+            float adultPrice = -1;
+            float childPrice = -1;
+
+            if (CategoryUtil.isSpa(productType)) {
+                adultPrice = product.getStartingFromPrice().getAdultPrice();
+                childPrice = product.getStartingFromPrice().getChildPrice();
+            } else {
+                if (!CollectionUtils.isEmpty(offerings)) {
+                    Offering offeringFirst = offerings.get(0);
+                    adultPrice = offeringFirst.getPrice().getAdultPrice();
+                    childPrice = offeringFirst.getPrice().getChildPrice();
+                }
+            }
 
             //Default behavior for SPA, SHOREX, ACTIVITIES, ENTERTAINMENT, GUEST_SERVICES
             if (adultPrice > 0) {
