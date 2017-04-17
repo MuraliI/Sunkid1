@@ -21,7 +21,7 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
         void onViewExpanded(Integer integer);
     }
 
-    private static final int VIEW_TYPE_COUNT = 6;
+    private static final int VIEW_TYPE_COUNT = 7;
 
     private OnViewExpandedListener listener;
 
