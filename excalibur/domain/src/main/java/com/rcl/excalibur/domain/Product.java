@@ -31,6 +31,9 @@ public class Product {
     private int upcharge;
     private boolean isReservationRequired;
     private boolean isScheduable;
+    private boolean isFeatured;
+    private boolean isHighlighted;
+    private List<Offering> offerings;
 
     public String getProductId() {
         return productId;
@@ -250,5 +253,29 @@ public class Product {
             }
         }
         return advisementList;
+    }
+
+    public List<Offering> getOfferings() {
+        return offerings;
+    }
+
+    public void setOfferings(List<Offering> offerings) {
+        this.offerings = offerings;
+    }
+
+    public boolean isFeatured() {
+        return isFeatured;
+    }
+
+    public void setFeatured(boolean featured) {
+        isFeatured = featured;
+    }
+
+    public boolean isHighlighted() {
+        return isHighlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        isHighlighted = highlighted;
     }
 }

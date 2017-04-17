@@ -20,54 +20,64 @@ import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
+import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
-import com.rcl.excalibur.mapper.ProductModelDataMapper;
-import com.rcl.excalibur.model.ProductAccessibilityModel;
-import com.rcl.excalibur.model.ProductModel;
 import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.rcl.excalibur.domain.ProductAdvisement.ATTIRE;
-import static com.rcl.excalibur.domain.ProductAdvisement.KNOW_BEFORE_YOU_GO;
-import static com.rcl.excalibur.domain.ProductAdvisement.LEGAL;
+import static com.rcl.excalibur.utils.DateUtils.MINUTES_IN_HOUR;
 
 public final class DetailViewTypeFactory {
 
     private static final int NO_DURATION = 0;
     private static final String NEXT_LINE = "\n";
     private static final String TO_REPLACE = ", ";
+    // TODO: To be removed once the service provides this details
+    private static final String TIME_HARDCODE = "Times may vary";
 
     private DetailViewTypeFactory() {
     }
 
     public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
-        ProductModel model = new ProductModelDataMapper().transform(product);
 
         addHeroSectionHeader(product, viewTypes);
-        addMakeReservation(viewTypes, resources, model);
-        addCuisineModule(viewTypes, resources, model);
-        addDurationModule(viewTypes, resources, model);
-        addExperienceModule(viewTypes, resources, model);
-        addAttireModule(viewTypes, resources, model);
-        addAgeModule(viewTypes, resources, model);
-        addHeightModule(viewTypes, resources, model);
-        addKnowBeforeYouGoModule(viewTypes, resources, model);
-        addDescriptionTypes(viewTypes, model.getDescription());
-        addAccessibilityModule(viewTypes, resources, model);
-        addLegalModule(viewTypes, resources, model);
+        addMakeReservation(viewTypes, resources, product);
+        addCuisineModule(viewTypes, resources, product);
+        addTimeModule(viewTypes, resources, product);
+        addDurationModule(viewTypes, resources, product);
+        addExperienceModule(viewTypes, resources, product);
+        addAttireModule(viewTypes, resources, product);
+        addRestrictionModules(viewTypes, resources, product);
+        addKnowBeforeYouGoModule(viewTypes, resources, product);
+        addDescriptionTypes(viewTypes, product);
+        addAccessibilityModule(viewTypes, resources, product);
+        addLegalModule(viewTypes, resources, product);
 
         return viewTypes;
     }
 
-    private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
-        if (product.getAdvisementsAndReestrictions().containsKey(ProductAdvisement.CUISINE)) {
-            String description = product.getAdvisementsAndReestrictions().get(ProductAdvisement.CUISINE);
-            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_cuisine), description);
+    private static void addTimeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
+        addTitleAndDescriptionTypes(recyclerViewTypeList,
+                resources.getString(R.string.detail_module_times),
+                // TODO: To be removed once the service provides this details
+                TIME_HARDCODE);
+    }
+
+    private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
+        List<ProductAdvisement> advisementsCuisine = product.getProductAdvisementsById(ProductAdvisement.CUISINE);
+        if (CollectionUtils.isEmpty(advisementsCuisine)) {
+            return;
+        }
+        ProductAdvisement advisement = advisementsCuisine.get(0);
+        if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList,
+                    resources.getString(R.string.detail_module_cuisine),
+                    advisement.getAdvisementDescription());
         }
     }
 
@@ -75,26 +85,27 @@ public final class DetailViewTypeFactory {
         viewTypes.add(new ProductInformationMapper().transform(product));
     }
 
-    private static void addAgeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
-        if (product.getAdvisementsAndReestrictions().containsKey(ProductRestriction.AGE)) {
-            String description = product.getAdvisementsAndReestrictions().get(ProductRestriction.AGE);
-            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_age), description);
+    private static void addRestrictionModules(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
+        if (CollectionUtils.isEmpty(product.getRestrictions())) {
+            return;
         }
-    }
-
-    private static void addHeightModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, ProductModel product) {
-        if (product.getAdvisementsAndReestrictions().containsKey(ProductRestriction.HEIGHT)) {
-            String description = product.getAdvisementsAndReestrictions().get(ProductRestriction.HEIGHT);
-            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.detail_module_height), description);
+        for (ProductRestriction restriction : product.getRestrictions()) {
+            String title = restriction.getRestrictionTitle();
+            String description = restriction.getRestrictionDisplayText();
+            if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(description)) {
+                addTitleAndDescriptionTypes(recyclerViewTypeList, title, description);
+            }
         }
     }
 
     private static void addAccessibilityModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
-                                               ProductModel product) {
-        if (CollectionUtils.isEmpty(product.getAccessibilities())) {
+                                               Product product) {
+
+        List<ProductAdvisement> accessibilities = product.getProductAdvisementsById(ProductAdvisement.ACCESSIBILITY);
+        if (CollectionUtils.isEmpty(accessibilities)) {
             return;
         }
-        addExpandableAccessibilityTypes(recyclerViewTypeList, resources, product.getAccessibilities());
+        addExpandableAccessibilityTypes(recyclerViewTypeList, resources, accessibilities);
     }
 
     private static boolean isHoursEmpty(String value) {
@@ -108,39 +119,88 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addDurationModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                          ProductModel product) {
-        if (product.getDuration() > NO_DURATION) {
-            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), product.getDurationFormatted(res));
+                                          Product product) {
+        if (product.getProductType() == null || product.getProductType().getProductType() == null || product.getProductDuration() == null) {
+            return;
+        }
+        if (product.getProductType().getProductType().equals(ProductType.DINING_TYPE)) {
+            return;
+        }
+        if ((!product.isReservationRequired() && !product.isScheduable())) {
+            return;
+        }
+        long duration = product.getProductDuration().getDurationInMinutes();
+        if (duration > NO_DURATION) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.duration), getDurationFormatted(res, (int) duration));
         }
     }
 
+    public static String getDurationFormatted(Resources resources, int duration) {
+        String durationStr = "";
+        if (duration >= MINUTES_IN_HOUR) {
+            int hours = duration / MINUTES_IN_HOUR;
+            int remainingMinutes = duration % MINUTES_IN_HOUR;
+            if (hours > 0) {
+                durationStr += resources.getQuantityString(R.plurals.product_hr, hours, hours);
+            }
+            if (remainingMinutes > 0) {
+                durationStr += resources.getQuantityString(R.plurals.product_min, remainingMinutes, remainingMinutes);
+            }
+        } else {
+            durationStr += resources.getQuantityString(R.plurals.product_min, duration, duration);
+        }
+
+        return durationStr;
+
+    }
+
     private static void addAttireModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                        ProductModel product) {
-        if (product.getAdvisementsAndReestrictions().containsKey(ATTIRE)) {
-            String description = product.getAdvisementsAndReestrictions().get(ATTIRE);
-            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.discover_item_detail_attire), description);
+                                        Product product) {
+        List<ProductAdvisement> advisementsAttire = product.getProductAdvisementsById(ProductAdvisement.ATTIRE);
+        if (CollectionUtils.isEmpty(advisementsAttire)) {
+            return;
+        }
+        ProductAdvisement advisement = advisementsAttire.get(0);
+        if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList,
+                    res.getString(R.string.discover_item_detail_attire),
+                    advisement.getAdvisementDescription());
         }
     }
 
     private static void addKnowBeforeYouGoModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                                 ProductModel product) {
-        if (product.getAdvisementsAndReestrictions().containsKey(KNOW_BEFORE_YOU_GO)) {
-            String description = product.getAdvisementsAndReestrictions().get(KNOW_BEFORE_YOU_GO);
+                                                 Product product) {
+        List<ProductAdvisement> advisementsKnow = product.getProductAdvisementsById(ProductAdvisement.KNOW_BEFORE_YOU_GO);
+        if (CollectionUtils.isEmpty(advisementsKnow)) {
+            return;
+        }
+        ProductAdvisement advisement = advisementsKnow.get(0);
+        String description = advisement.getAdvisementDescription();
+        if (advisement != null && !TextUtils.isEmpty(description)) {
             //FIXME hardcoded to match UI Design
             description = description.replace(TO_REPLACE, NEXT_LINE);
-            addTitleAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.discover_item_detail_know), description);
+            addTitleAndDescriptionTypes(recyclerViewTypeList,
+                    res.getString(R.string.discover_item_detail_know),
+                    description);
         }
     }
 
     private static void addLegalModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                       ProductModel product) {
-        if (product.getAdvisementsAndReestrictions().containsKey(LEGAL)) {
-            String description = product.getAdvisementsAndReestrictions().get(LEGAL);
-            addExpandableAndDescriptionTypes(recyclerViewTypeList, res.getString(R.string.detail_module_legal), description);
+                                       Product product) {
+        List<ProductAdvisement> advisementsLegal = product.getProductAdvisementsById(ProductAdvisement.LEGAL);
+        if (CollectionUtils.isEmpty(advisementsLegal)) {
+            return;
+        }
+        ProductAdvisement advisement = advisementsLegal.get(0);
+        if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
+            addExpandableAndDescriptionTypes(recyclerViewTypeList,
+                    res.getString(R.string.detail_module_legal),
+                    advisement.getAdvisementDescription());
         }
     }
 
-    private static void addDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String description) {
+    private static void addDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
+        String description = product.getProductShortDescription();
         if (TextUtils.isEmpty(description)) {
             return;
         }
@@ -153,15 +213,15 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList,
-                                           @NonNull Resources resources, ProductModel product) {
-        if (!TextUtils.isEmpty(product.getReservationInformation())) {
+                                           @NonNull Resources resources, Product product) {
+        if (!TextUtils.isEmpty(product.getProductReservationInformation())) {
             addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
-                    product.getReservationInformation());
+                    product.getProductReservationInformation());
         }
     }
 
     private static void addExperienceModule(final List<RecyclerViewType> recyclerViewTypeList,
-                                            @NonNull Resources resources, ProductModel product) {
+                                            @NonNull Resources resources, Product product) {
         if (!TextUtils.isEmpty(product.getExperience())) {
             addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_experience),
                     product.getExperience());
@@ -169,7 +229,7 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addExpandableAccessibilityTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
-                                                        final List<ProductAccessibilityModel> accessibilities) {
+                                                        final List<ProductAdvisement> accessibilities) {
 
         recyclerViewTypeList.add(new ExpandableAccesibilityViewType(res.getString(R.string.accessibility), accessibilities));
     }

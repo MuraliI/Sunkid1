@@ -2,15 +2,15 @@ package com.rcl.excalibur.adapters.viewtype;
 
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
-import com.rcl.excalibur.model.ProductAccessibilityModel;
+import com.rcl.excalibur.domain.ProductAdvisement;
 
 import java.util.List;
 
 public class ExpandableAccesibilityViewType implements RecyclerViewType {
     private String title;
-    private List<ProductAccessibilityModel> accessibilities;
+    private List<ProductAdvisement> accessibilities;
 
-    public ExpandableAccesibilityViewType(String title, List<ProductAccessibilityModel> accessibilities) {
+    public ExpandableAccesibilityViewType(String title, List<ProductAdvisement> accessibilities) {
         this.title = title;
         this.accessibilities = accessibilities;
     }
@@ -19,7 +19,7 @@ public class ExpandableAccesibilityViewType implements RecyclerViewType {
         return title;
     }
 
-    public List<ProductAccessibilityModel> getAccessibilities() {
+    public List<ProductAdvisement> getAccessibilities() {
         return accessibilities;
     }
 

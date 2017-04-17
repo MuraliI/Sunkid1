@@ -2,12 +2,14 @@ package com.rcl.excalibur.data.service;
 
 
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
+import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
+import com.rcl.excalibur.data.service.response.GetSubCategoriesResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
@@ -19,7 +21,9 @@ import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
+import com.rcl.excalibur.domain.SubCategory;
 import com.rcl.excalibur.domain.repository.ProductRepository;
+import com.rcl.excalibur.domain.repository.SubCategoryRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
 
 import java.util.ArrayList;
@@ -46,10 +50,45 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     private static final String GUEST_SERVICES = "GUEST_SERVICES";
 
     private final ProductRepository productRepository;
+    private SubCategoryRepository subCategoryRepository;
+    private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
+
 
     public DiscoverServicesImpl(ProductRepository productRepository) {
         super(new ProductResponseDataMapper());
         this.productRepository = productRepository;
+    }
+
+
+    public void setSubCategoryRepository(SubCategoryRepository subCategoryRepository) {
+        this.subCategoryRepository = subCategoryRepository;
+    }
+
+    public void setSubCategoryResponseDataMapper(SubCategoryResponseDataMapper subCategoryResponseDataMapper) {
+        this.subCategoryResponseDataMapper = subCategoryResponseDataMapper;
+    }
+
+    @Override
+    public void getSubCategories() {
+        List<SubCategory> subCategories = new ArrayList<>();
+
+        subCategoryRepository.deleteAll();
+
+        Call<GetSubCategoriesResponse> subCategoriesCall = getDiscoverApi().getSubCategories(SAILING_ID);
+
+        subCategoriesCall.enqueue(new Callback<GetSubCategoriesResponse>() {
+
+            @Override
+            public void onResponse(Call<GetSubCategoriesResponse> call, Response<GetSubCategoriesResponse> response) {
+                mapSubCategories(response, subCategories);
+                subCategoryRepository.create(subCategories);
+            }
+
+            @Override
+            public void onFailure(Call<GetSubCategoriesResponse> call, Throwable t) {
+                logOnFailureError(t, "");
+            }
+        });
     }
 
     @Override
@@ -178,100 +217,32 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
 
     @Override
     public void getProducts() {
-        // TODO: This is a provisional implementation, once we have the final response from the serves. this must be changed.
-        // As they changed the products call to multiple service we choosed to keep adding the Products from GetProductsResponse to an
-        // array and after that call once the create method of the repository because this one is deleting the database everytime.
-
+        // TODO: This is a provisional implementation, once we have the final response from the serves.
+        // This must be changed to consume all products with pagination support
         List<Product> productList = new ArrayList<>();
+
+        productRepository.deleteAll();
+
         Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING, MAX_COUNT);
-        dinningCall.enqueue(new Callback<GetProductsResponse>() {
-            @Override
-            public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
-                saveData(response, productList);
+        Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX, MAX_COUNT);
+        Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES, MAX_COUNT);
+        Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT, MAX_COUNT);
+        Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA, MAX_COUNT);
+        Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING, MAX_COUNT);
 
-                Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX, MAX_COUNT);
-                shorexCall.enqueue(new Callback<GetProductsResponse>() {
-                    @Override
-                    public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
-                        saveData(response, productList);
-
-                        Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA, MAX_COUNT);
-                        spaCall.enqueue(new Callback<GetProductsResponse>() {
-                            @Override
-                            public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
-                                saveData(response, productList);
-
-                                Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT, MAX_COUNT);
-                                entertainmentCall.enqueue(new Callback<GetProductsResponse>() {
-                                    @Override
-                                    public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
-                                        saveData(response, productList);
-
-                                        Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES, MAX_COUNT);
-                                        activitiesCall.enqueue(new Callback<GetProductsResponse>() {
-                                            @Override
-                                            public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
-                                                saveData(response, productList);
-
-                                                Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING, MAX_COUNT);
-                                                shoppingCall.enqueue(new Callback<GetProductsResponse>() {
-                                                    @Override
-                                                    public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
-                                                        //Fixme Mock product SHOP productType
-                                                        mockResponseProductType(response, SHOPPING);
-                                                        saveData(response, productList);
-
-                                                        productRepository.create(productList);
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                                                        logOnFailureError(t, ACTIVITIES);
-                                                    }
-                                                });
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                                                logOnFailureError(t, ACTIVITIES);
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                                        logOnFailureError(t, ENTERTAINMENT);
-                                    }
-                                });
-
-                            }
-
-                            @Override
-                            public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                                logOnFailureError(t, SPA);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                        logOnFailureError(t, SHOREX);
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                logOnFailureError(t, DINING);
-            }
-        });
+        dinningCall.enqueue(new ProductCallBack(DINING, productList));
+        shorexCall.enqueue(new ProductCallBack(SHOREX, productList));
+        activitiesCall.enqueue(new ProductCallBack(ACTIVITIES, productList));
+        entertainmentCall.enqueue(new ProductCallBack(ENTERTAINMENT, productList));
+        spaCall.enqueue(new ProductCallBack(SPA, productList));
+        shoppingCall.enqueue(new ProductCallBack(SHOPPING, productList));
     }
 
     private void logOnFailureError(Throwable t, String category) {
         Timber.e(t, "Error on %s call, message = %s", category, t.getMessage());
     }
 
-    private void saveData(Response<GetProductsResponse> response, List<Product> productList) {
+    private void mapData(Response<GetProductsResponse> response, List<Product> productList) {
         if (response.isSuccessful()) {
             GetProductsResponse getProductsResponse = response.body();
             if (isSuccess(getProductsResponse)) {
@@ -290,6 +261,15 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                     setProductLocationExtraParameters(productResponse.getProductLocation());
                 }
                 productList.addAll(getMapper().transform(getProductsResponse.getProducts()));
+            }
+        }
+    }
+
+    private void mapSubCategories(Response<GetSubCategoriesResponse> response, List<SubCategory> subCategories) {
+        if (response.isSuccessful()) {
+            GetSubCategoriesResponse getGetSubCategoriesResponse = response.body();
+            if (isSuccess(getGetSubCategoriesResponse)) {
+                subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory()));
             }
         }
     }
@@ -397,9 +377,26 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         productLocationResponse.setLocationDeckNumber(12);
     }
 
-    private void mockResponseProductType(Response<GetProductsResponse> response, String type) {
-        for (ProductResponse product : response.body().getProducts()) {
-            product.getProductType().setProductType(type);
+    class ProductCallBack implements Callback<GetProductsResponse> {
+
+        private List<Product> productList = new ArrayList<>();
+        private String productType;
+
+        public ProductCallBack(String productType, List<Product> productList) {
+            this.productList = productList;
+            this.productType = productType;
+        }
+
+        @Override
+        public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+            mapData(response, productList);
+            productRepository.create(productList);
+        }
+
+        @Override
+        public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+            logOnFailureError(t, productType);
         }
     }
+
 }
