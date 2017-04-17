@@ -8,7 +8,7 @@ import com.activeandroid.annotation.Table;
 @Table(name = ChildCategoryEntity.TABLE_NAME)
 public class ChildCategoryEntity extends Model {
 
-    public static final String TABLE_NAME = "preference_value";
+    public static final String TABLE_NAME = "child_category";
     public static final String COLUMN_CHILD_CATEGORY_ID = "child_category_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DESCRIPTION = "description";
