@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
@@ -82,7 +81,7 @@ public class DiscoverTabFragment extends Fragment {
 
     @OnClick(R.id.button_search)
     public void searchOnClick() {
-        Toast.makeText(getActivity(), "Search Click", Toast.LENGTH_LONG).show();
+        presenter.openDayPicker();
     }
 
     @OnClick(R.id.image_boat)
