@@ -45,7 +45,7 @@ public class PlannerProductModelMapper {
         for (Product product : input) {
             if (product.getOfferings().size() > ALL_DAY_OFFERING_LIMIT) {
                 PlannerProductModel model = (PlannerProductModel) informationMapper.transform(product);
-                model.setOperatinghours(resources.getString(R.string.planner_all_day_item));
+                model.setOperatingHours(resources.getString(R.string.planner_all_day_item));
                 model.setAllDayProduct(true);
                 allDayProducts.add(model);
             } else {
@@ -57,7 +57,7 @@ public class PlannerProductModelMapper {
 
                     model.setStartDate(startDate);
                     model.setEndDate(calculateEndDate(offering.getDate(), product.getProductDuration()));
-                    model.setOperatinghours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
+                    model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
 
                     timedProductList.add(model);
                 }
