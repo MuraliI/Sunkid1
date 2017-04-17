@@ -48,7 +48,7 @@ public final class DetailViewTypeFactory {
         addHeroSectionHeader(product, viewTypes);
         addMakeReservation(viewTypes, resources, product);
         addCuisineModule(viewTypes, resources, product);
-        addTimesModule(viewTypes, resources, product);
+        addTimeModule(viewTypes, resources, product);
         addDurationModule(viewTypes, resources, product);
         addExperienceModule(viewTypes, resources, product);
         addAttireModule(viewTypes, resources, product);
@@ -61,7 +61,7 @@ public final class DetailViewTypeFactory {
         return viewTypes;
     }
 
-    private static void addTimesModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
+    private static void addTimeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
         addTitleAndDescriptionTypes(recyclerViewTypeList,
                 resources.getString(R.string.detail_module_times),
                 // TODO: To be removed once the service provides this details
