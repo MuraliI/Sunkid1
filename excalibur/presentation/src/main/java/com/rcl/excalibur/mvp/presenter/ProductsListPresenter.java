@@ -7,6 +7,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
 import com.rcl.excalibur.mvp.view.ProductsListView;
@@ -30,7 +31,7 @@ public class ProductsListPresenter {
         }
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
-        showCollectionInView(getProductDbUseCase.getAll(getType(activity, type)));
+        getProductDbUseCase.getAll(getType(activity, type), new ProductServiceObserver());
     }
 
     private String getType(final BaseActivity activity, int type) {
@@ -69,7 +70,7 @@ public class ProductsListPresenter {
         }
     }
 
-    public class AdapterObserver extends DefaultPresentObserver<Product, ProductsListPresenter> {
+    private class AdapterObserver extends DefaultPresentObserver<Product, ProductsListPresenter> {
 
         AdapterObserver(ProductsListPresenter presenter) {
             super(presenter);
@@ -81,6 +82,14 @@ public class ProductsListPresenter {
             if (activity != null) {
                 activity.startActivity(ProductDetailActivity.getIntent(activity, value.getProductId()));
             }
+        }
+    }
+
+    private class ProductServiceObserver extends DefaultObserver<List<Product>> {
+
+        @Override
+        public void onNext(List<Product> values) {
+            showCollectionInView(values);
         }
     }
 }

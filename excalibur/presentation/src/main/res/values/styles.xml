@@ -177,6 +177,12 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="AppTheme.ItineraryPartOfDayText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_bold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <!--<item name="tabMaxWidth">@dimen/tab_max_width</item>-->
         <item name="tabIndicatorColor">@color/plan_list_lightblue</item>

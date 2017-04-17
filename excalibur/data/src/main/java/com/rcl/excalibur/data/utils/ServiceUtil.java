@@ -4,7 +4,6 @@ package com.rcl.excalibur.data.utils;
 import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.api.GuestApi;
-import com.rcl.excalibur.data.service.api.ItineraryApi;
 import com.rcl.excalibur.data.service.response.BaseResponse;
 
 import java.util.concurrent.TimeUnit;
@@ -21,7 +20,6 @@ public final class ServiceUtil {
     private static final String SUCCESS = "SUCCESS";
     private static DiscoverApi discoverApi;
     private static GuestApi guestApi;
-    private static ItineraryApi itineraryApi;
 
     private ServiceUtil() {
     }
@@ -52,18 +50,6 @@ public final class ServiceUtil {
             guestApi = retrofit.create(GuestApi.class);
         }
         return guestApi;
-    }
-
-    public static ItineraryApi getItineraryApi() {
-        if (itineraryApi == null) {
-            Retrofit retrofit = new Retrofit.Builder().
-                    baseUrl(BuildConfig.ITINERARY_API_URL).
-                    addConverterFactory(GsonConverterFactory.create()).
-                    client(getClient())
-                    .build();
-            itineraryApi = retrofit.create(ItineraryApi.class);
-        }
-        return itineraryApi;
     }
 
     private static OkHttpClient getClient() {

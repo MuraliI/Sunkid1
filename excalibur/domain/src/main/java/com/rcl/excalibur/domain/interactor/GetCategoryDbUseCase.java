@@ -6,14 +6,16 @@ import com.rcl.excalibur.domain.repository.CategoryRepository;
 
 import java.util.List;
 
+import io.reactivex.Observer;
+
 public class GetCategoryDbUseCase extends UseCaseSync<CategoryRepository> {
 
     public GetCategoryDbUseCase(CategoryRepository categoryRepository) {
         super(categoryRepository);
     }
 
-    List<Category> getAll() {
-        return getData().getAll();
+    void getAll(Observer<List<Category>> observer) {
+        getData().getAll(observer);
     }
 
     Category get(String categoryId) {

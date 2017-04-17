@@ -4,6 +4,7 @@ package com.rcl.excalibur.domain;
 public class ProductType {
 
     public static final String SHOREX_TYPE = "SHOREX";
+    public static final String DINING_TYPE = "DINING";
 
     private String productTypeId;
     private String productTypeName;

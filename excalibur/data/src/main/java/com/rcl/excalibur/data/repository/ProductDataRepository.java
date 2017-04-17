@@ -3,7 +3,6 @@ package com.rcl.excalibur.data.repository;
 
 import android.support.annotation.NonNull;
 
-import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.ActivityLevelEntity;
@@ -14,8 +13,10 @@ import com.rcl.excalibur.data.entity.DurationEntity;
 import com.rcl.excalibur.data.entity.LocationEntity;
 import com.rcl.excalibur.data.entity.MediaEntity;
 import com.rcl.excalibur.data.entity.MediaValueEntity;
+import com.rcl.excalibur.data.entity.OfferingEntity;
 import com.rcl.excalibur.data.entity.PreferenceEntity;
 import com.rcl.excalibur.data.entity.PreferenceValueEntity;
+import com.rcl.excalibur.data.entity.PriceEntity;
 import com.rcl.excalibur.data.entity.ProductEntity;
 import com.rcl.excalibur.data.entity.RestrictionEntity;
 import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
@@ -43,25 +44,22 @@ import com.rcl.excalibur.domain.repository.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity> implements ProductRepository {
+public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, ProductEntityDataMapper>
+        implements ProductRepository {
+
+    private final OfferingDataRepository offeringDataRepository;
 
     public ProductDataRepository() {
         super(new ProductEntityDataMapper(), ProductEntity.class);
-    }
-
-    @Override
-    public void create(List<Product> products) {
-        ActiveAndroid.beginTransaction();
-        try {
-            for (Product product : products) {
-                create(product);
-            }
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-        }
+        offeringDataRepository = new OfferingDataRepository();
     }
 
     @Override
@@ -101,6 +99,10 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
         entity.save();
 
+        //Offering
+        //TODO This is a proposal on how we should treat all entities that need a product to be saved before hand
+        offeringDataRepository.create(product.getOfferings());
+
         //Advisements
         createAdvisements(entity, product.getAdvisements());
 
@@ -112,6 +114,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     public void deleteAll() {
         new Delete().from(RestrictionEntity.class).execute();
         new Delete().from(AdvisementEntity.class).execute();
+        new Delete().from(OfferingEntity.class).execute();
+        new Delete().from(PriceEntity.class).execute();
         new Delete().from(ProductEntity.class).execute();
         new Delete().from(StartingFromPriceEntity.class).execute();
         new Delete().from(ActivityLevelEntity.class).execute();
@@ -160,7 +164,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             }
             activityLevelEntity.setMedia(mediaEntity);
         }
-
         activityLevelEntity.save();
         entity.setActivityLevel(activityLevelEntity);
     }
@@ -176,6 +179,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             restrictionEntity.setMandatory(productRestriction.isMandatory());
             restrictionEntity.setQuestion(productRestriction.getRestrictionQuestion());
             restrictionEntity.setRestrictionId(productRestriction.getRestrictionId());
+            restrictionEntity.setTitle(productRestriction.getRestrictionTitle());
             restrictionEntity.setProduct(entity);
             final List<ProductRestrictionAnswer> answers = productRestriction.getRestrictionAnswers();
             if (!CollectionUtils.isEmpty(answers)) {
@@ -187,7 +191,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             }
             restrictionEntity.save();
         }
-
     }
 
     private void createAdvisements(final ProductEntity entity, final List<ProductAdvisement> productAdvisements) {
@@ -215,7 +218,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
                 }
                 advisementEntity.setMedia(mediaEntity);
             }
-
             advisementEntity.save();
         }
     }
@@ -234,8 +236,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             mediaValueEntity.save();
         }
         entity.setProductMedia(mediaEntity);
-
-
     }
 
     private void createPreferences(final ProductEntity entity, final List<ProductPreference> preferences) {
@@ -262,7 +262,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             }
             entity.setPreference(preferenceEntity);
         }
-
     }
 
     private void create(final ProductEntity entity, final ProductCostType productCostType) {
@@ -287,8 +286,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             costTypeEntity.setMedia(mediaEntity);
         }
         entity.setCostTypeEntity(costTypeEntity);
-
-
     }
 
     private void create(final ProductEntity entity, final ProductDuration productDuration) {
@@ -359,26 +356,31 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         categoryEntity.setTags(tags);
         categoryEntity.save();
         entity.setCategory(categoryEntity);
-
-
     }
 
+    @Override
+    public void getAll(Observer<List<Product>> observer) {
+        super.getAll(observer);
+    }
 
-
-
-    public List<Product> getAll(@NonNull String type) {
-        final TypeEntity typeEntity = new Select()
-                .from(TypeEntity.class)
-                .where(eq(TypeEntity.COLUMN_TYPE, type))
-                .executeSingle();
-        if (typeEntity == null) {
-            return null;
-        }
-        final List<ProductEntity> entities = new Select()
-                .from(ProductEntity.class)
-                .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
-                .execute();
-        return getMapper().transform(entities);
+    @Override
+    public void getAll(@NonNull final String type, Observer<List<Product>> observer) {
+        Observable.create(((ObservableOnSubscribe<List<Product>>) e -> {
+            final TypeEntity typeEntity = new Select()
+                    .from(TypeEntity.class)
+                    .where(eq(TypeEntity.COLUMN_TYPE, type))
+                    .executeSingle();
+            if (typeEntity == null) {
+                return;
+            }
+            final List<ProductEntity> entities = new Select()
+                    .from(ProductEntity.class)
+                    .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
+                    .execute();
+            e.onNext(getMapper().transform(entities));
+        })).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 
     @Override

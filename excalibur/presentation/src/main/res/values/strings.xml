@@ -108,11 +108,11 @@
     <string name="duration">Duration</string>
     <string name="sessions_from">Sessions from</string>
 
-    <!-- Itinerary -->
-    <string name="title_good_morning">Morning</string>
-    <string name="title_good_afternoon">Afternoon</string>
-    <string name="title_good_evening">Evening</string>
-    <string name="title_good_night">Night</string>
+    <!-- Planner -->
+    <string name="title_good_morning">Good Morning!</string>
+    <string name="title_good_afternoon">Good Afternoon!</string>
+    <string name="title_good_evening">Good Evening!</string>
+    <string name="title_good_night">Good Night!</string>
     <string name="title_hello">Hello</string>
     <string name="itinerary_product_list_see_all">See all</string>
     <string name="itinerary_product_list_see_less">See less</string>
@@ -122,6 +122,13 @@
     <string name="itinerary_product_view_dash">&#8210;</string>
     <string name="itinerary_accessibility_product_image">Item Image</string>
     <string name="itinerary_separator_title_on_going">On going</string>
+    <string name="planner_all_day_item">All day</string>
+    <string name="planner_operating_hours">%1$s &#8210; %2$s</string>
+
+    <string name="title_morning">Morning</string>
+    <string name="title_afternoon">Afternoon</string>
+    <string name="title_evening">Evening</string>
+    <string name="title_late_night">Late night</string>
     <string name="itinerary_list_bottom_title">That\'s all for today</string>
     <string name="itinerary_list_bottom_emergency">Emergencies &amp; Medical</string>
     <string name="itinerary_list_bottom_legal">Privacy &amp; Legal</string>
@@ -131,7 +138,7 @@
     <!-- Product Details -->
     <plurals name="product_hr">
         <item quantity="one">"%d hr "</item>
-        <item quantity="other">"%d hours "</item>
+        <item quantity="other">"%d hrs "</item>
     </plurals>
     <plurals name="product_min">
         <item quantity="other">%d min</item>

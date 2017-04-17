@@ -1,10 +1,10 @@
-package com.rcl.excalibur.model.itinerary;
+package com.rcl.excalibur.adapters.viewtype.planner;
 
 
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
-public class SeparatorModel implements RecyclerViewType {
+public class SeparatorViewType implements RecyclerViewType {
 
     @Override
     public int getViewType() {

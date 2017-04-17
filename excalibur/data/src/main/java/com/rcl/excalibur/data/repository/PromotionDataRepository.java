@@ -8,7 +8,8 @@ import com.rcl.excalibur.data.mapper.PromotionEntityDataMapper;
 import com.rcl.excalibur.domain.Promotion;
 import com.rcl.excalibur.domain.repository.PromotionRepository;
 
-public class PromotionDataRepository extends BaseDataRepository<Promotion, PromotionEntity> implements PromotionRepository {
+public class PromotionDataRepository extends BaseDataRepository<Promotion, PromotionEntity, PromotionEntityDataMapper>
+        implements PromotionRepository {
 
     public PromotionDataRepository() {
         super(new PromotionEntityDataMapper(), PromotionEntity.class);
@@ -23,6 +24,11 @@ public class PromotionDataRepository extends BaseDataRepository<Promotion, Promo
         entity.setTitle(promotion.getTitle());
         entity.setProducts(promotion.getProducts());
         entity.save();
+    }
+
+    @Override
+    public void deleteAll() {
+        //no op
     }
 
     @Override

@@ -58,17 +58,8 @@ public class BaseCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT exten
     }
 
     public void addAll(List<VT> items) {
+        this.items.clear();
         this.items.addAll(items);
-        notifyDataSetChanged();
-    }
-
-    public void addViewTypeOnceAndNotify(VT viewType) {
-        items.add(viewType);
-        notifyItemInserted(items.indexOf(viewType));
-    }
-
-    public void clearItemsAndNotify() {
-        items.clear();
         notifyDataSetChanged();
     }
 }
