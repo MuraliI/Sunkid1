@@ -36,10 +36,8 @@ public class PlanListActivity extends BaseActivity {
         presenter.init(fragmentToShow);
     }
 
-    @OnClick(R.id.plans_header_back_layout)
+    @OnClick(R.id.plans_header_back)
     public void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();
     }
-
-
 }
