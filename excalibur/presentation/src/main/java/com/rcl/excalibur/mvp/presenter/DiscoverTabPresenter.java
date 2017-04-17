@@ -1,6 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.DayPickerActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
@@ -38,6 +39,14 @@ public class DiscoverTabPresenter {
             }
             ActivityUtils.startActivity(activity, NameActivity.getStartIntent(activity));
         }
+
+    }
+    public void openDayPicker() {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        ActivityUtils.startActivity(activity, DayPickerActivity.getStartIntent(activity));
 
     }
 }

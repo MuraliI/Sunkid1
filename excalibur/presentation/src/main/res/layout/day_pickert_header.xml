@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/bg_color"
+              android:gravity="top|center"
+              android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/AppTheme.TimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/calendar_add"
+        android:drawableRight="@drawable/arrow"
+        android:drawableStart="@drawable/calendar_add"
+        android:gravity="center"
+        android:text="Day 2"/>
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/AppTheme.DayPickerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="7 Day Eastern Caribbean Cruise"
+        tools:text="7 Day Eastern Caribbean Cruise"/>
+</LinearLayout>

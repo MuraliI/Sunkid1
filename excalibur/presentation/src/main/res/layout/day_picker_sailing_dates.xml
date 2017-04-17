@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/discover_grey"
+              android:gravity="bottom|center"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/day_picker_startandend_date"
+        style="@style/AppTheme.DiscoverItemModuleDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Feb 15 - Mar 3"/>
+
+    <TextView
+        android:id="@+id/tv_change_dates"
+        style="@style/AppTheme.DiscoverItemModuleLinkTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Dates"/>
+</LinearLayout>

@@ -45,25 +45,25 @@
         <activity
             android:name=".activity.guest.SecurityQuestionsActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.guest.AnswerQuestionActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.guest.CreateAccountDoneActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Home"/>
-
         <activity
             android:name=".activity.ProductDeckMapActivity"
+            android:label="@string/empty_string"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.DayPickerActivity"
             android:label="@string/empty_string"
             android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="AA_DB_NAME"
             android:value="testDB.db"/>
-
         <meta-data
             android:name="AA_MODELS"
             android:value="com.rcl.excalibur.data.entity.DiscoverItemEntity,
