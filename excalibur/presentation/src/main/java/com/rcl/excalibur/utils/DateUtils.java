@@ -5,6 +5,8 @@ import android.content.res.Resources;
 
 import com.rcl.excalibur.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,6 +16,40 @@ public final class DateUtils {
     public static final int MINUTES_IN_HOUR = 60;
 
     private DateUtils() {
+
+    }
+
+    public static String getFormatedDates(String startDateString, String endDateString, Resources resources) throws ParseException {
+        Date startDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDateString);
+        Date endDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDateString);
+
+        Calendar calendarStartDate = Calendar.getInstance();
+        calendarStartDate.setTime(startDate);
+        Calendar calendarEndDate = Calendar.getInstance();
+        calendarEndDate.setTime(endDate);
+
+        int startMonth = calendarStartDate.get(Calendar.MONTH);
+        int startDay = calendarStartDate.get(Calendar.DAY_OF_MONTH);
+        int endMonth = calendarEndDate.get(Calendar.MONTH);
+        int endDay = calendarEndDate.get(Calendar.DAY_OF_MONTH);
+
+        final String[] months = resources.getStringArray(R.array.array_months);
+        final StringBuilder dateFormatted = new StringBuilder();
+
+        if (startMonth == endMonth) {
+            dateFormatted.append(months[startMonth]);
+            dateFormatted.append(startDay);
+            dateFormatted.append(resources.getString(R.string.hyphen_with_spaces));
+            dateFormatted.append(endDay);
+        } else {
+            dateFormatted.append(months[startMonth]);
+            dateFormatted.append(startDay);
+            dateFormatted.append(resources.getString(R.string.hyphen_with_spaces));
+            dateFormatted.append(months[endMonth]);
+            dateFormatted.append(endDay);
+        }
+
+        return dateFormatted.toString();
 
     }
 

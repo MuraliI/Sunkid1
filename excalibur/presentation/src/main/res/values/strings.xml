@@ -18,6 +18,7 @@
     <string name="detail_module_promotion">Promotion</string>
     <string name="price_range">Price Range</string>
     <string name="prices_from">Prices from</string>
+    <string name="hyphen_with_spaces">" - "</string>
 
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>
@@ -169,4 +170,19 @@
     <string name="error_message_no_connection">We were not able to connect. Please check your internet connection and try again.</string>
     <string name="error_message_security_questions">Something went wrong, please try again.</string>
 
+    <!--Day Picker-->
+    <string-array name="array_months">
+        <item>"Jan "</item>
+        <item>"Feb "</item>
+        <item>"Mar "</item>
+        <item>"Apr "</item>
+        <item>"May "</item>
+        <item>"June "</item>
+        <item>"July "</item>
+        <item>"Aug "</item>
+        <item>"Sept "</item>
+        <item>"Oct "</item>
+        <item>"Nov "</item>
+        <item>"Dec "</item>
+    </string-array>
 </resources>
