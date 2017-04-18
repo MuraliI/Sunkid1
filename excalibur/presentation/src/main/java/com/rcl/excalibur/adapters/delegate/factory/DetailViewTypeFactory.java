@@ -15,21 +15,22 @@ import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductType;
-import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
-import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import static com.rcl.excalibur.utils.DateUtils.MINUTES_IN_HOUR;
+import static com.rcl.excalibur.utils.StringUtils.getPriceFormatted;
 
 public final class DetailViewTypeFactory {
 
@@ -47,6 +48,7 @@ public final class DetailViewTypeFactory {
 
         addHeroSectionHeader(product, viewTypes);
         addMakeReservation(viewTypes, resources, product);
+        addPricesModule(viewTypes, resources, product);
         addCuisineModule(viewTypes, resources, product);
         addTimeModule(viewTypes, resources, product);
         addDurationModule(viewTypes, resources, product);
@@ -234,16 +236,56 @@ public final class DetailViewTypeFactory {
         recyclerViewTypeList.add(new ExpandableAccesibilityViewType(res.getString(R.string.accessibility), accessibilities));
     }
 
-    private void addPriceFromTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
-        final SellingPrice sellingPrice = product.getStartingFromPrice();
-        if (sellingPrice == null) {
-            return;
-        }
-        final float adultPrice = sellingPrice.getAdultPrice();
-        final float childPrice = sellingPrice.getChildPrice();
-        if (adultPrice != 0 || childPrice != 0) {
-            recyclerViewTypeList.add(new PricesFromViewType(StringUtils.getPriceFormated(adultPrice),
-                    StringUtils.getPriceFormated(childPrice)));
+    private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res, Product product) {
+
+        List<Offering> offerings = product.getOfferings();
+
+        if (!product.isShopping()
+                && !product.isDining()) {
+
+            offerings.sort((o1, o2) -> o1.compareByPrice(o2));
+
+            HashMap<String, String> map = new HashMap<>();
+            float adultPrice = -1;
+            float childPrice = -1;
+
+            if (product.isSpa()) {
+                adultPrice = product.getStartingFromPrice().getAdultPrice();
+                childPrice = product.getStartingFromPrice().getChildPrice();
+            } else {
+                if (!CollectionUtils.isEmpty(offerings)) {
+                    Offering offeringFirst = offerings.get(0);
+                    adultPrice = offeringFirst.getPrice().getAdultPrice();
+                    childPrice = offeringFirst.getPrice().getChildPrice();
+                }
+            }
+
+            //Default behavior for SPA, SHOREX, ACTIVITIES, ENTERTAINMENT, GUEST_SERVICES
+            if (adultPrice > 0) {
+                map.put(res.getString(R.string.adult), res.getString(R.string.item_price, getPriceFormatted(adultPrice)));
+            }
+
+            if (product.isShorex()
+                    || product.isGuestServices()) {
+                if (childPrice > 0) {
+                    map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
+                }
+            }
+
+            if (product.isActivities()
+                    || product.isEntertainment()) {
+                if (childPrice > 0) {
+                    map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
+                } else if (childPrice == 0) {
+                    map.put(res.getString(R.string.child), res.getString(R.string.price_free));
+                }
+            }
+
+            if (!map.isEmpty()) {
+                PricesFromViewType pricesFromViewType = new PricesFromViewType(res.getString(R.string.prices),
+                        res.getString(R.string.starting_from), map);
+                recyclerViewTypeList.add(pricesFromViewType);
+            }
         }
     }
 
