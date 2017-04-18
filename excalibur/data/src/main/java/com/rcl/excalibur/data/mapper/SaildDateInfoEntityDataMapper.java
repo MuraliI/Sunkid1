@@ -24,6 +24,7 @@ public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfoEv
 
         final SailDateInfoEvent sailDateInfo = new SailDateInfoEvent();
         sailDateInfo.setDuration(input.getDuration());
+        sailDateInfo.setShipCode(input.getShipCode());
         sailDateInfo.setItinerary(transform(input.getItinerary()));
 
         return sailDateInfo;
