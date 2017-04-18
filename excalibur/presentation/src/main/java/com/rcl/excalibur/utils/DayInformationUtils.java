@@ -3,6 +3,8 @@ package com.rcl.excalibur.utils;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.rcl.excalibur.domain.SailPort;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,7 +13,7 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class DayInformationUtils {
+public final class DayInformationUtils {
 
     private static final String PORT_TYPE_EMBARK = "EMBARK";
     private static final String PORT_TYPE_DOCKED = "DOCKED";
@@ -29,78 +31,11 @@ public class DayInformationUtils {
     private static final int BEGIN_TIME_INDEX = 0;
     private static final int MIDDLE_TIME_INDEX = 2;
     private static final int END_TIME_INDEX = 4;
-    public static final String DEBARKING = "Debarking";
-    public static final String EMBARKING = "Embarking";
-    public static final String DEBARKING_EMBARKING_SEPARATOR = " - ";
+    private static final String DEBARKING = "Debarking";
+    private static final String EMBARKING = "Embarking";
+    private static final String DEBARKING_EMBARKING_SEPARATOR = " - ";
 
     private DayInformationUtils() {
-    }
-
-    //dummy class
-    private class SailPort {
-        private String portCode;//FLL
-        private String portName;
-        private String portType;
-        private String arrivalDate;//04/23/2017//dd/MM/yyyy
-        private String departureDate;//04/23/2017//dd/MM/yyyy
-        private int arrivalTime;//100000//hhmmss
-        private int departureTime;//163000//hhmmss
-
-        public String getPortCode() {
-            return portCode;
-        }
-
-        public void setPortCode(String portCode) {
-            this.portCode = portCode;
-        }
-
-        public String getPortName() {
-            return portName;
-        }
-
-        public void setPortName(String portName) {
-            this.portName = portName;
-        }
-
-        public String getPortType() {
-            return portType;
-        }
-
-        public void setPortType(String portType) {
-            this.portType = portType;
-        }
-
-        public String getArrivalDate() {
-            return arrivalDate;
-        }
-
-        public void setArrivalDate(String arrivalDate) {
-            this.arrivalDate = arrivalDate;
-        }
-
-        public String getDepartureDate() {
-            return departureDate;
-        }
-
-        public void setDepartureDate(String departureDate) {
-            this.departureDate = departureDate;
-        }
-
-        public int getArrivalTime() {
-            return arrivalTime;
-        }
-
-        public void setArrivalTime(int arrivalTime) {
-            this.arrivalTime = arrivalTime;
-        }
-
-        public int getDepartureTime() {
-            return departureTime;
-        }
-
-        public void setDepartureTime(int departureTime) {
-            this.departureTime = departureTime;
-        }
     }
 
     @Nullable
