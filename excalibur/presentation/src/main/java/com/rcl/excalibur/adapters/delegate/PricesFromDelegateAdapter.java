@@ -12,7 +12,6 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 
-import java.util.Iterator;
 import java.util.Map;
 
 import butterknife.Bind;
