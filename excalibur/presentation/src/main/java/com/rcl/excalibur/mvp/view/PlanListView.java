@@ -10,6 +10,8 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.adapters.ProductsCategoryAdapter;
 import com.rcl.excalibur.data.utils.Preconditions;
+import com.rcl.excalibur.domain.SubCategory;
+import com.rcl.excalibur.domain.interactor.GetSubCategoryDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
@@ -39,6 +41,8 @@ public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverI
     public static final int POSITION_SPA = 3;
     public static final int POSITION_SHOREX = 4;
     public static final int POSITION_ENTERTAINMENT = 5;
+    private GetSubCategoryDbUseCase getSubCategoryDbUseCase;
+    private List<SubCategory> subCategory;
 
     @Bind(R.id.plans_header_name) TextView plansHeaderName;
     @Bind(R.id.tab_layout_products_list_categories) TabLayout tabProductCategories;
@@ -60,12 +64,18 @@ public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverI
     }
 
     private void setUpViewPagerProductCategories(int fragmentToShow, ViewPager viewPager, List<String> categories) {
+
+        /*getSubCategoryDbUseCase = new GetSubCategoryDbUseCase(new SubCategoriesDataRepository());
+
+        subCategory = getSubCategoryDbUseCase.getAll();
+
+        Timber.d("Categories " + "Name : " + subCategory.getCategoryName() + " Id : " + subCategory.getCategoryId() +
+                " SubCategory : " + subCategory.getChildCategory() + " Description : " + subCategory.getCategoryDescription());*/
+
         ProductsCategoryAdapter adapter = new ProductsCategoryAdapter(getFragmentManager());
         for (String category : categories) {
-            //adapter.addFragment(createFragment(fragmentToShow), category);
             adapter.addFragment(ProductsListFragment.newInstance(ROYAL_ACTIVITY), category);
         }
-        //adapter.addFragment(new ProductsListFragment(), "One");
         viewPager.setAdapter(adapter);
     }
 

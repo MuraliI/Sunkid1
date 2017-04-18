@@ -18,6 +18,7 @@ public class PlanListActivity extends BaseActivity {
     public static Intent getStartIntent(final BaseActivity activity, int fragmentToShow) {
         Intent intent = new Intent(activity, PlanListActivity.class);
         intent.putExtra(PlanListActivity.EXTRA_FRAGMENT_TYPE, fragmentToShow);
+
         return intent;
     }
 

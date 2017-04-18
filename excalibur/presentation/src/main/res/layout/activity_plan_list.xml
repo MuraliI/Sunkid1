@@ -65,12 +65,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
-            app:tabMode="fixed" />
+            app:tabMode="scrollable" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/full_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/tab_layout_products_list_categories" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/plan_list_filter"
