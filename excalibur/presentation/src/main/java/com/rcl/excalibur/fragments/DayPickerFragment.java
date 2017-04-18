@@ -6,33 +6,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.rcl.excalibur.R;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import com.rcl.excalibur.mvp.presenter.DayPickerPresenter;
+import com.rcl.excalibur.mvp.view.DayPickerView;
 
 public class DayPickerFragment extends Fragment {
 
 
-    @Bind(R.id.day_picker_startandend_date)
-    TextView dateStarAndEnd;
-    public static DayPickerFragment newInstance() {
-        return new DayPickerFragment();
-    }
+    private DayPickerPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_day_picker, container, false);
-        ButterKnife.bind(this, view);
-        dateStarAndEnd.setText("Feb 15 - Mar 3");
-        return view;
+        return inflater.inflate(R.layout.fragment_day_picker, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenter = new DayPickerPresenter(new DayPickerView(this));
+        presenter.init();
     }
 }
