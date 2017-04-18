@@ -3,8 +3,8 @@ package com.rcl.excalibur.data.service;
 
 import com.rcl.excalibur.data.mapper.OfferingResponseMapper;
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
-import com.rcl.excalibur.data.repository.OfferingDataRepository;
 import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
+import com.rcl.excalibur.data.repository.OfferingDataRepository;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
@@ -97,6 +97,15 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                 logOnFailureError(t, "");
             }
         });
+    }
+
+    private void mapSubCategories(Response<GetSubCategoriesResponse> response, List<SubCategory> subCategories) {
+        if (response.isSuccessful()) {
+            GetSubCategoriesResponse getGetSubCategoriesResponse = response.body();
+            if (isSuccess(getGetSubCategoriesResponse)) {
+                subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory()));
+            }
+        }
     }
 
     @Override
@@ -399,15 +408,6 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                         offeringList.addAll(offeringResponseMapper.transform(productResponse.getOffering(), productResponse));
                     }
                     productList.addAll(getMapper().transform(getProductsResponse.getProducts()));
-                }
-            }
-        }
-
-        private void mapSubCategories(Response<GetSubCategoriesResponse> response, List<SubCategory> subCategories) {
-            if (response.isSuccessful()) {
-                GetSubCategoriesResponse getGetSubCategoriesResponse = response.body();
-                if (isSuccess(getGetSubCategoriesResponse)) {
-                    subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory()));
                 }
             }
         }
