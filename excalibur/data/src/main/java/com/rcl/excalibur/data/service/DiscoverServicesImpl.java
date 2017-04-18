@@ -389,6 +389,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
             mapData(response, productList);
             productRepository.create(productList);
+
         }
 
         @Override
