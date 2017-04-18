@@ -40,18 +40,16 @@ import timber.log.Timber;
 
 import static com.rcl.excalibur.data.utils.ServiceUtil.getDiscoverApi;
 import static com.rcl.excalibur.data.utils.ServiceUtil.isSuccess;
+import static com.rcl.excalibur.domain.ProductType.ACTIVITIES_TYPE;
+import static com.rcl.excalibur.domain.ProductType.DINING_TYPE;
+import static com.rcl.excalibur.domain.ProductType.ENTERTAINMENT_TYPE;
+import static com.rcl.excalibur.domain.ProductType.SHOPPING_TYPE;
+import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
+import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
 
 public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse> implements DiscoverServices {
     private static final String SAILING_ID = "AL20170430";
     private static final int MAX_COUNT = 50;
-
-    private static final String SHOREX = "SHOREX";
-    private static final String ACTIVITIES = "ACTIVITIES";
-    private static final String ENTERTAINMENT = "ENTERTAINMENT";
-    private static final String DINING = "DINING";
-    private static final String SPA = "SPA";
-    private static final String SHOPPING = "SHOPPING";
-    private static final String GUEST_SERVICES = "GUEST_SERVICES";
 
     private final ProductRepository productRepository;
     private SubCategoryRepository subCategoryRepository;
@@ -241,19 +239,19 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         offeringRepository.deleteAll();
         productRepository.deleteAll();
 
-        Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING, MAX_COUNT);
-        Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX, MAX_COUNT);
-        Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES, MAX_COUNT);
-        Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT, MAX_COUNT);
-        Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA, MAX_COUNT);
-        Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING, MAX_COUNT);
+        Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING_TYPE, MAX_COUNT);
+        Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX_TYPE, MAX_COUNT);
+        Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES_TYPE, MAX_COUNT);
+        Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_TYPE, MAX_COUNT);
+        Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_TYPE, MAX_COUNT);
+        Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_TYPE, MAX_COUNT);
 
-        dinningCall.enqueue(new ProductCallBack(DINING, productList));
-        shorexCall.enqueue(new ProductCallBack(SHOREX, productList));
-        activitiesCall.enqueue(new ProductCallBack(ACTIVITIES, productList));
-        entertainmentCall.enqueue(new ProductCallBack(ENTERTAINMENT, productList));
-        spaCall.enqueue(new ProductCallBack(SPA, productList));
-        shoppingCall.enqueue(new ProductCallBack(SHOPPING, productList));
+        dinningCall.enqueue(new ProductCallBack(DINING_TYPE, productList));
+        shorexCall.enqueue(new ProductCallBack(SHOREX_TYPE, productList));
+        activitiesCall.enqueue(new ProductCallBack(ACTIVITIES_TYPE, productList));
+        entertainmentCall.enqueue(new ProductCallBack(ENTERTAINMENT_TYPE, productList));
+        spaCall.enqueue(new ProductCallBack(SPA_TYPE, productList));
+        shoppingCall.enqueue(new ProductCallBack(SHOPPING_TYPE, productList));
     }
 
     private void logOnFailureError(Throwable t, String category) {

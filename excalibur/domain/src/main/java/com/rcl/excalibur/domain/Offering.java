@@ -50,4 +50,27 @@ public class Offering implements Comparable<Offering> {
             return 0;
         }
     }
+
+    public int compareByPrice(Offering o2) {
+
+        if (o2 == null) {
+            return 0;
+        }
+
+        if (this.getPrice() == null || o2.getPrice() == null) {
+            return 0;
+        }
+
+        if (this.getPrice().getAdultPrice() == o2.getPrice().getAdultPrice()) {
+            if (this.getPrice().getChildPrice() < this.getPrice().getChildPrice()) {
+                return -1;
+            } else {
+                return 1;
+            }
+        } else if (this.getPrice().getAdultPrice() < o2.getPrice().getAdultPrice()) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 }
