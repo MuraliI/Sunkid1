@@ -1,13 +1,25 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import com.rcl.excalibur.fragments.DayPickerFragment;
-import com.rcl.excalibur.mvp.view.base.FragmentView;
+import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.mvp.view.DayPickerView;
 
-public class DayPickerPresenter extends FragmentView<DayPickerFragment, Void, Void> {
+public class DayPickerPresenter  {
 
-    public DayPickerPresenter(DayPickerFragment fragment) {
-        super(fragment);
+    private DayPickerView view;
+
+    public DayPickerPresenter(DayPickerView view) {
+        this.view = view;
+
+    }
+
+    public void init() {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        view.setFotterDate("Feb 14 -15");
+        view.setDescription("Some description");
     }
 
 }
