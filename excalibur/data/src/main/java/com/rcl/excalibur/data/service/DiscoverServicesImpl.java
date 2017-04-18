@@ -234,7 +234,6 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     public void getProducts() {
         // TODO: This is a provisional implementation, once we have the final response from the serves.
         // This must be changed to consume all products with pagination support
-        List<Product> productList = new ArrayList<>();
 
         offeringRepository.deleteAll();
         productRepository.deleteAll();
@@ -246,12 +245,18 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_TYPE, MAX_COUNT);
         Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_TYPE, MAX_COUNT);
 
-        dinningCall.enqueue(new ProductCallBack(DINING_TYPE, productList));
-        shorexCall.enqueue(new ProductCallBack(SHOREX_TYPE, productList));
-        activitiesCall.enqueue(new ProductCallBack(ACTIVITIES_TYPE, productList));
-        entertainmentCall.enqueue(new ProductCallBack(ENTERTAINMENT_TYPE, productList));
-        spaCall.enqueue(new ProductCallBack(SPA_TYPE, productList));
-        shoppingCall.enqueue(new ProductCallBack(SHOPPING_TYPE, productList));
+        ProductProcessor productProcessor = new ProductProcessor();
+
+        try {
+            productProcessor.onResponse(dinningCall.execute(), DINING_TYPE);
+            productProcessor.onResponse(shorexCall.execute(), SHOREX_TYPE);
+            productProcessor.onResponse(activitiesCall.execute(), ACTIVITIES_TYPE);
+            productProcessor.onResponse(entertainmentCall.execute(), ENTERTAINMENT_TYPE);
+            productProcessor.onResponse(spaCall.execute(), SPA_TYPE);
+            productProcessor.onResponse(shoppingCall.execute(), SHOPPING_TYPE);
+        } catch (Exception e) {
+            productProcessor.onFailure(e);
+        }
     }
 
     private void logOnFailureError(Throwable t, String category) {
@@ -362,26 +367,20 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         productLocationResponse.setLocationDeckNumber(12);
     }
 
-    class ProductCallBack implements Callback<GetProductsResponse> {
+    private class ProductProcessor {
 
         private List<Product> productList = new ArrayList<>();
         private List<Offering> offeringList = new ArrayList<>();
         private String productType;
 
-        public ProductCallBack(String productType, List<Product> productList) {
-            this.productList = productList;
+        void onResponse(Response<GetProductsResponse> response, String productType) {
             this.productType = productType;
-        }
-
-        @Override
-        public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
             mapDataProducts(response, productList, offeringList);
             productRepository.create(productList);
             offeringRepository.create(offeringList);
         }
 
-        @Override
-        public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+        void onFailure(Throwable t) {
             logOnFailureError(t, productType);
         }
 

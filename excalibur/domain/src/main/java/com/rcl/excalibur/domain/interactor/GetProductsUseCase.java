@@ -20,7 +20,7 @@ public class GetProductsUseCase extends UseCase<List<Product>, Void> {
 
     @Override
     void buildUseCaseObservable(DisposableObserver<List<Product>> observer, Void aVoid) {
-        discoverServices.getProducts();
+        new Thread(discoverServices::getProducts).start();
     }
 
 }

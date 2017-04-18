@@ -36,19 +36,17 @@ public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDa
     public abstract void create(@NonNull O input);
 
     public void create(List<O> inputList) {
-        new Thread(() -> {
-            try {
-                ActiveAndroid.beginTransaction();
-                for (O item : inputList) {
-                    create(item);
-                }
-                ActiveAndroid.setTransactionSuccessful();
-            } catch (Exception e) {
-                Timber.e(e.getMessage());
-            } finally {
-                ActiveAndroid.endTransaction();
+        try {
+            ActiveAndroid.beginTransaction();
+            for (O item : inputList) {
+                create(item);
             }
-        }).start();
+            ActiveAndroid.setTransactionSuccessful();
+        } catch (Exception e) {
+            Timber.e(e.getMessage());
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
     }
 
     public void getAll(Observer<List<O>> observer) {
