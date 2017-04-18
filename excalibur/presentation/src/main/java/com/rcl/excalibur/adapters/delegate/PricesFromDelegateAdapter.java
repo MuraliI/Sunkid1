@@ -32,10 +32,8 @@ public class PricesFromDelegateAdapter implements DelegateAdapter<PricesFromDele
         holder.textSubtitle.setText(item.getSubtitle());
 
         Context context = holder.itemView.getContext();
-        Iterator it = item.getPrices().entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
 
+        for (Map.Entry pair : item.getPrices().entrySet()) {
             View itemView = LayoutInflater.from(context).inflate(R.layout.item_price, null);
             TextView text = (TextView) itemView.findViewById(R.id.text);
             TextView price = (TextView) itemView.findViewById(R.id.price);
@@ -44,17 +42,18 @@ public class PricesFromDelegateAdapter implements DelegateAdapter<PricesFromDele
             price.setText((CharSequence) pair.getValue());
 
             holder.pricesContainer.addView(itemView);
-
-            it.remove();
         }
     }
 
 
     public static class PricesFromViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.text_module_title) TextView textTitle;
-        @Bind(R.id.text_module_subtitle) TextView textSubtitle;
-        @Bind(R.id.prices_container) LinearLayout pricesContainer;
+        @Bind(R.id.text_module_title)
+        TextView textTitle;
+        @Bind(R.id.text_module_subtitle)
+        TextView textSubtitle;
+        @Bind(R.id.prices_container)
+        LinearLayout pricesContainer;
 
         public PricesFromViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_item_detail_prices_from, parent, false));
