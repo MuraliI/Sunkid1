@@ -23,6 +23,6 @@ public class SailDateInfoDataMapper extends BaseDataMapper<SailDateInfoEvent, Sa
         sailDateInfoEvent.setShipCode(infoResponse.getShipCode());
         sailDateInfoEvent.setDuration(infoResponse.getDuration());
         sailDateInfoEvent.setItinerary(sailDateItineraryDataMapper.transform(infoResponse.getItinerary()));
-        return null;
+        return sailDateInfoEvent;
     }
 }
