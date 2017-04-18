@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@null"
-        android:src="@drawable/tab_plans" />
+        android:src="@drawable/icon_calendar_tab" />
 
     <TextView
         android:id="@+id/date_picker_plans_tab"

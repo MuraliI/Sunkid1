@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sea"
+    android:background="@drawable/bg_sea"
     android:orientation="vertical">
 
     <com.rcl.excalibur.custom.view.TriptychTabBarLayout
@@ -24,13 +24,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@null"
-            android:src="@drawable/tab_discover" />
+            android:src="@drawable/icon_map_tab" />
 
     </com.rcl.excalibur.custom.view.TriptychTabBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager_triptych_pager"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <com.rcl.excalibur.custom.view.ShipView
+            android:id="@+id/ship_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image_ship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@drawable/ship_big" />
+
+            <ImageView
+                android:id="@+id/image_cloud_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:contentDescription="@null"
+                android:src="@drawable/cloud_01" />
+
+            <ImageView
+                android:id="@+id/image_cloud_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@null"
+                android:src="@drawable/cloud_02" />
+
+        </com.rcl.excalibur.custom.view.ShipView>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager_triptych_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
 
 </LinearLayout>

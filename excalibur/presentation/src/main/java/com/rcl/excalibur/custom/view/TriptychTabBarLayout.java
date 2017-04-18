@@ -14,8 +14,11 @@ import android.widget.LinearLayout;
 
 import com.rcl.excalibur.R;
 
+import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static android.widget.ListPopupWindow.WRAP_CONTENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
 public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageChangeListener {
@@ -25,6 +28,7 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
     private View tabStrip;
     private View collapsibleView;
     private View collapsibleSibling;
+    private PublishSubject<Pair<Integer, Float>> scrollPublisher = PublishSubject.create();
     private int tabsPadding;
     private int selectedPage = 0;
     private float scrollOffset = 0.0f;
@@ -32,21 +36,27 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
 
     public TriptychTabBarLayout(Context context) {
         super(context);
-        initialize(context, null, 0);
+        initialize(context, null, 0, 0);
     }
 
     public TriptychTabBarLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initialize(context, attrs, 0);
+        initialize(context, attrs, 0, 0);
     }
 
     public TriptychTabBarLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initialize(context, attrs, defStyleAttr);
+        initialize(context, attrs, defStyleAttr, 0);
     }
 
-    private void initialize(Context context, AttributeSet attrs, int defStyleAttr) {
-        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.TriptychTabBarLayout, defStyleAttr, 0);
+    public TriptychTabBarLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        initialize(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    private void initialize(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.TriptychTabBarLayout, defStyleAttr,
+                defStyleRes);
         int tabHeight;
         int tabColor;
         try {
@@ -60,7 +70,7 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
 
         tabStrip = new View(context);
         tabStrip.setBackgroundColor(tabColor);
-        addView(tabStrip, 0, new LayoutParams(LayoutParams.WRAP_CONTENT, tabHeight));
+        addView(tabStrip, 0, new LayoutParams(WRAP_CONTENT, tabHeight));
     }
 
     public void attachToViewPager(ViewPager viewPager) {
@@ -224,6 +234,7 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         scrollOffset = positionOffset;
+        scrollPublisher.onNext(new Pair<>(selectedPage, scrollOffset));
         requestLayout();
     }
 
@@ -235,5 +246,16 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
     @Override
     public void onPageScrollStateChanged(int state) {
         // Nothing
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        scrollPublisher.onComplete();
+        scrollPublisher = null;
+    }
+
+    public void subscribeToScrollUpdates(Consumer<Pair<Integer, Float>> pairConsumer) {
+        scrollPublisher.subscribe(pairConsumer);
     }
 }
