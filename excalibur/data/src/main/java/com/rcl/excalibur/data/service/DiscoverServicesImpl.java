@@ -4,12 +4,14 @@ package com.rcl.excalibur.data.service;
 import com.rcl.excalibur.data.mapper.OfferingResponseMapper;
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
 import com.rcl.excalibur.data.repository.OfferingDataRepository;
+import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
+import com.rcl.excalibur.data.service.response.GetSubCategoriesResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
@@ -22,8 +24,10 @@ import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
+import com.rcl.excalibur.domain.SubCategory;
 import com.rcl.excalibur.domain.repository.OfferingRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
+import com.rcl.excalibur.domain.repository.SubCategoryRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
 
 import java.util.ArrayList;
@@ -50,6 +54,9 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     private static final String GUEST_SERVICES = "GUEST_SERVICES";
 
     private final ProductRepository productRepository;
+    private SubCategoryRepository subCategoryRepository;
+    private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
+
     private final OfferingRepository offeringRepository;
     private final OfferingResponseMapper offeringResponseMapper;
 
@@ -58,6 +65,38 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         this.productRepository = productRepository;
         offeringResponseMapper = new OfferingResponseMapper((ProductResponseDataMapper) getMapper());
         offeringRepository = new OfferingDataRepository();
+    }
+
+
+    public void setSubCategoryRepository(SubCategoryRepository subCategoryRepository) {
+        this.subCategoryRepository = subCategoryRepository;
+    }
+
+    public void setSubCategoryResponseDataMapper(SubCategoryResponseDataMapper subCategoryResponseDataMapper) {
+        this.subCategoryResponseDataMapper = subCategoryResponseDataMapper;
+    }
+
+    @Override
+    public void getSubCategories() {
+        List<SubCategory> subCategories = new ArrayList<>();
+
+        subCategoryRepository.deleteAll();
+
+        Call<GetSubCategoriesResponse> subCategoriesCall = getDiscoverApi().getSubCategories(SAILING_ID);
+
+        subCategoriesCall.enqueue(new Callback<GetSubCategoriesResponse>() {
+
+            @Override
+            public void onResponse(Call<GetSubCategoriesResponse> call, Response<GetSubCategoriesResponse> response) {
+                mapSubCategories(response, subCategories);
+                subCategoryRepository.create(subCategories);
+            }
+
+            @Override
+            public void onFailure(Call<GetSubCategoriesResponse> call, Throwable t) {
+                logOnFailureError(t, "");
+            }
+        });
     }
 
     @Override
@@ -360,6 +399,15 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                         offeringList.addAll(offeringResponseMapper.transform(productResponse.getOffering(), productResponse));
                     }
                     productList.addAll(getMapper().transform(getProductsResponse.getProducts()));
+                }
+            }
+        }
+
+        private void mapSubCategories(Response<GetSubCategoriesResponse> response, List<SubCategory> subCategories) {
+            if (response.isSuccessful()) {
+                GetSubCategoriesResponse getGetSubCategoriesResponse = response.body();
+                if (isSuccess(getGetSubCategoriesResponse)) {
+                    subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory()));
                 }
             }
         }
