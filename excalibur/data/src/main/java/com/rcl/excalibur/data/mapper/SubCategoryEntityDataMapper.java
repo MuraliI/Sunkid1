@@ -20,7 +20,7 @@ public class SubCategoryEntityDataMapper extends BaseDataMapper<SubCategory, Sub
 
 
     @Override
-    public SubCategory transform(@NonNull SubCategoryEntity model) {
+    public SubCategory transform(@NonNull SubCategoryEntity model, Object... additionalArgs) {
         SubCategory subCategory = null;
         if (model != null) {
             subCategory = new SubCategory();
