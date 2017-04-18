@@ -42,7 +42,7 @@
     <dimen name="plan_list_elevation_fab">5dp</dimen>
     <dimen name="plan_list_margin_fab">16dp</dimen>
 
-    <dimen name="plan_list_padding_bottom_header">30dp</dimen>
+    <dimen name="plan_list_padding_bottom_header">25dp</dimen>
     <dimen name="plan_list_padding_top_header">40dp</dimen>
     <dimen name="plan_list_padding_left_header">20dp</dimen>
     <dimen name="plan_list_padding_right_header">20dp</dimen>

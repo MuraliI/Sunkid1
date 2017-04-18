@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingBottom="@dimen/plan_list_padding_bottom_header"
-        android:paddingLeft="@dimen/plan_list_padding_left_header"
-        android:paddingRight="@dimen/plan_list_padding_right_header"
+        android:paddingEnd="@dimen/plan_list_padding_right_header"
+        android:paddingStart="@dimen/plan_list_padding_left_header"
         android:paddingTop="@dimen/plan_list_padding_top_header">
 
         <RelativeLayout
@@ -26,7 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/title_arrow_pager_list_product"
+                android:layout_marginEnd="@dimen/title_arrow_pager_list_product"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_arrow_left"
                 android:tint="@color/plan_list_lightblue" />
 
@@ -44,8 +45,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/title_icon_pager_list_product"
-                android:layout_toEndOf="@+id/plans_header_name" />
+                android:layout_marginStart="@dimen/title_icon_pager_list_product"
+                android:layout_toEndOf="@+id/plans_header_name"
+                android:contentDescription="@null" />
 
 
         </RelativeLayout>
@@ -64,7 +66,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
-            app:tabMode="scrollable" />
+            app:tabIndicatorColor="@color/font_color_blue"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/font_color_blue" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/full_content"
@@ -77,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/plan_list_margin_fab"
             android:scaleType="center"
             android:src="@drawable/filters"
