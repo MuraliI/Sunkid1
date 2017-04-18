@@ -10,7 +10,7 @@ public class PriceEntityDataMapper extends BaseDataMapper<PriceEntity, SellingPr
 
     @Nullable
     @Override
-    public PriceEntity transform(SellingPrice input) {
+    public PriceEntity transform(SellingPrice input, Object... additionalArgs) {
         PriceEntity priceEntity = new PriceEntity();
         priceEntity.setCurrency(input.getCurrency());
         priceEntity.setAdultPrice(String.valueOf(input.getAdultPrice()));

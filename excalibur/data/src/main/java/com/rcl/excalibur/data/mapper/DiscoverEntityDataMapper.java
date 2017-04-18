@@ -11,7 +11,7 @@ import com.rcl.excalibur.domain.DiscoverItem;
 public class DiscoverEntityDataMapper extends BaseDataMapper<DiscoverItem, DiscoverItemEntity> {
 
     @Override
-    public DiscoverItem transform(DiscoverItemEntity entity) {
+    public DiscoverItem transform(DiscoverItemEntity entity, Object... additionalArgs) {
         DiscoverItem discoverItem = null;
         if (entity != null) {
             discoverItem = new DiscoverItem();

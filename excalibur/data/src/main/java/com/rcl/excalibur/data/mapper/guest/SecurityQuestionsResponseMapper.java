@@ -13,7 +13,7 @@ public class SecurityQuestionsResponseMapper extends BaseDataMapper<List<String>
 
     @Nullable
     @Override
-    public List<String> transform(SecurityQuestionsResponse entity) {
+    public List<String> transform(SecurityQuestionsResponse entity, Object... additionalArgs) {
         List<String> questions = new ArrayList<>();
         if (entity != null) {
             for (QuestionResponse questionResponse : entity.getQuestions()) {

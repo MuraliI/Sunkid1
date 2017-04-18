@@ -10,7 +10,7 @@ public class PriceResponseMapper extends BaseDataMapper<SellingPrice, SellingPri
 
     @Nullable
     @Override
-    public SellingPrice transform(SellingPriceResponse entity) {
+    public SellingPrice transform(SellingPriceResponse entity, Object... additionalArgs) {
         SellingPrice sellingPrice = new SellingPrice();
         sellingPrice.setCurrency(entity.getCurrency());
         sellingPrice.setAdultPrice(entity.getAdultPrice());

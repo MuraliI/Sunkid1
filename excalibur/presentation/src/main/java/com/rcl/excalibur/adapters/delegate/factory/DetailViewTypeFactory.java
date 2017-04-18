@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.rcl.excalibur.utils.DateUtils.MINUTES_IN_HOUR;
+import static com.rcl.excalibur.utils.PresentationDateUtils.MINUTES_IN_HOUR;
 
 public final class DetailViewTypeFactory {
 

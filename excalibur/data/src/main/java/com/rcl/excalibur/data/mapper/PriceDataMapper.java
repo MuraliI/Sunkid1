@@ -9,7 +9,7 @@ import com.rcl.excalibur.domain.SellingPrice;
 public class PriceDataMapper extends BaseDataMapper<SellingPrice, PriceEntity> {
     @Nullable
     @Override
-    public SellingPrice transform(PriceEntity input) {
+    public SellingPrice transform(PriceEntity input, Object... additionalArgs) {
         SellingPrice output = new SellingPrice();
         output.setCurrency(input.getCurrency());
         output.setAdultPrice(Float.valueOf(input.getAdultPrice()));

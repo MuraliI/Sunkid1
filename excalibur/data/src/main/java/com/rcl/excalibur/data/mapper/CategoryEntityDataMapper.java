@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class CategoryEntityDataMapper extends BaseDataMapper<Category, CategoryEntity> {
 
     @Override
-    public Category transform(final CategoryEntity entity) {
+    public Category transform(final CategoryEntity entity, Object... additionalArgs) {
         if (entity == null) {
             return null;
         }

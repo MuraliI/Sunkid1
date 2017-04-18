@@ -6,7 +6,7 @@ import com.rcl.excalibur.domain.PromotionMessage;
 public class PromotionMessageResponseDataMapper extends BaseDataMapper<PromotionMessage, PromotionMessageResponse> {
 
     @Override
-    public PromotionMessage transform(PromotionMessageResponse entity) {
+    public PromotionMessage transform(PromotionMessageResponse entity, Object... additionalArgs) {
         PromotionMessage promotionMessage = null;
         if (null != entity) {
             promotionMessage = new PromotionMessage();

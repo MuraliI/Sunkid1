@@ -40,14 +40,8 @@ import java.util.List;
 //FIXME this class is violating SRP (Single Responsibility Principle) take out all other transforms add them through composition
 public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductResponse> {
 
-    private OfferingResponseMapper offeringResponseMapper;
-
-    public ProductResponseDataMapper() {
-        offeringResponseMapper = new OfferingResponseMapper();
-    }
-
     @Override
-    public Product transform(ProductResponse productResponse) {
+    public Product transform(ProductResponse productResponse, Object... additionalArgs) {
         Product product = null;
         if (productResponse != null) {
             product = new Product();
@@ -76,7 +70,6 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             product.setProductUpcharge(productResponse.getUpcharge());
             product.setFeatured(productResponse.isFeatured());
             product.setHighlighted(productResponse.isHighlighted());
-            product.setOfferings(offeringResponseMapper.transform(productResponse.getOffering()));
         }
         return product;
     }

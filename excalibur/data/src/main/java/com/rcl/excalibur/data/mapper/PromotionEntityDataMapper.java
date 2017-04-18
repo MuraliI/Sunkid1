@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class PromotionEntityDataMapper extends BaseDataMapper<Promotion, PromotionEntity> {
 
     @Override
-    public Promotion transform(final PromotionEntity entity) {
+    public Promotion transform(final PromotionEntity entity, Object... additionalArgs) {
         if (entity == null) {
             return null;
         }

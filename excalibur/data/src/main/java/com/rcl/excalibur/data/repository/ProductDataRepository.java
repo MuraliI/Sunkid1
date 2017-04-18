@@ -13,10 +13,8 @@ import com.rcl.excalibur.data.entity.DurationEntity;
 import com.rcl.excalibur.data.entity.LocationEntity;
 import com.rcl.excalibur.data.entity.MediaEntity;
 import com.rcl.excalibur.data.entity.MediaValueEntity;
-import com.rcl.excalibur.data.entity.OfferingEntity;
 import com.rcl.excalibur.data.entity.PreferenceEntity;
 import com.rcl.excalibur.data.entity.PreferenceValueEntity;
-import com.rcl.excalibur.data.entity.PriceEntity;
 import com.rcl.excalibur.data.entity.ProductEntity;
 import com.rcl.excalibur.data.entity.RestrictionEntity;
 import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
@@ -55,11 +53,8 @@ import static com.rcl.excalibur.data.utils.DBUtil.eq;
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, ProductEntityDataMapper>
         implements ProductRepository {
 
-    private final OfferingDataRepository offeringDataRepository;
-
     public ProductDataRepository() {
         super(new ProductEntityDataMapper(), ProductEntity.class);
-        offeringDataRepository = new OfferingDataRepository();
     }
 
     @Override
@@ -99,10 +94,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
         entity.save();
 
-        //Offering
-        //TODO This is a proposal on how we should treat all entities that need a product to be saved before hand
-        offeringDataRepository.create(product.getOfferings());
-
         //Advisements
         createAdvisements(entity, product.getAdvisements());
 
@@ -114,8 +105,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     public void deleteAll() {
         new Delete().from(RestrictionEntity.class).execute();
         new Delete().from(AdvisementEntity.class).execute();
-        new Delete().from(OfferingEntity.class).execute();
-        new Delete().from(PriceEntity.class).execute();
         new Delete().from(ProductEntity.class).execute();
         new Delete().from(StartingFromPriceEntity.class).execute();
         new Delete().from(ActivityLevelEntity.class).execute();

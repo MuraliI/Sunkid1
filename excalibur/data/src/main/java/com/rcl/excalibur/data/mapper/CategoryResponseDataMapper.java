@@ -7,7 +7,7 @@ import com.rcl.excalibur.domain.Category;
 public class CategoryResponseDataMapper extends BaseDataMapper<Category, CategoryResponse> {
 
     @Override
-    public Category transform(CategoryResponse entity) {
+    public Category transform(CategoryResponse entity, Object... additionalArgs) {
         Category category = null;
         if (entity != null) {
             category = new Category();

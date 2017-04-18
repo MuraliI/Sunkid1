@@ -8,14 +8,15 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.planner.PlannerHeaderViewType;
 import com.rcl.excalibur.adapters.viewtype.planner.SeparatorViewType;
-import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
-import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.model.PlannerProductModel;
 import com.rcl.excalibur.mvp.view.PlannerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.rcl.excalibur.model.PlannerProductModel.STATE_AFTERNOON;
@@ -24,8 +25,9 @@ import static com.rcl.excalibur.model.PlannerProductModel.STATE_LATE_NIGHT;
 import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 
 public class PlannerPresenter {
-    private GetProductDbUseCase productUseCase;
-    private ProductUseCaseObserver serviceObserver;
+
+    private GetOfferingsDbUseCase useCase;
+    private OfferingUseCaseObserver serviceObserver;
 
     private PlannerProductModelMapper mapper;
     private PlannerView view;
@@ -37,16 +39,21 @@ public class PlannerPresenter {
     private boolean eveningAdded = false;
     private boolean lateNightAdded = false;
 
-    public PlannerPresenter(PlannerView view, GetProductDbUseCase productUseCase, PlannerProductModelMapper modelMapper) {
+    public PlannerPresenter(PlannerView view, GetOfferingsDbUseCase useCase, PlannerProductModelMapper modelMapper) {
         this.view = view;
-        this.productUseCase = productUseCase;
+        this.useCase = useCase;
         this.mapper = modelMapper;
-        this.serviceObserver = new ProductUseCaseObserver();
+        this.serviceObserver = new OfferingUseCaseObserver();
     }
 
     public void init() {
         view.init();
-        new Handler().postDelayed(() -> productUseCase.getAll(serviceObserver), 3000);
+        //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2017);
+        calendar.set(Calendar.DAY_OF_MONTH, 3);
+        calendar.set(Calendar.MONTH, Calendar.MAY);
+        new Handler().postDelayed(() -> useCase.getAllForDay(calendar.getTime(), serviceObserver), 5000);
     }
 
     private void refreshPositioning() {
@@ -112,9 +119,9 @@ public class PlannerPresenter {
         return allDayPlusHeader;
     }
 
-    private final class ProductUseCaseObserver extends DefaultObserver<List<Product>> {
+    private final class OfferingUseCaseObserver extends DefaultObserver<List<Offering>> {
         @Override
-        public void onNext(List<Product> value) {
+        public void onNext(List<Offering> value) {
             if (view.getActivity() != null) {
                 SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(value);
                 List<RecyclerViewType> viewTypeList = addAllDayItemsAndHeader(
