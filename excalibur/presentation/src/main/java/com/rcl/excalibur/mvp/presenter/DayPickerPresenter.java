@@ -15,13 +15,14 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class DayPickerPresenter {
 
     private DayPickerView view;
 
     public DayPickerPresenter(DayPickerView view) {
         this.view = view;
-
     }
 
     public void init() {
@@ -29,9 +30,10 @@ public class DayPickerPresenter {
         if (activity == null) {
             return;
         }
+        view.setAdapterObserver(new AdapterObserver(this));
         view.init();
         view.setFotterDate(mockFooterDate(activity.getResources()));
-        view.setDescription("Some description");
+        view.setHeader("Some description", "Day 1");
         ArrayList<EventModel> events = mockEventList(activity.getResources());
         showCollectionInView(events);
     }
@@ -41,6 +43,18 @@ public class DayPickerPresenter {
             Toast.makeText(view.getActivity(), R.string.no_items_to_show, Toast.LENGTH_LONG).show();
         } else {
             view.addAll(events);
+        }
+    }
+
+    public class AdapterObserver extends DefaultPresentObserver<EventModel, DayPickerPresenter> {
+
+        AdapterObserver(DayPickerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(EventModel value) {
+            Timber.i("Adapter clicked");
         }
     }
 

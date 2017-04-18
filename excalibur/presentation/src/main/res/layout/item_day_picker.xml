@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_day_picker"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -15,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image_port_type"
-        android:text="Test" />
+        tools:text="@string/hardcoded_day_picker_calendar_day" />
 
     <TextView
         android:id="@+id/text_place"
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text_day"
         android:layout_toRightOf="@id/image_port_type"
-        android:text="Test" />
+        tools:text="@string/hardcoded_day_picker_calendar_day" />
 
     <ImageView
         android:id="@+id/image_is_today"

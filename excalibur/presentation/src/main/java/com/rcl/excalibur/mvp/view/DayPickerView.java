@@ -21,6 +21,7 @@ public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventMo
 
     @Bind(R.id.day_picker_startandend_date) TextView fotterDate;
     @Bind(R.id.day_picker_header_description) TextView dateDescription;
+    @Bind(R.id.day_picker_header_calendar_day) TextView dayTitle;
     @Bind(R.id.recycler_discover_item_details) RecyclerView recyclerView;
 
     private EventsAdapter adapter;
@@ -44,8 +45,9 @@ public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventMo
         fotterDate.setText(date);
     }
 
-    public void setDescription(String description) {
+    public void setHeader(String description, String day) {
         dateDescription.setText(description);
+        dayTitle.setText(day);
     }
 
     public void addAll(List<EventModel> list) {

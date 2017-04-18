@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
@@ -61,6 +60,10 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
                 }
             }
         }
+
+        if (hasObserver()) {
+            holder.observerRef = new WeakReference<>(getObserver());
+        }
     }
 
     @Override
@@ -80,7 +83,6 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         @Bind(R.id.text_place) TextView placeTextView;
         @Bind(R.id.image_port_type) ImageView portTypeImageView;
         @Bind(R.id.image_is_today) ImageView isTodayImageView;
-        @Bind(R.id.container_day_picker) RelativeLayout container;
         private EventModel event;
         private WeakReference<Observer<EventModel>> observerRef;
 
@@ -94,7 +96,6 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
             if (observerRef == null) {
                 return;
             }
-            container.setBackgroundResource(R.color.black);
             just(event).subscribe(observerRef.get());
         }
     }
