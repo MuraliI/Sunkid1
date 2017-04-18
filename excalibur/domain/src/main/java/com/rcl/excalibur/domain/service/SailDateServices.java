@@ -9,5 +9,6 @@ import io.reactivex.Observer;
 
 public interface SailDateServices {
 
+    void getSailDate(Observer<List<SailDateEvent>> observer, String sailId);
 
 }
