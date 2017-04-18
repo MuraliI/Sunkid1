@@ -53,10 +53,10 @@ public class PlannerProductDelegateAdapter implements DelegateAdapter<
 
     class ItineraryProductViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.text_itinerary_product_name) TextView productName;
-        @Bind(R.id.text_itinerary_product_operating_hours) TextView productOperatingHours;
-        @Bind(R.id.text_itinerary_product_location) TextView productLocation;
-        @Bind(R.id.text_itinerary_product_deck_and_direction) TextView productDeckAndDirection;
+        @Bind(R.id.text_planner_product_name) TextView productName;
+        @Bind(R.id.text_planner_product_operating_hours) TextView productOperatingHours;
+        @Bind(R.id.text_planner_product_location) TextView productLocation;
+        @Bind(R.id.text_itinerary_planner_deck_and_direction) TextView productDeckAndDirection;
         @Bind(R.id.image_itinerary_product_picture) ImageView productImage;
         @Bind(R.id.image_itinerary_product_icon) ImageView productCategoryIcon;
         @Bind(R.id.image_itinerary_product_favorite) ImageView productPromoted;

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,14 +20,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_itinerary_product_operating_hours"
+                android:id="@+id/text_planner_product_operating_hours"
                 style="@style/AppTheme.ProductDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="7:30 AM - 8:30 AM" />
 
             <TextView
-                android:id="@+id/text_itinerary_product_name"
+                android:id="@+id/text_planner_product_name"
                 style="@style/AppTheme.ProductTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,14 +36,14 @@
                 tools:text="The High Dive" />
 
             <TextView
-                android:id="@+id/text_itinerary_product_location"
+                android:id="@+id/text_planner_product_location"
                 style="@style/AppTheme.ProductVenue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Main Pool," />
 
             <TextView
-                android:id="@+id/text_itinerary_product_deck_and_direction"
+                android:id="@+id/text_itinerary_planner_deck_and_direction"
                 style="@style/AppTheme.ProductVenue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,51 +52,55 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_below="@+id/layout_itinerary_texts_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
+            android:layout_below="@+id/layout_itinerary_texts_container"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/image_itinerary_product_icon"
-                android:layout_gravity="bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="bottom"
                 android:layout_marginEnd="@dimen/item_product_margin"
                 android:contentDescription="@null"
                 tools:src="@drawable/icon_dining_color" />
 
             <ImageView
                 android:id="@+id/image_itinerary_product_favorite"
-                android:layout_gravity="bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="bottom"
                 android:layout_marginEnd="@dimen/item_product_margin"
                 android:contentDescription="@null"
                 android:src="@drawable/icon_favorite_color" />
 
             <com.rcl.excalibur.custom.view.PriceRangeLayout
                 android:id="@+id/view_itinerary_product_price_range"
-                app:maxRange="@integer/itinerary_product_item_max_range"
-                app:onColor="@color/black"
-                app:offColor="@color/grey"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:maxRange="@integer/itinerary_product_item_max_range"
+                app:offColor="@color/grey"
+                app:onColor="@color/black" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/image_itinerary_product_picture"
             android:layout_width="@dimen/item_product_image_width"
             android:layout_height="@dimen/item_product_image_height"
-            android:layout_marginStart="@dimen/item_product_image_margin_start"
             android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/item_product_image_margin_start"
             android:contentDescription="@string/itinerary_accessibility_product_image"
             android:scaleType="centerCrop"
             tools:src="@drawable/placeholder_list_item" />
 
     </RelativeLayout>
-
-</android.support.v7.widget.CardView>
+    <View
+        android:id="@+id/view_planner_item_separator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/itinerary_separator_thickness"
+        android:background="@color/discover_grey" />
+</LinearLayout>
