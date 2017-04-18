@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 
 public class PlannerProductModelMapper {
@@ -45,8 +46,9 @@ public class PlannerProductModelMapper {
         for (Product product : input) {
             if (product.getOfferings().size() > ALL_DAY_OFFERING_LIMIT) {
                 PlannerProductModel model = (PlannerProductModel) informationMapper.transform(product);
-                model.setOperatinghours(resources.getString(R.string.planner_all_day_item));
+                model.setOperatingHours(resources.getString(R.string.planner_all_day_item));
                 model.setAllDayProduct(true);
+                setMockValues(model);
                 allDayProducts.add(model);
             } else {
                 for (Offering offering : product.getOfferings()) {
@@ -57,8 +59,8 @@ public class PlannerProductModelMapper {
 
                     model.setStartDate(startDate);
                     model.setEndDate(calculateEndDate(offering.getDate(), product.getProductDuration()));
-                    model.setOperatinghours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
-
+                    model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
+                    setMockValues(model);
                     timedProductList.add(model);
                 }
             }
@@ -68,6 +70,18 @@ public class PlannerProductModelMapper {
         Collections.sort(timedProductList);
 
         return productList;
+    }
+
+    // TODO: these are mock values, Delete when response get all values
+    private void setMockValues(PlannerProductModel productModel) {
+        String deckAndDirectionValue = "Deck 12 " + "AFT";
+        int resourceIdCategoryIcon = R.drawable.icon_dining_color;
+        boolean isPromoted = new Random().nextBoolean();
+        int priceRange = new Random().nextInt(4);
+        productModel.setResourceIdCategoryIcon(resourceIdCategoryIcon);
+        productModel.setPromoted(isPromoted);
+        productModel.setPriceRange(priceRange);
+        productModel.setDeckAndDirection(deckAndDirectionValue);
     }
 
     private String calculateOperatingHours(Calendar startDate, Calendar endDate) {

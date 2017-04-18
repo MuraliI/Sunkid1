@@ -27,11 +27,22 @@ public class PlannerHeaderDelegateAdapter implements DelegateAdapter<PlannerHead
     }
 
     class ExpandableHeaderViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.text_part_of_day) TextView partOfDayText;
+        @Bind(R.id.text_planner_part_of_day) TextView partOfDayText;
+        @Bind(R.id.text_planner_expandable_label) TextView expandableText;
 
         ExpandableHeaderViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.planner_item_header, parent, false));
             ButterKnife.bind(this, itemView);
+        }
+
+        public void expand() {
+            expandableText.setText(R.string.itinerary_product_list_see_less);
+            expandableText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_chevron_up, 0);
+        }
+
+        public void collapse() {
+            expandableText.setText(R.string.itinerary_product_list_see_all);
+            expandableText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_chevron_down, 0);
         }
     }
 }

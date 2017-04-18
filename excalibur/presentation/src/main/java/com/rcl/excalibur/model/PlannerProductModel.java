@@ -1,5 +1,6 @@
 package com.rcl.excalibur.model;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
@@ -18,17 +19,54 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     public static final int STATE_LATE_NIGHT = 0;
 
 
-    private String operatinghours;
+    private boolean isPromoted;
+    @DrawableRes
+    private int resourceIdCategoryIcon;
+    private int priceRange;
+    private String operatingHours;
+    private String deckAndDirection;
     private Calendar startDate;
     private Calendar endDate;
     private boolean isAllDayProduct;
 
-    public String getOperatinghours() {
-        return operatinghours;
+    public boolean isPromoted() {
+        return isPromoted;
     }
 
-    public void setOperatinghours(String operatinghours) {
-        this.operatinghours = operatinghours;
+    public void setPromoted(boolean promoted) {
+        isPromoted = promoted;
+    }
+
+    public int getResourceIdCategoryIcon() {
+        return resourceIdCategoryIcon;
+    }
+
+    public void setResourceIdCategoryIcon(int resourceIdCategoryIcon) {
+        this.resourceIdCategoryIcon = resourceIdCategoryIcon;
+    }
+
+    public int getPriceRange() {
+        return priceRange;
+    }
+
+    public void setPriceRange(int priceRange) {
+        this.priceRange = priceRange;
+    }
+
+    public String getDeckAndDirection() {
+        return deckAndDirection;
+    }
+
+    public void setDeckAndDirection(String deckAndDirection) {
+        this.deckAndDirection = deckAndDirection;
+    }
+
+    public String getOperatingHours() {
+        return operatingHours;
+    }
+
+    public void setOperatingHours(String operatingHours) {
+        this.operatingHours = operatingHours;
     }
 
     public Calendar getStartDate() {

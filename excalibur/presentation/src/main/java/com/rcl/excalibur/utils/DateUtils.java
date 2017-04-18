@@ -12,6 +12,8 @@ public final class DateUtils {
 
     private static final int AFTERNOON = 12;
     public static final int MINUTES_IN_HOUR = 60;
+    private static final int TEN = 10;
+    private static final String ZERO_STRING = "0";
 
     private DateUtils() {
 
@@ -51,12 +53,14 @@ public final class DateUtils {
         }
 
         StringBuilder builder = new StringBuilder();
-        if (minutes == 0) {
-            builder.append(hour);
-        } else {
-            builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon)).append(minutes);
+        if (hour < TEN) {
+            builder.append(ZERO_STRING);
         }
-
+        builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon));
+        if (minutes < TEN) {
+            builder.append(ZERO_STRING);
+        }
+        builder.append(minutes);
         builder.append(amPm == Calendar.AM
                 ? resources.getString(R.string.itinerary_product_view_am)
                 : resources.getString(R.string.itinerary_product_view_pm));

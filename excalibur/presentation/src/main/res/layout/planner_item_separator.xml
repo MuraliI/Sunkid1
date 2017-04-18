@@ -3,5 +3,3 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/itinerary_separator_thickness"
     android:background="@color/discover_grey" />
-
-

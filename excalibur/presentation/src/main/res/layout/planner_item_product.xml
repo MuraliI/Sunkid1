@@ -1,58 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/margin_normal"
-        android:paddingEnd="@dimen/margin_normal"
-        android:weightSum="@integer/itinerary_product_view_total_weight">
+        android:padding="@dimen/margin_small">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/layout_itinerary_texts_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="@integer/itinerary_product_view_total_weight"
-            android:layout_gravity="center_vertical"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/image_itinerary_product_picture"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_product_name"
-                style="@style/AppTheme.ProductTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/text_product_operating_hours"
+                android:id="@+id/text_itinerary_product_operating_hours"
                 style="@style/AppTheme.ProductDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item_product_margin" />
+                tools:text="7:30 AM - 8:30 AM" />
 
             <TextView
-                android:id="@+id/text_product_location"
+                android:id="@+id/text_itinerary_product_name"
+                style="@style/AppTheme.ProductTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_product_margin"
+                android:layout_marginTop="@dimen/item_product_margin"
+                tools:text="The High Dive" />
+
+            <TextView
+                android:id="@+id/text_itinerary_product_location"
                 style="@style/AppTheme.ProductVenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Main Pool," />
+
+            <TextView
+                android:id="@+id/text_itinerary_product_deck_and_direction"
+                style="@style/AppTheme.ProductVenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Deck 12 AFT" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/layout_itinerary_texts_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image_itinerary_product_icon"
+                android:layout_gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/item_product_margin"
+                android:contentDescription="@null"
+                tools:src="@drawable/icon_dining_color" />
+
+            <ImageView
+                android:id="@+id/image_itinerary_product_favorite"
+                android:layout_gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/item_product_margin"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_favorite_color" />
+
+            <com.rcl.excalibur.custom.view.PriceRangeLayout
+                android:id="@+id/view_itinerary_product_price_range"
+                app:maxRange="@integer/itinerary_product_item_max_range"
+                app:onColor="@color/black"
+                app:offColor="@color/grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/image_product"
+            android:id="@+id/image_itinerary_product_picture"
             android:layout_width="@dimen/item_product_image_width"
             android:layout_height="@dimen/item_product_image_height"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginStart="@dimen/item_product_image_margin_start"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/itinerary_accessibility_product_image"
             android:scaleType="centerCrop"
-            android:contentDescription="@string/itinerary_accessibility_product_image"/>
-    </LinearLayout>
+            tools:src="@drawable/placeholder_list_item" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/itinerary_separator_thickness"
-        android:layout_gravity="bottom"
-        android:background="@color/discover_grey" />
-</FrameLayout>
+    </RelativeLayout>
 
+</android.support.v7.widget.CardView>
