@@ -44,7 +44,7 @@ import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
 
 public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse> implements DiscoverServices {
-    private static final String SAILING_ID = "AL20170430";
+    private static final String SAILING_ID = "al20170702";  //AL20170430
     private static final int MAX_COUNT = 50;
 
     private final ProductRepository productRepository;

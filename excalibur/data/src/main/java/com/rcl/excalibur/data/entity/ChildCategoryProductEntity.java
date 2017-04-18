@@ -12,7 +12,7 @@ public class ChildCategoryProductEntity extends Model {
     public static final String COLUMN_CHILD_CATEGORY_ID = "child_category_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DESCRIPTION = "description";
-    public static final String COLUMN_CATEGORY = "category";
+    public static final String COLUMN_CATEGORY = "category_product";
 
     @Column(name = COLUMN_CHILD_CATEGORY_ID)
     private String categoryId;

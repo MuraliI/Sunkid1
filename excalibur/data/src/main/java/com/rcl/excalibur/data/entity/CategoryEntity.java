@@ -10,14 +10,14 @@ import java.util.List;
 @Table(name = CategoryEntity.TABLE_NAME)
 public class CategoryEntity extends Model {
 
-    public static final String TABLE_NAME = "category";
+    public static final String TABLE_NAME = "category_product";
 
     public static final String COLUMN_CATEGORY_ID = "category_id";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_PRODUCT = "product";
 
-    @Column(name = COLUMN_CATEGORY_ID, unique = true, index = true)
+    @Column(name = COLUMN_CATEGORY_ID)
     public String categoryId;
     @Column(name = COLUMN_DESCRIPTION)
     public String description;
