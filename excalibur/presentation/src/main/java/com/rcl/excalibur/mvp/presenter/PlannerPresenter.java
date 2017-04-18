@@ -53,7 +53,7 @@ public class PlannerPresenter {
         calendar.set(Calendar.YEAR, 2017);
         calendar.set(Calendar.DAY_OF_MONTH, 3);
         calendar.set(Calendar.MONTH, Calendar.MAY);
-        new Handler().postDelayed(() -> useCase.getAllForDay(calendar.getTime(), serviceObserver), 5000);
+        new Handler().postDelayed(() -> useCase.getAllForDay(calendar.getTime(), serviceObserver), 8000);
     }
 
     private void refreshPositioning() {

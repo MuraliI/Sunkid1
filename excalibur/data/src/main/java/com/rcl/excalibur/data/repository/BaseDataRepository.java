@@ -42,10 +42,11 @@ public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDa
                 for (O item : inputList) {
                     create(item);
                 }
+                ActiveAndroid.setTransactionSuccessful();
             } catch (Exception e) {
                 Timber.e(e.getMessage());
             } finally {
-                ActiveAndroid.setTransactionSuccessful();
+                ActiveAndroid.endTransaction();
             }
         }).start();
     }
