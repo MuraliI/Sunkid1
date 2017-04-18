@@ -1,18 +1,10 @@
-package com.rcl.excalibur.data.service.response;
+package com.rcl.excalibur.domain;
 
 
-public class SailingInfoResponse {
-    private DateItineraryResponse itinerary;
+public class SailDateInfoEvent {
     private String shipCode;
     private int duration;
-
-    public DateItineraryResponse getItinerary() {
-        return itinerary;
-    }
-
-    public void setItinerary(DateItineraryResponse itinerary) {
-        this.itinerary = itinerary;
-    }
+    private SailDateItinerary itinerary;
 
     public String getShipCode() {
         return shipCode;
@@ -28,5 +20,13 @@ public class SailingInfoResponse {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public SailDateItinerary getItinerary() {
+        return itinerary;
+    }
+
+    public void setItinerary(SailDateItinerary itinerary) {
+        this.itinerary = itinerary;
     }
 }
