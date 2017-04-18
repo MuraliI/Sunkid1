@@ -14,7 +14,6 @@ import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
-import com.rcl.excalibur.data.utils.CategoryUtil;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
@@ -229,11 +228,10 @@ public final class DetailViewTypeFactory {
 
     private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res, Product product) {
 
-        String productType = product.getProductType().getProductType();
         List<Offering> offerings = product.getOfferings();
 
-        if (!CategoryUtil.isShopping(productType)
-                && !CategoryUtil.isDining(productType)) {
+        if (!product.isShopping()
+                && !product.isDining()) {
 
             offerings.sort((o1, o2) -> o1.compareByPrice(o2));
 
@@ -241,7 +239,7 @@ public final class DetailViewTypeFactory {
             float adultPrice = -1;
             float childPrice = -1;
 
-            if (CategoryUtil.isSpa(productType)) {
+            if (product.isSpa()) {
                 adultPrice = product.getStartingFromPrice().getAdultPrice();
                 childPrice = product.getStartingFromPrice().getChildPrice();
             } else {
@@ -257,15 +255,15 @@ public final class DetailViewTypeFactory {
                 map.put(res.getString(R.string.adult), res.getString(R.string.item_price, getPriceFormatted(adultPrice)));
             }
 
-            if (CategoryUtil.isShorex(productType)
-                    || CategoryUtil.isGuestServices(productType)) {
+            if (product.isShorex()
+                    || product.isGuestServices()) {
                 if (childPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
                 }
             }
 
-            if (CategoryUtil.isActivities(productType)
-                    || CategoryUtil.isEntertainment(productType)) {
+            if (product.isActivities()
+                    || product.isEntertainment()) {
                 if (childPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
                 } else if (childPrice == 0) {

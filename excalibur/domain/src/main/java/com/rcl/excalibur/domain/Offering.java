@@ -42,7 +42,11 @@ public class Offering {
 
     public int compareByPrice(Offering o2) {
 
-        if(this.getPrice() == null || o2.getPrice() == null) {
+        if (o2 == null) {
+            return 0;
+        }
+
+        if (this.getPrice() == null || o2.getPrice() == null) {
             return 0;
         }
 
