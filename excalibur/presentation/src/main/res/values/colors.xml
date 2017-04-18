@@ -17,7 +17,7 @@
     <color name="discover_black">#34323d</color>
     <color name="discover_grey">#D8D8D8</color>
     <color name="discover_separator">#F4F4F4</color>
-
+    <color name="discover_item_background_end_color">#F8FBFF</color>
     <!-- Discover Item Detail -->
     <color name="transparent_black">#66000000</color>
     <color name="fab_detail_blue">#00CFD6</color>
