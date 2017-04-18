@@ -21,7 +21,7 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
         void onViewExpanded(Integer integer);
     }
 
-    private static final int VIEW_TYPE_COUNT = 6;
+    private static final int VIEW_TYPE_COUNT = 7;
 
     private OnViewExpandedListener listener;
 
@@ -31,6 +31,8 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
         //TODO each one will be in charge of adding its own module to the list of modules.
         delegateAdapters = new SparseArrayCompat<>(VIEW_TYPE_COUNT);
 
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRICES_FROM,
+                (DelegateAdapter<VH, VT>) new PricesFromDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_PRODUCT_BASIC_INFORMATION,
                 (DelegateAdapter<VH, VT>) new ProductInformationDelegateAdapter(getObserver()));
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TITLE_AND_DESCRIPTION,

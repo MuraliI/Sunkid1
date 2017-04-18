@@ -3,23 +3,44 @@ package com.rcl.excalibur.adapters.viewtype;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class PricesFromViewType implements RecyclerViewType {
 
-    private String adultPrice;
-    private String childrenPrice;
+    private String title;
+    private String subtitle;
+    private Map<String, String> prices;
 
-    public PricesFromViewType(String adultPrice, String childrenPrice) {
-        this.adultPrice = adultPrice;
-        this.childrenPrice = childrenPrice;
+    public PricesFromViewType(String title, String subtitle, Map<String, String> prices) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.prices = prices;
     }
 
-    public String getAdultPrice() {
-        return adultPrice;
+    public String getTitle() {
+        return title;
     }
 
-    public String getChildrenPrice() {
-        return childrenPrice;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public Map<String, String> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(HashMap<String, String> prices) {
+        this.prices = prices;
     }
 
     @Override
