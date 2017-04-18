@@ -21,6 +21,7 @@ public final class DayInformationUtils {
     private static final String PORT_TYPE_CRUISING = "CRUISING";
     private static final String PORT_TYPE_AT_SEA = "At Sea";
     private static final int DEFAULT_TIME_VALUE = 0;
+    private static final int MIDDAY_TIME_VALUE = 12;
     private static final String DATE_FORMAT = "MM/dd/yyyy";
     private static final String ARRIVING_AT = " at ";
     private static final String ARRIVING = "Arriving";
@@ -88,19 +89,19 @@ public final class DayInformationUtils {
 
     private static String getTimeFormat(@NonNull int arrivalTime) {
         String arrivalTimeString = String.valueOf(arrivalTime);
-        int endString = arrivalTimeString.length() - 1;
-        String am_pm;
+        int endString = arrivalTimeString.length();
+        String timeAmPm;
         String timeHour;
-        String timeMinute = getStringTimeData(arrivalTimeString, endString, 0, true);
+        String timeMinute = getStringTimeData(arrivalTimeString, endString, DEFAULT_TIME_VALUE, true);
         if (arrivalTime >= MAX_TIME_HOUR) {
-            am_pm = TIME_FORMAT_PM;
-            timeHour = getStringTimeData(arrivalTimeString, endString, 12, false);
+            timeAmPm = TIME_FORMAT_PM;
+            timeHour = getStringTimeData(arrivalTimeString, endString, MIDDAY_TIME_VALUE, false);
         } else {
-            am_pm = TIME_FORMAT_AM;
-            timeHour = getStringTimeData(arrivalTimeString, endString, 0, false);
+            timeAmPm = TIME_FORMAT_AM;
+            timeHour = getStringTimeData(arrivalTimeString, endString, DEFAULT_TIME_VALUE, false);
         }
 
-        StringBuilder time = appendValues(timeHour, TIME_FORMAT_SEPARATOR, timeMinute, am_pm);
+        StringBuilder time = appendValues(timeHour, TIME_FORMAT_SEPARATOR, timeMinute, timeAmPm);
 
         return time.toString();
     }
@@ -110,7 +111,9 @@ public final class DayInformationUtils {
         if (isMinute) {
             stringTime = arrivalTimeString.substring(endString - END_TIME_INDEX, endString - MIDDLE_TIME_INDEX);
         } else {
-            stringTime = String.valueOf(Integer.getInteger(arrivalTimeString.substring(BEGIN_TIME_INDEX, endString - END_TIME_INDEX)) - dif);
+            String subString = arrivalTimeString.substring(BEGIN_TIME_INDEX, endString - END_TIME_INDEX);
+            int subStringValue = Integer.valueOf(subString) - dif;
+            stringTime = String.valueOf(subStringValue);
         }
         return stringTime;
     }

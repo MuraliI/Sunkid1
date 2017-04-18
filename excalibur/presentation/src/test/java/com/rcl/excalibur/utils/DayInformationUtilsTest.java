@@ -34,7 +34,7 @@ public class DayInformationUtilsTest {
     public void testArrivalDebarkTime_today() throws Exception {
         initSailPort_withPortData(sailPort, "04/18/2017");
         String arrivalDebarkTime = DayInformationUtils.getArrivalDebarkTime(sailPort);
-        assertEquals(arrivalDebarkTime, "Debarking at 7:00am - Embarking at 14:00pm");
+        assertEquals(arrivalDebarkTime, "Debarking at 7:00am - Embarking at 2:00pm");
     }
 
     @Test
@@ -42,11 +42,6 @@ public class DayInformationUtilsTest {
         initSailPort_withPortData(sailPort, "04/24/2017");
         String arrivalDebarkTime = DayInformationUtils.getArrivalDebarkTime(sailPort);
         assertEquals(arrivalDebarkTime, "");
-    }
-
-    @Test
-    public void getTimeFormat() throws Exception {
-
     }
 
     private void initSailPort_withPortData(SailPort sailPort, String date) {
