@@ -33,14 +33,32 @@ public class PricesFromDelegateAdapter implements DelegateAdapter<PricesFromDele
         Context context = holder.itemView.getContext();
 
         for (Map.Entry pair : item.getPrices().entrySet()) {
-            View itemView = LayoutInflater.from(context).inflate(R.layout.item_price, null);
-            TextView text = (TextView) itemView.findViewById(R.id.text);
-            TextView price = (TextView) itemView.findViewById(R.id.price);
-            text.setText((CharSequence) pair.getKey());
-            price.setText((CharSequence) pair.getValue());
-
+            View itemView;
+            if (item.getProduct().isSpa()) {
+                itemView = getViewPriceSpa(context, pair);
+            } else {
+                itemView = getViewPriceDefault(context, pair);
+            }
             holder.pricesContainer.addView(itemView);
         }
+    }
+
+    private View getViewPriceDefault(Context context, Map.Entry pair) {
+        View itemView = LayoutInflater.from(context).inflate(R.layout.item_price, null);
+        TextView text = (TextView) itemView.findViewById(R.id.text);
+        TextView price = (TextView) itemView.findViewById(R.id.price);
+        text.setText((CharSequence) pair.getKey());
+        price.setText((CharSequence) pair.getValue());
+
+        return itemView;
+    }
+
+    private View getViewPriceSpa(Context context, Map.Entry pair) {
+        View itemView = LayoutInflater.from(context).inflate(R.layout.item_price_spa, null);
+        TextView price = (TextView) itemView.findViewById(R.id.price);
+        price.setText((CharSequence) pair.getValue());
+
+        return itemView;
     }
 
 
