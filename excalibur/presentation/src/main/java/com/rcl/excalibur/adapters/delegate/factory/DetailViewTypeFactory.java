@@ -37,6 +37,8 @@ public final class DetailViewTypeFactory {
     private static final int NO_DURATION = 0;
     private static final String NEXT_LINE = "\n";
     private static final String TO_REPLACE = ", ";
+    // TODO: To be removed once the service provides this details
+    private static final String TIME_HARDCODE = "Times may vary";
 
     private DetailViewTypeFactory() {
     }
@@ -48,6 +50,7 @@ public final class DetailViewTypeFactory {
         addMakeReservation(viewTypes, resources, product);
         addPricesModule(viewTypes, resources, product);
         addCuisineModule(viewTypes, resources, product);
+        addTimeModule(viewTypes, resources, product);
         addDurationModule(viewTypes, resources, product);
         addExperienceModule(viewTypes, resources, product);
         addAttireModule(viewTypes, resources, product);
@@ -58,6 +61,13 @@ public final class DetailViewTypeFactory {
         addLegalModule(viewTypes, resources, product);
 
         return viewTypes;
+    }
+
+    private static void addTimeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
+        addTitleAndDescriptionTypes(recyclerViewTypeList,
+                resources.getString(R.string.detail_module_times),
+                // TODO: To be removed once the service provides this details
+                TIME_HARDCODE);
     }
 
     private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {

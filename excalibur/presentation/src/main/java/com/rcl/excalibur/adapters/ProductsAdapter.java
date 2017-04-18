@@ -10,14 +10,11 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.ProductCategory;
-import com.rcl.excalibur.domain.ProductTags;
+import com.rcl.excalibur.utils.LocationUtils;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,21 +35,9 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
         Context context = holder.imageView.getContext();
         holder.product = product;
 
-        List<ProductCategory> productCategory = product.getProductCategory();
-        if (!CollectionUtils.isEmpty(productCategory)) {
-            final List<ProductTags> tagsList = productCategory.get(0).getProductTags();
-            if (!CollectionUtils.isEmpty(tagsList)) {
-                holder.categoryTextView.setText(tagsList.get(0).getDescription());
-            }
-        }
         holder.titleTextView.setText(product.getProductTitle());
-
-        if ("0".equals(product.getProductLocation().getOperatingHoursEnd())) {
-            holder.rangeTextView.setVisibility(View.GONE);
-        } else {
-            holder.rangeTextView.setText(product.getTimeFrame());
-        }
-
+        holder.venueTextView.setText(LocationUtils.getProductVenue(product.getProductLocation()));
+        holder.locationTextView.setText(LocationUtils.getProductLocation(product.getProductLocation()));
         Picasso.with(context)
                 .load(BuildConfig.PREFIX_IMAGE + holder.product.getHeroImageRefLink())
                 .placeholder(R.drawable.placeholder_list_item)
@@ -78,8 +63,8 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
 
         @Bind(R.id.card_image) ImageView imageView;
         @Bind(R.id.card_title) TextView titleTextView;
-        @Bind(R.id.card_range) TextView rangeTextView;
-        @Bind(R.id.card_category) TextView categoryTextView;
+        @Bind(R.id.card_venue) TextView venueTextView;
+        @Bind(R.id.card_location) TextView locationTextView;
         private Product product;
         private WeakReference<Observer<Product>> observerRef;
 

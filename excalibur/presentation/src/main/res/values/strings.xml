@@ -14,6 +14,7 @@
     <string name="detail_module_legal">Legal</string>
     <string name="detail_module_age">Age Restriction</string>
     <string name="detail_module_cuisine">Cuisine</string>
+    <string name="detail_module_times">Times</string>
     <string name="detail_module_promotion">Promotion</string>
     <string name="prices">Prices</string>
     <string name="starting_from">Starting from</string>
