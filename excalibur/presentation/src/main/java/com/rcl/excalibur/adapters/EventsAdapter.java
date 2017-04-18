@@ -80,7 +80,6 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         @Bind(R.id.text_place) TextView placeTextView;
         @Bind(R.id.image_port_type) ImageView portTypeImageView;
         @Bind(R.id.image_is_today) ImageView isTodayImageView;
-
         @Bind(R.id.container_day_picker) RelativeLayout container;
         private EventModel event;
         private WeakReference<Observer<EventModel>> observerRef;
@@ -95,6 +94,7 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
             if (observerRef == null) {
                 return;
             }
+            container.setBackgroundResource(R.color.black);
             just(event).subscribe(observerRef.get());
         }
     }

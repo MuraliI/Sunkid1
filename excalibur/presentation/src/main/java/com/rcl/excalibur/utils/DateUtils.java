@@ -5,6 +5,7 @@ import android.content.res.Resources;
 
 import com.rcl.excalibur.R;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,6 +18,25 @@ public final class DateUtils {
 
     private DateUtils() {
 
+    }
+
+    public static boolean isIncomingDateBeforeCurrent(String date) {
+        final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        boolean isBefore = false;
+        try {
+            Date startDate = df.parse(date);
+            Date today = Calendar.getInstance().getTime();
+            String reportDate = df.format(today);
+            Date currentDate = df.parse(reportDate);
+            if (startDate.compareTo(currentDate) >= 0) {
+                isBefore = false;
+            } else {
+                isBefore = true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return isBefore;
     }
 
     public static String getFormatedDates(String startDateString, String endDateString, Resources resources) throws ParseException {
