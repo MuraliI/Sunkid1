@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/margin_normal"
+    android:paddingStart="@dimen/margin_normal"
+    android:paddingBottom="@dimen/margin_normal"
+    android:weightSum="@integer/layout_total_weight_1">
+
+    <TextView
+        android:id="@+id/price"
+        style="@style/AppTheme.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="@dimen/margin_xsmall"
+        android:layout_weight="@integer/layout_weight_0"/>
+
+</LinearLayout>
