@@ -3,6 +3,8 @@ package com.rcl.excalibur.mvp.view;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
@@ -49,12 +51,10 @@ public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverI
     private static final String ID_DINING = "dining";
     private static final String ID_ENTRETAINMENT = "ent";
 
-    private GetSubCategoryDbUseCase getSubCategoryDbUseCase;
-    private SubCategory subCategory;
-
     @Bind(R.id.plans_header_name) TextView plansHeaderName;
     @Bind(R.id.tab_layout_products_list_categories) TabLayout tabProductCategories;
     @Bind(R.id.full_content) ViewPager pagerFragment;
+    @Bind(R.id.category_icon) ImageView categoryIcon;
 
     public PlanListView(PlanListActivity activity) {
         super(activity);
@@ -82,53 +82,65 @@ public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverI
                 type = ROYAL_ACTIVITY;
                 categorySelected = getActivity().getString(R.string.royal_activity);
                 idCategory = ID_ACYIVITY;
+                categoryIcon.setImageResource(R.drawable.ic_dining_color);
                 break;
             case POSITION_DINING:
                 type = DINING;
                 categorySelected = getActivity().getString(R.string.dining);
                 idCategory = ID_DINING;
+                categoryIcon.setImageResource(R.drawable.ic_dining_color);
                 break;
             case POSITION_SHOPPING:
                 type = SHOPPING;
                 categorySelected = getActivity().getString(R.string.shopping);
                 idCategory = ID_SHOPPING;
+                categoryIcon.setImageResource(R.drawable.ic_shops_color);
                 break;
             case POSITION_SPA:
                 type = SPA;
                 categorySelected = getActivity().getString(R.string.spa);
                 idCategory = ID_SPA;
+                categoryIcon.setImageResource(R.drawable.ic_spa_color);
                 break;
             case POSITION_SHOREX:
                 type = SHOREX;
                 categorySelected = getActivity().getString(R.string.shorex);
                 idCategory = ID_SHOREX;
+                categoryIcon.setImageResource(R.drawable.ic_excrusions_color);
                 break;
             case POSITION_ENTERTAINMENT:
                 type = ENTERTAINMENT;
                 categorySelected = getActivity().getString(R.string.entertainment);
                 idCategory = ID_ENTRETAINMENT;
+                categoryIcon.setImageResource(R.drawable.ic_entertainment_color);
                 break;
             default:
                 Preconditions.unreachable();
         }
 
-        if (categorySelected != null && idCategory != null && type > -1) {
-            plansHeaderName.setText(categorySelected);
-            getSubCategoryDbUseCase = new GetSubCategoryDbUseCase(new SubCategoriesDataRepository());
-            subCategory = getSubCategoryDbUseCase.get(idCategory);
-            ProductsCategoryAdapter adapter = new ProductsCategoryAdapter(getFragmentManager());
-            List<ChildCategory> childCategories = subCategory.getChildCategory();
-            if (childCategories.isEmpty()) {
-                // TODO : No need tabs
-            } else {
-                for (int i = 0; i < childCategories.size(); i++) {
-                    adapter.addFragment(ProductsListFragment.newInstance(type), childCategories.get(i).getItems().getCategoryName());
-                }
-                viewPager.setAdapter(adapter);
-            }
+        plansHeaderName.setText(categorySelected);
+        GetSubCategoryDbUseCase getSubCategoryDbUseCase = new GetSubCategoryDbUseCase(new SubCategoriesDataRepository());
+        SubCategory subCategory = getSubCategoryDbUseCase.get(idCategory);
+        if (subCategory != null) {
+            addFragmentsToPager(subCategory, viewPager, type);
             AnalyticsUtils.trackEvent(analyticEvent.addKeyValue(AnalyticsConstants.KEY_FILTER_CATEGORY, categorySelected));
         } else {
             Timber.e("Don't find information for category");
         }
     }
+
+    public void addFragmentsToPager(SubCategory subCategory, ViewPager viewPager, int type) {
+        ProductsCategoryAdapter adapter = new ProductsCategoryAdapter(getFragmentManager());
+        List<ChildCategory> childCategories = subCategory.getChildCategory();
+        if (childCategories.isEmpty()) {
+            tabProductCategories.setVisibility(View.GONE);
+            adapter.addFragment(ProductsListFragment.newInstance(type), "");
+        } else {
+            for (int i = 0; i < childCategories.size(); i++) {
+                adapter.addFragment(ProductsListFragment.newInstance(type), childCategories.get(i).getItems().getCategoryName());
+            }
+        }
+        viewPager.setAdapter(adapter);
+    }
 }
+

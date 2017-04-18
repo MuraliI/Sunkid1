@@ -40,14 +40,12 @@
                 android:text="@string/hardcoded_today" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/category_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/title_icon_pager_list_product"
-                android:layout_toEndOf="@+id/plans_header_name"
-                android:src="@drawable/icon_arrow_small_gray"
-                android:tint="@color/black" />
+                android:layout_toEndOf="@+id/plans_header_name" />
 
 
         </RelativeLayout>
@@ -58,7 +56,8 @@
         android:id="@+id/relative_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/plans_header_container">
+        android:layout_below="@id/plans_header_container"
+        android:background="@color/white">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout_products_list_categories"
