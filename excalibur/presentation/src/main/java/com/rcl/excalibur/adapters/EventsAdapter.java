@@ -1,6 +1,7 @@
 package com.rcl.excalibur.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -23,9 +24,11 @@ import io.reactivex.Observer;
 import static io.reactivex.Observable.just;
 
 public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPickerViewHolder> {
+    private Resources resources;
 
-    public EventsAdapter(Observer<EventModel> observer) {
+    public EventsAdapter(Observer<EventModel> observer, Resources resources) {
         super(observer);
+        this.resources = resources;
     }
 
     @Override
@@ -33,8 +36,12 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         holder.event = items.get(position);
         Context context = holder.portTypeImageView.getContext();
 
-        if (!TextUtils.isEmpty(holder.event.getDay())) {
-            holder.dayTextView.setText(holder.event.getDay());
+        String day = holder.event.getDay();
+        if (!TextUtils.isEmpty(day)) {
+            holder.dayTextView.setText(day);
+            if (day.equalsIgnoreCase(resources.getString(R.string.today_day_title))) {
+                holder.isTodayImageView.setBackgroundResource(R.drawable.icon_day_picker_ship);
+            }
         }
         PortModel port = holder.event.getPort();
         if (port == null) {

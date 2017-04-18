@@ -32,7 +32,7 @@ public class DayPickerPresenter {
         view.init();
         view.setFotterDate(mockFooterDate(activity.getResources()));
         view.setDescription("Some description");
-        ArrayList<EventModel> events = mockEventList();
+        ArrayList<EventModel> events = mockEventList(activity.getResources());
         showCollectionInView(events);
     }
 
@@ -57,7 +57,7 @@ public class DayPickerPresenter {
         return date;
     }
 
-    public ArrayList<EventModel> mockEventList() {
+    public ArrayList<EventModel> mockEventList(Resources resources) {
 
         ArrayList<EventModel> events = new ArrayList<>();
         EventModel event1 = new EventModel();
@@ -70,8 +70,8 @@ public class DayPickerPresenter {
         EventModel event2 = new EventModel();
         PortModel port2 = new PortModel();
         port2.setPortName("At Sea");
-        event2.setDay("Day 2");
-        port1.setPortType(PortModel.PORT_TYPE_CRUISING);
+        event2.setDay(resources.getString(R.string.today_day_title));
+        port2.setPortType(PortModel.PORT_TYPE_CRUISING);
         event2.setPort(port2);
 
         events.add(event1);
