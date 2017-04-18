@@ -7,10 +7,12 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductCategory;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
 import com.rcl.excalibur.mvp.view.ProductsListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,14 +25,34 @@ public class ProductsListPresenter {
         this.getProductDbUseCase = getProductDbUseCase;
     }
 
-    public void init(int type) {
+    public void init(int type, String categoryName) {
         final BaseActivity activity = view.getActivity();
         if (activity == null) {
             return;
         }
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
-        showCollectionInView(getProductDbUseCase.getAll(getType(activity, type)));
+        showCollectionInView(getProductsByCategory(type, categoryName, activity));
+    }
+
+    private List<Product> getProductsByCategory(int type, String categoryName, BaseActivity activity) {
+        List<Product> childProducts = new ArrayList<>();
+        List<Product> allProducts = getProductDbUseCase.getAll(getType(activity, type));
+
+        if (categoryName == null) {
+            childProducts = allProducts;
+        } else {
+            for (Product typeProduct : allProducts) {
+                for (ProductCategory productCategory : typeProduct.getProductCategory()) {
+                    /*for (ChildCategory childCategory : productCategory.getChildCategory()) {
+                        if (categoryName.equals(childCategory.getItems().getCategoryId())) {
+                            childProducts.add(typeProduct);
+                        }
+                    }*/
+                }
+            }
+        }
+        return childProducts;
     }
 
     private String getType(final BaseActivity activity, int type) {

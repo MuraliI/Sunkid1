@@ -134,10 +134,11 @@ public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverI
         List<ChildCategory> childCategories = subCategory.getChildCategory();
         if (childCategories.isEmpty()) {
             tabProductCategories.setVisibility(View.GONE);
-            adapter.addFragment(ProductsListFragment.newInstance(type), "");
+            adapter.addFragment(ProductsListFragment.newInstance(type, null), null);
         } else {
-            for (int i = 0; i < childCategories.size(); i++) {
-                adapter.addFragment(ProductsListFragment.newInstance(type), childCategories.get(i).getItems().getCategoryName());
+            for (ChildCategory childCategory : childCategories) {
+                String categoryName = childCategory.getItems().getCategoryName();
+                adapter.addFragment(ProductsListFragment.newInstance(type, categoryName), categoryName);
             }
         }
         viewPager.setAdapter(adapter);
