@@ -42,12 +42,6 @@ import com.rcl.excalibur.domain.repository.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, Void, ProductEntityDataMapper>
@@ -348,28 +342,19 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     }
 
     @Override
-    public void getAll(Observer<List<Product>> observer) {
-        super.getAll(observer);
-    }
-
-    @Override
-    public void getAll(@NonNull final String type, Observer<List<Product>> observer) {
-        Observable.create(((ObservableOnSubscribe<List<Product>>) e -> {
-            final TypeEntity typeEntity = new Select()
-                    .from(TypeEntity.class)
-                    .where(eq(TypeEntity.COLUMN_TYPE, type))
-                    .executeSingle();
-            if (typeEntity == null) {
-                return;
-            }
-            final List<ProductEntity> entities = new Select()
-                    .from(ProductEntity.class)
-                    .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
-                    .execute();
-            e.onNext(getMapper().transform(entities, null));
-        })).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+    public List<Product> getAll(@NonNull final String type) {
+        final TypeEntity typeEntity = new Select()
+                .from(TypeEntity.class)
+                .where(eq(TypeEntity.COLUMN_TYPE, type))
+                .executeSingle();
+        if (typeEntity == null) {
+            return new ArrayList<>();
+        }
+        final List<ProductEntity> entities = new Select()
+                .from(ProductEntity.class)
+                .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
+                .execute();
+        return getMapper().transform(entities, null);
     }
 
     @Override

@@ -5,13 +5,11 @@ import com.rcl.excalibur.domain.Category;
 
 import java.util.List;
 
-import io.reactivex.Observer;
-
 public interface CategoryRepository {
 
     void create(Category category);
 
-    void getAll(Observer<List<Category>> observer);
+    List<Category> getAll();
 
     Category get(String id);
 }

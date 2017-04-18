@@ -234,29 +234,30 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     public void getProducts() {
         // TODO: This is a provisional implementation, once we have the final response from the serves.
         // This must be changed to consume all products with pagination support
+        new Thread(() -> {
+            offeringRepository.deleteAll();
+            productRepository.deleteAll();
 
-        offeringRepository.deleteAll();
-        productRepository.deleteAll();
+            Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_TYPE, MAX_COUNT);
 
-        Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING_TYPE, MAX_COUNT);
-        Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX_TYPE, MAX_COUNT);
-        Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES_TYPE, MAX_COUNT);
-        Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_TYPE, MAX_COUNT);
-        Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_TYPE, MAX_COUNT);
-        Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_TYPE, MAX_COUNT);
+            ProductProcessor productProcessor = new ProductProcessor();
 
-        ProductProcessor productProcessor = new ProductProcessor();
-
-        try {
-            productProcessor.onResponse(dinningCall.execute(), DINING_TYPE);
-            productProcessor.onResponse(shorexCall.execute(), SHOREX_TYPE);
-            productProcessor.onResponse(activitiesCall.execute(), ACTIVITIES_TYPE);
-            productProcessor.onResponse(entertainmentCall.execute(), ENTERTAINMENT_TYPE);
-            productProcessor.onResponse(spaCall.execute(), SPA_TYPE);
-            productProcessor.onResponse(shoppingCall.execute(), SHOPPING_TYPE);
-        } catch (Exception e) {
-            productProcessor.onFailure(e);
-        }
+            try {
+                productProcessor.onResponse(dinningCall.execute(), DINING_TYPE);
+                productProcessor.onResponse(shorexCall.execute(), SHOREX_TYPE);
+                productProcessor.onResponse(activitiesCall.execute(), ACTIVITIES_TYPE);
+                productProcessor.onResponse(entertainmentCall.execute(), ENTERTAINMENT_TYPE);
+                productProcessor.onResponse(spaCall.execute(), SPA_TYPE);
+                productProcessor.onResponse(shoppingCall.execute(), SHOPPING_TYPE);
+            } catch (Exception e) {
+                productProcessor.onFailure(e);
+            }
+        }).start();
     }
 
     private void logOnFailureError(Throwable t, String category) {

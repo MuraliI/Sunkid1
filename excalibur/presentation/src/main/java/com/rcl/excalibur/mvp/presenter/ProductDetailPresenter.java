@@ -10,7 +10,6 @@ import com.rcl.excalibur.adapters.delegate.factory.DetailViewTypeFactory;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
@@ -61,7 +60,12 @@ public class ProductDetailPresenter {
 
         view.setViewObserver(new LocationOnScreenObserver(this));
         view.setAdapterObserver(new FindOnDeckClickObserver(this));
-        getOfferingsDbUseCase.getOfferingsForProduct(product, new OfferingDbUseCaseObserver());
+
+        final List<Offering> offerings = getOfferingsDbUseCase.getOfferingsForProduct(product);
+        final List<RecyclerViewType> viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(product
+                , offerings
+                , view.getActivity().getResources());
+        view.render(viewTypes);
     }
 
     public void onBackClicked() {
@@ -117,20 +121,6 @@ public class ProductDetailPresenter {
         @Override
         public void onNext(int[] values) {
             getPresenter().checkLocationOnScreen(values);
-        }
-    }
-
-    private class OfferingDbUseCaseObserver extends DefaultObserver<List<Offering>> {
-
-        @Override
-        public void onNext(List<Offering> value) {
-            if (view.getActivity() != null) {
-                final List<RecyclerViewType> viewTypes =
-                        DetailViewTypeFactory.getAdaptersAndViewTypesForModel(product
-                                , value
-                                , view.getActivity().getResources());
-                view.render(viewTypes);
-            }
         }
     }
 }

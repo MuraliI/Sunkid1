@@ -10,11 +10,6 @@ import com.rcl.excalibur.data.mapper.BaseDataMapper;
 
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
@@ -49,15 +44,11 @@ public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDa
         }
     }
 
-    public void getAll(Observer<List<O>> observer) {
-        Observable.create((ObservableOnSubscribe<List<O>>) e -> {
-            final List<I> entities = new Select()
-                    .from(claz)
-                    .execute();
-            e.onNext(dataMapper.transform(entities, null));
-        }).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+    public List<O> getAll() {
+        final List<I> entities = new Select()
+                .from(claz)
+                .execute();
+        return dataMapper.transform(entities, null);
     }
 
     public O get(@NonNull String column, final String value) {

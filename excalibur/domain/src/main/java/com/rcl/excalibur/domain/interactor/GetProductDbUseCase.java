@@ -6,23 +6,21 @@ import com.rcl.excalibur.domain.repository.ProductRepository;
 
 import java.util.List;
 
-import io.reactivex.Observer;
-
 public class GetProductDbUseCase extends UseCaseSync<ProductRepository> {
 
     public GetProductDbUseCase(ProductRepository productRepository) {
         super(productRepository);
     }
 
-    public void getAll(Observer<List<Product>> observer) {
-        getData().getAll(observer);
+    public List<Product> getAll() {
+        return getData().getAll();
     }
 
     public Product get(String productId) {
         return getData().get(productId);
     }
 
-    public void getAll(String type, Observer<List<Product>> observer) {
-        getData().getAll(type, observer);
+    public List<Product> getAll(String type) {
+        return getData().getAll(type);
     }
 }

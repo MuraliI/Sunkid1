@@ -8,8 +8,6 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.planner.PlannerHeaderViewType;
 import com.rcl.excalibur.adapters.viewtype.planner.SeparatorViewType;
-import com.rcl.excalibur.domain.Offering;
-import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.model.PlannerProductModel;
@@ -27,7 +25,6 @@ import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 public class PlannerPresenter {
 
     private GetOfferingsDbUseCase useCase;
-    private OfferingUseCaseObserver serviceObserver;
 
     private PlannerProductModelMapper mapper;
     private PlannerView view;
@@ -43,7 +40,6 @@ public class PlannerPresenter {
         this.view = view;
         this.useCase = useCase;
         this.mapper = modelMapper;
-        this.serviceObserver = new OfferingUseCaseObserver();
     }
 
     public void init() {
@@ -53,7 +49,14 @@ public class PlannerPresenter {
         calendar.set(Calendar.YEAR, 2017);
         calendar.set(Calendar.DAY_OF_MONTH, 3);
         calendar.set(Calendar.MONTH, Calendar.MAY);
-        new Handler().postDelayed(() -> useCase.getAllForDay(calendar.getTime(), serviceObserver), 3000);
+        new Handler().postDelayed(() -> {
+            SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
+            List<RecyclerViewType> viewTypeList = addAllDayItemsAndHeader(
+                    plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
+            viewTypeList.addAll(groupEventByDate(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
+            view.addPlans(viewTypeList);
+            refreshPositioning();
+        }, 3000);
     }
 
     private void refreshPositioning() {
@@ -117,20 +120,5 @@ public class PlannerPresenter {
         allDayPlusHeader.add(createHeader(R.string.planner_all_day_item));
         allDayPlusHeader.addAll(plannerProductModels);
         return allDayPlusHeader;
-    }
-
-    private final class OfferingUseCaseObserver extends DefaultObserver<List<Offering>> {
-        @Override
-        public void onNext(List<Offering> value) {
-            if (view.getActivity() != null) {
-                SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(value);
-                List<RecyclerViewType> viewTypeList = addAllDayItemsAndHeader(
-                        plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
-                viewTypeList.addAll(groupEventByDate(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
-                view.addPlans(viewTypeList);
-                refreshPositioning();
-            }
-        }
-
     }
 }

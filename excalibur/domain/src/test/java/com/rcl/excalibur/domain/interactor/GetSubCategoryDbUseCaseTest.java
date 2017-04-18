@@ -33,9 +33,8 @@ public class GetSubCategoryDbUseCaseTest {
 
     @Test
     public void getAll() throws Exception {
-        TestObserver<List<SubCategory>> testObserver = new TestObserver<>();
-        getSubCategoryDbUseCase.getAll(testObserver);
-        Mockito.verify(subCategoryRepository).getAll(testObserver);
+        getSubCategoryDbUseCase.getAll();
+        Mockito.verify(subCategoryRepository).getAll();
     }
 
     @Test

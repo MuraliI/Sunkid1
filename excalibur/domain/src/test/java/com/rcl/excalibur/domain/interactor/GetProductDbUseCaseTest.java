@@ -18,11 +18,9 @@ public class GetProductDbUseCaseTest {
 
     @Mock ProductRepository productRepository;
     GetProductDbUseCase getProductDbUseCase;
-    TestObserver<List<Product>> testObserver;
 
     @Before
     public void setUp() throws Exception {
-        testObserver  = new TestObserver<>();
         MockitoAnnotations.initMocks(this);
         getProductDbUseCase = new GetProductDbUseCase(productRepository);
     }
@@ -34,8 +32,8 @@ public class GetProductDbUseCaseTest {
 
     @Test
     public void getAll() throws Exception {
-        getProductDbUseCase.getAll(testObserver);
-        Mockito.verify(productRepository).getAll(testObserver);
+        getProductDbUseCase.getAll();
+        Mockito.verify(productRepository).getAll();
     }
 
     @Test
@@ -46,7 +44,7 @@ public class GetProductDbUseCaseTest {
 
     @Test
     public void getAllByType() throws Exception {
-        getProductDbUseCase.getAll("type", testObserver);
-        Mockito.verify(productRepository).getAll("type", testObserver);
+        getProductDbUseCase.getAll("type");
+        Mockito.verify(productRepository).getAll("type");
     }
 }
