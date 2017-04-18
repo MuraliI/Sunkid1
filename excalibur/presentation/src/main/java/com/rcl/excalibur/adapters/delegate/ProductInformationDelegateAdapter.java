@@ -87,28 +87,17 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
     }
 
     class ProductInformationViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.text_product_detail_name)
-        TextView name;
-        @Bind(R.id.text_product_venue)
-        TextView venue;
-        @Bind(R.id.text_product_deck_and_direction)
-        TextView deckAndDirection;
-        @Bind(R.id.text_product_port)
-        TextView port;
-        @Bind(R.id.layout_price_range_container)
-        View priceRangeContainer;
-        @Bind(R.id.price_range_module_dollar_1)
-        ImageView imageDollar1;
-        @Bind(R.id.price_range_module_dollar_2)
-        ImageView imageDollar2;
-        @Bind(R.id.price_range_module_dollar_3)
-        ImageView imageDollar3;
-        @Bind(R.id.price_range_module_dollar_4)
-        ImageView imageDollar4;
-        @Bind(R.id.layout_reservation)
-        View reservationLayout;
-        @Bind(R.id.button_find_on_deck)
-        View findOnDeck;
+        @Bind(R.id.text_product_detail_name) TextView name;
+        @Bind(R.id.text_product_venue) TextView venue;
+        @Bind(R.id.text_product_deck_and_direction) TextView deckAndDirection;
+        @Bind(R.id.text_product_port) TextView port;
+        @Bind(R.id.layout_price_range_container) View priceRangeContainer;
+        @Bind(R.id.price_range_module_dollar_1) ImageView imageDollar1;
+        @Bind(R.id.price_range_module_dollar_2) ImageView imageDollar2;
+        @Bind(R.id.price_range_module_dollar_3) ImageView imageDollar3;
+        @Bind(R.id.price_range_module_dollar_4) ImageView imageDollar4;
+        @Bind(R.id.layout_reservation) View reservationLayout;
+        @Bind(R.id.button_find_on_deck) View findOnDeck;
 
         private String productId;
         private WeakReference<Observer<String>> findOnDeckObserver;
