@@ -7,7 +7,7 @@
     android:paddingEnd="@dimen/margin_normal"
     android:paddingStart="@dimen/margin_normal"
     android:paddingBottom="@dimen/margin_normal"
-    android:weightSum="@integer/price_view_total_weight">
+    android:weightSum="@integer/layout_total_weight_1">
 
     <TextView
         android:id="@+id/text"
@@ -15,14 +15,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_xsmall"
-        android:layout_weight="@integer/price_view_item_weight"/>
+        android:layout_weight="@integer/layout_weight_0"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dashline_height"
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/margin_xxsmall"
-        android:layout_weight="@integer/price_view_line_weight"
+        android:layout_weight="@integer/layout_weight_1"
         android:background="@drawable/line_dashed"
         android:layerType="software" />
 
@@ -33,6 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginStart="@dimen/margin_xsmall"
-        android:layout_weight="@integer/price_view_item_weight"/>
+        android:layout_weight="@integer/layout_weight_0"/>
 
 </LinearLayout>
