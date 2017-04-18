@@ -73,18 +73,6 @@
             android:layout_height="match_parent"
             android:layout_below="@id/tab_layout_products_list_categories" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/plan_list_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/plan_list_margin_fab"
-            android:scaleType="center"
-            android:src="@drawable/filters"
-            app:backgroundTint="@android:color/transparent"
-            app:useCompatPadding="true" />
-
     </RelativeLayout>
 
 </RelativeLayout>
