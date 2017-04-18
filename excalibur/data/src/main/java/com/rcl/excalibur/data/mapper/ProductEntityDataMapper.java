@@ -9,6 +9,7 @@ import com.rcl.excalibur.data.entity.DurationEntity;
 import com.rcl.excalibur.data.entity.LocationEntity;
 import com.rcl.excalibur.data.entity.MediaEntity;
 import com.rcl.excalibur.data.entity.MediaValueEntity;
+import com.rcl.excalibur.data.entity.OfferingEntity;
 import com.rcl.excalibur.data.entity.PreferenceEntity;
 import com.rcl.excalibur.data.entity.PreferenceValueEntity;
 import com.rcl.excalibur.data.entity.ProductEntity;
@@ -18,6 +19,7 @@ import com.rcl.excalibur.data.entity.TypeEntity;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
+import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
@@ -41,6 +43,12 @@ import java.util.List;
  * domain layer.
  */
 public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEntity> {
+
+    private OfferingDataMapper offeringEntityDataMapper;
+
+    public ProductEntityDataMapper() {
+        offeringEntityDataMapper = new OfferingDataMapper();
+    }
 
     @Override
     public Product transform(final ProductEntity entity) {
@@ -71,6 +79,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductLongDescription(entity.getLongDescription());
         product.setProductMedia(transform(entity.getProductMedia()));
         product.setExperience(entity.getExperience());
+        product.setOfferings(offeringEntityDataMapper.transform(entity.getOfferings()));
         return product;
     }
 
@@ -314,6 +323,11 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             items.add(productTags);
         }
         return items;
+    }
+
+    private List<Offering> transformOfferings(List<OfferingEntity> list) {
+        OfferingDataMapper offeringDataMapper = new OfferingDataMapper();
+        return offeringDataMapper.transform(list);
     }
 
 }

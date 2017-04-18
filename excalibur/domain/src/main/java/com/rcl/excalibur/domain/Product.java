@@ -1,6 +1,7 @@
 package com.rcl.excalibur.domain;
 
 
+import com.rcl.excalibur.domain.utils.CategoryUtil;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 
 import java.util.ArrayList;
@@ -31,6 +32,9 @@ public class Product {
     private int upcharge;
     private boolean isReservationRequired;
     private boolean isScheduable;
+    private boolean isFeatured;
+    private boolean isHighlighted;
+    private List<Offering> offerings;
 
     public String getProductId() {
         return productId;
@@ -250,5 +254,57 @@ public class Product {
             }
         }
         return advisementList;
+    }
+
+    public List<Offering> getOfferings() {
+        return offerings;
+    }
+
+    public void setOfferings(List<Offering> offerings) {
+        this.offerings = offerings;
+    }
+
+    public boolean isFeatured() {
+        return isFeatured;
+    }
+
+    public void setFeatured(boolean featured) {
+        isFeatured = featured;
+    }
+
+    public boolean isHighlighted() {
+        return isHighlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        isHighlighted = highlighted;
+    }
+
+    public boolean isShopping() {
+        return CategoryUtil.isShopping(productType.getProductType());
+    }
+
+    public boolean isActivities() {
+        return CategoryUtil.isActivities(productType.getProductType());
+    }
+
+    public boolean isShorex() {
+        return CategoryUtil.isShorex(productType.getProductType());
+    }
+
+    public boolean isEntertainment() {
+        return CategoryUtil.isEntertainment(productType.getProductType());
+    }
+
+    public boolean isDining() {
+        return CategoryUtil.isDining(productType.getProductType());
+    }
+
+    public boolean isSpa() {
+        return CategoryUtil.isSpa(productType.getProductType());
+    }
+
+    public boolean isGuestServices() {
+        return CategoryUtil.isGuestServices(productType.getProductType());
     }
 }

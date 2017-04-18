@@ -14,9 +14,17 @@
     <string name="detail_module_legal">Legal</string>
     <string name="detail_module_age">Age Restriction</string>
     <string name="detail_module_cuisine">Cuisine</string>
+    <string name="detail_module_times">Times</string>
     <string name="detail_module_promotion">Promotion</string>
+    <string name="prices">Prices</string>
+    <string name="starting_from">Starting from</string>
+    <string name="adult">Adult</string>
+    <string name="child">Child</string>
+    <string name="item_price">$%1$s</string>
     <string name="price_range">Price Range</string>
     <string name="prices_from">Prices from</string>
+    <string name="price_free">Free</string>
+
 
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>
@@ -124,7 +132,7 @@
     <!-- Product Details -->
     <plurals name="product_hr">
         <item quantity="one">"%d hr "</item>
-        <item quantity="other">"%d hours "</item>
+        <item quantity="other">"%d hrs "</item>
     </plurals>
     <plurals name="product_min">
         <item quantity="other">%d min</item>

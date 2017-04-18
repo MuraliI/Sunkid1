@@ -2,12 +2,14 @@ package com.rcl.excalibur.data.service;
 
 
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
+import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
+import com.rcl.excalibur.data.service.response.GetSubCategoriesResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
@@ -19,7 +21,9 @@ import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
+import com.rcl.excalibur.domain.SubCategory;
 import com.rcl.excalibur.domain.repository.ProductRepository;
+import com.rcl.excalibur.domain.repository.SubCategoryRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
 
 import java.util.ArrayList;
@@ -32,24 +36,57 @@ import timber.log.Timber;
 
 import static com.rcl.excalibur.data.utils.ServiceUtil.getDiscoverApi;
 import static com.rcl.excalibur.data.utils.ServiceUtil.isSuccess;
+import static com.rcl.excalibur.domain.ProductType.ACTIVITIES_TYPE;
+import static com.rcl.excalibur.domain.ProductType.DINING_TYPE;
+import static com.rcl.excalibur.domain.ProductType.ENTERTAINMENT_TYPE;
+import static com.rcl.excalibur.domain.ProductType.SHOPPING_TYPE;
+import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
+import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
 
 public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse> implements DiscoverServices {
     private static final String SAILING_ID = "AL20170430";
     private static final int MAX_COUNT = 50;
 
-    private static final String SHOREX = "SHOREX";
-    private static final String ACTIVITIES = "ACTIVITIES";
-    private static final String ENTERTAINMENT = "ENTERTAINMENT";
-    private static final String DINING = "DINING";
-    private static final String SPA = "SPA";
-    private static final String SHOPPING = "SHOPPING";
-    private static final String GUEST_SERVICES = "GUEST_SERVICES";
-
     private final ProductRepository productRepository;
+    private SubCategoryRepository subCategoryRepository;
+    private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
+
 
     public DiscoverServicesImpl(ProductRepository productRepository) {
         super(new ProductResponseDataMapper());
         this.productRepository = productRepository;
+    }
+
+
+    public void setSubCategoryRepository(SubCategoryRepository subCategoryRepository) {
+        this.subCategoryRepository = subCategoryRepository;
+    }
+
+    public void setSubCategoryResponseDataMapper(SubCategoryResponseDataMapper subCategoryResponseDataMapper) {
+        this.subCategoryResponseDataMapper = subCategoryResponseDataMapper;
+    }
+
+    @Override
+    public void getSubCategories() {
+        List<SubCategory> subCategories = new ArrayList<>();
+
+        subCategoryRepository.deleteAll();
+
+        Call<GetSubCategoriesResponse> subCategoriesCall = getDiscoverApi().getSubCategories(SAILING_ID);
+
+        subCategoriesCall.enqueue(new Callback<GetSubCategoriesResponse>() {
+
+            @Override
+            public void onResponse(Call<GetSubCategoriesResponse> call, Response<GetSubCategoriesResponse> response) {
+                mapSubCategories(response, subCategories);
+                subCategoryRepository.create(subCategories);
+            }
+
+            @Override
+            public void onFailure(Call<GetSubCategoriesResponse> call, Throwable t) {
+                logOnFailureError(t, "");
+            }
+        });
     }
 
     @Override
@@ -184,19 +221,19 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
 
         productRepository.deleteAll();
 
-        Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING, MAX_COUNT);
-        Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX, MAX_COUNT);
-        Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES, MAX_COUNT);
-        Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT, MAX_COUNT);
-        Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA, MAX_COUNT);
-        Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING, MAX_COUNT);
+        Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING_TYPE, MAX_COUNT);
+        Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX_TYPE, MAX_COUNT);
+        Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES_TYPE, MAX_COUNT);
+        Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_TYPE, MAX_COUNT);
+        Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_TYPE, MAX_COUNT);
+        Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_TYPE, MAX_COUNT);
 
-        dinningCall.enqueue(new ProductCallBack(DINING, productList));
-        shorexCall.enqueue(new ProductCallBack(SHOREX, productList));
-        activitiesCall.enqueue(new ProductCallBack(ACTIVITIES, productList));
-        entertainmentCall.enqueue(new ProductCallBack(ENTERTAINMENT, productList));
-        spaCall.enqueue(new ProductCallBack(SPA, productList));
-        shoppingCall.enqueue(new ProductCallBack(SHOPPING, productList));
+        dinningCall.enqueue(new ProductCallBack(DINING_TYPE, productList));
+        shorexCall.enqueue(new ProductCallBack(SHOREX_TYPE, productList));
+        activitiesCall.enqueue(new ProductCallBack(ACTIVITIES_TYPE, productList));
+        entertainmentCall.enqueue(new ProductCallBack(ENTERTAINMENT_TYPE, productList));
+        spaCall.enqueue(new ProductCallBack(SPA_TYPE, productList));
+        shoppingCall.enqueue(new ProductCallBack(SHOPPING_TYPE, productList));
     }
 
     private void logOnFailureError(Throwable t, String category) {
@@ -222,6 +259,15 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                     setProductLocationExtraParameters(productResponse.getProductLocation());
                 }
                 productList.addAll(getMapper().transform(getProductsResponse.getProducts()));
+            }
+        }
+    }
+
+    private void mapSubCategories(Response<GetSubCategoriesResponse> response, List<SubCategory> subCategories) {
+        if (response.isSuccessful()) {
+            GetSubCategoriesResponse getGetSubCategoriesResponse = response.body();
+            if (isSuccess(getGetSubCategoriesResponse)) {
+                subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory()));
             }
         }
     }
@@ -350,4 +396,5 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
             logOnFailureError(t, productType);
         }
     }
+
 }
