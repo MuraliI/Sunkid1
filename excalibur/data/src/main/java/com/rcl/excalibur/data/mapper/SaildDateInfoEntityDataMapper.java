@@ -60,7 +60,7 @@ public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfoEv
         SailDateEvent sailDateEvent = null;
         if (eventEntity != null) {
             sailDateEvent.setDay(eventEntity.getDay());
-            sailDateEvent.setPort(transform(eventEntity.getPort()));
+            //sailDateEvent.setPort(transform(eventEntity.getPort()));
 
         }
         return sailDateEvent;

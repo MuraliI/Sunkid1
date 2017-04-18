@@ -8,7 +8,6 @@ public interface SailDateRepository {
 
     void create(SailDateInfoEvent sailDateInfoEvent);
 
-    SailDateInfoEvent getAll();
-
-    void deleteAll();
+     SailDateInfoEvent get(String id);
+     void deleteAll();
 }
