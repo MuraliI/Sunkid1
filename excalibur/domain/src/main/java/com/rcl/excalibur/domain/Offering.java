@@ -42,7 +42,9 @@ public class Offering implements Comparable<Offering> {
 
     @Override
     public int compareTo(Offering o) {
-        if (this.getDate().getTime() > o.getDate().getTime()) {
+        if (o == null) {
+            return 0;
+        } else if (this.getDate().getTime() > o.getDate().getTime()) {
             return 1;
         } else if (this.getDate().getTime() < o.getDate().getTime()) {
             return -1;
