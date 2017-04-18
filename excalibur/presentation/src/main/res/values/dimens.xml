@@ -18,7 +18,11 @@
     <dimen name="margin_normal">17dp</dimen>
     <dimen name="margin_small">10dp</dimen>
     <dimen name="margin_xsmall">5dp</dimen>
+    <dimen name="margin_xxsmall">2dp</dimen>
     <dimen name="hairline_height">1dp</dimen>
+    <dimen name="dashline_height">5dp</dimen>
+    <dimen name="dash_width">3sp</dimen>
+    <dimen name="dash_gap">3sp</dimen>
 
     <dimen name="home_arrow_margin_bottom">5dp</dimen>
     <dimen name="home_arrow_margin_top">20dp</dimen>

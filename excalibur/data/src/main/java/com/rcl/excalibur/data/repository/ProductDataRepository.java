@@ -111,6 +111,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     public void deleteAll() {
         new Delete().from(RestrictionEntity.class).execute();
         new Delete().from(AdvisementEntity.class).execute();
+        new Delete().from(OfferingEntity.class).execute();
+        new Delete().from(PriceEntity.class).execute();
         new Delete().from(ProductEntity.class).execute();
         new Delete().from(StartingFromPriceEntity.class).execute();
         new Delete().from(ActivityLevelEntity.class).execute();
@@ -124,8 +126,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         new Delete().from(TypeEntity.class).execute();
         new Delete().from(MediaValueEntity.class).execute();
         new Delete().from(MediaEntity.class).execute();
-        new Delete().from(OfferingEntity.class).execute();
-        new Delete().from(PriceEntity.class).execute();
     }
 
     private void create(final ProductEntity entity, final SellingPrice startingFromPrice) {
