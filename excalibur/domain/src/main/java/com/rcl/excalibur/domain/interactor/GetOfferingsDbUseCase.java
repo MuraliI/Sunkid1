@@ -19,6 +19,6 @@ public class GetOfferingsDbUseCase extends UseCaseSync<OfferingRepository> {
     }
 
     public List<Offering> getOfferingsForProduct(Product product) {
-        return getData().getOfferingForProduct(product);
+        return getData().getOfferingsForProduct(product);
     }
 }

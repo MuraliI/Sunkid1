@@ -71,7 +71,7 @@ public class OfferingDataRepository extends BaseDataRepository<Offering, Offerin
     }
 
     @Override
-    public List<Offering> getOfferingForProduct(Product product) {
+    public List<Offering> getOfferingsForProduct(Product product) {
         ProductEntity productEntity = new Select()
                 .from(ProductEntity.class)
                 .where(DBUtil.eq(ProductEntity.COLUMN_PRODUCT_ID, product.getProductId()))

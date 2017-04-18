@@ -12,7 +12,7 @@ public interface OfferingRepository {
 
     List<Offering> getForDay(final Date date);
 
-    List<Offering> getOfferingForProduct(final Product product);
+    List<Offering> getOfferingsForProduct(final Product product);
 
     void deleteAll();
 }
