@@ -138,4 +138,6 @@
     <dimen name="default_status_bar_height">24dp</dimen>
 
     <dimen name="guest_padding_top">156dp</dimen>
+    <dimen name="planner_item_init_horizontal_margin">20dp</dimen>
+    <dimen name="planner_item_init_vertical_margin">20dp</dimen>
 </resources>
