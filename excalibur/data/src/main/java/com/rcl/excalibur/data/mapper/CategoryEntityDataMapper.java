@@ -10,10 +10,10 @@ import java.util.Arrays;
  * Mapper class used to transform {@link CategoryEntity} (in the data layer) to {@link Category} in the
  * domain layer.
  */
-public class CategoryEntityDataMapper extends BaseDataMapper<Category, CategoryEntity> {
+public class CategoryEntityDataMapper extends BaseDataMapper<Category, CategoryEntity, Void> {
 
     @Override
-    public Category transform(final CategoryEntity entity, Object... additionalArgs) {
+    public Category transform(final CategoryEntity entity, Void additionalArg) {
         if (entity == null) {
             return null;
         }

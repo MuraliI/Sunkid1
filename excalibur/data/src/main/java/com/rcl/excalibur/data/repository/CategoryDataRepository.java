@@ -12,7 +12,7 @@ import java.util.List;
 
 import io.reactivex.Observer;
 
-public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity, CategoryEntityDataMapper>
+public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity, Void, CategoryEntityDataMapper>
         implements CategoryRepository {
 
     public CategoryDataRepository() {

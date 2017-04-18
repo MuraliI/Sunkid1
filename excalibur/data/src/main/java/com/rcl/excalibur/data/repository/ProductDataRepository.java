@@ -50,7 +50,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, ProductEntityDataMapper>
+public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, Void, ProductEntityDataMapper>
         implements ProductRepository {
 
     public ProductDataRepository() {
@@ -105,8 +105,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     public void deleteAll() {
         new Delete().from(RestrictionEntity.class).execute();
         new Delete().from(AdvisementEntity.class).execute();
-        new Delete().from(OfferingEntity.class).execute();
-        new Delete().from(PriceEntity.class).execute();
         new Delete().from(ProductEntity.class).execute();
         new Delete().from(StartingFromPriceEntity.class).execute();
         new Delete().from(ActivityLevelEntity.class).execute();
@@ -368,7 +366,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
                     .from(ProductEntity.class)
                     .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
                     .execute();
-            e.onNext(getMapper().transform(entities));
+            e.onNext(getMapper().transform(entities, null));
         })).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

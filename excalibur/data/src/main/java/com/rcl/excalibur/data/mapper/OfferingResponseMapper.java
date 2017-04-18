@@ -15,7 +15,7 @@ import timber.log.Timber;
 
 import static com.rcl.excalibur.data.utils.DateUtil.getStandardDateParser;
 
-public class OfferingResponseMapper extends BaseDataMapper<Offering, OfferingResponse> {
+public class OfferingResponseMapper extends BaseDataMapper<Offering, OfferingResponse, ProductResponse> {
 
     private SimpleDateFormat sdf;
     private PriceResponseMapper priceResponseMapper;
@@ -29,12 +29,11 @@ public class OfferingResponseMapper extends BaseDataMapper<Offering, OfferingRes
 
     @Nullable
     @Override
-    public Offering transform(OfferingResponse entity, Object... additionalArgs) {
+    public Offering transform(OfferingResponse entity, ProductResponse productResponse) {
         Offering offering = new Offering();
         offering.setId(entity.getOfferingId());
-        offering.setProduct(productResponseDataMapper.transform(additionalArgs != null && additionalArgs.length > 0
-                ? (ProductResponse) additionalArgs[0] : new ProductResponse()));
-        offering.setPrice(priceResponseMapper.transform(entity.getOfferingPrice()));
+        offering.setProduct(productResponseDataMapper.transform(productResponse, null));
+        offering.setPrice(priceResponseMapper.transform(entity.getOfferingPrice(), null));
         try {
             offering.setDate(sdf.parse(entity.getOfferingDate() + entity.getOfferingTime()));
         } catch (ParseException e) {

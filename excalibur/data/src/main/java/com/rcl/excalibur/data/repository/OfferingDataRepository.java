@@ -15,9 +15,11 @@ import com.rcl.excalibur.data.mapper.ProductEntityDataMapper;
 import com.rcl.excalibur.data.utils.DBUtil;
 import com.rcl.excalibur.data.utils.DateUtil;
 import com.rcl.excalibur.domain.Offering;
+import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.repository.OfferingRepository;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +29,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class OfferingDataRepository extends BaseDataRepository<Offering, OfferingEntity, OfferingDataMapper>
+public class OfferingDataRepository extends BaseDataRepository<Offering, OfferingEntity, Void, OfferingDataMapper>
         implements OfferingRepository {
 
     /*FIXME this can be in the base class, because all of the repositories should have a mapper to create an entry in the database*/
@@ -72,7 +74,31 @@ public class OfferingDataRepository extends BaseDataRepository<Offering, Offerin
                     .where(DBUtil.eq(OfferingEntity.COLUMN_DATE, dateFormat.format(date)))
                     .execute();
 
-            e.onNext(getMapper().transform(offerings));
+            e.onNext(getMapper().transform(offerings, null));
+        }).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void getOfferingForProduct(Product product, Observer<List<Offering>> observer) {
+        Observable.create((ObservableOnSubscribe<List<Offering>>) e -> {
+            ProductEntity productEntity = new Select()
+                    .from(ProductEntity.class)
+                    .where(DBUtil.eq(ProductEntity.COLUMN_PRODUCT_ID, product.getProductId()))
+                    .executeSingle();
+
+            List<Offering> offeringList = new ArrayList<>();
+
+            if (productEntity != null) {
+                List<OfferingEntity> offeringEntities = new Select()
+                        .from(OfferingEntity.class)
+                        .where(DBUtil.eq(OfferingEntity.COLUMN_PRODUCT), productEntity.getId())
+                        .execute();
+                offeringList.addAll(getMapper().transform(offeringEntities, null));
+            }
+
+            e.onNext(offeringList);
         }).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

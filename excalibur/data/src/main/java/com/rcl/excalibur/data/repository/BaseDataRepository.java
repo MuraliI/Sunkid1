@@ -19,7 +19,7 @@ import timber.log.Timber;
 
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataMapper<O, I>> {
+public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDataMapper<O, I, T>> {
 
     private final M dataMapper;
     private final Class<I> claz;
@@ -29,7 +29,7 @@ public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataM
         this.claz = claz;
     }
 
-    protected BaseDataMapper<O, I> getMapper() {
+    protected BaseDataMapper<O, I, T> getMapper() {
         return dataMapper;
     }
 
@@ -58,7 +58,7 @@ public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataM
             final List<I> entities = new Select()
                     .from(claz)
                     .execute();
-            e.onNext(dataMapper.transform(entities));
+            e.onNext(dataMapper.transform(entities, null));
         }).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -69,7 +69,7 @@ public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataM
                 .from(claz)
                 .where(eq(column, value))
                 .executeSingle();
-        return dataMapper.transform(entity);
+        return dataMapper.transform(entity, null);
     }
 
     public abstract void deleteAll();

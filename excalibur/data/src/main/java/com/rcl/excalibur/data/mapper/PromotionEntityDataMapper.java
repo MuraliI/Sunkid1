@@ -10,10 +10,11 @@ import java.util.Arrays;
  * Mapper class used to transform {@link PromotionEntity} (in the data layer) to {@link Promotion} in the
  * domain layer.
  */
-public class PromotionEntityDataMapper extends BaseDataMapper<Promotion, PromotionEntity> {
+public class
+PromotionEntityDataMapper extends BaseDataMapper<Promotion, PromotionEntity, Void> {
 
     @Override
-    public Promotion transform(final PromotionEntity entity, Object... additionalArgs) {
+    public Promotion transform(final PromotionEntity entity, Void additionalArg) {
         if (entity == null) {
             return null;
         }

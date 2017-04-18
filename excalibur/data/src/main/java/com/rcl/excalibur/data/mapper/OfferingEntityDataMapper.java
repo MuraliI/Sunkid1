@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 
 import static com.rcl.excalibur.data.utils.DateUtil.getHourlessDateParser;
 
-public class OfferingEntityDataMapper extends BaseDataMapper<OfferingEntity, Offering> {
+public class OfferingEntityDataMapper extends BaseDataMapper<OfferingEntity, Offering, ProductEntity> {
 
     private final SimpleDateFormat simpleDateFormat;
 
@@ -25,13 +25,13 @@ public class OfferingEntityDataMapper extends BaseDataMapper<OfferingEntity, Off
 
     @Nullable
     @Override
-    public OfferingEntity transform(Offering input, Object... additionalArgs) {
+    public OfferingEntity transform(Offering input, ProductEntity productEntity) {
         OfferingEntity offeringEntity = new OfferingEntity();
         offeringEntity.setOfferingId(input.getId());
-        offeringEntity.setProductEntity(additionalArgs != null ? (ProductEntity) additionalArgs[0] : null);
+        offeringEntity.setProductEntity(productEntity);
         offeringEntity.setDate(simpleDateFormat.format(input.getDate()));
         offeringEntity.setTime(DateUtil.getTime(input.getDate()));
-        offeringEntity.setPrice(priceEntityDataMapper.transform(input.getPrice()));
+        offeringEntity.setPrice(priceEntityDataMapper.transform(input.getPrice(), null));
 
         return offeringEntity;
     }

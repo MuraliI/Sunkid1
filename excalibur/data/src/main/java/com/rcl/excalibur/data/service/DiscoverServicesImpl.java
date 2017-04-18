@@ -47,7 +47,7 @@ import static com.rcl.excalibur.domain.ProductType.SHOPPING_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
 
-public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse> implements DiscoverServices {
+public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse, Void> implements DiscoverServices {
     private static final String SAILING_ID = "AL20170430";
     private static final int MAX_COUNT = 50;
 
@@ -101,7 +101,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         if (response.isSuccessful()) {
             GetSubCategoriesResponse getGetSubCategoriesResponse = response.body();
             if (isSuccess(getGetSubCategoriesResponse)) {
-                subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory()));
+                subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory(), null));
             }
         }
     }
@@ -405,7 +405,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                         setProductLocationExtraParameters(productResponse.getProductLocation());
                         offeringList.addAll(offeringResponseMapper.transform(productResponse.getOffering(), productResponse));
                     }
-                    productList.addAll(getMapper().transform(getProductsResponse.getProducts()));
+                    productList.addAll(getMapper().transform(getProductsResponse.getProducts(), null));
                 }
             }
         }

@@ -38,10 +38,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 //FIXME this class is violating SRP (Single Responsibility Principle) take out all other transforms add them through composition
-public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductResponse> {
+public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductResponse, Void> {
 
     @Override
-    public Product transform(ProductResponse productResponse, Object... additionalArgs) {
+    public Product transform(ProductResponse productResponse, Void additionalArg) {
         Product product = null;
         if (productResponse != null) {
             product = new Product();

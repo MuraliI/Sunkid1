@@ -8,7 +8,10 @@ import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.factory.DetailViewTypeFactory;
 import com.rcl.excalibur.domain.Media;
+import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.interactor.DefaultObserver;
+import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -20,11 +23,17 @@ public class ProductDetailPresenter {
     private static final int MAX_BLUR_VALUE = 25;
     protected boolean isTitleVisible = false;
     private GetProductDbUseCase getProductDbUseCase;
+    private GetOfferingsDbUseCase getOfferingsDbUseCase;
     private ProductDetailView view;
 
-    public ProductDetailPresenter(ProductDetailView view, GetProductDbUseCase getProductDbUseCase) {
+    private Product product;
+
+    public ProductDetailPresenter(ProductDetailView view
+            , GetProductDbUseCase getProductDbUseCase
+            , GetOfferingsDbUseCase getOfferingsDbUseCase) {
         this.view = view;
         this.getProductDbUseCase = getProductDbUseCase;
+        this.getOfferingsDbUseCase = getOfferingsDbUseCase;
     }
 
     public void init(String productId) {
@@ -32,7 +41,9 @@ public class ProductDetailPresenter {
         if (activity == null) {
             return;
         }
-        final Product product = getProductDbUseCase.get(productId);
+
+        product = getProductDbUseCase.get(productId);
+
         if (product == null) {
             view.showToastAndFinishActivity("Discover Item Not Found");
             return;
@@ -50,8 +61,7 @@ public class ProductDetailPresenter {
 
         view.setViewObserver(new LocationOnScreenObserver(this));
         view.setAdapterObserver(new FindOnDeckClickObserver(this));
-        final List<RecyclerViewType> viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(product, activity.getResources());
-        view.render(viewTypes);
+        getOfferingsDbUseCase.getOfferingsForProduct(product, new OfferingDbUseCaseObserver());
     }
 
     public void onBackClicked() {
@@ -107,6 +117,20 @@ public class ProductDetailPresenter {
         @Override
         public void onNext(int[] values) {
             getPresenter().checkLocationOnScreen(values);
+        }
+    }
+
+    private class OfferingDbUseCaseObserver extends DefaultObserver<List<Offering>> {
+
+        @Override
+        public void onNext(List<Offering> value) {
+            if (view.getActivity() != null) {
+                final List<RecyclerViewType> viewTypes =
+                        DetailViewTypeFactory.getAdaptersAndViewTypesForModel(product
+                                , value
+                                , view.getActivity().getResources());
+                view.render(viewTypes);
+            }
         }
     }
 }

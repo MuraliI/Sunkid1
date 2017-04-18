@@ -8,10 +8,10 @@ import com.rcl.excalibur.domain.DiscoverItem;
  * Mapper class used to transform {@link DiscoverItemEntity} (in the data layer) to {@link DiscoverItem} in the
  * domain layer.
  */
-public class DiscoverEntityDataMapper extends BaseDataMapper<DiscoverItem, DiscoverItemEntity> {
+public class DiscoverEntityDataMapper extends BaseDataMapper<DiscoverItem, DiscoverItemEntity, Void> {
 
     @Override
-    public DiscoverItem transform(DiscoverItemEntity entity, Object... additionalArgs) {
+    public DiscoverItem transform(DiscoverItemEntity entity, Void additionalArg) {
         DiscoverItem discoverItem = null;
         if (entity != null) {
             discoverItem = new DiscoverItem();
