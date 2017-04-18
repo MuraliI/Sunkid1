@@ -4,15 +4,16 @@ import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class PricesFromViewType implements RecyclerViewType {
 
     private String title;
     private String subtitle;
-    HashMap<String, String> prices;
+    private Map<String, String> prices;
 
-    public PricesFromViewType(String title, String subtitle, HashMap<String, String> prices) {
+    public PricesFromViewType(String title, String subtitle, Map<String, String> prices) {
         this.title = title;
         this.subtitle = subtitle;
         this.prices = prices;
@@ -34,7 +35,7 @@ public class PricesFromViewType implements RecyclerViewType {
         this.subtitle = subtitle;
     }
 
-    public HashMap<String, String> getPrices() {
+    public Map<String, String> getPrices() {
         return prices;
     }
 

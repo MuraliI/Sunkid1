@@ -21,4 +21,7 @@
 
     <integer name="detail_parallax_multiplier">1</integer>
     <integer name="detail_toolbar_title_lines">1</integer>
+    <integer name="price_view_total_weight">1</integer>
+    <integer name="price_view_line_weight">1</integer>
+    <integer name="price_view_item_weight">1</integer>
 </resources>
