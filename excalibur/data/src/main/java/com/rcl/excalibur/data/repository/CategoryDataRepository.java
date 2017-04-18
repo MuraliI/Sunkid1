@@ -20,7 +20,7 @@ public class CategoryDataRepository extends BaseDataRepository<Category, Categor
         final CategoryEntity entity = new CategoryEntity();
         entity.setCategoryId(category.getCategoryId());
         entity.setDescription(category.getDescription());
-        entity.setTags(category.getTags());
+      //  entity.setName(category.getTags());
         entity.save();
     }
 

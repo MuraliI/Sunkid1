@@ -17,7 +17,7 @@ public class ProductEntity extends Model {
     public static final String COLUMN_CODE = "code";
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_PRODUCT_CLASS = "product_class";
-    public static final String COLUMN_CATEGORY = "category";
+
     public static final String COLUMN_RANK = "rank";
     public static final String COLUMN_UPCHARGE = "upcharge";
     public static final String COLUMN_RESERVATION_REQUIRED = "reservation_required";
@@ -45,9 +45,6 @@ public class ProductEntity extends Model {
     public TypeEntity type;
     @Column(name = COLUMN_PRODUCT_CLASS)
     public String productClass;
-    @Column(name = COLUMN_CATEGORY)
-//    TODO In the service arrive a list of Categories. But for the moment we retrive only one this
-    public CategoryEntity category;
     @Column(name = COLUMN_RANK)
     public int rank;
     @Column(name = COLUMN_UPCHARGE)
@@ -89,6 +86,10 @@ public class ProductEntity extends Model {
         super();
     }
 
+    public List<CategoryEntity> getCategories() {
+        return getMany(CategoryEntity.class, CategoryEntity.COLUMN_PRODUCT);
+    }
+
     public List<AdvisementEntity> getAdvisements() {
         return getMany(AdvisementEntity.class, AdvisementEntity.COLUMN_PRODUCT);
     }
@@ -127,14 +128,6 @@ public class ProductEntity extends Model {
 
     public void setProductClass(String productClass) {
         this.productClass = productClass;
-    }
-
-    public CategoryEntity getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
     }
 
     public int getRank() {

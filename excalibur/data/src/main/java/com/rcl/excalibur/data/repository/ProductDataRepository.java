@@ -8,6 +8,7 @@ import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.ActivityLevelEntity;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
+import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
 import com.rcl.excalibur.data.entity.DurationEntity;
 import com.rcl.excalibur.data.entity.LocationEntity;
@@ -23,6 +24,7 @@ import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
 import com.rcl.excalibur.data.entity.TypeEntity;
 import com.rcl.excalibur.data.mapper.ProductEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
@@ -36,7 +38,6 @@ import com.rcl.excalibur.domain.ProductPreference;
 import com.rcl.excalibur.domain.ProductPreferenceValue;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductRestrictionAnswer;
-import com.rcl.excalibur.domain.ProductTags;
 import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.domain.repository.ProductRepository;
@@ -74,8 +75,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
         //ProductType
         create(entity, product.getProductType());
-        //Category
-        createCategories(entity, product.getProductCategory());
+
         //Location
         create(entity, product.getProductLocation());
         //Duration
@@ -97,6 +97,9 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         //TODO This is a proposal on how we should treat all entities that need a product to be saved before hand
         offeringDataRepository.create(product.getOfferings());
 
+        //Category
+        createCategories(entity, product.getProductCategory());
+
         //Advisements
         createAdvisements(entity, product.getAdvisements());
 
@@ -117,6 +120,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         new Delete().from(DurationEntity.class).execute();
         new Delete().from(LocationEntity.class).execute();
         new Delete().from(CategoryEntity.class).execute();
+        new Delete().from(ChildCategoryProductEntity.class).execute();
         new Delete().from(TypeEntity.class).execute();
         new Delete().from(MediaValueEntity.class).execute();
         new Delete().from(MediaEntity.class).execute();
@@ -334,22 +338,39 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     }
 
     private void createCategories(final ProductEntity entity, final List<ProductCategory> categories) {
-        //    TODO In the service arrive a list of Categories. But for the moment we retrive only one this
+
         if (CollectionUtils.isEmpty(categories)) {
             return;
         }
-        final ProductCategory productCategory = categories.get(0);
-        final CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setCategoryId(productCategory.getCategoryId());
-        categoryEntity.setDescription(productCategory.getCategoryDescription());
-        final List<ProductTags> productTagsList = productCategory.getProductTags();
-        final List<String> tags = new ArrayList<>();
-        for (ProductTags productTag : productTagsList) {
-            tags.add(productTag.getDescription());
+
+        for (ProductCategory productCategory : categories) {
+
+            final CategoryEntity categoryEntity = new CategoryEntity();
+            categoryEntity.setCategoryId(productCategory.getCategoryId());
+            categoryEntity.setDescription(productCategory.getCategoryDescription());
+            categoryEntity.setName(productCategory.getCategoryName());
+            categoryEntity.setProduct(entity);
+            categoryEntity.save();
+
+            createChildCategories(categoryEntity, productCategory.getChildCategory());
         }
-        categoryEntity.setTags(tags);
-        categoryEntity.save();
-        entity.setCategory(categoryEntity);
+    }
+
+    private void createChildCategories(final CategoryEntity entity, final List<ChildCategory> categories) {
+
+        if (CollectionUtils.isEmpty(categories)) {
+            return;
+        }
+
+        for (ChildCategory childCategory : categories) {
+
+            final ChildCategoryProductEntity childCategoryProductEntity = new ChildCategoryProductEntity();
+            childCategoryProductEntity.setCategoryId(childCategory.getItems().getCategoryId());
+            childCategoryProductEntity.setDescription(childCategory.getItems().getCategoryDescription());
+            childCategoryProductEntity.setName(childCategory.getItems().getCategoryName());
+            childCategoryProductEntity.setCategory(entity);
+            childCategoryProductEntity.save();
+        }
     }
 
     public List<Product> getAll(@NonNull String type) {

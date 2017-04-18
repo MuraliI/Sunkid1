@@ -4,6 +4,7 @@ package com.rcl.excalibur.data.mapper;
 import com.rcl.excalibur.data.entity.ActivityLevelEntity;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
+import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
 import com.rcl.excalibur.data.entity.DurationEntity;
 import com.rcl.excalibur.data.entity.LocationEntity;
@@ -17,6 +18,7 @@ import com.rcl.excalibur.data.entity.RestrictionEntity;
 import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
 import com.rcl.excalibur.data.entity.TypeEntity;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Offering;
@@ -60,7 +62,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductCode(entity.getCode());
         product.setProductType(transform(entity.getType()));
         product.setProductClass(entity.getProductClass());
-        product.setProductCategory(transform(entity.getCategory()));
+        product.setProductCategory(transform(entity.getCategories()));
         product.setProductRank(entity.getRank());
         product.setProductUpcharge(entity.getUpcharge());
         product.setReservationRequired(entity.isReservationRequired());
@@ -290,20 +292,47 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         return productType;
     }
 
-    private List<ProductCategory> transform(CategoryEntity categoryEntity) {
+    private List<ProductCategory> transform(List<CategoryEntity> entities) {
 
         ArrayList<ProductCategory> productCategories = new ArrayList<>();
-        if (categoryEntity == null) {
+
+        if (CollectionUtils.isEmpty(entities)) {
             return productCategories;
         }
 
-        ProductCategory productCategory = new ProductCategory();
-        productCategory.setCategoryDescription(categoryEntity.getDescription());
-        productCategory.setCategoryId(categoryEntity.getCategoryId());
-        productCategory.setProductTags(transformProductTags(categoryEntity.getTags()));
-        productCategories.add(productCategory);
+        for (CategoryEntity categoryEntity : entities) {
+
+            ProductCategory productCategory = new ProductCategory();
+            productCategory.setCategoryDescription(categoryEntity.getDescription());
+            productCategory.setCategoryId(categoryEntity.getCategoryId());
+            productCategory.setCategoryName(categoryEntity.getName());
+            productCategory.setChildCategory(transformChildCategories(categoryEntity.getChildCategoryProducts()));
+            productCategories.add(productCategory);
+        }
+
         return productCategories;
     }
+
+    private List<ChildCategory> transformChildCategories(List<ChildCategoryProductEntity> entities) {
+
+        ArrayList<ChildCategory> childCategories = new ArrayList<>();
+
+        if (CollectionUtils.isEmpty(entities)) {
+            return childCategories;
+        }
+
+        for (ChildCategoryProductEntity childCategoryProductEntity : entities) {
+
+            ChildCategory childCategory = new ChildCategory();
+            childCategory.getItems().setCategoryDescription(childCategoryProductEntity.getDescription());
+            childCategory.getItems().setCategoryId(childCategoryProductEntity.getCategoryId());
+            childCategory.getItems().setCategoryName(childCategoryProductEntity.getName());
+            childCategories.add(childCategory);
+        }
+
+        return childCategories;
+    }
+
 
     private List<ProductTags> transformProductTags(String[] tags) {
 

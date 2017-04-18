@@ -13,7 +13,6 @@ import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductCategory;
-import com.rcl.excalibur.domain.ProductTags;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -58,10 +57,7 @@ public class DeckMapPopupLayout extends RelativeLayout {
 
         List<ProductCategory> productCategories = product.getProductCategory();
         if (!productCategories.isEmpty()) {
-            List<ProductTags> productTags = productCategories.get(0).getProductTags();
-            if (!productTags.isEmpty() && productTags.get(0).getDescription() != null) {
-                typeNameText.setText(productTags.get(0).getDescription());
-            }
+                typeNameText.setText(productCategories.get(0).getCategoryDescription());
         }
 
         Picasso.with(getContext())

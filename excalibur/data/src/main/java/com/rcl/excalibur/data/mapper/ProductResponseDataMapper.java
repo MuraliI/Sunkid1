@@ -1,5 +1,6 @@
 package com.rcl.excalibur.data.mapper;
 
+import com.rcl.excalibur.data.service.response.ChildCategoryResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductActivityLevelResponse;
@@ -17,6 +18,7 @@ import com.rcl.excalibur.data.service.response.ProductTagsResponse;
 import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
@@ -320,11 +322,36 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             ProductCategory productCategory = new ProductCategory();
             productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
             productCategory.setCategoryId(productCategoryResponse.getCategoryId());
-            productCategory.setProductTags(transformProductTags(productCategoryResponse.getProductTags()));
+            productCategory.setCategoryName(productCategoryResponse.getCategoryName());
+            productCategory.setChildCategory(transformChildCategories(productCategoryResponse.getChildCategory()));
             productCategories.add(productCategory);
         }
 
         return productCategories;
+    }
+
+    private List<ChildCategory> transformChildCategories(List<ChildCategoryResponse> childCategoryResponses) {
+
+        ArrayList<ChildCategory> items = new ArrayList<>();
+
+        if (CollectionUtils.isEmpty(childCategoryResponses)) {
+            return items;
+        }
+        for (ChildCategoryResponse childCategoryResponse : childCategoryResponses) {
+
+            if (childCategoryResponse == null) {
+                continue;
+            }
+
+            ChildCategory childCategory = new ChildCategory();
+            childCategory.getItems().setCategoryId(childCategoryResponse.getItems().getCategoryId());
+            childCategory.getItems().setCategoryName(childCategoryResponse.getItems().getCategoryName());
+            childCategory.getItems().setCategoryDescription(childCategoryResponse.getItems().getCategoryDescription());
+
+            items.add(childCategory);
+        }
+
+        return items;
     }
 
     private List<ProductTags> transformProductTags(List<ProductTagsResponse> productTagsResponses) {
