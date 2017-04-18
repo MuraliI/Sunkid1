@@ -39,16 +39,13 @@ public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDa
         new Thread(() -> {
             try {
                 ActiveAndroid.beginTransaction();
-                try {
-                    for (O item : inputList) {
-                        create(item);
-                    }
-                    ActiveAndroid.setTransactionSuccessful();
-                } finally {
-                    ActiveAndroid.endTransaction();
+                for (O item : inputList) {
+                    create(item);
                 }
             } catch (Exception e) {
                 Timber.e(e.getMessage());
+            } finally {
+                ActiveAndroid.setTransactionSuccessful();
             }
         }).start();
     }
