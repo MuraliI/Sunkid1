@@ -3,15 +3,15 @@ package com.rcl.excalibur.model;
 
 public class EventModel {
 
-    private Long day;
+    private String day;
     private PortModel port;
 
 
-    public Long getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Long day) {
+    public void setDay(String day) {
         this.day = day;
     }
 

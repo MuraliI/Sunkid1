@@ -2,6 +2,9 @@
 package com.rcl.excalibur.model;
 
 public class PortModel {
+    public static final String PORT_TYPE_EMBARK = "EMBARK";
+    public static final String PORT_TYPE_DOCKED = "DOCKED";
+    public static final String PORT_TYPE_CRUISING = "CRUISING";
 
     private String arrivalDate;
     private Long arrivalTime;
