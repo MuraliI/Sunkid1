@@ -26,7 +26,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/title_arrow_pager_list_product"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_arrow_left"
+                android:src="@drawable/ic_white_arrow_back"
                 android:tint="@color/plan_list_lightblue" />
 
             <TextView
