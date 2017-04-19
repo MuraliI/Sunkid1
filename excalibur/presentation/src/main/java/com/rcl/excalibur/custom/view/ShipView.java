@@ -9,11 +9,12 @@ import android.widget.RelativeLayout;
 import com.rcl.excalibur.R;
 
 public class ShipView extends RelativeLayout {
-    private static final float SHIP_NEXT_TAB_SCALE = 0.9f;
-    private static final float SHIP_ORIGINAL_SCALE = 0.60f;
+    private static final float SHIP_NEXT_TAB_SCALE = 0.75f;
+    private static final float SHIP_ORIGINAL_SCALE = 0.5f;
     private View ship;
     private View leftCloud;
     private View rightCloud;
+    private View shipLabel;
     private int selectedPage;
     private float scrollOffset;
     private int originalBottom = -1;
@@ -40,6 +41,7 @@ public class ShipView extends RelativeLayout {
         ship = findViewById(R.id.image_ship);
         leftCloud = findViewById(R.id.image_cloud_left);
         rightCloud = findViewById(R.id.image_cloud_right);
+        shipLabel = findViewById(R.id.text_ship_status);
     }
 
     @Override
@@ -49,17 +51,33 @@ public class ShipView extends RelativeLayout {
             if (scrollOffset > 0.0f) {
                 layoutShipOnScroll();
                 layoutCloudsOnScroll();
+                layoutLabelShipOnScroll();
             } else {
                 layoutShipOnOrigin();
                 layoutCloudsOnOrigin();
+                layoutLabelShipOnOrigin();
             }
         } else if (scrollOffset > 0.0f) {
             layoutShipOnScroll();
             layoutCloudsOnScroll();
+            layoutLabelShipOnScroll();
         } else {
             layoutShipOnNextTab();
             layoutCloudsOnNextTab();
+            layoutLabelShipOnNextTab();
         }
+    }
+
+    private void layoutLabelShipOnScroll() {
+        shipLabel.setAlpha(1.0f - scrollOffset);
+    }
+
+    private void layoutLabelShipOnNextTab() {
+        shipLabel.setAlpha(0.0f);
+    }
+
+    private void layoutLabelShipOnOrigin() {
+        shipLabel.setAlpha(1.0f);
     }
 
     private void layoutCloudsOnOrigin() {
@@ -103,11 +121,11 @@ public class ShipView extends RelativeLayout {
         if (originalBottom == -1) {
             originalBottom = ship.getBottom();
         }
-        ship.layout(ship.getLeft(), ship.getTop(), ship.getRight(), (int) (originalBottom * SHIP_ORIGINAL_SCALE));
+        ship.layout(ship.getLeft(), ship.getTop(), ship.getRight(), (int) (getBottom() * SHIP_ORIGINAL_SCALE));
     }
 
     private void layoutShipOnNextTab() {
-        ship.layout(ship.getLeft(), ship.getTop(), ship.getRight(), (int) (originalBottom * SHIP_NEXT_TAB_SCALE));
+        ship.layout(ship.getLeft(), shipLabel.getTop(), ship.getRight(), (int) (getBottom() * SHIP_NEXT_TAB_SCALE));
     }
 
     private void layoutShipOnScroll() {

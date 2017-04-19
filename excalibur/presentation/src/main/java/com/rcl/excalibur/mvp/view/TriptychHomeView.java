@@ -40,6 +40,7 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
         triptychFragments.add(DiscoverTabFragment.newInstance());
 
         viewPager.setAdapter(new TriptychPagerAdapter(activity.getSupportFragmentManager(), triptychFragments));
+        viewPager.setPageTransformer(false, (view, position) -> view.setAlpha(1.0f - Math.abs(position)));
         tabBarLayout.attachToViewPager(viewPager);
         tabBarLayout.subscribeToScrollUpdates(integerFloatPair -> shipView.syncScroll(integerFloatPair));
     }
