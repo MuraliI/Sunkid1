@@ -24,7 +24,7 @@ import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 import timber.log.Timber;
 
-public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
+public class PlannerView extends FragmentView<PlannerFragment, Void, Void> implements RoyalLinearLayoutManager.OnFirstTimeListener {
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_container) LinearLayout containerLayout;
@@ -48,7 +48,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         }
         adapter = new FlexibleAdapter<>(null, null, true);
         adapter.setDisplayHeadersAtStartUp(false).setStickyHeaders(true);
-        recyclerView.setLayoutManager(new RoyalLinearLayoutManager(activity));
+        recyclerView.setLayoutManager(new RoyalLinearLayoutManager(activity, this));
         recyclerView.setAdapter(adapter);
 
         Resources resources = activity.getResources();
@@ -110,7 +110,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                         // int verticalMargin = Math.round((1 - slideOffset) * initVerticalMargin);
                         //int horizontalMargin = Math.round((1 - slideOffset) * initHorizontalMargin);
 
-                        for (int i = 0; i < 4; i++) {
+                        for (int i = 0; i < itemCount; i++) {
                             View view = recyclerView.getLayoutManager().findViewByPosition(i);
                             int verticalMargin = getMargin(slideOffset, initVerticalMargin);
                             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
@@ -127,16 +127,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     private void initItems() {
-        final Activity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < itemCount; i++) {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
-            if (view != null) {
-                resizeItemView(view, initVerticalMargin, initHorizontalMargin);
-            }
+            resizeItemView(view, initVerticalMargin, initHorizontalMargin);
         }
+        //recyclerView.requestLayout();
     }
 
     private void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
@@ -146,7 +141,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
         ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         marginLayout.setMargins(horizontalMargin, verticalMargin, horizontalMargin, verticalMargin);
-        view.requestLayout();
+        //view.requestLayout();
+
+        if (initialized) {
+            view.requestLayout();
+        }
     }
 
     public void addPlannerItems(List<AbstractFlexibleItem> items) {
@@ -158,5 +157,20 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         Timber.i("added %s", added);
         Timber.i("adapter count %s", adapter.getItemCount());
         Timber.i("manager count %s", recyclerView.getLayoutManager().getChildCount());
+    }
+
+    private int itemCount = 0;
+    private boolean initialized = false;
+
+    @Override
+    public void isShowingItems(int visibleItemCount) {
+        if (initialized) {
+            return;
+        }
+
+        itemCount = visibleItemCount;
+        initItems();
+
+        initialized = true;
     }
 }
