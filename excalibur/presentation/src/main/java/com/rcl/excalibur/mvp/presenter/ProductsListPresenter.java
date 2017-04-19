@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
@@ -42,13 +43,11 @@ public class ProductsListPresenter {
             childProducts = allProducts;
         } else {
             for (Product typeProduct : allProducts) {
-                /*for (ProductCategory productCategory : typeProduct.getProductCategory()) {
-                    for (ChildCategory childCategory : productCategory.getChildCategory()) {
-                        if (categoryName.equals(childCategory.getItems().getCategoryId())) {
-                            childProducts.add(typeProduct);
-                        }
+                for (ChildCategory childCategory : typeProduct.getProductCategory().getChildCategory()) {
+                    if (categoryName.equals(childCategory.getItems().getCategoryId())) {
+                        childProducts.add(typeProduct);
                     }
-                }*/
+                }
             }
         }
         return childProducts;
