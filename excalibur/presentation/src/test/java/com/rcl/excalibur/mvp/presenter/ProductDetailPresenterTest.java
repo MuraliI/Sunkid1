@@ -5,6 +5,7 @@ import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductDuration;
 import com.rcl.excalibur.domain.ProductType;
+import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
 
@@ -38,12 +39,14 @@ public class ProductDetailPresenterTest {
     ProductDetailPresenter presenter;
     @Mock ProductDetailView view;
     @Mock GetProductDbUseCase getProductDbUseCase;
+    @Mock GetOfferingsDbUseCase getOfferingsDbUseCase;
     @Mock ProductDetailActivity activity;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        presenter = new ProductDetailPresenter(view, getProductDbUseCase);
+
+        presenter = new ProductDetailPresenter(view, getProductDbUseCase, getOfferingsDbUseCase);
         when(view.getActivity()).thenReturn(activity);
     }
 

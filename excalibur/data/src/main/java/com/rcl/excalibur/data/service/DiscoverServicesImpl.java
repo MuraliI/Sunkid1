@@ -1,8 +1,11 @@
 package com.rcl.excalibur.data.service;
 
 
+import com.rcl.excalibur.data.mapper.OfferingResponseMapper;
+import com.rcl.excalibur.data.mapper.PriceResponseMapper;
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
 import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
+import com.rcl.excalibur.data.repository.OfferingDataRepository;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
@@ -18,10 +21,12 @@ import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
+import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SubCategory;
+import com.rcl.excalibur.domain.repository.OfferingRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.repository.SubCategoryRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
@@ -43,7 +48,7 @@ import static com.rcl.excalibur.domain.ProductType.SHOPPING_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
 
-public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse> implements DiscoverServices {
+public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse, Void> implements DiscoverServices {
     private static final String SAILING_ID = "AL20170430";
     private static final int MAX_COUNT = 50;
 
@@ -51,10 +56,14 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     private SubCategoryRepository subCategoryRepository;
     private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
 
+    private final OfferingRepository offeringRepository;
+    private final OfferingResponseMapper offeringResponseMapper;
 
     public DiscoverServicesImpl(ProductRepository productRepository) {
         super(new ProductResponseDataMapper());
         this.productRepository = productRepository;
+        offeringResponseMapper = new OfferingResponseMapper((ProductResponseDataMapper) getMapper(), new PriceResponseMapper());
+        offeringRepository = new OfferingDataRepository();
     }
 
 
@@ -87,6 +96,15 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                 logOnFailureError(t, "");
             }
         });
+    }
+
+    private void mapSubCategories(Response<GetSubCategoriesResponse> response, List<SubCategory> subCategories) {
+        if (response.isSuccessful()) {
+            GetSubCategoriesResponse getGetSubCategoriesResponse = response.body();
+            if (isSuccess(getGetSubCategoriesResponse)) {
+                subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory(), null));
+            }
+        }
     }
 
     @Override
@@ -217,59 +235,34 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     public void getProducts() {
         // TODO: This is a provisional implementation, once we have the final response from the serves.
         // This must be changed to consume all products with pagination support
-        List<Product> productList = new ArrayList<>();
+        new Thread(() -> {
+            offeringRepository.deleteAll();
+            productRepository.deleteAll();
 
-        productRepository.deleteAll();
+            Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_TYPE, MAX_COUNT);
 
-        Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING_TYPE, MAX_COUNT);
-        Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX_TYPE, MAX_COUNT);
-        Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES_TYPE, MAX_COUNT);
-        Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_TYPE, MAX_COUNT);
-        Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_TYPE, MAX_COUNT);
-        Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_TYPE, MAX_COUNT);
+            ProductProcessor productProcessor = new ProductProcessor();
 
-        dinningCall.enqueue(new ProductCallBack(DINING_TYPE, productList));
-        shorexCall.enqueue(new ProductCallBack(SHOREX_TYPE, productList));
-        activitiesCall.enqueue(new ProductCallBack(ACTIVITIES_TYPE, productList));
-        entertainmentCall.enqueue(new ProductCallBack(ENTERTAINMENT_TYPE, productList));
-        spaCall.enqueue(new ProductCallBack(SPA_TYPE, productList));
-        shoppingCall.enqueue(new ProductCallBack(SHOPPING_TYPE, productList));
+            try {
+                productProcessor.onResponse(dinningCall.execute(), DINING_TYPE);
+                productProcessor.onResponse(shorexCall.execute(), SHOREX_TYPE);
+                productProcessor.onResponse(activitiesCall.execute(), ACTIVITIES_TYPE);
+                productProcessor.onResponse(entertainmentCall.execute(), ENTERTAINMENT_TYPE);
+                productProcessor.onResponse(spaCall.execute(), SPA_TYPE);
+                productProcessor.onResponse(shoppingCall.execute(), SHOPPING_TYPE);
+            } catch (Exception e) {
+                productProcessor.onFailure(e);
+            }
+        }).start();
     }
 
     private void logOnFailureError(Throwable t, String category) {
         Timber.e(t, "Error on %s call, message = %s", category, t.getMessage());
-    }
-
-    private void mapData(Response<GetProductsResponse> response, List<Product> productList) {
-        if (response.isSuccessful()) {
-            GetProductsResponse getProductsResponse = response.body();
-            if (isSuccess(getProductsResponse)) {
-                for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
-                    productResponse.setUpcharge(2);
-                    if (productResponse.getProductReservationInformation() == null) {
-                        productResponse.setProductReservationInformation("Please Arrive 15 minutes early, Wear closedtoed shoes");
-                    }
-                    if (productResponse.getExperience() == null) {
-                        productResponse.setExperience("Enjoy the travel!");
-                    }
-                    List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
-                    if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
-                        productResponse.setAdvisements(getProductAdvisementResponseAttire());
-                    }
-                    setProductLocationExtraParameters(productResponse.getProductLocation());
-                }
-                productList.addAll(getMapper().transform(getProductsResponse.getProducts()));
-            }
-        }
-    }
-
-    private void mapSubCategories(Response<GetSubCategoriesResponse> response, List<SubCategory> subCategories) {
-        if (response.isSuccessful()) {
-            GetSubCategoriesResponse getGetSubCategoriesResponse = response.body();
-            if (isSuccess(getGetSubCategoriesResponse)) {
-                subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory()));
-            }
-        }
     }
 
     private List<ProductRestrictionResponse> getProductRestrictionResponse() {
@@ -338,7 +331,8 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         productAdvisementResponses.add(advisementAccessibility);
         ProductAdvisementResponse advisementAccessibility2 = new ProductAdvisementResponse();
         advisementAccessibility2.setAdvisementId(ProductAdvisement.ACCESSIBILITY);
-        advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite but long enough to be meaningful.");
+        advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite "
+                + "but long enough to be meaningful.");
         advisementAccessibility2.setAdvisementTitle("Closed Caption");
         advisementAccessibility2.setAdvisementName("Closed Caption");
         advisementAccessibility2.setAdvisementMedia(mediaResponse);
@@ -375,26 +369,48 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         productLocationResponse.setLocationDeckNumber(12);
     }
 
-    class ProductCallBack implements Callback<GetProductsResponse> {
+    private class ProductProcessor {
 
         private List<Product> productList = new ArrayList<>();
+        private List<Offering> offeringList = new ArrayList<>();
         private String productType;
 
-        public ProductCallBack(String productType, List<Product> productList) {
-            this.productList = productList;
+        void onResponse(Response<GetProductsResponse> response, String productType) {
             this.productType = productType;
-        }
-
-        @Override
-        public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
-            mapData(response, productList);
+            mapDataProducts(response, productList, offeringList);
             productRepository.create(productList);
+
+            offeringRepository.create(offeringList);
+
         }
 
-        @Override
-        public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+        void onFailure(Throwable t) {
             logOnFailureError(t, productType);
         }
-    }
 
+        private void mapDataProducts(Response<GetProductsResponse> response, List<Product> productList, List<Offering> offeringList) {
+            if (response.isSuccessful()) {
+                GetProductsResponse getProductsResponse = response.body();
+                if (isSuccess(getProductsResponse)) {
+                    for (ProductResponse productResponse : getProductsResponse.getProducts()) {
+                        // TODO: To be removed once the service provides this details
+                        productResponse.setUpcharge(2);
+                        if (productResponse.getProductReservationInformation() == null) {
+                            productResponse.setProductReservationInformation("Please Arrive 15 minutes early, Wear closedtoed shoes");
+                        }
+                        if (productResponse.getExperience() == null) {
+                            productResponse.setExperience("Enjoy the travel!");
+                        }
+                        List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
+                        if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
+                            productResponse.setAdvisements(getProductAdvisementResponseAttire());
+                        }
+                        setProductLocationExtraParameters(productResponse.getProductLocation());
+                        offeringList.addAll(offeringResponseMapper.transform(productResponse.getOffering(), productResponse));
+                    }
+                    productList.addAll(getMapper().transform(getProductsResponse.getProducts(), null));
+                }
+            }
+        }
+    }
 }

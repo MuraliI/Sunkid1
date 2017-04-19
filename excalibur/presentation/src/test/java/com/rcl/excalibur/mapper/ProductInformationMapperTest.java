@@ -19,10 +19,10 @@ public class ProductInformationMapperTest {
     private static final int PRODUCT_DECK_NUMBER = 12;
     private static final String PRODUCT_DIRECTION = "AFT";
 
-    ProductInformationMapper mapper;
+    private ProductInformationMapper mapper;
 
-    Product entity1;
-    Product entity2;
+    private Product entity1;
+    private Product entity2;
 
     @Before
     public void setUp() {

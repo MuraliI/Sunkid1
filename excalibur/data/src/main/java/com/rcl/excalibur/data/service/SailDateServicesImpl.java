@@ -18,7 +18,7 @@ import retrofit2.Response;
 
 import static com.rcl.excalibur.data.utils.ServiceUtil.getSailDateApi;
 
-public class SailDateServicesImpl extends BaseDataService<SailDateInfoEvent, SailingInfoResponse> implements SailDateServices {
+public class SailDateServicesImpl extends BaseDataService<SailDateInfoEvent, SailingInfoResponse, Void> implements SailDateServices {
 
     protected SailDateServicesImpl() {
         super(new SailDateInfoDataMapper());
@@ -32,7 +32,7 @@ public class SailDateServicesImpl extends BaseDataService<SailDateInfoEvent, Sai
                 Response<SailDateResponse> response = call.execute();
                 SailingInfoResponse sailingInfoResponse = response.body()
                         .getSailingInfo();
-                SailDateInfoEvent sailDateInfoEvent = getMapper().transform(sailingInfoResponse);
+                SailDateInfoEvent sailDateInfoEvent = getMapper().transform(sailingInfoResponse, null);
                 e.onNext(sailDateInfoEvent);
             } catch (IOException exception) {
                 e.onError(exception);

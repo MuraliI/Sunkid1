@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:padding="@dimen/itinerary_bottom_item_margin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:src="@drawable/icon_all_for_today"
+        android:contentDescription="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="@string/itinerary_list_bottom_title"
+        style="@style/AppTheme.PlannerBottomTitleText"
+        android:layout_marginTop="@dimen/itinerary_bottom_item_text_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:background="@color/grey"
+        android:layout_marginTop="@dimen/itinerary_bottom_item_text_margin"
+        android:layout_width="@dimen/itinerary_bottom_item_line_length"
+        android:layout_height="@dimen/itinerary_separator_thickness"/>
+
+    <TextView
+        android:id="@+id/text_itinerary_list_bottom_emergency"
+        android:text="@string/itinerary_list_bottom_emergency"
+        style="@style/AppTheme.PlannerBottomNormalText"
+        android:layout_marginTop="@dimen/itinerary_bottom_item_text_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_itinerary_list_bottom_legal"
+        android:text="@string/itinerary_list_bottom_legal"
+        style="@style/AppTheme.PlannerBottomNormalText"
+        android:layout_marginTop="@dimen/itinerary_bottom_item_text_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_itinerary_list_bottom_about"
+        android:text="@string/itinerary_list_bottom_about"
+        style="@style/AppTheme.PlannerBottomNormalText"
+        android:layout_marginTop="@dimen/itinerary_bottom_item_text_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

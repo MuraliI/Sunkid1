@@ -10,9 +10,11 @@ import com.rcl.excalibur.data.mapper.BaseDataMapper;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataMapper<O, I>> {
+public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDataMapper<O, I, T>> {
 
     private final M dataMapper;
     private final Class<I> claz;
@@ -22,19 +24,21 @@ public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataM
         this.claz = claz;
     }
 
-    protected BaseDataMapper<O, I> getMapper() {
+    protected BaseDataMapper<O, I, T> getMapper() {
         return dataMapper;
     }
 
     public abstract void create(@NonNull O input);
 
     public void create(List<O> inputList) {
-        ActiveAndroid.beginTransaction();
         try {
+            ActiveAndroid.beginTransaction();
             for (O item : inputList) {
                 create(item);
             }
             ActiveAndroid.setTransactionSuccessful();
+        } catch (Exception e) {
+            Timber.e(e.getMessage());
         } finally {
             ActiveAndroid.endTransaction();
         }
@@ -44,7 +48,7 @@ public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataM
         final List<I> entities = new Select()
                 .from(claz)
                 .execute();
-        return dataMapper.transform(entities);
+        return dataMapper.transform(entities, null);
     }
 
     public O get(@NonNull String column, final String value) {
@@ -52,7 +56,9 @@ public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataM
                 .from(claz)
                 .where(eq(column, value))
                 .executeSingle();
-        return dataMapper.transform(entity);
+        return dataMapper.transform(entity, null);
     }
+
+    public abstract void deleteAll();
 
 }

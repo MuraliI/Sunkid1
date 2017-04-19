@@ -4,12 +4,12 @@ package com.rcl.excalibur.data.mapper;
 import com.rcl.excalibur.data.entity.ActivityLevelEntity;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
+import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
 import com.rcl.excalibur.data.entity.DurationEntity;
 import com.rcl.excalibur.data.entity.LocationEntity;
 import com.rcl.excalibur.data.entity.MediaEntity;
 import com.rcl.excalibur.data.entity.MediaValueEntity;
-import com.rcl.excalibur.data.entity.OfferingEntity;
 import com.rcl.excalibur.data.entity.PreferenceEntity;
 import com.rcl.excalibur.data.entity.PreferenceValueEntity;
 import com.rcl.excalibur.data.entity.ProductEntity;
@@ -17,9 +17,9 @@ import com.rcl.excalibur.data.entity.RestrictionEntity;
 import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
 import com.rcl.excalibur.data.entity.TypeEntity;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
-import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
@@ -42,16 +42,10 @@ import java.util.List;
  * Mapper class used to transform {@link ProductEntity} (in the data layer) to {@link Product} in the
  * domain layer.
  */
-public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEntity> {
-
-    private OfferingDataMapper offeringEntityDataMapper;
-
-    public ProductEntityDataMapper() {
-        offeringEntityDataMapper = new OfferingDataMapper();
-    }
+public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEntity, Void> {
 
     @Override
-    public Product transform(final ProductEntity entity) {
+    public Product transform(final ProductEntity entity, Void additionalArg) {
         if (entity == null) {
             return null;
         }
@@ -79,7 +73,8 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductLongDescription(entity.getLongDescription());
         product.setProductMedia(transform(entity.getProductMedia()));
         product.setExperience(entity.getExperience());
-        product.setOfferings(offeringEntityDataMapper.transform(entity.getOfferings()));
+        product.setHighlighted(entity.isHighlighted());
+        product.setFeatured(entity.isFeatured());
         return product;
     }
 
@@ -290,20 +285,41 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         return productType;
     }
 
-    private List<ProductCategory> transform(CategoryEntity categoryEntity) {
+    private ProductCategory transform(CategoryEntity categoryEntity) {
 
-        ArrayList<ProductCategory> productCategories = new ArrayList<>();
         if (categoryEntity == null) {
-            return productCategories;
+            return null;
         }
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryDescription(categoryEntity.getDescription());
         productCategory.setCategoryId(categoryEntity.getCategoryId());
-        productCategory.setProductTags(transformProductTags(categoryEntity.getTags()));
-        productCategories.add(productCategory);
-        return productCategories;
+        productCategory.setCategoryName(categoryEntity.getName());
+        productCategory.setChildCategory(transformChildCategories(categoryEntity.getChildCategoryProducts()));
+
+        return productCategory;
     }
+
+    private List<ChildCategory> transformChildCategories(List<ChildCategoryProductEntity> entities) {
+
+        ArrayList<ChildCategory> childCategories = new ArrayList<>();
+
+        if (CollectionUtils.isEmpty(entities)) {
+            return childCategories;
+        }
+
+        for (ChildCategoryProductEntity childCategoryProductEntity : entities) {
+
+            ChildCategory childCategory = new ChildCategory();
+            childCategory.getItems().setCategoryDescription(childCategoryProductEntity.getDescription());
+            childCategory.getItems().setCategoryId(childCategoryProductEntity.getCategoryId());
+            childCategory.getItems().setCategoryName(childCategoryProductEntity.getName());
+            childCategories.add(childCategory);
+        }
+
+        return childCategories;
+    }
+
 
     private List<ProductTags> transformProductTags(String[] tags) {
 
@@ -323,11 +339,6 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             items.add(productTags);
         }
         return items;
-    }
-
-    private List<Offering> transformOfferings(List<OfferingEntity> list) {
-        OfferingDataMapper offeringDataMapper = new OfferingDataMapper();
-        return offeringDataMapper.transform(list);
     }
 
 }

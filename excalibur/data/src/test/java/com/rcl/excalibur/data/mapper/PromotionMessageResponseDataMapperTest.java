@@ -47,7 +47,7 @@ public class PromotionMessageResponseDataMapperTest {
     @Test
     public void transform() throws Exception {
 
-        PromotionMessage promotionMessage = promotionMessageResponseDataMapper.transform(entity1);
+        PromotionMessage promotionMessage = promotionMessageResponseDataMapper.transform(entity1, null);
         assertNotNull(promotionMessage);
         assertEquals(entity1.getCategoryId(), promotionMessage.getCategoryId());
         assertEquals(entity1.getLocationCode(), promotionMessage.getLocationCode());
@@ -62,7 +62,7 @@ public class PromotionMessageResponseDataMapperTest {
         entities.add(entity1);
         entities.add(entity2);
 
-        List<PromotionMessage> promotionMessageList = promotionMessageResponseDataMapper.transform(entities);
+        List<PromotionMessage> promotionMessageList = promotionMessageResponseDataMapper.transform(entities, null);
         assertNotNull(promotionMessageList);
         assertFalse(promotionMessageList.isEmpty());
         assertEquals(entities.size(), promotionMessageList.size());
