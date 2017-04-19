@@ -17,7 +17,6 @@ public class ShipView extends RelativeLayout {
     private View shipLabel;
     private int selectedPage;
     private float scrollOffset;
-    private int originalBottom = -1;
 
     public ShipView(Context context) {
         super(context);
@@ -118,9 +117,6 @@ public class ShipView extends RelativeLayout {
     }
 
     private void layoutShipOnOrigin() {
-        if (originalBottom == -1) {
-            originalBottom = ship.getBottom();
-        }
         ship.layout(ship.getLeft(), ship.getTop(), ship.getRight(), (int) (getBottom() * SHIP_ORIGINAL_SCALE));
     }
 
