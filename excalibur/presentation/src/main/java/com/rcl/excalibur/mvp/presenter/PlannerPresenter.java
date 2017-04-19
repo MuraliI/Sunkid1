@@ -61,9 +61,9 @@ public class PlannerPresenter {
         new Handler().postDelayed(() -> {
             SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
             List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
-            if (!items.isEmpty()) {
+//            if (!items.isEmpty()) {
                 view.showAllDayLayout();
-            }
+//            }
             items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
             view.addPlannerItems(items);
         }, DELAY);

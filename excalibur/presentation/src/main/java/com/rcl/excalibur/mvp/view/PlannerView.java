@@ -4,7 +4,6 @@ package com.rcl.excalibur.mvp.view;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +43,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private boolean isExpanded = false;
     private boolean initialized = false;
+    private boolean isAllDayNecessary = false;
 
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
@@ -71,7 +71,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     public void initAnimation() {
         animationGoIn = AnimationUtils.loadAnimation(getContext(), R.anim.planner_preview_slide_in);
-        slideUpAnim = AnimationUtils.loadAnimation(activity, R.anim.view_slide_up);
+        slideUpAnim = AnimationUtils.loadAnimation(getContext(), R.anim.view_slide_up);
     }
 
     public void initBottomSheetBehavior() {
@@ -100,11 +100,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                         if (isExpanded) {
                             return;
                         }
-                        if (slideOffset >= 0.7) {
+                        if (slideOffset >= 0.8) {
                             showHeadersView();
-                            //adapter.showAllHeaders();
-//                            allDayView.setVisibility(View.VISIBLE);
-
                         } else if (slideOffset <= 0.1) {
                             hideHeadersView();
                         }
@@ -134,7 +131,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                 view.setVisibility(View.INVISIBLE);
                 firstHeader = view;
             } else {
-                view.setBackgroundResource(R.drawable.background_planner_item_round);
+                view.setBackgroundResource(R.drawable.background_gradient_item_cue_card_round);
                 resizeItemView(view, initVerticalMargin, initHorizontalMargin);
             }
         }
@@ -155,9 +152,16 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private void showHeadersView() {
         if (firstHeader.getVisibility() == View.INVISIBLE) {
-            firstHeader.startAnimation(slideUpAnim);
+//            firstHeader.startAnimation(slideUpAnim);
             firstHeader.setVisibility(View.VISIBLE);
             changeBackgroundItems();
+        }
+        if (isAllDayNecessary) {
+//            allDayView.startAnimation(slideUpAnim);
+            allDayView.setVisibility(View.INVISIBLE);
+            firstHeader.setBackgroundResource(R.drawable.background_gradient_item_cue_card);
+        } else {
+            firstHeader.setBackgroundResource(R.drawable.background_gradient_item_cue_card_round);
         }
     }
 
@@ -165,14 +169,17 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         if (firstHeader.getVisibility() == View.VISIBLE) {
             firstHeader.setVisibility(View.INVISIBLE);
         }
+        if (allDayView.getVisibility() == View.VISIBLE) {
+            allDayView.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void changeBackgroundItems() {
         for (int i = 1; i < itemCount; i++) {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
-            if (view ==  null || getActivity() == null)
+            if (view == null || getActivity() == null)
                 return;
-            view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
+            view.setBackgroundResource(R.drawable.background_gradient_item_cue_card);
         }
     }
 
@@ -194,17 +201,15 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     public void showAllDayLayout() {
-        allDayLayout.setVisibility(View.VISIBLE);
+        isAllDayNecessary = true;
     }
 
     public void isShowingItems(int visibleItemCount) {
         if (initialized) {
             return;
         }
-
         itemCount = visibleItemCount;
         initItemsWithMargin();
-
         initialized = true;
     }
 }

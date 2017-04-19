@@ -49,6 +49,4 @@
     <!-- Email Activity -->
     <color name="email_editText_inactive">#40ffffff</color>
 
-    <color name="discover_item_background_end_color">#F8FBFF</color>
-
 </resources>
