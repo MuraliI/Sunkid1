@@ -80,6 +80,8 @@ public class ProductResponseDataMapperTest {
         productResponse1.setUpcharge(0);
         productResponse1.setProductReservationInformation("Arrive 15 minutes early, Wear closedtoed shoes");
         productResponse1.setExperience("Enjoy!");
+        productResponse1.setFeatured(true);
+        productResponse1.setHighlighted(true);
 
         productResponse2 = new ProductResponse();
         productResponse2.setProductId("100000002814023699");
@@ -416,6 +418,9 @@ public class ProductResponseDataMapperTest {
             assertEquals(productResponses.get(z).getProductType().getProductType(), productList.get(z).getProductType().getProductType());
             assertEquals(productResponses.get(z).getProductType().getProductTypeName(), productList.get(z).getProductType().getProductTypeName());
             assertEquals(productResponses.get(z).getProductType().getProductTypeId(), productList.get(z).getProductType().getProductTypeId());
+
+            assertEquals(productResponses.get(z).isHighlighted(), productList.get(z).isHighlighted());
+            assertEquals(productResponses.get(z).isFeatured(), productList.get(z).isFeatured());
 
             assertEquals(productResponses.get(z).getProductClass(), productList.get(z).getProductClass());
 

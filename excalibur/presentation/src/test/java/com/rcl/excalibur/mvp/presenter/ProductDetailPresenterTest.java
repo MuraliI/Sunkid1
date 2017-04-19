@@ -45,7 +45,8 @@ public class ProductDetailPresenterTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        presenter = new ProductDetailPresenter(view, getProductDbUseCase,getOfferingsDbUseCase);
+
+        presenter = new ProductDetailPresenter(view, getProductDbUseCase, getOfferingsDbUseCase);
         when(view.getActivity()).thenReturn(activity);
     }
 

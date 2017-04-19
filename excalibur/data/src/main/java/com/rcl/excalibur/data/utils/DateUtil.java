@@ -50,9 +50,7 @@ public final class DateUtil {
     public static String getTime(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        String hoursAndMinutes = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)) + String.valueOf(calendar.get(Calendar.MINUTE));
-
-        return hoursAndMinutes;
+        return String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)) + String.valueOf(calendar.get(Calendar.MINUTE));
     }
 
 

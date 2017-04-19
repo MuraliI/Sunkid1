@@ -2,6 +2,7 @@ package com.rcl.excalibur.data.service;
 
 
 import com.rcl.excalibur.data.mapper.OfferingResponseMapper;
+import com.rcl.excalibur.data.mapper.PriceResponseMapper;
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
 import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
 import com.rcl.excalibur.data.repository.OfferingDataRepository;
@@ -61,7 +62,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     public DiscoverServicesImpl(ProductRepository productRepository) {
         super(new ProductResponseDataMapper());
         this.productRepository = productRepository;
-        offeringResponseMapper = new OfferingResponseMapper((ProductResponseDataMapper) getMapper());
+        offeringResponseMapper = new OfferingResponseMapper((ProductResponseDataMapper) getMapper(), new PriceResponseMapper());
         offeringRepository = new OfferingDataRepository();
     }
 
