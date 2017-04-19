@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.domain.SailDateInfo;
+import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.ItineraryModel;
@@ -18,14 +20,20 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class DayPickerPresenter {
 
     private DayPickerView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
+    private GetSaildDateDbUseCase getSaildDateDbUseCase;
 
-    public DayPickerPresenter(DayPickerView view, GetSailingPreferenceUseCase getSailingPreferenceUseCase) {
+    public DayPickerPresenter(DayPickerView view,
+                              GetSailingPreferenceUseCase getSailingPreferenceUseCase,
+                              GetSaildDateDbUseCase getSaildDateDbUseCase) {
         this.view = view;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
+        this.getSaildDateDbUseCase = getSaildDateDbUseCase;
     }
 
     public void init() {
@@ -33,8 +41,17 @@ public class DayPickerPresenter {
         if (activity == null) {
             return;
         }
+        // Todo mode add presentation mapper and refactor for this block code
+        SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
+        int eventsize = sailDateInfo.getItinerary().getEvents().size();
+        String starDay = sailDateInfo.getItinerary().getEvents().get(0).getPort().getArrivalDate();
+        String endDay = sailDateInfo.getItinerary().getEvents().get(eventsize - 1).getPort().getArrivalDate();
+
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
+        view.setFotterDate(getFotterDate(starDay, endDay, activity.getResources()));
+        view.setHeader(sailDateInfo.getItinerary().getDescription(), getDayFromPreference());
+        ArrayList<EventModel> events = mockEventList(activity.getResources());
         ItineraryModel itineraryModel = mockItineraryModel(activity.getResources());
         List<EventModel> events = itineraryModel.getEvents();
         view.setFotterDate(mockFooterDate(activity.getResources()));
@@ -84,10 +101,7 @@ public class DayPickerPresenter {
         }
     }
 
-    public String mockFooterDate(Resources resources) {
-
-        String mockDateStart = "03/18/2017";
-        String mockDateEnd = "04/28/2017";
+    public String getFotterDate(String mockDateStart, String mockDateEnd, Resources resources) {
         String date = "";
         try {
             date = DateUtils.getFormatedDates(mockDateStart, mockDateEnd, resources);
