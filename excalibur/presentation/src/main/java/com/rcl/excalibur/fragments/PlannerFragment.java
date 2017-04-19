@@ -11,14 +11,13 @@ import android.view.ViewGroup;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.repository.OfferingDataRepository;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
-import com.rcl.excalibur.custom.itinerary.RoyalLinearLayoutManager;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.mvp.presenter.PlannerPresenter;
 import com.rcl.excalibur.mvp.view.PlannerView;
 
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 
-public class PlannerFragment extends Fragment implements FlexibleAdapter.OnItemClickListener, RoyalLinearLayoutManager.OnFirstTimeListener {
+public class PlannerFragment extends Fragment implements FlexibleAdapter.OnItemClickListener {
     private PlannerPresenter presenter;
 
     public static PlannerFragment newInstance() {
@@ -48,8 +47,4 @@ public class PlannerFragment extends Fragment implements FlexibleAdapter.OnItemC
         return true;
     }
 
-    @Override
-    public void isShowingItems(int visibleItemCount) {
-        presenter.isShowingItems(visibleItemCount);
-    }
 }

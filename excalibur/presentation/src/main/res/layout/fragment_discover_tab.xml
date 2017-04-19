@@ -4,34 +4,13 @@
     android:layout_height="match_parent"
     android:background="@color/transparent">
 
-    <ImageView
-        android:id="@+id/image_boat"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/text_title"
-        android:layout_below="@+id/home_header"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:src="@drawable/boat" />
-
-    <TextView
-        android:id="@+id/text_title"
-        style="@style/AppTheme.DiscoverPageTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_bar"
-        android:layout_centerHorizontal="true"
-        android:text="@string/discoverItem" />
-
-    <GridLayout
-        android:id="@+id/bottom_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/margin_small"
-        android:columnCount="@integer/discover_grid_columns"
-        android:rowCount="@integer/discover_grid_rows">
+        android:layout_above="@+id/discovery_second_row"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small">
 
         <LinearLayout
             android:id="@+id/button_dinning"
@@ -40,87 +19,38 @@
             android:layout_margin="@dimen/margin_xsmall"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/background_rounded_white">
+            android:background="@color/transparent">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_dining"
+                android:src="@drawable/ic_dinning"
                 android:layout_gravity="center"/>
 
             <TextView
                 style="@style/AppTheme.DiscoverButtonText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_gravity="center"
+                android:textColor="@color/white"
                 android:text="@string/dining" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/button_excursions"
+            android:id="@+id/button_activities"
             android:layout_width="@dimen/menu_button_width"
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
+            android:layout_toEndOf="@id/button_dinning"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/background_rounded_white">
+            android:background="@color/transparent">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_excursion"
-                android:layout_gravity="center"/>
-
-            <TextView
-                style="@style/AppTheme.DiscoverButtonText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:text="@string/shorex" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/button_spa"
-            android:layout_width="@dimen/menu_button_width"
-            android:layout_height="@dimen/menu_button_height"
-            android:layout_margin="@dimen/margin_xsmall"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/background_rounded_white">
-
-            <ImageView
-                android:layout_width="@dimen/ship_button_category_size"
-                android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_spa"
-                android:layout_gravity="center"/>
-
-            <TextView
-                style="@style/AppTheme.DiscoverButtonText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:text="@string/spa" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/button_shop"
-            android:layout_width="@dimen/menu_button_width"
-            android:layout_height="@dimen/menu_button_height"
-            android:layout_margin="@dimen/margin_xsmall"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="@drawable/background_rounded_white">
-
-            <ImageView
-                android:layout_width="@dimen/ship_button_category_size"
-                android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_shopping"
+                android:src="@drawable/ic_activities"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -128,7 +58,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/shopping" />
+                android:textColor="@color/white"
+
+                android:text="@string/royal_activity" />
 
         </LinearLayout>
 
@@ -138,13 +70,14 @@
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
             android:orientation="vertical"
+            android:layout_toEndOf="@id/button_activities"
             android:gravity="center"
-            android:background="@drawable/background_rounded_white">
+            android:background="@color/transparent">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_entertainment"
+                android:src="@drawable/ic_entertainment"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -153,23 +86,88 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="@color/white"
                 android:text="@string/entertainment" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/button_activities"
+            android:id="@+id/button_excursions"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_margin="@dimen/margin_xsmall"
+            android:layout_toEndOf="@+id/button_entertainment"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/transparent">
+
+            <ImageView
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:src="@drawable/ic_excursions"
+                android:layout_gravity="center"/>
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:text="@string/shorex" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/discovery_second_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_small">
+
+        <LinearLayout
+            android:id="@+id/button_spa"
             android:layout_width="@dimen/menu_button_width"
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/background_rounded_white">
+            android:background="@color/transparent">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_activity"
+                android:src="@drawable/ic_spa"
+                android:layout_gravity="center"/>
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:text="@string/spa" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/button_shop"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_margin="@dimen/margin_xsmall"
+            android:layout_toEndOf="@+id/button_spa"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@color/transparent">
+
+            <ImageView
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:src="@drawable/ic_shops"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -177,23 +175,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/royal_activity" />
+                android:textColor="@color/white"
+                android:text="@string/shopping" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/button_search"
+            android:id="@+id/button_guest_services"
             android:layout_width="@dimen/menu_button_width"
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
+            android:layout_toEndOf="@+id/button_shop"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/background_rounded_blue">
+            android:background="@color/transparent">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/main_button_search"
+                android:src="@drawable/ic_services"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -201,12 +201,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/search"
+                android:maxLines="2"
+                android:text="@string/services"
                 android:textColor="@color/white" />
 
         </LinearLayout>
 
-    </GridLayout>
 
+    </RelativeLayout>
 </RelativeLayout>
 

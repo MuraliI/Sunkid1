@@ -46,7 +46,7 @@ public class SubCategoryResponseDataMapperTest {
 
     @Test
     public void transform() throws Exception {
-        SubCategory subCategory = subCategoryResponseDataMapper.transform(subCategoryResponse);
+        SubCategory subCategory = subCategoryResponseDataMapper.transform(subCategoryResponse, null);
 
         assertNotNull(subCategory);
 
