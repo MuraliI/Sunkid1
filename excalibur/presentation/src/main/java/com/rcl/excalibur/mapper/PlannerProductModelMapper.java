@@ -95,6 +95,8 @@ public class PlannerProductModelMapper {
         model.setOperatinghours(calculateOperatingHours(allDayStartDate, allDayEndDate));
         model.setStartDate(allDayStartDate);
         model.setEndDate(allDayEndDate);
+        model.setHighlighted(product.isHighlighted());
+        model.setFeatured(product.isFeatured());
         model.setAllDayProduct(true);
 
         return model;
@@ -109,6 +111,8 @@ public class PlannerProductModelMapper {
         model.setStartDate(startDate);
         model.setEndDate(calculateEndDate(offering.getDate(), product.getProductDuration()));
         model.setOperatinghours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
+        model.setFeatured(product.isFeatured());
+        model.setHighlighted(product.isHighlighted());
 
         return model;
     }

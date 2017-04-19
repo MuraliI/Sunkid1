@@ -71,6 +71,8 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductLongDescription(entity.getLongDescription());
         product.setProductMedia(transform(entity.getProductMedia()));
         product.setExperience(entity.getExperience());
+        product.setHighlighted(entity.isHighlighted());
+        product.setFeatured(entity.isFeatured());
         return product;
     }
 

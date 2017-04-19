@@ -77,6 +77,8 @@ public class ProductResponseDataMapperTest {
         productResponse1.setUpcharge(0);
         productResponse1.setProductReservationInformation("Arrive 15 minutes early, Wear closedtoed shoes");
         productResponse1.setExperience("Enjoy!");
+        productResponse1.setFeatured(true);
+        productResponse1.setHighlighted(true);
 
         productResponse2 = new ProductResponse();
         productResponse2.setProductId("100000002814023699");
@@ -245,7 +247,7 @@ public class ProductResponseDataMapperTest {
 
     @Test
     public void transform() throws Exception {
-        Product product = productResponseDataMapper.transform(productResponse1);
+        Product product = productResponseDataMapper.transform(productResponse1, null);
 
         assertNotNull(product);
 
@@ -385,7 +387,7 @@ public class ProductResponseDataMapperTest {
         productResponses.add(productResponse1);
         productResponses.add(productResponse2);
 
-        List<Product> productList = productResponseDataMapper.transform(productResponses);
+        List<Product> productList = productResponseDataMapper.transform(productResponses, null);
 
         assertNotNull(productList);
         assertFalse(productList.isEmpty());
@@ -402,6 +404,9 @@ public class ProductResponseDataMapperTest {
             assertEquals(productResponses.get(z).getProductType().getProductType(), productList.get(z).getProductType().getProductType());
             assertEquals(productResponses.get(z).getProductType().getProductTypeName(), productList.get(z).getProductType().getProductTypeName());
             assertEquals(productResponses.get(z).getProductType().getProductTypeId(), productList.get(z).getProductType().getProductTypeId());
+
+            assertEquals(productResponses.get(z).isHighlighted(), productList.get(z).isHighlighted());
+            assertEquals(productResponses.get(z).isFeatured(), productList.get(z).isFeatured());
 
             assertEquals(productResponses.get(z).getProductClass(), productList.get(z).getProductClass());
 
