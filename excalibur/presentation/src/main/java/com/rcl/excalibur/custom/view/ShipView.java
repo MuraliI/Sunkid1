@@ -8,13 +8,16 @@ import android.widget.RelativeLayout;
 
 import com.rcl.excalibur.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class ShipView extends RelativeLayout {
     private static final float SHIP_NEXT_TAB_SCALE = 0.75f;
     private static final float SHIP_ORIGINAL_SCALE = 0.5f;
-    private View ship;
-    private View leftCloud;
-    private View rightCloud;
-    private View shipLabel;
+    @Bind(R.id.image_ship) View ship;
+    @Bind(R.id.image_cloud_left) View leftCloud;
+    @Bind(R.id.image_cloud_right) View rightCloud;
+    @Bind(R.id.text_ship_status) View shipLabel;
     private int selectedPage;
     private float scrollOffset;
 
@@ -37,10 +40,7 @@ public class ShipView extends RelativeLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        ship = findViewById(R.id.image_ship);
-        leftCloud = findViewById(R.id.image_cloud_left);
-        rightCloud = findViewById(R.id.image_cloud_right);
-        shipLabel = findViewById(R.id.text_ship_status);
+        ButterKnife.bind(this);
     }
 
     @Override
