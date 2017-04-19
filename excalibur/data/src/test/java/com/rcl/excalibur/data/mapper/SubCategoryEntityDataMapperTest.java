@@ -44,7 +44,7 @@ public class SubCategoryEntityDataMapperTest {
 
     @Test
     public void transform() {
-        SubCategory subCategory = subCategoryEntityDataMapper.transform(subCategoryEntity);
+        SubCategory subCategory = subCategoryEntityDataMapper.transform(subCategoryEntity, null);
 
         assertNotNull(subCategory);
         assertEquals(subCategory.getCategoryDescription(), subCategoryEntity.getDescription());

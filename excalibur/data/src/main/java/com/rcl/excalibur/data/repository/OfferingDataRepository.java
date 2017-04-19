@@ -11,6 +11,7 @@ import com.rcl.excalibur.data.entity.ProductEntity;
 import com.rcl.excalibur.data.mapper.OfferingDataMapper;
 import com.rcl.excalibur.data.mapper.OfferingEntityDataMapper;
 import com.rcl.excalibur.data.mapper.PriceDataMapper;
+import com.rcl.excalibur.data.mapper.PriceEntityDataMapper;
 import com.rcl.excalibur.data.mapper.ProductEntityDataMapper;
 import com.rcl.excalibur.data.utils.DBUtil;
 import com.rcl.excalibur.data.utils.DateUtil;
@@ -31,7 +32,7 @@ public class OfferingDataRepository extends BaseDataRepository<Offering, Offerin
 
     public OfferingDataRepository() {
         super(new OfferingDataMapper(new PriceDataMapper(), new ProductEntityDataMapper()), OfferingEntity.class);
-        entityDataMapper = new OfferingEntityDataMapper();
+        entityDataMapper = new OfferingEntityDataMapper(new PriceEntityDataMapper());
     }
 
     @Override

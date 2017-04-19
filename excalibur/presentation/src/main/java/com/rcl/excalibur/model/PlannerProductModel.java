@@ -21,6 +21,8 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     private Calendar startDate;
     private Calendar endDate;
     private boolean isAllDayProduct;
+    private boolean isFeatured;
+    private boolean isHighlighted;
 
     @DrawableRes
     public int getResourceIdCategoryIcon() {
@@ -65,6 +67,22 @@ public class PlannerProductModel extends ProductInformationViewType implements C
 
     public int getState() {
         return isAllDayProduct ? STATE_ALL_DAY : PartOfDayUtils.getPartOfDayState(startDate);
+    }
+
+    public boolean isFeatured() {
+        return isFeatured;
+    }
+
+    public void setFeatured(boolean featured) {
+        isFeatured = featured;
+    }
+
+    public boolean isHighlighted() {
+        return isHighlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        isHighlighted = highlighted;
     }
 
     @Override
