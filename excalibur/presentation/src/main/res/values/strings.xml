@@ -24,7 +24,7 @@
     <string name="price_range">Price Range</string>
     <string name="prices_from">Prices from</string>
     <string name="price_free">Free</string>
-
+    <string name="deck_label">Deck</string>
 
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>

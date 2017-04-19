@@ -9,7 +9,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_gradient_item_discover"/>
+        android:contentDescription="@null"
+        android:background="@drawable/background_gradient_item_cue_card"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -92,7 +92,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         holder.productPromoted.setVisibility(new Random().nextBoolean() ? View.VISIBLE : View.GONE);
         holder.productName.setText(plannerProductModel.getProductName());
         holder.productOperatingHours.setText(plannerProductModel.getOperatingHours());
-        holder.productLocation.setText(plannerProductModel.getLocation());
+        holder.productVenue.setText(plannerProductModel.getVenue());
         holder.productCategoryIcon.setImageResource(plannerProductModel.getResourceIdCategoryIcon());
         holder.productDeckAndDirection.setText(plannerProductModel.getLocation());
     }
@@ -100,7 +100,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
     public class ViewHolder extends FlexibleViewHolder {
         @Bind(R.id.text_planner_product_name) TextView productName;
         @Bind(R.id.text_planner_product_operating_hours) TextView productOperatingHours;
-        @Bind(R.id.text_planner_product_location) TextView productLocation;
+        @Bind(R.id.text_planner_product_venue) TextView productVenue;
         @Bind(R.id.text_itinerary_planner_deck_and_direction) TextView productDeckAndDirection;
         @Bind(R.id.image_itinerary_product_picture) ImageView productImage;
         @Bind(R.id.image_itinerary_product_icon) ImageView productCategoryIcon;

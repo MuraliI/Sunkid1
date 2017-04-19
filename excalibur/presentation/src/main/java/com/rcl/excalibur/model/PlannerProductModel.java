@@ -24,6 +24,7 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     private Calendar endDate;
     private boolean isAllDayProduct;
 
+    @DrawableRes
     public int getResourceIdCategoryIcon() {
         return resourceIdCategoryIcon;
     }
