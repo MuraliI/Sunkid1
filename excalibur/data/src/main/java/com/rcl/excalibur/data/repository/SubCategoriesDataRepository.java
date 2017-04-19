@@ -15,7 +15,7 @@ import com.rcl.excalibur.domain.repository.SubCategoryRepository;
 
 import java.util.List;
 
-public class SubCategoriesDataRepository extends BaseDataRepository<SubCategory, SubCategoryEntity, SubCategoryEntityDataMapper>
+public class SubCategoriesDataRepository extends BaseDataRepository<SubCategory, SubCategoryEntity, Void, SubCategoryEntityDataMapper>
         implements SubCategoryRepository {
 
     public SubCategoriesDataRepository() {

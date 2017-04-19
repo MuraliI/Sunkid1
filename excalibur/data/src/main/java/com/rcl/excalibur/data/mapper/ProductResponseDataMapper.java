@@ -1,5 +1,6 @@
 package com.rcl.excalibur.data.mapper;
 
+import com.rcl.excalibur.data.service.response.ChildCategoryResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductActivityLevelResponse;
@@ -13,10 +14,10 @@ import com.rcl.excalibur.data.service.response.ProductPreferenceValueResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionAnswerResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
-import com.rcl.excalibur.data.service.response.ProductTagsResponse;
 import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
@@ -30,7 +31,6 @@ import com.rcl.excalibur.domain.ProductPreference;
 import com.rcl.excalibur.domain.ProductPreferenceValue;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductRestrictionAnswer;
-import com.rcl.excalibur.domain.ProductTags;
 import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.SellingPrice;
 
@@ -38,16 +38,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 //FIXME this class is violating SRP (Single Responsibility Principle) take out all other transforms add them through composition
-public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductResponse> {
-
-    private OfferingResponseMapper offeringResponseMapper;
-
-    public ProductResponseDataMapper() {
-        offeringResponseMapper = new OfferingResponseMapper();
-    }
+public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductResponse, Void> {
 
     @Override
-    public Product transform(ProductResponse productResponse) {
+    public Product transform(ProductResponse productResponse, Void additionalArg) {
         Product product = null;
         if (productResponse != null) {
             product = new Product();
@@ -76,7 +70,6 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             product.setProductUpcharge(productResponse.getUpcharge());
             product.setFeatured(productResponse.isFeatured());
             product.setHighlighted(productResponse.isHighlighted());
-            product.setOfferings(offeringResponseMapper.transform(productResponse.getOffering()));
         }
         return product;
     }
@@ -306,45 +299,45 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         return productType;
     }
 
-    private List<ProductCategory> transform(List<ProductCategoryResponse> productCategoryResponses) {
+    private ProductCategory transform(List<ProductCategoryResponse> productCategoryResponses) {
 
-        ArrayList<ProductCategory> productCategories = new ArrayList<>();
         if (CollectionUtils.isEmpty(productCategoryResponses)) {
-            return productCategories;
-        }
-        for (ProductCategoryResponse productCategoryResponse : productCategoryResponses) {
-
-            if (productCategoryResponse == null) {
-                continue;
-            }
-            ProductCategory productCategory = new ProductCategory();
-            productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
-            productCategory.setCategoryId(productCategoryResponse.getCategoryId());
-            productCategory.setProductTags(transformProductTags(productCategoryResponse.getProductTags()));
-            productCategories.add(productCategory);
+            return new ProductCategory();
         }
 
-        return productCategories;
+        ProductCategoryResponse productCategoryResponse = productCategoryResponses.get(0);
+
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
+        productCategory.setCategoryId(productCategoryResponse.getCategoryId());
+        productCategory.setCategoryName(productCategoryResponse.getCategoryName());
+        productCategory.setChildCategory(transformChildCategories(productCategoryResponse.getChildCategory()));
+
+        return productCategory;
     }
 
-    private List<ProductTags> transformProductTags(List<ProductTagsResponse> productTagsResponses) {
+    private List<ChildCategory> transformChildCategories(List<ChildCategoryResponse> childCategoryResponses) {
 
-        ArrayList<ProductTags> items = new ArrayList<>();
+        ArrayList<ChildCategory> items = new ArrayList<>();
 
-        if (CollectionUtils.isEmpty(productTagsResponses)) {
+        if (CollectionUtils.isEmpty(childCategoryResponses)) {
             return items;
         }
+        for (ChildCategoryResponse childCategoryResponse : childCategoryResponses) {
 
-        for (ProductTagsResponse productTagsResponse : productTagsResponses) {
-
-            if (productTagsResponse == null) {
+            if (childCategoryResponse == null) {
                 continue;
             }
-            ProductTags productTags = new ProductTags();
-            productTags.setDescription(productTagsResponse.getDescription());
-            productTags.setTagId(productTagsResponse.getTagId());
-            items.add(productTags);
+
+            ChildCategory childCategory = new ChildCategory();
+            childCategory.getItems().setCategoryId(childCategoryResponse.getItems().getCategoryId());
+            childCategory.getItems().setCategoryName(childCategoryResponse.getItems().getCategoryName());
+            childCategory.getItems().setCategoryDescription(childCategoryResponse.getItems().getCategoryDescription());
+
+            items.add(childCategory);
         }
+
         return items;
     }
+
 }

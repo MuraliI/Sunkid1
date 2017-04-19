@@ -34,6 +34,12 @@
         <item name="android:textSize">28sp</item>
     </style>
 
+    <style name="AppTheme.Headline2" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_bold</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
     <style name="AppTheme.Body" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/proxima_nova_regular</item>
         <item name="android:textSize">@dimen/body_detail_font_size_description</item>
@@ -164,13 +170,30 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <!-- Fonts.Itinerary -->
-    <style name="AppTheme.ItinteraryGreetingText" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_regular</item>
-        <item name="android:textSize">26sp</item>
+    <!-- Fonts.Planner -->
+    <style name="AppTheme.PlannerHeaderText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_bold</item>
+        <item name="android:textSize">@dimen/planner_header_title</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="AppTheme.PlannerHeaderExpandableText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_regular</item>
+        <item name="android:textSize">@dimen/planner_header_expandable</item>
+        <item name="android:textColor">@color/plan_list_lightblue</item>
+    </style>
+
+    <style name="AppTheme.PlannerBottomTitleText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_bold</item>
+        <item name="android:textSize">@dimen/planner_bottom_title</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="AppTheme.PlannerBottomNormalText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_medium</item>
+        <item name="android:textSize">@dimen/planner_bottom_text</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <!--<item name="tabMaxWidth">@dimen/tab_max_width</item>-->
@@ -245,9 +268,11 @@
     </style>
 
     <style name="AppTheme.ProductTitle" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_regular</item>
+        <item name="fontPath">@string/roboto_bold</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/itinerary_product_card_text_dark_grey</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <style name="AppTheme.ProductDate" parent="@android:style/Widget.TextView">

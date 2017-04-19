@@ -6,8 +6,8 @@ import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class RoyalLinearSmoothScroller extends LinearSmoothScroller {
-    public RoyalLinearSmoothScroller(Context context) {
+class RoyalLinearSmoothScroller extends LinearSmoothScroller {
+    RoyalLinearSmoothScroller(Context context) {
         super(context);
     }
 

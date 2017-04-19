@@ -7,7 +7,24 @@ public class ProductCategory {
 
     private String categoryId;
     private String categoryDescription;
-    private List<ProductTags> productTags;
+    private String categoryName;
+    private List<ChildCategory> childCategory;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public List<ChildCategory> getChildCategory() {
+        return childCategory;
+    }
+
+    public void setChildCategory(List<ChildCategory> childCategory) {
+        this.childCategory = childCategory;
+    }
 
     public String getCategoryId() {
         return categoryId;
@@ -25,11 +42,5 @@ public class ProductCategory {
         this.categoryDescription = categoryDescription;
     }
 
-    public List<ProductTags> getProductTags() {
-        return productTags;
-    }
 
-    public void setProductTags(List<ProductTags> productTags) {
-        this.productTags = productTags;
-    }
 }

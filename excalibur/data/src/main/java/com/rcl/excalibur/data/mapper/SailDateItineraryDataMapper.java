@@ -14,11 +14,11 @@ import com.rcl.excalibur.domain.SailPort;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerary, DateItineraryResponse> {
+public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerary, DateItineraryResponse, Void> {
 
     @Nullable
     @Override
-    public SailDateItinerary transform(DateItineraryResponse itineraryResponse) {
+    public SailDateItinerary transform(DateItineraryResponse itineraryResponse, Void additionalArg) {
         if (itineraryResponse == null)
             return null;
 
