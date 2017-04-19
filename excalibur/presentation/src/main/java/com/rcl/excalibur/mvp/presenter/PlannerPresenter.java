@@ -5,8 +5,8 @@ import android.support.v4.util.SparseArrayCompat;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.adapters.planner.stickylib.PlannerHeader;
-import com.rcl.excalibur.adapters.planner.stickylib.PlannerProductItem;
+import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
+import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
