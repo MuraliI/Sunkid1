@@ -150,7 +150,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                         }
 
                         int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
-                        for (int i = 0; i <= visibleChildren; i++) {
+                        for (int i = 1; i <= visibleChildren; i++) {
                             View view = recyclerView.getLayoutManager().findViewByPosition(i);
                             int verticalMargin = getMargin(slideOffset, initVerticalMargin);
                             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
@@ -197,9 +197,14 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     private void setInitialViewState(View view) {
-        resizeItemView(view, initVerticalMargin, initHorizontalMargin);
-        setItemViewBackground(view, R.drawable.background_rounded_cue_card);
-        changeSeparatorVisibility(view, View.INVISIBLE);
+        // TODO: improve this
+        if (view.findViewById(R.id.layout_planner_header_container) != null) {
+            view.setVisibility(View.INVISIBLE);
+        } else {
+            resizeItemView(view, initVerticalMargin, initHorizontalMargin);
+            setItemViewBackground(view, R.drawable.background_rounded_cue_card);
+            changeSeparatorVisibility(view, View.INVISIBLE);
+        }
     }
 
     private void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
@@ -227,7 +232,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             return;
         }
         View separator = ButterKnife.findById(parent, R.id.view_planner_item_separator);
-        separator.setVisibility(visibility);
+        if (separator != null) {
+            separator.setVisibility(visibility);
+        }
     }
 
     private void showHeadersView() {
