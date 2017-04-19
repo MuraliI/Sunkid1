@@ -13,7 +13,7 @@
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
         <include
-            android:id="@+id/layout_all_day"
+            android:id="@+id/layout_planner_all_day"
             layout="@layout/planner_item_header"
             android:visibility="gone" />
 

@@ -5,13 +5,15 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.adapters.planner.stickylib.PlannerHeader;
 import com.rcl.excalibur.custom.itinerary.RoyalLinearLayoutManager;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
@@ -27,11 +29,14 @@ import timber.log.Timber;
 public class PlannerView extends FragmentView<PlannerFragment, Void, Void> implements RoyalLinearLayoutManager.OnFirstTimeListener {
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    @Bind(R.id.layout_planner_all_day) View allDayView;
     @Bind(R.id.layout_planner_container) LinearLayout containerLayout;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 
+    private View firstHeader;
     private BottomSheetBehavior bottomSheetBehavior;
+    private Animation slideUpAnim;
 
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
@@ -47,7 +52,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
             return;
         }
         adapter = new FlexibleAdapter<>(null, null, true);
-        adapter.setDisplayHeadersAtStartUp(false).setStickyHeaders(true);
+        adapter.setDisplayHeadersAtStartUp(true).setStickyHeaders(true);
         recyclerView.setLayoutManager(new RoyalLinearLayoutManager(activity, this));
         recyclerView.setAdapter(adapter);
 
@@ -56,6 +61,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
         initVerticalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_vertical_margin);
 
         initBS();
+
+        slideUpAnim = AnimationUtils.loadAnimation(activity, R.anim.view_slide_up);
     }
 
     public void initBS() {
@@ -95,13 +102,12 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
                         Timber.i("slideOffset = %s", slideOffset);
 
                         if (slideOffset >= 0.7) {
+                            showHeadersView();
                             //adapter.showAllHeaders();
-                            PlannerHeader header = (PlannerHeader) adapter.getSectionHeader(0);
-                            if (header != null) {
-                                Timber.i("TITLE %s ", header.getTitle());
-                            }
-                        } else {
-                            //adapter.hideAllHeaders();
+//                            allDayView.setVisibility(View.VISIBLE);
+
+                        } else if (slideOffset <= 0.1) {
+                            hideHeadersView();
                         }
 
                         //animate.animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start();
@@ -110,7 +116,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
                         // int verticalMargin = Math.round((1 - slideOffset) * initVerticalMargin);
                         //int horizontalMargin = Math.round((1 - slideOffset) * initHorizontalMargin);
 
-                        for (int i = 0; i < itemCount; i++) {
+                        for (int i = 1; i < itemCount; i++) {
                             View view = recyclerView.getLayoutManager().findViewByPosition(i);
                             int verticalMargin = getMargin(slideOffset, initVerticalMargin);
                             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
@@ -129,9 +135,17 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
     private void initItems() {
         for (int i = 0; i < itemCount; i++) {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
-            resizeItemView(view, initVerticalMargin, initHorizontalMargin);
+            if (view == null) {
+                return;
+            }
+            if (adapter.isHeader(adapter.getItem(i))) {
+                view.setVisibility(View.INVISIBLE);
+                firstHeader = view;
+            } else {
+                view.setBackgroundResource(R.drawable.background_planner_item_round);
+                resizeItemView(view, initVerticalMargin, initHorizontalMargin);
+            }
         }
-        //recyclerView.requestLayout();
     }
 
     private void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
@@ -145,6 +159,29 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
 
         if (initialized) {
             view.requestLayout();
+        }
+    }
+
+    private void showHeadersView() {
+        if (firstHeader.getVisibility() == View.INVISIBLE) {
+            firstHeader.startAnimation(slideUpAnim);
+            firstHeader.setVisibility(View.VISIBLE);
+            changeBackgroundItems();
+        }
+    }
+
+    private void hideHeadersView() {
+        if (firstHeader.getVisibility() == View.VISIBLE) {
+            firstHeader.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void changeBackgroundItems() {
+        for (int i = 1; i < itemCount; i++) {
+            View view = recyclerView.getLayoutManager().findViewByPosition(i);
+            if (view ==  null || getActivity() == null)
+                return;
+            view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
         }
     }
 
