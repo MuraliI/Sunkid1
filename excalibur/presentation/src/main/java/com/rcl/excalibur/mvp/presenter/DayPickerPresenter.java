@@ -9,6 +9,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.model.EventModel;
+import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.mvp.view.DayPickerView;
 import com.rcl.excalibur.utils.DateUtils;
@@ -16,8 +17,6 @@ import com.rcl.excalibur.utils.DateUtils;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class DayPickerPresenter {
 
@@ -36,9 +35,10 @@ public class DayPickerPresenter {
         }
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
+        ItineraryModel itineraryModel = mockItineraryModel(activity.getResources());
+        List<EventModel> events = itineraryModel.getEvents();
         view.setFotterDate(mockFooterDate(activity.getResources()));
-        view.setHeader("Some description", getDayFromPreference());
-        ArrayList<EventModel> events = mockEventList(activity.getResources());
+        view.setHeader(itineraryModel.getDescription(), getDay(itineraryModel));
         showCollectionInView(events);
     }
 
@@ -50,19 +50,26 @@ public class DayPickerPresenter {
         }
     }
 
-    private String getDayFromPreference() {
-        if (!TextUtils.isEmpty(getSailingPreferenceUseCase.getDay())) {
-            Timber.i("Preferences are not null " + getSailingPreferenceUseCase.getDay());
-            return getSailingPreferenceUseCase.getDay();
-        } else {
+    private String getDay(ItineraryModel itineraryModel) {
+        String day = "";
+        List<EventModel> events = itineraryModel.getEvents();
+        EventModel firstEvent = events.get(0);
 
-        }
-        if (DateUtils.isIncomingDateBeforeCurrent("03/18/2017")) {
-            Timber.i("The date 03/18/2017 is before current");
+        if (!TextUtils.isEmpty(getSailingPreferenceUseCase.getDay())) {
+            day = getSailingPreferenceUseCase.getDay();
         } else {
-            Timber.i("The date is after current");
+            if (itineraryModel.getIndexCurrentDay() == -1) {
+                if (!TextUtils.isEmpty(firstEvent.getDay())) {
+                    day = firstEvent.getDay();
+                }
+            } else {
+                EventModel todayEvent = events.get(itineraryModel.getIndexCurrentDay());
+                if (todayEvent != null && TextUtils.isEmpty(todayEvent.getDay())) {
+                    day = todayEvent.getDay();
+                }
+            }
         }
-        return "Day 1";
+        return day;
     }
 
     public class AdapterObserver extends DefaultPresentObserver<EventModel, DayPickerPresenter> {
@@ -90,7 +97,7 @@ public class DayPickerPresenter {
         return date;
     }
 
-    public ArrayList<EventModel> mockEventList(Resources resources) {
+    public ItineraryModel mockItineraryModel(Resources resources) {
 
         ArrayList<EventModel> events = new ArrayList<>();
         EventModel event1 = new EventModel();
@@ -110,7 +117,12 @@ public class DayPickerPresenter {
         events.add(event1);
         events.add(event2);
 
-        return events;
+        ItineraryModel itineraryModel = new ItineraryModel();
+        itineraryModel.setDescription("Description");
+        itineraryModel.setEvents(events);
+        itineraryModel.setIndexCurrentDay(1);
+
+        return itineraryModel;
     }
 
 }

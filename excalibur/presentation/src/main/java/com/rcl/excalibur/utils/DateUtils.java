@@ -24,14 +24,33 @@ public final class DateUtils {
         final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         boolean isBefore = false;
         try {
-            Date startDate = df.parse(date);
+            Date incomingDate = df.parse(date);
             Date today = Calendar.getInstance().getTime();
             String reportDate = df.format(today);
             Date currentDate = df.parse(reportDate);
-            if (startDate.compareTo(currentDate) >= 0) {
+            if (incomingDate.compareTo(currentDate) >= 0) {
                 isBefore = false;
             } else {
                 isBefore = true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return isBefore;
+    }
+
+    public static boolean isCurrentAfterIncomingDate(String date) {
+        final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        boolean isBefore = true;
+        try {
+            Date incomingDate = df.parse(date);
+            Date today = Calendar.getInstance().getTime();
+            String reportDate = df.format(today);
+            Date currentDate = df.parse(reportDate);
+            if (incomingDate.compareTo(currentDate) >= 0) {
+                isBefore = true;
+            } else {
+                isBefore = false;
             }
         } catch (ParseException e) {
             e.printStackTrace();

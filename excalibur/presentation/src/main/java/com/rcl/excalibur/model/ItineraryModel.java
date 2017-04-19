@@ -6,7 +6,16 @@ import java.util.List;
 public class ItineraryModel {
 
     private String description;
+    private int indexCurrentDay = -1;
     private List<EventModel> events;
+
+    public int getIndexCurrentDay() {
+        return indexCurrentDay;
+    }
+
+    public void setIndexCurrentDay(int indexCurrentDay) {
+        this.indexCurrentDay = indexCurrentDay;
+    }
 
     public String getDescription() {
         return description;
