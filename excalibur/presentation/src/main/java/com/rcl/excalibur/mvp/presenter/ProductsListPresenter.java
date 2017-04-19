@@ -91,7 +91,7 @@ public class ProductsListPresenter {
         }
     }
 
-    public class AdapterObserver extends DefaultPresentObserver<Product, ProductsListPresenter> {
+    private class AdapterObserver extends DefaultPresentObserver<Product, ProductsListPresenter> {
 
         AdapterObserver(ProductsListPresenter presenter) {
             super(presenter);

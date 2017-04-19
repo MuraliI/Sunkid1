@@ -60,6 +60,11 @@
             android:label="@string/empty_string"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".expandable.activity.ExpandableListActivity"
+            android:label="@string/empty_string"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="AA_DB_NAME"
             android:value="testDB.db" />
@@ -85,7 +90,7 @@
                     com.rcl.excalibur.data.entity.PriceEntity,
                     com.rcl.excalibur.data.entity.OfferingEntity,
                     com.rcl.excalibur.data.entity.SubCategoryEntity,
-                    com.rcl.excalibur.data.entity.ChildCategoryEntity" />
+                    com.rcl.excalibur.data.entity.ChildCategoryEntity,
+                    com.rcl.excalibur.data.entity.ChildCategoryProductEntity"/>
     </application>
-
 </manifest>

@@ -16,11 +16,11 @@ import java.util.List;
  * Mapper class used to transform {@link SubCategoryEntity} (in the data layer) to {@link SubCategory} in the
  * domain layer.
  */
-public class SubCategoryEntityDataMapper extends BaseDataMapper<SubCategory, SubCategoryEntity> {
+public class SubCategoryEntityDataMapper extends BaseDataMapper<SubCategory, SubCategoryEntity, Void> {
 
 
     @Override
-    public SubCategory transform(@NonNull SubCategoryEntity model) {
+    public SubCategory transform(@NonNull SubCategoryEntity model, Void additionalArg) {
         SubCategory subCategory = null;
         if (model != null) {
             subCategory = new SubCategory();
