@@ -21,7 +21,7 @@ public class DayInformationUtilsTest {
     public void testShipLocationNamePort() throws Exception {
         List<SailDateEvent> sailDateEvents = initSailDateEvent_withPortData("04/24/2017");
         String shipLocation = DayInformationUtils.getShipLocation(sailDateEvents, 2);
-        assertEquals(shipLocation, "NASSAU, BAHAMAS");
+        assertEquals(shipLocation, "At NASSAU, BAHAMAS");
     }
 
     @Test
@@ -34,22 +34,29 @@ public class DayInformationUtilsTest {
     @Test
     public void testArrivalDebarkTime_todayAtPort() throws Exception {
         List<SailDateEvent> sailDateEvents = initSailDateEvent_withPortData("04/19/2017");
-        String arrivalDebarkTime = DayInformationUtils.getArrivalDebarkTime(sailDateEvents, 2);
-        assertEquals(arrivalDebarkTime, "Debarking at 7:00am - Embarking at 2:00pm");
+        String arrivalDebarkTime = DayInformationUtils.getArrivalDebarkDescription(sailDateEvents, 2);
+        assertEquals(arrivalDebarkTime, "Arriving at 7:00 AM; Departing at 2:00 PM");
     }
 
     @Test
     public void testArrivalDebarkTime_todayAtSea() throws Exception {
         List<SailDateEvent> sailDateEvents = initSailDateEvent_withPortData("04/19/2017");
-        String arrivalDebarkTime = DayInformationUtils.getArrivalDebarkTime(sailDateEvents, 3);
-        assertEquals(arrivalDebarkTime, "Arriving at CHARLOTTE AMALIE, ST. THOMAS at 10:00am");
+        String arrivalDebarkTime = DayInformationUtils.getArrivalDebarkDescription(sailDateEvents, 3);
+        assertEquals(arrivalDebarkTime, "Next Port: FORT LAUDERDALE, FLORIDA");
     }
 
     @Test
-    public void testArrivalDebarkTime_otherDay() throws Exception {
-        List<SailDateEvent> sailDateEvents = initSailDateEvent_withPortData("04/26/2017");
-        String arrivalDebarkTime = DayInformationUtils.getArrivalDebarkTime(sailDateEvents, 4);
-        assertEquals(arrivalDebarkTime, "");
+    public void testArrivalDebarkTime_lastDay() throws Exception {
+        List<SailDateEvent> sailDateEvents = initSailDateEvent_withPortData("04/30/2017");
+        String arrivalDebarkTime = DayInformationUtils.getArrivalDebarkDescription(sailDateEvents, 4);
+        assertEquals(arrivalDebarkTime, "Arriving at 6:15 AM");
+    }
+
+    @Test
+    public void testArrivalDebarkTime_firstDay() throws Exception {
+        List<SailDateEvent> sailDateEvents = initSailDateEvent_withPortData("04/23/2017");
+        String arrivalDebarkTime = DayInformationUtils.getArrivalDebarkDescription(sailDateEvents, 1);
+        assertEquals(arrivalDebarkTime, "Departing at 4:30 PM");
     }
 
     private List<SailDateEvent> initSailDateEvent_withPortData(String date) {
@@ -98,13 +105,13 @@ public class DayInformationUtilsTest {
         sailDateEvents.add(sailDateEvent);
 
         sailPort = new SailPort();
-        sailPort.setPortCode("STT");
-        sailPort.setPortName("CHARLOTTE AMALIE, ST. THOMAS");
-        sailPort.setPortType("DOCKED");
+        sailPort.setPortCode("FLL");
+        sailPort.setPortName("FORT LAUDERDALE, FLORIDA");
+        sailPort.setPortType("DEBARK");
         sailPort.setArrivalDate(date);
-        sailPort.setDepartureDate("04/26/2017");
-        sailPort.setArrivalTime(100000);
-        sailPort.setDepartureTime(190000);
+        sailPort.setDepartureDate("04/30/2017");
+        sailPort.setArrivalTime(61500);
+        sailPort.setDepartureTime(0);
 
         sailDateEvent = new SailDateEvent();
         sailDateEvent.setDay(4);

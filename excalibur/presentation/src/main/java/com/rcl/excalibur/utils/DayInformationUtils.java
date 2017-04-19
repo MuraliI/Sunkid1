@@ -5,14 +5,7 @@ import android.support.annotation.NonNull;
 import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.domain.SailPort;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import timber.log.Timber;
 
 public final class DayInformationUtils {
 
@@ -23,19 +16,19 @@ public final class DayInformationUtils {
     private static final String PORT_TYPE_AT_SEA = "At Sea";
     private static final int DEFAULT_TIME_VALUE = 0;
     private static final int MIDDAY_TIME_VALUE = 12;
-    private static final String DATE_FORMAT = "MM/dd/yyyy";
-    private static final String ARRIVING_AT = " at ";
-    private static final String ARRIVING = "Arriving";
-    private static final String TIME_FORMAT_AM = "am";
-    private static final String TIME_FORMAT_PM = "pm";
+    private static final String ARRIVING_AT_UPER = "At ";
+    private static final String TIME_FORMAT_AM = " AM";
+    private static final String TIME_FORMAT_PM = " PM";
     private static final String TIME_FORMAT_SEPARATOR = ":";
     private static final int MAX_TIME_HOUR = 120000;
     private static final int BEGIN_TIME_INDEX = 0;
     private static final int MIDDLE_TIME_INDEX = 2;
     private static final int END_TIME_INDEX = 4;
-    private static final String DEBARKING = "Debarking";
-    private static final String EMBARKING = "Embarking";
-    private static final String DEBARKING_EMBARKING_SEPARATOR = " - ";
+    private static final String NEXT_PORT = "Next Port: ";
+    private static final String ARRIVING_AT = "Arriving at ";
+    private static final String DEPARTING_AT = "Departing at ";
+    private static final String ARRIVING_DEPARTING_SEPARATOR = "; ";
+    private static final int FIRST_DAY = 1;
 
     private DayInformationUtils() {
     }
@@ -48,7 +41,7 @@ public final class DayInformationUtils {
         if (modelPortType.equalsIgnoreCase(PORT_TYPE_EMBARK)
                 || modelPortType.equalsIgnoreCase(PORT_TYPE_DOCKED)
                 || modelPortType.equalsIgnoreCase(PORT_TYPE_DEBARK)) {
-            shipLocation = sailPort.getPortName();
+            shipLocation = ARRIVING_AT_UPER + sailPort.getPortName();
         } else if (modelPortType.equalsIgnoreCase(PORT_TYPE_CRUISING)) {
             shipLocation = PORT_TYPE_AT_SEA;
         } else {
@@ -57,36 +50,22 @@ public final class DayInformationUtils {
         return shipLocation;
     }
 
-    public static String getArrivalDebarkTime(@NonNull List<SailDateEvent> events, int day) {
-        StringBuilder arrivalDebarkTime = new StringBuilder();
+    public static String getArrivalDebarkDescription(@NonNull List<SailDateEvent> events, int day) {
+        StringBuilder arrivalDebarkTime;
         SailPort sailPort = getSailPortByDay(events, day);
 
-        Date date = null;
-        try {
-            date = (new SimpleDateFormat(DATE_FORMAT, Locale.US)).parse(sailPort.getArrivalDate());
-        } catch (ParseException e) {
-            Timber.d(e.getMessage());
-        }
-
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, DEFAULT_TIME_VALUE);
-        today.set(Calendar.MINUTE, DEFAULT_TIME_VALUE);
-        today.set(Calendar.SECOND, DEFAULT_TIME_VALUE);
-        today.set(Calendar.MILLISECOND, DEFAULT_TIME_VALUE);
-        Calendar arrivalDate = Calendar.getInstance();
-        arrivalDate.setTime(date);
-
-        if (arrivalDate.equals(today)) {
-            if (getShipLocation(events, day).equalsIgnoreCase(PORT_TYPE_AT_SEA)) {
-                if ((day + 1) <= events.size()) {
-                    sailPort = getSailPortByDay(events, (day + 1));
-                }
-                arrivalDebarkTime = appendValues(ARRIVING, ARRIVING_AT, sailPort.getPortName(), ARRIVING_AT,
-                        getTimeFormat(sailPort.getArrivalTime()));
-            } else {
-                arrivalDebarkTime = appendValues(DEBARKING, ARRIVING_AT, getTimeFormat(sailPort.getArrivalTime()),
-                        DEBARKING_EMBARKING_SEPARATOR, EMBARKING, ARRIVING_AT, getTimeFormat(sailPort.getDepartureTime()));
+        if (day == FIRST_DAY) {
+            arrivalDebarkTime = appendValues(DEPARTING_AT, getTimeFormat(sailPort.getDepartureTime()));
+        } else if (day == events.size()) {
+            arrivalDebarkTime = appendValues(ARRIVING_AT, getTimeFormat(sailPort.getArrivalTime()));
+        } else if (getShipLocation(events, day).equalsIgnoreCase(PORT_TYPE_AT_SEA)) {
+            if ((day + 1) <= events.size()) {
+                sailPort = getSailPortByDay(events, (day + 1));
             }
+            arrivalDebarkTime = appendValues(NEXT_PORT, sailPort.getPortName());
+        } else {
+            arrivalDebarkTime = appendValues(ARRIVING_AT, getTimeFormat(sailPort.getArrivalTime()),
+                    ARRIVING_DEPARTING_SEPARATOR, DEPARTING_AT, getTimeFormat(sailPort.getDepartureTime()));
         }
 
         return arrivalDebarkTime.toString();
