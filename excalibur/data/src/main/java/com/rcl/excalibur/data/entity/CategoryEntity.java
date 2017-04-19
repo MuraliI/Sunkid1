@@ -27,10 +27,13 @@ public class CategoryEntity extends Model {
     private ProductEntity product;
 
 
+    public CategoryEntity() {
+        super();
+    }
+
     public List<ChildCategoryProductEntity> getChildCategoryProducts() {
         return getMany(ChildCategoryProductEntity.class, ChildCategoryProductEntity.COLUMN_CATEGORY);
     }
-
 
     public String getName() {
         return name;
@@ -46,10 +49,6 @@ public class CategoryEntity extends Model {
 
     public void setProduct(ProductEntity product) {
         this.product = product;
-    }
-
-    public CategoryEntity() {
-        super();
     }
 
     public String getCategoryId() {

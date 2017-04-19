@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = SubCategoryEntity.TABLE_NAME)
 public class SubCategoryEntity extends Model {
 
-    public static final String TABLE_NAME = "category";
+    public static final String TABLE_NAME = "sub_category";
     public static final String COLUMN_SUB_CATEGORY_ID = "sub_category_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DESCRIPTION = "description";

@@ -14,7 +14,6 @@ import com.rcl.excalibur.data.service.response.ProductPreferenceValueResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionAnswerResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
-import com.rcl.excalibur.data.service.response.ProductTagsResponse;
 import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
 import com.rcl.excalibur.data.utils.CollectionUtils;
@@ -32,7 +31,6 @@ import com.rcl.excalibur.domain.ProductPreference;
 import com.rcl.excalibur.domain.ProductPreferenceValue;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductRestrictionAnswer;
-import com.rcl.excalibur.domain.ProductTags;
 import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.SellingPrice;
 
@@ -354,24 +352,4 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         return items;
     }
 
-    private List<ProductTags> transformProductTags(List<ProductTagsResponse> productTagsResponses) {
-
-        ArrayList<ProductTags> items = new ArrayList<>();
-
-        if (CollectionUtils.isEmpty(productTagsResponses)) {
-            return items;
-        }
-
-        for (ProductTagsResponse productTagsResponse : productTagsResponses) {
-
-            if (productTagsResponse == null) {
-                continue;
-            }
-            ProductTags productTags = new ProductTags();
-            productTags.setDescription(productTagsResponse.getDescription());
-            productTags.setTagId(productTagsResponse.getTagId());
-            items.add(productTags);
-        }
-        return items;
-    }
 }

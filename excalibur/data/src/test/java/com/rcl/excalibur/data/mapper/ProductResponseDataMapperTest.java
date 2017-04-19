@@ -1,6 +1,8 @@
 package com.rcl.excalibur.data.mapper;
 
 
+import com.rcl.excalibur.data.service.response.ChildCategoryResponse;
+import com.rcl.excalibur.data.service.response.ItemsResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductActivityLevelResponse;
@@ -14,7 +16,6 @@ import com.rcl.excalibur.data.service.response.ProductPreferenceValueResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionAnswerResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
-import com.rcl.excalibur.data.service.response.ProductTagsResponse;
 import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
 import com.rcl.excalibur.domain.MediaItem;
@@ -43,7 +44,9 @@ public class ProductResponseDataMapperTest {
 
     ProductTypeResponse productTypeResponse;
 
-    ProductTagsResponse productTagsResponse;
+    ItemsResponse itemsResponse;
+    ChildCategoryResponse childCategoryResponse;
+
     ProductCategoryResponse productCategoryResponse;
 
     ProductActivityLevelResponse productActivityLevelResponse;
@@ -99,13 +102,22 @@ public class ProductResponseDataMapperTest {
 
         productResponse2.setProductClass("SERVICE");
 
-        productTagsResponse = new ProductTagsResponse();
-        productTagsResponse.setDescription("Musical");
-        productTagsResponse.setTagId("1232");
+
+        itemsResponse = new ItemsResponse();
+        itemsResponse.setCategoryDescription("Child Description Response");
+        itemsResponse.setCategoryName("Child Name Response");
+        itemsResponse.setCategoryId("Child Id Response");
+
+        childCategoryResponse = new ChildCategoryResponse();
+        childCategoryResponse.setItems(itemsResponse);
+
         productCategoryResponse = new ProductCategoryResponse();
         productCategoryResponse.setCategoryDescription("Entertainment");
         productCategoryResponse.setCategoryId("333333");
-      //  productCategoryResponse.setProductTags(Arrays.asList(productTagsResponse));
+        productCategoryResponse.setCategoryName("Entertainment");
+        productCategoryResponse.setChildCategory(Arrays.asList(childCategoryResponse));
+
+
         productResponse1.setProductCategory(Arrays.asList(productCategoryResponse));
 
         productResponse2.setProductCategory(Arrays.asList(productCategoryResponse));
@@ -263,11 +275,13 @@ public class ProductResponseDataMapperTest {
         for (int i = 0; i < productResponse1.getProductCategory().size(); i++) {
             assertEquals(productResponse1.getProductCategory().get(i).getCategoryDescription(), product.getProductCategory().get(i).getCategoryDescription());
             assertEquals(productResponse1.getProductCategory().get(i).getCategoryId(), product.getProductCategory().get(i).getCategoryId());
+            assertEquals(productResponse1.getProductCategory().get(i).getCategoryName(), product.getProductCategory().get(i).getCategoryName());
 
-         /*   for (int j = 0; j < productResponse1.getProductCategory().get(i).getProductTags().size(); j++) {
-                assertEquals(productResponse1.getProductCategory().get(i).getProductTags().get(j).getDescription(), product.getProductCategory().get(i).getProductTags().get(j).getDescription());
-                assertEquals(productResponse1.getProductCategory().get(i).getProductTags().get(j).getTagId(), product.getProductCategory().get(i).getProductTags().get(j).getTagId());
-            }*/
+            for (int j = 0; j < productResponse1.getProductCategory().get(i).getChildCategory().size(); j++) {
+                assertEquals(productResponse1.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryDescription(), product.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryDescription());
+                assertEquals(productResponse1.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryName(), product.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryName());
+                assertEquals(productResponse1.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryId(), product.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryId());
+            }
         }
 
         assertEquals(productResponse1.getProductRank(), product.getProductRank());
@@ -408,11 +422,13 @@ public class ProductResponseDataMapperTest {
             for (int i = 0; i < productResponses.get(z).getProductCategory().size(); i++) {
                 assertEquals(productResponses.get(z).getProductCategory().get(i).getCategoryDescription(), productList.get(z).getProductCategory().get(i).getCategoryDescription());
                 assertEquals(productResponses.get(z).getProductCategory().get(i).getCategoryId(), productList.get(z).getProductCategory().get(i).getCategoryId());
+                assertEquals(productResponses.get(z).getProductCategory().get(i).getCategoryName(), productList.get(z).getProductCategory().get(i).getCategoryName());
 
-              /*  for (int j = 0; j < productResponses.get(z).getProductCategory().get(i).getProductTags().size(); j++) {
-                    assertEquals(productResponses.get(z).getProductCategory().get(i).getProductTags().get(j).getDescription(), productList.get(z).getProductCategory().get(i).getProductTags().get(j).getDescription());
-                    assertEquals(productResponses.get(z).getProductCategory().get(i).getProductTags().get(j).getTagId(), productList.get(z).getProductCategory().get(i).getProductTags().get(j).getTagId());
-                }*/
+                for (int j = 0; j < productResponses.get(z).getProductCategory().get(i).getChildCategory().size(); j++) {
+                    assertEquals(productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryDescription(), productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryDescription());
+                    assertEquals(productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryName(), productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryName());
+                    assertEquals(productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryId(), productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryId());
+                }
             }
 
             assertEquals(productResponses.get(z).getProductRank(), productList.get(z).getProductRank());
