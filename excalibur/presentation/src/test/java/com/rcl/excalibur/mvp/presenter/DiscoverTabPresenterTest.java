@@ -21,14 +21,10 @@ import static org.mockito.Mockito.when;
 public class DiscoverTabPresenterTest {
 
     DiscoverTabPresenter presenter;
-    @Mock
-    DiscoverTabView view;
-    @Mock
-    GetProductsUseCase getProductsUseCase;
-    @Mock
-    GetSaildDateUseCase getSaildDateUseCase;
-    @Mock
-    BaseActivity activity;
+    @Mock DiscoverTabView view;
+    @Mock GetProductsUseCase getProductsUseCase;
+    @Mock GetSaildDateUseCase getSaildDateUseCase;
+    @Mock BaseActivity activity;
 
     @Before
     public void setUp() throws Exception {
