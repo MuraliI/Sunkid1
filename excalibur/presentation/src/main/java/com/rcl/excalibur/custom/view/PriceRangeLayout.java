@@ -14,10 +14,10 @@ import com.rcl.excalibur.R;
 
 public class PriceRangeLayout extends LinearLayout {
 
-    public static final int DEFAULT_MAX_RANGE = 4;
-    public static final int DEFAULT_VALUE = 0;
-    public static final int DEFAULT_ON_COLOR = Color.BLACK;
-    public static final int DEFAULT_OFF_COLOR = Color.GRAY;
+    private static final int DEFAULT_MAX_RANGE = 4;
+    private static final int DEFAULT_VALUE = 0;
+    private static final int DEFAULT_ON_COLOR = Color.BLACK;
+    private static final int DEFAULT_OFF_COLOR = Color.GRAY;
 
     private ImageView[] dollars;
     private LinearLayout rootLayout;

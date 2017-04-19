@@ -83,7 +83,7 @@
                 android:id="@+id/view_itinerary_product_price_range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:maxRange="@integer/itinerary_product_item_max_range"
+                app:maxRange="@integer/planner_product_item_max_range"
                 app:offColor="@color/grey"
                 app:onColor="@color/black" />
         </LinearLayout>

@@ -30,7 +30,7 @@
     <integer name="layout_weight_1">1</integer>
     <integer name="layout_weight_0">0</integer>
 
-    <!-- Itinerary view -->
-    <integer name="itinerary_product_item_max_range" >4</integer>
+    <!-- Planner view -->
+    <integer name="planner_product_item_max_range">4</integer>
 
 </resources>
