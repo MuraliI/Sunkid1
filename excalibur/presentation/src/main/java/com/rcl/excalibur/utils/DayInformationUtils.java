@@ -1,7 +1,6 @@
 package com.rcl.excalibur.utils;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.domain.SailPort;
@@ -41,63 +40,9 @@ public final class DayInformationUtils {
     private DayInformationUtils() {
     }
 
-    @Nullable
-    public static String getShipLocation(@NonNull SailPort sailPort) {
-        String shipLocation;
-        String modelPortType = sailPort.getPortType();
-        if (modelPortType.equalsIgnoreCase(PORT_TYPE_EMBARK)
-                || modelPortType.equalsIgnoreCase(PORT_TYPE_DOCKED)
-                || modelPortType.equalsIgnoreCase(PORT_TYPE_DEBARK)) {
-            shipLocation = sailPort.getPortName();
-        } else if (modelPortType.equalsIgnoreCase(PORT_TYPE_CRUISING)) {
-            shipLocation = PORT_TYPE_AT_SEA;
-        } else {
-            shipLocation = null;
-        }
-        return shipLocation;
-    }
-
-    @Nullable
-    public static String getArrivalDebarkTime(@NonNull SailPort sailPort) {
-        StringBuilder arrivalDebarkTime = new StringBuilder();
-
-        Date date = null;
-        try {
-            date = (new SimpleDateFormat(DATE_FORMAT, Locale.US)).parse(sailPort.getArrivalDate());
-        } catch (ParseException e) {
-            Timber.d(e.getMessage());
-        }
-
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, DEFAULT_TIME_VALUE);
-        today.set(Calendar.MINUTE, DEFAULT_TIME_VALUE);
-        today.set(Calendar.SECOND, DEFAULT_TIME_VALUE);
-        today.set(Calendar.MILLISECOND, DEFAULT_TIME_VALUE);
-        Calendar arrivalDate = Calendar.getInstance();
-        arrivalDate.setTime(date);
-
-        if (arrivalDate.equals(today)) {
-            if (getShipLocation(sailPort).equalsIgnoreCase(PORT_TYPE_AT_SEA)) {
-                arrivalDebarkTime = appendValues(ARRIVING, ARRIVING_AT, sailPort.getPortName(), ARRIVING_AT,
-                        getTimeFormat(sailPort.getArrivalTime()));
-            } else {
-                arrivalDebarkTime = appendValues(DEBARKING, ARRIVING_AT, getTimeFormat(sailPort.getArrivalTime()),
-                        DEBARKING_EMBARKING_SEPARATOR, EMBARKING, ARRIVING_AT, getTimeFormat(sailPort.getDepartureTime()));
-            }
-        }
-
-        return arrivalDebarkTime.toString();
-    }
-
-    @Nullable
     public static String getShipLocation(@NonNull List<SailDateEvent> events, int day) {
         String shipLocation;
-        SailPort sailPort = new SailPort();
-        for (SailDateEvent sailPortEventElement : events) {
-            if (sailPortEventElement.getDay() == day) {
-                sailPort = sailPortEventElement.getPort();
-            }
-        }
+        SailPort sailPort = getSailPortByDay(events, day);
 
         String modelPortType = sailPort.getPortType();
         if (modelPortType.equalsIgnoreCase(PORT_TYPE_EMBARK)
@@ -107,20 +52,14 @@ public final class DayInformationUtils {
         } else if (modelPortType.equalsIgnoreCase(PORT_TYPE_CRUISING)) {
             shipLocation = PORT_TYPE_AT_SEA;
         } else {
-            shipLocation = null;
+            shipLocation = "";
         }
         return shipLocation;
     }
 
-    @Nullable
     public static String getArrivalDebarkTime(@NonNull List<SailDateEvent> events, int day) {
         StringBuilder arrivalDebarkTime = new StringBuilder();
-        SailPort sailPort = new SailPort();
-        for (SailDateEvent sailPortEventElement : events) {
-            if (sailPortEventElement.getDay() == day) {
-                sailPort = sailPortEventElement.getPort();
-            }
-        }
+        SailPort sailPort = getSailPortByDay(events, day);
 
         Date date = null;
         try {
@@ -139,12 +78,8 @@ public final class DayInformationUtils {
 
         if (arrivalDate.equals(today)) {
             if (getShipLocation(events, day).equalsIgnoreCase(PORT_TYPE_AT_SEA)) {
-                if ((day + 1) < events.size()) {
-                    for (SailDateEvent sailPortEventElement : events) {
-                        if (sailPortEventElement.getDay() == (day + 1)) {
-                            sailPort = sailPortEventElement.getPort();
-                        }
-                    }
+                if ((day + 1) <= events.size()) {
+                    sailPort = getSailPortByDay(events, (day + 1));
                 }
                 arrivalDebarkTime = appendValues(ARRIVING, ARRIVING_AT, sailPort.getPortName(), ARRIVING_AT,
                         getTimeFormat(sailPort.getArrivalTime()));
@@ -157,21 +92,34 @@ public final class DayInformationUtils {
         return arrivalDebarkTime.toString();
     }
 
-    private static String getTimeFormat(@NonNull int arrivalTime) {
-        String arrivalTimeString = String.valueOf(arrivalTime);
-        int endString = arrivalTimeString.length();
-        String timeAmPm;
-        String timeHour;
-        String timeMinute = getStringTimeData(arrivalTimeString, endString, DEFAULT_TIME_VALUE, true);
-        if (arrivalTime >= MAX_TIME_HOUR) {
-            timeAmPm = TIME_FORMAT_PM;
-            timeHour = getStringTimeData(arrivalTimeString, endString, MIDDAY_TIME_VALUE, false);
-        } else {
-            timeAmPm = TIME_FORMAT_AM;
-            timeHour = getStringTimeData(arrivalTimeString, endString, DEFAULT_TIME_VALUE, false);
+    private static SailPort getSailPortByDay(@NonNull List<SailDateEvent> events, int day) {
+        SailPort sailPort = new SailPort();
+        for (SailDateEvent sailPortEventElement : events) {
+            if (sailPortEventElement.getDay() == day) {
+                sailPort = sailPortEventElement.getPort();
+            }
         }
+        return sailPort;
+    }
 
-        StringBuilder time = appendValues(timeHour, TIME_FORMAT_SEPARATOR, timeMinute, timeAmPm);
+    private static String getTimeFormat(@NonNull int arrivalTime) {
+        StringBuilder time = new StringBuilder();
+        if (arrivalTime > 0) {
+            String arrivalTimeString = String.valueOf(arrivalTime);
+            int endString = arrivalTimeString.length();
+            String timeAmPm;
+            String timeHour;
+            String timeMinute = getStringTimeData(arrivalTimeString, endString, DEFAULT_TIME_VALUE, true);
+            if (arrivalTime >= MAX_TIME_HOUR) {
+                timeAmPm = TIME_FORMAT_PM;
+                timeHour = getStringTimeData(arrivalTimeString, endString, MIDDAY_TIME_VALUE, false);
+            } else {
+                timeAmPm = TIME_FORMAT_AM;
+                timeHour = getStringTimeData(arrivalTimeString, endString, DEFAULT_TIME_VALUE, false);
+            }
+
+            time = appendValues(timeHour, TIME_FORMAT_SEPARATOR, timeMinute, timeAmPm);
+        }
 
         return time.toString();
     }
@@ -191,7 +139,12 @@ public final class DayInformationUtils {
     private static StringBuilder appendValues(@NonNull String... values) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int position = 0; position < values.length; position++) {
-            stringBuilder.append(values[position]);
+            if (values[position].isEmpty()) {
+                return new StringBuilder();
+            } else {
+                stringBuilder.append(values[position]);
+            }
+
         }
         return stringBuilder;
     }
