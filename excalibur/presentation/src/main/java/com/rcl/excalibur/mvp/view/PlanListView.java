@@ -28,6 +28,7 @@ public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverI
     public static final int POSITION_SPA = 3;
     public static final int POSITION_SHOREX = 4;
     public static final int POSITION_ENTERTAINMENT = 5;
+    public static final int POSITION_GUEST_SERVICES = 6;
 
     public PlanListView(PlanListActivity activity) {
         super(activity);
@@ -72,6 +73,10 @@ public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverI
             case POSITION_ENTERTAINMENT:
                 fragment = newInstance(ENTERTAINMENT);
                 categorySelected = activity.getString(R.string.category_entertainment);
+                break;
+            case POSITION_GUEST_SERVICES:
+                fragment = newInstance(POSITION_GUEST_SERVICES);
+                categorySelected = activity.getString(R.string.category_guest_services);
                 break;
             default:
                 Preconditions.unreachable();

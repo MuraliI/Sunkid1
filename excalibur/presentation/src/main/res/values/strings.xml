@@ -98,6 +98,7 @@
     <string name="category_shopping">SHOPPING</string>
     <string name="category_shorex">SHOREX</string>
     <string name="category_entertainment">ENTERTAINMENT</string>
+    <string name="category_guest_services">GUEST_SERVICES</string>
 
     <string name="adults">Adults</string>
     <string name="children">Children</string>

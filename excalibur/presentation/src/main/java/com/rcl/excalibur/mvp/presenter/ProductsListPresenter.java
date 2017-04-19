@@ -54,6 +54,9 @@ public class ProductsListPresenter {
             case ProductsListFragment.ENTERTAINMENT:
                 categorySelected = activity.getString(R.string.category_entertainment);
                 break;
+            case ProductsListFragment.GUEST_SERVICES:
+                categorySelected = activity.getString(R.string.category_guest_services);
+                break;
             default:
                 categorySelected = activity.getString(R.string.category_royal_activity);
         }

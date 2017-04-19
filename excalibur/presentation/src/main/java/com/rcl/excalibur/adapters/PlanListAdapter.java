@@ -8,6 +8,7 @@ import com.rcl.excalibur.data.utils.Preconditions;
 
 import static com.rcl.excalibur.fragments.ProductsListFragment.DINING;
 import static com.rcl.excalibur.fragments.ProductsListFragment.ENTERTAINMENT;
+import static com.rcl.excalibur.fragments.ProductsListFragment.GUEST_SERVICES;
 import static com.rcl.excalibur.fragments.ProductsListFragment.ROYAL_ACTIVITY;
 import static com.rcl.excalibur.fragments.ProductsListFragment.SHOPPING;
 import static com.rcl.excalibur.fragments.ProductsListFragment.SHOREX;
@@ -22,6 +23,7 @@ public class PlanListAdapter extends FragmentStatePagerAdapter {
     private static final int POSITION_SPA = 3;
     private static final int POSITION_SHOREX = 4;
     private static final int POSITION_ENTERTAINMENT = 5;
+    private static final int POSITION_GUEST_SERVICES = 6;
     private static final int NUM_TABS = 6;
 
     public PlanListAdapter(FragmentManager fm) {
@@ -48,6 +50,8 @@ public class PlanListAdapter extends FragmentStatePagerAdapter {
                 return newInstance(SHOREX);
             case POSITION_ENTERTAINMENT:
                 return newInstance(ENTERTAINMENT);
+            case GUEST_SERVICES:
+                return newInstance(GUEST_SERVICES);
             default:
                 Preconditions.unreachable();
                 return null;
