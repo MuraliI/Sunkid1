@@ -114,6 +114,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                             bottomSheetBehavior.setPeekHeight(peekHeight);
                             containerLayout.startAnimation(animationGoIn);
                         }
+
                         // TODO: Remove before send PR, this is only to know the current state of BS
                         switch (newState) {
                             case BottomSheetBehavior.STATE_DRAGGING:
@@ -139,9 +140,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                     @Override
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                         bottomSheetIsSliding = true;
+
                         if (isExpanded) {
                             return;
                         }
+
                         int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
                         for (int i = 0; i <= visibleChildren; i++) {
                             View view = recyclerView.getLayoutManager().findViewByPosition(i);
