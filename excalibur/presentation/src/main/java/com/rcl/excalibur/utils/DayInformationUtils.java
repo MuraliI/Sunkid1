@@ -3,12 +3,14 @@ package com.rcl.excalibur.utils;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.domain.SailPort;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
@@ -76,6 +78,74 @@ public final class DayInformationUtils {
 
         if (arrivalDate.equals(today)) {
             if (getShipLocation(sailPort).equalsIgnoreCase(PORT_TYPE_AT_SEA)) {
+                arrivalDebarkTime = appendValues(ARRIVING, ARRIVING_AT, sailPort.getPortName(), ARRIVING_AT,
+                        getTimeFormat(sailPort.getArrivalTime()));
+            } else {
+                arrivalDebarkTime = appendValues(DEBARKING, ARRIVING_AT, getTimeFormat(sailPort.getArrivalTime()),
+                        DEBARKING_EMBARKING_SEPARATOR, EMBARKING, ARRIVING_AT, getTimeFormat(sailPort.getDepartureTime()));
+            }
+        }
+
+        return arrivalDebarkTime.toString();
+    }
+
+    @Nullable
+    public static String getShipLocation(@NonNull List<SailDateEvent> events, int day) {
+        String shipLocation;
+        SailPort sailPort = new SailPort();
+        for (SailDateEvent sailPortEventElement : events) {
+            if (sailPortEventElement.getDay() == day) {
+                sailPort = sailPortEventElement.getPort();
+            }
+        }
+
+        String modelPortType = sailPort.getPortType();
+        if (modelPortType.equalsIgnoreCase(PORT_TYPE_EMBARK)
+                || modelPortType.equalsIgnoreCase(PORT_TYPE_DOCKED)
+                || modelPortType.equalsIgnoreCase(PORT_TYPE_DEBARK)) {
+            shipLocation = sailPort.getPortName();
+        } else if (modelPortType.equalsIgnoreCase(PORT_TYPE_CRUISING)) {
+            shipLocation = PORT_TYPE_AT_SEA;
+        } else {
+            shipLocation = null;
+        }
+        return shipLocation;
+    }
+
+    @Nullable
+    public static String getArrivalDebarkTime(@NonNull List<SailDateEvent> events, int day) {
+        StringBuilder arrivalDebarkTime = new StringBuilder();
+        SailPort sailPort = new SailPort();
+        for (SailDateEvent sailPortEventElement : events) {
+            if (sailPortEventElement.getDay() == day) {
+                sailPort = sailPortEventElement.getPort();
+            }
+        }
+
+        Date date = null;
+        try {
+            date = (new SimpleDateFormat(DATE_FORMAT, Locale.US)).parse(sailPort.getArrivalDate());
+        } catch (ParseException e) {
+            Timber.d(e.getMessage());
+        }
+
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, DEFAULT_TIME_VALUE);
+        today.set(Calendar.MINUTE, DEFAULT_TIME_VALUE);
+        today.set(Calendar.SECOND, DEFAULT_TIME_VALUE);
+        today.set(Calendar.MILLISECOND, DEFAULT_TIME_VALUE);
+        Calendar arrivalDate = Calendar.getInstance();
+        arrivalDate.setTime(date);
+
+        if (arrivalDate.equals(today)) {
+            if (getShipLocation(events, day).equalsIgnoreCase(PORT_TYPE_AT_SEA)) {
+                if ((day + 1) < events.size()) {
+                    for (SailDateEvent sailPortEventElement : events) {
+                        if (sailPortEventElement.getDay() == (day + 1)) {
+                            sailPort = sailPortEventElement.getPort();
+                        }
+                    }
+                }
                 arrivalDebarkTime = appendValues(ARRIVING, ARRIVING_AT, sailPort.getPortName(), ARRIVING_AT,
                         getTimeFormat(sailPort.getArrivalTime()));
             } else {
