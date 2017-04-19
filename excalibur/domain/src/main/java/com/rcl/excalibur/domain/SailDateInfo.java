@@ -1,7 +1,7 @@
 package com.rcl.excalibur.domain;
 
 
-public class SailDateInfoEvent {
+public class SailDateInfo {
     private String shipCode;
     private int duration;
     private SailDateItinerary itinerary;
