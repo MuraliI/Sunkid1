@@ -88,7 +88,7 @@ public class PlanListPresenter {
                 type = ROYAL_ACTIVITY;
                 categorySelected = view.getActivity().getString(R.string.royal_activity);
                 idCategory = ID_ACYIVITY;
-                iconCategory = R.drawable.ic_dining_color;
+                iconCategory = R.drawable.icon_services_color;
                 break;
             case POSITION_DINING:
                 type = DINING;
@@ -145,8 +145,9 @@ public class PlanListPresenter {
             adapter.addFragment(ProductsListFragment.newInstance(type, null), null);
         } else {
             for (ChildCategory childCategory : childCategories) {
+                String categoryId = childCategory.getItems().getCategoryId();
                 String categoryName = childCategory.getItems().getCategoryName();
-                adapter.addFragment(ProductsListFragment.newInstance(type, categoryName), categoryName);
+                adapter.addFragment(ProductsListFragment.newInstance(type, categoryId), categoryName);
             }
         }
         viewPager.setAdapter(adapter);

@@ -22,15 +22,16 @@ public class ProductsListFragment extends Fragment {
     public static final int SHOREX = 4;
     public static final int ENTERTAINMENT = 5;
     private static final String ARGUMENT_TYPE = "ProductsListFragment.ARGUMENT_TYPE";
-    private static final String ARGUMENT_CATEGORY = "ProductsListFragment.ARGUMENT_CATEGORY";
+    private static final String ARGUMENT_CATEGORY_ID = "ProductsListFragment.ARGUMENT_CATEGORY_ID";
 
     protected ProductsListPresenter presenter;
 
-    public static ProductsListFragment newInstance(int type, String categoryName) {
+    public static ProductsListFragment newInstance(int type, String categoryId) {
         final ProductsListFragment fragment = new ProductsListFragment();
         final Bundle args = new Bundle();
         args.putInt(ARGUMENT_TYPE, type);
-        args.putString(ARGUMENT_CATEGORY, categoryName);
+        args.putString(ARGUMENT_CATEGORY_ID, categoryId);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,10 +50,10 @@ public class ProductsListFragment extends Fragment {
             return;
         }
         final int productType = bundle.getInt(ARGUMENT_TYPE);
-        final String categoryName = bundle.getString(ARGUMENT_CATEGORY);
+        final String categoryId = bundle.getString(ARGUMENT_CATEGORY_ID);
 
         presenter = new ProductsListPresenter(new ProductsListView(this),
                 new GetProductDbUseCase(new ProductDataRepository()));
-        presenter.init(productType, categoryName);
+        presenter.init(productType, categoryId);
     }
 }

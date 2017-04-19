@@ -49,7 +49,6 @@ public class DiscoverTabPresenter {
             }
             ActivityUtils.startActivity(activity, NameActivity.getStartIntent(activity));
         }
-
     }
 }
 

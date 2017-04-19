@@ -25,26 +25,26 @@ public class ProductsListPresenter {
         this.getProductDbUseCase = getProductDbUseCase;
     }
 
-    public void init(int type, String categoryName) {
+    public void init(int type, String categoryId) {
         final BaseActivity activity = view.getActivity();
         if (activity == null) {
             return;
         }
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
-        showCollectionInView(getProductsByCategory(type, categoryName, activity));
+        showCollectionInView(getProductsByCategory(type, categoryId, activity));
     }
 
-    private List<Product> getProductsByCategory(int type, String categoryName, BaseActivity activity) {
+    private List<Product> getProductsByCategory(int type, String categoryId, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
         List<Product> allProducts = getProductDbUseCase.getAll(getType(activity, type));
 
-        if (categoryName == null) {
+        if (categoryId == null) {
             childProducts = allProducts;
         } else {
             for (Product typeProduct : allProducts) {
                 for (ChildCategory childCategory : typeProduct.getProductCategory().getChildCategory()) {
-                    if (categoryName.equals(childCategory.getItems().getCategoryId())) {
+                    if (categoryId.equals(childCategory.getItems().getCategoryId())) {
                         childProducts.add(typeProduct);
                     }
                 }
