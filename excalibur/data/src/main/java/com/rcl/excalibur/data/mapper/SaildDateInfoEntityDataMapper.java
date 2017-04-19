@@ -30,7 +30,7 @@ public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfo, 
         return sailDateInfo;
     }
     private SailDateItinerary transform(ItineraryEntity itineraryEntity) {
-        SailDateItinerary sailDateItinerary = null;
+        SailDateItinerary sailDateItinerary = new SailDateItinerary();
         if (itineraryEntity != null) {
             sailDateItinerary.setDescription(itineraryEntity.getDescription());
             sailDateItinerary.setEvents(transformEnents(itineraryEntity.getEvents()));
@@ -57,16 +57,16 @@ public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfo, 
     }
 
     private SailDateEvent transform(EventEntity eventEntity) {
-        SailDateEvent sailDateEvent = null;
+        SailDateEvent sailDateEvent = new SailDateEvent();
         if (eventEntity != null) {
             sailDateEvent.setDay(eventEntity.getDay());
-            //sailDateEvent.setPort(transform(eventEntity.getPort()));
+            sailDateEvent.setPort(transform(eventEntity.getPort()));
 
         }
         return sailDateEvent;
     }
     private SailPort transform(PortEntity portEntity) {
-        SailPort sailPort = null;
+        SailPort sailPort = new SailPort();
         if (portEntity != null) {
             sailPort.setPortCode(portEntity.getPortCode());
             sailPort.setPortType(portEntity.getPortType());

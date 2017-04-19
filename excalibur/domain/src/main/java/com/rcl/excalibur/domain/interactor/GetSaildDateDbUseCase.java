@@ -4,12 +4,20 @@ package com.rcl.excalibur.domain.interactor;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.repository.SailDateRepository;
 
+import java.util.List;
+
 public class GetSaildDateDbUseCase extends UseCaseSync<SailDateRepository> {
 
-    protected GetSaildDateDbUseCase(SailDateRepository data) {
+    public GetSaildDateDbUseCase(SailDateRepository data) {
         super(data);
     }
-    public SailDateInfo get(String sailDateInfoId) {
-        return getData().get(sailDateInfoId);
+
+    public List<SailDateInfo> getAll() {
+        return getData().getAll();
     }
+
+    public SailDateInfo get() {
+        return getData().get();
+    }
+
 }

@@ -4,6 +4,7 @@ package com.rcl.excalibur.data.repository;
 import android.support.annotation.NonNull;
 
 import com.activeandroid.query.Delete;
+import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.EventEntity;
 import com.rcl.excalibur.data.entity.ItineraryEntity;
 import com.rcl.excalibur.data.entity.PortEntity;
@@ -14,6 +15,8 @@ import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.SailDateItinerary;
 import com.rcl.excalibur.domain.repository.SailDateRepository;
+
+import java.util.List;
 
 public class SailDateDataRepository extends BaseDataRepository<SailDateInfo, SailDateInfoEntity, SaildDateInfoEntityDataMapper>
         implements SailDateRepository {
@@ -34,6 +37,16 @@ public class SailDateDataRepository extends BaseDataRepository<SailDateInfo, Sai
         entity.save();
 
     }
+
+    @Override
+    public SailDateInfo get() {
+        SailDateInfoEntity sailDateInfoEntityList = new Select()
+                .all()
+                .from(SailDateInfoEntity.class)
+                .executeSingle();
+        return getMapper().transform(sailDateInfoEntityList);
+    }
+
 
     private void create(final SailDateInfoEntity entity, final SailDateItinerary itinerary) {
         if (itinerary == null) {
@@ -66,9 +79,14 @@ public class SailDateDataRepository extends BaseDataRepository<SailDateInfo, Sai
         entity.setItinerary(itineraryEntity);
     }
 
+
     @Override
-    public SailDateInfo get(String id) {
-        return null;
+    public List<SailDateInfo> getAll() {
+        List<SailDateInfoEntity> sailDateInfoEntityList = new Select()
+                .all()
+                .from(SailDateInfoEntity.class)
+                .execute();
+        return getMapper().transform(sailDateInfoEntityList);
     }
 
     @Override
