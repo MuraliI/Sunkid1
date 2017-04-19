@@ -15,8 +15,6 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductCategory;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -55,9 +53,9 @@ public class DeckMapPopupLayout extends RelativeLayout {
         titleProductText.setText(product.getProductTitle());
         typeProductText.setText(product.getProductType().getProductType());
 
-        List<ProductCategory> productCategories = product.getProductCategory();
-        if (!productCategories.isEmpty()) {
-                typeNameText.setText(productCategories.get(0).getCategoryDescription());
+        ProductCategory productCategory = product.getProductCategory();
+        if (productCategory == null) {
+            typeNameText.setText(productCategory.getCategoryDescription());
         }
 
         Picasso.with(getContext())

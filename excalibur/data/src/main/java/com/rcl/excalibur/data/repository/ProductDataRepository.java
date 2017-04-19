@@ -337,23 +337,21 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     }
 
-    private void createCategories(final ProductEntity entity, final List<ProductCategory> categories) {
+    private void createCategories(final ProductEntity entity, final ProductCategory category) {
 
-        if (CollectionUtils.isEmpty(categories)) {
+        if (category == null) {
             return;
         }
 
-        for (ProductCategory productCategory : categories) {
+        final CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setCategoryId(category.getCategoryId());
+        categoryEntity.setDescription(category.getCategoryDescription());
+        categoryEntity.setName(category.getCategoryName());
+        categoryEntity.setProduct(entity);
+        categoryEntity.save();
 
-            final CategoryEntity categoryEntity = new CategoryEntity();
-            categoryEntity.setCategoryId(productCategory.getCategoryId());
-            categoryEntity.setDescription(productCategory.getCategoryDescription());
-            categoryEntity.setName(productCategory.getCategoryName());
-            categoryEntity.setProduct(entity);
-            categoryEntity.save();
+        createChildCategories(categoryEntity, category.getChildCategory());
 
-            createChildCategories(categoryEntity, productCategory.getChildCategory());
-        }
     }
 
     private void createChildCategories(final CategoryEntity entity, final List<ChildCategory> categories) {

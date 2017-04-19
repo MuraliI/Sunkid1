@@ -306,26 +306,24 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         return productType;
     }
 
-    private List<ProductCategory> transform(List<ProductCategoryResponse> productCategoryResponses) {
+    private ProductCategory transform(List<ProductCategoryResponse> productCategoryResponses) {
 
         ArrayList<ProductCategory> productCategories = new ArrayList<>();
         if (CollectionUtils.isEmpty(productCategoryResponses)) {
-            return productCategories;
-        }
-        for (ProductCategoryResponse productCategoryResponse : productCategoryResponses) {
-
-            if (productCategoryResponse == null) {
-                continue;
-            }
-            ProductCategory productCategory = new ProductCategory();
-            productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
-            productCategory.setCategoryId(productCategoryResponse.getCategoryId());
-            productCategory.setCategoryName(productCategoryResponse.getCategoryName());
-            productCategory.setChildCategory(transformChildCategories(productCategoryResponse.getChildCategory()));
-            productCategories.add(productCategory);
+            return null;
         }
 
-        return productCategories;
+        ProductCategoryResponse productCategoryResponse = productCategoryResponses.get(0);
+
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
+        productCategory.setCategoryId(productCategoryResponse.getCategoryId());
+        productCategory.setCategoryName(productCategoryResponse.getCategoryName());
+        productCategory.setChildCategory(transformChildCategories(productCategoryResponse.getChildCategory()));
+        productCategories.add(productCategory);
+
+
+        return productCategory;
     }
 
     private List<ChildCategory> transformChildCategories(List<ChildCategoryResponse> childCategoryResponses) {

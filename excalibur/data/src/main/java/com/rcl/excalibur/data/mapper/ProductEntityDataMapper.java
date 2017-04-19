@@ -292,25 +292,24 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         return productType;
     }
 
-    private List<ProductCategory> transform(List<CategoryEntity> entities) {
+    private ProductCategory transform(List<CategoryEntity> entities) {
 
         ArrayList<ProductCategory> productCategories = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(entities)) {
-            return productCategories;
+            return null;
         }
 
-        for (CategoryEntity categoryEntity : entities) {
+        CategoryEntity categoryEntity = entities.get(0);
 
-            ProductCategory productCategory = new ProductCategory();
-            productCategory.setCategoryDescription(categoryEntity.getDescription());
-            productCategory.setCategoryId(categoryEntity.getCategoryId());
-            productCategory.setCategoryName(categoryEntity.getName());
-            productCategory.setChildCategory(transformChildCategories(categoryEntity.getChildCategoryProducts()));
-            productCategories.add(productCategory);
-        }
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setCategoryDescription(categoryEntity.getDescription());
+        productCategory.setCategoryId(categoryEntity.getCategoryId());
+        productCategory.setCategoryName(categoryEntity.getName());
+        productCategory.setChildCategory(transformChildCategories(categoryEntity.getChildCategoryProducts()));
+        productCategories.add(productCategory);
 
-        return productCategories;
+        return productCategory;
     }
 
     private List<ChildCategory> transformChildCategories(List<ChildCategoryProductEntity> entities) {
