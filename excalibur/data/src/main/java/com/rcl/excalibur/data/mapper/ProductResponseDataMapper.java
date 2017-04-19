@@ -301,9 +301,8 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
     private ProductCategory transform(List<ProductCategoryResponse> productCategoryResponses) {
 
-        ArrayList<ProductCategory> productCategories = new ArrayList<>();
         if (CollectionUtils.isEmpty(productCategoryResponses)) {
-            return null;
+            return new ProductCategory();
         }
 
         ProductCategoryResponse productCategoryResponse = productCategoryResponses.get(0);
@@ -313,8 +312,6 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         productCategory.setCategoryId(productCategoryResponse.getCategoryId());
         productCategory.setCategoryName(productCategoryResponse.getCategoryName());
         productCategory.setChildCategory(transformChildCategories(productCategoryResponse.getChildCategory()));
-        productCategories.add(productCategory);
-
 
         return productCategory;
     }
