@@ -8,6 +8,8 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.rcl.excalibur.R;
@@ -33,6 +35,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
 
     private BottomSheetBehavior bottomSheetBehavior;
 
+    private Animation animationGoOut, animationGoIn;
+
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
 
@@ -56,7 +60,46 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
         initVerticalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_vertical_margin);
 
         initBS();
+
+        animationGoOut = AnimationUtils.loadAnimation(getContext(), R.anim.go_out);
+        animationGoOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                initItems();
+                containerLayout.startAnimation(animationGoIn);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        animationGoIn = AnimationUtils.loadAnimation(getContext(), R.anim.go_in);
+        animationGoIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
+
+    private boolean isExpanded;
 
     public void initBS() {
         bottomSheetBehavior = BottomSheetBehavior.from(containerLayout);
@@ -64,9 +107,24 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
                 new BottomSheetBehavior.BottomSheetCallback() {
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                        if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                            //showListButton.startAnimation(animation2);
-                            //showListButton.setVisibility(View.VISIBLE);
+                        if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                            bottomSheetBehavior.setPeekHeight(0);
+                            isExpanded = true;
+                        }
+
+                        if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                            /*bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
+
+                            initItems();
+                            isExpanded = false;
+
+                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);*/
+
+                            //initItems();
+                            initItems();
+                            bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
+                            isExpanded = false;
+                            containerLayout.startAnimation(animationGoIn);
                         }
 
                         switch (newState) {
@@ -109,6 +167,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
 
                         // int verticalMargin = Math.round((1 - slideOffset) * initVerticalMargin);
                         //int horizontalMargin = Math.round((1 - slideOffset) * initHorizontalMargin);
+
+                        if (isExpanded) {
+                            return;
+                        }
 
                         for (int i = 0; i < itemCount; i++) {
                             View view = recyclerView.getLayoutManager().findViewByPosition(i);
