@@ -25,9 +25,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import timber.log.Timber;
 
 public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int TOP_OF_LIST = 0;
+    private static final int NO_PEEK_HEIGHT = 0;
+    private static final int NO_MARGIN = 0;
+    private static final int MAX_OFFSET = 1;
+    private static final float OFFSET_80 = 0.8f;
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_all_day) LinearLayout allDayLayout;
@@ -44,6 +49,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
+    private int peekHeight;
     private int itemCount = 0;
 
     public PlannerView(PlannerFragment fragment) {
@@ -64,6 +70,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         Resources resources = fragment.getResources();
         initHorizontalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_horizontal_margin);
         initVerticalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_vertical_margin);
+        peekHeight = resources.getDimensionPixelSize(R.dimen.planner_peek_height);
     }
 
     public void initAnimation() {
@@ -76,18 +83,36 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                 new BottomSheetBehavior.BottomSheetCallback() {
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                        if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                            bottomSheetBehavior.setPeekHeight(0);
+                        if (!isExpanded && newState == BottomSheetBehavior.STATE_EXPANDED) {
                             isExpanded = true;
-                        }
-
-                        if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                            bottomSheetBehavior.setPeekHeight(NO_PEEK_HEIGHT);
+                        } else if (isExpanded && newState == BottomSheetBehavior.STATE_COLLAPSED) {
                             isExpanded = false;
 
                             initItemsWithMargin();
-                            bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
 
+                            bottomSheetBehavior.setPeekHeight(peekHeight);
                             containerLayout.startAnimation(animationGoIn);
+                        }
+
+                        switch (newState) {
+                            case BottomSheetBehavior.STATE_DRAGGING:
+                                Timber.i("STATE_DRAGGING");
+                                break;
+                            case BottomSheetBehavior.STATE_COLLAPSED:
+                                Timber.i("STATE_COLLAPSED");
+                                break;
+                            case BottomSheetBehavior.STATE_EXPANDED:
+                                Timber.i("STATE_EXPANDED");
+                                break;
+                            case BottomSheetBehavior.STATE_HIDDEN:
+                                Timber.i("STATE_HIDDEN");
+                                break;
+                            case BottomSheetBehavior.STATE_SETTLING:
+                                Timber.i("STATE_SETTLING");
+                                break;
+                            default:
+                                break;
                         }
                     }
 
@@ -102,6 +127,16 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                             int verticalMargin = getMargin(slideOffset, initVerticalMargin);
                             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
                             resizeItemView(view, verticalMargin, horizontalMargin);
+
+                            if (slideOffset == MAX_OFFSET) {
+                                changeSeparatorVisibility(view, View.VISIBLE);
+                            }
+
+                            if (slideOffset >= OFFSET_80) {
+                                setItemViewBackground(view, R.drawable.background_gradient_item_cue_card);
+                            } else {
+                                setItemViewBackground(view, R.drawable.background_rounded_cue_card);
+                            }
                         }
                     }
                 }
@@ -117,7 +152,16 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
             resizeItemView(view, initVerticalMargin, initHorizontalMargin);
             setItemViewBackground(view, R.drawable.background_rounded_cue_card);
+            changeSeparatorVisibility(view, View.INVISIBLE);
         }
+    }
+
+    private void changeSeparatorVisibility(View parent, int visibility) {
+        if (parent == null) {
+            return;
+        }
+        View separator = ButterKnife.findById(parent, R.id.view_planner_item_separator);
+        separator.setVisibility(visibility);
     }
 
     private void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
@@ -126,7 +170,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         }
 
         ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        marginLayout.setMargins(horizontalMargin, verticalMargin, horizontalMargin, verticalMargin);
+        marginLayout.setMargins(horizontalMargin, NO_MARGIN, horizontalMargin, verticalMargin);
 
         if (initialized) {
             view.requestLayout();
