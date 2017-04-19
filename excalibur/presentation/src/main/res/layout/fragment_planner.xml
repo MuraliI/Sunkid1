@@ -15,6 +15,7 @@
         <include
             android:id="@+id/layout_planner_all_day"
             layout="@layout/planner_item_header"
+            android:background="@drawable/background_planner_header"
             android:visibility="gone" />
 
         <FrameLayout

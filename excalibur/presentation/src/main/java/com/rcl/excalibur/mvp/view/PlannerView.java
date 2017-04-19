@@ -35,7 +35,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 
-    private View firstHeader;
+    private LinearLayout firstHeader;
     private BottomSheetBehavior bottomSheetBehavior;
     private Animation slideUpAnim;
 
@@ -87,29 +87,27 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
                         if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                             isExpanded = false;
-
                             initItemsWithMargin();
                             bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
-
                             containerLayout.startAnimation(animationGoIn);
                         }
                     }
 
                     @Override
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                        if (slideOffset <= 0.1 && isExpanded) {
+                            hideHeadersView();
+                        }
                         if (isExpanded) {
                             return;
                         }
-                        if (slideOffset >= 0.8) {
-                            showHeadersView();
-                        } else if (slideOffset <= 0.1) {
-                            hideHeadersView();
-                        }
-
                         for (int i = 1; i < itemCount; i++) {
                             View view = recyclerView.getLayoutManager().findViewByPosition(i);
                             int verticalMargin = getMargin(slideOffset, initVerticalMargin);
                             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
+                            if (verticalMargin <= 0 && horizontalMargin <= 0) {
+                                showHeadersView();
+                            }
                             resizeItemView(view, verticalMargin, horizontalMargin);
                         }
                     }
@@ -128,13 +126,14 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                 return;
             }
             if (adapter.isHeader(adapter.getItem(i))) {
-                view.setVisibility(View.INVISIBLE);
-                firstHeader = view;
+                firstHeader = (LinearLayout) view.findViewById(R.id.layout_planner_header_container);
+                firstHeader.setVisibility(View.INVISIBLE);
             } else {
                 view.setBackgroundResource(R.drawable.background_gradient_item_cue_card_round);
                 resizeItemView(view, initVerticalMargin, initHorizontalMargin);
             }
         }
+        hideHeadersView();
     }
 
     private void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
@@ -151,35 +150,29 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     private void showHeadersView() {
-        if (firstHeader.getVisibility() == View.INVISIBLE) {
-//            firstHeader.startAnimation(slideUpAnim);
-            firstHeader.setVisibility(View.VISIBLE);
-            changeBackgroundItems();
-        }
         if (isAllDayNecessary) {
-//            allDayView.startAnimation(slideUpAnim);
-            allDayView.setVisibility(View.INVISIBLE);
-            firstHeader.setBackgroundResource(R.drawable.background_gradient_item_cue_card);
-        } else {
-            firstHeader.setBackgroundResource(R.drawable.background_gradient_item_cue_card_round);
+            if (firstHeader != null) {
+                firstHeader.setBackgroundResource(R.drawable.background_gradient_item_cue_card);
+                firstHeader.startAnimation(slideUpAnim);
+                firstHeader.setVisibility(View.VISIBLE);
+            }
+            allDayView.setBackgroundResource(R.drawable.background_planner_header);
+            allDayView.startAnimation(slideUpAnim);
+            allDayView.setVisibility(View.VISIBLE);
+        } else if (firstHeader != null) {
+            firstHeader.setBackgroundResource(R.drawable.background_planner_header);
+            firstHeader.startAnimation(slideUpAnim);
+            firstHeader.setVisibility(View.VISIBLE);
+            allDayView.setVisibility(View.GONE);
         }
     }
 
     private void hideHeadersView() {
-        if (firstHeader.getVisibility() == View.VISIBLE) {
+        if (firstHeader != null && firstHeader.getVisibility() == View.VISIBLE) {
             firstHeader.setVisibility(View.INVISIBLE);
         }
-        if (allDayView.getVisibility() == View.VISIBLE) {
+        if (isAllDayNecessary && allDayView.getVisibility() == View.VISIBLE) {
             allDayView.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    private void changeBackgroundItems() {
-        for (int i = 1; i < itemCount; i++) {
-            View view = recyclerView.getLayoutManager().findViewByPosition(i);
-            if (view == null || getActivity() == null)
-                return;
-            view.setBackgroundResource(R.drawable.background_gradient_item_cue_card);
         }
     }
 
