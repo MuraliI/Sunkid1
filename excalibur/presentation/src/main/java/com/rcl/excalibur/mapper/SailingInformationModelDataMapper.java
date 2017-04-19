@@ -59,6 +59,7 @@ public class SailingInformationModelDataMapper extends BaseModelDataMapper<SailD
             return;
         }
         PortModel port = new PortModel();
+        port.setPortCode(domainPort.getPortCode());
         port.setPortType(domainPort.getPortType());
         port.setPortName(domainPort.getPortName());
         port.setArrivalDate(domainPort.getArrivalDate());
