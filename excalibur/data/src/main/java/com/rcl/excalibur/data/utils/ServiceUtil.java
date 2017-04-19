@@ -5,6 +5,7 @@ import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.api.GuestApi;
 import com.rcl.excalibur.data.service.response.BaseResponse;
+import com.rcl.excalibur.data.service.api.SailDateApi;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +21,7 @@ public final class ServiceUtil {
     private static final String SUCCESS = "SUCCESS";
     private static DiscoverApi discoverApi;
     private static GuestApi guestApi;
+    private static SailDateApi sailDateApi;
 
     private ServiceUtil() {
     }
@@ -50,6 +52,18 @@ public final class ServiceUtil {
             guestApi = retrofit.create(GuestApi.class);
         }
         return guestApi;
+    }
+
+    public static SailDateApi getSailDateApi() {
+        if (sailDateApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BuildConfig.GUEST_API_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(getClient())
+                    .build();
+            sailDateApi = retrofit.create(SailDateApi.class);
+        }
+        return sailDateApi;
     }
 
     private static OkHttpClient getClient() {

@@ -5,17 +5,15 @@ import com.rcl.excalibur.domain.Product;
 
 import java.util.List;
 
-import io.reactivex.Observer;
-
 public interface ProductRepository {
 
     void create(Product product);
 
     void create(List<Product> product);
 
-    void getAll(Observer<List<Product>> observer);
+    List<Product> getAll();
 
-    void getAll(String type, Observer<List<Product>> observer);
+    List<Product> getAll(String type);
 
     Product get(String id);
 

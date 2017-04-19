@@ -12,6 +12,7 @@ public class OfferingEntity extends Model {
     public static final String COLUMN_OFFERING_ID = "offering_id";
     public static final String COLUMN_PRODUCT = "product";
     public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_TIME = "time";
     public static final String COLUMN_PRICE = "price";
 
     @Column(name = COLUMN_OFFERING_ID)
@@ -20,6 +21,8 @@ public class OfferingEntity extends Model {
     public ProductEntity productEntity;
     @Column(name = COLUMN_DATE)
     public String date;
+    @Column(name = COLUMN_TIME)
+    public String time;
     @Column(name = COLUMN_PRICE)
     public PriceEntity price;
 
@@ -45,6 +48,14 @@ public class OfferingEntity extends Model {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public PriceEntity getPrice() {

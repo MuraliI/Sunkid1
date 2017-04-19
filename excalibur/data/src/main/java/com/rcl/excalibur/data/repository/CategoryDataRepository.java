@@ -8,11 +8,7 @@ import com.rcl.excalibur.data.mapper.CategoryEntityDataMapper;
 import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
-import java.util.List;
-
-import io.reactivex.Observer;
-
-public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity, CategoryEntityDataMapper>
+public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity, Void, CategoryEntityDataMapper>
         implements CategoryRepository {
 
     public CategoryDataRepository() {
@@ -31,11 +27,6 @@ public class CategoryDataRepository extends BaseDataRepository<Category, Categor
     @Override
     public void deleteAll() {
         //no op
-    }
-
-    @Override
-    public void getAll(Observer<List<Category>> observer) {
-        super.getAll(observer);
     }
 
     @Override
