@@ -24,10 +24,12 @@ import static io.reactivex.Observable.just;
 
 public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPickerViewHolder> {
     private Resources resources;
+    private int todayPosition;
 
-    public EventsAdapter(Observer<EventModel> observer, Resources resources) {
+    public EventsAdapter(Observer<EventModel> observer, Resources resources, int todayPosition) {
         super(observer);
         this.resources = resources;
+        this.todayPosition = todayPosition;
     }
 
     @Override
@@ -37,9 +39,11 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
 
         String day = holder.event.getDay();
         if (!TextUtils.isEmpty(day)) {
-            holder.dayTextView.setText(day);
-            if (day.equalsIgnoreCase(resources.getString(R.string.today_day_title))) {
+            if (todayPosition == position) {
                 holder.isTodayImageView.setBackgroundResource(R.drawable.icon_day_picker_ship);
+                holder.dayTextView.setText(resources.getString(R.string.today_day_title));
+            } else {
+                holder.dayTextView.setText(day);
             }
         }
         PortModel port = holder.event.getPort();
@@ -52,7 +56,7 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         }
         String portType = port.getPortType();
         if (!TextUtils.isEmpty(portType)) {
-            if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_EMBARK) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DOCKED)) {
+            if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_EMBARK) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DOCKED) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DEBARK)) {
                 holder.portTypeImageView.setBackgroundResource(R.drawable.icon_day_picker_anchor);
             } else {
                 if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_CRUISING)) {

@@ -10,9 +10,11 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
+import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PortModel;
+import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.DayPickerView;
 import com.rcl.excalibur.utils.DateUtils;
 
@@ -39,20 +41,25 @@ public class DayPickerPresenter {
         if (activity == null) {
             return;
         }
-        // Todo mode add presentation mapper and refactor for this block code
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
-        int eventsize = sailDateInfo.getItinerary().getEvents().size();
-        String starDay = sailDateInfo.getItinerary().getEvents().get(0).getPort().getArrivalDate();
-        String endDay = sailDateInfo.getItinerary().getEvents().get(eventsize - 1).getPort().getArrivalDate();
+        SailingInfoModel sailingInfoModel = new SailingInformationModelDataMapper().transform(sailDateInfo);
+        List<EventModel> events = sailingInfoModel.getItinerary().getEvents();
+        ItineraryModel itinerary = sailingInfoModel.getItinerary();
+
+        int eventsize = events.size();
+        String starDay = events.get(0).getPort().getArrivalDate();
+        String endDay = events.get(eventsize - 1).getPort().getArrivalDate();
+        String day = getDay(itinerary);
+        String description = itinerary.getDescription();
 
         view.setAdapterObserver(new AdapterObserver(this));
-        view.init();
-        view.setFotterDate(getFotterDate(starDay, endDay, activity.getResources()));
-        ItineraryModel itineraryModel = mockItineraryModel(activity.getResources());
-        List<EventModel> events = itineraryModel.getEvents();
-        view.setHeader(sailDateInfo.getItinerary().getDescription(), getDay(itineraryModel));
-
-        view.setHeader(itineraryModel.getDescription(), getDay(itineraryModel));
+        view.init(itinerary.getIndexCurrentDay());
+        if (!TextUtils.isEmpty(starDay) && !TextUtils.isEmpty(endDay)) {
+            view.setFotterDate(getFotterDate(starDay, endDay, activity.getResources()));
+        }
+        if (!TextUtils.isEmpty(description) && !TextUtils.isEmpty(day)) {
+            view.setHeader(description, day);
+        }
         showCollectionInView(events);
     }
 
@@ -98,10 +105,10 @@ public class DayPickerPresenter {
         }
     }
 
-    public String getFotterDate(String mockDateStart, String mockDateEnd, Resources resources) {
+    public String getFotterDate(String dateStart, String dateEnd, Resources resources) {
         String date = "";
         try {
-            date = DateUtils.getFormatedDates(mockDateStart, mockDateEnd, resources);
+            date = DateUtils.getFormatedDates(dateStart, dateEnd, resources);
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -5,11 +5,12 @@ public class PortModel {
     public static final String PORT_TYPE_EMBARK = "EMBARK";
     public static final String PORT_TYPE_DOCKED = "DOCKED";
     public static final String PORT_TYPE_CRUISING = "CRUISING";
+    public static final String PORT_TYPE_DEBARK = "DEBARK";
 
     private String arrivalDate;
-    private Long arrivalTime;
+    private int arrivalTime;
     private String departureDate;
-    private Long departureTime;
+    private int departureTime;
     private String portCode;
     private String portName;
     private String portType;
@@ -23,11 +24,11 @@ public class PortModel {
         this.arrivalDate = arrivalDate;
     }
 
-    public Long getArrivalTime() {
+    public int getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Long arrivalTime) {
+    public void setArrivalTime(int arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -39,11 +40,11 @@ public class PortModel {
         this.departureDate = departureDate;
     }
 
-    public Long getDepartureTime() {
+    public int getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Long departureTime) {
+    public void setDepartureTime(int departureTime) {
         this.departureTime = departureTime;
     }
 

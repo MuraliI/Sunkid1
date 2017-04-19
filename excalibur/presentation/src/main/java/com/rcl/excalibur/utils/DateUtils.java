@@ -20,6 +20,26 @@ public final class DateUtils {
 
     }
 
+    public static boolean isEqualsToCurrentDate(String date) {
+        final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        boolean equals = false;
+        try {
+            Date incomingDate = df.parse(date);
+            Date today = Calendar.getInstance().getTime();
+            String reportDate = df.format(today);
+            Date currentDate = df.parse(reportDate);
+            if (incomingDate.compareTo(currentDate) == 0) {
+                equals = true;
+            } else {
+                equals = false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return equals;
+
+    }
+
     public static boolean isIncomingDateBeforeCurrent(String date) {
         final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         boolean isBefore = false;
