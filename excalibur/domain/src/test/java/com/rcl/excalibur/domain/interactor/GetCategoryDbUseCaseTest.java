@@ -1,5 +1,6 @@
 package com.rcl.excalibur.domain.interactor;
 
+import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
 import org.junit.Assert;
@@ -7,6 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.List;
+
+import io.reactivex.observers.TestObserver;
 
 import static org.mockito.Mockito.verify;
 
