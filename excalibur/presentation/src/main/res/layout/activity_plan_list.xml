@@ -56,12 +56,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:fadingEdgeLength="@dimen/fading_edge_list_product"
             android:paddingTop="@dimen/padding_top_list_product"
+            android:requiresFadingEdge="horizontal"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/font_color_blue"
             app:tabIndicatorHeight="@dimen/tabs_indicator_list_product"
             app:tabMode="scrollable"
             app:tabPaddingBottom="@dimen/padding_between_title_and_indicator_list_product"
+            app:tabPaddingEnd="@dimen/padding_tabs_list_product"
+            app:tabPaddingStart="@dimen/padding_tabs_list_product"
             app:tabSelectedTextColor="@color/font_color_blue"
             app:tabTextAppearance="@style/TabLayoutTextAppearance" />
 

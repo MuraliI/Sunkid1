@@ -138,9 +138,11 @@
     <!-- pager plan list products -->
     <dimen name="title_arrow_pager_list_product">10dp</dimen>
     <dimen name="title_icon_pager_list_product">2dp</dimen>
-    <dimen name="tabs_indicator_list_product">5dp</dimen>
+    <dimen name="tabs_indicator_list_product">4dp</dimen>
     <dimen name="padding_top_list_product">20dp</dimen>
     <dimen name="padding_start_title_list_product">10dp</dimen>
     <dimen name="padding_end_title_list_product">3dp</dimen>
-    <dimen name="padding_between_title_and_indicator_list_product">20dp</dimen>
+    <dimen name="padding_between_title_and_indicator_list_product">18dp</dimen>
+    <dimen name="fading_edge_list_product">80dp</dimen>
+    <dimen name="padding_tabs_list_product">20dp</dimen>
 </resources>
