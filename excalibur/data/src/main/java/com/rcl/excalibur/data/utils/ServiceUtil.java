@@ -57,7 +57,7 @@ public final class ServiceUtil {
     public static SailDateApi getSailDateApi() {
         if (sailDateApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(BuildConfig.SAILDATE_API_URL)
+                    .baseUrl(BuildConfig.GUEST_API_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(getClient())
                     .build();
