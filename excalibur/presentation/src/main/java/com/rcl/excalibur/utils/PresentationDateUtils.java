@@ -12,7 +12,7 @@ public final class PresentationDateUtils {
 
     private static final int AFTERNOON = 12;
     public static final int MINUTES_IN_HOUR = 60;
-    private static final int TEN_HOURS = 10;
+    private static final int TEN_VALUE = 10;
     private static final String ZERO_STRING = "0";
 
     private PresentationDateUtils() {
@@ -53,11 +53,11 @@ public final class PresentationDateUtils {
         }
 
         StringBuilder builder = new StringBuilder();
-        if (hour < TEN_HOURS) {
+        if (hour < TEN_VALUE) {
             builder.append(ZERO_STRING);
         }
         builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon));
-        if (minutes < TEN_HOURS) {
+        if (minutes < TEN_VALUE) {
             builder.append(ZERO_STRING);
         }
         builder.append(minutes);

@@ -16,8 +16,7 @@ public class CategoryUtils {
     public static final String ACTIVITIES = "ACTIVITIES";
 
     private static HashMap<String, Integer> iconMap;
-
-    private CategoryUtils() {
+    static {
         iconMap = new HashMap<>();
         iconMap.put(DINING, R.drawable.icon_dining_color);
         iconMap.put(SHOREX, R.drawable.icon_shorex_color);
@@ -25,6 +24,10 @@ public class CategoryUtils {
         iconMap.put(SHOP, R.drawable.icon_shops_color);
         iconMap.put(ENTERTAINMENT, R.drawable.icon_entertainment_color);
         iconMap.put(ACTIVITIES, R.drawable.icon_services_color);
+    }
+
+    private CategoryUtils() {
+        // Do Nothing
     }
 
     @DrawableRes
