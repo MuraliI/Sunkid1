@@ -99,7 +99,8 @@ public class PlannerProductModelMapper {
         model.setEndDate(allDayEndDate);
         model.setAllDayProduct(true);
         model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
-        model.setVenue(resources.getString(R.string.deck_label) + ConstantsUtil.WHITE_SPACE + model.getVenue());
+        model.setLocation(resources.getString(R.string.deck_label) + ConstantsUtil.WHITE_SPACE + model.getLocation());
+
         return model;
     }
 
@@ -114,6 +115,7 @@ public class PlannerProductModelMapper {
         model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
         model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
         model.setLocation(resources.getString(R.string.deck_label) + ConstantsUtil.WHITE_SPACE + model.getLocation());
+
         return model;
     }
 

@@ -16,8 +16,7 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     public static final int STATE_EVENING = 1;
     public static final int STATE_LATE_NIGHT = 0;
 
-    @DrawableRes
-    private int resourceIdCategoryIcon;
+    @DrawableRes private int resourceIdCategoryIcon;
     private String operatingHours;
     private Calendar startDate;
     private Calendar endDate;

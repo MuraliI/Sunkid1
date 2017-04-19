@@ -22,6 +22,7 @@ import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 
 public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
+    private static final int TOP_OF_LIST = 0;
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_all_day) LinearLayout allDayLayout;
@@ -50,7 +51,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     public void addPlannerItems(List<AbstractFlexibleItem> items) {
-        adapter.addItems(0, items);
+        adapter.addItems(TOP_OF_LIST, items);
     }
 
     public void onItemClick(int position) {
