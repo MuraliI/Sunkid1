@@ -125,14 +125,18 @@ public class ShipView extends RelativeLayout {
     }
 
     private void layoutShipOnNextTab() {
-        ship.layout(ship.getLeft(), shipLabel.getTop(), ship.getRight(), (int) (getBottom() * SHIP_NEXT_TAB_SCALE));
+        ship.layout(ship.getLeft(), getTop(), ship.getRight(), (int) (getBottom() * SHIP_NEXT_TAB_SCALE));
     }
 
     private void layoutShipOnScroll() {
-        layoutShipOnOrigin();
+        int startTop = ship.getTop();
+        int topDelta = (int) ((startTop - getTop()) * scrollOffset);
+        int startBottom = (int) (getBottom() * SHIP_ORIGINAL_SCALE);
+        int bottomDelta = (int) ((getBottom() * SHIP_NEXT_TAB_SCALE - startBottom) * scrollOffset);
+        ship.layout(ship.getLeft(), startTop - topDelta, ship.getRight(), startBottom + bottomDelta);
     }
 
-    public void syncScroll(Pair<Integer, Float> integerFloatPair) {
+    public void syncTabsScroll(Pair<Integer, Float> integerFloatPair) {
         selectedPage = integerFloatPair.first;
         scrollOffset = integerFloatPair.second;
         requestLayout();

@@ -43,9 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/margin_small"
-                android:text="At Sea"
+                android:text="@string/hardcoded_home_status"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="@dimen/home_status_text_size"
                 android:textStyle="bold" />
 
             <ImageView

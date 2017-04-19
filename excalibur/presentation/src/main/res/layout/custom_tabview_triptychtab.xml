@@ -22,9 +22,9 @@
         android:focusable="true"
         android:gravity="center"
         android:padding="@dimen/margin_xsmall"
-        android:text="Day 6"
+        android:text="@string/hardcoded_day_tab"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="@dimen/day_picker_text_size"
         android:textStyle="bold" />
 
 </LinearLayout>
