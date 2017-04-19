@@ -28,11 +28,11 @@ public class SailingInformationModelDataMapper extends BaseModelDataMapper<SailD
         return sailingInfoModel;
     }
 
-    private void setItinerary(SailingInfoModel model, SailDateInfo domain) {
+    private void setItinerary(SailingInfoModel sailingModel, SailDateInfo sailingDomain) {
         ItineraryModel itineraryModel = new ItineraryModel();
-        itineraryModel.setDescription(domain.getItinerary().getDescription());
-        setEvents(itineraryModel, domain);
-        model.setItinerary(itineraryModel);
+        itineraryModel.setDescription(sailingDomain.getItinerary().getDescription());
+        setEvents(itineraryModel, sailingDomain);
+        sailingModel.setItinerary(itineraryModel);
     }
 
     private void setEvents(ItineraryModel itineraryModel, SailDateInfo domain) {
@@ -54,17 +54,17 @@ public class SailingInformationModelDataMapper extends BaseModelDataMapper<SailD
         itineraryModel.setEvents(modelEvents);
     }
 
-    private void setPort(EventModel model, SailPort domain) {
-        if (domain == null) {
+    private void setPort(EventModel eventModel, SailPort domainPort) {
+        if (domainPort == null) {
             return;
         }
         PortModel port = new PortModel();
-        port.setPortType(domain.getPortType());
-        port.setPortName(domain.getPortName());
-        port.setArrivalDate(domain.getArrivalDate());
-        port.setArrivalTime(domain.getArrivalTime());
-        port.setDepartureDate(domain.getDepartureDate());
-        port.setDepartureTime(domain.getDepartureTime());
-        model.setPort(port);
+        port.setPortType(domainPort.getPortType());
+        port.setPortName(domainPort.getPortName());
+        port.setArrivalDate(domainPort.getArrivalDate());
+        port.setArrivalTime(domainPort.getArrivalTime());
+        port.setDepartureDate(domainPort.getDepartureDate());
+        port.setDepartureTime(domainPort.getDepartureTime());
+        eventModel.setPort(port);
     }
 }
