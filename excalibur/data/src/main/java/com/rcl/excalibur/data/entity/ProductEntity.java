@@ -36,6 +36,8 @@ public class ProductEntity extends Model {
     public static final String COLUMN_EXPERIENCE = "experience";
     public static final String COLUMN_IS_FEATURED = "featured";
     public static final String COLUMN_IS_HIGHLIGHTED = "highlighted";
+    public static final String COLUMN_CATEGORY = "category";
+
 
     @Column(name = COLUMN_PRODUCT_ID, unique = true, index = true)
     public String productId;
@@ -81,13 +83,12 @@ public class ProductEntity extends Model {
     public boolean isFeatured;
     @Column(name = COLUMN_IS_HIGHLIGHTED)
     public boolean isHighlighted;
+    @Column(name = COLUMN_CATEGORY)
+    public CategoryEntity category;
+
 
     public ProductEntity() {
         super();
-    }
-
-    public List<CategoryEntity> getCategories() {
-        return getMany(CategoryEntity.class, CategoryEntity.COLUMN_PRODUCT);
     }
 
     public List<AdvisementEntity> getAdvisements() {
@@ -276,5 +277,13 @@ public class ProductEntity extends Model {
 
     public void setHighlighted(boolean highlighted) {
         isHighlighted = highlighted;
+    }
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 }

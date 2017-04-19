@@ -62,7 +62,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductCode(entity.getCode());
         product.setProductType(transform(entity.getType()));
         product.setProductClass(entity.getProductClass());
-        product.setProductCategory(transform(entity.getCategories()));
+        product.setProductCategory(transform(entity.getCategory()));
         product.setProductRank(entity.getRank());
         product.setProductUpcharge(entity.getUpcharge());
         product.setReservationRequired(entity.isReservationRequired());
@@ -292,22 +292,17 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         return productType;
     }
 
-    private ProductCategory transform(List<CategoryEntity> entities) {
+    private ProductCategory transform(CategoryEntity categoryEntity) {
 
-        ArrayList<ProductCategory> productCategories = new ArrayList<>();
-
-        if (CollectionUtils.isEmpty(entities)) {
+        if (categoryEntity == null) {
             return null;
         }
-
-        CategoryEntity categoryEntity = entities.get(0);
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryDescription(categoryEntity.getDescription());
         productCategory.setCategoryId(categoryEntity.getCategoryId());
         productCategory.setCategoryName(categoryEntity.getName());
         productCategory.setChildCategory(transformChildCategories(categoryEntity.getChildCategoryProducts()));
-        productCategories.add(productCategory);
 
         return productCategory;
     }

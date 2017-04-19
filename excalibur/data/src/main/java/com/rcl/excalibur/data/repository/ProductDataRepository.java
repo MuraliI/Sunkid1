@@ -90,15 +90,14 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         create(entity, product.getActivityLevel());
         //StartingFromPrice
         create(entity, product.getStartingFromPrice());
+        //Category
+        createCategory(entity, product.getProductCategory());
 
         entity.save();
 
         //Offering
         //TODO This is a proposal on how we should treat all entities that need a product to be saved before hand
         offeringDataRepository.create(product.getOfferings());
-
-        //Category
-        createCategories(entity, product.getProductCategory());
 
         //Advisements
         createAdvisements(entity, product.getAdvisements());
@@ -114,8 +113,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         new Delete().from(OfferingEntity.class).execute();
         new Delete().from(PriceEntity.class).execute();
         new Delete().from(ChildCategoryProductEntity.class).execute();
-        new Delete().from(CategoryEntity.class).execute();
         new Delete().from(ProductEntity.class).execute();
+        new Delete().from(CategoryEntity.class).execute();
         new Delete().from(StartingFromPriceEntity.class).execute();
         new Delete().from(ActivityLevelEntity.class).execute();
         new Delete().from(PreferenceValueEntity.class).execute();
@@ -337,7 +336,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     }
 
-    private void createCategories(final ProductEntity entity, final ProductCategory category) {
+    private void createCategory(final ProductEntity entity, final ProductCategory category) {
 
         if (category == null) {
             return;
@@ -347,8 +346,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         categoryEntity.setCategoryId(category.getCategoryId());
         categoryEntity.setDescription(category.getCategoryDescription());
         categoryEntity.setName(category.getCategoryName());
-        categoryEntity.setProduct(entity);
         categoryEntity.save();
+        entity.setCategory(categoryEntity);
 
         createChildCategories(categoryEntity, category.getChildCategory());
 

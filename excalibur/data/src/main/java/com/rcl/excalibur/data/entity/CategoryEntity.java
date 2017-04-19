@@ -15,7 +15,7 @@ public class CategoryEntity extends Model {
     public static final String COLUMN_CATEGORY_ID = "category_id";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_PRODUCT = "product";
+
 
     @Column(name = COLUMN_CATEGORY_ID)
     public String categoryId;
@@ -23,8 +23,6 @@ public class CategoryEntity extends Model {
     public String description;
     @Column(name = COLUMN_NAME)
     private String name;
-    @Column(name = COLUMN_PRODUCT)
-    private ProductEntity product;
 
 
     public CategoryEntity() {
@@ -41,14 +39,6 @@ public class CategoryEntity extends Model {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ProductEntity getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductEntity product) {
-        this.product = product;
     }
 
     public String getCategoryId() {
