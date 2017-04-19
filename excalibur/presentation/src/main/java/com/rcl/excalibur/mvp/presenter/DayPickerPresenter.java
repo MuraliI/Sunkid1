@@ -76,8 +76,9 @@ public class DayPickerPresenter {
         List<EventModel> events = itineraryModel.getEvents();
         EventModel firstEvent = events.get(0);
 
-        if (!TextUtils.isEmpty(getSailingPreferenceUseCase.getDay())) {
-            day = getSailingPreferenceUseCase.getDay();
+        String preferenceDay = getSailingPreferenceUseCase.getDay();
+        if (!TextUtils.isEmpty(preferenceDay)) {
+            day = preferenceDay;
         } else {
             if (itineraryModel.getIndexCurrentDay() == -1) {
                 if (!TextUtils.isEmpty(firstEvent.getDay())) {
