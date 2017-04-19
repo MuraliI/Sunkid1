@@ -138,4 +138,7 @@
     <!-- pager plan list products -->
     <dimen name="title_arrow_pager_list_product">10dp</dimen>
     <dimen name="title_icon_pager_list_product">2dp</dimen>
+    <dimen name="tabs_indicator_list_product">5dp</dimen>
+    <dimen name="padding_top_list_product">8dp</dimen>
+
 </resources>

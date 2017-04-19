@@ -10,6 +10,10 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="AppTheme.PlanListView" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">false</item>
+    </style>
+
     <style name="ShipTime" parent="@android:style/Widget.TextView">
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">10sp</item>
@@ -314,6 +318,7 @@
         <item name="colorControlActivated">@color/white</item>
         <item name="colorControlHighlight">@color/white</item>
     </style>
+
     <style name="AppTheme.GuestErrorTextView" parent="@android:style/Widget.TextView">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>

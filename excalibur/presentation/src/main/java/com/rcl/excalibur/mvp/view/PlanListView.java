@@ -3,6 +3,7 @@ package com.rcl.excalibur.mvp.view;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverI
     private static final String ID_ENTRETAINMENT = "ent";
 
     @Bind(R.id.plans_header_name) TextView plansHeaderName;
+    @Bind(R.id.toolbar_header) Toolbar toolbar;
     @Bind(R.id.tab_layout_products_list_categories) TabLayout tabProductCategories;
     @Bind(R.id.full_content) ViewPager pagerFragment;
     @Bind(R.id.category_icon) ImageView categoryIcon;
@@ -67,11 +69,11 @@ public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverI
             return;
         }
 
-        createFragment(fragmentToShow, pagerFragment);
+        createFragment(fragmentToShow, pagerFragment, activity);
         tabProductCategories.setupWithViewPager(pagerFragment, true);
     }
 
-    private void createFragment(int fragmentToShow, ViewPager viewPager) {
+    private void createFragment(int fragmentToShow, ViewPager viewPager, PlanListActivity activity) {
         AnalyticEvent analyticEvent = new AnalyticEvent(AnalyticsConstants.KEY_FILTER_DISCOVER);
         String categorySelected = null;
         String idCategory = null;
@@ -129,7 +131,7 @@ public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverI
         }
     }
 
-    public void addFragmentsToPager(SubCategory subCategory, ViewPager viewPager, int type) {
+    private void addFragmentsToPager(SubCategory subCategory, ViewPager viewPager, int type) {
         ProductsCategoryAdapter adapter = new ProductsCategoryAdapter(getFragmentManager());
         List<ChildCategory> childCategories = subCategory.getChildCategory();
         if (childCategories.isEmpty()) {

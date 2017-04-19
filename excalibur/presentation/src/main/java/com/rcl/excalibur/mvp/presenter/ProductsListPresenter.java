@@ -32,7 +32,7 @@ public class ProductsListPresenter {
         }
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
-        showCollectionInView(getProductsByCategory(type, categoryName, activity));
+        showCollectionInView(getProductsByCategory(type, null, activity));
     }
 
     private List<Product> getProductsByCategory(int type, String categoryName, BaseActivity activity) {
