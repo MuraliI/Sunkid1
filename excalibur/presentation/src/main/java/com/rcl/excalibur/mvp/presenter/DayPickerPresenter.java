@@ -20,8 +20,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import timber.log.Timber;
-
 public class DayPickerPresenter {
 
     private DayPickerView view;
@@ -50,11 +48,10 @@ public class DayPickerPresenter {
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
         view.setFotterDate(getFotterDate(starDay, endDay, activity.getResources()));
-        view.setHeader(sailDateInfo.getItinerary().getDescription(), getDayFromPreference());
-        ArrayList<EventModel> events = mockEventList(activity.getResources());
         ItineraryModel itineraryModel = mockItineraryModel(activity.getResources());
         List<EventModel> events = itineraryModel.getEvents();
-        view.setFotterDate(mockFooterDate(activity.getResources()));
+        view.setHeader(sailDateInfo.getItinerary().getDescription(), getDay(itineraryModel));
+
         view.setHeader(itineraryModel.getDescription(), getDay(itineraryModel));
         showCollectionInView(events);
     }
