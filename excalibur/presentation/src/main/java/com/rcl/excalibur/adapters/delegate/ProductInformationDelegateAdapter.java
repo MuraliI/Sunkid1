@@ -10,7 +10,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
 import com.rcl.excalibur.custom.view.PriceRangeLayout;
-import com.rcl.excalibur.domain.ProductType;
+import com.rcl.excalibur.domain.utils.CategoryUtil;
 
 import java.lang.ref.WeakReference;
 
@@ -40,7 +40,7 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         holder.productId = item.getProductId();
         holder.name.setText(item.getProductName());
 
-        boolean isShorex = ProductType.SHOREX_TYPE.equals(item.getProductType());
+        boolean isShorex = CategoryUtil.isShorex(item.getProductType());
         holder.findOnDeck.setVisibility(isShorex ? View.GONE : View.VISIBLE);
 
         holder.venue.setVisibility(isShorex ? View.GONE : View.VISIBLE);

@@ -1,7 +1,6 @@
 package com.rcl.excalibur.mvp.view;
 
 
-import android.app.Activity;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -14,6 +13,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.custom.itinerary.RoyalLinearLayoutManager;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
@@ -24,9 +26,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
-import timber.log.Timber;
 
-public class PlannerView extends FragmentView<PlannerFragment, Void, Void> implements RoyalLinearLayoutManager.OnFirstTimeListener {
+public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
+    private static final int TOP_OF_LIST = 0;
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_all_day) View allDayView;
@@ -38,8 +40,14 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
     private BottomSheetBehavior bottomSheetBehavior;
     private Animation slideUpAnim;
 
+    private Animation animationGoIn;
+
+    private boolean isExpanded = false;
+    private boolean initialized = false;
+
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
+    private int itemCount = 0;
 
     public PlannerView(PlannerFragment fragment) {
         super(fragment);
@@ -47,60 +55,51 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
     }
 
     public void init() {
-        final Activity activity = getActivity();
-        if (activity == null) {
+        final PlannerFragment fragment = getFragment();
+        if (fragment == null) {
             return;
         }
-        adapter = new FlexibleAdapter<>(null, null, true);
+        adapter = new FlexibleAdapter<>(null, fragment, true);
         adapter.setDisplayHeadersAtStartUp(true).setStickyHeaders(true);
-        recyclerView.setLayoutManager(new RoyalLinearLayoutManager(activity, this));
+        recyclerView.setLayoutManager(new RoyalLinearLayoutManager(fragment.getContext(), fragment));
         recyclerView.setAdapter(adapter);
 
-        Resources resources = activity.getResources();
+        Resources resources = fragment.getResources();
         initHorizontalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_horizontal_margin);
         initVerticalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_vertical_margin);
+    }
 
-        initBS();
-
+    public void initAnimation() {
+        animationGoIn = AnimationUtils.loadAnimation(getContext(), R.anim.planner_preview_slide_in);
         slideUpAnim = AnimationUtils.loadAnimation(activity, R.anim.view_slide_up);
     }
 
-    public void initBS() {
+    public void initBottomSheetBehavior() {
         bottomSheetBehavior = BottomSheetBehavior.from(containerLayout);
         bottomSheetBehavior.setBottomSheetCallback(
                 new BottomSheetBehavior.BottomSheetCallback() {
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                        if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                            //showListButton.startAnimation(animation2);
-                            //showListButton.setVisibility(View.VISIBLE);
+                        if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                            bottomSheetBehavior.setPeekHeight(0);
+                            isExpanded = true;
                         }
 
-                        switch (newState) {
-                            case BottomSheetBehavior.STATE_DRAGGING:
-                                Timber.i("STATE_DRAGGING");
-                                break;
-                            case BottomSheetBehavior.STATE_COLLAPSED:
-                                Timber.i("STATE_COLLAPSED");
-                                break;
-                            case BottomSheetBehavior.STATE_EXPANDED:
-                                Timber.i("STATE_EXPANDED");
-                                break;
-                            case BottomSheetBehavior.STATE_HIDDEN:
-                                Timber.i("STATE_HIDDEN");
-                                break;
-                            case BottomSheetBehavior.STATE_SETTLING:
-                                Timber.i("STATE_SETTLING");
-                                break;
-                            default:
-                                break;
+                        if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                            isExpanded = false;
+
+                            initItemsWithMargin();
+                            bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
+
+                            containerLayout.startAnimation(animationGoIn);
                         }
                     }
 
                     @Override
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                        Timber.i("slideOffset = %s", slideOffset);
-
+                        if (isExpanded) {
+                            return;
+                        }
                         if (slideOffset >= 0.7) {
                             showHeadersView();
                             //adapter.showAllHeaders();
@@ -110,17 +109,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
                             hideHeadersView();
                         }
 
-                        //animate.animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start();
-                        //showListButton.animateToPointF().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start();
-
-                        // int verticalMargin = Math.round((1 - slideOffset) * initVerticalMargin);
-                        //int horizontalMargin = Math.round((1 - slideOffset) * initHorizontalMargin);
-
                         for (int i = 1; i < itemCount; i++) {
                             View view = recyclerView.getLayoutManager().findViewByPosition(i);
                             int verticalMargin = getMargin(slideOffset, initVerticalMargin);
                             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
-                            //Timber.i("verticalMargin %s, horizontalMargin %s", verticalMargin, horizontalMargin);
                             resizeItemView(view, verticalMargin, horizontalMargin);
                         }
                     }
@@ -132,7 +124,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
         return Math.round((1 - slideOffset) * marginValue);
     }
 
-    private void initItems() {
+    private void initItemsWithMargin() {
         for (int i = 0; i < itemCount; i++) {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
             if (view == null) {
@@ -155,7 +147,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
 
         ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         marginLayout.setMargins(horizontalMargin, verticalMargin, horizontalMargin, verticalMargin);
-        //view.requestLayout();
 
         if (initialized) {
             view.requestLayout();
@@ -186,27 +177,33 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> imple
     }
 
     public void addPlannerItems(List<AbstractFlexibleItem> items) {
-        boolean added = adapter.addItems(0, items);
-
-        Timber.i("initHorizontalMargin %s", initHorizontalMargin);
-        Timber.i("initVerticalMargin %s", initVerticalMargin);
-
-        Timber.i("added %s", added);
-        Timber.i("adapter count %s", adapter.getItemCount());
-        Timber.i("manager count %s", recyclerView.getLayoutManager().getChildCount());
+        adapter.addItems(TOP_OF_LIST, items);
     }
 
-    private int itemCount = 0;
-    private boolean initialized = false;
+    public void onItemClick(int position) {
+        AbstractFlexibleItem item = adapter.getItem(position);
+        if (item instanceof PlannerProductItem) {
+            PlannerProductItem productItem = (PlannerProductItem) item;
+            BaseActivity activity = getActivity();
+            if (activity == null) {
+                return;
+            }
+            activity.startActivity(ProductDetailActivity.getIntent(activity,
+                    productItem.getPlannerProductModel().getProductId()));
+        }
+    }
 
-    @Override
+    public void showAllDayLayout() {
+        allDayLayout.setVisibility(View.VISIBLE);
+    }
+
     public void isShowingItems(int visibleItemCount) {
         if (initialized) {
             return;
         }
 
         itemCount = visibleItemCount;
-        initItems();
+        initItemsWithMargin();
 
         initialized = true;
     }

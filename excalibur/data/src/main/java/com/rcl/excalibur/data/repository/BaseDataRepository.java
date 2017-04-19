@@ -10,16 +10,11 @@ import com.rcl.excalibur.data.mapper.BaseDataMapper;
 
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataMapper<O, I>> {
+public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDataMapper<O, I, T>> {
 
     private final M dataMapper;
     private final Class<I> claz;
@@ -29,39 +24,31 @@ public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataM
         this.claz = claz;
     }
 
-    protected BaseDataMapper<O, I> getMapper() {
+    protected BaseDataMapper<O, I, T> getMapper() {
         return dataMapper;
     }
 
     public abstract void create(@NonNull O input);
 
     public void create(List<O> inputList) {
-        new Thread(() -> {
-            try {
-                ActiveAndroid.beginTransaction();
-                try {
-                    for (O item : inputList) {
-                        create(item);
-                    }
-                    ActiveAndroid.setTransactionSuccessful();
-                } finally {
-                    ActiveAndroid.endTransaction();
-                }
-            } catch (Exception e) {
-                Timber.e(e.getMessage());
+        try {
+            ActiveAndroid.beginTransaction();
+            for (O item : inputList) {
+                create(item);
             }
-        }).start();
+            ActiveAndroid.setTransactionSuccessful();
+        } catch (Exception e) {
+            Timber.e(e.getMessage());
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
     }
 
-    public void getAll(Observer<List<O>> observer) {
-        Observable.create((ObservableOnSubscribe<List<O>>) e -> {
-            final List<I> entities = new Select()
-                    .from(claz)
-                    .execute();
-            e.onNext(dataMapper.transform(entities));
-        }).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+    public List<O> getAll() {
+        final List<I> entities = new Select()
+                .from(claz)
+                .execute();
+        return dataMapper.transform(entities, null);
     }
 
     public O get(@NonNull String column, final String value) {
@@ -69,7 +56,7 @@ public abstract class BaseDataRepository<O, I extends Model, M extends BaseDataM
                 .from(claz)
                 .where(eq(column, value))
                 .executeSingle();
-        return dataMapper.transform(entity);
+        return dataMapper.transform(entity, null);
     }
 
     public abstract void deleteAll();

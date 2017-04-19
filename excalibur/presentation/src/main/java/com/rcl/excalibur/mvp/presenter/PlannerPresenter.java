@@ -5,16 +5,15 @@ import android.support.v4.util.SparseArrayCompat;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.adapters.planner.stickylib.PlannerHeader;
-import com.rcl.excalibur.adapters.planner.stickylib.PlannerProductItem;
-import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.interactor.DefaultObserver;
-import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
+import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
+import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
+import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.model.PlannerProductModel;
 import com.rcl.excalibur.mvp.view.PlannerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
@@ -25,14 +24,13 @@ import static com.rcl.excalibur.model.PlannerProductModel.STATE_LATE_NIGHT;
 import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 
 public class PlannerPresenter {
+
+    private GetOfferingsDbUseCase useCase;
     private static final String HEADER_FORMAT = "H%s";
     private static final String ITEM_FORMAT = "I%s";
 
     private static final int HEADER_LIST_SIZE = 4;
-    private static final long DELAY = 3000;
-
-    private GetProductDbUseCase productUseCase;
-    private ProductUseCaseObserver serviceObserver;
+    private static final long DELAY = 5000;
 
     private PlannerProductModelMapper mapper;
     private PlannerView view;
@@ -42,17 +40,33 @@ public class PlannerPresenter {
     private int lastHeaderId = 0;
     private int lastItemId = 0;
 
-    public PlannerPresenter(PlannerView view, GetProductDbUseCase productUseCase, PlannerProductModelMapper modelMapper) {
+    public PlannerPresenter(PlannerView view, GetOfferingsDbUseCase useCase, PlannerProductModelMapper modelMapper) {
         this.view = view;
-        this.productUseCase = productUseCase;
+        this.useCase = useCase;
         this.mapper = modelMapper;
-        this.serviceObserver = new ProductUseCaseObserver();
     }
 
     public void init() {
         view.init();
+        view.initAnimation();
+        view.initBottomSheetBehavior();
+
         createHeaderList();
-        new Handler().postDelayed(() -> productUseCase.getAll(serviceObserver), DELAY);
+
+        //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2017);
+        calendar.set(Calendar.DAY_OF_MONTH, 3);
+        calendar.set(Calendar.MONTH, Calendar.MAY);
+        new Handler().postDelayed(() -> {
+            SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
+            List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
+            if (!items.isEmpty()) {
+                view.showAllDayLayout();
+            }
+            items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
+            view.addPlannerItems(items);
+        }, DELAY);
     }
 
     private void createHeaderList() {
@@ -87,15 +101,11 @@ public class PlannerPresenter {
         return plannerProductItem;
     }
 
-    private final class ProductUseCaseObserver extends DefaultObserver<List<Product>> {
-        @Override
-        public void onNext(List<Product> value) {
-            if (view.getActivity() != null) {
-                SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(value);
-                //List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
-                List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST));
-                view.addPlannerItems(items);
-            }
-        }
+    public void onItemClick(int position) {
+        view.onItemClick(position);
+    }
+
+    public void isShowingItems(int visibleItemCount) {
+        view.isShowingItems(visibleItemCount);
     }
 }

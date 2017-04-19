@@ -7,6 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical">
     <RelativeLayout
+        android:background="@drawable/background_gradient_item_cue_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_small">
@@ -37,7 +38,7 @@
                 tools:text="The High Dive" />
 
             <TextView
-                android:id="@+id/text_planner_product_location"
+                android:id="@+id/text_planner_product_venue"
                 style="@style/AppTheme.ProductVenue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,7 +84,7 @@
                 android:id="@+id/view_itinerary_product_price_range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:maxRange="@integer/itinerary_product_item_max_range"
+                app:maxRange="@integer/planner_product_item_max_range"
                 app:offColor="@color/grey"
                 app:onColor="@color/black" />
         </LinearLayout>

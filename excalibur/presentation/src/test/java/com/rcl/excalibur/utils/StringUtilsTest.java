@@ -11,8 +11,8 @@ public class StringUtilsTest {
         Float myPrice = 21.54f;
         Float myExactPrice = 21.00f;
 
-        Assert.assertTrue("Failed getRightPrice", "0".equals(StringUtils.getPriceFormated(zeroPrice)));
-        Assert.assertTrue("Failed getRightPrice", "21.54".equals(StringUtils.getPriceFormated(myPrice)));
-        Assert.assertTrue("Failed getRightPrice", "21".equals(StringUtils.getPriceFormated(myExactPrice)));
+        Assert.assertTrue("Failed getRightPrice", "0".equals(StringUtils.getPriceFormatted(zeroPrice)));
+        Assert.assertTrue("Failed getRightPrice", "21.54".equals(StringUtils.getPriceFormatted(myPrice)));
+        Assert.assertTrue("Failed getRightPrice", "21".equals(StringUtils.getPriceFormatted(myExactPrice)));
     }
 }
