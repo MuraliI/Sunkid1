@@ -116,6 +116,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         for (int i = 0; i < itemCount; i++) {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
             resizeItemView(view, initVerticalMargin, initHorizontalMargin);
+            setItemViewBackground(view, R.drawable.background_rounded_cue_card);
         }
     }
 
@@ -130,6 +131,13 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         if (initialized) {
             view.requestLayout();
         }
+    }
+
+    private void setItemViewBackground(View view, int imageResource) {
+        if (view == null) {
+            return;
+        }
+        view.setBackgroundResource(imageResource);
     }
 
     public void addPlannerItems(List<AbstractFlexibleItem> items) {
