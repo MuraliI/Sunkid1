@@ -3,7 +3,6 @@ package com.rcl.excalibur.model;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
-import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
 import com.rcl.excalibur.utils.PartOfDayUtils;
 
@@ -71,7 +70,7 @@ public class PlannerProductModel extends ProductInformationViewType implements C
 
     @Override
     public int getViewType() {
-        return RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW;
+        return 0;
     }
 
     @Override

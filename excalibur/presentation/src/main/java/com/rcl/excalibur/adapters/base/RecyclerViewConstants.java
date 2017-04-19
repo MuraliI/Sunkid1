@@ -14,9 +14,6 @@ public final class RecyclerViewConstants {
     public static final int VIEW_TYPE_DESCRIPTION = 10000009;
     public static final int VIEW_TYPE_ACCESSIBILITY_VIEW = 10000010;
 
-    // Planner
-    public static final int VIEW_TYPE_ITINERARY_PRODUCT_VIEW = 2000002;
-
     private RecyclerViewConstants() {
     }
 }
