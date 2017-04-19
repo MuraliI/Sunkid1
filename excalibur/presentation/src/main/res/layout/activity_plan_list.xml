@@ -36,9 +36,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/plans_header_back"
-                android:text="@string/hardcoded_today"
                 android:paddingLeft="@dimen/padding_start_title_list_product"
-                android:paddingRight="@dimen/padding_end_title_list_product" />
+                android:paddingRight="@dimen/padding_end_title_list_product"
+                android:text="@string/hardcoded_today" />
 
             <ImageView
                 android:id="@+id/category_icon"
@@ -61,7 +61,9 @@
             app:tabIndicatorColor="@color/font_color_blue"
             app:tabIndicatorHeight="@dimen/tabs_indicator_list_product"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/font_color_blue" />
+            app:tabPaddingBottom="@dimen/padding_between_title_and_indicator_list_product"
+            app:tabSelectedTextColor="@color/font_color_blue"
+            app:tabTextAppearance="@style/TabLayoutTextAppearance" />
 
     </android.support.design.widget.AppBarLayout>
 
