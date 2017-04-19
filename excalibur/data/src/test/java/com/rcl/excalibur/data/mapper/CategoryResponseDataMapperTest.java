@@ -37,7 +37,7 @@ public class CategoryResponseDataMapperTest {
 
     @Test
     public void transform() throws Exception {
-        Category category = categotyServiceDataMapper.transform(entity1);
+        Category category = categotyServiceDataMapper.transform(entity1, null);
         assertNotNull(category);
         assertEquals(entity1.getCategoryId(), category.getCategoryId());
         assertEquals(entity1.getCategoryDescription(), category.getDescription());
@@ -50,7 +50,7 @@ public class CategoryResponseDataMapperTest {
         entities.add(entity1);
         entities.add(entity2);
 
-        List<Category> categoryList = categotyServiceDataMapper.transform(entities);
+        List<Category> categoryList = categotyServiceDataMapper.transform(entities, null);
         assertNotNull(categoryList);
         assertFalse(categoryList.isEmpty());
         assertEquals(entities.size(), categoryList.size());

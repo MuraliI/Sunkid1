@@ -12,7 +12,7 @@ import java.util.List;
 public class SubCategoryResponseDataMapper extends BaseDataMapper<SubCategory, SubCategoryResponse, Void> {
 
     @Override
-    public SubCategory transform(SubCategoryResponse subCategoryResponse, Void additionalArg) {
+    public SubCategory transform(SubCategoryResponse subCategoryResponse, Void additionalArgs) {
         SubCategory subCategory = null;
         if (subCategoryResponse != null) {
             subCategory = new SubCategory();

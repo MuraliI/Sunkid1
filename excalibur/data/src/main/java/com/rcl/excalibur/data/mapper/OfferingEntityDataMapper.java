@@ -18,9 +18,9 @@ public class OfferingEntityDataMapper extends BaseDataMapper<OfferingEntity, Off
 
     private PriceEntityDataMapper priceEntityDataMapper;
 
-    public OfferingEntityDataMapper() {
+    public OfferingEntityDataMapper(PriceEntityDataMapper priceEntityDataMapper) {
         simpleDateFormat = getHourlessDateParser();
-        priceEntityDataMapper = new PriceEntityDataMapper();
+        this.priceEntityDataMapper = priceEntityDataMapper;
     }
 
     @Nullable
