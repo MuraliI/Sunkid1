@@ -25,6 +25,7 @@ import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -241,7 +242,7 @@ public final class DetailViewTypeFactory {
         if (!product.isShopping()
                 && !product.isDining()) {
 
-            offerings.sort((o1, o2) -> o1.compareByPrice(o2));
+            Collections.sort(offerings, (o1, o2) -> o1.compareByPrice(o2));
 
             HashMap<String, String> map = new HashMap<>();
             float adultPrice = -1;
