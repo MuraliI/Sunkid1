@@ -51,7 +51,11 @@ public class PlannerPresenter {
 
     public void init() {
         view.init();
+        view.initAnimation();
+        view.initBottomSheetBehavior();
+
         createHeaderList();
+
         new Handler().postDelayed(() -> productUseCase.getAll(serviceObserver), DELAY);
     }
 
@@ -85,6 +89,10 @@ public class PlannerPresenter {
         PlannerProductItem plannerProductItem = new PlannerProductItem(String.format(ITEM_FORMAT, ++lastItemId), plannerHeader);
         plannerProductItem.setPlannerProductModel(plannerProductModel);
         return plannerProductItem;
+    }
+
+    public void isShowingItems(int visibleItemCount) {
+        view.isShowingItems(visibleItemCount);
     }
 
     private final class ProductUseCaseObserver extends DefaultObserver<List<Product>> {

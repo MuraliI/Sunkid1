@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.custom.itinerary.RoyalLinearLayoutManager;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.mvp.presenter.PlannerPresenter;
 import com.rcl.excalibur.mvp.view.PlannerView;
 
-public class PlannerFragment extends Fragment {
+public class PlannerFragment extends Fragment implements RoyalLinearLayoutManager.OnFirstTimeListener {
     private PlannerPresenter presenter;
 
     public static PlannerFragment newInstance() {
@@ -37,5 +38,10 @@ public class PlannerFragment extends Fragment {
                 new PlannerProductModelMapper(getResources())
         );
         presenter.init();
+    }
+
+    @Override
+    public void isShowingItems(int visibleItemCount) {
+        presenter.isShowingItems(visibleItemCount);
     }
 }
