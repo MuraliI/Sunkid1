@@ -4,6 +4,7 @@ package com.rcl.excalibur.data.mapper;
 import com.rcl.excalibur.data.entity.ActivityLevelEntity;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
+import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
 import com.rcl.excalibur.data.entity.DurationEntity;
 import com.rcl.excalibur.data.entity.LocationEntity;
@@ -16,6 +17,7 @@ import com.rcl.excalibur.data.entity.RestrictionEntity;
 import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
 import com.rcl.excalibur.data.entity.TypeEntity;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
@@ -283,20 +285,41 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         return productType;
     }
 
-    private List<ProductCategory> transform(CategoryEntity categoryEntity) {
+    private ProductCategory transform(CategoryEntity categoryEntity) {
 
-        ArrayList<ProductCategory> productCategories = new ArrayList<>();
         if (categoryEntity == null) {
-            return productCategories;
+            return null;
         }
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryDescription(categoryEntity.getDescription());
         productCategory.setCategoryId(categoryEntity.getCategoryId());
-        productCategory.setProductTags(transformProductTags(categoryEntity.getTags()));
-        productCategories.add(productCategory);
-        return productCategories;
+        productCategory.setCategoryName(categoryEntity.getName());
+        productCategory.setChildCategory(transformChildCategories(categoryEntity.getChildCategoryProducts()));
+
+        return productCategory;
     }
+
+    private List<ChildCategory> transformChildCategories(List<ChildCategoryProductEntity> entities) {
+
+        ArrayList<ChildCategory> childCategories = new ArrayList<>();
+
+        if (CollectionUtils.isEmpty(entities)) {
+            return childCategories;
+        }
+
+        for (ChildCategoryProductEntity childCategoryProductEntity : entities) {
+
+            ChildCategory childCategory = new ChildCategory();
+            childCategory.getItems().setCategoryDescription(childCategoryProductEntity.getDescription());
+            childCategory.getItems().setCategoryId(childCategoryProductEntity.getCategoryId());
+            childCategory.getItems().setCategoryName(childCategoryProductEntity.getName());
+            childCategories.add(childCategory);
+        }
+
+        return childCategories;
+    }
+
 
     private List<ProductTags> transformProductTags(String[] tags) {
 

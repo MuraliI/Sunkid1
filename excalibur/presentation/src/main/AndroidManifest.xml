@@ -90,6 +90,7 @@
                     com.rcl.excalibur.data.entity.PriceEntity,
                     com.rcl.excalibur.data.entity.OfferingEntity,
                     com.rcl.excalibur.data.entity.SubCategoryEntity,
-                    com.rcl.excalibur.data.entity.ChildCategoryEntity"/>
+                    com.rcl.excalibur.data.entity.ChildCategoryEntity,
+                    com.rcl.excalibur.data.entity.ChildCategoryProductEntity"/>
     </application>
 </manifest>

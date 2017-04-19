@@ -379,7 +379,9 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
             this.productType = productType;
             mapDataProducts(response, productList, offeringList);
             productRepository.create(productList);
+
             offeringRepository.create(offeringList);
+
         }
 
         void onFailure(Throwable t) {

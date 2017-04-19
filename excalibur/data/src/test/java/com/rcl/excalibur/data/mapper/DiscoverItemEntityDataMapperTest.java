@@ -35,6 +35,7 @@ public class DiscoverItemEntityDataMapperTest {
 
     @Test
     public void transformToEntity() throws Exception {
+
         DiscoverItem discoverItem = discoverEntityDataMapper.transform(entity1, null);
         assertNotNull(discoverItem);
         assertEquals(entity1.getTitle(), discoverItem.getTitle());
@@ -47,6 +48,7 @@ public class DiscoverItemEntityDataMapperTest {
         final List<DiscoverItemEntity> entities = new ArrayList();
         entities.add(entity1);
         entities.add(entity2);
+
 
         List<DiscoverItem> discoverItems = discoverEntityDataMapper.transform(entities, null);
         assertNotNull(discoverItems);
