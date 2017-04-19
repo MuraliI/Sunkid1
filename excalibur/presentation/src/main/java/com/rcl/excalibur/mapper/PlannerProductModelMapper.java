@@ -92,10 +92,11 @@ public class PlannerProductModelMapper {
         Calendar allDayEndDate = Calendar.getInstance();
         allDayEndDate.setTime(offeringList.get(offeringList.size() - 1).getDate());
 
-        model.setOperatinghours(calculateOperatingHours(allDayStartDate, allDayEndDate));
+        model.setOperatingHours(calculateOperatingHours(allDayStartDate, allDayEndDate));
         model.setStartDate(allDayStartDate);
         model.setEndDate(allDayEndDate);
         model.setAllDayProduct(true);
+        model.setResourceIdCategoryIcon(getCategoryIcon(model.getProductType()));
 
         return model;
     }
@@ -108,15 +109,20 @@ public class PlannerProductModelMapper {
 
         model.setStartDate(startDate);
         model.setEndDate(calculateEndDate(offering.getDate(), product.getProductDuration()));
-        model.setOperatinghours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
+        model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
+        model.setResourceIdCategoryIcon(getCategoryIcon(model.getProductType()));
 
         return model;
     }
 
+    private int getCategoryIcon(String productType) {
+        return R.drawable.icon_dining_color;
+    }
+
     private String calculateOperatingHours(Calendar startDate, Calendar endDate) {
-        return resources.getString(R.string.planner_operating_hours
-                , PresentationDateUtils.getDateTime(startDate.getTime(), resources)
-                , PresentationDateUtils.getDateTime(endDate.getTime(), resources));
+        return resources.getString(R.string.planner_operating_hours,
+                PresentationDateUtils.getDateTime(startDate.getTime(), resources),
+                PresentationDateUtils.getDateTime(endDate.getTime(), resources));
     }
 
     private Calendar calculateEndDate(Date starTime, ProductDuration duration) {

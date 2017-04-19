@@ -6,8 +6,9 @@
     android:orientation="vertical">
 
     <include
-        android:id="@+id/layout_all_day"
-        layout="@layout/planner_item_header" />
+        android:id="@+id/layout_planner_all_day"
+        layout="@layout/planner_item_header"
+        android:visibility="gone" />
 
     <FrameLayout
         android:layout_width="match_parent"

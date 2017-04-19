@@ -30,7 +30,7 @@ public class PlannerPresenter {
     private static final String ITEM_FORMAT = "I%s";
 
     private static final int HEADER_LIST_SIZE = 4;
-    private static final long DELAY = 3000;
+    private static final long DELAY = 5000;
 
     private PlannerProductModelMapper mapper;
     private PlannerView view;
@@ -56,8 +56,11 @@ public class PlannerPresenter {
         calendar.set(Calendar.MONTH, Calendar.MAY);
         new Handler().postDelayed(() -> {
             SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
-            //List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
-            List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST));
+            List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
+            if (!items.isEmpty()) {
+                view.showAllDayLayout();
+            }
+            items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
             view.addPlannerItems(items);
         }, DELAY);
     }
@@ -92,5 +95,9 @@ public class PlannerPresenter {
         PlannerProductItem plannerProductItem = new PlannerProductItem(String.format(ITEM_FORMAT, ++lastItemId), plannerHeader);
         plannerProductItem.setPlannerProductModel(plannerProductModel);
         return plannerProductItem;
+    }
+
+    public void onItemClick(int position) {
+        view.onItemClick(position);
     }
 }
