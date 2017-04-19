@@ -13,4 +13,11 @@
         <attr name="stripColor" format="color" />
         <attr name="tabsPadding" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="PriceRangeLayout">
+        <attr name="maxRange" format="integer"/>
+        <attr name="value" format="integer"/>
+        <attr name="onColor" format="color"/>
+        <attr name="offColor" format="color"/>
+    </declare-styleable>
 </resources>

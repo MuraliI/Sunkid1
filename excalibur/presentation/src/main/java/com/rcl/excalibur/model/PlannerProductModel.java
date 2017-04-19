@@ -1,8 +1,8 @@
 package com.rcl.excalibur.model;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
-import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
 import com.rcl.excalibur.utils.PartOfDayUtils;
 
@@ -10,26 +10,35 @@ import java.util.Calendar;
 
 public class PlannerProductModel extends ProductInformationViewType implements Comparable<PlannerProductModel> {
 
-    // STATE value represent priority in list Higher priority go on top
     public static final int STATE_ALL_DAY = 4;
     public static final int STATE_MORNING = 3;
     public static final int STATE_AFTERNOON = 2;
     public static final int STATE_EVENING = 1;
     public static final int STATE_LATE_NIGHT = 0;
 
-    private String operatinghours;
+    @DrawableRes private int resourceIdCategoryIcon;
+    private String operatingHours;
     private Calendar startDate;
     private Calendar endDate;
     private boolean isAllDayProduct;
     private boolean isFeatured;
     private boolean isHighlighted;
 
-    public String getOperatinghours() {
-        return operatinghours;
+    @DrawableRes
+    public int getResourceIdCategoryIcon() {
+        return resourceIdCategoryIcon;
     }
 
-    public void setOperatinghours(String operatinghours) {
-        this.operatinghours = operatinghours;
+    public void setResourceIdCategoryIcon(int resourceIdCategoryIcon) {
+        this.resourceIdCategoryIcon = resourceIdCategoryIcon;
+    }
+
+    public String getOperatingHours() {
+        return operatingHours;
+    }
+
+    public void setOperatingHours(String operatingHours) {
+        this.operatingHours = operatingHours;
     }
 
     public Calendar getStartDate() {
@@ -78,7 +87,7 @@ public class PlannerProductModel extends ProductInformationViewType implements C
 
     @Override
     public int getViewType() {
-        return RecyclerViewConstants.VIEW_TYPE_ITINERARY_PRODUCT_VIEW;
+        return 0;
     }
 
     @Override

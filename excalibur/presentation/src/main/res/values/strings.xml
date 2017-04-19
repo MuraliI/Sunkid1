@@ -24,7 +24,7 @@
     <string name="price_range">Price Range</string>
     <string name="prices_from">Prices from</string>
     <string name="price_free">Free</string>
-
+    <string name="deck_label">Deck</string>
 
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>
@@ -122,6 +122,8 @@
     <string name="title_good_evening">Good Evening!</string>
     <string name="title_good_night">Good Night!</string>
     <string name="title_hello">Hello</string>
+    <string name="itinerary_product_list_see_all">See all</string>
+    <string name="itinerary_product_list_see_less">See less</string>
     <string name="itinerary_product_view_am">" AM"</string>
     <string name="itinerary_product_view_pm">" PM"</string>
     <string name="itinerary_product_view_colon">:</string>
@@ -135,6 +137,11 @@
     <string name="title_afternoon">Afternoon</string>
     <string name="title_evening">Evening</string>
     <string name="title_late_night">Late night</string>
+    <string name="itinerary_list_bottom_title">That\'s all for today</string>
+    <string name="itinerary_list_bottom_emergency">Emergencies &amp; Medical</string>
+    <string name="itinerary_list_bottom_legal">Privacy &amp; Legal</string>
+    <string name="itinerary_list_bottom_about">About this App</string>
+
 
     <!-- Product Details -->
     <plurals name="product_hr">
