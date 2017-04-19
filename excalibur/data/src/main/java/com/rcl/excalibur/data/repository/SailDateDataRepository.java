@@ -18,7 +18,7 @@ import com.rcl.excalibur.domain.repository.SailDateRepository;
 
 import java.util.List;
 
-public class SailDateDataRepository extends BaseDataRepository<SailDateInfo, SailDateInfoEntity, SaildDateInfoEntityDataMapper>
+public class SailDateDataRepository extends BaseDataRepository<SailDateInfo, SailDateInfoEntity, Void,  SaildDateInfoEntityDataMapper>
         implements SailDateRepository {
 
     public SailDateDataRepository() {
@@ -44,7 +44,7 @@ public class SailDateDataRepository extends BaseDataRepository<SailDateInfo, Sai
                 .all()
                 .from(SailDateInfoEntity.class)
                 .executeSingle();
-        return getMapper().transform(sailDateInfoEntityList);
+        return getMapper().transform(sailDateInfoEntityList, null);
     }
 
 
@@ -86,7 +86,7 @@ public class SailDateDataRepository extends BaseDataRepository<SailDateInfo, Sai
                 .all()
                 .from(SailDateInfoEntity.class)
                 .execute();
-        return getMapper().transform(sailDateInfoEntityList);
+        return getMapper().transform(sailDateInfoEntityList, null);
     }
 
     @Override

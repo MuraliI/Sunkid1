@@ -15,7 +15,7 @@ import timber.log.Timber;
 
 import static com.rcl.excalibur.data.utils.ServiceUtil.getSailDateApi;
 
-public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingInfoResponse> implements SailDateServices {
+public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingInfoResponse , Void> implements SailDateServices {
 
     private static final String SAILING_ID = "1492905600000";
     private final SailDateDataRepository repository;
@@ -35,7 +35,7 @@ public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingI
                 // TODO: add validation succesfull response when webservice integrate
                 if (response.body() != null) {
                     repository.deleteAll();
-                    SailDateInfo dateInfoEntity = getMapper().transform(response.body().getSailingInfo());
+                    SailDateInfo dateInfoEntity = getMapper().transform(response.body().getSailingInfo(), null);
                     repository.create(dateInfoEntity);
                 }
 

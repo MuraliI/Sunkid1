@@ -27,11 +27,10 @@ public class SaildDateInfoEntityDataMapperTest {
     @Test
     public void transform() throws Exception {
 
-        SailDateInfo sailDateInfoEvent = sailDateInfoDataMapper.transform(sailDateInfoEntity);
+        SailDateInfo sailDateInfoEvent = sailDateInfoDataMapper.transform(sailDateInfoEntity, null);
         assertNotNull(sailDateInfoEvent);
         assertEquals(sailDateInfoEvent.getDuration(), sailDateInfoEntity.getDuration());
         assertEquals(sailDateInfoEvent.getShipCode(), sailDateInfoEntity.getShipCode());
-        assertEquals(sailDateInfoEvent.getItinerary(), sailDateInfoEntity.getItinerary());
 
     }
 

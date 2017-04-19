@@ -16,19 +16,9 @@ import com.rcl.excalibur.domain.SailPort;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfo, SailDateInfoEntity> {
+public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfo, SailDateInfoEntity, Void> {
 
-    @Nullable
-    @Override
-    public SailDateInfo transform(SailDateInfoEntity input) {
 
-        final SailDateInfo sailDateInfo = new SailDateInfo();
-        sailDateInfo.setDuration(input.getDuration());
-        sailDateInfo.setShipCode(input.getShipCode());
-        sailDateInfo.setItinerary(transform(input.getItinerary()));
-
-        return sailDateInfo;
-    }
     private SailDateItinerary transform(ItineraryEntity itineraryEntity) {
         SailDateItinerary sailDateItinerary = new SailDateItinerary();
         if (itineraryEntity != null) {
@@ -77,5 +67,16 @@ public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfo, 
             sailPort.setDepartureTime(portEntity.getDepartureTime());
         }
         return sailPort;
+    }
+
+    @Nullable
+    @Override
+    public SailDateInfo transform(SailDateInfoEntity input, Void additionalArg) {
+        final SailDateInfo sailDateInfo = new SailDateInfo();
+        sailDateInfo.setDuration(input.getDuration());
+        sailDateInfo.setShipCode(input.getShipCode());
+        sailDateInfo.setItinerary(transform(input.getItinerary()));
+
+        return sailDateInfo;
     }
 }

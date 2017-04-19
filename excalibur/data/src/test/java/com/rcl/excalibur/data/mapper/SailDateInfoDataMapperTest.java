@@ -95,7 +95,7 @@ public class SailDateInfoDataMapperTest {
 
     @Test
     public void transform() throws Exception {
-        SailDateInfo sailDateInfoEvent = sailDateInfoDataMapper.transform(sailingInfoResponse);
+        SailDateInfo sailDateInfoEvent = sailDateInfoDataMapper.transform(sailingInfoResponse, null);
         assertNotNull(sailDateInfoEvent);
         SailDateItinerary dateItinerary = sailDateInfoEvent.getItinerary();
         assertNotNull(dateItinerary);
