@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_normal"
                     android:ellipsize="end"
-                    android:lines="@integer/detail_toolbar_title_lines"
+                    android:lines="@integer/text_one_line"
                     android:textColor="@color/white"
                     app:title="@string/hardcoded_activity_title" />
             </android.support.v7.widget.Toolbar>

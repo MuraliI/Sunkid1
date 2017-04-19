@@ -12,6 +12,8 @@ public final class PresentationDateUtils {
 
     private static final int AFTERNOON = 12;
     public static final int MINUTES_IN_HOUR = 60;
+    private static final int TEN_VALUE = 10;
+    private static final String ZERO_STRING = "0";
 
     private PresentationDateUtils() {
 
@@ -51,12 +53,14 @@ public final class PresentationDateUtils {
         }
 
         StringBuilder builder = new StringBuilder();
-        if (minutes == 0) {
-            builder.append(hour);
-        } else {
-            builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon)).append(minutes);
+        if (hour < TEN_VALUE) {
+            builder.append(ZERO_STRING);
         }
-
+        builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon));
+        if (minutes < TEN_VALUE) {
+            builder.append(ZERO_STRING);
+        }
+        builder.append(minutes);
         builder.append(amPm == Calendar.AM
                 ? resources.getString(R.string.itinerary_product_view_am)
                 : resources.getString(R.string.itinerary_product_view_pm));

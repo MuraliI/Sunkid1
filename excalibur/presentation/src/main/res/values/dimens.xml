@@ -88,15 +88,24 @@
     <dimen name="font_size_headline7">14sp</dimen>
     <dimen name="body_detail_font_size_description">16sp</dimen>
 
-    <!--Itinerary -->
+    <!--Planner -->
     <dimen name="itinerary_background_corner_radius">10dp</dimen>
-    <dimen name="item_product_image_height">120dp</dimen>
+    <dimen name="item_product_image_height">150dp</dimen>
     <dimen name="item_product_image_width">120dp</dimen>
+    <dimen name="item_product_image_margin_start">12dp</dimen>
     <dimen name="item_product_padding">35dp</dimen>
-    <dimen name="item_product_margin">10dp</dimen>
+    <dimen name="item_product_margin">4dp</dimen>
     <dimen name="itinerary_product_view_margin_start">70dp</dimen>
-    <dimen name="itinerary_separator_thickness">1dp</dimen>
+    <dimen name="itinerary_separator_thickness">0.5dp</dimen>
     <dimen name="itinerary_separator_min_width">40dp</dimen>
+    <dimen name="itinerary_bottom_item_margin">20dp</dimen>
+    <dimen name="itinerary_bottom_item_text_margin">16dp</dimen>
+    <dimen name="itinerary_bottom_item_line_length">210dp</dimen>
+
+    <dimen name="planner_bottom_title">26sp</dimen>
+    <dimen name="planner_bottom_text">16sp</dimen>
+    <dimen name="planner_header_title">26sp</dimen>
+    <dimen name="planner_header_expandable">16sp</dimen>
 
     <dimen name="ship_button_category_size">25dp</dimen>
     <dimen name="ship_button_category_top_margin">10dp</dimen>
@@ -155,4 +164,6 @@
     <dimen name="item_discovery_margin_start">20dp</dimen>
     <dimen name="item_discovery_title_margin_end">40dp</dimen>
     <dimen name="item_discovery_title_margin_top">10dp</dimen>
+    <dimen name="home_status_text_size">20sp</dimen>
+    <dimen name="day_picker_text_size">16sp</dimen>
 </resources>

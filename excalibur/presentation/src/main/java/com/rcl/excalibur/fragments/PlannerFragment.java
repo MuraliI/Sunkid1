@@ -15,7 +15,9 @@ import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.mvp.presenter.PlannerPresenter;
 import com.rcl.excalibur.mvp.view.PlannerView;
 
-public class PlannerFragment extends Fragment {
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+
+public class PlannerFragment extends Fragment implements FlexibleAdapter.OnItemClickListener {
     private PlannerPresenter presenter;
 
     public static PlannerFragment newInstance() {
@@ -37,5 +39,11 @@ public class PlannerFragment extends Fragment {
                 new PlannerProductModelMapper(getResources())
         );
         presenter.init();
+    }
+
+    @Override
+    public boolean onItemClick(int position) {
+        presenter.onItemClick(position);
+        return true;
     }
 }
