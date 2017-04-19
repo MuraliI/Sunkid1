@@ -1,7 +1,9 @@
 package com.rcl.excalibur.utils;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.domain.SailPort;
 
@@ -33,8 +35,9 @@ public final class DayInformationUtils {
     private DayInformationUtils() {
     }
 
-    public static String getShipLocation(@NonNull List<SailDateEvent> events, int day) {
+    public static Pair<String, Integer> getShipLocation(@NonNull List<SailDateEvent> events, int day) {
         String shipLocation;
+        int drawable;
         SailPort sailPort = getSailPortByDay(events, day);
 
         String modelPortType = sailPort.getPortType();
@@ -42,12 +45,15 @@ public final class DayInformationUtils {
                 || modelPortType.equalsIgnoreCase(PORT_TYPE_DOCKED)
                 || modelPortType.equalsIgnoreCase(PORT_TYPE_DEBARK)) {
             shipLocation = ARRIVING_AT_UPER + sailPort.getPortName();
+            drawable = R.drawable.ship_icon;
         } else if (modelPortType.equalsIgnoreCase(PORT_TYPE_CRUISING)) {
             shipLocation = PORT_TYPE_AT_SEA;
+            drawable = R.drawable.ship_icon;
         } else {
             shipLocation = "";
+            drawable = R.drawable.ship_icon;
         }
-        return shipLocation;
+        return new Pair<>(shipLocation, Integer.valueOf(drawable));
     }
 
     public static String getArrivalDebarkDescription(@NonNull List<SailDateEvent> events, int day) {
@@ -58,7 +64,7 @@ public final class DayInformationUtils {
             arrivalDebarkTime = appendValues(DEPARTING_AT, getTimeFormat(sailPort.getDepartureTime()));
         } else if (day == events.size()) {
             arrivalDebarkTime = appendValues(ARRIVING_AT, getTimeFormat(sailPort.getArrivalTime()));
-        } else if (getShipLocation(events, day).equalsIgnoreCase(PORT_TYPE_AT_SEA)) {
+        } else if ((getShipLocation(events, day)).first.equalsIgnoreCase(PORT_TYPE_AT_SEA)) {
             if ((day + 1) <= events.size()) {
                 sailPort = getSailPortByDay(events, (day + 1));
             }

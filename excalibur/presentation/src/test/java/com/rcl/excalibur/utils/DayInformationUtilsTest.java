@@ -1,5 +1,7 @@
 package com.rcl.excalibur.utils;
 
+import android.support.v4.util.Pair;
+
 import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.domain.SailPort;
 
@@ -20,15 +22,21 @@ public class DayInformationUtilsTest {
     @Test
     public void testShipLocationNamePort() throws Exception {
         List<SailDateEvent> sailDateEvents = initSailDateEvent_withPortData("04/24/2017");
-        String shipLocation = DayInformationUtils.getShipLocation(sailDateEvents, 2);
+        Pair<String, Integer> stringIntegerPair = DayInformationUtils.getShipLocation(sailDateEvents, 2);
+        String shipLocation = stringIntegerPair.first;
+        int shipIcon = stringIntegerPair.second;
         assertEquals(shipLocation, "At NASSAU, BAHAMAS");
+        assertEquals(shipIcon, 2130837676);
     }
 
     @Test
     public void testShipLocationAtSea() throws Exception {
         List<SailDateEvent> sailDateEvents = initSailDateEvent_withPortData("04/25/2017");
-        String shipLocation = DayInformationUtils.getShipLocation(sailDateEvents, 3);
+        Pair<String, Integer> stringIntegerPair = DayInformationUtils.getShipLocation(sailDateEvents, 3);
+        String shipLocation = stringIntegerPair.first;
+        int shipIcon = stringIntegerPair.second;
         assertEquals(shipLocation, "At Sea");
+        assertEquals(shipIcon, 2130837676);
     }
 
     @Test
