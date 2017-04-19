@@ -272,17 +272,17 @@ public class ProductResponseDataMapperTest {
 
         assertEquals(productResponse1.getProductClass(), product.getProductClass());
 
-        for (int i = 0; i < productResponse1.getProductCategory().size(); i++) {
-            assertEquals(productResponse1.getProductCategory().get(i).getCategoryDescription(), product.getProductCategory().get(i).getCategoryDescription());
-            assertEquals(productResponse1.getProductCategory().get(i).getCategoryId(), product.getProductCategory().get(i).getCategoryId());
-            assertEquals(productResponse1.getProductCategory().get(i).getCategoryName(), product.getProductCategory().get(i).getCategoryName());
 
-            for (int j = 0; j < productResponse1.getProductCategory().get(i).getChildCategory().size(); j++) {
-                assertEquals(productResponse1.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryDescription(), product.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryDescription());
-                assertEquals(productResponse1.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryName(), product.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryName());
-                assertEquals(productResponse1.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryId(), product.getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryId());
-            }
+        assertEquals(productResponse1.getProductCategory().get(0).getCategoryDescription(), product.getProductCategory().getCategoryDescription());
+        assertEquals(productResponse1.getProductCategory().get(0).getCategoryId(), product.getProductCategory().getCategoryId());
+        assertEquals(productResponse1.getProductCategory().get(0).getCategoryName(), product.getProductCategory().getCategoryName());
+
+        for (int j = 0; j < productResponse1.getProductCategory().get(0).getChildCategory().size(); j++) {
+            assertEquals(productResponse1.getProductCategory().get(0).getChildCategory().get(j).getItems().getCategoryDescription(), product.getProductCategory().getChildCategory().get(j).getItems().getCategoryDescription());
+            assertEquals(productResponse1.getProductCategory().get(0).getChildCategory().get(j).getItems().getCategoryName(), product.getProductCategory().getChildCategory().get(j).getItems().getCategoryName());
+            assertEquals(productResponse1.getProductCategory().get(0).getChildCategory().get(j).getItems().getCategoryId(), product.getProductCategory().getChildCategory().get(j).getItems().getCategoryId());
         }
+
 
         assertEquals(productResponse1.getProductRank(), product.getProductRank());
 
@@ -419,17 +419,17 @@ public class ProductResponseDataMapperTest {
 
             assertEquals(productResponses.get(z).getProductClass(), productList.get(z).getProductClass());
 
-            for (int i = 0; i < productResponses.get(z).getProductCategory().size(); i++) {
-                assertEquals(productResponses.get(z).getProductCategory().get(i).getCategoryDescription(), productList.get(z).getProductCategory().get(i).getCategoryDescription());
-                assertEquals(productResponses.get(z).getProductCategory().get(i).getCategoryId(), productList.get(z).getProductCategory().get(i).getCategoryId());
-                assertEquals(productResponses.get(z).getProductCategory().get(i).getCategoryName(), productList.get(z).getProductCategory().get(i).getCategoryName());
 
-                for (int j = 0; j < productResponses.get(z).getProductCategory().get(i).getChildCategory().size(); j++) {
-                    assertEquals(productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryDescription(), productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryDescription());
-                    assertEquals(productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryName(), productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryName());
-                    assertEquals(productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryId(), productResponses.get(z).getProductCategory().get(i).getChildCategory().get(j).getItems().getCategoryId());
-                }
+            assertEquals(productResponses.get(z).getProductCategory().get(0).getCategoryDescription(), productList.get(z).getProductCategory().getCategoryDescription());
+            assertEquals(productResponses.get(z).getProductCategory().get(0).getCategoryId(), productList.get(z).getProductCategory().getCategoryId());
+            assertEquals(productResponses.get(z).getProductCategory().get(0).getCategoryName(), productList.get(z).getProductCategory().getCategoryName());
+
+            for (int j = 0; j < productResponses.get(z).getProductCategory().get(0).getChildCategory().size(); j++) {
+                assertEquals(productResponses.get(z).getProductCategory().get(0).getChildCategory().get(j).getItems().getCategoryDescription(), productList.get(z).getProductCategory().getChildCategory().get(j).getItems().getCategoryDescription());
+                assertEquals(productResponses.get(z).getProductCategory().get(0).getChildCategory().get(j).getItems().getCategoryName(), productList.get(z).getProductCategory().getChildCategory().get(j).getItems().getCategoryName());
+                assertEquals(productResponses.get(z).getProductCategory().get(0).getChildCategory().get(j).getItems().getCategoryId(), productList.get(z).getProductCategory().getChildCategory().get(j).getItems().getCategoryId());
             }
+
 
             assertEquals(productResponses.get(z).getProductRank(), productList.get(z).getProductRank());
 
