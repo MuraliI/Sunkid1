@@ -25,13 +25,13 @@ import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 
 public class PlannerPresenter {
 
-    private GetOfferingsDbUseCase useCase;
     private static final String HEADER_FORMAT = "H%s";
     private static final String ITEM_FORMAT = "I%s";
-
     private static final int HEADER_LIST_SIZE = 4;
+
     private static final long DELAY = 5000;
 
+    private GetOfferingsDbUseCase useCase;
     private PlannerProductModelMapper mapper;
     private PlannerView view;
 
@@ -103,9 +103,5 @@ public class PlannerPresenter {
 
     public void onItemClick(int position) {
         view.onItemClick(position);
-    }
-
-    public void isShowingItems(int visibleItemCount) {
-        view.isShowingItems(visibleItemCount);
     }
 }

@@ -4,6 +4,7 @@ package com.rcl.excalibur.mvp.view;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
-import com.rcl.excalibur.custom.itinerary.RoyalLinearLayoutManager;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 
@@ -34,17 +34,17 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     @Bind(R.id.layout_planner_container) LinearLayout containerLayout;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
-
+    private LinearLayoutManager linearLayoutManager;
     private BottomSheetBehavior bottomSheetBehavior;
 
     private Animation animationGoIn;
 
     private boolean isExpanded = false;
     private boolean initialized = false;
+    private boolean bottomSheetIsSliding;
 
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
-    private int itemCount = 0;
 
     public PlannerView(PlannerFragment fragment) {
         super(fragment);
@@ -56,14 +56,34 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         if (fragment == null) {
             return;
         }
-        adapter = new FlexibleAdapter<>(null, fragment, true);
-        adapter.setDisplayHeadersAtStartUp(false).setStickyHeaders(true);
-        recyclerView.setLayoutManager(new RoyalLinearLayoutManager(fragment.getContext(), fragment));
-        recyclerView.setAdapter(adapter);
-
         Resources resources = fragment.getResources();
         initHorizontalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_horizontal_margin);
         initVerticalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_vertical_margin);
+
+        adapter = new FlexibleAdapter<>(null, fragment, true);
+        adapter.setDisplayHeadersAtStartUp(false).setStickyHeaders(true);
+        linearLayoutManager = new LinearLayoutManager(fragment.getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                if (!bottomSheetIsSliding) {
+                    initialized = true;
+                    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+                    layoutParams.leftMargin = initHorizontalMargin;
+                    layoutParams.rightMargin = initHorizontalMargin;
+                    layoutParams.topMargin = initVerticalMargin;
+                    layoutParams.bottomMargin = initVerticalMargin;
+                }
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                //No op
+            }
+        });
+
     }
 
     public void initAnimation() {
@@ -83,6 +103,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
                         if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                             isExpanded = false;
+                            bottomSheetIsSliding = false;
 
                             initItemsWithMargin();
                             bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
@@ -93,11 +114,12 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
                     @Override
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                        bottomSheetIsSliding = true;
                         if (isExpanded) {
                             return;
                         }
-
-                        for (int i = 0; i < itemCount; i++) {
+                        int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
+                        for (int i = 0; i <= visibleChildren; i++) {
                             View view = recyclerView.getLayoutManager().findViewByPosition(i);
                             int verticalMargin = getMargin(slideOffset, initVerticalMargin);
                             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
@@ -113,7 +135,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     private void initItemsWithMargin() {
-        for (int i = 0; i < itemCount; i++) {
+        int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
+        for (int i = 0; i <= visibleChildren; i++) {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
             resizeItemView(view, initVerticalMargin, initHorizontalMargin);
             setItemViewBackground(view, R.drawable.background_rounded_cue_card);
@@ -159,16 +182,5 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     public void showAllDayLayout() {
         allDayLayout.setVisibility(View.VISIBLE);
-    }
-
-    public void isShowingItems(int visibleItemCount) {
-        if (initialized) {
-            return;
-        }
-
-        itemCount = visibleItemCount;
-        initItemsWithMargin();
-
-        initialized = true;
     }
 }
