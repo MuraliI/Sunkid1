@@ -2,10 +2,12 @@ package com.rcl.excalibur.mvp.presenter;
 
 
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.mvp.view.DayPickerView;
@@ -20,9 +22,11 @@ import timber.log.Timber;
 public class DayPickerPresenter {
 
     private DayPickerView view;
+    private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
 
-    public DayPickerPresenter(DayPickerView view) {
+    public DayPickerPresenter(DayPickerView view, GetSailingPreferenceUseCase getSailingPreferenceUseCase) {
         this.view = view;
+        this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
     }
 
     public void init() {
@@ -33,7 +37,7 @@ public class DayPickerPresenter {
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
         view.setFotterDate(mockFooterDate(activity.getResources()));
-        view.setHeader("Some description", "Day 1");
+        view.setHeader("Some description", getDayFromPreference());
         ArrayList<EventModel> events = mockEventList(activity.getResources());
         showCollectionInView(events);
     }
@@ -46,6 +50,21 @@ public class DayPickerPresenter {
         }
     }
 
+    private String getDayFromPreference() {
+        if (!TextUtils.isEmpty(getSailingPreferenceUseCase.getDay())) {
+            Timber.i("Preferences are not null " + getSailingPreferenceUseCase.getDay());
+            return getSailingPreferenceUseCase.getDay();
+        } else {
+
+        }
+        if (DateUtils.isIncomingDateBeforeCurrent("03/18/2017")) {
+            Timber.i("The date 03/18/2017 is before current");
+        } else {
+            Timber.i("The date is after current");
+        }
+        return "Day 1";
+    }
+
     public class AdapterObserver extends DefaultPresentObserver<EventModel, DayPickerPresenter> {
 
         AdapterObserver(DayPickerPresenter presenter) {
@@ -54,7 +73,7 @@ public class DayPickerPresenter {
 
         @Override
         public void onNext(EventModel value) {
-            Timber.i("Adapter clicked");
+            getSailingPreferenceUseCase.putDay(value.getDay());
         }
     }
 

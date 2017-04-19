@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.data.preference.SailingPreferenceImpl;
+import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
+import com.rcl.excalibur.domain.preference.SailingPreferences;
 import com.rcl.excalibur.mvp.presenter.DayPickerPresenter;
 import com.rcl.excalibur.mvp.view.DayPickerView;
 
@@ -25,7 +28,8 @@ public class DayPickerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new DayPickerPresenter(new DayPickerView(this));
+        final SailingPreferences sailingPreferences = new SailingPreferenceImpl(getContext());
+        presenter = new DayPickerPresenter(new DayPickerView(this), new GetSailingPreferenceUseCase(sailingPreferences));
         presenter.init();
     }
 }
