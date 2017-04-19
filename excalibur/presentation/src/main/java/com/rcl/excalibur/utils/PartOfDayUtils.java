@@ -3,12 +3,9 @@ package com.rcl.excalibur.utils;
 
 import android.support.annotation.NonNull;
 
-import java.util.Calendar;
+import com.rcl.excalibur.model.PlannerProductModel;
 
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_AFTERNOON;
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_EVENING;
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_LATE_NIGHT;
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
+import java.util.Calendar;
 
 public final class PartOfDayUtils {
     private static final int NUMBER_OF_MINUTES_IN_HOUR = 60;
@@ -26,13 +23,13 @@ public final class PartOfDayUtils {
 
         int currentHourInMinutes = getCurrentHourInMinutes(date);
         if (currentHourInMinutes >= MINUTES_START_MORNING && currentHourInMinutes < MINUTES_START_AFTERNOON) {
-            state = STATE_MORNING;
+            state = PlannerProductModel.STATE_MORNING;
         } else if (currentHourInMinutes >= MINUTES_START_MORNING && currentHourInMinutes < MINUTES_START_EVENING) {
-            state = STATE_AFTERNOON;
+            state = PlannerProductModel.STATE_AFTERNOON;
         } else if (currentHourInMinutes >= MINUTES_START_EVENING && currentHourInMinutes < MINUTES_START_LATE_NIGHT) {
-            state = STATE_EVENING;
+            state = PlannerProductModel.STATE_EVENING;
         } else {
-            state = STATE_LATE_NIGHT;
+            state = PlannerProductModel.STATE_LATE_NIGHT;
         }
 
         return state;

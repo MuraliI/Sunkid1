@@ -1,4 +1,4 @@
-package com.rcl.excalibur.adapters.planner.stickylib;
+package com.rcl.excalibur.adapters.planner.abstractitem;
 
 
 import android.view.LayoutInflater;

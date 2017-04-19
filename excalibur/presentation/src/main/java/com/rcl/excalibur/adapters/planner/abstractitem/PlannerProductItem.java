@@ -1,4 +1,4 @@
-package com.rcl.excalibur.adapters.planner.stickylib;
+package com.rcl.excalibur.adapters.planner.abstractitem;
 
 
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import com.rcl.excalibur.model.PlannerProductModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -58,6 +59,10 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         this.plannerProductModel = plannerProductModel;
     }
 
+    public PlannerProductModel getPlannerProductModel() {
+        return plannerProductModel;
+    }
+
     @Override
     public int getLayoutRes() {
         return R.layout.planner_item_product;
@@ -78,24 +83,24 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         } else {
             holder.productImage.setImageResource(R.drawable.placeholder_list_item);
         }
-        if (plannerProductModel.getPriceRange() > 0) {
+        if (plannerProductModel.getUpChargeLevel() > 0) {
             holder.priceRange.setVisibility(View.VISIBLE);
-            holder.priceRange.setValue(plannerProductModel.getPriceRange());
+            holder.priceRange.setValue(plannerProductModel.getUpChargeLevel());
         } else {
             holder.priceRange.setVisibility(View.GONE);
         }
-        holder.productPromoted.setVisibility(plannerProductModel.isPromoted() ? View.VISIBLE : View.GONE);
+        holder.productPromoted.setVisibility(new Random().nextBoolean() ? View.VISIBLE : View.GONE);
         holder.productName.setText(plannerProductModel.getProductName());
         holder.productOperatingHours.setText(plannerProductModel.getOperatingHours());
-        holder.productLocation.setText(plannerProductModel.getLocation());
+        holder.productVenue.setText(plannerProductModel.getVenue());
         holder.productCategoryIcon.setImageResource(plannerProductModel.getResourceIdCategoryIcon());
-        holder.productDeckAndDirection.setText(plannerProductModel.getDeckAndDirection());
+        holder.productDeckAndDirection.setText(plannerProductModel.getLocation());
     }
 
     public class ViewHolder extends FlexibleViewHolder {
         @Bind(R.id.text_planner_product_name) TextView productName;
         @Bind(R.id.text_planner_product_operating_hours) TextView productOperatingHours;
-        @Bind(R.id.text_planner_product_location) TextView productLocation;
+        @Bind(R.id.text_planner_product_venue) TextView productVenue;
         @Bind(R.id.text_itinerary_planner_deck_and_direction) TextView productDeckAndDirection;
         @Bind(R.id.image_itinerary_product_picture) ImageView productImage;
         @Bind(R.id.image_itinerary_product_icon) ImageView productCategoryIcon;

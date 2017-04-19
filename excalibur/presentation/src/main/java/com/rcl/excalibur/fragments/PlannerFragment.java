@@ -9,14 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.data.repository.OfferingDataRepository;
+import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.custom.itinerary.RoyalLinearLayoutManager;
-import com.rcl.excalibur.data.repository.ProductDataRepository;
-import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.mvp.presenter.PlannerPresenter;
 import com.rcl.excalibur.mvp.view.PlannerView;
 
-public class PlannerFragment extends Fragment implements RoyalLinearLayoutManager.OnFirstTimeListener {
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+
+public class PlannerFragment extends Fragment implements FlexibleAdapter.OnItemClickListener, RoyalLinearLayoutManager.OnFirstTimeListener {
     private PlannerPresenter presenter;
 
     public static PlannerFragment newInstance() {
@@ -34,10 +36,16 @@ public class PlannerFragment extends Fragment implements RoyalLinearLayoutManage
         super.onViewCreated(view, savedInstanceState);
         presenter = new PlannerPresenter(
                 new PlannerView(this),
-                new GetProductDbUseCase(new ProductDataRepository()),
+                new GetOfferingsDbUseCase(new OfferingDataRepository()),
                 new PlannerProductModelMapper(getResources())
         );
         presenter.init();
+    }
+
+    @Override
+    public boolean onItemClick(int position) {
+        presenter.onItemClick(position);
+        return true;
     }
 
     @Override

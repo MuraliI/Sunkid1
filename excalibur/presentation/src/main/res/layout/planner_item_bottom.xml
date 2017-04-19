@@ -14,7 +14,7 @@
 
     <TextView
         android:text="@string/itinerary_list_bottom_title"
-        style="@style/AppTheme.ItineraryBottomTitleText"
+        style="@style/AppTheme.PlannerBottomTitleText"
         android:layout_marginTop="@dimen/itinerary_bottom_item_text_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -28,7 +28,7 @@
     <TextView
         android:id="@+id/text_itinerary_list_bottom_emergency"
         android:text="@string/itinerary_list_bottom_emergency"
-        style="@style/AppTheme.ItineraryBottomNormalText"
+        style="@style/AppTheme.PlannerBottomNormalText"
         android:layout_marginTop="@dimen/itinerary_bottom_item_text_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -36,7 +36,7 @@
     <TextView
         android:id="@+id/text_itinerary_list_bottom_legal"
         android:text="@string/itinerary_list_bottom_legal"
-        style="@style/AppTheme.ItineraryBottomNormalText"
+        style="@style/AppTheme.PlannerBottomNormalText"
         android:layout_marginTop="@dimen/itinerary_bottom_item_text_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -44,7 +44,7 @@
     <TextView
         android:id="@+id/text_itinerary_list_bottom_about"
         android:text="@string/itinerary_list_bottom_about"
-        style="@style/AppTheme.ItineraryBottomNormalText"
+        style="@style/AppTheme.PlannerBottomNormalText"
         android:layout_marginTop="@dimen/itinerary_bottom_item_text_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

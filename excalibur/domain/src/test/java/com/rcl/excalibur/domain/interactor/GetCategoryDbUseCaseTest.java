@@ -18,11 +18,9 @@ import static org.mockito.Mockito.verify;
 public class GetCategoryDbUseCaseTest {
     @Mock CategoryRepository categoryRepository;
     GetCategoryDbUseCase useCase;
-    TestObserver<List<Category>> observer;
 
     @Before
     public void setUp() throws Exception {
-        observer = new TestObserver<>();
         MockitoAnnotations.initMocks(this);
         useCase = new GetCategoryDbUseCase(categoryRepository);
     }
@@ -34,8 +32,8 @@ public class GetCategoryDbUseCaseTest {
 
     @Test
     public void getAll() throws Exception {
-        useCase.getAll(observer);
-        verify(categoryRepository).getAll(observer);
+        useCase.getAll();
+        verify(categoryRepository).getAll();
     }
 
     @Test

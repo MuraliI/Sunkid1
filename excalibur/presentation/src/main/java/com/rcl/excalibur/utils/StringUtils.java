@@ -35,7 +35,7 @@ public final class StringUtils {
         }
     }
 
-    public static String getPriceFormated(float price) {
+    public static String getPriceFormatted(float price) {
         if (price - (int) price > 0) {
             return Float.toString(price);
         }

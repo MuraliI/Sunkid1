@@ -8,14 +8,14 @@ import com.rcl.excalibur.R;
 import java.util.Calendar;
 import java.util.Date;
 
-public final class DateUtils {
+public final class PresentationDateUtils {
 
     private static final int AFTERNOON = 12;
     public static final int MINUTES_IN_HOUR = 60;
     private static final int TEN = 10;
     private static final String ZERO_STRING = "0";
 
-    private DateUtils() {
+    private PresentationDateUtils() {
 
     }
 
