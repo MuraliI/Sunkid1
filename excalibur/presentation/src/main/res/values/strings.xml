@@ -55,13 +55,13 @@
     <string name="proxima_nova_semi_bold">fonts/ProximaNova-Semibold.otf</string>
 
     <!--TABS-->
-    <string name="royal_activity">Activity</string>
+    <string name="royal_activity">Activities</string>
     <string name="spa">Spa</string>
     <string name="dining">Dining</string>
-    <string name="shopping">Shop</string>
+    <string name="shopping">Shopping</string>
     <string name="shorex">Excursions</string>
     <string name="entertainment">Entertainment</string>
-    <string name="services">Services</string>
+    <string name="services">Guest Services</string>
     <string name="search">Search</string>
 
     <!--FIXME hardcoded values-->
@@ -189,5 +189,7 @@
 
     <string name="error_message_no_connection">We were not able to connect. Please check your internet connection and try again.</string>
     <string name="error_message_security_questions">Something went wrong, please try again.</string>
+    <string name="hardcoded_home_status">At Sea</string>
+    <string name="hardcoded_day_tab">Day 6</string>
 
 </resources>

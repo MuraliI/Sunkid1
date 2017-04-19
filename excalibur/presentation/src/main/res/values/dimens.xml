@@ -155,4 +155,6 @@
     <dimen name="item_discovery_margin_start">20dp</dimen>
     <dimen name="item_discovery_title_margin_end">40dp</dimen>
     <dimen name="item_discovery_title_margin_top">10dp</dimen>
+    <dimen name="home_status_text_size">20sp</dimen>
+    <dimen name="day_picker_text_size">16sp</dimen>
 </resources>

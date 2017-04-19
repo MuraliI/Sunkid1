@@ -10,7 +10,7 @@ import java.util.List;
 public class Product {
     private static final int TIME_LENGTH = 4;
     private String productId;
-    private List<ProductCategory> productCategory;
+    private ProductCategory productCategory;
     private List<ProductAdvisement> advisements;
     private List<ProductPreference> preferences;
     private List<ProductRestriction> restrictions;
@@ -67,11 +67,11 @@ public class Product {
         this.productClass = productClass;
     }
 
-    public List<ProductCategory> getProductCategory() {
+    public ProductCategory getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(List<ProductCategory> productCategory) {
+    public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
     }
 

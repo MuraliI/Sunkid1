@@ -9,7 +9,24 @@ public class ProductCategoryResponse {
     @SerializedName("categoryid")
     private String categoryId;
     private String categoryDescription;
-    private List<ProductTagsResponse> productTags;
+    private String categoryName;
+    private List<ChildCategoryResponse> childCategory;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public List<ChildCategoryResponse> getChildCategory() {
+        return childCategory;
+    }
+
+    public void setChildCategory(List<ChildCategoryResponse> childCategory) {
+        this.childCategory = childCategory;
+    }
 
     public String getCategoryId() {
         return categoryId;
@@ -27,11 +44,4 @@ public class ProductCategoryResponse {
         this.categoryDescription = categoryDescription;
     }
 
-    public List<ProductTagsResponse> getProductTags() {
-        return productTags;
-    }
-
-    public void setProductTags(List<ProductTagsResponse> productTags) {
-        this.productTags = productTags;
-    }
 }

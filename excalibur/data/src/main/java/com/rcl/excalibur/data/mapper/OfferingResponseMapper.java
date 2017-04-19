@@ -21,9 +21,9 @@ public class OfferingResponseMapper extends BaseDataMapper<Offering, OfferingRes
     private PriceResponseMapper priceResponseMapper;
     private ProductResponseDataMapper productResponseDataMapper;
 
-    public OfferingResponseMapper(ProductResponseDataMapper productResponseDataMapper) {
+    public OfferingResponseMapper(ProductResponseDataMapper productResponseDataMapper, PriceResponseMapper priceResponseMapper) {
         sdf = getStandardDateParser();
-        priceResponseMapper = new PriceResponseMapper();
+        this.priceResponseMapper = priceResponseMapper;
         this.productResponseDataMapper = productResponseDataMapper;
     }
 
