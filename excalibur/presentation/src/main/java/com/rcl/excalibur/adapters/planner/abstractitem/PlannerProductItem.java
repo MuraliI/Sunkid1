@@ -14,7 +14,6 @@ import com.rcl.excalibur.model.PlannerProductModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -89,7 +88,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         } else {
             holder.priceRange.setVisibility(View.GONE);
         }
-        holder.productPromoted.setVisibility(new Random().nextBoolean() ? View.VISIBLE : View.GONE);
+        holder.productPromoted.setVisibility(plannerProductModel.isFeatured() ? View.VISIBLE : View.GONE);
         holder.productName.setText(plannerProductModel.getProductName());
         holder.productOperatingHours.setText(plannerProductModel.getOperatingHours());
         holder.productVenue.setText(plannerProductModel.getVenue());
