@@ -1,13 +1,13 @@
 package com.rcl.excalibur.domain.repository;
 
 
-import com.rcl.excalibur.domain.SailDateInfoEvent;
+import com.rcl.excalibur.domain.SailDateInfo;
 
 
 public interface SailDateRepository {
 
-    void create(SailDateInfoEvent sailDateInfoEvent);
+    void create(SailDateInfo sailDateInfoEvent);
 
-     SailDateInfoEvent get(String id);
+     SailDateInfo get(String id);
      void deleteAll();
 }

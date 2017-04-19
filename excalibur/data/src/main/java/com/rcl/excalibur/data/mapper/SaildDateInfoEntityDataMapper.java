@@ -9,20 +9,20 @@ import com.rcl.excalibur.data.entity.PortEntity;
 import com.rcl.excalibur.data.entity.SailDateInfoEntity;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.SailDateEvent;
-import com.rcl.excalibur.domain.SailDateInfoEvent;
+import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.SailDateItinerary;
 import com.rcl.excalibur.domain.SailPort;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfoEvent, SailDateInfoEntity> {
+public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfo, SailDateInfoEntity> {
 
     @Nullable
     @Override
-    public SailDateInfoEvent transform(SailDateInfoEntity input) {
+    public SailDateInfo transform(SailDateInfoEntity input) {
 
-        final SailDateInfoEvent sailDateInfo = new SailDateInfoEvent();
+        final SailDateInfo sailDateInfo = new SailDateInfo();
         sailDateInfo.setDuration(input.getDuration());
         sailDateInfo.setShipCode(input.getShipCode());
         sailDateInfo.setItinerary(transform(input.getItinerary()));

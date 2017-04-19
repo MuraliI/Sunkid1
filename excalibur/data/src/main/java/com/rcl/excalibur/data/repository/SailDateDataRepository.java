@@ -11,11 +11,11 @@ import com.rcl.excalibur.data.entity.SailDateInfoEntity;
 import com.rcl.excalibur.data.mapper.SaildDateInfoEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.SailDateEvent;
-import com.rcl.excalibur.domain.SailDateInfoEvent;
+import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.SailDateItinerary;
 import com.rcl.excalibur.domain.repository.SailDateRepository;
 
-public class SailDateDataRepository extends BaseDataRepository<SailDateInfoEvent, SailDateInfoEntity, SaildDateInfoEntityDataMapper>
+public class SailDateDataRepository extends BaseDataRepository<SailDateInfo, SailDateInfoEntity, SaildDateInfoEntityDataMapper>
         implements SailDateRepository {
 
     public SailDateDataRepository() {
@@ -24,7 +24,7 @@ public class SailDateDataRepository extends BaseDataRepository<SailDateInfoEvent
     }
 
     @Override
-    public void create(@NonNull SailDateInfoEvent sailDateInfoEvent) {
+    public void create(@NonNull SailDateInfo sailDateInfoEvent) {
 
         final SailDateInfoEntity entity = new SailDateInfoEntity();
         entity.setDuration(sailDateInfoEvent.getDuration());
@@ -67,7 +67,7 @@ public class SailDateDataRepository extends BaseDataRepository<SailDateInfoEvent
     }
 
     @Override
-    public SailDateInfoEvent get(String id) {
+    public SailDateInfo get(String id) {
         return null;
     }
 

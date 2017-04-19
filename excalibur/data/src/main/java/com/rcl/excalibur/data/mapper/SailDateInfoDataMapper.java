@@ -4,9 +4,9 @@ package com.rcl.excalibur.data.mapper;
 import android.support.annotation.Nullable;
 
 import com.rcl.excalibur.data.service.response.SailingInfoResponse;
-import com.rcl.excalibur.domain.SailDateInfoEvent;
+import com.rcl.excalibur.domain.SailDateInfo;
 
-public class SailDateInfoDataMapper extends BaseDataMapper<SailDateInfoEvent, SailingInfoResponse> {
+public class SailDateInfoDataMapper extends BaseDataMapper<SailDateInfo, SailingInfoResponse> {
     private SailDateItineraryDataMapper sailDateItineraryDataMapper;
 
     public SailDateInfoDataMapper() {
@@ -15,11 +15,11 @@ public class SailDateInfoDataMapper extends BaseDataMapper<SailDateInfoEvent, Sa
 
     @Nullable
     @Override
-    public SailDateInfoEvent transform(SailingInfoResponse infoResponse) {
+    public SailDateInfo transform(SailingInfoResponse infoResponse) {
         if (infoResponse == null)
             return null;
 
-        SailDateInfoEvent sailDateInfoEvent = new SailDateInfoEvent();
+        SailDateInfo sailDateInfoEvent = new SailDateInfo();
         sailDateInfoEvent.setShipCode(infoResponse.getShipCode());
         sailDateInfoEvent.setDuration(infoResponse.getDuration());
         sailDateInfoEvent.setItinerary(sailDateItineraryDataMapper.transform(infoResponse.getItinerary()));

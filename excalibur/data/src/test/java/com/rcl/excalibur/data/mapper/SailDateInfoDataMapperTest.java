@@ -5,7 +5,7 @@ import com.rcl.excalibur.data.service.response.PortResponse;
 import com.rcl.excalibur.data.service.response.SailDateEventResponse;
 import com.rcl.excalibur.data.service.response.SailingInfoResponse;
 import com.rcl.excalibur.domain.SailDateEvent;
-import com.rcl.excalibur.domain.SailDateInfoEvent;
+import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.SailDateItinerary;
 import com.rcl.excalibur.domain.SailPort;
 
@@ -95,7 +95,7 @@ public class SailDateInfoDataMapperTest {
 
     @Test
     public void transform() throws Exception {
-        SailDateInfoEvent sailDateInfoEvent = sailDateInfoDataMapper.transform(sailingInfoResponse);
+        SailDateInfo sailDateInfoEvent = sailDateInfoDataMapper.transform(sailingInfoResponse);
         assertNotNull(sailDateInfoEvent);
         SailDateItinerary dateItinerary = sailDateInfoEvent.getItinerary();
         assertNotNull(dateItinerary);

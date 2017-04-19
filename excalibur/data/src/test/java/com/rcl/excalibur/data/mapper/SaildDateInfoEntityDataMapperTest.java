@@ -1,7 +1,7 @@
 package com.rcl.excalibur.data.mapper;
 
 import com.rcl.excalibur.data.entity.SailDateInfoEntity;
-import com.rcl.excalibur.domain.SailDateInfoEvent;
+import com.rcl.excalibur.domain.SailDateInfo;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class SaildDateInfoEntityDataMapperTest {
     @Test
     public void transform() throws Exception {
 
-        SailDateInfoEvent sailDateInfoEvent = sailDateInfoDataMapper.transform(sailDateInfoEntity);
+        SailDateInfo sailDateInfoEvent = sailDateInfoDataMapper.transform(sailDateInfoEntity);
         assertNotNull(sailDateInfoEvent);
         assertEquals(sailDateInfoEvent.getDuration(), sailDateInfoEntity.getDuration());
         assertEquals(sailDateInfoEvent.getShipCode(), sailDateInfoEntity.getShipCode());

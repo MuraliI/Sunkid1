@@ -9,6 +9,6 @@ import retrofit2.http.Path;
 
 public interface SailDateApi {
 
-    @GET("voyages/ships/AD/sailDate/{sailId}")
+    @GET("voyages/ships/AL/sailDate/{sailId}")
     Call<SailDateResponse> getEvents(@Path("sailId") String sailId);
 }

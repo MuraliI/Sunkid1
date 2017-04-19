@@ -1,6 +1,6 @@
 package com.rcl.excalibur.domain.interactor;
 
-import com.rcl.excalibur.domain.SailDateInfoEvent;
+import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.service.SailDateServices;
 
 import org.junit.Before;
@@ -24,9 +24,9 @@ public class GetSaildDateUseCaseTest {
 
     @Test
     public void buildUseCaseObservable() throws Exception {
-        DisposableObserver<SailDateInfoEvent> observer = new DisposableObserver<SailDateInfoEvent>() {
+        DisposableObserver<SailDateInfo> observer = new DisposableObserver<SailDateInfo>() {
             @Override
-            public void onNext(SailDateInfoEvent value) {
+            public void onNext(SailDateInfo value) {
 
             }
 
