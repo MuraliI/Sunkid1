@@ -8,7 +8,7 @@ import com.rcl.excalibur.data.mapper.CategoryEntityDataMapper;
 import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
-public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity, CategoryEntityDataMapper>
+public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity, Void, CategoryEntityDataMapper>
         implements CategoryRepository {
 
     public CategoryDataRepository() {
@@ -22,6 +22,11 @@ public class CategoryDataRepository extends BaseDataRepository<Category, Categor
         entity.setDescription(category.getDescription());
         entity.setTags(category.getTags());
         entity.save();
+    }
+
+    @Override
+    public void deleteAll() {
+        //no op
     }
 
     @Override

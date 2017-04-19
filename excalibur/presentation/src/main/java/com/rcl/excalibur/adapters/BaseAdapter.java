@@ -42,25 +42,6 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         return observerRef.get();
     }
 
-    public void removeAll() {
-        items.clear();
-        notifyDataSetChanged();
-    }
-
-    public void addAll(List<T> list) {
-        if (isEmpty(list)) {
-            return;
-        }
-        items.clear();
-        items.addAll(list);
-        notifyDataSetChanged();
-    }
-
-    public void add(T item) {
-        items.add(item);
-        notifyItemInserted(items.size() - 1);
-    }
-
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(getLayout(), parent, false);
@@ -77,4 +58,59 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
 
     @NonNull
     protected abstract VH getViewHolder(View view);
+
+    public void add(T item) {
+        items.add(item);
+        notifyItemInserted(items.size() - 1);
+    }
+
+    public void add(int position, T item) {
+        items.add(position, item);
+        notifyItemInserted(position);
+    }
+
+    public void add(int position, List<T> newItems) {
+        items.addAll(position, newItems);
+        notifyItemRangeInserted(position, newItems.size());
+    }
+
+    public void add(List<Integer> positions, List<T> newItems) {
+        for (int i = 0; i < newItems.size(); i++) {
+            int positionToInsert = positions.get(i);
+
+            items.add(positionToInsert, newItems.get(i));
+            notifyItemInserted(positionToInsert);
+        }
+    }
+
+    public void addAll(List<T> list) {
+        if (isEmpty(list)) {
+            return;
+        }
+        items.clear();
+        items.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void remove(int position) {
+        items.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void remove(int position, List<T> newItems) {
+        items.removeAll(newItems);
+        notifyItemRangeRemoved(position, newItems.size());
+    }
+
+    public void remove(List<Integer> positions, List<T> newItems) {
+        for (int i = newItems.size() - 1; i >= 0; i--) {
+            items.remove(newItems.get(i));
+            notifyItemRemoved(positions.get(i));
+        }
+    }
+
+    public void removeAll() {
+        items.clear();
+        notifyDataSetChanged();
+    }
 }
