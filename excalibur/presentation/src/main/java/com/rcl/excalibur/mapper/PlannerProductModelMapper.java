@@ -1,7 +1,6 @@
 package com.rcl.excalibur.mapper;
 
 import android.content.res.Resources;
-import android.support.annotation.DrawableRes;
 import android.support.v4.util.SparseArrayCompat;
 
 import com.rcl.excalibur.R;
@@ -10,6 +9,7 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductDuration;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.model.PlannerProductModel;
+import com.rcl.excalibur.utils.CategoryUtils;
 import com.rcl.excalibur.utils.PresentationDateUtils;
 
 import java.util.ArrayList;
@@ -19,12 +19,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.rcl.excalibur.utils.CategoryUtils.ACTIVITIES;
-import static com.rcl.excalibur.utils.CategoryUtils.DINING;
-import static com.rcl.excalibur.utils.CategoryUtils.ENTERTAINMENT;
-import static com.rcl.excalibur.utils.CategoryUtils.SHOREX;
-import static com.rcl.excalibur.utils.CategoryUtils.SPA;
 
 
 public class PlannerProductModelMapper {
@@ -104,7 +98,7 @@ public class PlannerProductModelMapper {
         model.setStartDate(allDayStartDate);
         model.setEndDate(allDayEndDate);
         model.setAllDayProduct(true);
-        model.setResourceIdCategoryIcon(getCategoryIcon(model.getProductType()));
+        model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
         model.setVenue(resources.getString(R.string.deck_label) + ConstantsUtil.WHITE_SPACE + model.getVenue());
         return model;
     }
@@ -118,27 +112,9 @@ public class PlannerProductModelMapper {
         model.setStartDate(startDate);
         model.setEndDate(calculateEndDate(offering.getDate(), product.getProductDuration()));
         model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
-        model.setResourceIdCategoryIcon(getCategoryIcon(model.getProductType()));
+        model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
         model.setLocation(resources.getString(R.string.deck_label) + ConstantsUtil.WHITE_SPACE + model.getLocation());
         return model;
-    }
-
-    @DrawableRes
-    private int getCategoryIcon(String productType) {
-        switch (productType) {
-            case ACTIVITIES:
-                return R.drawable.icon_services_color;
-            case DINING:
-                return R.drawable.icon_dining_color;
-            case ENTERTAINMENT:
-                return R.drawable.icon_entertainment_color;
-            case SHOREX:
-                return R.drawable.icon_shops_color;
-            case SPA:
-                return R.drawable.icon_spa_color;
-            default:
-                return R.drawable.icon_excrusions_color;
-        }
     }
 
     private String calculateOperatingHours(Calendar startDate, Calendar endDate) {
