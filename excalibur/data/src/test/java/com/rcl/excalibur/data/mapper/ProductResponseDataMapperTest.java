@@ -257,7 +257,7 @@ public class ProductResponseDataMapperTest {
 
     @Test
     public void transform() throws Exception {
-        Product product = productResponseDataMapper.transform(productResponse1);
+        Product product = productResponseDataMapper.transform(productResponse1, null);
 
         assertNotNull(product);
 
@@ -399,7 +399,7 @@ public class ProductResponseDataMapperTest {
         productResponses.add(productResponse1);
         productResponses.add(productResponse2);
 
-        List<Product> productList = productResponseDataMapper.transform(productResponses);
+        List<Product> productList = productResponseDataMapper.transform(productResponses, null);
 
         assertNotNull(productList);
         assertFalse(productList.isEmpty());

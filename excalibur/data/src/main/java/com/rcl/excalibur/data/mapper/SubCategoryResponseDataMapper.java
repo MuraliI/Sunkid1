@@ -9,10 +9,10 @@ import com.rcl.excalibur.domain.SubCategory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubCategoryResponseDataMapper extends BaseDataMapper<SubCategory, SubCategoryResponse> {
+public class SubCategoryResponseDataMapper extends BaseDataMapper<SubCategory, SubCategoryResponse, Void> {
 
     @Override
-    public SubCategory transform(SubCategoryResponse subCategoryResponse) {
+    public SubCategory transform(SubCategoryResponse subCategoryResponse, Void additionalArg) {
         SubCategory subCategory = null;
         if (subCategoryResponse != null) {
             subCategory = new SubCategory();

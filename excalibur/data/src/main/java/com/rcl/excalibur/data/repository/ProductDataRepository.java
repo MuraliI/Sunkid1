@@ -47,14 +47,11 @@ import java.util.List;
 
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, ProductEntityDataMapper>
+public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, Void, ProductEntityDataMapper>
         implements ProductRepository {
-
-    private final OfferingDataRepository offeringDataRepository;
 
     public ProductDataRepository() {
         super(new ProductEntityDataMapper(), ProductEntity.class);
-        offeringDataRepository = new OfferingDataRepository();
     }
 
     @Override
@@ -94,10 +91,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         createCategory(entity, product.getProductCategory());
 
         entity.save();
-
-        //Offering
-        //TODO This is a proposal on how we should treat all entities that need a product to be saved before hand
-        offeringDataRepository.create(product.getOfferings());
 
         //Advisements
         createAdvisements(entity, product.getAdvisements());
@@ -370,19 +363,20 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         }
     }
 
-    public List<Product> getAll(@NonNull String type) {
+    @Override
+    public List<Product> getAll(@NonNull final String type) {
         final TypeEntity typeEntity = new Select()
                 .from(TypeEntity.class)
                 .where(eq(TypeEntity.COLUMN_TYPE, type))
                 .executeSingle();
         if (typeEntity == null) {
-            return null;
+            return new ArrayList<>();
         }
         final List<ProductEntity> entities = new Select()
                 .from(ProductEntity.class)
                 .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
                 .execute();
-        return getMapper().transform(entities);
+        return getMapper().transform(entities, null);
     }
 
     @Override

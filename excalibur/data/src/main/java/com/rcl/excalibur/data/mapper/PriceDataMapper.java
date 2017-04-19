@@ -6,10 +6,10 @@ import android.support.annotation.Nullable;
 import com.rcl.excalibur.data.entity.PriceEntity;
 import com.rcl.excalibur.domain.SellingPrice;
 
-public class PriceDataMapper extends BaseDataMapper<SellingPrice, PriceEntity> {
+public class PriceDataMapper extends BaseDataMapper<SellingPrice, PriceEntity, Void> {
     @Nullable
     @Override
-    public SellingPrice transform(PriceEntity input) {
+    public SellingPrice transform(PriceEntity input, Void additionalArg) {
         SellingPrice output = new SellingPrice();
         output.setCurrency(input.getCurrency());
         output.setAdultPrice(Float.valueOf(input.getAdultPrice()));

@@ -1,5 +1,6 @@
 package com.rcl.excalibur.domain.interactor;
 
+import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 
 import org.junit.Assert;
@@ -9,10 +10,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
+import io.reactivex.observers.TestObserver;
+
 public class GetProductDbUseCaseTest {
 
-    GetProductDbUseCase getProductDbUseCase;
     @Mock ProductRepository productRepository;
+    GetProductDbUseCase getProductDbUseCase;
 
     @Before
     public void setUp() throws Exception {

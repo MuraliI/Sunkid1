@@ -1,11 +1,10 @@
-package com.rcl.excalibur.model.itinerary;
+package com.rcl.excalibur.adapters.viewtype.planner;
 
 
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 
-public class CalendarSeparatorModel implements RecyclerViewType {
-
+public class PlannerHeaderViewType implements RecyclerViewType {
 
     private String label;
 
@@ -19,6 +18,6 @@ public class CalendarSeparatorModel implements RecyclerViewType {
 
     @Override
     public int getViewType() {
-        return RecyclerViewConstants.VIEW_TYPE_CALENDAR_VIEW;
+        return RecyclerViewConstants.VIEW_TYPE_EXPANDABLE_HEADER_VIEW;
     }
 }

@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.rcl.excalibur.utils.DateUtils.MINUTES_IN_HOUR;
+import static com.rcl.excalibur.utils.PresentationDateUtils.MINUTES_IN_HOUR;
 import static com.rcl.excalibur.utils.StringUtils.getPriceFormatted;
 
 public final class DetailViewTypeFactory {
@@ -43,12 +43,12 @@ public final class DetailViewTypeFactory {
     private DetailViewTypeFactory() {
     }
 
-    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, Resources resources) {
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, List<Offering> offerings, Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
         addMakeReservation(viewTypes, resources, product);
-        addPricesModule(viewTypes, resources, product);
+        addPricesModule(viewTypes, offerings, resources, product);
         addCuisineModule(viewTypes, resources, product);
         addTimeModule(viewTypes, resources, product);
         addDurationModule(viewTypes, resources, product);
@@ -236,9 +236,7 @@ public final class DetailViewTypeFactory {
         recyclerViewTypeList.add(new ExpandableAccesibilityViewType(res.getString(R.string.accessibility), accessibilities));
     }
 
-    private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res, Product product) {
-
-        List<Offering> offerings = product.getOfferings();
+    private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings, @NonNull Resources res, Product product) {
 
         if (!product.isShopping()
                 && !product.isDining()) {
@@ -283,7 +281,7 @@ public final class DetailViewTypeFactory {
 
             if (!map.isEmpty()) {
                 PricesFromViewType pricesFromViewType = new PricesFromViewType(res.getString(R.string.prices),
-                        res.getString(R.string.starting_from), map);
+                        res.getString(R.string.starting_from), map, product);
                 recyclerViewTypeList.add(pricesFromViewType);
             }
         }

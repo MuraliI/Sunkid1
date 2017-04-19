@@ -26,7 +26,7 @@ public class SecurityQuestionsResponseMapperTest {
     @Test
     public void testTransformWithResponseNull_returnsAnEmptyList() throws Exception {
         SecurityQuestionsResponse response = null;
-        List<String> questions = mapper.transform(response);
+        List<String> questions = mapper.transform(response,null);
         assertNotNull(questions);
         assertEquals(0, questions.size());
     }
@@ -34,7 +34,7 @@ public class SecurityQuestionsResponseMapperTest {
     @Test
     public void testTransformWithAValidResponse_returnValidQuestions() throws Exception {
         SecurityQuestionsResponse response = getDummyResponse();
-        List<String> questions = mapper.transform(response);
+        List<String> questions = mapper.transform(response,null);
         assertNotNull(questions);
         assertEquals(1, questions.size());
         assertEquals(TEST_QUESTION, questions.get(0));
