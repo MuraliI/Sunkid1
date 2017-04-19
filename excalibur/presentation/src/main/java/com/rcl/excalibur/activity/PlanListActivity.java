@@ -13,12 +13,11 @@ import butterknife.OnClick;
 
 public class PlanListActivity extends BaseActivity {
     private static final String EXTRA_FRAGMENT_TYPE = "EXTRA_FRAGMENT_TYPE";
-    protected PlanListPresenter presenter;
+    public PlanListPresenter presenter;
 
     public static Intent getStartIntent(final BaseActivity activity, int fragmentToShow) {
         Intent intent = new Intent(activity, PlanListActivity.class);
         intent.putExtra(PlanListActivity.EXTRA_FRAGMENT_TYPE, fragmentToShow);
-
         return intent;
     }
 
