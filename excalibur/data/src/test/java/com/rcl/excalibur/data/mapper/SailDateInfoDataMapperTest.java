@@ -71,7 +71,7 @@ public class SailDateInfoDataMapperTest {
 
         dateItineraryResponse.setEvents(events);
 
-        sailingInfoResponse.setDuration(7);
+        sailingInfoResponse.setDuration("7");
         sailingInfoResponse.setShipCode("AL");
         sailingInfoResponse.setItinerary(dateItineraryResponse);
 
