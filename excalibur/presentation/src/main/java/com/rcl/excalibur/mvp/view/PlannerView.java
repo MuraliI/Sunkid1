@@ -18,6 +18,7 @@ import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
+import com.rcl.excalibur.utils.RoundedImageView;
 
 import java.util.List;
 
@@ -145,6 +146,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
             int imageMargin = Math.round(slideOffset * initImageMargin);
             resizeImage(view, imageMargin);
+            RoundedImageView imageView = (RoundedImageView) view.findViewById(R.id.image_itinerary_product_picture);
+            imageView.setRadius(R.dimen.default_radius);
 
             if (slideOffset >= OFFSET_95) {
                 changeSeparatorVisibility(view, View.VISIBLE);
@@ -185,6 +188,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             resizeImage(view, NO_MARGIN);
             setItemViewBackground(view, R.drawable.background_rounded_cue_card);
             changeSeparatorVisibility(view, View.GONE);
+            RoundedImageView imageView = (RoundedImageView) view.findViewById(R.id.image_itinerary_product_picture);
+            imageView.setRadius(R.dimen.zero_radius);
         }
     }
 

@@ -32,7 +32,8 @@
     <dimen name="ribbon_ship_time_margin_bottom">6dp</dimen>
 
 
-    <dimen name="corner_radius">7dp</dimen>
+    <dimen name="default_radius">7dp</dimen>
+    <dimen name="zero_radius">0dp</dimen>
     <!--home item plan-->
     <dimen name="item_plan_container_height">130dp</dimen>
     <dimen name="item_plan_corner_radius">7dp</dimen>

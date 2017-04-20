@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.rcl.excalibur.custom.view.RoundedCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="170dp"
     android:background="@drawable/background_gradient_item_cue_card"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:borderRadius="@dimen/default_radius">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -96,10 +97,10 @@
                 app:onColor="@color/black" />
         </LinearLayout>
 
-        <ImageView
+        <com.rcl.excalibur.utils.RoundedImageView
             android:id="@+id/image_itinerary_product_picture"
             android:layout_width="@dimen/item_product_image_width"
-            android:layout_height="@dimen/item_product_image_height"
+            android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/margin_small"
             android:contentDescription="@string/itinerary_accessibility_product_image"
@@ -112,4 +113,4 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/itinerary_separator_thickness"
         android:background="@color/discover_grey" />
-</LinearLayout>
+</com.rcl.excalibur.custom.view.RoundedCardView>
