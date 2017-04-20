@@ -45,8 +45,9 @@
     <color name="opacity_white_24">#40ffffff</color>
     <color name="bg_color">#4a90e2</color>
 
-
     <!-- Email Activity -->
     <color name="email_editText_inactive">#40ffffff</color>
 
+    <!-- Discovery list products -->
+    <color name="font_detail_no_products">#737679</color>
 </resources>

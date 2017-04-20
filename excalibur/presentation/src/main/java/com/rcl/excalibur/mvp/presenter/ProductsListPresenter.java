@@ -1,16 +1,16 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import android.widget.Toast;
-
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
 import com.rcl.excalibur.mvp.view.ProductsListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,14 +23,32 @@ public class ProductsListPresenter {
         this.getProductDbUseCase = getProductDbUseCase;
     }
 
-    public void init(int type) {
+    public void init(int type, String categoryId) {
         final BaseActivity activity = view.getActivity();
         if (activity == null) {
             return;
         }
         view.setAdapterObserver(new AdapterObserver(this));
         view.init();
-        showCollectionInView(getProductDbUseCase.getAll(getType(activity, type)));
+        showCollectionInView(getProductsByCategory(type, categoryId, activity));
+    }
+
+    private List<Product> getProductsByCategory(int type, String categoryId, BaseActivity activity) {
+        List<Product> childProducts = new ArrayList<>();
+        List<Product> allProducts = getProductDbUseCase.getAll(getType(activity, type));
+
+        if (categoryId == null) {
+            childProducts = allProducts;
+        } else {
+            for (Product typeProduct : allProducts) {
+                for (ChildCategory childCategory : typeProduct.getProductCategory().getChildCategory()) {
+                    if (categoryId.equals(childCategory.getItems().getCategoryId())) {
+                        childProducts.add(typeProduct);
+                    }
+                }
+            }
+        }
+        return childProducts;
     }
 
     private String getType(final BaseActivity activity, int type) {
@@ -66,7 +84,7 @@ public class ProductsListPresenter {
 
     private void showCollectionInView(List<Product> products) {
         if (products == null || products.size() == 0) {
-            Toast.makeText(view.getActivity(), R.string.no_items_to_show, Toast.LENGTH_LONG).show();
+            view.addAlertNoProducts();
         } else {
             view.addAll(products);
         }

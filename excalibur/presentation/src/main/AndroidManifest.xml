@@ -18,7 +18,7 @@
         <activity
             android:name=".activity.PlanListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Home" />
+            android:theme="@style/AppTheme.PlanListView" />
         <activity
             android:name=".activity.ProductDetailActivity"
             android:label="@string/empty_string"
