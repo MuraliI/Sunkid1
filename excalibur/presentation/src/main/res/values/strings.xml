@@ -98,6 +98,7 @@
     <string name="hardcoded_day_picker_date_footer">Feb 15 - Mar 3</string>
     <string name="hardcoded_day_picker_description">7 Day Eastern Caribbean Cruise</string>
     <string name="hardcoded_day_picker_calendar_day">Day 2</string>
+    <string name="hardcoded_day_picker_ship_name">Allure of Seas</string>
 
     <!--Categories-->
     <string name="category_royal_activity">ACTIVITIES</string>

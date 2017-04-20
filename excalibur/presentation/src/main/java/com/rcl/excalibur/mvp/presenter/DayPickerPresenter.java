@@ -17,6 +17,7 @@ import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.DayPickerView;
 import com.rcl.excalibur.utils.DateUtils;
+import com.rcl.excalibur.utils.JsonUtils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class DayPickerPresenter {
         String endDay = events.get(eventsize - 1).getPort().getArrivalDate();
         String day = getDay(itinerary);
         String description = itinerary.getDescription();
+        String shipName = JsonUtils.getShipNamesFromJson(view.getContext(), sailDateInfo.getShipCode());
 
         view.setAdapterObserver(new AdapterObserver(this));
         view.init(itinerary.getIndexCurrentDay());
@@ -58,7 +60,7 @@ public class DayPickerPresenter {
             view.setFotterDate(getFotterDate(starDay, endDay, activity.getResources()));
         }
         if (!TextUtils.isEmpty(description) && !TextUtils.isEmpty(day)) {
-            view.setHeader(description, day);
+            view.setHeader(description, day, shipName);
         }
         showCollectionInView(events);
     }

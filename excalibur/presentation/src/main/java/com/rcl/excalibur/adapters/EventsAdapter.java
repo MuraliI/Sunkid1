@@ -1,6 +1,5 @@
 package com.rcl.excalibur.adapters;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -35,11 +34,10 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
     @Override
     public void onBindViewHolder(DayPickerViewHolder holder, int position) {
         holder.event = items.get(position);
-        Context context = holder.portTypeImageView.getContext();
 
         String day = holder.event.getDay();
         if (!TextUtils.isEmpty(day)) {
-            if (todayPosition == position) {
+            if (todayPosition == position || (todayPosition == -1 && position == 2)) {
                 holder.isTodayImageView.setImageResource(R.drawable.icon_day_picker_ship);
                 holder.selectedDay.setVisibility(View.VISIBLE);
                 holder.dayTextView.setText(resources.getString(R.string.today_day_title));
