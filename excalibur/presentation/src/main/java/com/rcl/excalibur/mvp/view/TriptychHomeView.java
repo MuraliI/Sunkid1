@@ -17,6 +17,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import timber.log.Timber;
 
 
 public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, Void> {
@@ -43,5 +45,10 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
         viewPager.setPageTransformer(false, (view, position) -> view.setAlpha(1.0f - Math.abs(position)));
         tabBarLayout.attachToViewPager(viewPager);
         tabBarLayout.subscribeToScrollUpdates(integerFloatPair -> shipView.syncTabsScroll(integerFloatPair));
+    }
+
+    @OnClick(R.id.image_ship)
+    public void click() {
+        Timber.d("Click on ship");
     }
 }
