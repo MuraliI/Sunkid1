@@ -28,9 +28,9 @@ public class PortEntity extends Model {
     @Column(name = COLUMN_DEAPARTURE_DATE)
     private String departureDate;
     @Column(name = COLUMN_ARRIVAL_TIME)
-    private int arrivalTime;
+    private String arrivalTime;
     @Column(name = COLUMN_DEAPARTURE_TIME)
-    private int departureTime;
+    private String departureTime;
 
     public String getPortCode() {
         return portCode;
@@ -72,19 +72,19 @@ public class PortEntity extends Model {
         this.departureDate = departureDate;
     }
 
-    public int getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(int arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
-    public int getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(int departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 }
