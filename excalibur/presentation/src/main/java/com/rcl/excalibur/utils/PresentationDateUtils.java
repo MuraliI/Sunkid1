@@ -17,13 +17,14 @@ public final class PresentationDateUtils {
     public static final int MINUTES_IN_HOUR = 60;
     private static final int TEN_VALUE = 10;
     private static final String ZERO_STRING = "0";
+    private static final String DATE_FORMAT = "MM/dd/yyyy";
 
     private PresentationDateUtils() {
 
     }
 
     public static boolean isEqualsToCurrentDate(String date) {
-        final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        final DateFormat df = new SimpleDateFormat(DATE_FORMAT);
         boolean equals = false;
         try {
             Date incomingDate = df.parse(date);
@@ -43,7 +44,7 @@ public final class PresentationDateUtils {
     }
 
     public static boolean isIncomingDateBeforeCurrent(String date) {
-        final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        final DateFormat df = new SimpleDateFormat(DATE_FORMAT);
         boolean isBefore = false;
         try {
             Date incomingDate = df.parse(date);
@@ -62,7 +63,7 @@ public final class PresentationDateUtils {
     }
 
     public static boolean isCurrentAfterIncomingDate(String date) {
-        final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        final DateFormat df = new SimpleDateFormat(DATE_FORMAT);
         boolean isBefore = true;
         try {
             Date incomingDate = df.parse(date);
@@ -81,8 +82,8 @@ public final class PresentationDateUtils {
     }
 
     public static String getFormatedDates(String startDateString, String endDateString, Resources resources) throws ParseException {
-        Date startDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDateString);
-        Date endDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDateString);
+        Date startDate = new SimpleDateFormat(DATE_FORMAT).parse(startDateString);
+        Date endDate = new SimpleDateFormat(DATE_FORMAT).parse(endDateString);
 
         Calendar calendarStartDate = Calendar.getInstance();
         calendarStartDate.setTime(startDate);

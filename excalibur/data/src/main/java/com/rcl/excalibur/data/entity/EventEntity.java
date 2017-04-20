@@ -14,18 +14,18 @@ public class EventEntity extends Model {
     public static final String COLUMN_INTINERARY = "intinerary";
 
     @Column(name = COLUMN_DAY)
-    private int day;
+    private String day;
     @Column(name = COLUMN_INTINERARY)
     private ItineraryEntity intinerary;
 
     @Column(name = COLUMN_PORT)
     private PortEntity port;
 
-    public int getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(String day) {
         this.day = day;
     }
 

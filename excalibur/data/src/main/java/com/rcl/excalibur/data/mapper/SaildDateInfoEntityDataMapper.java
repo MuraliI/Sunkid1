@@ -23,13 +23,13 @@ public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfo, 
         SailDateItinerary sailDateItinerary = new SailDateItinerary();
         if (itineraryEntity != null) {
             sailDateItinerary.setDescription(itineraryEntity.getDescription());
-            sailDateItinerary.setEvents(transformEnents(itineraryEntity.getEvents()));
+            sailDateItinerary.setEvents(transformEvents(itineraryEntity.getEvents()));
 
         }
         return sailDateItinerary;
     }
 
-    private List<SailDateEvent> transformEnents(List<EventEntity> entities) {
+    private List<SailDateEvent> transformEvents(List<EventEntity> entities) {
         ArrayList<SailDateEvent> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(entities)) {

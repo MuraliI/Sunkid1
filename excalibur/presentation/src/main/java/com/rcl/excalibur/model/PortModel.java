@@ -8,9 +8,9 @@ public class PortModel {
     public static final String PORT_TYPE_DEBARK = "DEBARK";
 
     private String arrivalDate;
-    private int arrivalTime;
+    private String arrivalTime;
     private String departureDate;
-    private int departureTime;
+    private String departureTime;
     private String portCode;
     private String portName;
     private String portType;
@@ -24,11 +24,11 @@ public class PortModel {
         this.arrivalDate = arrivalDate;
     }
 
-    public int getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(int arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -40,11 +40,11 @@ public class PortModel {
         this.departureDate = departureDate;
     }
 
-    public int getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(int departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
