@@ -19,7 +19,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-
 public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, Void> {
 
     @Bind(R.id.pager_triptych_pager) ViewPager viewPager;
