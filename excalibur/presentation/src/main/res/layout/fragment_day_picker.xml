@@ -1,34 +1,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:background="@drawable/background_rounded_detail"
-                tools:context="com.rcl.excalibur.fragments.DayPickerFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_rounded_detail"
+    tools:context="com.rcl.excalibur.fragments.DayPickerFragment">
 
     <include
         android:id="@+id/include_day_picker_header"
         layout="@layout/day_picker_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_discover_item_details"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/include_day_picker_header"
         android:background="@drawable/background_rounded_detail"
         android:clipToPadding="false"
         android:nestedScrollingEnabled="true"
-        android:layout_below="@+id/include_day_picker_header"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <include
         layout="@layout/day_picker_sailing_dates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
