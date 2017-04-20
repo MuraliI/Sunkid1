@@ -2,7 +2,6 @@ package com.rcl.excalibur.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOPPING;
 import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOREX;
 import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SPA;
 
-public class DiscoverTabFragment extends Fragment {
+public class DiscoverTabFragment extends BaseTripTychFragment {
 
     protected DiscoverTabPresenter presenter;
 
@@ -46,7 +45,6 @@ public class DiscoverTabFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         presenter = new DiscoverTabPresenter(new DiscoverTabView(this)
                 , new GetProductsUseCase(new DiscoverServicesImpl(new ProductDataRepository())));
-        presenter.init();
     }
 
 
@@ -83,6 +81,11 @@ public class DiscoverTabFragment extends Fragment {
     @OnClick(R.id.button_guest_services)
     public void searchOnClick() {
         Toast.makeText(getActivity(), "Search Click", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onServiceCallCompleted(boolean success) {
+        presenter.serviceCallCompleted();
     }
 
     /*@OnClick(R.id.image_boat)

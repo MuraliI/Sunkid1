@@ -8,6 +8,7 @@ import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.custom.view.ShipView;
 import com.rcl.excalibur.custom.view.TriptychTabBarLayout;
+import com.rcl.excalibur.fragments.BaseTripTychFragment;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
@@ -43,5 +44,15 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
         viewPager.setPageTransformer(false, (view, position) -> view.setAlpha(1.0f - Math.abs(position)));
         tabBarLayout.attachToViewPager(viewPager);
         tabBarLayout.subscribeToScrollUpdates(integerFloatPair -> shipView.syncTabsScroll(integerFloatPair));
+    }
+
+    public void onServiceCallCompleted(boolean successfully) {
+        TriptychPagerAdapter adapter = (TriptychPagerAdapter) viewPager.getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            Fragment adapterFragment = adapter.getFragmentForPosition(i);
+            if (adapterFragment instanceof BaseTripTychFragment) {
+                ((BaseTripTychFragment) adapterFragment).onServiceCallCompleted(successfully);
+            }
+        }
     }
 }

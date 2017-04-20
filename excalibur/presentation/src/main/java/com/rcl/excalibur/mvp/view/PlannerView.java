@@ -37,6 +37,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_all_day) View allDayView;
     @Bind(R.id.layout_planner_container) LinearLayout containerLayout;
+    @Bind(R.id.progress_service_call_planner) View progressBar;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 
@@ -283,5 +284,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     public void showAllDayLayout() {
         isAllDayNecessary = true;
+    }
+
+    public void showProgressBar(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }
