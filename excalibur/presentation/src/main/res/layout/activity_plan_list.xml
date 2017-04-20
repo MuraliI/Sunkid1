@@ -6,6 +6,7 @@
     <fragment android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
         android:id="@+id/ship_time_fragment"
         android:layout_width="match_parent"
+        app:type="white"
         android:layout_height="wrap_content"/>
     <!--Header-->
     <RelativeLayout

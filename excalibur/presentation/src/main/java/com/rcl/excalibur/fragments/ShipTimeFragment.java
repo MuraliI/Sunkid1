@@ -1,9 +1,12 @@
 package com.rcl.excalibur.fragments;
 
 
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import com.rcl.excalibur.mvp.view.ShipTimeView;
 
 public class ShipTimeFragment extends Fragment {
     protected ShipTimePresenter shipTimePresenter;
+    private String type;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,6 +36,15 @@ public class ShipTimeFragment extends Fragment {
         shipTimePresenter = new ShipTimePresenter(new ShipTimeView(this)
                 , new GetShipTimeUseCase(new ShipTimeServicesImpl(shipTimeDataRepository))
                 , new GetShipTimeDbUseCase(shipTimeDataRepository));
+        shipTimePresenter.init(type);
+    }
+
+    @Override
+    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
+        super.onInflate(context, attrs, savedInstanceState);
+        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ShipTimeFragment);
+        type = typedArray.getString(R.styleable.ShipTimeFragment_type);
+        typedArray.recycle();
     }
 
     @Override

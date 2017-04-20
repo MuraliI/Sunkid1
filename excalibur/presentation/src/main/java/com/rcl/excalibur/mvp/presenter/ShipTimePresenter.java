@@ -1,6 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.utils.DateUtil;
 import com.rcl.excalibur.domain.ShipTime;
 import com.rcl.excalibur.domain.interactor.GetShipTimeDbUseCase;
@@ -13,19 +14,20 @@ import java.util.TimeZone;
 
 public class ShipTimePresenter {
     private static final String TIME_ZONE = "GMT%s";
+    private static final String TYPE_BLUE = "2";
+    private static final String TYPE_WHITE = "1";
     protected ShipTimeView view;
     protected GetShipTimeUseCase getShipTimeUseCase;
     protected GetShipTimeDbUseCase getShipTimeDbUseCase;
-
 
     public ShipTimePresenter(ShipTimeView view, GetShipTimeUseCase getShipTimeUseCase, GetShipTimeDbUseCase getShipTimeDbUseCase) {
         this.view = view;
         this.getShipTimeUseCase = getShipTimeUseCase;
         this.getShipTimeDbUseCase = getShipTimeDbUseCase;
-        init();
     }
 
-    private void init() {
+    public void init(String type) {
+        applyType(type);
         getShipTimeUseCase.execute(null);
     }
 
@@ -48,6 +50,14 @@ public class ShipTimePresenter {
 
     public void unregister() {
         SchedulerManager.get().removeUpdateTimeObserver();
+    }
+
+    protected void applyType(String type) {
+        if (TYPE_WHITE.equals(type)) {
+            view.applyType(R.color.white, R.color.black);
+            return;
+        }
+        view.applyType(R.color.bg_color, R.color.white);
     }
 
 
