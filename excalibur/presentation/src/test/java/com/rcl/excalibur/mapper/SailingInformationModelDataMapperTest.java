@@ -73,7 +73,7 @@ public class SailingInformationModelDataMapperTest {
 
         sailDateItinerary.setEvents(sailDateEvents);
 
-        sailDateInfo.setDuration(7);
+        sailDateInfo.setDuration("7");
         sailDateInfo.setShipCode("AL");
         sailDateInfo.setItinerary(sailDateItinerary);
     }

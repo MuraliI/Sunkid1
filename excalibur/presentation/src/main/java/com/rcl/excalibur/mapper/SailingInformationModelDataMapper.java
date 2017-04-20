@@ -1,7 +1,6 @@
 package com.rcl.excalibur.mapper;
 
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.data.utils.Preconditions;
@@ -39,7 +38,7 @@ public class SailingInformationModelDataMapper extends BaseModelDataMapper<SailD
             return;
         }
         String description = domainItinerary.getDescription();
-        if (!TextUtils.isEmpty(description)) {
+        if (!description.isEmpty()) {
             itineraryModel.setDescription(description);
         }
         setEvents(itineraryModel, sailingDomain);
@@ -79,25 +78,25 @@ public class SailingInformationModelDataMapper extends BaseModelDataMapper<SailD
         String departureDate = domainPort.getDepartureDate();
         String departureTime = domainPort.getDepartureTime();
         PortModel port = new PortModel();
-        if (!TextUtils.isEmpty(portCode)) {
+        if (!portCode.isEmpty()) {
             port.setPortCode(portCode);
         }
-        if (!TextUtils.isEmpty(portType)) {
+        if (!portType.isEmpty()) {
             port.setPortType(portType);
         }
-        if (!TextUtils.isEmpty(portName)) {
+        if (!portName.isEmpty()) {
             port.setPortName(portName);
         }
-        if (!TextUtils.isEmpty(arrivalDate)) {
+        if (!arrivalDate.isEmpty()) {
             port.setArrivalDate(arrivalDate);
         }
-        if (!TextUtils.isEmpty(arrivalTime)) {
+        if (!arrivalTime.isEmpty()) {
             port.setArrivalTime(arrivalTime);
         }
-        if (!TextUtils.isEmpty(departureDate)) {
+        if (!departureDate.isEmpty()) {
             port.setDepartureDate(departureDate);
         }
-        if (!TextUtils.isEmpty(departureTime)) {
+        if (!departureTime.isEmpty()) {
             port.setDepartureTime(departureTime);
         }
         eventModel.setPort(port);
