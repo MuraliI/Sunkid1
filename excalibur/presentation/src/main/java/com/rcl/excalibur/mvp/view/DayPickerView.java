@@ -33,12 +33,12 @@ public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventMo
         ButterKnife.bind(this, fragment.getView());
     }
 
-    public void init(int todayPosition) {
+    public void init(int todayPosition, int selectedDayPosition) {
         final Activity activity = getActivity();
         if (activity == null) {
             return;
         }
-        adapter = new EventsAdapter(adapterObserver, activity.getResources(), todayPosition);
+        adapter = new EventsAdapter(adapterObserver, activity.getResources(), todayPosition, selectedDayPosition);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
     }

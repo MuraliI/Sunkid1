@@ -26,11 +26,13 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
     private Resources resources;
     private int todayPosition;
     private int positionSelected = -1;
+    private int selectedDay;
 
-    public EventsAdapter(Observer<EventModel> observer, Resources resources, int todayPosition) {
+    public EventsAdapter(Observer<EventModel> observer, Resources resources, int todayPosition, int selectedDay) {
         super(observer);
         this.resources = resources;
         this.todayPosition = todayPosition;
+        this.selectedDay = selectedDay;
     }
 
     @Override
@@ -41,11 +43,9 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         if (!TextUtils.isEmpty(day)) {
             if (todayPosition == position) {
                 holder.isTodayImageView.setImageResource(R.drawable.icon_day_picker_ship);
-                holder.selectedDayView.setVisibility(View.VISIBLE);
                 holder.dayTextView.setText(resources.getString(R.string.today_day_title));
             } else {
                 holder.dayTextView.setText(resources.getString(R.string.day_title) + day);
-                holder.selectedDayView.setVisibility(View.GONE);
             }
         }
         PortModel port = holder.event.getPort();
@@ -69,6 +69,7 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         if (hasObserver()) {
             holder.observerRef = new WeakReference<>(getObserver());
         }
+        holder.selectedDayView.setVisibility(selectedDay == position ? View.VISIBLE : View.GONE);
         holder.containerDayPicker.setSelected(position == positionSelected);
     }
 
