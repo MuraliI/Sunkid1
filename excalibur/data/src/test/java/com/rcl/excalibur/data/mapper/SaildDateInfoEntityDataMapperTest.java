@@ -14,8 +14,7 @@ import static org.junit.Assert.assertNotNull;
 public class SaildDateInfoEntityDataMapperTest {
 
     private SaildDateInfoEntityDataMapper sailDateInfoDataMapper;
-    @Mock
-    SailDateInfoEntity sailDateInfoEntity;
+    @Mock SailDateInfoEntity sailDateInfoEntity;
 
     @Before
     public void setUp() throws Exception {

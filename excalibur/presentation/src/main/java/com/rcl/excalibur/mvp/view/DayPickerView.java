@@ -42,7 +42,7 @@ public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventMo
         recyclerView.setAdapter(adapter);
     }
 
-    public void setFotterDate(String date) {
+    public void setFooterDate(String date) {
         fotterDate.setText(date);
     }
 

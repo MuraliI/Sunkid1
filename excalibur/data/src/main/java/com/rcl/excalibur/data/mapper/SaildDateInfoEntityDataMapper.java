@@ -23,13 +23,13 @@ public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfo, 
         SailDateItinerary sailDateItinerary = new SailDateItinerary();
         if (itineraryEntity != null) {
             sailDateItinerary.setDescription(itineraryEntity.getDescription());
-            sailDateItinerary.setEvents(transformEnents(itineraryEntity.getEvents()));
+            sailDateItinerary.setEvents(transformEvents(itineraryEntity.getEvents()));
 
         }
         return sailDateItinerary;
     }
 
-    private List<SailDateEvent> transformEnents(List<EventEntity> entities) {
+    private List<SailDateEvent> transformEvents(List<EventEntity> entities) {
         ArrayList<SailDateEvent> items = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(entities)) {
@@ -55,6 +55,7 @@ public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfo, 
         }
         return sailDateEvent;
     }
+
     private SailPort transform(PortEntity portEntity) {
         SailPort sailPort = new SailPort();
         if (portEntity != null) {
@@ -72,11 +73,12 @@ public class SaildDateInfoEntityDataMapper extends BaseDataMapper<SailDateInfo, 
     @Nullable
     @Override
     public SailDateInfo transform(SailDateInfoEntity input, Void additionalArg) {
-        final SailDateInfo sailDateInfo = new SailDateInfo();
-        sailDateInfo.setDuration(input.getDuration());
-        sailDateInfo.setShipCode(input.getShipCode());
-        sailDateInfo.setItinerary(transform(input.getItinerary()));
-
+        SailDateInfo sailDateInfo = new SailDateInfo();
+        if (input != null) {
+            sailDateInfo.setDuration(input.getDuration());
+            sailDateInfo.setShipCode(input.getShipCode());
+            sailDateInfo.setItinerary(transform(input.getItinerary()));
+        }
         return sailDateInfo;
     }
 }

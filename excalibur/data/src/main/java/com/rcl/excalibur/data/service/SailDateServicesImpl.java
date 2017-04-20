@@ -9,13 +9,12 @@ import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.service.SailDateServices;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
 import static com.rcl.excalibur.data.utils.ServiceUtil.getSailDateApi;
 
-public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingInfoResponse , Void> implements SailDateServices {
+public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingInfoResponse, Void> implements SailDateServices {
 
     private static final String SAILING_ID = "1492905600000";
     private final SailDateDataRepository repository;
@@ -27,27 +26,33 @@ public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingI
 
     @Override
     public void getSailDate() {
-        Call<SailDateResponse> call = getSailDateApi().getEvents(SAILING_ID);
+        new Thread(() -> {
+            repository.deleteAll();
+            Call<SailDateResponse> call = getSailDateApi().getEvents(SAILING_ID);
+            SailDateProcessor sailDateProcessor = new SailDateProcessor();
+            try {
+                sailDateProcessor.onResponse(call.execute());
 
-        call.enqueue(new Callback<SailDateResponse>() {
-            @Override
-            public void onResponse(Call<SailDateResponse> call, Response<SailDateResponse> response) {
-                // TODO: add validation succesfull response when webservice integrate
-                if (response.body() != null) {
-                    repository.deleteAll();
-                    SailDateInfo dateInfoEntity = getMapper().transform(response.body().getSailingInfo(), null);
-                    repository.create(dateInfoEntity);
-                }
-
+            } catch (Exception e) {
+                sailDateProcessor.onFailure(e);
             }
 
-            @Override
-            public void onFailure(Call<SailDateResponse> call, Throwable t) {
-                //Handle failure
-                Timber.e("error SailDateResponse", t.getMessage());
-            }
-        });
+        }).start();
     }
 
+    private class SailDateProcessor {
 
+        void onResponse(Response<SailDateResponse> response) {
+            // TODO: add validation succesfull response when webservice integrate
+            if (response.body() != null) {
+                SailDateInfo dateInfoEntity = getMapper().transform(response.body().getSailingInfo(), null);
+                repository.create(dateInfoEntity);
+            }
+
+        }
+
+        void onFailure(Throwable t) {
+            Timber.e("error SailDateResponse", t.getMessage());
+        }
+    }
 }

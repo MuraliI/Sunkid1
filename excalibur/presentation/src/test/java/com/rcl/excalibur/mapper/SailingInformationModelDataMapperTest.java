@@ -45,27 +45,27 @@ public class SailingInformationModelDataMapperTest {
 
         sailDateEvents = new ArrayList<>();
         event1 = new SailDateEvent();
-        event1.setDay(1);
+        event1.setDay("1");
         sailPort1 = new SailPort();
         sailPort1.setPortCode("FLL");
         sailPort1.setPortName("FORT LAUDERDALE, FLORIDA");
         sailPort1.setPortType("EMBARK");
         sailPort1.setArrivalDate("04/23/2017");
         sailPort1.setDepartureDate("04/23/2017");
-        sailPort1.setArrivalTime(0);
-        sailPort1.setDepartureTime(163000);
+        sailPort1.setArrivalTime("0");
+        sailPort1.setDepartureTime("163000");
         event1.setPort(sailPort1);
 
         event2 = new SailDateEvent();
-        event2.setDay(2);
+        event2.setDay("2");
         sailPort2 = new SailPort();
         sailPort2.setPortCode("NAS");
         sailPort2.setPortName("NASSAU, BAHAMAS");
         sailPort2.setPortType("DOCKED");
         sailPort2.setArrivalDate("04/24/2017");
         sailPort2.setDepartureDate("04/24/2017");
-        sailPort2.setArrivalTime(70000);
-        sailPort2.setDepartureTime(140000);
+        sailPort2.setArrivalTime("70000");
+        sailPort2.setDepartureTime("140000");
         event2.setPort(sailPort2);
 
         sailDateEvents.add(event1);

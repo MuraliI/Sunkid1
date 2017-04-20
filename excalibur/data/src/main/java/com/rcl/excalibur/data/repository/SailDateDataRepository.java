@@ -16,8 +16,6 @@ import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.SailDateItinerary;
 import com.rcl.excalibur.domain.repository.SailDateRepository;
 
-import java.util.List;
-
 public class SailDateDataRepository extends BaseDataRepository<SailDateInfo, SailDateInfoEntity, Void,  SaildDateInfoEntityDataMapper>
         implements SailDateRepository {
 
@@ -77,16 +75,6 @@ public class SailDateDataRepository extends BaseDataRepository<SailDateInfo, Sai
         }
         itineraryEntity.save();
         entity.setItinerary(itineraryEntity);
-    }
-
-
-    @Override
-    public List<SailDateInfo> getAll() {
-        List<SailDateInfoEntity> sailDateInfoEntityList = new Select()
-                .all()
-                .from(SailDateInfoEntity.class)
-                .execute();
-        return getMapper().transform(sailDateInfoEntityList, null);
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
@@ -17,9 +18,7 @@ import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.DayPickerView;
 import com.rcl.excalibur.utils.DateUtils;
-import com.rcl.excalibur.utils.JsonUtils;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,32 +43,53 @@ public class DayPickerPresenter {
         }
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
         SailingInfoModel sailingInfoModel = new SailingInformationModelDataMapper().transform(sailDateInfo);
-        List<EventModel> events = sailingInfoModel.getItinerary().getEvents();
+        if (sailingInfoModel == null || sailingInfoModel.getItinerary() == null) {
+            return;
+        }
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
+        view.setAdapterObserver(new AdapterObserver(this));
+        view.init(itinerary.getIndexCurrentDay());
+        setHeader(itinerary);
+        setFooter(itinerary, activity.getResources());
+        showCollectionInView(itinerary);
+    }
 
+    public void setFooter(ItineraryModel itinerary, Resources resources) {
+        if (itinerary == null) {
+            return;
+        }
+        if (CollectionUtils.isEmpty(itinerary.getEvents())) {
+            return;
+        }
+        List<EventModel> events = itinerary.getEvents();
         int eventsize = events.size();
         String starDay = events.get(0).getPort().getArrivalDate();
         String endDay = events.get(eventsize - 1).getPort().getArrivalDate();
-        String day = getDay(itinerary);
-        String description = itinerary.getDescription();
-        String shipName = JsonUtils.getShipNamesFromJson(view.getContext(), sailDateInfo.getShipCode());
-
-        view.setAdapterObserver(new AdapterObserver(this));
-        view.init(itinerary.getIndexCurrentDay());
         if (!TextUtils.isEmpty(starDay) && !TextUtils.isEmpty(endDay)) {
-            view.setFotterDate(getFotterDate(starDay, endDay, activity.getResources()));
+            view.setFooterDate(DateUtils.getFormatedDates(starDay, endDay, resources));
         }
-        if (!TextUtils.isEmpty(description) && !TextUtils.isEmpty(day)) {
-            view.setHeader(description, day, shipName);
-        }
-        showCollectionInView(events);
+
     }
 
-    private void showCollectionInView(List<EventModel> events) {
-        if (events == null || events.size() == 0) {
+    public void setHeader(ItineraryModel itinerary) {
+        if (itinerary == null) {
+            return;
+        }
+        String day = getDay(itinerary);
+        String description = itinerary.getDescription();
+        if (!TextUtils.isEmpty(description) && !TextUtils.isEmpty(day)) {
+            view.setHeader(description, day);
+        }
+    }
+
+    private void showCollectionInView(ItineraryModel itinerary) {
+        if (itinerary == null) {
+            return;
+        }
+        if (CollectionUtils.isEmpty(itinerary.getEvents())) {
             Toast.makeText(view.getActivity(), R.string.no_items_to_show, Toast.LENGTH_LONG).show();
         } else {
-            view.addAll(events);
+            view.addAll(itinerary.getEvents());
         }
     }
 
@@ -108,18 +128,7 @@ public class DayPickerPresenter {
         }
     }
 
-    public String getFotterDate(String dateStart, String dateEnd, Resources resources) {
-        String date = "";
-        try {
-            date = DateUtils.getFormatedDates(dateStart, dateEnd, resources);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
-
     public ItineraryModel mockItineraryModel(Resources resources) {
-
         ArrayList<EventModel> events = new ArrayList<>();
         EventModel event1 = new EventModel();
         PortModel port1 = new PortModel();
