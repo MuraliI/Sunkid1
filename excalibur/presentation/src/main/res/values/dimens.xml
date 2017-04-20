@@ -10,6 +10,7 @@
 
     <!-- Triptych view -->
     <dimen name="triptych_strip_tickness">2dp</dimen>
+    <dimen name="ship_invisible_width">100dp</dimen>
 
     <!-- General dimens -->
     <dimen name="no_size">0dp</dimen>
