@@ -53,10 +53,16 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
             return;
         }
         String portName = port.getPortName();
-        if (!TextUtils.isEmpty(portName)) {
-            holder.placeTextView.setText(portName);
-        }
         String portType = port.getPortType();
+        if (!TextUtils.isEmpty(portName)) {
+            if (!TextUtils.isEmpty(portType)) {
+                if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_CRUISING)) {
+                    holder.placeTextView.setText(R.string.day_picker_at_sea);
+                } else {
+                    holder.placeTextView.setText(portName);
+                }
+            }
+        }
         if (!TextUtils.isEmpty(portType)) {
             if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_EMBARK) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DOCKED) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DEBARK)) {
                 holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_anchor);
