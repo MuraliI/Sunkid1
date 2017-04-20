@@ -51,6 +51,6 @@
 
     <!-- Date Picker -->
     <color name="selector_bar_color">#1da4ed</color>
-    <color name="selector_bg_color">#8d0ba2e1</color>
+    <color name="selector_bg_color">#0d1da4ed</color>
 
 </resources>
