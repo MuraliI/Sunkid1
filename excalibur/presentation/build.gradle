@@ -21,6 +21,10 @@ android {
         renderscriptSupportModeEnabled globalConfiguration.getAt("rederScriptEnabledFlag")
 
         buildConfigField("String", "PREFIX_IMAGE", '"http://media.royalcaribbean.com/"')
+
+        buildConfigField "int", "UPDATE_TIME", "1"
+        buildConfigField "int", "SHIP_TIME", "15"
+
     }
 
     compileOptions {

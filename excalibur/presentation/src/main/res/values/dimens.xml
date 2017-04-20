@@ -178,4 +178,5 @@
     <dimen name="day_picker_margin">45dp</dimen>
     <dimen name="day_picker_image_width">25dp</dimen>
 
+    <dimen name="ship_time_height">30dp</dimen>
 </resources>

@@ -59,6 +59,13 @@ public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDa
         return dataMapper.transform(entity, null);
     }
 
+    public O get() {
+        final I entity = new Select()
+                .from(claz)
+                .executeSingle();
+        return dataMapper.transform(entity, null);
+    }
+
     public abstract void deleteAll();
 
 }
