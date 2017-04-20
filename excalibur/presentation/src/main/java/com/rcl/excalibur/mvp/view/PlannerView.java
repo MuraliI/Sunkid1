@@ -31,8 +31,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int TOP_OF_LIST = 0;
     private static final int NO_PEEK_HEIGHT = 0;
     private static final int NO_MARGIN = 0;
-    private static final int MAX_OFFSET = 1;
-    private static final float OFFSET_80 = 0.8f;
+    private static final float OFFSET_95 = 0.95f;
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_all_day) View allDayView;
@@ -54,6 +53,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
+    private int initImageMargin;
     private int peekHeight;
 
     public PlannerView(PlannerFragment fragment) {
@@ -69,6 +69,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         Resources resources = fragment.getResources();
         initHorizontalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_horizontal_margin);
         initVerticalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_vertical_margin);
+        initImageMargin = resources.getDimensionPixelSize(R.dimen.margin_small);
         peekHeight = resources.getDimensionPixelSize(R.dimen.planner_peek_height);
 
         adapter = new FlexibleAdapter<>(null, fragment, true);
@@ -159,11 +160,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                             }
                             resizeItemView(view, verticalMargin, horizontalMargin);
 
-                            if (slideOffset == MAX_OFFSET) {
-                                changeSeparatorVisibility(view, View.VISIBLE);
-                            }
+                            int imageMargin = Math.round(slideOffset * initImageMargin);
+                            resizeImage(view, imageMargin);
 
-                            if (slideOffset >= OFFSET_80) {
+                            if (slideOffset >= OFFSET_95) {
+                                changeSeparatorVisibility(view, View.VISIBLE);
                                 setItemViewBackground(view, R.drawable.background_gradient_item_cue_card);
                             } else {
                                 setItemViewBackground(view, R.drawable.background_rounded_cue_card);
@@ -202,8 +203,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             view.setVisibility(View.INVISIBLE);
         } else {
             resizeItemView(view, initVerticalMargin, initHorizontalMargin);
+            resizeImage(view, NO_MARGIN);
             setItemViewBackground(view, R.drawable.background_rounded_cue_card);
-            changeSeparatorVisibility(view, View.INVISIBLE);
+            changeSeparatorVisibility(view, View.GONE);
         }
     }
 
@@ -225,6 +227,25 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             return;
         }
         view.setBackgroundResource(imageResource);
+    }
+
+    private void resizeImage(View parent, int margin) {
+        if (parent == null) {
+            return;
+        }
+
+        View image = ButterKnife.findById(parent, R.id.image_itinerary_product_picture);
+
+        if (image == null) {
+            return;
+        }
+
+        ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) image.getLayoutParams();
+        marginLayout.setMargins(NO_MARGIN, margin, margin, margin);
+
+        if (initialized) {
+            image.requestLayout();
+        }
     }
 
     private void changeSeparatorVisibility(View parent, int visibility) {
