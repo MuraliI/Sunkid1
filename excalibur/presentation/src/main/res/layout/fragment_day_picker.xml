@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_sea"
+    tools:context="com.rcl.excalibur.fragments.DayPickerFragment">
+
+    <include
+        android:id="@+id/include_day_picker_header"
+        layout="@layout/day_picker_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_discover_item_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer_date_picker"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include_day_picker_header"
+        android:background="@drawable/background_rounded_top"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <include
+        android:id="@+id/footer_date_picker"
+        layout="@layout/day_picker_sailing_dates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
