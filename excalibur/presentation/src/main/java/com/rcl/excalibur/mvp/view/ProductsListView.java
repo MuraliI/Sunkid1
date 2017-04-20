@@ -4,6 +4,8 @@ package com.rcl.excalibur.mvp.view;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.ProductsAdapter;
@@ -18,6 +20,7 @@ import butterknife.ButterKnife;
 
 public class ProductsListView extends FragmentView<ProductsListFragment, Void, Product> {
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    @Bind(R.id.alert_no_products) RelativeLayout alertNoProducts;
 
     private ProductsAdapter adapter;
 
@@ -38,5 +41,9 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
 
     public void addAll(List<Product> list) {
         adapter.addAll(list);
+    }
+
+    public void addAlertNoProducts() {
+        alertNoProducts.setVisibility(View.VISIBLE);
     }
 }

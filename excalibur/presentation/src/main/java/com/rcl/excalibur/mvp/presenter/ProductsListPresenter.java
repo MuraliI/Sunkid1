@@ -1,8 +1,6 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import android.widget.Toast;
-
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
@@ -83,7 +81,7 @@ public class ProductsListPresenter {
 
     private void showCollectionInView(List<Product> products) {
         if (products == null || products.size() == 0) {
-            Toast.makeText(view.getActivity(), R.string.no_items_to_show, Toast.LENGTH_LONG).show();
+            view.addAlertNoProducts();
         } else {
             view.addAll(products);
         }

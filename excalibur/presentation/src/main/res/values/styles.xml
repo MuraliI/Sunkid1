@@ -370,4 +370,10 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="DiscoveryNoProducts" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_medium</item>
+        <item name="android:textSize">@dimen/text_size_no_products_top</item>
+        <item name="android:textColor">@color/font_detail_no_products</item>
+    </style>
+
 </resources>
