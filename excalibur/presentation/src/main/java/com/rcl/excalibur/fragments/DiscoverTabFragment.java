@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
@@ -18,13 +17,7 @@ import com.rcl.excalibur.mvp.view.DiscoverTabView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_DINING;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ENTERTAINMENT;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_GUEST_SERVICES;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ROYAL_ACTIVITY;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOPPING;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOREX;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SPA;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_GUEST_SERVICES;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_DINING;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ENTERTAINMENT;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ROYAL_ACTIVITY;
