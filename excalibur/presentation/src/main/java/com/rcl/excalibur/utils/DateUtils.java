@@ -14,14 +14,14 @@ import java.util.Date;
 public final class DateUtils {
 
     private static final int AFTERNOON = 12;
-    public static final int MINUTES_IN_HOUR = 60;
+    private static final String DATE_FORMAT = "MM/dd/yyyy";
 
     private DateUtils() {
 
     }
 
     public static boolean isEqualsToCurrentDate(String date) {
-        final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        final DateFormat df = new SimpleDateFormat(DATE_FORMAT);
         boolean equals = false;
         try {
             Date incomingDate = df.parse(date);
@@ -40,48 +40,15 @@ public final class DateUtils {
 
     }
 
-    public static boolean isIncomingDateBeforeCurrent(String date) {
-        final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        boolean isBefore = false;
+    public static String getFormatedDates(String startDateString, String endDateString, Resources resources) {
+        Date startDate = null;
+        Date endDate = null;
         try {
-            Date incomingDate = df.parse(date);
-            Date today = Calendar.getInstance().getTime();
-            String reportDate = df.format(today);
-            Date currentDate = df.parse(reportDate);
-            if (incomingDate.compareTo(currentDate) >= 0) {
-                isBefore = false;
-            } else {
-                isBefore = true;
-            }
+            startDate = new SimpleDateFormat().parse(startDateString);
+            endDate = new SimpleDateFormat(DATE_FORMAT).parse(endDateString);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return isBefore;
-    }
-
-    public static boolean isCurrentAfterIncomingDate(String date) {
-        final DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        boolean isBefore = true;
-        try {
-            Date incomingDate = df.parse(date);
-            Date today = Calendar.getInstance().getTime();
-            String reportDate = df.format(today);
-            Date currentDate = df.parse(reportDate);
-            if (incomingDate.compareTo(currentDate) >= 0) {
-                isBefore = true;
-            } else {
-                isBefore = false;
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return isBefore;
-    }
-
-    public static String getFormatedDates(String startDateString, String endDateString, Resources resources) throws ParseException {
-        Date startDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDateString);
-        Date endDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDateString);
-
         Calendar calendarStartDate = Calendar.getInstance();
         calendarStartDate.setTime(startDate);
         Calendar calendarEndDate = Calendar.getInstance();

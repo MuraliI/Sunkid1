@@ -19,7 +19,6 @@ import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.DayPickerView;
 import com.rcl.excalibur.utils.DateUtils;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +66,7 @@ public class DayPickerPresenter {
         String starDay = events.get(0).getPort().getArrivalDate();
         String endDay = events.get(eventsize - 1).getPort().getArrivalDate();
         if (!TextUtils.isEmpty(starDay) && !TextUtils.isEmpty(endDay)) {
-            view.setFooterDate(getFotterDate(starDay, endDay, resources));
+            view.setFooterDate(DateUtils.getFormatedDates(starDay, endDay, resources));
         }
 
     }
@@ -127,16 +126,6 @@ public class DayPickerPresenter {
         public void onNext(EventModel value) {
             getSailingPreferenceUseCase.putDay(value.getDay());
         }
-    }
-
-    public String getFotterDate(String dateStart, String dateEnd, Resources resources) {
-        String date = "";
-        try {
-            date = DateUtils.getFormatedDates(dateStart, dateEnd, resources);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
     }
 
     public ItineraryModel mockItineraryModel(Resources resources) {
