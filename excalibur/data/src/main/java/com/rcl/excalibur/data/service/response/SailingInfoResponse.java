@@ -4,7 +4,7 @@ package com.rcl.excalibur.data.service.response;
 public class SailingInfoResponse {
     private DateItineraryResponse itinerary;
     private String shipCode;
-    private int duration;
+    private String duration;
 
     public DateItineraryResponse getItinerary() {
         return itinerary;
@@ -22,11 +22,11 @@ public class SailingInfoResponse {
         this.shipCode = shipCode;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 }

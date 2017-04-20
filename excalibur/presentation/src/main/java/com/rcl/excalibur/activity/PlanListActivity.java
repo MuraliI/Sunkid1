@@ -13,7 +13,7 @@ import butterknife.OnClick;
 
 public class PlanListActivity extends BaseActivity {
     private static final String EXTRA_FRAGMENT_TYPE = "EXTRA_FRAGMENT_TYPE";
-    protected PlanListPresenter presenter;
+    public PlanListPresenter presenter;
 
     public static Intent getStartIntent(final BaseActivity activity, int fragmentToShow) {
         Intent intent = new Intent(activity, PlanListActivity.class);
@@ -36,10 +36,8 @@ public class PlanListActivity extends BaseActivity {
         presenter.init(fragmentToShow);
     }
 
-    @OnClick(R.id.plans_header_back_layout)
+    @OnClick(R.id.plans_header_back)
     public void onHeaderBackOnClick() {
         presenter.onHeaderBackOnClick();
     }
-
-
 }
