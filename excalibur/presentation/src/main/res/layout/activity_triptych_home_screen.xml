@@ -73,28 +73,6 @@
                 android:contentDescription="@null"
                 android:src="@drawable/cloud_02" />
 
-            <TextView
-                android:id="@+id/text_arrivin_debarking_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@id/image_ship"
-                android:layout_margin="@dimen/margin_small"
-                android:text="@string/hardcoded_home_status"
-                android:textColor="@color/white"
-                android:textSize="@dimen/home_status_text_size"
-                android:textStyle="bold"/>
-
-            <ImageView
-                android:id="@+id/image_ship_status_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/text_arrivin_debarking_time"
-                android:layout_alignTop="@id/text_arrivin_debarking_time"
-                android:layout_marginTop="@dimen/margin_xsmall"
-                android:contentDescription="@null"
-                android:background="@drawable/ship_icon"/>
-
         </com.rcl.excalibur.custom.view.ShipView>
 
         <android.support.v4.view.ViewPager

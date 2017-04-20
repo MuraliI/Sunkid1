@@ -4,8 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.domain.SailDateEvent;
-import com.rcl.excalibur.domain.SailPort;
+import com.rcl.excalibur.model.EventModel;
+import com.rcl.excalibur.model.PortModel;
 
 import java.util.List;
 
@@ -35,52 +35,53 @@ public final class DayInformationUtils {
     private DayInformationUtils() {
     }
 
-    public static Pair<String, Integer> getShipLocation(@NonNull List<SailDateEvent> events, int day) {
+    public static String getShipLocation(@NonNull List<EventModel> events, int day) {
         String shipLocation;
-        int drawable;
-        SailPort sailPort = getSailPortByDay(events, day);
+        PortModel sailPort = getSailPortByDay(events, day);
 
         String modelPortType = sailPort.getPortType();
         if (modelPortType.equalsIgnoreCase(PORT_TYPE_EMBARK)
                 || modelPortType.equalsIgnoreCase(PORT_TYPE_DOCKED)
                 || modelPortType.equalsIgnoreCase(PORT_TYPE_DEBARK)) {
             shipLocation = ARRIVING_AT_UPER + sailPort.getPortName();
-            drawable = R.drawable.ship_icon;
         } else if (modelPortType.equalsIgnoreCase(PORT_TYPE_CRUISING)) {
             shipLocation = PORT_TYPE_AT_SEA;
-            drawable = R.drawable.ship_icon;
         } else {
             shipLocation = "";
-            drawable = R.drawable.ship_icon;
         }
-        return new Pair<>(shipLocation, Integer.valueOf(drawable));
+        return shipLocation;
     }
 
-    public static String getArrivalDebarkDescription(@NonNull List<SailDateEvent> events, int day) {
+    public static Pair<String, Integer> getArrivalDebarkDescription(@NonNull List<EventModel> events, int day) {
         StringBuilder arrivalDebarkTime;
-        SailPort sailPort = getSailPortByDay(events, day);
+        int drawable;
+        PortModel sailPort = getSailPortByDay(events, day);
 
         if (day == FIRST_DAY) {
-            arrivalDebarkTime = appendValues(DEPARTING_AT, getTimeFormat(sailPort.getDepartureTime()));
+            arrivalDebarkTime = appendValues(DEPARTING_AT, getTimeFormat(Integer.valueOf(sailPort.getDepartureTime())));
+            drawable = R.drawable.ship_icon;
         } else if (day == events.size()) {
-            arrivalDebarkTime = appendValues(ARRIVING_AT, getTimeFormat(sailPort.getArrivalTime()));
-        } else if ((getShipLocation(events, day)).first.equalsIgnoreCase(PORT_TYPE_AT_SEA)) {
+            arrivalDebarkTime = appendValues(ARRIVING_AT, getTimeFormat(Integer.valueOf(sailPort.getArrivalTime())));
+            drawable = R.drawable.ship_icon;
+        } else if ((getShipLocation(events, day)).equalsIgnoreCase(PORT_TYPE_AT_SEA)) {
             if ((day + 1) <= events.size()) {
                 sailPort = getSailPortByDay(events, (day + 1));
             }
             arrivalDebarkTime = appendValues(NEXT_PORT, sailPort.getPortName());
+            drawable = R.drawable.ship_icon;
         } else {
-            arrivalDebarkTime = appendValues(ARRIVING_AT, getTimeFormat(sailPort.getArrivalTime()),
-                    ARRIVING_DEPARTING_SEPARATOR, DEPARTING_AT, getTimeFormat(sailPort.getDepartureTime()));
+            arrivalDebarkTime = appendValues(ARRIVING_AT, getTimeFormat(Integer.valueOf(sailPort.getArrivalTime())),
+                    ARRIVING_DEPARTING_SEPARATOR, DEPARTING_AT, getTimeFormat(Integer.valueOf(sailPort.getDepartureTime())));
+            drawable = R.drawable.ship_icon;
         }
 
-        return arrivalDebarkTime.toString();
+        return new Pair<>(arrivalDebarkTime.toString(), drawable);
     }
 
-    private static SailPort getSailPortByDay(@NonNull List<SailDateEvent> events, int day) {
-        SailPort sailPort = new SailPort();
-        for (SailDateEvent sailPortEventElement : events) {
-            if (sailPortEventElement.getDay() == day) {
+    private static PortModel getSailPortByDay(@NonNull List<EventModel> events, int day) {
+        PortModel sailPort = new PortModel();
+        for (EventModel sailPortEventElement : events) {
+            if (Integer.valueOf(sailPortEventElement.getDay()) == day) {
                 sailPort = sailPortEventElement.getPort();
             }
         }

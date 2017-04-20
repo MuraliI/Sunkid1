@@ -4,6 +4,7 @@ package com.rcl.excalibur.mvp.view;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,13 +12,16 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.fragments.PlannerFragment;
+import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
+import com.rcl.excalibur.utils.DayInformationUtils;
 
 import java.util.List;
 
@@ -33,10 +37,12 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int NO_MARGIN = 0;
     private static final int MAX_OFFSET = 1;
     private static final float OFFSET_80 = 0.8f;
+    public static final double DOUBLE_OFFSET_VALUE = 0.1;
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_all_day) View allDayView;
     @Bind(R.id.layout_planner_container) LinearLayout containerLayout;
+    @Bind(R.id.text_arrivin_debarking_time) TextView shipArrivingDebanrkingLabel;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 
@@ -142,7 +148,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                         bottomSheetIsSliding = true;
 
-                        if (slideOffset <= 0.1 && isExpanded) {
+                        if (slideOffset <= DOUBLE_OFFSET_VALUE && isExpanded) {
                             hideHeadersView();
                         }
                         if (isExpanded) {
@@ -283,5 +289,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     public void showAllDayLayout() {
         isAllDayNecessary = true;
+    }
+
+    public void addArrivingDebanrkingValues(@NonNull List<EventModel> events, int day) {
+        Pair<String, Integer> stringIntegerPair = DayInformationUtils.getArrivalDebarkDescription(events, day);
+        shipArrivingDebanrkingLabel.setText(stringIntegerPair.first);
+        shipArrivingDebanrkingLabel.setCompoundDrawablesWithIntrinsicBounds(stringIntegerPair.second, 0, 0, 0);
     }
 }

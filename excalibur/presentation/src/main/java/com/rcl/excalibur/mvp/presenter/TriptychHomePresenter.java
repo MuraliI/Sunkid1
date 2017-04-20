@@ -1,31 +1,59 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import com.rcl.excalibur.domain.SailDateInfo;
+import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
+import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
+import com.rcl.excalibur.model.EventModel;
+import com.rcl.excalibur.model.ItineraryModel;
+import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
+
+import java.util.List;
 
 public class TriptychHomePresenter {
 
+    private static final String DAY_DEFAULT_VALUE = "1";
     private TriptychHomeView view;
-    /*private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
-    private GetSaildDateDbUseCase getSaildDateDbUseCase;*/
+    private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
+    private GetSaildDateDbUseCase getSaildDateDbUseCase;
 
 
-    public TriptychHomePresenter(TriptychHomeView view/*,
+    public TriptychHomePresenter(TriptychHomeView view,
                                  GetSailingPreferenceUseCase getSailingPreferenceUseCase,
-                                 GetSaildDateDbUseCase getSaildDateDbUseCase*/) {
+                                 GetSaildDateDbUseCase getSaildDateDbUseCase) {
         this.view = view;
-        /*this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
-        this.getSaildDateDbUseCase = getSaildDateDbUseCase;*/
+        this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
+        this.getSaildDateDbUseCase = getSaildDateDbUseCase;
     }
 
     public void init() {
         view.init();
-        /*int selectedDay = Integer.valueOf(getSailingPreferenceUseCase.getDay());
+
+        String dayPreferences = getSailingPreferenceUseCase.getDay();
+        int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
 
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
         SailingInfoModel sailingInfoModel = new SailingInformationModelDataMapper().transform(sailDateInfo);
-        SailDateItinerary itinerary = sailingInfoModel.getItinerary();
-        List<SailDateEvent> events = itinerary.getEvents();
-        view.addDayInformationValues(events, selectedDay);*/
+        ItineraryModel itinerary = sailingInfoModel.getItinerary();
+        if (itinerary == null) {
+            view.addShipLocationValue(null, selectedDay);
+        } else {
+            List<EventModel> events = itinerary.getEvents();
+            view.addShipLocationValue(events, selectedDay);
+        }
+    }
+
+    public class SaildDateDbUseCaseObserver extends DefaultPresentObserver<SailDateInfo, TriptychHomePresenter> {
+
+        SaildDateDbUseCaseObserver(TriptychHomePresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(SailDateInfo value) {
+
+        }
     }
 
 }
