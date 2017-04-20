@@ -89,9 +89,4 @@ public class DiscoverTabFragment extends Fragment {
         presenter.openListScreen(POSITION_GUEST_SERVICES);
     }
 
-    /*@OnClick(R.id.image_boat)
-    public void boatOnClick() {
-        presenter.boatOnClick();
-    }*/
-
 }
