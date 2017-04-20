@@ -144,7 +144,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
             resizeItemView(view, verticalMargin, horizontalMargin);
 
-            int imageMargin = Math.round(slideOffset * initImageMargin);
+            int imageMargin = (int) slideOffset * initImageMargin;
             resizeImage(view, imageMargin);
             RoundedImageView imageView = (RoundedImageView) view.findViewById(R.id.image_itinerary_product_picture);
             imageView.setRadius(R.dimen.default_radius);
