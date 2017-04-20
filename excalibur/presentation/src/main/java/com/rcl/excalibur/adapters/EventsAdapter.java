@@ -1,6 +1,5 @@
 package com.rcl.excalibur.adapters;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +21,7 @@ import io.reactivex.Observer;
 
 import static io.reactivex.Observable.just;
 
+
 public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPickerViewHolder> {
     private Resources resources;
     private int todayPosition;
@@ -35,17 +35,17 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
     @Override
     public void onBindViewHolder(DayPickerViewHolder holder, int position) {
         holder.event = items.get(position);
-        Context context = holder.portTypeImageView.getContext();
 
         String day = holder.event.getDay();
         if (!TextUtils.isEmpty(day)) {
             if (todayPosition == position) {
+                holder.containerDayPicker.setSelected(true);
                 holder.isTodayImageView.setImageResource(R.drawable.icon_day_picker_ship);
-                holder.selectedDay.setVisibility(View.VISIBLE);
+                holder.selectedDayView.setVisibility(View.VISIBLE);
                 holder.dayTextView.setText(resources.getString(R.string.today_day_title));
             } else {
                 holder.dayTextView.setText(day);
-                holder.selectedDay.setVisibility(View.GONE);
+                holder.selectedDayView.setVisibility(View.GONE);
             }
         }
         PortModel port = holder.event.getPort();
@@ -65,6 +65,10 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
                     holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_sea);
                 }
             }
+        }
+
+        if (holder.selectedDay == position) {
+
         }
 
         if (hasObserver()) {
@@ -89,10 +93,11 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         @Bind(R.id.text_place) TextView placeTextView;
         @Bind(R.id.image_port_type) ImageView portTypeImageView;
         @Bind(R.id.image_is_today) ImageView isTodayImageView;
-        @Bind(R.id.view_select_day) View selectedDay;
+        @Bind(R.id.view_select_day) View selectedDayView;
         @Bind(R.id.container_day_picker) View containerDayPicker;
         private EventModel event;
         private WeakReference<Observer<EventModel>> observerRef;
+        private int selectedDay = -1;
 
         DayPickerViewHolder(View itemView) {
             super(itemView);

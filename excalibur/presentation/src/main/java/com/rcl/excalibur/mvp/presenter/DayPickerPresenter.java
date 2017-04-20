@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
@@ -43,31 +44,53 @@ public class DayPickerPresenter {
         }
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
         SailingInfoModel sailingInfoModel = new SailingInformationModelDataMapper().transform(sailDateInfo);
-        List<EventModel> events = sailingInfoModel.getItinerary().getEvents();
+        if (sailingInfoModel == null || sailingInfoModel.getItinerary() == null) {
+            return;
+        }
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
+        view.setAdapterObserver(new AdapterObserver(this));
+        view.init(itinerary.getIndexCurrentDay());
+        setHeader(itinerary);
+        setFooter(itinerary, activity.getResources());
+        showCollectionInView(itinerary);
+    }
 
+    public void setFooter(ItineraryModel itinerary, Resources resources) {
+        if (itinerary == null) {
+            return;
+        }
+        if (CollectionUtils.isEmpty(itinerary.getEvents())) {
+            return;
+        }
+        List<EventModel> events = itinerary.getEvents();
         int eventsize = events.size();
         String starDay = events.get(0).getPort().getArrivalDate();
         String endDay = events.get(eventsize - 1).getPort().getArrivalDate();
+        if (!TextUtils.isEmpty(starDay) && !TextUtils.isEmpty(endDay)) {
+            view.setFooterDate(getFotterDate(starDay, endDay, resources));
+        }
+
+    }
+
+    public void setHeader(ItineraryModel itinerary) {
+        if (itinerary == null) {
+            return;
+        }
         String day = getDay(itinerary);
         String description = itinerary.getDescription();
-
-        view.setAdapterObserver(new AdapterObserver(this));
-        view.init(itinerary.getIndexCurrentDay());
-        if (!TextUtils.isEmpty(starDay) && !TextUtils.isEmpty(endDay)) {
-            view.setFotterDate(getFotterDate(starDay, endDay, activity.getResources()));
-        }
         if (!TextUtils.isEmpty(description) && !TextUtils.isEmpty(day)) {
             view.setHeader(description, day);
         }
-        showCollectionInView(events);
     }
 
-    private void showCollectionInView(List<EventModel> events) {
-        if (events == null || events.size() == 0) {
+    private void showCollectionInView(ItineraryModel itinerary) {
+        if (itinerary == null) {
+            return;
+        }
+        if (CollectionUtils.isEmpty(itinerary.getEvents())) {
             Toast.makeText(view.getActivity(), R.string.no_items_to_show, Toast.LENGTH_LONG).show();
         } else {
-            view.addAll(events);
+            view.addAll(itinerary.getEvents());
         }
     }
 
@@ -117,7 +140,6 @@ public class DayPickerPresenter {
     }
 
     public ItineraryModel mockItineraryModel(Resources resources) {
-
         ArrayList<EventModel> events = new ArrayList<>();
         EventModel event1 = new EventModel();
         PortModel port1 = new PortModel();
