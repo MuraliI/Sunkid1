@@ -25,6 +25,7 @@ import static io.reactivex.Observable.just;
 public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPickerViewHolder> {
     private Resources resources;
     private int todayPosition;
+    private int positionSelected = -1;
 
     public EventsAdapter(Observer<EventModel> observer, Resources resources, int todayPosition) {
         super(observer);
@@ -39,7 +40,6 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         String day = holder.event.getDay();
         if (!TextUtils.isEmpty(day)) {
             if (todayPosition == position) {
-                holder.containerDayPicker.setSelected(true);
                 holder.isTodayImageView.setImageResource(R.drawable.icon_day_picker_ship);
                 holder.selectedDayView.setVisibility(View.VISIBLE);
                 holder.dayTextView.setText(resources.getString(R.string.today_day_title));
@@ -66,14 +66,10 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
                 }
             }
         }
-
-        if (holder.selectedDay == position) {
-
-        }
-
         if (hasObserver()) {
             holder.observerRef = new WeakReference<>(getObserver());
         }
+        holder.containerDayPicker.setSelected(position == positionSelected);
     }
 
     @Override
@@ -87,7 +83,7 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         return new DayPickerViewHolder(view);
     }
 
-    static class DayPickerViewHolder extends RecyclerView.ViewHolder {
+    class DayPickerViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.text_day) TextView dayTextView;
         @Bind(R.id.text_place) TextView placeTextView;
@@ -97,7 +93,6 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         @Bind(R.id.container_day_picker) View containerDayPicker;
         private EventModel event;
         private WeakReference<Observer<EventModel>> observerRef;
-        private int selectedDay = -1;
 
         DayPickerViewHolder(View itemView) {
             super(itemView);
@@ -109,6 +104,7 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
             if (observerRef == null) {
                 return;
             }
+            positionSelected = getAdapterPosition();
             just(event).subscribe(observerRef.get());
         }
     }

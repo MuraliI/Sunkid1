@@ -126,6 +126,7 @@ public class DayPickerPresenter {
         @Override
         public void onNext(EventModel value) {
             getSailingPreferenceUseCase.putDay(value.getDay());
+            view.notifyDataChange();
         }
     }
 }

@@ -55,5 +55,9 @@ public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventMo
     public void addAll(List<EventModel> list) {
         adapter.addAll(list);
     }
+
+    public void notifyDataChange() {
+        adapter.notifyDataSetChanged();
+    }
 }
 
