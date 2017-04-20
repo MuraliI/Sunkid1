@@ -31,7 +31,7 @@ public class CategoryUtils {
     }
 
     @DrawableRes
-    public static int getCategoryIcon(String productType) {
+    public static Integer getCategoryIcon(String productType) {
         return iconMap.get(productType);
     }
 }

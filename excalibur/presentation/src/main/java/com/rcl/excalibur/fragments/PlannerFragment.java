@@ -46,4 +46,5 @@ public class PlannerFragment extends Fragment implements FlexibleAdapter.OnItemC
         presenter.onItemClick(position);
         return true;
     }
+
 }

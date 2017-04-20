@@ -25,13 +25,13 @@ import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 
 public class PlannerPresenter {
 
-    private GetOfferingsDbUseCase useCase;
     private static final String HEADER_FORMAT = "H%s";
     private static final String ITEM_FORMAT = "I%s";
-
     private static final int HEADER_LIST_SIZE = 4;
+
     private static final long DELAY = 5000;
 
+    private GetOfferingsDbUseCase useCase;
     private PlannerProductModelMapper mapper;
     private PlannerView view;
 
@@ -48,7 +48,11 @@ public class PlannerPresenter {
 
     public void init() {
         view.init();
+        view.initAnimation();
+        view.initBottomSheetBehavior();
+
         createHeaderList();
+
         //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2017);
