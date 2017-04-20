@@ -62,6 +62,11 @@
             android:label="@string/empty_string"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".activity.DayPickerActivity"
+            android:label="@string/empty_string"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="AA_DB_NAME"
             android:value="testDB.db" />
@@ -89,7 +94,12 @@
                     com.rcl.excalibur.data.entity.SubCategoryEntity,
                     com.rcl.excalibur.data.entity.ChildCategoryEntity,
                     com.rcl.excalibur.data.entity.ChildCategoryProductEntity,
+                    com.rcl.excalibur.data.entity.ChildCategoryEntity,
+                    com.rcl.excalibur.data.entity.SailDateInfoEntity,
+                    com.rcl.excalibur.data.entity.ItineraryEntity,
+                    com.rcl.excalibur.data.entity.EventEntity,
+                    com.rcl.excalibur.data.entity.PortEntity,
 		    com.rcl.excalibur.data.entity.ShipTimeEntity"/>
         <receiver android:name=".scheduler.SchedulerReceiver" />   
- </application>
+    </application>
 </manifest>

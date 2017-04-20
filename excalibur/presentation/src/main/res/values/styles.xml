@@ -128,6 +128,12 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <style name="AppTheme.DayPickerDescription" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/size_text_x_small</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontPath">@string/proxima_nova_bold</item>
+    </style>
+
     <style name="AppTheme.TimeTextView" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/roboto_light</item>
         <item name="android:textSize">10sp</item>
