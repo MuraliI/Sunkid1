@@ -1,82 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar_header"
+    <fragment android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
+        android:id="@+id/ship_time_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Light">
+        app:type="white"
+        android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_header"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            app:layout_scrollFlags="snap"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-            <ImageView
-                android:id="@+id/plans_header_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/title_arrow_pager_list_product"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_white_arrow_back"
-                android:tint="@color/plan_list_lightblue" />
-
-            <TextView
-                android:id="@+id/plans_header_name"
-                style="@style/PlanListDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/plans_header_back"
-                android:paddingLeft="@dimen/padding_start_title_list_product"
-                android:paddingRight="@dimen/padding_end_title_list_product"
-                android:text="@string/hardcoded_today" />
-
-            <ImageView
-                android:id="@+id/category_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/title_icon_pager_list_product"
-                android:layout_toEndOf="@+id/plans_header_name"
-                android:contentDescription="@null" />
-
-        </android.support.v7.widget.Toolbar>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout_products_list_categories"
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/ship_time_fragment"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:fadingEdgeLength="@dimen/fading_edge_list_product"
-            android:paddingTop="@dimen/padding_top_list_product"
-            android:requiresFadingEdge="horizontal"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/font_color_blue"
-            app:tabIndicatorHeight="@dimen/tabs_indicator_list_product"
-            app:tabMode="scrollable"
-            app:tabPaddingBottom="@dimen/padding_between_title_and_indicator_list_product"
-            app:tabPaddingEnd="@dimen/padding_tabs_list_product"
-            app:tabPaddingStart="@dimen/padding_tabs_list_product"
-            app:tabSelectedTextColor="@color/font_color_blue"
-            app:tabTextAppearance="@style/TabLayoutTextAppearance" />
+            android:theme="@style/ThemeOverlay.AppCompat.Light">
 
-    </android.support.design.widget.AppBarLayout>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_header"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:layout_scrollFlags="snap"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <ImageView
+                    android:id="@+id/plans_header_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/title_arrow_pager_list_product"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_white_arrow_back"
+                    android:tint="@color/plan_list_lightblue" />
+
+                <TextView
+                    android:id="@+id/plans_header_name"
+                    style="@style/PlanListDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/plans_header_back"
+                    android:paddingLeft="@dimen/padding_start_title_list_product"
+                    android:paddingRight="@dimen/padding_end_title_list_product"
+                    android:text="@string/hardcoded_today" />
+
+                <ImageView
+                    android:id="@+id/category_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/title_icon_pager_list_product"
+                    android:layout_toEndOf="@+id/plans_header_name"
+                    android:contentDescription="@null" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout_products_list_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:fadingEdgeLength="@dimen/fading_edge_list_product"
+                android:paddingTop="@dimen/padding_top_list_product"
+                android:requiresFadingEdge="horizontal"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/font_color_blue"
+                app:tabIndicatorHeight="@dimen/tabs_indicator_list_product"
+                app:tabMode="scrollable"
+                app:tabPaddingBottom="@dimen/padding_between_title_and_indicator_list_product"
+                app:tabPaddingEnd="@dimen/padding_tabs_list_product"
+                app:tabPaddingStart="@dimen/padding_tabs_list_product"
+                app:tabSelectedTextColor="@color/font_color_blue"
+                app:tabTextAppearance="@style/TabLayoutTextAppearance" />
+
+        </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/full_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/full_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</android.support.design.widget.CoordinatorLayout>
-
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

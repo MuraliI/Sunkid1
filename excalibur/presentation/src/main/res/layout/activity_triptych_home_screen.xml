@@ -6,6 +6,11 @@
     android:background="@drawable/bg_sea"
     android:orientation="vertical">
 
+    <fragment android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
+        android:id="@+id/ship_time_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <com.rcl.excalibur.custom.view.TriptychTabBarLayout
         android:id="@+id/tab_triptych_tablayout"
         android:layout_width="match_parent"
