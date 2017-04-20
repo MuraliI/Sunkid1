@@ -3,14 +3,14 @@ package com.rcl.excalibur.data.service.response;
 
 public class SailDateEventResponse {
 
-    private int day;
+    private String day;
     private PortResponse port;
 
-    public int getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(String day) {
         this.day = day;
     }
 

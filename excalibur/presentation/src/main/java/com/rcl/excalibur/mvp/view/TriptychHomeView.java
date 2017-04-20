@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.DayPickerActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.custom.view.ShipView;
@@ -12,12 +13,14 @@ import com.rcl.excalibur.fragments.BaseTripTychFragment;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
+import com.rcl.excalibur.utils.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, Void> {
 
@@ -53,5 +56,10 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
                 ((BaseTripTychFragment) adapterFragment).onServiceCallCompleted(successfully);
             }
         }
+    }
+
+    @OnClick(R.id.date_picker_plans_tab)
+    public void showDayPicker() {
+        ActivityUtils.startActivity(getActivity(), DayPickerActivity.getStartIntent(getActivity()));
     }
 }

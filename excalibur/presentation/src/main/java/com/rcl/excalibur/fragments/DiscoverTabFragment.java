@@ -5,24 +5,26 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.data.repository.SailDateDataRepository;
 import com.rcl.excalibur.data.service.DiscoverServicesImpl;
+import com.rcl.excalibur.data.service.SailDateServicesImpl;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
+import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_DINING;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ENTERTAINMENT;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ROYAL_ACTIVITY;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOPPING;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOREX;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SPA;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_DINING;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ENTERTAINMENT;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ROYAL_ACTIVITY;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SHOPPING;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SHOREX;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SPA;
 
 public class DiscoverTabFragment extends BaseTripTychFragment {
 
@@ -80,7 +82,7 @@ public class DiscoverTabFragment extends BaseTripTychFragment {
 
     @OnClick(R.id.button_guest_services)
     public void searchOnClick() {
-        Toast.makeText(getActivity(), "Search Click", Toast.LENGTH_LONG).show();
+        presenter.openDayPicker();
     }
 
     @Override

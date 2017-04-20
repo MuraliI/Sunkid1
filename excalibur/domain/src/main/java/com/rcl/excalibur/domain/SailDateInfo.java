@@ -1,9 +1,9 @@
 package com.rcl.excalibur.domain;
 
 
-public class SailDateInfoEvent {
+public class SailDateInfo {
     private String shipCode;
-    private int duration;
+    private String duration;
     private SailDateItinerary itinerary;
 
     public String getShipCode() {
@@ -14,11 +14,11 @@ public class SailDateInfoEvent {
         this.shipCode = shipCode;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

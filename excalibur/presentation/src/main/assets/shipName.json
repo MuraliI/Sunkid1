@@ -1,0 +1,214 @@
+ [
+    {
+      "shipCode": "AD",
+      "title": "ADVENTURE OF THE SEAS"
+    },
+    {
+      "shipCode": "AL",
+      "title": "ALLURE OF THE SEAS"
+    },
+    {
+      "shipCode": "AN",
+      "title": "ANTHEM OF THE SEAS"
+    },
+    {
+      "shipCode": "AP",
+      "title": "AZAMARA PASSAGES"
+    },
+    {
+      "shipCode": "BR",
+      "title": "BRILLIANCE OF THE SEAS"
+    },
+    {
+      "shipCode": "CS",
+      "title": "CELEBRITY CONSTELLATION"
+    },
+    {
+      "shipCode": "EC",
+      "title": "CELEBRITY ECLIPSE"
+    },
+    {
+      "shipCode": "EG",
+      "title": "CELEBRITY EDGE"
+    },
+    {
+      "shipCode": "EN",
+      "title": "ENCHANTMENT OF THE SEAS"
+    },
+    {
+      "shipCode": "EP",
+      "title": "EMPRESS"
+    },
+    {
+      "shipCode": "EQ",
+      "title": "CELEBRITY EQUINOX"
+    },
+    {
+      "shipCode": "EX",
+      "title": "EXPLORER OF THE SEAS"
+    },
+    {
+      "shipCode": "FR",
+      "title": "FREEDOM OF THE SEAS"
+    },
+    {
+      "shipCode": "GR",
+      "title": "GRANDEUR OF THE SEAS"
+    },
+    {
+      "shipCode": "HM",
+      "title": "HARMONY OF THE SEAS"
+    },
+    {
+      "shipCode": "HN",
+      "title": "HORIZON CDF"
+    },
+    {
+      "shipCode": "HR",
+      "title": "HORIZON PMT"
+    },
+    {
+      "shipCode": "ID",
+      "title": "INDEPENDENCE OF THE SEAS"
+    },
+    {
+      "shipCode": "IE",
+      "title": "ISLAND ESCAPE"
+    },
+    {
+      "shipCode": "IN",
+      "title": "CELEBRITY INFINITY"
+    },
+    {
+      "shipCode": "IS",
+      "title": "ISLAND STAR"
+    },
+    {
+      "shipCode": "JR",
+      "title": "AZAMARA JOURNEY"
+    },
+    {
+      "shipCode": "JW",
+      "title": "JEWEL OF THE SEAS"
+    },
+    {
+      "shipCode": "LB",
+      "title": "LIBERTY OF THE SEAS"
+    },
+    {
+      "shipCode": "LG",
+      "title": "LEGEND OF THE SEAS"
+    },
+    {
+      "shipCode": "MA",
+      "title": "MARINER OF THE SEAS"
+    },
+    {
+      "shipCode": "MJ",
+      "title": "MAJESTY OF THE SEAS"
+    },
+    {
+      "shipCode": "ML",
+      "title": "CELEBRITY MILLENNIUM"
+    },
+    {
+      "shipCode": "MO",
+      "title": "MONARCH"
+    },
+    {
+      "shipCode": "NC",
+      "title": "NEXT CRUISE PROGRAM"
+    },
+    {
+      "shipCode": "NE",
+      "title": "EMPRESS OF THE SEAS"
+    },
+    {
+      "shipCode": "NV",
+      "title": "NAVIGATOR OF THE SEAS"
+    },
+    {
+      "shipCode": "OA",
+      "title": "OASIS OF THE SEAS"
+    },
+    {
+      "shipCode": "OV",
+      "title": "OVATION OF THE SEAS"
+    },
+    {
+      "shipCode": "QN",
+      "title": "QUANTUM OF THE SEAS"
+    },
+    {
+      "shipCode": "QS",
+      "title": "AZAMARA QUEST"
+    },
+    {
+      "shipCode": "RD",
+      "title": "RADIANCE OF THE SEAS"
+    },
+    {
+      "shipCode": "RF",
+      "title": "CELEBRITY REFLECTION"
+    },
+    {
+      "shipCode": "RH",
+      "title": "RHAPSODY OF THE SEAS"
+    },
+    {
+      "shipCode": "SI",
+      "title": "CELEBRITY SILHOUETTE"
+    },
+    {
+      "shipCode": "SL",
+      "title": "CELEBRITY SOLSTICE"
+    },
+    {
+      "shipCode": "SM",
+      "title": "CELEBRITY SUMMIT"
+    },
+    {
+      "shipCode": "SO",
+      "title": "SOVEREIGN"
+    },
+    {
+      "shipCode": "SP",
+      "title": "SPLENDOUR OF THE SEAS"
+    },
+    {
+      "shipCode": "SR",
+      "title": "SERENADE OF THE SEAS"
+    },
+    {
+      "shipCode": "SY",
+      "title": "SYMPHONY OF THE SEAS"
+    },
+    {
+      "shipCode": "VI",
+      "title": "VISION OF THE SEAS"
+    },
+    {
+      "shipCode": "VY",
+      "title": "VOYAGER OF THE SEAS"
+    },
+    {
+      "shipCode": "XE",
+      "title": "CELEBRITY XPERIENCE"
+    },
+    {
+      "shipCode": "XO",
+      "title": "CELEBRITY XPLORATION"
+    },
+    {
+      "shipCode": "XP",
+      "title": "CELEBRITY XPEDITION"
+    },
+    {
+      "shipCode": "ZE",
+      "title": "ZENITH PMT"
+    },
+    {
+      "shipCode": "ZT",
+      "title": "ZENITH CDF"
+    }
+  ]

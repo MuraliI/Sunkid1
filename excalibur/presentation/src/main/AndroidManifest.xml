@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rcl.excalibur">
+          package="com.rcl.excalibur">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".RCLApp"
@@ -13,12 +13,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.HomeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Home" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.PlanListActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Home" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.ProductDetailActivity"
             android:label="@string/empty_string"
@@ -35,40 +33,44 @@
         </activity>
         <activity
             android:name=".activity.guest.NameActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.guest.EmailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.guest.PasswordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.guest.SecurityQuestionsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.guest.AnswerQuestionActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.guest.CreateAccountDoneActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Home" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.ProductDeckMapActivity"
             android:label="@string/empty_string"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".expandable.activity.ExpandableListActivity"
+            android:label="@string/empty_string"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.DayPickerActivity"
             android:label="@string/empty_string"
             android:screenOrientation="portrait" />
 
         <meta-data
             android:name="AA_DB_NAME"
             android:value="testDB.db" />
-
+        <meta-data android:name="AA_DB_VERSION" android:value="2"/>
         <meta-data
             android:name="AA_MODELS"
             android:value="com.rcl.excalibur.data.entity.DiscoverItemEntity,
@@ -91,6 +93,13 @@
                     com.rcl.excalibur.data.entity.OfferingEntity,
                     com.rcl.excalibur.data.entity.SubCategoryEntity,
                     com.rcl.excalibur.data.entity.ChildCategoryEntity,
-                    com.rcl.excalibur.data.entity.ChildCategoryProductEntity"/>
+                    com.rcl.excalibur.data.entity.ChildCategoryProductEntity,
+                    com.rcl.excalibur.data.entity.ChildCategoryEntity,
+                    com.rcl.excalibur.data.entity.SailDateInfoEntity,
+                    com.rcl.excalibur.data.entity.ItineraryEntity,
+                    com.rcl.excalibur.data.entity.EventEntity,
+                    com.rcl.excalibur.data.entity.PortEntity,
+		    com.rcl.excalibur.data.entity.ShipTimeEntity"/>
+        <receiver android:name=".scheduler.SchedulerReceiver" />   
     </application>
 </manifest>
