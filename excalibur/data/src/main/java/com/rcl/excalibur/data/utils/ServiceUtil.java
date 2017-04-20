@@ -5,6 +5,7 @@ import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.api.GuestApi;
 import com.rcl.excalibur.data.service.api.ItineraryApi;
+import com.rcl.excalibur.data.service.api.ShipTimeApi;
 import com.rcl.excalibur.data.service.response.BaseResponse;
 
 import java.util.concurrent.TimeUnit;
@@ -22,12 +23,26 @@ public final class ServiceUtil {
     private static DiscoverApi discoverApi;
     private static GuestApi guestApi;
     private static ItineraryApi itineraryApi;
+    private static ShipTimeApi shipTimeApi;
+
 
     private ServiceUtil() {
     }
 
     public static boolean isSuccess(BaseResponse baseResponse) {
         return baseResponse != null && SUCCESS.equals(baseResponse.getResponseStatus());
+    }
+
+    public static ShipTimeApi getShipTimeApi() {
+        if (shipTimeApi == null) {
+            Retrofit retrofit = new Retrofit.Builder().
+                    baseUrl(BuildConfig.SHIP_TIME_API_URL).
+                    addConverterFactory(GsonConverterFactory.create()).
+                    client(getClient())
+                    .build();
+            shipTimeApi = retrofit.create(ShipTimeApi.class);
+        }
+        return shipTimeApi;
     }
 
     public static DiscoverApi getDiscoverApi() {

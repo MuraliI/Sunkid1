@@ -207,7 +207,8 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         if (response.isSuccessful()) {
             GetProductsResponse getProductsResponse = response.body();
             if (isSuccess(getProductsResponse)) {
-                for (ProductResponse productResponse : getProductsResponse.getProducts()) { // TODO: To be removed once the service provides this details
+                for (ProductResponse productResponse : getProductsResponse.getProducts()) {
+                    // TODO: To be removed once the service provides this details
                     productResponse.setUpcharge(2);
                     if (productResponse.getProductReservationInformation() == null) {
                         productResponse.setProductReservationInformation("Please Arrive 15 minutes early, Wear closedtoed shoes");
@@ -292,7 +293,8 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         productAdvisementResponses.add(advisementAccessibility);
         ProductAdvisementResponse advisementAccessibility2 = new ProductAdvisementResponse();
         advisementAccessibility2.setAdvisementId(ProductAdvisement.ACCESSIBILITY);
-        advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite but long enough to be meaningful.");
+        advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite but long "
+                + "enough to be meaningful.");
         advisementAccessibility2.setAdvisementTitle("Closed Caption");
         advisementAccessibility2.setAdvisementName("Closed Caption");
         advisementAccessibility2.setAdvisementMedia(mediaResponse);

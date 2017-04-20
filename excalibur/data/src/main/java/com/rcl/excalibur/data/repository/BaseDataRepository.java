@@ -25,7 +25,7 @@ public abstract class BaseDataRepository<I, E extends Model> {
         return dataMapper;
     }
 
-    public abstract void create(@NonNull I promotion);
+    public abstract void create(@NonNull I value);
 
     public List<I> getAll() {
         final List<E> entities = new Select()
@@ -38,6 +38,13 @@ public abstract class BaseDataRepository<I, E extends Model> {
         final E entity = new Select()
                 .from(claz)
                 .where(eq(column, value))
+                .executeSingle();
+        return dataMapper.transform(entity);
+    }
+
+    public I get() {
+        final E entity = new Select()
+                .from(claz)
                 .executeSingle();
         return dataMapper.transform(entity);
     }
