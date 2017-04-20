@@ -5,5 +5,5 @@
         android:color="@color/discover_grey"
         android:dashWidth="@dimen/dash_width"
         android:dashGap="@dimen/dash_gap"
-        android:width="@dimen/hairline_height"/>
+        android:width="@dimen/hairline_height" />
 </shape>

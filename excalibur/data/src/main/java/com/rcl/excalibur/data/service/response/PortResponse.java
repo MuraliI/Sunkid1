@@ -8,8 +8,8 @@ public class PortResponse {
     private String portType;
     private String arrivalDate;
     private String departureDate;
-    private int arrivalTime;
-    private int departureTime;
+    private String arrivalTime;
+    private String departureTime;
 
     public String getPortCode() {
         return portCode;
@@ -51,19 +51,19 @@ public class PortResponse {
         this.departureDate = departureDate;
     }
 
-    public int getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(int arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
-    public int getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(int departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 }

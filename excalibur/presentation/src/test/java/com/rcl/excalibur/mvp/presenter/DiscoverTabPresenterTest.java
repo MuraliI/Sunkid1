@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
+import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
 
 import org.junit.Before;
@@ -22,12 +23,13 @@ public class DiscoverTabPresenterTest {
     DiscoverTabPresenter presenter;
     @Mock DiscoverTabView view;
     @Mock GetProductsUseCase getProductsUseCase;
+    @Mock GetSaildDateUseCase getSaildDateUseCase;
     @Mock BaseActivity activity;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new DiscoverTabPresenter(view, getProductsUseCase);
+        presenter = new DiscoverTabPresenter(view, getProductsUseCase, getSaildDateUseCase);
 
         when(view.getActivity()).thenReturn(activity);
     }

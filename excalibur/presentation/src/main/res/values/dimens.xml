@@ -46,7 +46,7 @@
     <dimen name="plan_list_elevation_fab">5dp</dimen>
     <dimen name="plan_list_margin_fab">16dp</dimen>
 
-    <dimen name="plan_list_padding_bottom_header">30dp</dimen>
+    <dimen name="plan_list_padding_bottom_header">25dp</dimen>
     <dimen name="plan_list_padding_top_header">40dp</dimen>
     <dimen name="plan_list_padding_left_header">20dp</dimen>
     <dimen name="plan_list_padding_right_header">20dp</dimen>
@@ -115,13 +115,16 @@
 
     <!-- Login Flow -->
     <dimen name="size_text_big">25sp</dimen>
+    <dimen name="size_text_medium">20sp</dimen>
+    <dimen name="size_text_small">16sp</dimen>
+    <dimen name="size_text_x_small">14sp</dimen>
     <dimen name="margin_input_text">32dp</dimen>
     <dimen name="margin_text">7dp</dimen>
     <dimen name="margin_edit_text">14dp</dimen>
     <dimen name="margin_general">16dp</dimen>
     <dimen name="padding_button_done">20dp</dimen>
 
-    <item name="alpha" type="dimen" format="float">.24</item>
+    <item name="alpha" format="float" type="dimen">.24</item>
     <dimen name="item_question_text">14sp</dimen>
     <dimen name="margin_questions_title_top">45dp</dimen>
     <dimen name="text_questions_title_size">30sp</dimen>
@@ -150,6 +153,21 @@
     <dimen name="planner_item_init_horizontal_margin">20dp</dimen>
     <dimen name="planner_item_init_vertical_margin">20dp</dimen>
 
+    <!-- pager plan list products -->
+    <dimen name="title_arrow_pager_list_product">10dp</dimen>
+    <dimen name="title_icon_pager_list_product">2dp</dimen>
+    <dimen name="tabs_indicator_list_product">4dp</dimen>
+    <dimen name="padding_top_list_product">20dp</dimen>
+    <dimen name="padding_start_title_list_product">10dp</dimen>
+    <dimen name="padding_end_title_list_product">3dp</dimen>
+    <dimen name="padding_between_title_and_indicator_list_product">18dp</dimen>
+    <dimen name="fading_edge_list_product">80dp</dimen>
+    <dimen name="padding_tabs_list_product">20dp</dimen>
+    <dimen name="padding_text_no_products_center">40dp</dimen>
+    <dimen name="padding_text_no_products_top">10dp</dimen>
+    <dimen name="text_size_no_products_top">17sp</dimen>
+
+
     <!-- Cue Card Discovery Tab -->
     <dimen name="item_discovery_margin">10dp</dimen>
     <dimen name="item_discovery_margin_start">20dp</dimen>
@@ -158,4 +176,9 @@
     <dimen name="home_status_text_size">20sp</dimen>
     <dimen name="day_picker_text_size">16sp</dimen>
     <dimen name="planner_peek_height">300dp</dimen>
+
+    <!-- Date Picker-->
+    <dimen name="day_picker_margin">45dp</dimen>
+    <dimen name="day_picker_image_width">25dp</dimen>
+
 </resources>

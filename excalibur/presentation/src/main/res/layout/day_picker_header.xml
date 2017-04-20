@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_normal"
+    android:paddingTop="@dimen/margin_normal">
+
+
+    <TextView
+        android:id="@+id/day_picker_header_calendar_day"
+        style="@style/AppTheme.DayPickerDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        android:drawablePadding="@dimen/margin_text"
+        android:drawableStart="@drawable/calendar_add"
+        android:gravity="center"
+        tools:text="@string/hardcoded_day_picker_calendar_day" />
+
+    <TextView
+        android:id="@+id/day_picker_header_description"
+        style="@style/AppTheme.DayPickerDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_xsmall"
+        android:gravity="center"
+        tools:text="@string/hardcoded_day_picker_description" />
+
+    <TextView
+        android:id="@+id/day_picker_header_ship_name"
+        style="@style/AppTheme.DayPickerDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="@string/hardcoded_day_picker_ship_name" />
+</LinearLayout>
