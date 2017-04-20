@@ -14,12 +14,11 @@ import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.ItineraryModel;
-import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.DayPickerView;
 import com.rcl.excalibur.utils.DateUtils;
 
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.List;
 
 import static com.rcl.excalibur.utils.JsonUtils.getShipNameFromJson;
@@ -63,14 +62,19 @@ public class DayPickerPresenter {
         }
         List<EventModel> events = itinerary.getEvents();
         int eventsize = events.size();
-        String starDay = events.get(0).getPort().getArrivalDate();
+        String startDay = events.get(0).getPort().getArrivalDate();
         String endDay = events.get(eventsize - 1).getPort().getArrivalDate();
-        if (!TextUtils.isEmpty(starDay) && !TextUtils.isEmpty(endDay)) {
-            view.setFooterDate(DateUtils.getFormatedDates(starDay, endDay, resources));
+        if (startDay != null && endDay != null) {
+            try {
+                view.setFooterDate(DateUtils.getFormatedDates(startDay, endDay, resources));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     private void setHeader(ItineraryModel itinerary, String shipCode, Resources resources) {
+
         String day = getDay(itinerary, resources);
         String description = itinerary.getDescription();
         String shipName = getShipNameFromJson(view.getContext(), shipCode);
@@ -88,6 +92,9 @@ public class DayPickerPresenter {
     }
 
     private String getDay(ItineraryModel itineraryModel, Resources resources) {
+        if (CollectionUtils.isEmpty(itineraryModel.getEvents())) {
+            return "";
+        }
         String day = resources.getString(R.string.day_title);
         List<EventModel> events = itineraryModel.getEvents();
         EventModel firstEvent = events.get(0);
@@ -121,32 +128,4 @@ public class DayPickerPresenter {
             getSailingPreferenceUseCase.putDay(value.getDay());
         }
     }
-
-    public ItineraryModel mockItineraryModel(Resources resources) {
-        ArrayList<EventModel> events = new ArrayList<>();
-        EventModel event1 = new EventModel();
-        PortModel port1 = new PortModel();
-        port1.setPortName("Fort Lauderdale");
-        port1.setPortType(PortModel.PORT_TYPE_EMBARK);
-        event1.setDay("Day 1");
-        event1.setPort(port1);
-
-        EventModel event2 = new EventModel();
-        PortModel port2 = new PortModel();
-        port2.setPortName("At Sea");
-        event2.setDay(resources.getString(R.string.today_day_title));
-        port2.setPortType(PortModel.PORT_TYPE_CRUISING);
-        event2.setPort(port2);
-
-        events.add(event1);
-        events.add(event2);
-
-        ItineraryModel itineraryModel = new ItineraryModel();
-        itineraryModel.setDescription("Description");
-        itineraryModel.setEvents(events);
-        itineraryModel.setIndexCurrentDay(1);
-
-        return itineraryModel;
-    }
-
 }

@@ -40,15 +40,9 @@ public final class DateUtils {
 
     }
 
-    public static String getFormatedDates(String startDateString, String endDateString, Resources resources) {
-        Date startDate = null;
-        Date endDate = null;
-        try {
-            startDate = new SimpleDateFormat().parse(startDateString);
-            endDate = new SimpleDateFormat(DATE_FORMAT).parse(endDateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public static String getFormatedDates(String startDateString, String endDateString, Resources resources) throws ParseException {
+        Date startDate = new SimpleDateFormat(DATE_FORMAT).parse(startDateString);
+        Date endDate = new SimpleDateFormat(DATE_FORMAT).parse(endDateString);
         Calendar calendarStartDate = Calendar.getInstance();
         calendarStartDate.setTime(startDate);
         Calendar calendarEndDate = Calendar.getInstance();
