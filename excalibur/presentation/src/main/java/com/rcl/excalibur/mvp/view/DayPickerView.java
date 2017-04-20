@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventModel> {
 
@@ -58,6 +59,11 @@ public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventMo
 
     public void notifyDataChange() {
         adapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.day_picker_header_calendar_day)
+    public void onHeaderClick() {
+        getActivity().finish();
     }
 }
 
