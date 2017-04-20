@@ -22,7 +22,7 @@ import io.reactivex.Observer;
 import static io.reactivex.Observable.just;
 
 
-public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPickerViewHolder> {
+public class EventsAdapter extends BaseAdapter<EventModel, EventModel, EventsAdapter.DayPickerViewHolder> {
     private Resources resources;
     private int todayPosition;
 
@@ -58,7 +58,8 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         }
         String portType = port.getPortType();
         if (!TextUtils.isEmpty(portType)) {
-            if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_EMBARK) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DOCKED) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DEBARK)) {
+            if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_EMBARK) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DOCKED)
+                    || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DEBARK)) {
                 holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_anchor);
             } else {
                 if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_CRUISING)) {

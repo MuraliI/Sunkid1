@@ -3,7 +3,6 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.support.v4.util.Pair;
 import android.view.View;
-import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
