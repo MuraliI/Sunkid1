@@ -12,17 +12,17 @@ import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 public class DiscoverTabPresenter {
     private static final int LIMIT_CLICKS = 5;
     private DiscoverTabView view;
-    private GetProductsUseCase getProductsUseCase;
     protected int countBoatOnClick;
 
     public DiscoverTabPresenter(DiscoverTabView view, GetProductsUseCase getProductsUseCase) {
         this.view = view;
-        this.getProductsUseCase = getProductsUseCase;
         AnalyticsUtils.trackState(AnalyticsConstants.KEY_DISCOVER);
+        init();
     }
 
-    public void init() {
-        getProductsUseCase.execute(null);
+    private void init() {
+        view.init();
+        view.showLoadingView(true);
     }
 
     public void openListScreen(int fragmentToShow) {
@@ -38,7 +38,11 @@ public class DiscoverTabPresenter {
             }
             ActivityUtils.startActivity(activity, NameActivity.getStartIntent(activity));
         }
+    }
 
+    public void serviceCallCompleted() {
+        view.serviceCallCompleted();
+        view.showLoadingView(false);
     }
 }
 

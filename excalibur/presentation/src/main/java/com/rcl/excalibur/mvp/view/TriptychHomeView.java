@@ -8,6 +8,7 @@ import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.custom.view.ShipView;
 import com.rcl.excalibur.custom.view.TriptychTabBarLayout;
+import com.rcl.excalibur.fragments.BaseTripTychFragment;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
@@ -17,9 +18,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import timber.log.Timber;
-
 
 public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, Void> {
 
@@ -47,8 +45,13 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
         tabBarLayout.subscribeToScrollUpdates(integerFloatPair -> shipView.syncTabsScroll(integerFloatPair));
     }
 
-    @OnClick(R.id.image_ship)
-    public void click() {
-        Timber.d("Click on ship");
+    public void onServiceCallCompleted(boolean successfully) {
+        TriptychPagerAdapter adapter = (TriptychPagerAdapter) viewPager.getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            Fragment adapterFragment = adapter.getFragmentForPosition(i);
+            if (adapterFragment instanceof BaseTripTychFragment) {
+                ((BaseTripTychFragment) adapterFragment).onServiceCallCompleted(successfully);
+            }
+        }
     }
 }

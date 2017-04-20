@@ -1,15 +1,12 @@
 package com.rcl.excalibur.domain.interactor;
 
 
-import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.service.DiscoverServices;
-
-import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
 
 
-public class GetProductsUseCase extends UseCase<List<Product>, Void> {
+public class GetProductsUseCase extends UseCase<Boolean, Void> {
 
     private final DiscoverServices discoverServices;
 
@@ -19,8 +16,8 @@ public class GetProductsUseCase extends UseCase<List<Product>, Void> {
     }
 
     @Override
-    void buildUseCaseObservable(DisposableObserver<List<Product>> observer, Void aVoid) {
-       discoverServices.getProducts();
+    void buildUseCaseObservable(DisposableObserver<Boolean> observer, Void aVoid) {
+        discoverServices.getProducts(observer);
     }
 
 }

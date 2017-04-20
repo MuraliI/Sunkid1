@@ -1,9 +1,11 @@
 package com.rcl.excalibur.domain.service;
 
 
+import io.reactivex.observers.DisposableObserver;
+
 public interface DiscoverServices {
 
-    void getProducts();
+    void getProducts(DisposableObserver<Boolean> productsObtained);
 
     void getCategories();
 
