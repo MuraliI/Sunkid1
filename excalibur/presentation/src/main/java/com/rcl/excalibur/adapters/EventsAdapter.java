@@ -44,7 +44,7 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
                 holder.selectedDayView.setVisibility(View.VISIBLE);
                 holder.dayTextView.setText(resources.getString(R.string.today_day_title));
             } else {
-                holder.dayTextView.setText(day);
+                holder.dayTextView.setText(resources.getString(R.string.day_title) + day);
                 holder.selectedDayView.setVisibility(View.GONE);
             }
         }

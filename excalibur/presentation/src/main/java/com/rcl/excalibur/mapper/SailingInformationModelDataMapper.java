@@ -60,7 +60,7 @@ public class SailingInformationModelDataMapper extends BaseModelDataMapper<SailD
                     itineraryModel.setIndexCurrentDay(i);
                 }
             }
-            eventModel.setDay("Day " + domainEvents.get(i).getDay());
+            eventModel.setDay(domainEvents.get(i).getDay());
             modelEvents.add(eventModel);
         }
         itineraryModel.setEvents(modelEvents);

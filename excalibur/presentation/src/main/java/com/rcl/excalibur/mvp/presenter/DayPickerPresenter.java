@@ -58,9 +58,6 @@ public class DayPickerPresenter {
     }
 
     public void setFooter(ItineraryModel itinerary, Resources resources) {
-        if (itinerary == null) {
-            return;
-        }
         if (CollectionUtils.isEmpty(itinerary.getEvents())) {
             return;
         }
@@ -71,13 +68,9 @@ public class DayPickerPresenter {
         if (!TextUtils.isEmpty(starDay) && !TextUtils.isEmpty(endDay)) {
             view.setFooterDate(DateUtils.getFormatedDates(starDay, endDay, resources));
         }
-
     }
 
     private void setHeader(ItineraryModel itinerary, String shipCode) {
-        if (itinerary == null) {
-            return;
-        }
         String day = getDay(itinerary);
         String description = itinerary.getDescription();
         String shipName = getShipNameFromJson(view.getContext(), shipCode);
@@ -87,9 +80,6 @@ public class DayPickerPresenter {
     }
 
     private void showCollectionInView(ItineraryModel itinerary) {
-        if (itinerary == null) {
-            return;
-        }
         if (CollectionUtils.isEmpty(itinerary.getEvents())) {
             Toast.makeText(view.getActivity(), R.string.no_items_to_show, Toast.LENGTH_LONG).show();
         } else {
@@ -97,23 +87,23 @@ public class DayPickerPresenter {
         }
     }
 
-    private String getDay(ItineraryModel itineraryModel) {
-        String day = "";
+    private String getDay(ItineraryModel itineraryModel, Resources resources) {
+        String day = resources.getString(R.string.day_title);
         List<EventModel> events = itineraryModel.getEvents();
         EventModel firstEvent = events.get(0);
 
         String preferenceDay = getSailingPreferenceUseCase.getDay();
         if (!TextUtils.isEmpty(preferenceDay)) {
-            day = preferenceDay;
+            day += preferenceDay;
         } else {
             if (itineraryModel.getIndexCurrentDay() == -1) {
                 if (!TextUtils.isEmpty(firstEvent.getDay())) {
-                    day = firstEvent.getDay();
+                    day += firstEvent.getDay();
                 }
             } else {
                 EventModel todayEvent = events.get(itineraryModel.getIndexCurrentDay());
                 if (todayEvent != null && TextUtils.isEmpty(todayEvent.getDay())) {
-                    day = todayEvent.getDay();
+                    day += todayEvent.getDay();
                 }
             }
         }

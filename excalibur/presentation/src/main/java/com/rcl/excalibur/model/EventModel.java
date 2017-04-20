@@ -6,7 +6,6 @@ public class EventModel {
     private String day;
     private PortModel port;
 
-
     public String getDay() {
         return day;
     }
