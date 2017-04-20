@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-
+@Deprecated
 public class PlanListAdapter extends FragmentStatePagerAdapter {
     private static final int NUM_TABS = 6;
 
