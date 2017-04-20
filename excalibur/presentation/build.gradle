@@ -87,11 +87,11 @@ dependencies {
             presentationDependencies.flexibleAdapter
 
     testCompile presentationTestDependencies.junit,
-                presentationTestDependencies.mockito,
-                presentationTestDependencies.assertj,
-                presentationTestDependencies.powermockCore,
-                presentationTestDependencies.powermockModuleJunit4,
-                presentationTestDependencies.powermockApiMockitoV
+            presentationTestDependencies.mockito,
+            presentationTestDependencies.assertj,
+            presentationTestDependencies.powermockCore,
+            presentationTestDependencies.powermockModuleJunit4,
+            presentationTestDependencies.powermockApiMockitoV
 
     androidTestCompile presentationTestDependencies.mockito,
             presentationTestDependencies.dexmaker,
