@@ -55,9 +55,9 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
     }
 
     public void addDayInformationValues(@NonNull List<SailDateEvent> events, int day) {
-        Pair<String, Integer> pair = DayInformationUtils.getShipLocation(events, day);
-        String shipInfoText = pair.first;
-        int shipInfoIcon = pair.second;
+        Pair<String, Integer> stringIntegerPair = DayInformationUtils.getShipLocation(events, day);
+        String shipInfoText = stringIntegerPair.first;
+        int shipInfoIcon = stringIntegerPair.second;
         shipLocationLabel.setText(shipInfoText);
         shipLocationIcon.setBackgroundResource(shipInfoIcon);
 
