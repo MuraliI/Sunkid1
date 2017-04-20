@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventModel> {
 
@@ -32,12 +33,12 @@ public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventMo
         ButterKnife.bind(this, fragment.getView());
     }
 
-    public void init(int todayPosition) {
+    public void init(int todayPosition, int selectedDayPosition) {
         final Activity activity = getActivity();
         if (activity == null) {
             return;
         }
-        adapter = new EventsAdapter(adapterObserver, activity.getResources(), todayPosition);
+        adapter = new EventsAdapter(adapterObserver, activity.getResources(), todayPosition, selectedDayPosition);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
     }
@@ -54,6 +55,15 @@ public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventMo
 
     public void addAll(List<EventModel> list) {
         adapter.addAll(list);
+    }
+
+    public void notifyDataChange() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.day_picker_header_calendar_day)
+    public void onHeaderClick() {
+        getActivity().finish();
     }
 }
 
