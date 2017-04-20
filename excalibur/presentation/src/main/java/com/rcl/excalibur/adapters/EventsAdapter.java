@@ -40,10 +40,12 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         String day = holder.event.getDay();
         if (!TextUtils.isEmpty(day)) {
             if (todayPosition == position) {
-                holder.isTodayImageView.setBackgroundResource(R.drawable.icon_day_picker_ship);
+                holder.isTodayImageView.setImageResource(R.drawable.icon_day_picker_ship);
+                holder.selectedDay.setVisibility(View.VISIBLE);
                 holder.dayTextView.setText(resources.getString(R.string.today_day_title));
             } else {
                 holder.dayTextView.setText(day);
+                holder.selectedDay.setVisibility(View.GONE);
             }
         }
         PortModel port = holder.event.getPort();
@@ -57,10 +59,10 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         String portType = port.getPortType();
         if (!TextUtils.isEmpty(portType)) {
             if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_EMBARK) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DOCKED) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DEBARK)) {
-                holder.portTypeImageView.setBackgroundResource(R.drawable.icon_day_picker_anchor);
+                holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_anchor);
             } else {
                 if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_CRUISING)) {
-                    holder.portTypeImageView.setBackgroundResource(R.drawable.icon_day_picker_sea);
+                    holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_sea);
                 }
             }
         }
@@ -87,6 +89,8 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         @Bind(R.id.text_place) TextView placeTextView;
         @Bind(R.id.image_port_type) ImageView portTypeImageView;
         @Bind(R.id.image_is_today) ImageView isTodayImageView;
+        @Bind(R.id.view_select_day) View selectedDay;
+        @Bind(R.id.container_day_picker) View containerDayPicker;
         private EventModel event;
         private WeakReference<Observer<EventModel>> observerRef;
 
