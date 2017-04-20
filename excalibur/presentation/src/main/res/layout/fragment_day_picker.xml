@@ -16,14 +16,16 @@
         android:id="@+id/recycler_discover_item_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/footer_date_picker"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/include_day_picker_header"
-        android:background="@drawable/background_rounded_detail"
+        android:background="@drawable/background_rounded_top"
         android:clipToPadding="false"
         android:nestedScrollingEnabled="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <include
+        android:id="@+id/footer_date_picker"
         layout="@layout/day_picker_sailing_dates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

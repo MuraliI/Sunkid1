@@ -22,6 +22,8 @@ import com.rcl.excalibur.utils.DateUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.rcl.excalibur.utils.JsonUtils.getShipNameFromJson;
+
 public class DayPickerPresenter {
 
     private DayPickerView view;
@@ -50,7 +52,7 @@ public class DayPickerPresenter {
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
         view.setAdapterObserver(new AdapterObserver(this));
         view.init(itinerary.getIndexCurrentDay());
-        setHeader(itinerary);
+        setHeader(itinerary, sailingInfoModel.getShipCode());
         setFooter(itinerary, activity.getResources());
         showCollectionInView(itinerary);
     }
@@ -72,14 +74,15 @@ public class DayPickerPresenter {
 
     }
 
-    public void setHeader(ItineraryModel itinerary) {
+    private void setHeader(ItineraryModel itinerary, String shipCode) {
         if (itinerary == null) {
             return;
         }
         String day = getDay(itinerary);
         String description = itinerary.getDescription();
+        String shipName = getShipNameFromJson(view.getContext(), shipCode);
         if (!TextUtils.isEmpty(description) && !TextUtils.isEmpty(day)) {
-            view.setHeader(description, day);
+            view.setHeader(description, day, shipName);
         }
     }
 

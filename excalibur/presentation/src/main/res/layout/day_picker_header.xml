@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent"
-    android:gravity="top|center"
+    android:gravity="center"
     android:orientation="vertical"
     android:paddingBottom="@dimen/margin_normal"
     android:paddingTop="@dimen/margin_normal">
@@ -12,12 +12,12 @@
 
     <TextView
         android:id="@+id/day_picker_header_calendar_day"
-        style="@style/AppTheme.TimeTextView"
+        style="@style/AppTheme.DayPickerDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_xsmall"
-        android:drawableLeft="@drawable/calendar_add"
-        android:drawableRight="@drawable/ic_arrow_drop_down"
+        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        android:drawablePadding="@dimen/margin_text"
+        android:drawableStart="@drawable/calendar_add"
         android:gravity="center"
         tools:text="@string/hardcoded_day_picker_calendar_day" />
 
@@ -26,6 +26,15 @@
         style="@style/AppTheme.DayPickerDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_xsmall"
         android:gravity="center"
         tools:text="@string/hardcoded_day_picker_description" />
+
+    <TextView
+        android:id="@+id/day_picker_header_ship_name"
+        style="@style/AppTheme.DayPickerDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="@string/hardcoded_day_picker_ship_name" />
 </LinearLayout>
