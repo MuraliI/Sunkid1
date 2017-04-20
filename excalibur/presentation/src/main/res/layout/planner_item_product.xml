@@ -92,6 +92,7 @@
             android:id="@+id/image_itinerary_product_picture"
             android:layout_width="@dimen/item_product_image_width"
             android:layout_height="@dimen/item_product_image_height"
+            android:transitionName="@string/shared_element_transition_name"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="@dimen/item_product_image_margin_start"
             android:contentDescription="@string/itinerary_accessibility_product_image"
