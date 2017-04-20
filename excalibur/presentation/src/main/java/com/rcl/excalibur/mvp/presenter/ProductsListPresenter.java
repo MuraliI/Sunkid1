@@ -1,6 +1,10 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import android.support.v4.util.Pair;
+import android.view.View;
+import android.widget.Toast;
+
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
@@ -9,6 +13,7 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
 import com.rcl.excalibur.mvp.view.ProductsListView;
+import com.rcl.excalibur.utils.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,17 +92,20 @@ public class ProductsListPresenter {
         }
     }
 
-    private class AdapterObserver extends DefaultPresentObserver<Product, ProductsListPresenter> {
+    private class AdapterObserver extends DefaultPresentObserver<Pair<Product, View>, ProductsListPresenter> {
 
         AdapterObserver(ProductsListPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(Product value) {
+        public void onNext(Pair<Product, View> value) {
             BaseActivity activity = view.getActivity();
             if (activity != null) {
-                activity.startActivity(ProductDetailActivity.getIntent(activity, value.getProductId()));
+                ActivityUtils.startActivityWithSharedElement(activity
+                        , ProductDetailActivity.getIntent(activity, value.first.getProductId())
+                        , value.second
+                        , activity.getString(R.string.shared_element_transition_name));
             }
         }
     }

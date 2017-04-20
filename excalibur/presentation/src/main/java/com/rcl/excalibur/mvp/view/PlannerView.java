@@ -19,6 +19,7 @@ import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.RoundedImageView;
+import com.rcl.excalibur.utils.ActivityUtils;
 
 import java.util.List;
 
@@ -282,7 +283,16 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             if (activity == null) {
                 return;
             }
-            activity.startActivity(ProductDetailActivity.getIntent(activity, productItem.getPlannerProductModel().getProductId()));
+
+            View sharedItemView = recyclerView
+                    .getLayoutManager()
+                    .findViewByPosition(position)
+                    .findViewById(R.id.image_itinerary_product_picture);
+
+            ActivityUtils.startActivityWithSharedElement(getActivity()
+                    , ProductDetailActivity.getIntent(activity, productItem.getPlannerProductModel().getProductId())
+                    , sharedItemView
+                    , getActivity().getString(R.string.shared_element_transition_name));
         }
     }
 

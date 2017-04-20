@@ -141,6 +141,7 @@
     <string name="itinerary_separator_title_on_going">On going</string>
     <string name="planner_all_day_item">All day</string>
     <string name="planner_operating_hours">%1$s &#8210; %2$s</string>
+    <string name="shared_element_transition_name">hero_image</string>
 
     <string name="title_morning">Morning</string>
     <string name="title_afternoon">Afternoon</string>
