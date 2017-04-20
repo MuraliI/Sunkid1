@@ -144,9 +144,9 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
             View child = getChildAt(i);
             if (!child.equals(tabStrip)) {
                 int left = getLeft() + (i * dx) - (child.getMeasuredWidth() / 2);
-                int top = getTop() + tabStrip.getMeasuredHeight();
+                int top = tabStrip.getMeasuredHeight();
                 int right = child.getMeasuredWidth() + left;
-                int bottom = child.getMeasuredHeight() + getTop();
+                int bottom = child.getMeasuredHeight();
                 child.layout(left, top, right, bottom);
             }
         }
@@ -154,7 +154,7 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
 
     private void layoutForTabStrip() {
         Pair<Integer, Integer> tabMeasures = getTabStartAndEnd();
-        tabStrip.layout(tabMeasures.first, getTop(), tabMeasures.second, tabStrip.getMeasuredHeight());
+        tabStrip.layout(tabMeasures.first, 0, tabMeasures.second, tabStrip.getMeasuredHeight());
     }
 
     private void layoutForCollapsible() {
