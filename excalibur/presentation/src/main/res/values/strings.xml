@@ -115,7 +115,7 @@
     <string name="triptych_tab_plans">Plans Screen</string>
     <string name="triptych_tab_me">Me Screen</string>
     <string name="product_duration_template">%d min.</string>
-    <string name="no_items_to_show">There are no items to show right now. Please try again later.</string>
+    <string name="no_items_to_show">There are no products right now, please come back later!</string>
     <string name="ages">Ages</string>
     <string name="activity_level">Activity Level</string>
     <string name="operating_hours">Operating hours</string>

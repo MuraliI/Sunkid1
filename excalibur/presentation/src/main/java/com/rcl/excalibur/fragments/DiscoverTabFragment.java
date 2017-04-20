@@ -20,12 +20,12 @@ import com.rcl.excalibur.mvp.view.DiscoverTabView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_DINING;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ENTERTAINMENT;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ROYAL_ACTIVITY;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOPPING;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOREX;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SPA;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_DINING;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ENTERTAINMENT;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ROYAL_ACTIVITY;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SHOPPING;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SHOREX;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SPA;
 
 public class DiscoverTabFragment extends Fragment {
 

@@ -1,10 +1,8 @@
 package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.DayPickerActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
-import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
@@ -17,6 +15,7 @@ public class DiscoverTabPresenter {
     private GetProductsUseCase getProductsUseCase;
     private GetSaildDateUseCase getSaildDateUseCase;
 
+    private GetSubCategoriesUseCase getSubCategoriesUseCase;
     protected int countBoatOnClick;
 
     public DiscoverTabPresenter(DiscoverTabView view,
@@ -30,6 +29,11 @@ public class DiscoverTabPresenter {
 
     public void init() {
         getProductsUseCase.execute(null);
+        DiscoverServicesImpl impl = new DiscoverServicesImpl(new ProductDataRepository());
+        impl.setSubCategoryRepository(new SubCategoriesDataRepository());
+        impl.setSubCategoryResponseDataMapper(new SubCategoryResponseDataMapper());
+        getSubCategoriesUseCase = new GetSubCategoriesUseCase(impl);
+        getSubCategoriesUseCase.execute(null);
         getSaildDateUseCase.execute(null);
     }
 
