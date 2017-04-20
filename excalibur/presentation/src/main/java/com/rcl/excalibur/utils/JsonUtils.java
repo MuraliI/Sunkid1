@@ -22,7 +22,7 @@ public final class JsonUtils {
     }
 
     @Nullable
-    public static String getShipNamesFromJson(Context context, String shipCodeResponse) {
+    public static String getShipNameFromJson(Context context, String shipCodeResponse) {
         String jsonArrayString = loadJSONFromAsset(context);
         try {
             JSONArray jsonArray = new JSONArray(jsonArrayString);
