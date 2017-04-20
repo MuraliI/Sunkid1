@@ -143,7 +143,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
             resizeItemView(view, verticalMargin, horizontalMargin);
 
-            int imageMargin = Math.round(slideOffset * initImageMargin);
+            int imageMargin = (int) slideOffset * initImageMargin;
             resizeImage(view, imageMargin);
 
             if (slideOffset >= OFFSET_95) {
