@@ -3,16 +3,16 @@ package com.rcl.excalibur.model;
 
 public class SailingInfoModel {
 
-    private int duration;
+    private String duration;
     private ItineraryModel itinerary;
     private String shipCode;
 
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

@@ -18,7 +18,7 @@ public class SailDateInfoEntity extends Model {
     @Column(name = COLUMN_SHIPCODE)
     private String shipCode;
     @Column(name = COLUMN_DURATION)
-    private int duration;
+    private String duration;
 
 
     public ItineraryEntity getItinerary() {
@@ -37,11 +37,11 @@ public class SailDateInfoEntity extends Model {
         this.shipCode = shipCode;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 }
