@@ -80,6 +80,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             @Override
             public void onChildViewAttachedToWindow(View view) {
                 if (!bottomSheetIsSliding) {
+                    setInitialViewState(view);
                     resetItemsToInitialState();
                     initialized = true;
                 }
