@@ -1,6 +1,5 @@
 package com.rcl.excalibur.mvp.presenter;
 
-import android.os.Handler;
 import android.support.v4.util.SparseArrayCompat;
 
 import com.rcl.excalibur.R;
@@ -48,25 +47,11 @@ public class PlannerPresenter {
 
     public void init() {
         view.init();
+        view.showProgressBar(true);
         view.initAnimation();
         view.initBottomSheetBehavior();
 
         createHeaderList();
-
-        //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2017);
-        calendar.set(Calendar.DAY_OF_MONTH, 3);
-        calendar.set(Calendar.MONTH, Calendar.MAY);
-        new Handler().postDelayed(() -> {
-            SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
-            List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
-            if (!items.isEmpty()) {
-                view.showAllDayLayout();
-            }
-            items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
-            view.addPlannerItems(items);
-        }, DELAY);
     }
 
     private void createHeaderList() {
@@ -103,5 +88,21 @@ public class PlannerPresenter {
 
     public void onItemClick(int position) {
         view.onItemClick(position);
+    }
+
+    public void onServiceCallCompleted() {
+        view.showProgressBar(false);
+        //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2017);
+        calendar.set(Calendar.DAY_OF_MONTH, 3);
+        calendar.set(Calendar.MONTH, Calendar.MAY);
+        SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
+        List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
+        if (!items.isEmpty()) {
+            view.showAllDayLayout();
+        }
+        items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
+        view.addPlannerItems(items);
     }
 }

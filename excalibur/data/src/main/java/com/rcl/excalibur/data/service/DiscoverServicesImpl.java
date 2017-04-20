@@ -34,6 +34,11 @@ import com.rcl.excalibur.domain.service.DiscoverServices;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -232,10 +237,10 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     }
 
     @Override
-    public void getProducts() {
+    public void getProducts(DisposableObserver<Boolean> serviceCallCompletedObserver) {
         // TODO: This is a provisional implementation, once we have the final response from the serves.
         // This must be changed to consume all products with pagination support
-        new Thread(() -> {
+        Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
             offeringRepository.deleteAll();
             productRepository.deleteAll();
 
@@ -257,8 +262,12 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                 productProcessor.onResponse(shoppingCall.execute(), SHOPPING_TYPE);
             } catch (Exception e) {
                 productProcessor.onFailure(e);
+                observableEmitter.onNext(false);
             }
-        }).start();
+            observableEmitter.onNext(true);
+        }).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(serviceCallCompletedObserver);
     }
 
     private void logOnFailureError(Throwable t, String category) {

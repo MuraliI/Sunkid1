@@ -27,4 +27,8 @@ public class TriptychPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return triptychFragments.size();
     }
+
+    public Fragment getFragmentForPosition(int position) {
+        return triptychFragments.get(position);
+    }
 }
