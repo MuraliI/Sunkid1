@@ -44,6 +44,7 @@ public class DayPickerPresenter {
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
         SailingInfoModel sailingInfoModel = new SailingInformationModelDataMapper().transform(sailDateInfo);
         if (sailingInfoModel == null || sailingInfoModel.getItinerary() == null) {
+            Toast.makeText(activity, R.string.error_message_no_information_yet, Toast.LENGTH_LONG).show();
             return;
         }
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
