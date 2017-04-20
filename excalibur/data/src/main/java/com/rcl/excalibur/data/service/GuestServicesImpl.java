@@ -25,7 +25,7 @@ import retrofit2.Response;
 
 import static com.rcl.excalibur.data.utils.ServiceUtil.getGuestApi;
 
-public class GuestServicesImpl extends BaseDataService<List<String>, SecurityQuestionsResponse> implements GuestServices {
+public class GuestServicesImpl extends BaseDataService<List<String>, SecurityQuestionsResponse, Void> implements GuestServices {
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
     private GuestPreference guestPreferences;
 
@@ -42,7 +42,7 @@ public class GuestServicesImpl extends BaseDataService<List<String>, SecurityQue
                 Response<SecurityQuestionsResponse> response = call.execute();
                 SecurityQuestionsResponse securityQuestionsResponse = response.body();
                 if (securityQuestionsResponse != null) {
-                    e.onNext(getMapper().transform(securityQuestionsResponse));
+                    e.onNext(getMapper().transform(securityQuestionsResponse, null));
                 } else {
                     e.onError(new RuntimeException("Invalid Response"));
                 }

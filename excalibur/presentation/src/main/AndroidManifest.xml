@@ -20,15 +20,15 @@
         <activity
             android:name=".activity.ProductDetailActivity"
             android:label="@string/empty_string"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.TriptychHomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -57,9 +57,14 @@
             android:label="@string/empty_string"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".expandable.activity.ExpandableListActivity"
+            android:label="@string/empty_string"
+            android:screenOrientation="portrait"/>
+
         <meta-data
             android:name="AA_DB_NAME"
-            android:value="testDB.db"/>
+            android:value="testDB.db" />
         <meta-data android:name="AA_DB_VERSION" android:value="2"/>
         <meta-data
             android:name="AA_MODELS"
@@ -79,9 +84,12 @@
                     com.rcl.excalibur.data.entity.StartingFromPriceEntity,
                     com.rcl.excalibur.data.entity.TypeEntity,
                     com.rcl.excalibur.data.entity.ActivityLevelEntity,
-                    com.rcl.excalibur.data.entity.ShipTimeEntity"/>
-
-        <receiver android:name=".scheduler.SchedulerReceiver" />
-    </application>
-
+                    com.rcl.excalibur.data.entity.PriceEntity,
+                    com.rcl.excalibur.data.entity.OfferingEntity,
+                    com.rcl.excalibur.data.entity.SubCategoryEntity,
+                    com.rcl.excalibur.data.entity.ChildCategoryEntity,
+                    com.rcl.excalibur.data.entity.ChildCategoryProductEntity,
+		    com.rcl.excalibur.data.entity.ShipTimeEntity"/>
+        <receiver android:name=".scheduler.SchedulerReceiver" />   
+ </application>
 </manifest>

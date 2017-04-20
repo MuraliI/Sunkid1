@@ -8,10 +8,10 @@ import com.rcl.excalibur.domain.ShipTime;
  * Mapper class used to transform {@link ShipTimeEntity} (in the data layer) to {@link ShipTime} in the
  * domain layer.
  */
-public class ShipTimeEntityDataMapper extends BaseDataMapper<ShipTime, ShipTimeEntity> {
+public class ShipTimeEntityDataMapper extends BaseDataMapper<ShipTime, ShipTimeEntity, Void> {
 
     @Override
-    public ShipTime transform(final ShipTimeEntity entity) {
+    public ShipTime transform(final ShipTimeEntity entity, Void additionalArg) {
         if (entity == null) {
             return null;
         }

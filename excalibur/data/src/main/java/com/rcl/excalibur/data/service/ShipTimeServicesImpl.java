@@ -12,7 +12,7 @@ import timber.log.Timber;
 
 import static com.rcl.excalibur.data.utils.ServiceUtil.getShipTimeApi;
 
-public class ShipTimeServicesImpl extends BaseDataService<String, String> implements ShipTimeServices {
+public class ShipTimeServicesImpl extends BaseDataService<String, String, Void> implements ShipTimeServices {
 
     private final ShipTimeRepository shipTimeRepository;
 

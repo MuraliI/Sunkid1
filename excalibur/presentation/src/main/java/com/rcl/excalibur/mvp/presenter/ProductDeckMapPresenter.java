@@ -8,12 +8,13 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDeckMapView;
 
+import static com.rcl.excalibur.utils.CategoryUtils.ACTIVITIES;
+import static com.rcl.excalibur.utils.CategoryUtils.DINING;
+import static com.rcl.excalibur.utils.CategoryUtils.ENTERTAINMENT;
+import static com.rcl.excalibur.utils.CategoryUtils.SHOREX;
+import static com.rcl.excalibur.utils.CategoryUtils.SPA;
+
 public class ProductDeckMapPresenter {
-    private static final String SPA = "SPA";
-    private static final String ENTERTAINMENT = "ENTERTAINMENT";
-    private static final String ACTIVITIES = "ACTIVITIES";
-    private static final String DINING = "DINING";
-    private static final String SHOREX = "SHOREX";
 
     private static final int X_1 = 196;
     private static final int Y_1 = 526;

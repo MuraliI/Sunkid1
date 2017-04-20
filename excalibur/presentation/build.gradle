@@ -83,7 +83,8 @@ dependencies {
             generalDependencies.timber,
             presentationDependencies.supportDesign,
             presentationDependencies.realTimeBlurView,
-            presentationDependencies.scaleImageView
+            presentationDependencies.scaleImageView,
+            presentationDependencies.flexibleAdapter
 
     testCompile presentationTestDependencies.junit,
                 presentationTestDependencies.mockito,

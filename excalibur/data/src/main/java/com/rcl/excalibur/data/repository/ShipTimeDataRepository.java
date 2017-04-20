@@ -9,7 +9,7 @@ import com.rcl.excalibur.data.mapper.ShipTimeEntityDataMapper;
 import com.rcl.excalibur.domain.ShipTime;
 import com.rcl.excalibur.domain.repository.ShipTimeRepository;
 
-public class ShipTimeDataRepository extends BaseDataRepository<ShipTime, ShipTimeEntity> implements ShipTimeRepository {
+public class ShipTimeDataRepository extends BaseDataRepository<ShipTime, ShipTimeEntity, Void, ShipTimeEntityDataMapper> implements ShipTimeRepository {
 
     public ShipTimeDataRepository() {
         super(new ShipTimeEntityDataMapper(), ShipTimeEntity.class);
@@ -30,6 +30,11 @@ public class ShipTimeDataRepository extends BaseDataRepository<ShipTime, ShipTim
 
     @Override
     public void create(@NonNull ShipTime value) {
+
+    }
+
+    @Override
+    public void deleteAll() {
 
     }
 }

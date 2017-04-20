@@ -3,25 +3,28 @@ package com.rcl.excalibur.data.repository;
 
 import android.support.annotation.NonNull;
 
-import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.ActivityLevelEntity;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
+import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
 import com.rcl.excalibur.data.entity.DurationEntity;
 import com.rcl.excalibur.data.entity.LocationEntity;
 import com.rcl.excalibur.data.entity.MediaEntity;
 import com.rcl.excalibur.data.entity.MediaValueEntity;
+import com.rcl.excalibur.data.entity.OfferingEntity;
 import com.rcl.excalibur.data.entity.PreferenceEntity;
 import com.rcl.excalibur.data.entity.PreferenceValueEntity;
+import com.rcl.excalibur.data.entity.PriceEntity;
 import com.rcl.excalibur.data.entity.ProductEntity;
 import com.rcl.excalibur.data.entity.RestrictionEntity;
 import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
 import com.rcl.excalibur.data.entity.TypeEntity;
 import com.rcl.excalibur.data.mapper.ProductEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
@@ -35,7 +38,6 @@ import com.rcl.excalibur.domain.ProductPreference;
 import com.rcl.excalibur.domain.ProductPreferenceValue;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductRestrictionAnswer;
-import com.rcl.excalibur.domain.ProductTags;
 import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.SellingPrice;
 import com.rcl.excalibur.domain.repository.ProductRepository;
@@ -45,23 +47,11 @@ import java.util.List;
 
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity> implements ProductRepository {
+public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, Void, ProductEntityDataMapper>
+        implements ProductRepository {
 
     public ProductDataRepository() {
         super(new ProductEntityDataMapper(), ProductEntity.class);
-    }
-
-    @Override
-    public void create(List<Product> products) {
-        ActiveAndroid.beginTransaction();
-        try {
-            for (Product product : products) {
-                create(product);
-            }
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-        }
     }
 
     @Override
@@ -82,8 +72,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
         //ProductType
         create(entity, product.getProductType());
-        //Category
-        createCategories(entity, product.getProductCategory());
+
         //Location
         create(entity, product.getProductLocation());
         //Duration
@@ -98,6 +87,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         create(entity, product.getActivityLevel());
         //StartingFromPrice
         create(entity, product.getStartingFromPrice());
+        //Category
+        createCategory(entity, product.getProductCategory());
 
         entity.save();
 
@@ -112,7 +103,11 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     public void deleteAll() {
         new Delete().from(RestrictionEntity.class).execute();
         new Delete().from(AdvisementEntity.class).execute();
+        new Delete().from(OfferingEntity.class).execute();
+        new Delete().from(PriceEntity.class).execute();
+        new Delete().from(ChildCategoryProductEntity.class).execute();
         new Delete().from(ProductEntity.class).execute();
+        new Delete().from(CategoryEntity.class).execute();
         new Delete().from(StartingFromPriceEntity.class).execute();
         new Delete().from(ActivityLevelEntity.class).execute();
         new Delete().from(PreferenceValueEntity.class).execute();
@@ -120,7 +115,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         new Delete().from(CostTypeEntity.class).execute();
         new Delete().from(DurationEntity.class).execute();
         new Delete().from(LocationEntity.class).execute();
-        new Delete().from(CategoryEntity.class).execute();
         new Delete().from(TypeEntity.class).execute();
         new Delete().from(MediaValueEntity.class).execute();
         new Delete().from(MediaEntity.class).execute();
@@ -160,7 +154,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             }
             activityLevelEntity.setMedia(mediaEntity);
         }
-
         activityLevelEntity.save();
         entity.setActivityLevel(activityLevelEntity);
     }
@@ -176,6 +169,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             restrictionEntity.setMandatory(productRestriction.isMandatory());
             restrictionEntity.setQuestion(productRestriction.getRestrictionQuestion());
             restrictionEntity.setRestrictionId(productRestriction.getRestrictionId());
+            restrictionEntity.setTitle(productRestriction.getRestrictionTitle());
             restrictionEntity.setProduct(entity);
             final List<ProductRestrictionAnswer> answers = productRestriction.getRestrictionAnswers();
             if (!CollectionUtils.isEmpty(answers)) {
@@ -187,7 +181,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             }
             restrictionEntity.save();
         }
-
     }
 
     private void createAdvisements(final ProductEntity entity, final List<ProductAdvisement> productAdvisements) {
@@ -215,7 +208,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
                 }
                 advisementEntity.setMedia(mediaEntity);
             }
-
             advisementEntity.save();
         }
     }
@@ -234,8 +226,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             mediaValueEntity.save();
         }
         entity.setProductMedia(mediaEntity);
-
-
     }
 
     private void createPreferences(final ProductEntity entity, final List<ProductPreference> preferences) {
@@ -262,7 +252,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             }
             entity.setPreference(preferenceEntity);
         }
-
     }
 
     private void create(final ProductEntity entity, final ProductCostType productCostType) {
@@ -287,8 +276,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             costTypeEntity.setMedia(mediaEntity);
         }
         entity.setCostTypeEntity(costTypeEntity);
-
-
     }
 
     private void create(final ProductEntity entity, final ProductDuration productDuration) {
@@ -342,43 +329,54 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     }
 
-    private void createCategories(final ProductEntity entity, final List<ProductCategory> categories) {
-        //    TODO In the service arrive a list of Categories. But for the moment we retrive only one this
-        if (CollectionUtils.isEmpty(categories)) {
+    private void createCategory(final ProductEntity entity, final ProductCategory category) {
+
+        if (category == null) {
             return;
         }
-        final ProductCategory productCategory = categories.get(0);
+
         final CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setCategoryId(productCategory.getCategoryId());
-        categoryEntity.setDescription(productCategory.getCategoryDescription());
-        final List<ProductTags> productTagsList = productCategory.getProductTags();
-        final List<String> tags = new ArrayList<>();
-        for (ProductTags productTag : productTagsList) {
-            tags.add(productTag.getDescription());
-        }
-        categoryEntity.setTags(tags);
+        categoryEntity.setCategoryId(category.getCategoryId());
+        categoryEntity.setDescription(category.getCategoryDescription());
+        categoryEntity.setName(category.getCategoryName());
         categoryEntity.save();
         entity.setCategory(categoryEntity);
 
+        createChildCategories(categoryEntity, category.getChildCategory());
 
     }
 
+    private void createChildCategories(final CategoryEntity entity, final List<ChildCategory> categories) {
 
+        if (CollectionUtils.isEmpty(categories)) {
+            return;
+        }
 
+        for (ChildCategory childCategory : categories) {
 
-    public List<Product> getAll(@NonNull String type) {
+            final ChildCategoryProductEntity childCategoryProductEntity = new ChildCategoryProductEntity();
+            childCategoryProductEntity.setCategoryId(childCategory.getItems().getCategoryId());
+            childCategoryProductEntity.setDescription(childCategory.getItems().getCategoryDescription());
+            childCategoryProductEntity.setName(childCategory.getItems().getCategoryName());
+            childCategoryProductEntity.setCategory(entity);
+            childCategoryProductEntity.save();
+        }
+    }
+
+    @Override
+    public List<Product> getAll(@NonNull final String type) {
         final TypeEntity typeEntity = new Select()
                 .from(TypeEntity.class)
                 .where(eq(TypeEntity.COLUMN_TYPE, type))
                 .executeSingle();
         if (typeEntity == null) {
-            return null;
+            return new ArrayList<>();
         }
         final List<ProductEntity> entities = new Select()
                 .from(ProductEntity.class)
                 .where(eq(ProductEntity.COLUMN_TYPE, typeEntity.getId()))
                 .execute();
-        return getMapper().transform(entities);
+        return getMapper().transform(entities, null);
     }
 
     @Override

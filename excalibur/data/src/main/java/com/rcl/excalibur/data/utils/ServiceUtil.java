@@ -4,9 +4,9 @@ package com.rcl.excalibur.data.utils;
 import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.api.GuestApi;
-import com.rcl.excalibur.data.service.api.ItineraryApi;
 import com.rcl.excalibur.data.service.api.ShipTimeApi;
 import com.rcl.excalibur.data.service.response.BaseResponse;
+import com.rcl.excalibur.data.service.api.SailDateApi;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +22,7 @@ public final class ServiceUtil {
     private static final String SUCCESS = "SUCCESS";
     private static DiscoverApi discoverApi;
     private static GuestApi guestApi;
-    private static ItineraryApi itineraryApi;
+    private static SailDateApi sailDateApi;
     private static ShipTimeApi shipTimeApi;
 
 
@@ -69,16 +69,16 @@ public final class ServiceUtil {
         return guestApi;
     }
 
-    public static ItineraryApi getItineraryApi() {
-        if (itineraryApi == null) {
-            Retrofit retrofit = new Retrofit.Builder().
-                    baseUrl(BuildConfig.ITINERARY_API_URL).
-                    addConverterFactory(GsonConverterFactory.create()).
-                    client(getClient())
+    public static SailDateApi getSailDateApi() {
+        if (sailDateApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BuildConfig.GUEST_API_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(getClient())
                     .build();
-            itineraryApi = retrofit.create(ItineraryApi.class);
+            sailDateApi = retrofit.create(SailDateApi.class);
         }
-        return itineraryApi;
+        return sailDateApi;
     }
 
     private static OkHttpClient getClient() {

@@ -3,50 +3,69 @@ package com.rcl.excalibur.data.repository;
 
 import android.support.annotation.NonNull;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.mapper.BaseDataMapper;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 
-public abstract class BaseDataRepository<I, E extends Model> {
+public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDataMapper<O, I, T>> {
 
-    private final BaseDataMapper<I, E> dataMapper;
-    private final Class<E> claz;
+    private final M dataMapper;
+    private final Class<I> claz;
 
-    protected BaseDataRepository(BaseDataMapper dataMapper, Class<E> claz) {
+    protected BaseDataRepository(M dataMapper, Class<I> claz) {
         this.dataMapper = dataMapper;
         this.claz = claz;
     }
 
-    protected BaseDataMapper<I, E> getMapper() {
+    protected BaseDataMapper<O, I, T> getMapper() {
         return dataMapper;
     }
 
-    public abstract void create(@NonNull I value);
+    public abstract void create(@NonNull O input);
 
-    public List<I> getAll() {
-        final List<E> entities = new Select()
-                .from(claz)
-                .execute();
-        return dataMapper.transform(entities);
+    public void create(List<O> inputList) {
+        try {
+            ActiveAndroid.beginTransaction();
+            for (O item : inputList) {
+                create(item);
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } catch (Exception e) {
+            Timber.e(e.getMessage());
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
     }
 
-    public I get(@NonNull String column, final String value) {
-        final E entity = new Select()
+    public List<O> getAll() {
+        final List<I> entities = new Select()
+                .from(claz)
+                .execute();
+        return dataMapper.transform(entities, null);
+    }
+
+    public O get(@NonNull String column, final String value) {
+        final I entity = new Select()
                 .from(claz)
                 .where(eq(column, value))
                 .executeSingle();
-        return dataMapper.transform(entity);
+        return dataMapper.transform(entity, null);
     }
 
-    public I get() {
-        final E entity = new Select()
+    public O get() {
+        final I entity = new Select()
                 .from(claz)
                 .executeSingle();
-        return dataMapper.transform(entity);
+        return dataMapper.transform(entity, null);
     }
+
+    public abstract void deleteAll();
 
 }

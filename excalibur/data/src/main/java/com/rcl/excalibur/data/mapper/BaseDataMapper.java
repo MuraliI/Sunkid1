@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class BaseDataMapper<I, E> {
+public abstract class BaseDataMapper<O, I, T> {
 
     @Nullable
-    public abstract I transform(E entity);
+    public abstract O transform(I input, T additionalArg);
 
     @NonNull
-    public List<I> transform(@Nullable Collection<E> collection) {
-        final List<I> list = new ArrayList<>();
+    public List<O> transform(@Nullable Collection<I> collection, T additionalArg) {
+        final List<O> list = new ArrayList<>();
         if (collection == null) {
             return list;
         }
-        for (E element : collection) {
-            final I item = transform(element);
+        for (I element : collection) {
+            final O item = transform(element, additionalArg);
             if (item != null) {
                 list.add(item);
             }
