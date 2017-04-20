@@ -14,8 +14,8 @@ import java.util.TimeZone;
 
 public class ShipTimePresenter {
     private static final String TIME_ZONE = "GMT%s";
-    private static final String TYPE_BLUE = "2";
-    private static final String TYPE_WHITE = "1";
+    protected static final String TYPE_BLUE = "2";
+    protected static final String TYPE_WHITE = "1";
     protected ShipTimeView view;
     protected GetShipTimeUseCase getShipTimeUseCase;
     protected GetShipTimeDbUseCase getShipTimeDbUseCase;
