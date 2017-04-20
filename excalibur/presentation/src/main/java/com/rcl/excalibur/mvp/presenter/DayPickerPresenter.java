@@ -52,7 +52,7 @@ public class DayPickerPresenter {
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
         view.setAdapterObserver(new AdapterObserver(this));
         view.init(itinerary.getIndexCurrentDay());
-        setHeader(itinerary, sailingInfoModel.getShipCode());
+        setHeader(itinerary, sailingInfoModel.getShipCode(), activity.getResources());
         setFooter(itinerary, activity.getResources());
         showCollectionInView(itinerary);
     }
@@ -70,8 +70,8 @@ public class DayPickerPresenter {
         }
     }
 
-    private void setHeader(ItineraryModel itinerary, String shipCode) {
-        String day = getDay(itinerary);
+    private void setHeader(ItineraryModel itinerary, String shipCode, Resources resources) {
+        String day = getDay(itinerary, resources);
         String description = itinerary.getDescription();
         String shipName = getShipNameFromJson(view.getContext(), shipCode);
         if (!TextUtils.isEmpty(description) && !TextUtils.isEmpty(day)) {
