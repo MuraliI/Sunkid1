@@ -83,7 +83,6 @@ public class DiscoverTabFragment extends Fragment {
     @OnClick(R.id.button_guest_services)
     public void guestServicesOnClick() {
         presenter.openListScreen(POSITION_GUEST_SERVICES);
-
     }
 
     /*@OnClick(R.id.image_boat)
