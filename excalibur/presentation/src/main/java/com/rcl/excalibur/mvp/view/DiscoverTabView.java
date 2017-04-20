@@ -8,6 +8,7 @@ import com.rcl.excalibur.utils.ActivityUtils;
 
 public class DiscoverTabView extends FragmentView<DiscoverTabFragment, Void, Void> {
 
+
     public DiscoverTabView(DiscoverTabFragment fragment) {
         super(fragment);
     }
@@ -17,7 +18,9 @@ public class DiscoverTabView extends FragmentView<DiscoverTabFragment, Void, Voi
         if (activity == null) {
             return;
         }
+
         ActivityUtils.startActivity(activity, PlanListActivity.getStartIntent(activity, fragmentToShow));
+
     }
 }
 
