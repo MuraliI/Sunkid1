@@ -50,7 +50,6 @@ public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventMo
     public void setHeader(String description, String day, String shipName) {
         dateDescription.setText(description);
         dayTitle.setText(day);
-        dayTitleShipName.setText(shipName);
     }
 
     public void addAll(List<EventModel> list) {

@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/day_picker_startandend_date"
-            style="@style/AppTheme.DiscoverItemModuleDescriptionTextView"
+            style="@style/AppTheme.DayPickerFooter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_xsmall"
@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/tv_change_dates"
-            style="@style/AppTheme.DiscoverItemModuleLinkTextView"
+            style="@style/AppTheme.DayPickerFooterLinkText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/change_dates" />

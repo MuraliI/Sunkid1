@@ -26,21 +26,22 @@
 
         <TextView
             android:id="@+id/text_day"
+            style="@style/AppTheme.DayPickerDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/bg_color"
             android:textSize="@dimen/size_text_small"
-            android:textStyle="bold"
             tools:text="@string/hardcoded_day_picker_calendar_day" />
 
         <TextView
             android:id="@+id/text_place"
+            style="@style/AppTheme.DayPickerPlace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_xsmall"
             android:ellipsize="end"
             android:maxLines="@integer/layout_total_weight_1"
-            android:textStyle="bold"
+            android:textSize="@dimen/size_text_semi_small"
             tools:text="@string/hardcoded_day_picker_calendar_day" />
     </LinearLayout>
 
