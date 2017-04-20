@@ -292,8 +292,13 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     public void addArrivingDebanrkingValues(@NonNull List<EventModel> events, int day) {
-        Pair<String, Integer> stringIntegerPair = DayInformationUtils.getArrivalDebarkDescription(events, day);
-        shipArrivingDebanrkingLabel.setText(stringIntegerPair.first);
-        shipArrivingDebanrkingLabel.setCompoundDrawablesWithIntrinsicBounds(stringIntegerPair.second, 0, 0, 0);
+        if (events == null) {
+            shipArrivingDebanrkingLabel.setText(getActivity().getResources().getString(R.string.empty_string));
+            shipArrivingDebanrkingLabel.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        } else {
+            Pair<String, Integer> stringIntegerPair = DayInformationUtils.getArrivalDebarkDescription(events, day);
+            shipArrivingDebanrkingLabel.setText(stringIntegerPair.first);
+            shipArrivingDebanrkingLabel.setCompoundDrawablesWithIntrinsicBounds(stringIntegerPair.second, 0, 0, 0);
+        }
     }
 }

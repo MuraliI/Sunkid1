@@ -32,8 +32,9 @@ import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 
 public class PlannerPresenter {
 
-    public static final int YEAR_VALUE = 2017;
-    public static final int MONTH_VALUE = 3;
+    private static final String DAY_DEFAULT_VALUE = "1";
+    private static final int YEAR_VALUE = 2017;
+    private static final int MONTH_VALUE = 3;
     private GetOfferingsDbUseCase useCase;
     private static final String HEADER_FORMAT = "H%s";
     private static final String ITEM_FORMAT = "I%s";
@@ -87,14 +88,17 @@ public class PlannerPresenter {
         }, DELAY);
 
         String dayPreferences = getSailingPreferenceUseCase.getDay();
-        int selectedDay = Integer.valueOf(dayPreferences);
+        int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
 
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
         SailingInfoModel sailingInfoModel = new SailingInformationModelDataMapper().transform(sailDateInfo);
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
-
-        List<EventModel> events = itinerary.getEvents();
-        view.addArrivingDebanrkingValues(events, selectedDay);
+        if (itinerary == null) {
+            view.addArrivingDebanrkingValues(null, selectedDay);
+        } else {
+            List<EventModel> events = itinerary.getEvents();
+            view.addArrivingDebanrkingValues(events, selectedDay);
+        }
     }
 
     private void createHeaderList() {
