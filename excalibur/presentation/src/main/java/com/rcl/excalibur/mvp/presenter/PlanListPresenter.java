@@ -127,7 +127,7 @@ public class PlanListPresenter {
                 type = GUEST_SERVICES;
                 categorySelected = view.getActivity().getString(R.string.services);
                 idCategory = ID_GUEST_SERVICES;
-                iconCategory = R.drawable.ic_services_color;
+                iconCategory = R.drawable.ic_guest_services_color;
                 break;
             default:
                 Preconditions.unreachable();
