@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/bg_color"
-              android:gravity="top|center"
-              android:orientation="vertical"
-              android:paddingBottom="@dimen/margin_normal"
-              android:paddingTop="@dimen/margin_normal">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:gravity="top|center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_normal"
+    android:paddingTop="@dimen/margin_normal">
 
 
     <TextView
@@ -19,8 +19,7 @@
         android:drawableLeft="@drawable/calendar_add"
         android:drawableRight="@drawable/ic_arrow_drop_down"
         android:gravity="center"
-        tools:text="@string/hardcoded_day_picker_calendar_day"
-        />
+        tools:text="@string/hardcoded_day_picker_calendar_day" />
 
     <TextView
         android:id="@+id/day_picker_header_description"
@@ -28,5 +27,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        tools:text="@string/hardcoded_day_picker_description"/>
+        tools:text="@string/hardcoded_day_picker_description" />
 </LinearLayout>

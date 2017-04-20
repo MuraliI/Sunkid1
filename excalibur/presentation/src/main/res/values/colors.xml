@@ -49,4 +49,8 @@
     <!-- Email Activity -->
     <color name="email_editText_inactive">#40ffffff</color>
 
+    <!-- Date Picker -->
+    <color name="selector_bar_color">#1da4ed</color>
+    <color name="selector_bg_color">#8d0ba2e1</color>
+
 </resources>

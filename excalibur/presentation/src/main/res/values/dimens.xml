@@ -115,6 +115,8 @@
 
     <!-- Login Flow -->
     <dimen name="size_text_big">25sp</dimen>
+    <dimen name="size_text_medium">20sp</dimen>
+    <dimen name="size_text_small">16sp</dimen>
     <dimen name="margin_input_text">32dp</dimen>
     <dimen name="margin_text">7dp</dimen>
     <dimen name="margin_edit_text">14dp</dimen>
@@ -156,7 +158,8 @@
     <dimen name="home_status_text_size">20sp</dimen>
     <dimen name="day_picker_text_size">16sp</dimen>
 
-    <!-- -->
+    <!-- Date Picker-->
     <dimen name="day_picker_margin">45dp</dimen>
+    <dimen name="day_picker_image_width">25dp</dimen>
 
 </resources>
