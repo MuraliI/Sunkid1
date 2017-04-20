@@ -18,8 +18,8 @@ import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
-import com.rcl.excalibur.utils.RoundedImageView;
 import com.rcl.excalibur.utils.ActivityUtils;
+import com.rcl.excalibur.utils.RoundedImageView;
 
 import java.util.List;
 
@@ -33,6 +33,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int NO_PEEK_HEIGHT = 0;
     private static final int NO_MARGIN = 0;
     private static final float OFFSET_95 = 0.95f;
+    private static final float MAX_SLIDE_OFFSET = 1.0f;
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_all_day) View allDayView;
@@ -111,7 +112,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                         if (!isExpanded && newState == BottomSheetBehavior.STATE_EXPANDED) {
                             isExpanded = true;
                             bottomSheetBehavior.setPeekHeight(NO_PEEK_HEIGHT);
-                            calculateItemMargins(1.0f);
+                            calculateItemMargins(MAX_SLIDE_OFFSET);
                             showHeadersView();
                         } else if (isExpanded && newState == BottomSheetBehavior.STATE_COLLAPSED) {
                             isExpanded = false;
@@ -152,7 +153,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
             if (slideOffset >= OFFSET_95) {
                 changeSeparatorVisibility(view, View.VISIBLE);
-                setItemViewBackground(view, R.drawable.background_gradient_item_cue_card);
+                setItemViewBackground(view, R.drawable.background_cue_card);
             } else {
                 setItemViewBackground(view, R.drawable.background_rounded_cue_card);
             }
@@ -160,7 +161,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     private int getMargin(float slideOffset, int marginValue) {
-        return (int) ((1.0f - slideOffset) * marginValue);
+        return (int) ((MAX_SLIDE_OFFSET - slideOffset) * marginValue);
     }
 
     private void resetItemsToInitialState() {
@@ -181,7 +182,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     private void setInitialViewState(View view) {
-        // TODO: improve this
+        // FIX improve this
         if (view.findViewById(R.id.layout_planner_header_container) != null) {
             view.setVisibility(View.INVISIBLE);
         } else {
@@ -220,7 +221,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         }
 
         View image = ButterKnife.findById(parent, R.id.image_itinerary_product_picture);
-
         if (image == null) {
             return;
         }
@@ -247,7 +247,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         slideUpAnimation.reset();
         if (isAllDayNecessary) {
             if (firstHeader != null) {
-                firstHeader.setBackgroundResource(R.drawable.background_gradient_item_cue_card);
+                firstHeader.setBackgroundResource(R.drawable.background_cue_card);
                 firstHeader.startAnimation(slideUpAnimation);
                 firstHeader.setVisibility(View.VISIBLE);
             }

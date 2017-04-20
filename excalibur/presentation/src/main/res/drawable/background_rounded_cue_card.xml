@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
-        android:angle="90"
+        android:angle="@integer/cue_card_gradient_angle"
         android:endColor="@color/white"
         android:startColor="@color/discover_item_background_end_color"
         android:type="linear" />
