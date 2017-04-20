@@ -31,6 +31,7 @@ public class DiscoverTabPresenter {
                                 GetSaildDateUseCase getSaildDateUseCase) {
         this.view = view;
         this.getProductsUseCase = getProductsUseCase;
+        this.getSaildDateUseCase = getSaildDateUseCase;
         AnalyticsUtils.trackState(AnalyticsConstants.KEY_DISCOVER);
     }
 
