@@ -22,7 +22,6 @@ import static io.reactivex.Observable.just;
 
 
 public class EventsAdapter extends BaseAdapter<EventModel, EventModel, EventsAdapter.DayPickerViewHolder> {
-    private Resources resources;
     private int todayPosition;
     private int positionSelected = -1;
     private int selectedDay;
