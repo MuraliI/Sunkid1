@@ -16,14 +16,10 @@ import io.reactivex.subjects.PublishSubject;
 public class ShipView extends RelativeLayout {
     private static final float SHIP_NEXT_TAB_SCALE = 0.75f;
     private static final float SHIP_ORIGINAL_SCALE = 0.5f;
-    @Bind(R.id.image_ship)
-    View ship;
-    @Bind(R.id.image_cloud_left)
-    View leftCloud;
-    @Bind(R.id.image_cloud_right)
-    View rightCloud;
-    @Bind(R.id.text_ship_status)
-    View shipLabel;
+    @Bind(R.id.image_ship) View ship;
+    @Bind(R.id.image_cloud_left) View leftCloud;
+    @Bind(R.id.image_cloud_right) View rightCloud;
+    @Bind(R.id.text_ship_status) View shipLabel;
     private int selectedPage;
     private float scrollOffset;
     private PublishSubject<Pair<Integer, Integer>> publisherSubject = PublishSubject.create();
@@ -154,10 +150,8 @@ public class ShipView extends RelativeLayout {
     }
 
     private void notifyObserver() {
-        Integer height = ship.getHeight();
-        Integer width = ship.getWidth();
         if (publisherSubject != null) {
-            publisherSubject.onNext(new Pair<>(width, height));
+            publisherSubject.onNext(new Pair<>(ship.getWidth(), ship.getHeight()));
         }
     }
 
