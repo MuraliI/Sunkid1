@@ -109,20 +109,19 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                 new BottomSheetBehavior.BottomSheetCallback() {
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                        if (!isExpanded && newState == BottomSheetBehavior.STATE_EXPANDED) {
-                            isExpanded = true;
-                            bottomSheetBehavior.setPeekHeight(NO_PEEK_HEIGHT);
-                            calculateItemMargins(MAX_SLIDE_OFFSET);
-                            showHeadersView();
-                        } else if (isExpanded && newState == BottomSheetBehavior.STATE_COLLAPSED) {
-                            isExpanded = false;
-                            bottomSheetIsSliding = false;
-
-                            resetItemsToInitialState();
-
-                            bottomSheetBehavior.setPeekHeight(peekHeight);
-                            containerLayout.startAnimation(animationGoIn);
-                            hideHeadersView();
+                        switch (newState) {
+                            case BottomSheetBehavior.STATE_EXPANDED:
+                                if (!isExpanded) {
+                                    setBottomSheetExpandedState();
+                                }
+                                break;
+                            case BottomSheetBehavior.STATE_COLLAPSED:
+                                if (isExpanded) {
+                                    setBottomSheetCollapsingState();
+                                }
+                                break;
+                            default:
+                                break;
                         }
                     }
 
@@ -136,6 +135,24 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                     }
                 }
         );
+    }
+
+    private void setBottomSheetExpandedState() {
+        isExpanded = true;
+
+        bottomSheetBehavior.setPeekHeight(NO_PEEK_HEIGHT);
+        calculateItemMargins(MAX_SLIDE_OFFSET);
+        showHeadersView();
+    }
+
+    private void setBottomSheetCollapsingState() {
+        isExpanded = false;
+
+        resetItemsToInitialState();
+
+        bottomSheetBehavior.setPeekHeight(peekHeight);
+        containerLayout.startAnimation(animationGoIn);
+        hideHeadersView();
     }
 
     private void calculateItemMargins(float slideOffset) {
@@ -227,12 +244,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     private void changeSeparatorVisibility(View parent, int visibility) {
-        if (parent == null) {
-            return;
-        }
-        View separator = ButterKnife.findById(parent, R.id.view_planner_item_separator);
-        if (separator != null) {
-            separator.setVisibility(visibility);
+        if (parent != null) {
+            View separator = ButterKnife.findById(parent, R.id.view_planner_item_separator);
+            if (separator != null) {
+                separator.setVisibility(visibility);
+            }
         }
     }
 
