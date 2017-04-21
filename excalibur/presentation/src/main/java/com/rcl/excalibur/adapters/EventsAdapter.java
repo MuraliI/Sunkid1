@@ -1,6 +1,5 @@
 package com.rcl.excalibur.adapters;
 
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -23,14 +22,12 @@ import static io.reactivex.Observable.just;
 
 
 public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPickerViewHolder> {
-    private Resources resources;
     private int todayPosition;
     private int positionSelected = -1;
     private int selectedDay;
 
-    public EventsAdapter(Observer<EventModel> observer, Resources resources, int todayPosition, int selectedDay) {
+    public EventsAdapter(Observer<EventModel> observer, int todayPosition, int selectedDay) {
         super(observer);
-        this.resources = resources;
         this.todayPosition = todayPosition;
         this.selectedDay = selectedDay;
     }
@@ -43,9 +40,10 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         if (!TextUtils.isEmpty(day)) {
             if (todayPosition == position) {
                 holder.isTodayImageView.setImageResource(R.drawable.icon_day_picker_ship);
-                holder.dayTextView.setText(resources.getString(R.string.today_day_title));
+                holder.dayTextView.setText(holder.dayTextView.getContext().getString(R.string.today_day_title));
             } else {
-                holder.dayTextView.setText(resources.getString(R.string.day_title) + day);
+                String dayText = holder.dayTextView.getContext().getString(R.string.day_title) + day;
+                holder.dayTextView.setText(dayText);
                 holder.isTodayImageView.setImageResource(0);
             }
         }

@@ -38,7 +38,7 @@ public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventMo
         if (activity == null) {
             return;
         }
-        adapter = new EventsAdapter(adapterObserver, activity.getResources(), todayPosition, selectedDayPosition);
+        adapter = new EventsAdapter(adapterObserver, todayPosition, selectedDayPosition);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
     }
