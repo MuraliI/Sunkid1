@@ -2,9 +2,7 @@ package com.rcl.excalibur.mvp.view;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
@@ -13,9 +11,9 @@ import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.custom.view.ShipView;
 import com.rcl.excalibur.custom.view.TriptychTabBarLayout;
-import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
 import com.rcl.excalibur.fragments.PlannerFragment;
+import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.utils.DayInformationUtils;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -34,8 +32,6 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
     @Bind(R.id.tab_triptych_tablayout) TriptychTabBarLayout tabBarLayout;
     @Bind(R.id.ship_view) ShipView shipView;
     @Bind(R.id.text_ship_status) TextView shipLocationLabel;
-    @Bind(R.id.text_arrivin_debarking_time) TextView shipArrivingDebanrkingLabel;
-    @Bind(R.id.image_ship_status_icon) ImageView shipLocationIcon;
 
     public TriptychHomeView(TriptychHomeActivity activity) {
         super(activity);
@@ -62,14 +58,12 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
         ActivityUtils.startActivity(getActivity(), DayPickerActivity.getStartIntent(getActivity()));
     }
 
-    public void addDayInformationValues(@NonNull List<SailDateEvent> events, int day) {
-        Pair<String, Integer> stringIntegerPair = DayInformationUtils.getShipLocation(events, day);
-        String shipInfoText = stringIntegerPair.first;
-        int shipInfoIcon = stringIntegerPair.second;
-        shipLocationLabel.setText(shipInfoText);
-        shipLocationIcon.setBackgroundResource(shipInfoIcon);
-
-        String arrivalDebarkDescription = DayInformationUtils.getArrivalDebarkDescription(events, day);
-        shipArrivingDebanrkingLabel.setText(arrivalDebarkDescription);
+    public void addShipLocationValue(@NonNull List<EventModel> events, int day) {
+        if (events == null) {
+            shipLocationLabel.setText(getActivity().getResources().getString(R.string.empty_string));
+        } else {
+            String shipInfoText = DayInformationUtils.getShipLocation(events, day);
+            shipLocationLabel.setText(shipInfoText);
+        }
     }
 }

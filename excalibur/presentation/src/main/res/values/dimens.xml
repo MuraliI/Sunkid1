@@ -88,7 +88,7 @@
     <dimen name="font_size_headline7">14sp</dimen>
     <dimen name="body_detail_font_size_description">16sp</dimen>
 
-    <!--Planner -->
+    <!-- Planner -->
     <dimen name="itinerary_background_corner_radius">10dp</dimen>
     <dimen name="item_product_image_height">150dp</dimen>
     <dimen name="item_product_image_width">120dp</dimen>
@@ -150,6 +150,8 @@
     <dimen name="default_status_bar_height">24dp</dimen>
 
     <dimen name="guest_padding_top">156dp</dimen>
+    <dimen name="planner_item_init_horizontal_margin">20dp</dimen>
+    <dimen name="planner_item_init_vertical_margin">20dp</dimen>
 
     <!-- pager plan list products -->
     <dimen name="title_arrow_pager_list_product">10dp</dimen>
@@ -173,9 +175,14 @@
     <dimen name="item_discovery_title_margin_top">10dp</dimen>
     <dimen name="home_status_text_size">20sp</dimen>
     <dimen name="day_picker_text_size">16sp</dimen>
+    <dimen name="planner_peek_height">300dp</dimen>
 
     <!-- Date Picker-->
     <dimen name="day_picker_margin">45dp</dimen>
     <dimen name="day_picker_image_width">25dp</dimen>
+
+    <!-- Day Information-->
+    <dimen name="ship_location_text_size">18sp</dimen>
+    <dimen name="day_information_text_size">14sp</dimen>
 
 </resources>
