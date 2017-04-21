@@ -84,9 +84,9 @@ public class DiscoverTabFragment extends BaseTripTychFragment {
         presenter.serviceCallCompleted();
     }
 
-    /*@OnClick(R.id.image_boat)
-    public void boatOnClick() {
-        presenter.boatOnClick();
-    }*/
-
+    @OnClick(R.id.image_ship_invisible)
+    public void shipOnClick() {
+        //Fixme temp onClick on Transparent ImageView
+        presenter.shipOnClick();
+    }
 }
