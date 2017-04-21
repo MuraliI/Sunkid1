@@ -18,7 +18,7 @@ public final class DateUtil {
     public static final String DATE_FORMAT = "yyyyMMddHHmm";
     public static final String HOURLESS_DATE_FORMAT = "yyyyMMdd";
     public static final String DATE_PARSING_ERROR = "Date parsing failed in %s1, parser exception: %s2";
-    public static final String TIME_FORMAT = "HH:mm";
+    public static final String TIME_FORMAT = "hh:mm a";
 
     private DateUtil() {
     }
