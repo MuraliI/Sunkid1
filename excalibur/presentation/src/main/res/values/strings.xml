@@ -223,7 +223,7 @@
     </string-array>
 
     <!-- Day Information-->
-    <string name="day_number">Day %i</string>
+    <string name="day_number">Day %d</string>
 
     <string name="port_type_embark">EMBARK</string>
     <string name="port_type_docked">DOCKED</string>
