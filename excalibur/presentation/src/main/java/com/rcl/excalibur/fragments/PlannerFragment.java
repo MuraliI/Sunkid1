@@ -3,7 +3,6 @@ package com.rcl.excalibur.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import com.rcl.excalibur.mvp.view.PlannerView;
 
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 
-public class PlannerFragment extends Fragment implements FlexibleAdapter.OnItemClickListener {
+public class PlannerFragment extends BaseTripTychFragment implements FlexibleAdapter.OnItemClickListener {
     private PlannerPresenter presenter;
 
     public static PlannerFragment newInstance() {
@@ -45,5 +44,10 @@ public class PlannerFragment extends Fragment implements FlexibleAdapter.OnItemC
     public boolean onItemClick(int position) {
         presenter.onItemClick(position);
         return true;
+    }
+
+    @Override
+    public void onServiceCallCompleted(boolean success) {
+        presenter.onServiceCallCompleted();
     }
 }

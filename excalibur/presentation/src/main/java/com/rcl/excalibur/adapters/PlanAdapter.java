@@ -16,7 +16,7 @@ import io.reactivex.Observer;
 
 import static io.reactivex.Observable.just;
 
-public class PlanAdapter extends BaseAdapter<DiscoverItemModel, PlanAdapter.PlanViewHolder> {
+public class PlanAdapter extends BaseAdapter<DiscoverItemModel, DiscoverItemModel, PlanAdapter.PlanViewHolder> {
 
     public PlanAdapter(Observer<DiscoverItemModel> observer) {
         super(observer);

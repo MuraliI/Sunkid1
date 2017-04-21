@@ -28,4 +28,7 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="RoundedCardView">
+        <attr name="borderRadius" format="dimension"/>
+    </declare-styleable>
 </resources>

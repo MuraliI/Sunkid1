@@ -2,18 +2,11 @@ package com.rcl.excalibur.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.data.repository.ProductDataRepository;
-import com.rcl.excalibur.data.repository.SailDateDataRepository;
-import com.rcl.excalibur.data.service.DiscoverServicesImpl;
-import com.rcl.excalibur.data.service.SailDateServicesImpl;
-import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
-import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
 
@@ -28,7 +21,7 @@ import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SHOPPIN
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SHOREX;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SPA;
 
-public class DiscoverTabFragment extends Fragment {
+public class DiscoverTabFragment extends BaseTripTychFragment {
 
     protected DiscoverTabPresenter presenter;
 
@@ -47,10 +40,7 @@ public class DiscoverTabFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new DiscoverTabPresenter(new DiscoverTabView(this),
-                    new GetProductsUseCase(new DiscoverServicesImpl(new ProductDataRepository())),
-                    new GetSaildDateUseCase(new SailDateServicesImpl(new SailDateDataRepository())));
-        presenter.init();
+        presenter = new DiscoverTabPresenter(new DiscoverTabView(this));
     }
 
 
@@ -89,10 +79,14 @@ public class DiscoverTabFragment extends Fragment {
         presenter.openListScreen(POSITION_GUEST_SERVICES);
     }
 
+    @Override
+    public void onServiceCallCompleted(boolean success) {
+        presenter.serviceCallCompleted();
+    }
+
     @OnClick(R.id.image_ship_invisible)
     public void shipOnClick() {
         //Fixme temp onClick on Transparent ImageView
         presenter.shipOnClick();
     }
-
 }

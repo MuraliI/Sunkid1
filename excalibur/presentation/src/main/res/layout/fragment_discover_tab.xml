@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:background="@color/transparent">
 
+    <!-- FIXME this is a temporary measure to load all the information from the service -->
+    <ProgressBar
+        android:id="@+id/progress_service_call_discover"
+        style="@style/ProgressBarStyle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/discovery_second_row"
+        android:layout_marginBottom="-13dp"
+        android:layout_centerHorizontal="true"/>
+
     <RelativeLayout
         android:id="@+id/discovery_first_row"
         android:layout_width="wrap_content"

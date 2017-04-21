@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.rcl.excalibur.custom.view.RoundedCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="@dimen/planner_cue_card_height"
+    android:background="@drawable/background_cue_card"
+    android:orientation="vertical"
+    app:borderRadius="@dimen/default_radius">
+
     <RelativeLayout
-        android:background="@drawable/background_gradient_item_cue_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/margin_small">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/layout_itinerary_texts_container"
@@ -18,7 +19,10 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/image_itinerary_product_picture"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/margin_small"
+            android:paddingStart="@dimen/margin_small"
+            android:paddingTop="@dimen/margin_small">
 
             <TextView
                 android:id="@+id/text_planner_product_operating_hours"
@@ -49,7 +53,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Deck 12 AFT" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -58,13 +61,17 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/layout_itinerary_texts_container"
+            android:layout_toStartOf="@+id/image_itinerary_product_picture"
             android:gravity="bottom"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_small"
+            android:paddingEnd="@dimen/margin_small"
+            android:paddingStart="@dimen/margin_small">
 
             <ImageView
                 android:id="@+id/image_itinerary_product_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginEnd="@dimen/item_product_margin"
                 android:contentDescription="@null"
@@ -73,9 +80,10 @@
             <ImageView
                 android:id="@+id/image_itinerary_product_favorite"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginEnd="@dimen/item_product_margin"
+                android:layout_marginStart="@dimen/item_product_margin"
                 android:contentDescription="@null"
                 android:src="@drawable/icon_favorite_color" />
 
@@ -83,25 +91,27 @@
                 android:id="@+id/view_itinerary_product_price_range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/item_product_margin"
                 app:maxRange="@integer/planner_product_item_max_range"
                 app:offColor="@color/grey"
                 app:onColor="@color/black" />
         </LinearLayout>
 
-        <ImageView
+        <com.rcl.excalibur.utils.RoundedImageView
             android:id="@+id/image_itinerary_product_picture"
             android:layout_width="@dimen/item_product_image_width"
-            android:layout_height="@dimen/item_product_image_height"
+            android:layout_height="match_parent"
+            android:transitionName="@string/shared_element_transition_name"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="@dimen/item_product_image_margin_start"
+            android:layout_margin="@dimen/margin_small"
             android:contentDescription="@string/itinerary_accessibility_product_image"
             android:scaleType="centerCrop"
             tools:src="@drawable/placeholder_list_item" />
-
     </RelativeLayout>
+
     <View
         android:id="@+id/view_planner_item_separator"
         android:layout_width="match_parent"
         android:layout_height="@dimen/itinerary_separator_thickness"
         android:background="@color/discover_grey" />
-</LinearLayout>
+</com.rcl.excalibur.custom.view.RoundedCardView>

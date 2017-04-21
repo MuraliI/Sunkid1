@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_planner_header_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_itinerary_list"
+    android:background="@drawable/background_cue_card"
     android:orientation="vertical">
 
     <TextView
