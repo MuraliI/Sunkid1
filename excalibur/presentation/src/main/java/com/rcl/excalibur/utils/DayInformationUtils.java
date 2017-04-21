@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.PortModel;
 
@@ -35,7 +36,7 @@ public final class DayInformationUtils {
         } else if (modelPortType.equalsIgnoreCase(resources.getString(R.string.port_type_cruising))) {
             shipLocation = resources.getString(R.string.port_type_at_sea);
         } else {
-            shipLocation = "";
+            shipLocation = ConstantsUtil.EMPTY;
         }
         return shipLocation;
     }
@@ -81,7 +82,7 @@ public final class DayInformationUtils {
     }
 
     private static String getTimeFormat(@NonNull int arrivalTime, Resources resources) {
-        String time = "";
+        String time = ConstantsUtil.EMPTY;
         if (arrivalTime > 0) {
             String arrivalTimeString = String.valueOf(arrivalTime);
             int endString = arrivalTimeString.length();
@@ -118,7 +119,7 @@ public final class DayInformationUtils {
         StringBuilder stringBuilder = new StringBuilder();
         for (int position = 0; position < values.length; position++) {
             if (values[position].isEmpty()) {
-                return "";
+                return ConstantsUtil.EMPTY;
             } else {
                 stringBuilder.append(values[position]);
             }
