@@ -11,13 +11,10 @@ public class ProductLocationResponse {
     private String locationType;
     private String latitude;
     private String longitude;
-    private DeckInfoResponse deckInfo;
-    private String operatingHoursStart;
-    private String operatingHoursEnd;
     private String locationVenue;
     private String locationPort;
-    private int locationDeckNumber;
-    private String locationDirection;
+    private DeckInfoResponse deckInfo;
+    private LocationOperationHourResponse[] locationOperationHours;
 
     public String getLocationId() {
         return locationId;
@@ -39,24 +36,33 @@ public class ProductLocationResponse {
         return locationType;
     }
 
+
+    public String getLocationTitle() {
+        return locationTitle;
+    }
+
+    public void setLocationTitle(String locationTitle) {
+        this.locationTitle = locationTitle;
+    }
+
     public void setLocationType(String locationType) {
         this.locationType = locationType;
     }
 
-    public String getOperatingHoursStart() {
-        return operatingHoursStart;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setOperatingHoursStart(String operatingHoursStart) {
-        this.operatingHoursStart = operatingHoursStart;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
-    public String getOperatingHoursEnd() {
-        return operatingHoursEnd;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setOperatingHoursEnd(String operatingHoursEnd) {
-        this.operatingHoursEnd = operatingHoursEnd;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getLocationVenue() {
@@ -75,19 +81,19 @@ public class ProductLocationResponse {
         this.locationPort = locationPort;
     }
 
-    public int getLocationDeckNumber() {
-        return locationDeckNumber;
+    public DeckInfoResponse getDeckInfo() {
+        return deckInfo;
     }
 
-    public void setLocationDeckNumber(int locationDeckNumber) {
-        this.locationDeckNumber = locationDeckNumber;
+    public void setDeckInfo(DeckInfoResponse deckInfo) {
+        this.deckInfo = deckInfo;
     }
 
-    public String getLocationDirection() {
-        return locationDirection;
+    public LocationOperationHourResponse[] getLocationOperationHours() {
+        return locationOperationHours;
     }
 
-    public void setLocationDirection(String locationDirection) {
-        this.locationDirection = locationDirection;
+    public void setLocationOperationHours(LocationOperationHourResponse[] locationOperationHours) {
+        this.locationOperationHours = locationOperationHours;
     }
 }

@@ -1,6 +1,7 @@
 package com.rcl.excalibur.data.mapper;
 
 import com.rcl.excalibur.data.service.response.ChildCategoryResponse;
+import com.rcl.excalibur.data.service.response.LocationOperationHourResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductActivityLevelResponse;
@@ -18,6 +19,7 @@ import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.ChildCategory;
+import com.rcl.excalibur.domain.LocationOperationHour;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
@@ -233,17 +235,40 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         ProductLocation productLocation = null;
         if (productLocationResponse != null) {
             productLocation = new ProductLocation();
+            productLocation.setLocationName(productLocationResponse.getLocationTitle());
             productLocation.setLocationCode(productLocationResponse.getLocationCode());
             productLocation.setLocationId(productLocationResponse.getLocationId());
             productLocation.setLocationType(productLocationResponse.getLocationType());
-            productLocation.setOperatingHoursEnd(productLocationResponse.getOperatingHoursEnd());
-            productLocation.setOperatingHoursStart(productLocationResponse.getOperatingHoursStart());
+            productLocation.setLocationOperationHours(transform(productLocationResponse.getLocationOperationHours()));
             productLocation.setLocationVenue(productLocationResponse.getLocationVenue());
-            productLocation.setLocationDeckNumber(productLocationResponse.getLocationDeckNumber());
             productLocation.setLocationPort(productLocationResponse.getLocationPort());
-            productLocation.setLocationDirection(productLocationResponse.getLocationDirection());
+            if (productLocationResponse.getDeckInfo() != null) {
+                productLocation.setLocationDirection(productLocationResponse.getDeckInfo().getDirection());
+                productLocation.setLocationDeckNumber(Integer.parseInt(productLocationResponse.getDeckInfo().getDeckNumber()));
+            }
         }
         return productLocation;
+    }
+
+    private LocationOperationHour[] transform(LocationOperationHourResponse[] locationOperationHoursResponse) {
+        LocationOperationHour[] locationOperationHours = null;
+        if (locationOperationHoursResponse != null && locationOperationHoursResponse.length > 0) {
+            locationOperationHours = new LocationOperationHour[locationOperationHoursResponse.length];
+            for (int i = 0; i < locationOperationHoursResponse.length; i++) {
+                locationOperationHours[i] = transform(locationOperationHoursResponse[i]);
+            }
+        }
+        return locationOperationHours;
+    }
+
+    private LocationOperationHour transform(LocationOperationHourResponse locationOperationHourResponse) {
+        LocationOperationHour operationHour = null;
+        if (locationOperationHourResponse != null) {
+            operationHour = new LocationOperationHour();
+            operationHour.setStartTime(locationOperationHourResponse.getStartTime());
+            operationHour.setEndTime(locationOperationHourResponse.getEndTime());
+        }
+        return operationHour;
     }
 
     private ProductActivityLevel transform(ProductActivityLevelResponse productActivityLevelResponse) {
