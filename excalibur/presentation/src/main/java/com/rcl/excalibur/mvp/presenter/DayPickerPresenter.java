@@ -115,7 +115,7 @@ public class DayPickerPresenter {
                 }
             } else {
                 EventModel todayEvent = events.get(itineraryModel.getIndexCurrentDay());
-                if (todayEvent != null && TextUtils.isEmpty(todayEvent.getDay())) {
+                if (todayEvent != null && !TextUtils.isEmpty(todayEvent.getDay())) {
                     day += todayEvent.getDay();
                 }
             }

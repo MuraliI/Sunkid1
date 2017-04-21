@@ -46,6 +46,7 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
                 holder.dayTextView.setText(resources.getString(R.string.today_day_title));
             } else {
                 holder.dayTextView.setText(resources.getString(R.string.day_title) + day);
+                holder.isTodayImageView.setImageResource(0);
             }
         }
         PortModel port = holder.event.getPort();
