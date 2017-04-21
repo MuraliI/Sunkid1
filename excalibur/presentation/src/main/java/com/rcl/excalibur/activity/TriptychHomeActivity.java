@@ -18,6 +18,7 @@ import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.domain.interactor.GetSubCategoriesUseCase;
 import com.rcl.excalibur.domain.preference.SailingPreferences;
+import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
 
@@ -33,8 +34,7 @@ public class TriptychHomeActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_triptych_home_screen);
-        sailingPreferences = new SailingPreferenceImpl(getApplicationContext());
-
+        sailingPreferences = new SailingPreferenceImpl(this);
 
         DiscoverServicesImpl impl = new DiscoverServicesImpl(new ProductDataRepository());
         impl.setSubCategoryRepository(new SubCategoriesDataRepository());
@@ -46,7 +46,8 @@ public class TriptychHomeActivity extends BaseActivity {
                 new GetSubCategoriesUseCase(impl),
                 new GetSaildDateUseCase(new SailDateServicesImpl(new SailDateDataRepository())),
                 new GetSailingPreferenceUseCase(sailingPreferences),
-                new GetSaildDateDbUseCase(new SailDateDataRepository())
+                new GetSaildDateDbUseCase(new SailDateDataRepository()),
+                new SailingInformationModelDataMapper()
         );
         presenter.init();
     }

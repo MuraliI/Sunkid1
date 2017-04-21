@@ -18,7 +18,6 @@ import java.util.List;
 
 public class TriptychHomePresenter {
 
-    private static final String DAY_DEFAULT_VALUE = "1";
     private TriptychHomeView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
@@ -27,6 +26,7 @@ public class TriptychHomePresenter {
     private GetProductsUseCase getProductsUseCase;
     private GetSubCategoriesUseCase getSubCategoriesUseCase;
     private GetSaildDateUseCase getSaildDateUseCase;
+    private SailingInformationModelDataMapper sailingInformationModelDataMapper;
 
     public TriptychHomePresenter(
             TriptychHomeView view,
@@ -34,13 +34,15 @@ public class TriptychHomePresenter {
             GetSubCategoriesUseCase getSubCategoriesUseCase,
             GetSaildDateUseCase getSaildDateUseCase,
             GetSailingPreferenceUseCase getSailingPreferenceUseCase,
-            GetSaildDateDbUseCase getSaildDateDbUseCase) {
+            GetSaildDateDbUseCase getSaildDateDbUseCase,
+            SailingInformationModelDataMapper sailingInformationModelDataMapper) {
         this.view = view;
         this.getProductsUseCase = getProductsUseCase;
         this.getSubCategoriesUseCase = getSubCategoriesUseCase;
         this.getSaildDateUseCase = getSaildDateUseCase;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
+        this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
     }
 
     public void init() {
@@ -59,10 +61,10 @@ public class TriptychHomePresenter {
 
     public void getShipLocationInfo() {
         dayPreferences = getSailingPreferenceUseCase.getDay();
-        int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
+        int selectedDay = Integer.valueOf(dayPreferences == null ? PlannerPresenter.DAY_DEFAULT_VALUE : dayPreferences);
 
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
-        SailingInfoModel sailingInfoModel = new SailingInformationModelDataMapper().transform(sailDateInfo);
+        SailingInfoModel sailingInfoModel = sailingInformationModelDataMapper.transform(sailDateInfo);
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
         if (itinerary == null) {
             view.addShipLocationValue(null, selectedDay);
