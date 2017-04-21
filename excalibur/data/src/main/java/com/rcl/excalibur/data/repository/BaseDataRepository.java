@@ -35,6 +35,8 @@ public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDa
             ActiveAndroid.beginTransaction();
             for (O item : inputList) {
                 create(item);
+                //For large data transactions avoid long time DB Locking
+                ActiveAndroid.getDatabase().yieldIfContendedSafely();
             }
             ActiveAndroid.setTransactionSuccessful();
         } catch (Exception e) {

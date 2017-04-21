@@ -119,7 +119,9 @@
     <dimen name="size_text_big">25sp</dimen>
     <dimen name="size_text_medium">20sp</dimen>
     <dimen name="size_text_small">16sp</dimen>
+    <dimen name="size_text_semi_small">15sp</dimen>
     <dimen name="size_text_x_small">14sp</dimen>
+    <dimen name="size_text_xx_small">13sp</dimen>
     <dimen name="margin_input_text">32dp</dimen>
     <dimen name="margin_text">7dp</dimen>
     <dimen name="margin_edit_text">14dp</dimen>

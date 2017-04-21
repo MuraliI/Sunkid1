@@ -13,6 +13,7 @@ import com.rcl.excalibur.mvp.view.DiscoverTabView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_GUEST_SERVICES;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_DINING;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ENTERTAINMENT;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ROYAL_ACTIVITY;
@@ -74,8 +75,8 @@ public class DiscoverTabFragment extends BaseTripTychFragment {
     }
 
     @OnClick(R.id.button_guest_services)
-    public void searchOnClick() {
-        presenter.openDayPicker();
+    public void guestServicesOnClick() {
+        presenter.openListScreen(POSITION_GUEST_SERVICES);
     }
 
     @Override

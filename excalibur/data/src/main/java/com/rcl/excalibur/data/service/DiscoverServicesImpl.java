@@ -49,6 +49,7 @@ import static com.rcl.excalibur.data.utils.ServiceUtil.isSuccess;
 import static com.rcl.excalibur.domain.ProductType.ACTIVITIES_TYPE;
 import static com.rcl.excalibur.domain.ProductType.DINING_TYPE;
 import static com.rcl.excalibur.domain.ProductType.ENTERTAINMENT_TYPE;
+import static com.rcl.excalibur.domain.ProductType.GUEST_SERVICES_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SHOPPING_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
@@ -250,6 +251,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
             Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_TYPE, MAX_COUNT);
             Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_TYPE, MAX_COUNT);
             Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> guestServicesCall = getDiscoverApi().getProducts(SAILING_ID, GUEST_SERVICES_TYPE, MAX_COUNT);
 
             ProductProcessor productProcessor = new ProductProcessor();
 
@@ -260,6 +262,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                 productProcessor.onResponse(entertainmentCall.execute(), ENTERTAINMENT_TYPE);
                 productProcessor.onResponse(spaCall.execute(), SPA_TYPE);
                 productProcessor.onResponse(shoppingCall.execute(), SHOPPING_TYPE);
+                productProcessor.onResponse(guestServicesCall.execute(), GUEST_SERVICES_TYPE);
             } catch (Exception e) {
                 productProcessor.onFailure(e);
                 observableEmitter.onNext(false);

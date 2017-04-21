@@ -1,6 +1,5 @@
 package com.rcl.excalibur.adapters;
 
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -25,11 +24,13 @@ import static io.reactivex.Observable.just;
 public class EventsAdapter extends BaseAdapter<EventModel, EventModel, EventsAdapter.DayPickerViewHolder> {
     private Resources resources;
     private int todayPosition;
+    private int positionSelected = -1;
+    private int selectedDay;
 
-    public EventsAdapter(Observer<EventModel> observer, Resources resources, int todayPosition) {
+    public EventsAdapter(Observer<EventModel> observer, int todayPosition, int selectedDay) {
         super(observer);
-        this.resources = resources;
         this.todayPosition = todayPosition;
+        this.selectedDay = selectedDay;
     }
 
     @Override
@@ -39,13 +40,12 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventModel, EventsAda
         String day = holder.event.getDay();
         if (!TextUtils.isEmpty(day)) {
             if (todayPosition == position) {
-                holder.containerDayPicker.setSelected(true);
                 holder.isTodayImageView.setImageResource(R.drawable.icon_day_picker_ship);
-                holder.selectedDayView.setVisibility(View.VISIBLE);
-                holder.dayTextView.setText(resources.getString(R.string.today_day_title));
+                holder.dayTextView.setText(holder.dayTextView.getContext().getString(R.string.today_day_title));
             } else {
-                holder.dayTextView.setText(resources.getString(R.string.day_title) + day);
-                holder.selectedDayView.setVisibility(View.GONE);
+                String dayText = holder.dayTextView.getContext().getString(R.string.day_title) + day;
+                holder.dayTextView.setText(dayText);
+                holder.isTodayImageView.setImageResource(0);
             }
         }
         PortModel port = holder.event.getPort();
@@ -53,28 +53,26 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventModel, EventsAda
             return;
         }
         String portName = port.getPortName();
-        if (!TextUtils.isEmpty(portName)) {
-            holder.placeTextView.setText(portName);
-        }
         String portType = port.getPortType();
-        if (!TextUtils.isEmpty(portType)) {
-            if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_EMBARK) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DOCKED)
-                    || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DEBARK)) {
-                holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_anchor);
+        if (!TextUtils.isEmpty(portName)) {
+            if (PortModel.PORT_TYPE_CRUISING.equalsIgnoreCase(portType)) {
+                holder.placeTextView.setText(R.string.day_picker_at_sea);
             } else {
-                if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_CRUISING)) {
-                    holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_sea);
-                }
+                holder.placeTextView.setText(portName);
             }
         }
 
-        if (holder.selectedDay == position) {
-
+        if (PortModel.PORT_TYPE_CRUISING.equalsIgnoreCase(portType)) {
+            holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_sea);
+        } else {
+            holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_anchor);
         }
 
         if (hasObserver()) {
             holder.observerRef = new WeakReference<>(getObserver());
         }
+        holder.selectedDayView.setVisibility(selectedDay == position ? View.VISIBLE : View.GONE);
+        holder.containerDayPicker.setSelected(position == positionSelected);
     }
 
     @Override
@@ -88,7 +86,7 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventModel, EventsAda
         return new DayPickerViewHolder(view);
     }
 
-    static class DayPickerViewHolder extends RecyclerView.ViewHolder {
+    class DayPickerViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.text_day) TextView dayTextView;
         @Bind(R.id.text_place) TextView placeTextView;
@@ -98,7 +96,6 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventModel, EventsAda
         @Bind(R.id.container_day_picker) View containerDayPicker;
         private EventModel event;
         private WeakReference<Observer<EventModel>> observerRef;
-        private int selectedDay = -1;
 
         DayPickerViewHolder(View itemView) {
             super(itemView);
@@ -110,6 +107,7 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventModel, EventsAda
             if (observerRef == null) {
                 return;
             }
+            positionSelected = getAdapterPosition();
             just(event).subscribe(observerRef.get());
         }
     }

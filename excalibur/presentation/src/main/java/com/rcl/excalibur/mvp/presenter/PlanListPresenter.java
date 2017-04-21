@@ -25,6 +25,7 @@ import timber.log.Timber;
 
 import static com.rcl.excalibur.fragments.ProductsListFragment.DINING;
 import static com.rcl.excalibur.fragments.ProductsListFragment.ENTERTAINMENT;
+import static com.rcl.excalibur.fragments.ProductsListFragment.GUEST_SERVICES;
 import static com.rcl.excalibur.fragments.ProductsListFragment.ROYAL_ACTIVITY;
 import static com.rcl.excalibur.fragments.ProductsListFragment.SHOPPING;
 import static com.rcl.excalibur.fragments.ProductsListFragment.SHOREX;
@@ -37,6 +38,7 @@ public class PlanListPresenter {
     public static final int POSITION_SPA = 3;
     public static final int POSITION_SHOREX = 4;
     public static final int POSITION_ENTERTAINMENT = 5;
+    public static final int POSITION_GUEST_SERVICES = 6;
 
     private static final String ID_SHOREX = "shorex";
     private static final String ID_ACYIVITY = "ACT";
@@ -44,6 +46,7 @@ public class PlanListPresenter {
     private static final String ID_SPA = "spa";
     private static final String ID_DINING = "dining";
     private static final String ID_ENTRETAINMENT = "ent";
+    private static final String ID_GUEST_SERVICES = "guest";
 
     private final PlanListView view;
 
@@ -119,6 +122,12 @@ public class PlanListPresenter {
                 categorySelected = view.getActivity().getString(R.string.entertainment);
                 idCategory = ID_ENTRETAINMENT;
                 iconCategory = R.drawable.ic_entertainment_color;
+                break;
+            case POSITION_GUEST_SERVICES:
+                type = GUEST_SERVICES;
+                categorySelected = view.getActivity().getString(R.string.services);
+                idCategory = ID_GUEST_SERVICES;
+                iconCategory = R.drawable.ic_guest_services_color;
                 break;
             default:
                 Preconditions.unreachable();
