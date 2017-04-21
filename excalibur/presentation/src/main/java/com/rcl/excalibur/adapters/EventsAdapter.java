@@ -56,21 +56,19 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
         String portName = port.getPortName();
         String portType = port.getPortType();
         if (!TextUtils.isEmpty(portName)) {
-            if (!TextUtils.isEmpty(portType)) {
-                if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_CRUISING)) {
-                    holder.placeTextView.setText(R.string.day_picker_at_sea);
-                } else {
-                    holder.placeTextView.setText(portName);
-                }
-            }
-        }
-        if (!TextUtils.isEmpty(portType)) {
             if (PortModel.PORT_TYPE_CRUISING.equalsIgnoreCase(portType)) {
-                holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_sea);
+                holder.placeTextView.setText(R.string.day_picker_at_sea);
             } else {
-                holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_anchor);
+                holder.placeTextView.setText(portName);
             }
         }
+
+        if (PortModel.PORT_TYPE_CRUISING.equalsIgnoreCase(portType)) {
+            holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_sea);
+        } else {
+            holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_anchor);
+        }
+
         if (hasObserver()) {
             holder.observerRef = new WeakReference<>(getObserver());
         }
