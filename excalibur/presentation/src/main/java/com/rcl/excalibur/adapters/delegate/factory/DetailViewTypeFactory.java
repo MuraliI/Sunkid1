@@ -280,7 +280,7 @@ public final class DetailViewTypeFactory {
 
             if (!map.isEmpty()) {
                 PricesFromViewType pricesFromViewType = new PricesFromViewType(res.getString(R.string.prices),
-                        res.getString(R.string.starting_from), map, product);
+                        res.getString(R.string.prices_from), map, product);
                 recyclerViewTypeList.add(pricesFromViewType);
             }
         }

@@ -89,4 +89,10 @@ public class DiscoverTabFragment extends Fragment {
         presenter.openListScreen(POSITION_GUEST_SERVICES);
     }
 
+    @OnClick(R.id.image_ship_invisible)
+    public void shipOnClick() {
+        //Fixme temp onClick on Transparent ImageView
+        presenter.shipOnClick();
+    }
+
 }
