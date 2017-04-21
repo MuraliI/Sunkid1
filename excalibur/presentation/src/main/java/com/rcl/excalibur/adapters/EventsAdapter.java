@@ -65,12 +65,11 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventsAdapter.DayPick
             }
         }
         if (!TextUtils.isEmpty(portType)) {
-            if (portType.equalsIgnoreCase(PortModel.PORT_TYPE_EMBARK) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DOCKED) || portType.equalsIgnoreCase(PortModel.PORT_TYPE_DEBARK)) {
-                holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_anchor);
-            } else if (PortModel.PORT_TYPE_CRUISING.equalsIgnoreCase(portType)) {
+            if (PortModel.PORT_TYPE_CRUISING.equalsIgnoreCase(portType)) {
                 holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_sea);
+            } else {
+                holder.portTypeImageView.setImageResource(R.drawable.icon_day_picker_anchor);
             }
-
         }
         if (hasObserver()) {
             holder.observerRef = new WeakReference<>(getObserver());
