@@ -10,6 +10,8 @@ import com.rcl.excalibur.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
 
 public class ShipView extends RelativeLayout {
     private static final float SHIP_NEXT_TAB_SCALE = 0.75f;
@@ -20,6 +22,7 @@ public class ShipView extends RelativeLayout {
     @Bind(R.id.text_ship_status) View shipLabel;
     private int selectedPage;
     private float scrollOffset;
+    private PublishSubject<Pair<Integer, Integer>> publisherSubject = PublishSubject.create();
 
     public ShipView(Context context) {
         super(context);
@@ -65,6 +68,13 @@ public class ShipView extends RelativeLayout {
             layoutCloudsOnNextTab();
             layoutLabelShipOnNextTab();
         }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        publisherSubject.onComplete();
+        publisherSubject = null;
     }
 
     private void layoutLabelShipOnScroll() {
@@ -118,6 +128,7 @@ public class ShipView extends RelativeLayout {
 
     private void layoutShipOnOrigin() {
         ship.layout(ship.getLeft(), ship.getTop(), ship.getRight(), (int) (getBottom() * SHIP_ORIGINAL_SCALE));
+        notifyObserver();
     }
 
     private void layoutShipOnNextTab() {
@@ -136,5 +147,15 @@ public class ShipView extends RelativeLayout {
         selectedPage = integerFloatPair.first;
         scrollOffset = integerFloatPair.second;
         requestLayout();
+    }
+
+    private void notifyObserver() {
+        if (publisherSubject != null) {
+            publisherSubject.onNext(new Pair<>(ship.getWidth(), ship.getHeight()));
+        }
+    }
+
+    public void subscribeToSizeUpdate(Consumer<Pair<Integer, Integer>> pairConsumer) {
+        publisherSubject.subscribe(pairConsumer);
     }
 }

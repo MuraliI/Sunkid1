@@ -12,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.fragments.PlannerFragment;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 
@@ -44,6 +47,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     @Bind(R.id.layout_planner_all_day) View allDayView;
     @Bind(R.id.layout_planner_container) LinearLayout containerLayout;
     @Bind(R.id.progress_service_call_planner) View progressBar;
+    @Bind(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
     @Bind(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
@@ -347,5 +351,25 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private void setTextCompoundDrawableDayInfo(String text, int drawable) {
         shipArrivingDebarkingLabel.setText(text);
         shipArrivingDebarkingLabel.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
+    }
+
+    @OnClick(R.id.image_ship_invisible)
+    public void shipOnClick() {
+        //Fixme temp onClick on Transparent ImageView
+        final BaseActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        ActivityUtils.startActivity(activity, ProductDeckMapActivity.getIntent(activity, null));
+    }
+
+    public void setShipInvisibleHeight(Pair<Integer, Integer> pair) {
+        if (imageShipInvisible != null) {
+            ViewGroup.LayoutParams params = imageShipInvisible.getLayoutParams();
+            //Pair first is width, second height
+            params.width = pair.first;
+            params.height = pair.second;
+            imageShipInvisible.setLayoutParams(params);
+        }
     }
 }
