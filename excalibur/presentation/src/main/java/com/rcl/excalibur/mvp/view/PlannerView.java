@@ -22,8 +22,8 @@ import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
-import com.rcl.excalibur.utils.RoundedImageView;
 import com.rcl.excalibur.utils.DayInformationUtils;
+import com.rcl.excalibur.utils.RoundedImageView;
 
 import java.util.List;
 

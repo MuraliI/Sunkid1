@@ -1,13 +1,13 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
-import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
-import com.rcl.excalibur.domain.interactor.GetSubCategoriesUseCase;
-import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
+import com.rcl.excalibur.domain.interactor.GetSubCategoriesUseCase;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.ItineraryModel;

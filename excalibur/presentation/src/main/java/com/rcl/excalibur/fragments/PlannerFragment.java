@@ -59,6 +59,7 @@ public class PlannerFragment extends BaseTripTychFragment implements FlexibleAda
     public void onServiceCallCompleted(boolean success) {
         presenter.onServiceCallCompleted();
     }
+
     @Override
     public void onResume() {
         super.onResume();

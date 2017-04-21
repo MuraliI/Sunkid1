@@ -16,8 +16,8 @@ import com.rcl.excalibur.fragments.DiscoverTabFragment;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
-import com.rcl.excalibur.utils.DayInformationUtils;
 import com.rcl.excalibur.utils.ActivityUtils;
+import com.rcl.excalibur.utils.DayInformationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
