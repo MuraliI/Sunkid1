@@ -7,10 +7,10 @@
     <!-- FIXME this is a temporary measure to load all the information from the service -->
     <ProgressBar
         android:id="@+id/progress_service_call_planner"
+        style="@style/ProgressBarStyle"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_gravity="center_horizontal"
-        style="@style/ProgressBarStyle"/>
+        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:id="@+id/layout_planner_container"
@@ -27,15 +27,18 @@
             android:background="@drawable/background_planner_header"
             android:visibility="gone" />
 
-        <FrameLayout
+        <com.rcl.excalibur.custom.view.TopRoundedFrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/background_rounded_top_planner_container"
+            android:clipChildren="true"
+            app:borderRadius="10dp">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never" />
-        </FrameLayout>
+        </com.rcl.excalibur.custom.view.TopRoundedFrameLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
