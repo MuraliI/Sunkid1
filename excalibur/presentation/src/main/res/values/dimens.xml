@@ -188,7 +188,7 @@
 
     <dimen name="ship_time_height">30dp</dimen>
     <!-- Day Information-->
-    <dimen name="ship_location_text_size">18sp</dimen>
-    <dimen name="day_information_text_size">14sp</dimen>
+    <dimen name="ship_location_text_size">20sp</dimen>
+    <dimen name="day_information_text_size">16sp</dimen>
 
 </resources>
