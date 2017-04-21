@@ -146,9 +146,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
             resizeItemView(view, verticalMargin, horizontalMargin);
 
-            int imageMargin = (int) slideOffset * initImageMargin;
+            int imageMargin = Math.round(slideOffset * initImageMargin);
             resizeImage(view, imageMargin);
-            RoundedImageView imageView = (RoundedImageView) view.findViewById(R.id.image_itinerary_product_picture);
+
+            RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
             imageView.setRadius(R.dimen.default_radius);
 
             if (slideOffset >= OFFSET_OVER_95_PERCENT) {
@@ -190,7 +191,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             resizeImage(view, NO_MARGIN);
             setItemViewBackground(view, R.drawable.background_rounded_cue_card);
             changeSeparatorVisibility(view, View.GONE);
-            RoundedImageView imageView = (RoundedImageView) view.findViewById(R.id.image_itinerary_product_picture);
+            RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
             imageView.setRadius(R.dimen.zero_radius);
         }
     }
@@ -220,7 +221,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             return;
         }
 
-        View image = ButterKnife.findById(parent, R.id.image_itinerary_product_picture);
+        RoundedImageView image = ButterKnife.findById(parent, R.id.image_itinerary_product_picture);
         if (image == null) {
             return;
         }
@@ -290,10 +291,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                     .findViewByPosition(position)
                     .findViewById(R.id.image_itinerary_product_picture);
 
-            ActivityUtils.startActivityWithSharedElement(getActivity()
-                    , ProductDetailActivity.getIntent(activity, productItem.getPlannerProductModel().getProductId())
-                    , sharedItemView
-                    , getActivity().getString(R.string.shared_element_transition_name));
+            ActivityUtils.startActivityWithSharedElement(getActivity(),
+                    ProductDetailActivity.getIntent(activity, productItem.getPlannerProductModel().getProductId()),
+                    sharedItemView,
+                    getActivity().getString(R.string.shared_element_transition_name));
         }
     }
 
