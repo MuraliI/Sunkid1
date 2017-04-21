@@ -21,6 +21,7 @@ public class ProductsListFragment extends Fragment {
     public static final int SPA = 3;
     public static final int SHOREX = 4;
     public static final int ENTERTAINMENT = 5;
+    public static final int GUEST_SERVICES = 6;
     private static final String ARGUMENT_TYPE = "ProductsListFragment.ARGUMENT_TYPE";
     private static final String ARGUMENT_CATEGORY_ID = "ProductsListFragment.ARGUMENT_CATEGORY_ID";
 

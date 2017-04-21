@@ -5,35 +5,36 @@
     android:background="@color/transparent">
 
     <RelativeLayout
+        android:id="@+id/discovery_first_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_above="@+id/discovery_second_row"
-        android:layout_marginStart="@dimen/margin_small"
-        android:layout_marginEnd="@dimen/margin_small">
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_small">
 
         <LinearLayout
             android:id="@+id/button_dinning"
             android:layout_width="@dimen/menu_button_width"
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
-            android:orientation="vertical"
+            android:background="@color/transparent"
             android:gravity="center"
-            android:background="@color/transparent">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/ic_dinning"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_dinning" />
 
             <TextView
                 style="@style/AppTheme.DiscoverButtonText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:text="@string/dining" />
+                android:text="@string/dining"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -43,24 +44,24 @@
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
             android:layout_toEndOf="@id/button_dinning"
-            android:orientation="vertical"
+            android:background="@color/transparent"
             android:gravity="center"
-            android:background="@color/transparent">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/ic_activities"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_activities" />
 
             <TextView
                 style="@style/AppTheme.DiscoverButtonText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/white"
+                android:text="@string/royal_activity"
 
-                android:text="@string/royal_activity" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -69,25 +70,25 @@
             android:layout_width="@dimen/menu_button_width"
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
-            android:orientation="vertical"
             android:layout_toEndOf="@id/button_activities"
+            android:background="@color/transparent"
             android:gravity="center"
-            android:background="@color/transparent">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/ic_entertainment"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_entertainment" />
 
             <TextView
                 style="@style/AppTheme.DiscoverButtonText"
-                android:textSize="11sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:text="@string/entertainment"
                 android:textColor="@color/white"
-                android:text="@string/entertainment" />
+                android:textSize="11sp" />
 
         </LinearLayout>
 
@@ -97,23 +98,23 @@
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
             android:layout_toEndOf="@+id/button_entertainment"
-            android:orientation="vertical"
+            android:background="@color/transparent"
             android:gravity="center"
-            android:background="@color/transparent">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/ic_excursions"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_excursions" />
 
             <TextView
                 style="@style/AppTheme.DiscoverButtonText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:layout_gravity="center"
-                android:text="@string/shorex" />
+                android:text="@string/shorex"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -124,8 +125,8 @@
         android:id="@+id/discovery_second_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/margin_small">
 
         <LinearLayout
@@ -133,23 +134,23 @@
             android:layout_width="@dimen/menu_button_width"
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
-            android:orientation="vertical"
+            android:background="@color/transparent"
             android:gravity="center"
-            android:background="@color/transparent">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/ic_spa"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_spa" />
 
             <TextView
                 style="@style/AppTheme.DiscoverButtonText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:layout_gravity="center"
-                android:text="@string/spa" />
+                android:text="@string/spa"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -160,23 +161,23 @@
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
             android:layout_toEndOf="@+id/button_spa"
+            android:background="@color/transparent"
             android:gravity="center"
-            android:orientation="vertical"
-            android:background="@color/transparent">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/ic_shops"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_shops" />
 
             <TextView
                 style="@style/AppTheme.DiscoverButtonText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:text="@string/shopping" />
+                android:text="@string/shopping"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -186,15 +187,15 @@
             android:layout_height="@dimen/menu_button_height"
             android:layout_margin="@dimen/margin_xsmall"
             android:layout_toEndOf="@+id/button_shop"
-            android:orientation="vertical"
+            android:background="@color/transparent"
             android:gravity="center"
-            android:background="@color/transparent">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/ship_button_category_size"
                 android:layout_height="@dimen/ship_button_category_size"
-                android:src="@drawable/ic_services"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_services" />
 
             <TextView
                 style="@style/AppTheme.DiscoverButtonText"
@@ -209,5 +210,21 @@
 
 
     </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/image_ship_invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/discovery_first_row"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ship_big"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
 </RelativeLayout>
 

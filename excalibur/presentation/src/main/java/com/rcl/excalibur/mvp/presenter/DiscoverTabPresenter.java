@@ -2,6 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.DayPickerActivity;
+import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
@@ -66,6 +67,14 @@ public class DiscoverTabPresenter {
         }
         ActivityUtils.startActivity(activity, DayPickerActivity.getStartIntent(activity));
 
+    }
+
+    public void shipOnClick() {
+        final BaseActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        ActivityUtils.startActivity(activity, ProductDeckMapActivity.getIntent(activity, null));
     }
 }
 
