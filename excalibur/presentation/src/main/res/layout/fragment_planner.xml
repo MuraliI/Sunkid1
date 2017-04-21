@@ -7,10 +7,17 @@
     <!-- FIXME this is a temporary measure to load all the information from the service -->
     <ProgressBar
         android:id="@+id/progress_service_call_planner"
+        style="@style/ProgressBarStyle"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_gravity="center_horizontal"
-        style="@style/ProgressBarStyle"/>
+        android:layout_gravity="center_horizontal" />
+
+    <FrameLayout
+        android:id="@+id/image_ship_invisible"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="50dp"/>
 
     <LinearLayout
         android:id="@+id/layout_planner_container"

@@ -39,7 +39,10 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
             return;
         }
         List<Fragment> triptychFragments = new ArrayList<>();
-        triptychFragments.add(PlannerFragment.newInstance());
+        PlannerFragment plannerFragment = PlannerFragment.newInstance();
+        shipView.subscribeToSizeUpdate(plannerFragment);
+
+        triptychFragments.add(plannerFragment);
         triptychFragments.add(DiscoverTabFragment.newInstance());
 
         viewPager.setAdapter(new TriptychPagerAdapter(activity.getSupportFragmentManager(), triptychFragments));
