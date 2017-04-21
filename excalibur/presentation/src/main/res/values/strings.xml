@@ -224,7 +224,6 @@
 
     <!-- Day Information-->
     <string name="day_number">Day %d</string>
-
     <string name="port_type_embark">EMBARK</string>
     <string name="port_type_docked">DOCKED</string>
     <string name="port_type_debark">DEBARK</string>
