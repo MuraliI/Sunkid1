@@ -6,9 +6,16 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
+import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
+import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
+import com.rcl.excalibur.model.EventModel;
+import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PlannerProductModel;
+import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.PlannerView;
 
 import java.util.ArrayList;
@@ -24,25 +31,37 @@ import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 
 public class PlannerPresenter {
 
+    private static final String DAY_DEFAULT_VALUE = "1";
+    private GetOfferingsDbUseCase useCase;
     private static final String HEADER_FORMAT = "H%s";
     private static final String ITEM_FORMAT = "I%s";
-    private static final int HEADER_LIST_SIZE = 4;
 
+    private static final int HEADER_LIST_SIZE = 4;
     private static final long DELAY = 5000;
 
-    private GetOfferingsDbUseCase useCase;
     private PlannerProductModelMapper mapper;
+
+    private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
+    private GetSaildDateDbUseCase getSaildDateDbUseCase;
+
     private PlannerView view;
 
     private SparseArrayCompat<PlannerHeader> headerList;
 
     private int lastHeaderId = 0;
     private int lastItemId = 0;
+    private String dayPreferences;
 
-    public PlannerPresenter(PlannerView view, GetOfferingsDbUseCase useCase, PlannerProductModelMapper modelMapper) {
+    public PlannerPresenter(PlannerView view,
+                            GetOfferingsDbUseCase useCase,
+                            PlannerProductModelMapper modelMapper,
+                            GetSailingPreferenceUseCase getSailingPreferenceUseCase,
+                            GetSaildDateDbUseCase getSaildDateDbUseCase) {
         this.view = view;
         this.useCase = useCase;
         this.mapper = modelMapper;
+        this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
+        this.getSaildDateDbUseCase = getSaildDateDbUseCase;
     }
 
     public void init() {
@@ -52,6 +71,21 @@ public class PlannerPresenter {
         view.initBottomSheetBehavior();
 
         createHeaderList();
+    }
+
+    public void getArrivingDebarkingInfo() {
+        dayPreferences = getSailingPreferenceUseCase.getDay();
+        int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
+
+        SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
+        SailingInfoModel sailingInfoModel = new SailingInformationModelDataMapper().transform(sailDateInfo);
+        ItineraryModel itinerary = sailingInfoModel.getItinerary();
+        if (itinerary == null) {
+            view.addArrivingDebanrkingValues(null, selectedDay);
+        } else {
+            List<EventModel> events = itinerary.getEvents();
+            view.addArrivingDebanrkingValues(events, selectedDay);
+        }
     }
 
     private void createHeaderList() {

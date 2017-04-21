@@ -244,11 +244,11 @@ public class Product {
         return ConstantsUtil.EMPTY;
     }
 
-    public List<ProductAdvisement> getProductAdvisementsById(String advisementId) {
+    public List<ProductAdvisement> getProductAdvisementsByType(String advisementType) {
         List<ProductAdvisement> advisementList = new ArrayList<>();
         for (ProductAdvisement advisement : advisements) {
-            String currentAdvisementId = advisement.getAdvisementId();
-            if (currentAdvisementId != null && currentAdvisementId.equals(advisementId)) {
+            String currentAdvisementType = advisement.getAdvisementType();
+            if (currentAdvisementType != null && currentAdvisementType.equals(advisementType)) {
                 advisementList.add(advisement);
             }
         }

@@ -201,7 +201,7 @@
     <string name="error_message_security_questions">Something went wrong, please try again.</string>
     <string name="error_message_no_information_yet">There is no information yet. Please try again later</string>
     <string name="hardcoded_home_status">At Sea</string>
-    <string name="hardcoded_day_tab">Day 6</string>
+    <string name="hardcoded_day_tab">Day 1</string>
 
     <!--Day Picker-->
     <string name="today_day_title">Today</string>
