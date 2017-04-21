@@ -103,6 +103,7 @@
     <dimen name="itinerary_bottom_item_text_margin">16dp</dimen>
     <dimen name="itinerary_bottom_item_line_length">210dp</dimen>
 
+    <dimen name="planner_cue_card_height">170dp</dimen>
     <dimen name="planner_bottom_title">26sp</dimen>
     <dimen name="planner_bottom_text">16sp</dimen>
     <dimen name="planner_header_title">26sp</dimen>

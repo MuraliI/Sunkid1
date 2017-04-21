@@ -32,7 +32,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int TOP_OF_LIST = 0;
     private static final int NO_PEEK_HEIGHT = 0;
     private static final int NO_MARGIN = 0;
-    private static final float OFFSET_95 = 0.95f;
+    private static final float OFFSET_OVER_95_PERCENT = 0.95f;
     private static final float MAX_SLIDE_OFFSET = 1.0f;
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
@@ -151,7 +151,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             RoundedImageView imageView = (RoundedImageView) view.findViewById(R.id.image_itinerary_product_picture);
             imageView.setRadius(R.dimen.default_radius);
 
-            if (slideOffset >= OFFSET_95) {
+            if (slideOffset >= OFFSET_OVER_95_PERCENT) {
                 changeSeparatorVisibility(view, View.VISIBLE);
                 setItemViewBackground(view, R.drawable.background_cue_card);
             } else {
@@ -273,6 +273,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     public void addPlannerItems(List<AbstractFlexibleItem> items) {
         adapter.addItems(TOP_OF_LIST, items);
+        containerLayout.setVisibility(View.VISIBLE);
     }
 
     public void onItemClick(int position) {

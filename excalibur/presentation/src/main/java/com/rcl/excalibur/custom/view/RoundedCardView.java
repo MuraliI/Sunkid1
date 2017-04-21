@@ -36,8 +36,8 @@ public class RoundedCardView extends LinearLayout {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PriceRangeLayout, 0, 0);
 
         try {
-            radius = typedArray.getDimension(R.styleable.RoundedCardView_borderRadius
-                    , getResources().getDimension(R.dimen.default_radius));
+            radius = typedArray.getDimension(R.styleable.RoundedCardView_borderRadius,
+                    getResources().getDimension(R.dimen.default_radius));
 
         } finally {
             typedArray.recycle();
