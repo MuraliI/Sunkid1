@@ -274,7 +274,7 @@ public final class DetailViewTypeFactory {
                     || product.isEntertainment()) {
                 if (childPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
-                } else if (childPrice == 0) {
+                } else if (childPrice == 0 && adultPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.price_free));
                 }
             }
