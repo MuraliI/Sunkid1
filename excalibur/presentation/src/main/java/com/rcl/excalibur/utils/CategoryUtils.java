@@ -25,7 +25,7 @@ public class CategoryUtils {
         iconMap.put(SHOP, R.drawable.icon_shops_color);
         iconMap.put(ENTERTAINMENT, R.drawable.icon_entertainment_color);
         iconMap.put(ACTIVITIES, R.drawable.icon_services_color);
-        iconMap.put(GUEST_SERVICES, R.drawable.icon_services_color);
+        iconMap.put(GUEST_SERVICES, R.drawable.icon_services_color); // TODO: Change icon when is provided
     }
 
     private CategoryUtils() {
