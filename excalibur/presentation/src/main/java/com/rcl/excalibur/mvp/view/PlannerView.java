@@ -1,18 +1,20 @@
 package com.rcl.excalibur.mvp.view;
 
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v4.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
@@ -20,8 +22,10 @@ import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.fragments.PlannerFragment;
+import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
+import com.rcl.excalibur.utils.DayInformationUtils;
 import com.rcl.excalibur.utils.RoundedImageView;
 
 import java.util.List;
@@ -44,6 +48,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     @Bind(R.id.layout_planner_container) LinearLayout containerLayout;
     @Bind(R.id.progress_service_call_planner) View progressBar;
     @Bind(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
+    @Bind(R.id.text_arrivin_debarking_time) TextView shipArrivingDebanrkingLabel;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 
@@ -133,6 +138,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                     @Override
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                         bottomSheetIsSliding = true;
+
+                        if (shipArrivingDebanrkingLabel != null) {
+                            shipArrivingDebanrkingLabel.setAlpha(MAX_SLIDE_OFFSET - slideOffset);
+                        }
+
                         if (isExpanded) {
                             return;
                         }
@@ -318,6 +328,25 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     public void showProgressBar(boolean show) {
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    public void addArrivingDebanrkingValues(@NonNull List<EventModel> events, int day) {
+        Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        Resources resources = activity.getResources();
+        if (events == null) {
+            setTextCoumpondDrawableDayInfo(resources.getString(R.string.empty_string), 0);
+        } else {
+            Pair<String, Integer> stringIntegerPair = DayInformationUtils.getArrivalDebarkDescription(events, day, resources);
+            setTextCoumpondDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
+        }
+    }
+
+    public void setTextCoumpondDrawableDayInfo(String text, int drawable) {
+        shipArrivingDebanrkingLabel.setText(text);
+        shipArrivingDebanrkingLabel.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
     }
 
     @OnClick(R.id.image_ship_invisible)
