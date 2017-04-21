@@ -33,6 +33,8 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
     @Bind(R.id.ship_view) ShipView shipView;
     @Bind(R.id.text_ship_status) TextView shipLocationLabel;
 
+    @Bind(R.id.date_picker_plans_tab) TextView datePickerDayLabel;
+
     public TriptychHomeView(TriptychHomeActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
@@ -74,6 +76,11 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
         } else {
             String shipInfoText = DayInformationUtils.getShipLocation(events, day);
             shipLocationLabel.setText(shipInfoText);
+
+            StringBuilder formatedDay = new StringBuilder();
+            formatedDay.append(getContext().getResources().getString(R.string.day_title));
+            formatedDay.append(day);
+            datePickerDayLabel.setText(formatedDay.toString());
         }
     }
 }
