@@ -206,6 +206,7 @@
     <!--Day Picker-->
     <string name="today_day_title">Today</string>
     <string name="day_title">"Day "</string>
+    <string name="day_picker_at_sea">At sea</string>
     <string-array name="array_months">
         <item>"Jan "</item>
         <item>"Feb "</item>
