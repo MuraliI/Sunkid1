@@ -22,18 +22,14 @@ public class DiscoverTabPresenterTest {
 
     DiscoverTabPresenter presenter;
     @Mock DiscoverTabView view;
-    @Mock GetProductsUseCase getProductsUseCase;
-    @Mock GetSaildDateUseCase getSaildDateUseCase;
     @Mock BaseActivity activity;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new DiscoverTabPresenter(view, getProductsUseCase, getSaildDateUseCase);
-
+        presenter = new DiscoverTabPresenter(view);
         when(view.getActivity()).thenReturn(activity);
     }
-
 
     @Test
     public void testOpenListScreen() throws Exception {
@@ -41,12 +37,6 @@ public class DiscoverTabPresenterTest {
         presenter.openListScreen(fragmentToShow);
 
         verify(view).openListScreen(fragmentToShow);
-    }
-
-    @Test
-    public void testInit() throws Exception {
-        presenter.init();
-        verify(getProductsUseCase).execute(Mockito.any());
     }
 
     @Test

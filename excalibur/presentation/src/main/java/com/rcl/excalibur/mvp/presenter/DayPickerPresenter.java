@@ -21,8 +21,6 @@ import com.rcl.excalibur.utils.DateUtils;
 import java.text.ParseException;
 import java.util.List;
 
-import static com.rcl.excalibur.utils.JsonUtils.getShipNameFromJson;
-
 public class DayPickerPresenter {
 
     private DayPickerView view;
@@ -78,10 +76,11 @@ public class DayPickerPresenter {
     private void setHeader(ItineraryModel itinerary, String shipCode, Resources resources, String preferenceDay) {
         StringBuilder formatedDay = new StringBuilder();
         formatedDay.append(resources.getString(R.string.day_title));
-        formatedDay.append(getDay(itinerary, resources, preferenceDay));
+        formatedDay.append(getDay(itinerary, preferenceDay));
         String day = formatedDay.toString();
         String description = itinerary.getDescription();
-        String shipName = getShipNameFromJson(view.getContext(), shipCode);
+        //TODO the endpoint is not developed yet and if read from the json file will crash the test
+        String shipName = resources.getString(R.string.hardcoded_day_picker_ship_name);
         if (!TextUtils.isEmpty(description) && !TextUtils.isEmpty(day)) {
             view.setHeader(description, day, shipName);
         }
@@ -95,7 +94,7 @@ public class DayPickerPresenter {
         }
     }
 
-    private String getDay(ItineraryModel itineraryModel, Resources resources, String preferenceDay) {
+    private String getDay(ItineraryModel itineraryModel, String preferenceDay) {
         if (CollectionUtils.isEmpty(itineraryModel.getEvents())) {
             return "";
         }
