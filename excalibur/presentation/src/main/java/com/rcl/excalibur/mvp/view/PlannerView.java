@@ -169,21 +169,20 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
         for (int i = 0; i <= visibleChildren; i++) {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
-            if (view == null) {
-                return;
-            }
-            if (adapter.isHeader(adapter.getItem(i))) {
-                firstHeader = (LinearLayout) view.findViewById(R.id.layout_planner_header_container);
-                firstHeader.setVisibility(View.INVISIBLE);
-            } else {
-                setInitialViewState(recyclerView.getLayoutManager().findViewByPosition(i));
+            if (view != null) {
+                if (adapter.isHeader(adapter.getItem(i))) {
+                    firstHeader = (LinearLayout) view.findViewById(R.id.layout_planner_header_container);
+                    firstHeader.setVisibility(View.INVISIBLE);
+                } else {
+                    setInitialViewState(recyclerView.getLayoutManager().findViewByPosition(i));
+                }
             }
         }
         hideHeadersView();
     }
 
     private void setInitialViewState(View view) {
-        // FIX improve this
+        // FIXME: improve this
         if (view.findViewById(R.id.layout_planner_header_container) != null) {
             view.setVisibility(View.INVISIBLE);
         } else {
@@ -197,40 +196,33 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     private void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
-        if (view == null) {
-            return;
-        }
+        if (view != null) {
+            ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            marginLayout.setMargins(horizontalMargin, NO_MARGIN, horizontalMargin, verticalMargin);
 
-        ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        marginLayout.setMargins(horizontalMargin, NO_MARGIN, horizontalMargin, verticalMargin);
-
-        if (initialized) {
-            view.requestLayout();
+            if (initialized) {
+                view.requestLayout();
+            }
         }
     }
 
     private void setItemViewBackground(View view, int imageResource) {
-        if (view == null) {
-            return;
+        if (view != null) {
+            view.setBackgroundResource(imageResource);
         }
-        view.setBackgroundResource(imageResource);
     }
 
     private void resizeImage(View parent, int margin) {
-        if (parent == null) {
-            return;
-        }
+        if (parent != null) {
+            RoundedImageView image = ButterKnife.findById(parent, R.id.image_itinerary_product_picture);
+            if (image != null) {
+                ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) image.getLayoutParams();
+                marginLayout.setMargins(NO_MARGIN, margin, margin, margin);
 
-        RoundedImageView image = ButterKnife.findById(parent, R.id.image_itinerary_product_picture);
-        if (image == null) {
-            return;
-        }
-
-        ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) image.getLayoutParams();
-        marginLayout.setMargins(NO_MARGIN, margin, margin, margin);
-
-        if (initialized) {
-            image.requestLayout();
+                if (initialized) {
+                    image.requestLayout();
+                }
+            }
         }
     }
 
