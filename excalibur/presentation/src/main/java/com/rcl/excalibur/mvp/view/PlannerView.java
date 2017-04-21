@@ -151,6 +151,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                         if (slideOffset <= DOUBLE_OFFSET_VALUE && isExpanded) {
                             hideHeadersView();
                         }
+
+                        if (shipArrivingDebanrkingLabel != null) {
+                            shipArrivingDebanrkingLabel.setAlpha(1.0f - slideOffset);
+                        }
+
                         if (isExpanded) {
                             return;
                         }

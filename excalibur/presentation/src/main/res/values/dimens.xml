@@ -181,4 +181,8 @@
     <dimen name="day_picker_margin">45dp</dimen>
     <dimen name="day_picker_image_width">25dp</dimen>
 
+    <!-- Day Information-->
+    <dimen name="ship_location_text_size">18sp</dimen>
+    <dimen name="day_information_text_size">14sp</dimen>
+
 </resources>

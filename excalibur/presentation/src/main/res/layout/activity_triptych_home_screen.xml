@@ -45,7 +45,7 @@
                 android:layout_margin="@dimen/margin_small"
                 android:text="@string/hardcoded_home_status"
                 android:textColor="@color/white"
-                android:textSize="@dimen/home_status_text_size"
+                android:textSize="@dimen/ship_location_text_size"
                 android:textStyle="bold" />
 
             <ImageView

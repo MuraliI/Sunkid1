@@ -17,7 +17,7 @@ public class TriptychHomePresenter {
     private TriptychHomeView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
-
+    private String dayPreferences;
 
     public TriptychHomePresenter(TriptychHomeView view,
                                  GetSailingPreferenceUseCase getSailingPreferenceUseCase,
@@ -29,8 +29,10 @@ public class TriptychHomePresenter {
 
     public void init() {
         view.init();
+    }
 
-        String dayPreferences = getSailingPreferenceUseCase.getDay();
+    public void getShipLocationInfo() {
+        dayPreferences = getSailingPreferenceUseCase.getDay();
         int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
 
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
@@ -41,18 +43,6 @@ public class TriptychHomePresenter {
         } else {
             List<EventModel> events = itinerary.getEvents();
             view.addShipLocationValue(events, selectedDay);
-        }
-    }
-
-    public class SaildDateDbUseCaseObserver extends DefaultPresentObserver<SailDateInfo, TriptychHomePresenter> {
-
-        SaildDateDbUseCaseObserver(TriptychHomePresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(SailDateInfo value) {
-
         }
     }
 

@@ -35,6 +35,6 @@ public class TriptychHomeActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sailingPreferences = new SailingPreferenceImpl(getApplicationContext());
+        presenter.getShipLocationInfo();
     }
 }

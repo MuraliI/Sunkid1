@@ -53,6 +53,7 @@ public class PlannerPresenter {
 
     private int lastHeaderId = 0;
     private int lastItemId = 0;
+    private String dayPreferences;
 
     public PlannerPresenter(PlannerView view,
                             GetOfferingsDbUseCase useCase,
@@ -86,8 +87,10 @@ public class PlannerPresenter {
             items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
             view.addPlannerItems(items);
         }, DELAY);
+    }
 
-        String dayPreferences = getSailingPreferenceUseCase.getDay();
+    public void getArrivingDebarkingInfo() {
+        dayPreferences = getSailingPreferenceUseCase.getDay();
         int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
 
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();

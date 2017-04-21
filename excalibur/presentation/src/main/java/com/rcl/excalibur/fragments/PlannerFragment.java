@@ -59,6 +59,6 @@ public class PlannerFragment extends Fragment implements FlexibleAdapter.OnItemC
     @Override
     public void onResume() {
         super.onResume();
-        sailingPreferences = new SailingPreferenceImpl(getContext());
+        presenter.getArrivingDebarkingInfo();
     }
 }
