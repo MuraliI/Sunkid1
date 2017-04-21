@@ -17,7 +17,6 @@
     <string name="detail_module_times">Times</string>
     <string name="detail_module_promotion">Promotion</string>
     <string name="prices">Prices</string>
-    <string name="starting_from">Starting from</string>
     <string name="adult">Adult</string>
     <string name="child">Child</string>
     <string name="item_price">$%1$s</string>
@@ -107,6 +106,7 @@
     <string name="category_shopping">SHOPPING</string>
     <string name="category_shorex">SHOREX</string>
     <string name="category_entertainment">ENTERTAINMENT</string>
+    <string name="category_guest_services">GUEST_SERVICES</string>
 
     <string name="adults">Adults</string>
     <string name="children">Children</string>
@@ -141,6 +141,7 @@
     <string name="itinerary_separator_title_on_going">On going</string>
     <string name="planner_all_day_item">All day</string>
     <string name="planner_operating_hours">%1$s &#8210; %2$s</string>
+    <string name="shared_element_transition_name">hero_image</string>
 
     <string name="title_morning">Morning</string>
     <string name="title_afternoon">Afternoon</string>
@@ -205,6 +206,7 @@
     <!--Day Picker-->
     <string name="today_day_title">Today</string>
     <string name="day_title">"Day "</string>
+    <string name="day_picker_at_sea">At sea</string>
     <string-array name="array_months">
         <item>"Jan "</item>
         <item>"Feb "</item>

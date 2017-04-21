@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.support.annotation.DimenRes;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
@@ -30,7 +31,7 @@ public class RoundedImageView extends AppCompatImageView {
     }
 
     private void init() {
-        radius = getContext().getResources().getDimension(R.dimen.corner_radius);
+        radius = getContext().getResources().getDimension(R.dimen.default_radius);
     }
 
     @Override
@@ -40,5 +41,13 @@ public class RoundedImageView extends AppCompatImageView {
         clipPath.addRoundRect(rect, radius, radius, Path.Direction.CW);
         canvas.clipPath(clipPath);
         super.onDraw(canvas);
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public void setRadius(@DimenRes int radius) {
+        this.radius = getResources().getDimension(radius);
     }
 }

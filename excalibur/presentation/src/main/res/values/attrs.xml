@@ -20,4 +20,15 @@
         <attr name="onColor" format="color"/>
         <attr name="offColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="ShipTimeFragment">
+        <attr name="type" format="enum">
+            <enum name="white" value="1"/>
+            <enum name="blue" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RoundedCardView">
+        <attr name="borderRadius" format="dimension"/>
+    </declare-styleable>
 </resources>

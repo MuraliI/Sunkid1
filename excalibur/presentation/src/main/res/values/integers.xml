@@ -32,5 +32,9 @@
 
     <!-- Planner view -->
     <integer name="planner_product_item_max_range">4</integer>
+    <integer name="planner_slide_in_time">300</integer>
+    <integer name="slide_up_time">100</integer>
+    <integer name="slide_up_all_day_time">200</integer>
+    <integer name="cue_card_gradient_angle">90</integer>
 
 </resources>

@@ -12,12 +12,12 @@
 
     <TextView
         android:id="@+id/day_picker_header_calendar_day"
-        style="@style/AppTheme.DayPickerDescription"
+        style="@style/AppTheme.DayPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        android:drawableEnd="@drawable/ic_arrow_drop_up"
         android:drawablePadding="@dimen/margin_text"
-        android:drawableStart="@drawable/calendar_add"
+        android:drawableStart="@drawable/icon_calendar_tab"
         android:gravity="center"
         tools:text="@string/hardcoded_day_picker_calendar_day" />
 
@@ -36,5 +36,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        tools:text="@string/hardcoded_day_picker_ship_name" />
+        android:text="@string/hardcoded_day_picker_ship_name" />
 </LinearLayout>

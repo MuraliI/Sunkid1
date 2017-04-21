@@ -34,6 +34,11 @@ import com.rcl.excalibur.domain.service.DiscoverServices;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +49,7 @@ import static com.rcl.excalibur.data.utils.ServiceUtil.isSuccess;
 import static com.rcl.excalibur.domain.ProductType.ACTIVITIES_TYPE;
 import static com.rcl.excalibur.domain.ProductType.DINING_TYPE;
 import static com.rcl.excalibur.domain.ProductType.ENTERTAINMENT_TYPE;
+import static com.rcl.excalibur.domain.ProductType.GUEST_SERVICES_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SHOPPING_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
@@ -232,10 +238,10 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     }
 
     @Override
-    public void getProducts() {
+    public void getProducts(DisposableObserver<Boolean> serviceCallCompletedObserver) {
         // TODO: This is a provisional implementation, once we have the final response from the serves.
         // This must be changed to consume all products with pagination support
-        new Thread(() -> {
+        Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
             offeringRepository.deleteAll();
             productRepository.deleteAll();
 
@@ -245,6 +251,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
             Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_TYPE, MAX_COUNT);
             Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_TYPE, MAX_COUNT);
             Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> guestServicesCall = getDiscoverApi().getProducts(SAILING_ID, GUEST_SERVICES_TYPE, MAX_COUNT);
 
             ProductProcessor productProcessor = new ProductProcessor();
 
@@ -255,10 +262,15 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                 productProcessor.onResponse(entertainmentCall.execute(), ENTERTAINMENT_TYPE);
                 productProcessor.onResponse(spaCall.execute(), SPA_TYPE);
                 productProcessor.onResponse(shoppingCall.execute(), SHOPPING_TYPE);
+                productProcessor.onResponse(guestServicesCall.execute(), GUEST_SERVICES_TYPE);
             } catch (Exception e) {
                 productProcessor.onFailure(e);
+                observableEmitter.onNext(false);
             }
-        }).start();
+            observableEmitter.onNext(true);
+        }).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(serviceCallCompletedObserver);
     }
 
     private void logOnFailureError(Throwable t, String category) {

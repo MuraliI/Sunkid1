@@ -1,5 +1,10 @@
 package com.rcl.excalibur.mvp.presenter;
 
+
+import com.rcl.excalibur.domain.interactor.DefaultObserver;
+import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
+import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
+import com.rcl.excalibur.domain.interactor.GetSubCategoriesUseCase;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
@@ -19,16 +24,37 @@ public class TriptychHomePresenter {
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
     private String dayPreferences;
 
-    public TriptychHomePresenter(TriptychHomeView view,
-                                 GetSailingPreferenceUseCase getSailingPreferenceUseCase,
-                                 GetSaildDateDbUseCase getSaildDateDbUseCase) {
+    private GetProductsUseCase getProductsUseCase;
+    private GetSubCategoriesUseCase getSubCategoriesUseCase;
+    private GetSaildDateUseCase getSaildDateUseCase;
+
+    public TriptychHomePresenter(
+            TriptychHomeView view,
+            GetProductsUseCase getProductsUseCase,
+            GetSubCategoriesUseCase getSubCategoriesUseCase,
+            GetSaildDateUseCase getSaildDateUseCase,
+            GetSailingPreferenceUseCase getSailingPreferenceUseCase,
+            GetSaildDateDbUseCase getSaildDateDbUseCase) {
         this.view = view;
+        this.getProductsUseCase = getProductsUseCase;
+        this.getSubCategoriesUseCase = getSubCategoriesUseCase;
+        this.getSaildDateUseCase = getSaildDateUseCase;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
     }
 
     public void init() {
         view.init();
+
+        getProductsUseCase.execute(new DefaultObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean value) {
+                view.onServiceCallCompleted(value);
+            }
+        }, null);
+
+        getSubCategoriesUseCase.execute(null);
+        getSaildDateUseCase.execute(null);
     }
 
     public void getShipLocationInfo() {

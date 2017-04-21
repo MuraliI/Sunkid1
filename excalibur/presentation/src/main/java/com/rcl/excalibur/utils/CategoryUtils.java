@@ -11,9 +11,10 @@ public class CategoryUtils {
     public static final String DINING = "DINING";
     public static final String SHOREX = "SHOREX";
     public static final String SPA = "SPA";
-    public static final String SHOP = "SHOP";
+    public static final String SHOP = "SHOPPING";
     public static final String ENTERTAINMENT = "ENTERTAINMENT";
     public static final String ACTIVITIES = "ACTIVITIES";
+    public static final String GUEST_SERVICES = "GUEST_SERVICES";
 
     private static HashMap<String, Integer> iconMap;
     static {
@@ -24,6 +25,7 @@ public class CategoryUtils {
         iconMap.put(SHOP, R.drawable.icon_shops_color);
         iconMap.put(ENTERTAINMENT, R.drawable.icon_entertainment_color);
         iconMap.put(ACTIVITIES, R.drawable.icon_services_color);
+        iconMap.put(GUEST_SERVICES, R.drawable.icon_services_color); // TODO: Change icon when is provided
     }
 
     private CategoryUtils() {

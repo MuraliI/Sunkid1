@@ -3,6 +3,7 @@ package com.rcl.excalibur.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,9 +24,9 @@ import io.reactivex.Observer;
 
 import static io.reactivex.Observable.just;
 
-public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.DiscoverViewHolder> {
+public class ProductsAdapter extends BaseAdapter<Product, Pair<Product, View>, ProductsAdapter.DiscoverViewHolder> {
 
-    public ProductsAdapter(final Observer<Product> observer) {
+    public ProductsAdapter(final Observer<Pair<Product, View>> observer) {
         super(observer);
     }
 
@@ -66,7 +67,7 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
         @Bind(R.id.card_venue) TextView venueTextView;
         @Bind(R.id.card_location) TextView locationTextView;
         private Product product;
-        private WeakReference<Observer<Product>> observerRef;
+        private WeakReference<Observer<Pair<Product, View>>> observerRef;
 
         DiscoverViewHolder(View itemView) {
             super(itemView);
@@ -74,11 +75,12 @@ public class ProductsAdapter extends BaseAdapter<Product, ProductsAdapter.Discov
         }
 
         @OnClick(R.id.card_view)
-        void onImageClick() {
+        void onImageClick(View view) {
             if (observerRef == null) {
                 return;
             }
-            just(product).subscribe(observerRef.get());
+            Pair<Product, View> pair = new Pair<>(product, view.findViewById(R.id.card_image));
+            just(pair).subscribe(observerRef.get());
         }
     }
 }

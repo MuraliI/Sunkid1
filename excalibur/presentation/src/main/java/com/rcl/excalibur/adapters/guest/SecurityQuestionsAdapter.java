@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 
-public class SecurityQuestionsAdapter extends BaseAdapter<String, SecurityQuestionsAdapter.SecurityQuestionsHolder> {
+public class SecurityQuestionsAdapter extends BaseAdapter<String, String, SecurityQuestionsAdapter.SecurityQuestionsHolder> {
     private int selectedPosition = -1;
 
     public SecurityQuestionsAdapter(Observer<String> observer) {

@@ -237,7 +237,8 @@ public final class DetailViewTypeFactory {
         recyclerViewTypeList.add(new ExpandableAccesibilityViewType(res.getString(R.string.accessibility), accessibilities));
     }
 
-    private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings, @NonNull Resources res, Product product) {
+    private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings
+            , @NonNull Resources res, Product product) {
 
         if (!product.isShopping() && !product.isDining()) {
 
@@ -280,7 +281,7 @@ public final class DetailViewTypeFactory {
 
             if (!map.isEmpty()) {
                 PricesFromViewType pricesFromViewType = new PricesFromViewType(res.getString(R.string.prices),
-                        res.getString(R.string.starting_from), map, product);
+                        res.getString(R.string.prices_from), map, product);
                 recyclerViewTypeList.add(pricesFromViewType);
             }
         }

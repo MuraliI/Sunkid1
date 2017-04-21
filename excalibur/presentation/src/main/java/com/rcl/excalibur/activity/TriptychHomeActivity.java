@@ -5,6 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
+import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.data.repository.SailDateDataRepository;
+import com.rcl.excalibur.data.repository.SubCategoriesDataRepository;
+import com.rcl.excalibur.data.service.DiscoverServicesImpl;
+import com.rcl.excalibur.data.service.SailDateServicesImpl;
+import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
+import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
+import com.rcl.excalibur.domain.interactor.GetSubCategoriesUseCase;
 import com.rcl.excalibur.data.preference.SailingPreferenceImpl;
 import com.rcl.excalibur.data.repository.SailDateDataRepository;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
@@ -26,9 +35,20 @@ public class TriptychHomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_triptych_home_screen);
         sailingPreferences = new SailingPreferenceImpl(getApplicationContext());
-        presenter = new TriptychHomePresenter(new TriptychHomeView(this),
+
+
+        DiscoverServicesImpl impl = new DiscoverServicesImpl(new ProductDataRepository());
+        impl.setSubCategoryRepository(new SubCategoriesDataRepository());
+        impl.setSubCategoryResponseDataMapper(new SubCategoryResponseDataMapper());
+
+        presenter = new TriptychHomePresenter(
+                new TriptychHomeView(this),
+                new GetProductsUseCase(impl),
+                new GetSubCategoriesUseCase(impl),
+                new GetSaildDateUseCase(new SailDateServicesImpl(new SailDateDataRepository())),
                 new GetSailingPreferenceUseCase(sailingPreferences),
-                new GetSaildDateDbUseCase(new SailDateDataRepository()));
+                new GetSaildDateDbUseCase(new SailDateDataRepository())
+        );
         presenter.init();
     }
 

@@ -3,7 +3,7 @@
     android:id="@+id/layout_planner_header_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_gradient_item_cue_card"
+    android:background="@drawable/background_cue_card"
     android:orientation="vertical">
 
     <TextView

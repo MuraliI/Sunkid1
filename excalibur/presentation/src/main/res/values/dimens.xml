@@ -32,7 +32,8 @@
     <dimen name="ribbon_ship_time_margin_bottom">6dp</dimen>
 
 
-    <dimen name="corner_radius">7dp</dimen>
+    <dimen name="default_radius">7dp</dimen>
+    <dimen name="zero_radius">0dp</dimen>
     <!--home item plan-->
     <dimen name="item_plan_container_height">130dp</dimen>
     <dimen name="item_plan_corner_radius">7dp</dimen>
@@ -102,6 +103,7 @@
     <dimen name="itinerary_bottom_item_text_margin">16dp</dimen>
     <dimen name="itinerary_bottom_item_line_length">210dp</dimen>
 
+    <dimen name="planner_cue_card_height">170dp</dimen>
     <dimen name="planner_bottom_title">26sp</dimen>
     <dimen name="planner_bottom_text">16sp</dimen>
     <dimen name="planner_header_title">26sp</dimen>
@@ -117,7 +119,9 @@
     <dimen name="size_text_big">25sp</dimen>
     <dimen name="size_text_medium">20sp</dimen>
     <dimen name="size_text_small">16sp</dimen>
+    <dimen name="size_text_semi_small">15sp</dimen>
     <dimen name="size_text_x_small">14sp</dimen>
+    <dimen name="size_text_xx_small">13sp</dimen>
     <dimen name="margin_input_text">32dp</dimen>
     <dimen name="margin_text">7dp</dimen>
     <dimen name="margin_edit_text">14dp</dimen>
@@ -181,6 +185,7 @@
     <dimen name="day_picker_margin">45dp</dimen>
     <dimen name="day_picker_image_width">25dp</dimen>
 
+    <dimen name="ship_time_height">30dp</dimen>
     <!-- Day Information-->
     <dimen name="ship_location_text_size">18sp</dimen>
     <dimen name="day_information_text_size">14sp</dimen>
