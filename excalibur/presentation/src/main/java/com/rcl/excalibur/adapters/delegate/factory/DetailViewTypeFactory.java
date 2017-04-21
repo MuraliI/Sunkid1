@@ -279,9 +279,8 @@ public final class DetailViewTypeFactory {
             }
 
             if (!map.isEmpty()) {
-                String subtitle = product.isSpa() ? res.getString(R.string.price_from) : res.getString(R.string.starting_from);
                 PricesFromViewType pricesFromViewType = new PricesFromViewType(res.getString(R.string.prices),
-                        subtitle, map, product);
+                        res.getString(R.string.prices_from), map, product);
                 recyclerViewTypeList.add(pricesFromViewType);
             }
         }
