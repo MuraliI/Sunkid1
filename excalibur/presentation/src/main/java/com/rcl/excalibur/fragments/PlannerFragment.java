@@ -16,6 +16,7 @@ import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.domain.preference.SailingPreferences;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
+import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.mvp.presenter.PlannerPresenter;
 import com.rcl.excalibur.mvp.view.PlannerView;
 
@@ -44,7 +45,8 @@ public class PlannerFragment extends BaseTripTychFragment implements FlexibleAda
                 new GetOfferingsDbUseCase(new OfferingDataRepository()),
                 new PlannerProductModelMapper(getResources()),
                 new GetSailingPreferenceUseCase(sailingPreferences),
-                new GetSaildDateDbUseCase(new SailDateDataRepository())
+                new GetSaildDateDbUseCase(new SailDateDataRepository()),
+                new SailingInformationModelDataMapper()
         );
         presenter.init();
     }

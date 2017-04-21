@@ -1,5 +1,7 @@
 package com.rcl.excalibur.mvp.view;
 
+import android.app.Activity;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -71,16 +73,22 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
     }
 
     public void addShipLocationValue(@NonNull List<EventModel> events, int day) {
-        if (events == null) {
-            shipLocationLabel.setText(getActivity().getResources().getString(R.string.empty_string));
-        } else {
-            String shipInfoText = DayInformationUtils.getShipLocation(events, day);
-            shipLocationLabel.setText(shipInfoText);
-
-            StringBuilder formatedDay = new StringBuilder();
-            formatedDay.append(getContext().getResources().getString(R.string.day_title));
-            formatedDay.append(day);
-            datePickerDayLabel.setText(formatedDay.toString());
+        Activity activity = getActivity();
+        if (activity == null) {
+            return;
         }
+        Resources resources = activity.getResources();
+        if (events == null) {
+            setTextShipLocation(resources.getString(R.string.empty_string),
+                    resources.getString(R.string.day_number, day));
+        } else {
+            setTextShipLocation(DayInformationUtils.getShipLocation(events, day, resources),
+                    resources.getString(R.string.day_number, day));
+        }
+    }
+
+    private void setTextShipLocation(String textShip, String textDay) {
+        shipLocationLabel.setText(textShip);
+        datePickerDayLabel.setText(textDay);
     }
 }

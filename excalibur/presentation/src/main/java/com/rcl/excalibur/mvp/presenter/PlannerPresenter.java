@@ -31,7 +31,7 @@ import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 
 public class PlannerPresenter {
 
-    private static final String DAY_DEFAULT_VALUE = "1";
+    public static final String DAY_DEFAULT_VALUE = "1";
     private GetOfferingsDbUseCase useCase;
     private static final String HEADER_FORMAT = "H%s";
     private static final String ITEM_FORMAT = "I%s";
@@ -43,6 +43,7 @@ public class PlannerPresenter {
 
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
+    private SailingInformationModelDataMapper sailingInformationModelDataMapper;
 
     private PlannerView view;
 
@@ -56,12 +57,14 @@ public class PlannerPresenter {
                             GetOfferingsDbUseCase useCase,
                             PlannerProductModelMapper modelMapper,
                             GetSailingPreferenceUseCase getSailingPreferenceUseCase,
-                            GetSaildDateDbUseCase getSaildDateDbUseCase) {
+                            GetSaildDateDbUseCase getSaildDateDbUseCase,
+                            SailingInformationModelDataMapper sailingInformationModelDataMapper) {
         this.view = view;
         this.useCase = useCase;
         this.mapper = modelMapper;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
+        this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
     }
 
     public void init() {
@@ -78,7 +81,7 @@ public class PlannerPresenter {
         int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
 
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
-        SailingInfoModel sailingInfoModel = new SailingInformationModelDataMapper().transform(sailDateInfo);
+        SailingInfoModel sailingInfoModel = sailingInformationModelDataMapper.transform(sailDateInfo);
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
         if (itinerary == null) {
             view.addArrivingDebanrkingValues(null, selectedDay);

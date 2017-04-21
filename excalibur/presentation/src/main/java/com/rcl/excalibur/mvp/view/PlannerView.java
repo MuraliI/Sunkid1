@@ -1,6 +1,7 @@
 package com.rcl.excalibur.mvp.view;
 
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -135,7 +136,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                         bottomSheetIsSliding = true;
 
                         if (shipArrivingDebanrkingLabel != null) {
-                            shipArrivingDebanrkingLabel.setAlpha(1.0f - slideOffset);
+                            shipArrivingDebanrkingLabel.setAlpha(MAX_SLIDE_OFFSET - slideOffset);
                         }
 
                         if (isExpanded) {
@@ -326,13 +327,21 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     public void addArrivingDebanrkingValues(@NonNull List<EventModel> events, int day) {
-        if (events == null) {
-            shipArrivingDebanrkingLabel.setText(getActivity().getResources().getString(R.string.empty_string));
-            shipArrivingDebanrkingLabel.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        } else {
-            Pair<String, Integer> stringIntegerPair = DayInformationUtils.getArrivalDebarkDescription(events, day);
-            shipArrivingDebanrkingLabel.setText(stringIntegerPair.first);
-            shipArrivingDebanrkingLabel.setCompoundDrawablesWithIntrinsicBounds(stringIntegerPair.second, 0, 0, 0);
+        Activity activity = getActivity();
+        if (activity == null) {
+            return;
         }
+        Resources resources = activity.getResources();
+        if (events == null) {
+            setTextCoumpondDrawableDayInfo(resources.getString(R.string.empty_string), 0);
+        } else {
+            Pair<String, Integer> stringIntegerPair = DayInformationUtils.getArrivalDebarkDescription(events, day, resources);
+            setTextCoumpondDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
+        }
+    }
+
+    public void setTextCoumpondDrawableDayInfo(String text, int drawable) {
+        shipArrivingDebanrkingLabel.setText(text);
+        shipArrivingDebanrkingLabel.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
     }
 }
