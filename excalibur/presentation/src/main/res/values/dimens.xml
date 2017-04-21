@@ -190,5 +190,6 @@
     <!-- Day Information-->
     <dimen name="ship_location_text_size">20sp</dimen>
     <dimen name="day_information_text_size">16sp</dimen>
+    <dimen name="translation_y_debarking_time">50dp</dimen>
 
 </resources>
