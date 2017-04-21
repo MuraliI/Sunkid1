@@ -44,7 +44,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     @Bind(R.id.layout_planner_all_day) View allDayView;
     @Bind(R.id.layout_planner_container) LinearLayout containerLayout;
     @Bind(R.id.progress_service_call_planner) View progressBar;
-    @Bind(R.id.text_arrivin_debarking_time) TextView shipArrivingDebanrkingLabel;
+    @Bind(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 
@@ -135,8 +135,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                         bottomSheetIsSliding = true;
 
-                        if (shipArrivingDebanrkingLabel != null) {
-                            shipArrivingDebanrkingLabel.setAlpha(MAX_SLIDE_OFFSET - slideOffset);
+                        if (shipArrivingDebarkingLabel != null) {
+                            shipArrivingDebarkingLabel.setAlpha(MAX_SLIDE_OFFSET - slideOffset);
                         }
 
                         if (isExpanded) {
@@ -151,6 +151,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private void setBottomSheetExpandedState() {
         isExpanded = true;
 
+        shipArrivingDebarkingLabel.setVisibility(View.GONE);
+
         bottomSheetBehavior.setPeekHeight(NO_PEEK_HEIGHT);
         calculateItemMargins(MAX_SLIDE_OFFSET);
         showHeadersView();
@@ -158,6 +160,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private void setBottomSheetCollapsingState() {
         isExpanded = false;
+
+        shipArrivingDebarkingLabel.setVisibility(View.VISIBLE);
 
         resetItemsToInitialState();
 
@@ -326,22 +330,22 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    public void addArrivingDebanrkingValues(@NonNull List<EventModel> events, int day) {
+    public void addArrivingDebarkingValues(List<EventModel> events, int day) {
         Activity activity = getActivity();
         if (activity == null) {
             return;
         }
         Resources resources = activity.getResources();
         if (events == null) {
-            setTextCoumpondDrawableDayInfo(resources.getString(R.string.empty_string), 0);
+            setTextCompoundDrawableDayInfo(resources.getString(R.string.empty_string), 0);
         } else {
             Pair<String, Integer> stringIntegerPair = DayInformationUtils.getArrivalDebarkDescription(events, day, resources);
-            setTextCoumpondDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
+            setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
         }
     }
 
-    public void setTextCoumpondDrawableDayInfo(String text, int drawable) {
-        shipArrivingDebanrkingLabel.setText(text);
-        shipArrivingDebanrkingLabel.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
+    private void setTextCompoundDrawableDayInfo(String text, int drawable) {
+        shipArrivingDebarkingLabel.setText(text);
+        shipArrivingDebarkingLabel.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
     }
 }
