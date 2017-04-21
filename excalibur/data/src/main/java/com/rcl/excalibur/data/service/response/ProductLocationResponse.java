@@ -7,7 +7,11 @@ public class ProductLocationResponse {
     @SerializedName("locationID")
     private String locationId;
     private String locationCode;
+    private String locationTitle;
     private String locationType;
+    private String latitude;
+    private String longitude;
+    private DeckInfoResponse deckInfo;
     private String operatingHoursStart;
     private String operatingHoursEnd;
     private String locationVenue;

@@ -3,6 +3,7 @@ package com.rcl.excalibur.domain;
 
 public class ProductLocation {
 
+    private String locationName;
     private String locationId;
     private String locationCode;
     private String locationType;
