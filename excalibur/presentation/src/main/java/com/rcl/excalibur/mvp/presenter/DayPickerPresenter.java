@@ -51,10 +51,7 @@ public class DayPickerPresenter {
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
         view.setAdapterObserver(new AdapterObserver(this));
         String preferenceDay = getSailingPreferenceUseCase.getDay();
-        int selectedDayPosition = -1;
-        if (preferenceDay != null) {
-            selectedDayPosition = Integer.parseInt(preferenceDay) - 1;
-        }
+        int selectedDayPosition = preferenceDay != null ? Integer.parseInt(preferenceDay) - 1 : -1;
         view.init(itinerary.getIndexCurrentDay(), selectedDayPosition);
         setHeader(itinerary, sailingInfoModel.getShipCode(), activity.getResources(), preferenceDay);
         setFooter(itinerary, activity.getResources());
