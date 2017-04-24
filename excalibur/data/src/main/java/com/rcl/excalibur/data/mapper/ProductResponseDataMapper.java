@@ -1,7 +1,8 @@
 package com.rcl.excalibur.data.mapper;
 
 import com.rcl.excalibur.data.service.response.ChildCategoryResponse;
-import com.rcl.excalibur.data.service.response.LocationOperationHourResponse;
+import com.rcl.excalibur.data.service.response.DeckInfoResponse;
+import com.rcl.excalibur.data.service.response.OperationHourResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductActivityLevelResponse;
@@ -19,6 +20,7 @@ import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.ChildCategory;
+import com.rcl.excalibur.domain.LocationDeckInfo;
 import com.rcl.excalibur.domain.LocationOperationHour;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
@@ -235,37 +237,55 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         ProductLocation productLocation = null;
         if (productLocationResponse != null) {
             productLocation = new ProductLocation();
-            productLocation.setLocationTitle(productLocationResponse.getLocationTitle());
             productLocation.setLocationCode(productLocationResponse.getLocationCode());
+            productLocation.setLocationTitle(productLocationResponse.getLocationTitle());
             productLocation.setLocationType(productLocationResponse.getLocationType());
-            productLocation.setLocationOperationHours(transform(productLocationResponse.getLocationOperationHours()));
-            productLocation.setLocationVenue(productLocationResponse.getLocationVenue());
-            productLocation.setLocationPort(productLocationResponse.getLocationPort());
-            if (productLocationResponse.getDeckInfo() != null) {
-                productLocation.setLocationDirection(productLocationResponse.getDeckInfo().getDirection());
-                productLocation.setLocationDeckNumber(Integer.parseInt(productLocationResponse.getDeckInfo().getDeckNumber()));
-            }
+            productLocation.setLatitude(productLocationResponse.getLatitude());
+            productLocation.setLongitude(productLocationResponse.getLongitude());
+            productLocation.setDeckInfo(transformDeckInfo(productLocationResponse.getDeckInfo()));
+            productLocation.setLocationOperationHours(transformOperationHours(productLocationResponse.getLocationOperationHours()));
         }
         return productLocation;
     }
 
-    private LocationOperationHour[] transform(LocationOperationHourResponse[] locationOperationHoursResponse) {
-        LocationOperationHour[] locationOperationHours = null;
-        if (locationOperationHoursResponse != null && locationOperationHoursResponse.length > 0) {
-            locationOperationHours = new LocationOperationHour[locationOperationHoursResponse.length];
-            for (int i = 0; i < locationOperationHoursResponse.length; i++) {
-                locationOperationHours[i] = transform(locationOperationHoursResponse[i]);
+    private List<LocationDeckInfo> transformDeckInfo(List<DeckInfoResponse> deckInfoResponseList) {
+        List<LocationDeckInfo> locationDeckInfoList = new ArrayList<>();
+        if (deckInfoResponseList != null && !deckInfoResponseList.isEmpty()) {
+            for (DeckInfoResponse deckInfoResponse : deckInfoResponseList) {
+                locationDeckInfoList.add(transform(deckInfoResponse));
             }
         }
-        return locationOperationHours;
+        return locationDeckInfoList;
     }
 
-    private LocationOperationHour transform(LocationOperationHourResponse locationOperationHourResponse) {
+    private LocationDeckInfo transform(DeckInfoResponse deckInfoResponse) {
+        LocationDeckInfo locationDeckInfo = null;
+        if (deckInfoResponse != null) {
+            locationDeckInfo = new LocationDeckInfo();
+            locationDeckInfo.setDeckNumber(deckInfoResponse.getDeckNumber());
+            locationDeckInfo.setDirection(deckInfoResponse.getDirection());
+        }
+        return locationDeckInfo;
+    }
+
+    private List<LocationOperationHour> transformOperationHours(List<OperationHourResponse> operationHourResponseList) {
+        List<LocationOperationHour> locationOperationHourList = new ArrayList<>();
+        if (operationHourResponseList != null && !operationHourResponseList.isEmpty()) {
+            for (OperationHourResponse operationHourResponse : operationHourResponseList) {
+                locationOperationHourList.add(transform(operationHourResponse));
+            }
+        }
+        return locationOperationHourList;
+    }
+
+    private LocationOperationHour transform(OperationHourResponse operationHourResponse) {
         LocationOperationHour operationHour = null;
-        if (locationOperationHourResponse != null) {
+        if (operationHourResponse != null) {
             operationHour = new LocationOperationHour();
-            operationHour.setStartTime(locationOperationHourResponse.getStartTime());
-            operationHour.setEndTime(locationOperationHourResponse.getEndTime());
+            operationHour.setDayNumber(operationHourResponse.getDayNumber());
+            operationHour.setTimeOfDay(operationHour.getTimeOfDay());
+            operationHour.setStartTime(operationHourResponse.getStartTime());
+            operationHour.setEndTime(operationHourResponse.getEndTime());
         }
         return operationHour;
     }

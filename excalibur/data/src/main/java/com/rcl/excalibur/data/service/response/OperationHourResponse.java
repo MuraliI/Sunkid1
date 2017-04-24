@@ -1,6 +1,6 @@
 package com.rcl.excalibur.data.service.response;
 
-public class LocationOperationHourResponse {
+public class OperationHourResponse {
 
     private String dayNumber;
     private String timeOfDay;

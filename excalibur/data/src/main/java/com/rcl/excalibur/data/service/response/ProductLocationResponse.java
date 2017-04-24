@@ -1,7 +1,5 @@
 package com.rcl.excalibur.data.service.response;
 
-import com.rcl.excalibur.domain.LocationOperationHour;
-
 import java.util.List;
 
 
@@ -13,7 +11,7 @@ public class ProductLocationResponse {
     private String latitude;
     private String longitude;
     private List<DeckInfoResponse> deckInfo;
-    private List<LocationOperationHour> locationOperationHours;
+    private List<OperationHourResponse> locationOperationHours;
 
     public String getLocationCode() {
         return locationCode;
@@ -64,11 +62,11 @@ public class ProductLocationResponse {
         this.deckInfo = deckInfo;
     }
 
-    public List<LocationOperationHour> getLocationOperationHours() {
+    public List<OperationHourResponse> getLocationOperationHours() {
         return locationOperationHours;
     }
 
-    public void setLocationOperationHours(List<LocationOperationHour> locationOperationHours) {
+    public void setLocationOperationHours(List<OperationHourResponse> locationOperationHours) {
         this.locationOperationHours = locationOperationHours;
     }
 }
