@@ -101,7 +101,14 @@ public class PlannerProductModelMapper {
         model.setFeatured(product.isFeatured());
         model.setAllDayProduct(true);
         model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
-        model.setLocation(resources.getString(R.string.deck_label) + ConstantsUtil.WHITE_SPACE + model.getLocation());
+
+        String location = model.getLocation();
+        if (location != null && !location.isEmpty()) {
+            model.setLocation(resources.getString(R.string.deck_label, model.getLocation()));
+        } else {
+            model.setLocation(ConstantsUtil.EMPTY);
+        }
+
 
         return model;
     }
@@ -118,7 +125,14 @@ public class PlannerProductModelMapper {
         if (model.getProductType() != null) {
             model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
         }
-        model.setLocation(resources.getString(R.string.deck_label) + ConstantsUtil.WHITE_SPACE + model.getLocation());
+
+        String location = model.getLocation();
+        if (location != null && !location.isEmpty()) {
+            model.setLocation(resources.getString(R.string.deck_label, model.getLocation()));
+        } else {
+            model.setLocation(ConstantsUtil.EMPTY);
+        }
+
         model.setFeatured(product.isFeatured());
         model.setHighlighted(product.isHighlighted());
 
