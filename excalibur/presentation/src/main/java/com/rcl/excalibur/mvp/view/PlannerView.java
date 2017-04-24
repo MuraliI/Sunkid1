@@ -221,7 +221,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             if (view != null) {
                 if (adapter.isHeader(adapter.getItem(i))) {
                     firstHeader = (LinearLayout) view.findViewById(R.id.layout_planner_header_container);
-                    firstHeader.setVisibility(View.INVISIBLE);
+                    if (firstHeader != null){
+                        firstHeader.setVisibility(View.INVISIBLE);
+                    }
                 } else {
                     setInitialViewState(recyclerView.getLayoutManager().findViewByPosition(i));
                 }
