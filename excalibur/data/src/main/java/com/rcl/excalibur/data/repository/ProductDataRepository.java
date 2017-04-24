@@ -118,7 +118,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         new Delete().from(PreferenceEntity.class).execute();
         new Delete().from(CostTypeEntity.class).execute();
         new Delete().from(DurationEntity.class).execute();
-        // TODO: Borrar deck info y operation hours antes que location
+        new Delete().from(DeckInfoEntity.class).execute();
+        new Delete().from(OperationHourEntity.class).execute();
         new Delete().from(LocationEntity.class).execute();
         new Delete().from(TypeEntity.class).execute();
         new Delete().from(MediaValueEntity.class).execute();
