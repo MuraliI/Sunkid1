@@ -2,9 +2,11 @@ package com.rcl.excalibur.data.mapper;
 
 
 import com.rcl.excalibur.data.service.response.ChildCategoryResponse;
+import com.rcl.excalibur.data.service.response.DeckInfoResponse;
 import com.rcl.excalibur.data.service.response.ItemsResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
+import com.rcl.excalibur.data.service.response.OperationHourResponse;
 import com.rcl.excalibur.data.service.response.ProductActivityLevelResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
 import com.rcl.excalibur.data.service.response.ProductCategoryResponse;
@@ -154,18 +156,32 @@ public class ProductResponseDataMapperTest {
 
         productResponse2.setActivityLevel(productActivityLevelResponse);
 
-        productLocationResponse = new ProductLocationResponse();
-        productLocationResponse.setLocationId("RYLTH_QN");
-        productLocationResponse.setLocationCode("RYLTH_QN");
-        productLocationResponse.setLocationType("VENUE");
-        productLocationResponse.setOperatingHoursEnd("1200");
-        productLocationResponse.setOperatingHoursStart("1100");
-        productLocationResponse.setLocationVenue("Royale Theatre");
-        productLocationResponse.setLocationPort("St. Martin");
-        productLocationResponse.setLocationDirection("AFT");
-        productLocationResponse.setLocationDeckNumber(12);
-        productResponse1.setProductLocation(productLocationResponse);
+        DeckInfoResponse deckInfoResponse = new DeckInfoResponse();
+        deckInfoResponse.setDeckNumber("5");
+        deckInfoResponse.setDirection("aft");
 
+        List<DeckInfoResponse> deckInfoResponseList = new ArrayList<>();
+        deckInfoResponseList.add(deckInfoResponse);
+
+        OperationHourResponse operationHourResponse = new OperationHourResponse();
+        operationHourResponse.setStartTime("9:00 AM");
+        operationHourResponse.setEndTime("11:00 AM");
+        operationHourResponse.setDayNumber("1");
+        operationHourResponse.setTimeOfDay("Breakfast");
+
+        List<OperationHourResponse> operationHourResponseList = new ArrayList<>();
+        operationHourResponseList.add(operationHourResponse);
+
+        productLocationResponse = new ProductLocationResponse();
+        productLocationResponse.setLocationCode("GIOV");
+        productLocationResponse.setLocationTitle("Dinner at Giovanni's Table");
+        productLocationResponse.setLocationType("DINING_VENUE");
+        productLocationResponse.setLatitude("100");
+        productLocationResponse.setLongitude("100");
+        productLocationResponse.setDeckInfo(deckInfoResponseList);
+        productLocationResponse.setLocationOperationHours(operationHourResponseList);
+
+        productResponse1.setProductLocation(productLocationResponse);
         productResponse2.setProductLocation(productLocationResponse);
 
         productDurationResponse = new ProductDurationResponse();
