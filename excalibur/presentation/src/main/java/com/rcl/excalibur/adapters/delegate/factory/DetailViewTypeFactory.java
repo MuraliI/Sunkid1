@@ -176,13 +176,15 @@ public final class DetailViewTypeFactory {
             return;
         }
         ProductAdvisement advisement = advisementsKnow.get(0);
-        String description = advisement.getAdvisementDescription();
-        if (advisement != null && !TextUtils.isEmpty(description)) {
-            //FIXME hardcoded to match UI Design
-            description = description.replace(TO_REPLACE, NEXT_LINE);
-            addTitleAndDescriptionTypes(recyclerViewTypeList,
-                    res.getString(R.string.discover_item_detail_know),
-                    description);
+        if (advisement != null) {
+            String title = advisement.getAdvisementTitle();
+            if (!TextUtils.isEmpty(title)) {
+                //FIXME hardcoded to match UI Design
+                title = title.replace(TO_REPLACE, NEXT_LINE);
+                addTitleAndDescriptionTypes(recyclerViewTypeList,
+                        res.getString(R.string.discover_item_detail_know),
+                        title);
+            }
         }
     }
 
