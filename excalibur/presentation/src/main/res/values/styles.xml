@@ -4,10 +4,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="AppTheme.Home" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="AppTheme.PlanListView" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">false</item>
     </style>
 
     <style name="ShipTime" parent="@android:style/Widget.TextView">
@@ -32,6 +38,12 @@
         <item name="fontPath">@string/proxima_nova_bold</item>
         <item name="android:textColor">@color/font_color_dark_grey</item>
         <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="AppTheme.Headline2" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_bold</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="AppTheme.Body" parent="@android:style/Widget.TextView">
@@ -122,6 +134,37 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <style name="AppTheme.DayPicker" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/size_text_x_small</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontPath">@string/proxima_nova_bold</item>
+    </style>
+
+    <style name="AppTheme.DayPickerFooter" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/black_clear</item>
+        <item name="android:textSize">@dimen/size_text_x_small</item>
+        <item name="fontPath">@string/proxima_nova_bold</item>
+    </style>
+
+    <style name="AppTheme.DayPickerPlace" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/black_clear</item>
+        <item name="android:textSize">@dimen/size_text_semi_small</item>
+        <item name="fontPath">@string/roboto_medium</item>
+    </style>
+
+    <style name="AppTheme.DayPickerFooterLinkText">
+        <item name="android:textSize">@dimen/size_text_x_small</item>
+        <item name="fontPath">@string/proxima_nova_semi_bold</item>
+        <item name="android:textColor">@color/detail_item_link</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="AppTheme.DayPickerDescription" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/size_text_semi_small</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontPath">@string/proxima_nova_bold</item>
+    </style>
+
     <style name="AppTheme.TimeTextView" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/roboto_light</item>
         <item name="android:textSize">10sp</item>
@@ -159,16 +202,28 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <!-- Fonts.Itinerary -->
-    <style name="AppTheme.ItinteraryGreetingText" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_regular</item>
-        <item name="android:textSize">26sp</item>
+    <!-- Fonts.Planner -->
+    <style name="AppTheme.PlannerHeaderText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_bold</item>
+        <item name="android:textSize">@dimen/planner_header_title</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="AppTheme.ItineraryPartOfDayText" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/proxima_nova_bold</item>
-        <item name="android:textSize">22sp</item>
+    <style name="AppTheme.PlannerHeaderExpandableText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_regular</item>
+        <item name="android:textSize">@dimen/planner_header_expandable</item>
+        <item name="android:textColor">@color/plan_list_lightblue</item>
+    </style>
+
+    <style name="AppTheme.PlannerBottomTitleText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_bold</item>
+        <item name="android:textSize">@dimen/planner_bottom_title</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="AppTheme.PlannerBottomNormalText" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_medium</item>
+        <item name="android:textSize">@dimen/planner_bottom_text</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -195,7 +250,7 @@
 
     <style name="PlanListDay" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/roboto_bold</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">23sp</item>
         <item name="android:textColor">#34323d</item>
         <item name="android:layout_marginRight">10dp</item>
     </style>
@@ -245,9 +300,11 @@
     </style>
 
     <style name="AppTheme.ProductTitle" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_regular</item>
+        <item name="fontPath">@string/roboto_bold</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/itinerary_product_card_text_dark_grey</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <style name="AppTheme.ProductDate" parent="@android:style/Widget.TextView">
@@ -340,6 +397,21 @@
     <style name="AppTheme.GuestErrorTextView" parent="@android:style/Widget.TextView">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="DiscoveryNoProducts" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/roboto_medium</item>
+        <item name="android:textSize">@dimen/text_size_no_products_top</item>
+        <item name="android:textColor">@color/font_detail_no_products</item>
+    </style>
+
+    <style name="ProgressBarStyle">
+        <item name="android:indeterminateTint">@color/white</item>
     </style>
 
 </resources>

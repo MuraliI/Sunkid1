@@ -7,7 +7,9 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductDuration;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.model.PlannerProductModel;
+import com.rcl.excalibur.utils.CategoryUtils;
 import com.rcl.excalibur.utils.PresentationDateUtils;
 
 import java.util.ArrayList;
@@ -92,10 +94,14 @@ public class PlannerProductModelMapper {
         Calendar allDayEndDate = Calendar.getInstance();
         allDayEndDate.setTime(offeringList.get(offeringList.size() - 1).getDate());
 
-        model.setOperatinghours(calculateOperatingHours(allDayStartDate, allDayEndDate));
+        model.setOperatingHours(calculateOperatingHours(allDayStartDate, allDayEndDate));
         model.setStartDate(allDayStartDate);
         model.setEndDate(allDayEndDate);
+        model.setHighlighted(product.isHighlighted());
+        model.setFeatured(product.isFeatured());
         model.setAllDayProduct(true);
+        model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
+        model.setLocation(resources.getString(R.string.deck_label) + ConstantsUtil.WHITE_SPACE + model.getLocation());
 
         return model;
     }
@@ -108,15 +114,21 @@ public class PlannerProductModelMapper {
 
         model.setStartDate(startDate);
         model.setEndDate(calculateEndDate(offering.getDate(), product.getProductDuration()));
-        model.setOperatinghours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
+        model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
+        if (model.getProductType() != null) {
+            model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
+        }
+        model.setLocation(resources.getString(R.string.deck_label) + ConstantsUtil.WHITE_SPACE + model.getLocation());
+        model.setFeatured(product.isFeatured());
+        model.setHighlighted(product.isHighlighted());
 
         return model;
     }
 
     private String calculateOperatingHours(Calendar startDate, Calendar endDate) {
-        return resources.getString(R.string.planner_operating_hours
-                , PresentationDateUtils.getDateTime(startDate.getTime(), resources)
-                , PresentationDateUtils.getDateTime(endDate.getTime(), resources));
+        return resources.getString(R.string.planner_operating_hours,
+                PresentationDateUtils.getDateTime(startDate.getTime(), resources),
+                PresentationDateUtils.getDateTime(endDate.getTime(), resources));
     }
 
     private Calendar calculateEndDate(Date starTime, ProductDuration duration) {

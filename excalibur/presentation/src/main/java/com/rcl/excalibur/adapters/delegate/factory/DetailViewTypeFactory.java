@@ -72,7 +72,7 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
-        List<ProductAdvisement> advisementsCuisine = product.getProductAdvisementsById(ProductAdvisement.CUISINE);
+        List<ProductAdvisement> advisementsCuisine = product.getProductAdvisementsByType(ProductAdvisement.CUISINE);
         if (CollectionUtils.isEmpty(advisementsCuisine)) {
             return;
         }
@@ -104,7 +104,7 @@ public final class DetailViewTypeFactory {
     private static void addAccessibilityModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources,
                                                Product product) {
 
-        List<ProductAdvisement> accessibilities = product.getProductAdvisementsById(ProductAdvisement.ACCESSIBILITY);
+        List<ProductAdvisement> accessibilities = product.getProductAdvisementsByType(ProductAdvisement.ACCESSIBILITY);
         if (CollectionUtils.isEmpty(accessibilities)) {
             return;
         }
@@ -159,7 +159,7 @@ public final class DetailViewTypeFactory {
 
     private static void addAttireModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                         Product product) {
-        List<ProductAdvisement> advisementsAttire = product.getProductAdvisementsById(ProductAdvisement.ATTIRE);
+        List<ProductAdvisement> advisementsAttire = product.getProductAdvisementsByType(ProductAdvisement.ATTIRE);
         if (CollectionUtils.isEmpty(advisementsAttire)) {
             return;
         }
@@ -173,7 +173,7 @@ public final class DetailViewTypeFactory {
 
     private static void addKnowBeforeYouGoModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                                  Product product) {
-        List<ProductAdvisement> advisementsKnow = product.getProductAdvisementsById(ProductAdvisement.KNOW_BEFORE_YOU_GO);
+        List<ProductAdvisement> advisementsKnow = product.getProductAdvisementsByType(ProductAdvisement.KNOW_BEFORE_YOU_GO);
         if (CollectionUtils.isEmpty(advisementsKnow)) {
             return;
         }
@@ -190,7 +190,7 @@ public final class DetailViewTypeFactory {
 
     private static void addLegalModule(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
                                        Product product) {
-        List<ProductAdvisement> advisementsLegal = product.getProductAdvisementsById(ProductAdvisement.LEGAL);
+        List<ProductAdvisement> advisementsLegal = product.getProductAdvisementsByType(ProductAdvisement.LEGAL);
         if (CollectionUtils.isEmpty(advisementsLegal)) {
             return;
         }
@@ -237,7 +237,8 @@ public final class DetailViewTypeFactory {
         recyclerViewTypeList.add(new ExpandableAccesibilityViewType(res.getString(R.string.accessibility), accessibilities));
     }
 
-    private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings, @NonNull Resources res, Product product) {
+    private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings
+            , @NonNull Resources res, Product product) {
 
         if (!product.isShopping() && !product.isDining()) {
 
@@ -273,14 +274,14 @@ public final class DetailViewTypeFactory {
                     || product.isEntertainment()) {
                 if (childPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
-                } else if (childPrice == 0) {
+                } else if (childPrice == 0 && adultPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.price_free));
                 }
             }
 
             if (!map.isEmpty()) {
                 PricesFromViewType pricesFromViewType = new PricesFromViewType(res.getString(R.string.prices),
-                        res.getString(R.string.starting_from), map, product);
+                        res.getString(R.string.prices_from), map, product);
                 recyclerViewTypeList.add(pricesFromViewType);
             }
         }

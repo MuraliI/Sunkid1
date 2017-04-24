@@ -35,7 +35,8 @@ public class DiscoverItemEntityDataMapperTest {
 
     @Test
     public void transformToEntity() throws Exception {
-        DiscoverItem discoverItem = discoverEntityDataMapper.transform(entity1);
+
+        DiscoverItem discoverItem = discoverEntityDataMapper.transform(entity1, null);
         assertNotNull(discoverItem);
         assertEquals(entity1.getTitle(), discoverItem.getTitle());
         assertEquals(entity1.getImageUrl(), discoverItem.getImageUrl());
@@ -48,7 +49,8 @@ public class DiscoverItemEntityDataMapperTest {
         entities.add(entity1);
         entities.add(entity2);
 
-        List<DiscoverItem> discoverItems = discoverEntityDataMapper.transform(entities);
+
+        List<DiscoverItem> discoverItems = discoverEntityDataMapper.transform(entities, null);
         assertNotNull(discoverItems);
         assertFalse(discoverItems.isEmpty());
         assertEquals(entities.size(), discoverItems.size());

@@ -2,30 +2,26 @@ package com.rcl.excalibur.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.data.repository.ProductDataRepository;
-import com.rcl.excalibur.data.service.DiscoverServicesImpl;
-import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
 import com.rcl.excalibur.mvp.presenter.DiscoverTabPresenter;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_DINING;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ENTERTAINMENT;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_ROYAL_ACTIVITY;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOPPING;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SHOREX;
-import static com.rcl.excalibur.mvp.view.PlanListView.POSITION_SPA;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_GUEST_SERVICES;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_DINING;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ENTERTAINMENT;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ROYAL_ACTIVITY;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SHOPPING;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SHOREX;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SPA;
 
-public class DiscoverTabFragment extends Fragment {
+public class DiscoverTabFragment extends BaseTripTychFragment {
 
     protected DiscoverTabPresenter presenter;
 
@@ -44,9 +40,7 @@ public class DiscoverTabFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new DiscoverTabPresenter(new DiscoverTabView(this)
-                , new GetProductsUseCase(new DiscoverServicesImpl(new ProductDataRepository())));
-        presenter.init();
+        presenter = new DiscoverTabPresenter(new DiscoverTabView(this));
     }
 
 
@@ -80,14 +74,19 @@ public class DiscoverTabFragment extends Fragment {
         presenter.openListScreen(POSITION_ROYAL_ACTIVITY);
     }
 
-    @OnClick(R.id.button_search)
-    public void searchOnClick() {
-        Toast.makeText(getActivity(), "Search Click", Toast.LENGTH_LONG).show();
+    @OnClick(R.id.button_guest_services)
+    public void guestServicesOnClick() {
+        presenter.openListScreen(POSITION_GUEST_SERVICES);
     }
 
-    @OnClick(R.id.image_boat)
-    public void boatOnClick() {
-        presenter.boatOnClick();
+    @Override
+    public void onServiceCallCompleted(boolean success) {
+        presenter.serviceCallCompleted();
     }
 
+    @OnClick(R.id.image_ship_invisible)
+    public void shipOnClick() {
+        //Fixme temp onClick on Transparent ImageView
+        presenter.shipOnClick();
+    }
 }

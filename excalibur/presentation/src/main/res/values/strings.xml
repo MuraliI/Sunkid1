@@ -17,14 +17,14 @@
     <string name="detail_module_times">Times</string>
     <string name="detail_module_promotion">Promotion</string>
     <string name="prices">Prices</string>
-    <string name="starting_from">Starting from</string>
     <string name="adult">Adult</string>
     <string name="child">Child</string>
     <string name="item_price">$%1$s</string>
     <string name="price_range">Price Range</string>
     <string name="prices_from">Prices from</string>
+    <string name="hyphen_with_spaces">" - "</string>
     <string name="price_free">Free</string>
-
+    <string name="deck_label">Deck</string>
 
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>
@@ -55,14 +55,18 @@
     <string name="proxima_nova_semi_bold">fonts/ProximaNova-Semibold.otf</string>
 
     <!--TABS-->
-    <string name="royal_activity">Activity</string>
+    <string name="royal_activity">Activities</string>
     <string name="spa">Spa</string>
     <string name="dining">Dining</string>
-    <string name="shopping">Shop</string>
+    <string name="shopping">Shopping</string>
     <string name="shorex">Excursions</string>
     <string name="entertainment">Entertainment</string>
-    <string name="services">Services</string>
+    <string name="services">Guest Services</string>
     <string name="search">Search</string>
+
+
+    <!-- Day picker-->
+    <string name="change_dates">Change Dates</string>
 
     <!--FIXME hardcoded values-->
     <string name="hardcoded_ship_time">14:07</string>
@@ -90,6 +94,10 @@
         nulla pariatur?\"</string>
     <string name="hardcoded_detail_short_description">\"This description is short enough to whet ones
         apetite but long enough to be meaningful\"</string>
+    <string name="hardcoded_day_picker_date_footer">Feb 15 - Mar 3</string>
+    <string name="hardcoded_day_picker_description">7 Day Eastern Caribbean Cruise</string>
+    <string name="hardcoded_day_picker_calendar_day">Day 2</string>
+    <string name="hardcoded_day_picker_ship_name">Allure of Seas</string>
 
     <!--Categories-->
     <string name="category_royal_activity">ACTIVITIES</string>
@@ -98,6 +106,7 @@
     <string name="category_shopping">SHOPPING</string>
     <string name="category_shorex">SHOREX</string>
     <string name="category_entertainment">ENTERTAINMENT</string>
+    <string name="category_guest_services">GUEST_SERVICES</string>
 
     <string name="adults">Adults</string>
     <string name="children">Children</string>
@@ -106,7 +115,7 @@
     <string name="triptych_tab_plans">Plans Screen</string>
     <string name="triptych_tab_me">Me Screen</string>
     <string name="product_duration_template">%d min.</string>
-    <string name="no_items_to_show">There are no items to show right now. Please try again later.</string>
+    <string name="no_items_to_show">There are no products right now, please come back later!</string>
     <string name="ages">Ages</string>
     <string name="activity_level">Activity Level</string>
     <string name="operating_hours">Operating hours</string>
@@ -122,6 +131,8 @@
     <string name="title_good_evening">Good Evening!</string>
     <string name="title_good_night">Good Night!</string>
     <string name="title_hello">Hello</string>
+    <string name="itinerary_product_list_see_all">See all</string>
+    <string name="itinerary_product_list_see_less">See less</string>
     <string name="itinerary_product_view_am">" AM"</string>
     <string name="itinerary_product_view_pm">" PM"</string>
     <string name="itinerary_product_view_colon">:</string>
@@ -130,11 +141,17 @@
     <string name="itinerary_separator_title_on_going">On going</string>
     <string name="planner_all_day_item">All day</string>
     <string name="planner_operating_hours">%1$s &#8210; %2$s</string>
+    <string name="shared_element_transition_name">hero_image</string>
 
     <string name="title_morning">Morning</string>
     <string name="title_afternoon">Afternoon</string>
     <string name="title_evening">Evening</string>
     <string name="title_late_night">Late night</string>
+    <string name="itinerary_list_bottom_title">That\'s all for today</string>
+    <string name="itinerary_list_bottom_emergency">Emergencies &amp; Medical</string>
+    <string name="itinerary_list_bottom_legal">Privacy &amp; Legal</string>
+    <string name="itinerary_list_bottom_about">About this App</string>
+
 
     <!-- Product Details -->
     <plurals name="product_hr">
@@ -182,5 +199,42 @@
 
     <string name="error_message_no_connection">We were not able to connect. Please check your internet connection and try again.</string>
     <string name="error_message_security_questions">Something went wrong, please try again.</string>
+    <string name="error_message_no_information_yet">There is no information yet. Please try again later</string>
+    <string name="hardcoded_home_status">At Sea</string>
+    <string name="hardcoded_day_tab">Day 1</string>
 
+    <!--Day Picker-->
+    <string name="today_day_title">Today</string>
+    <string name="day_title">"Day "</string>
+    <string name="day_picker_at_sea">At sea</string>
+    <string-array name="array_months">
+        <item>"Jan "</item>
+        <item>"Feb "</item>
+        <item>"Mar "</item>
+        <item>"Apr "</item>
+        <item>"May "</item>
+        <item>"June "</item>
+        <item>"July "</item>
+        <item>"Aug "</item>
+        <item>"Sept "</item>
+        <item>"Oct "</item>
+        <item>"Nov "</item>
+        <item>"Dec "</item>
+    </string-array>
+
+    <!-- Day Information-->
+    <string name="day_number">Day %d</string>
+    <string name="port_type_embark">EMBARK</string>
+    <string name="port_type_docked">DOCKED</string>
+    <string name="port_type_debark">DEBARK</string>
+    <string name="port_type_cruising">CRUISING</string>
+    <string name="port_type_at_sea">At Sea</string>
+    <string name="arriving_at_uper">At </string>
+    <string name="time_format_am"> AM</string>
+    <string name="time_format_pm"> PM</string>
+    <string name="time_format_separator">:</string>
+    <string name="next_port">Next Port: </string>
+    <string name="arriving_at">Arriving at </string>
+    <string name="departing_at">Departing at </string>
+    <string name="arriving_departing_separator">; </string>
 </resources>
