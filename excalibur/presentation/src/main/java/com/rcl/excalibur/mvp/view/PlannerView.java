@@ -20,7 +20,9 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
+import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
@@ -49,6 +51,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     @Bind(R.id.progress_service_call_planner) View progressBar;
     @Bind(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
     @Bind(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
+    @Bind(R.id.layout_planner_recycler_container) TopRoundedFrameLayout recyclerContainerLayout;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 
@@ -176,7 +179,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private void calculateItemMargins(float slideOffset) {
         int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
-        for (int i = 1; i <= visibleChildren; i++) {
+        for (int i = 0; i <= visibleChildren; i++) {
+            if (adapter.getItem(i) instanceof PlannerHeader) {
+                continue;
+            }
+
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
             int verticalMargin = getMargin(slideOffset, initVerticalMargin);
             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
@@ -328,6 +335,12 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     public void showAllDayLayout() {
         isAllDayNecessary = true;
         allDayView.setVisibility(View.INVISIBLE);
+
+        final PlannerFragment fragment = getFragment();
+        if (fragment == null) {
+            return;
+        }
+        recyclerContainerLayout.setRadius(R.dimen.zero_radius);
     }
 
     public void showProgressBar(boolean show) {
