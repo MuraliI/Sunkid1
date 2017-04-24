@@ -235,9 +235,8 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         ProductLocation productLocation = null;
         if (productLocationResponse != null) {
             productLocation = new ProductLocation();
-            productLocation.setLocationName(productLocationResponse.getLocationTitle());
+            productLocation.setLocationTitle(productLocationResponse.getLocationTitle());
             productLocation.setLocationCode(productLocationResponse.getLocationCode());
-            productLocation.setLocationId(productLocationResponse.getLocationId());
             productLocation.setLocationType(productLocationResponse.getLocationType());
             productLocation.setLocationOperationHours(transform(productLocationResponse.getLocationOperationHours()));
             productLocation.setLocationVenue(productLocationResponse.getLocationVenue());

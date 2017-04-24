@@ -5,24 +5,13 @@ import java.util.List;
 
 public class ProductLocation {
 
-    private String locationName;
-    private String locationId;
     private String locationCode;
+    private String locationTitle;
     private String locationType;
-    private String locationVenue;
-    private String locationPort;
-    private int locationDeckNumber;
-    private String locationDirection;
+    private String latitude;
+    private String longitude;
     private List<LocationDeckInfo> deckInfo;
     private List<LocationOperationHour> locationOperationHours;
-
-    public String getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(String locationId) {
-        this.locationId = locationId;
-    }
 
     public String getLocationCode() {
         return locationCode;
@@ -30,6 +19,14 @@ public class ProductLocation {
 
     public void setLocationCode(String locationCode) {
         this.locationCode = locationCode;
+    }
+
+    public String getLocationTitle() {
+        return locationTitle;
+    }
+
+    public void setLocationTitle(String locationTitle) {
+        this.locationTitle = locationTitle;
     }
 
     public String getLocationType() {
@@ -40,44 +37,20 @@ public class ProductLocation {
         this.locationType = locationType;
     }
 
-    public String getLocationVenue() {
-        return locationVenue;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setLocationVenue(String locationVenue) {
-        this.locationVenue = locationVenue;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
-    public String getLocationPort() {
-        return locationPort;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setLocationPort(String locationPort) {
-        this.locationPort = locationPort;
-    }
-
-    public int getLocationDeckNumber() {
-        return locationDeckNumber;
-    }
-
-    public void setLocationDeckNumber(int locationDeckNumber) {
-        this.locationDeckNumber = locationDeckNumber;
-    }
-
-    public String getLocationDirection() {
-        return locationDirection;
-    }
-
-    public void setLocationDirection(String locationDirection) {
-        this.locationDirection = locationDirection;
-    }
-
-    public String getLocationName() {
-        return locationName;
-    }
-
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public List<LocationDeckInfo> getDeckInfo() {
