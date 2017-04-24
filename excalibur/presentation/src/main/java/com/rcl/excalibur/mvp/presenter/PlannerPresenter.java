@@ -85,10 +85,10 @@ public class PlannerPresenter {
         SailingInfoModel sailingInfoModel = sailingInformationModelDataMapper.transform(sailDateInfo);
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
         if (itinerary == null) {
-            view.addArrivingDebanrkingValues(null, selectedDay);
+            view.addArrivingDebarkingValues(null, selectedDay);
         } else {
             List<EventModel> events = itinerary.getEvents();
-            view.addArrivingDebanrkingValues(events, selectedDay);
+            view.addArrivingDebarkingValues(events, selectedDay);
         }
     }
 

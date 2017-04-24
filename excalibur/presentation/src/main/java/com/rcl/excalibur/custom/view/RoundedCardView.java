@@ -13,9 +13,6 @@ import com.rcl.excalibur.R;
 
 
 public class RoundedCardView extends LinearLayout {
-    private Path clipPath;
-    private RectF cardRectF;
-
     private float radius;
 
     public RoundedCardView(Context context) {
@@ -43,14 +40,12 @@ public class RoundedCardView extends LinearLayout {
         } finally {
             typedArray.recycle();
         }
-
-        clipPath = new Path();
-        cardRectF = new RectF();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        cardRectF.set(0, 0, this.getWidth(), this.getHeight());
+        Path clipPath = new Path();
+        RectF cardRectF = new RectF(0, 0, this.getWidth(), this.getHeight());
         clipPath.addRoundRect(cardRectF, radius, radius, Path.Direction.CW);
         canvas.clipPath(clipPath);
         super.onDraw(canvas);
