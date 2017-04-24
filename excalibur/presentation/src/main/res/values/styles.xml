@@ -413,4 +413,23 @@
         <item name="android:indeterminateTint">@color/white</item>
     </style>
 
+    <style name="AppTheme.TriptychItemTextView" parent="@android:style/Widget.TextView">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/ship_location_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.PlannerItemTextView" parent="@android:style/Widget.TextView">
+        <item name="android:drawableStart">@drawable/ship_icon</item>
+        <item name="android:drawablePadding">@dimen/margin_xsmall</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/day_information_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:translationY">@dimen/translation_y_debarking_time</item>
+    </style>
+
 </resources>

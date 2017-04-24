@@ -52,6 +52,10 @@ public class TriptychHomeActivity extends BaseActivity {
         presenter.init();
     }
 
+    public void getShipLocationInfo() {
+        presenter.getShipLocationInfo();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
