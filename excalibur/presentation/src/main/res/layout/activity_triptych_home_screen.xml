@@ -47,7 +47,7 @@
 
             <TextView
                 android:id="@+id/text_ship_status"
-                style="@style/AppTheme.DiscoverItemTextView"
+                style="@style/AppTheme.TriptychItemTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
