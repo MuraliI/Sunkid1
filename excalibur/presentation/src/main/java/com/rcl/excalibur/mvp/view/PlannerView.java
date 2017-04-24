@@ -3,6 +3,7 @@ package com.rcl.excalibur.mvp.view;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.util.Pair;
@@ -44,6 +45,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int NO_MARGIN = 0;
     private static final float OFFSET_OVER_95_PERCENT = 0.95f;
     private static final float MAX_SLIDE_OFFSET = 1.0f;
+    private static final int DELAY_MILLIS_SCROLL = 100;
+    private static final int DELAY_MILLIS_COLLAPSE = 200;
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_all_day) View allDayView;
@@ -61,6 +64,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private Animation slideUpAnimation;
     private Animation slideUpAllDayAnimation;
     private Animation animationGoIn;
+
+    private Handler handler;
 
     private boolean isAllDayNecessary;
     private boolean isExpanded;
@@ -87,6 +92,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         initVerticalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_vertical_margin);
         initImageMargin = resources.getDimensionPixelSize(R.dimen.margin_small);
         peekHeight = resources.getDimensionPixelSize(R.dimen.planner_peek_height);
+
+        handler = new Handler();
 
         adapter = new FlexibleAdapter<>(null, fragment, true);
         adapter.setDisplayHeadersAtStartUp(true).setStickyHeaders(true);
@@ -130,7 +137,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                                 break;
                             case BottomSheetBehavior.STATE_COLLAPSED:
                                 if (isExpanded) {
-                                    setBottomSheetCollapsingState();
+                                    handler.postDelayed(() -> recyclerView.scrollToPosition(TOP_OF_LIST), DELAY_MILLIS_SCROLL);
+                                    handler.postDelayed(() -> setBottomSheetCollapsingState(), DELAY_MILLIS_COLLAPSE);
                                 }
                                 break;
                             default:
@@ -174,7 +182,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
         bottomSheetBehavior.setPeekHeight(peekHeight);
         containerLayout.startAnimation(animationGoIn);
-        hideHeadersView();
     }
 
     private void calculateItemMargins(float slideOffset) {
@@ -221,7 +228,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             if (view != null) {
                 if (adapter.isHeader(adapter.getItem(i))) {
                     firstHeader = (LinearLayout) view.findViewById(R.id.layout_planner_header_container);
-                    if (firstHeader != null){
+                    if (firstHeader != null) {
                         firstHeader.setVisibility(View.INVISIBLE);
                     }
                 } else {
