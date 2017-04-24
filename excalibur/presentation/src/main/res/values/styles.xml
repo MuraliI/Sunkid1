@@ -415,10 +415,10 @@
 
     <style name="AppTheme.TriptychItemTextView" parent="@android:style/Widget.TextView">
         <item name="android:ellipsize">marquee</item>
+        <item name="fontPath">@string/roboto_bold</item>
         <item name="android:maxLines">1</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/ship_location_text_size</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AppTheme.PlannerItemTextView" parent="@android:style/Widget.TextView">
