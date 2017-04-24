@@ -14,8 +14,8 @@
 
     <FrameLayout
         android:id="@+id/image_ship_invisible"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/no_size"
+        android:layout_height="@dimen/no_size"
         android:layout_marginTop="@dimen/ship_time_height"
         android:layout_gravity="center_horizontal|top" />
 
