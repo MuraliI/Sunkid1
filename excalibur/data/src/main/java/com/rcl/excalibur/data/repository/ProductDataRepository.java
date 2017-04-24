@@ -60,6 +60,9 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     @Override
     public void create(@NonNull Product product) {
+        if (exists(ProductEntity.COLUMN_PRODUCT_ID, product.getProductId())) {
+            return;
+        }
         final ProductEntity entity = new ProductEntity();
         entity.setProductId(product.getProductId());
         entity.setProductClass(product.getProductClass());

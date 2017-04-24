@@ -4,6 +4,7 @@ import android.support.v4.util.SparseArrayCompat;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.domain.SailDateInfo;
@@ -31,7 +32,7 @@ import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
 
 public class PlannerPresenter {
 
-    public static final String DAY_DEFAULT_VALUE = "1";
+    static final String DAY_DEFAULT_VALUE = "1";
     private GetOfferingsDbUseCase useCase;
     private static final String HEADER_FORMAT = "H%s";
     private static final String ITEM_FORMAT = "I%s";
@@ -84,10 +85,10 @@ public class PlannerPresenter {
         SailingInfoModel sailingInfoModel = sailingInformationModelDataMapper.transform(sailDateInfo);
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
         if (itinerary == null) {
-            view.addArrivingDebanrkingValues(null, selectedDay);
+            view.addArrivingDebarkingValues(null, selectedDay);
         } else {
             List<EventModel> events = itinerary.getEvents();
-            view.addArrivingDebanrkingValues(events, selectedDay);
+            view.addArrivingDebarkingValues(events, selectedDay);
         }
     }
 
@@ -141,5 +142,10 @@ public class PlannerPresenter {
         }
         items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
         view.addPlannerItems(items);
+        getArrivingDebarkingInfo();
+        BaseActivity activity = view.getActivity();
+        if (activity != null) {
+            ((TriptychHomeActivity) activity).getShipLocationInfo();
+        }
     }
 }

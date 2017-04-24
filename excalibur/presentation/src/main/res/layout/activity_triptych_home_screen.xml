@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_sea"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/bg_sea"
+              android:orientation="vertical">
 
     <fragment
         android:id="@+id/ship_time_fragment"
         android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/ship_time" />
+        tools:layout="@layout/ship_time"/>
 
     <com.rcl.excalibur.custom.view.TriptychTabBarLayout
         android:id="@+id/tab_triptych_tablayout"
@@ -26,13 +26,13 @@
             android:id="@+id/collapsible_tab"
             layout="@layout/custom_tabview_triptychtab"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@null"
-            android:src="@drawable/icon_map_tab" />
+            android:src="@drawable/icon_map_tab"/>
 
     </com.rcl.excalibur.custom.view.TriptychTabBarLayout>
 
@@ -47,14 +47,12 @@
 
             <TextView
                 android:id="@+id/text_ship_status"
+                style="@style/AppTheme.TriptychItemTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/margin_small"
-                android:text="@string/hardcoded_home_status"
-                android:textColor="@color/white"
-                android:textSize="@dimen/ship_location_text_size"
-                android:textStyle="bold" />
+                tools:text="@string/hardcoded_home_status"/>
 
             <ImageView
                 android:id="@+id/image_ship"
@@ -63,7 +61,7 @@
                 android:layout_below="@id/text_ship_status"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@null"
-                android:src="@drawable/ship_big" />
+                android:src="@drawable/ship_big"/>
 
             <ImageView
                 android:id="@+id/image_cloud_left"
@@ -71,7 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:contentDescription="@null"
-                android:src="@drawable/cloud_01" />
+                android:src="@drawable/cloud_01"/>
 
             <ImageView
                 android:id="@+id/image_cloud_right"
@@ -79,14 +77,14 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:contentDescription="@null"
-                android:src="@drawable/cloud_02" />
+                android:src="@drawable/cloud_02"/>
 
         </com.rcl.excalibur.custom.view.ShipView>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager_triptych_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     </FrameLayout>
 

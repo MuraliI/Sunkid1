@@ -57,7 +57,7 @@
     <dimen name="product_detail_hero_image_height">250dp</dimen>
     <dimen name="product_detail_description_margin_top">1dp</dimen>
     <dimen name="product_detail_app_bar_size">380dp</dimen>
-    <dimen name="product_detail_toolbar_size">56dp</dimen>
+    <dimen name="product_detail_toolbar_size">76dp</dimen>
     <dimen name="product_detail_inset_margin_side">20dp</dimen>
     <dimen name="product_detail_reservation_message_container_size">60dp</dimen>
     <dimen name="product_detail_reservation_message_container_elevation">12dp</dimen>
@@ -185,10 +185,13 @@
     <!-- Date Picker-->
     <dimen name="day_picker_margin">45dp</dimen>
     <dimen name="day_picker_image_width">25dp</dimen>
-
     <dimen name="ship_time_height">30dp</dimen>
+
     <!-- Day Information-->
     <dimen name="ship_location_text_size">18sp</dimen>
     <dimen name="day_information_text_size">14sp</dimen>
+    <dimen name="translation_y_debarking_time">50dp</dimen>
+    <dimen name="product_shiptime_bar_padding">20dp</dimen>
+    <dimen name="progress_height_width">30dp</dimen>
 
 </resources>

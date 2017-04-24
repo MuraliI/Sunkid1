@@ -45,12 +45,10 @@ public final class DetailViewTypeFactory {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
-        addMakeReservation(viewTypes, resources, product);
         addPricesModule(viewTypes, offerings, resources, product);
         addCuisineModule(viewTypes, resources, product);
         addTimeModule(viewTypes, resources, product);
         addDurationModule(viewTypes, resources, product);
-        addExperienceModule(viewTypes, resources, product);
         addAttireModule(viewTypes, resources, product);
         addRestrictionModules(viewTypes, resources, product);
         addKnowBeforeYouGoModule(viewTypes, resources, product);
@@ -175,13 +173,15 @@ public final class DetailViewTypeFactory {
             return;
         }
         ProductAdvisement advisement = advisementsKnow.get(0);
-        String description = advisement.getAdvisementDescription();
-        if (advisement != null && !TextUtils.isEmpty(description)) {
-            //FIXME hardcoded to match UI Design
-            description = description.replace(TO_REPLACE, NEXT_LINE);
-            addTitleAndDescriptionTypes(recyclerViewTypeList,
-                    res.getString(R.string.discover_item_detail_know),
-                    description);
+        if (advisement != null) {
+            String title = advisement.getAdvisementTitle();
+            if (!TextUtils.isEmpty(title)) {
+                //FIXME hardcoded to match UI Design
+                title = title.replace(TO_REPLACE, NEXT_LINE);
+                addTitleAndDescriptionTypes(recyclerViewTypeList,
+                        res.getString(R.string.discover_item_detail_know),
+                        title);
+            }
         }
     }
 
@@ -210,22 +210,6 @@ public final class DetailViewTypeFactory {
     private static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title,
                                                     final String description) {
         recyclerViewTypeList.add(new TitleAndDescriptionViewType(title, description));
-    }
-
-    private static void addMakeReservation(final List<RecyclerViewType> recyclerViewTypeList,
-                                           @NonNull Resources resources, Product product) {
-        if (!TextUtils.isEmpty(product.getProductReservationInformation())) {
-            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_make_a_reservation),
-                    product.getProductReservationInformation());
-        }
-    }
-
-    private static void addExperienceModule(final List<RecyclerViewType> recyclerViewTypeList,
-                                            @NonNull Resources resources, Product product) {
-        if (!TextUtils.isEmpty(product.getExperience())) {
-            addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.discover_item_detail_experience),
-                    product.getExperience());
-        }
     }
 
     private static void addExpandableAccessibilityTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources res,
@@ -271,7 +255,7 @@ public final class DetailViewTypeFactory {
                     || product.isEntertainment()) {
                 if (childPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.item_price, getPriceFormatted(childPrice)));
-                } else if (childPrice == 0) {
+                } else if (childPrice == 0 && adultPrice > 0) {
                     map.put(res.getString(R.string.child), res.getString(R.string.price_free));
                 }
             }

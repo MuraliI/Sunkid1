@@ -58,11 +58,10 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     private static final int MAX_COUNT = 50;
 
     private final ProductRepository productRepository;
-    private SubCategoryRepository subCategoryRepository;
-    private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
-
     private final OfferingRepository offeringRepository;
     private final OfferingResponseMapper offeringResponseMapper;
+    private SubCategoryRepository subCategoryRepository;
+    private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
 
     public DiscoverServicesImpl(ProductRepository productRepository) {
         super(new ProductResponseDataMapper());
@@ -255,13 +254,15 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
             ProductProcessor productProcessor = new ProductProcessor();
 
             try {
-                productProcessor.onResponse(dinningCall.execute(), DINING_TYPE);
-                productProcessor.onResponse(shorexCall.execute(), SHOREX_TYPE);
-                productProcessor.onResponse(activitiesCall.execute(), ACTIVITIES_TYPE);
-                productProcessor.onResponse(entertainmentCall.execute(), ENTERTAINMENT_TYPE);
-                productProcessor.onResponse(spaCall.execute(), SPA_TYPE);
-                productProcessor.onResponse(shoppingCall.execute(), SHOPPING_TYPE);
-                productProcessor.onResponse(guestServicesCall.execute(), GUEST_SERVICES_TYPE);
+                productProcessor.onResponse(dinningCall.execute());
+                productProcessor.onResponse(shorexCall.execute());
+                productProcessor.onResponse(activitiesCall.execute());
+                productProcessor.onResponse(entertainmentCall.execute());
+                productProcessor.onResponse(spaCall.execute());
+                productProcessor.onResponse(shoppingCall.execute());
+                productProcessor.onResponse(guestServicesCall.execute());
+
+                productProcessor.create();
             } catch (Exception e) {
                 productProcessor.onFailure(e);
                 observableEmitter.onNext(false);
@@ -378,13 +379,20 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         private List<Offering> offeringList = new ArrayList<>();
         private String productType;
 
+        void onResponse(Response<GetProductsResponse> response) {
+            mapDataProducts(response, productList, offeringList);
+        }
+
+        void create() {
+            productRepository.create(productList);
+            offeringRepository.create(offeringList);
+        }
+
         void onResponse(Response<GetProductsResponse> response, String productType) {
             this.productType = productType;
             mapDataProducts(response, productList, offeringList);
             productRepository.create(productList);
-
             offeringRepository.create(offeringList);
-
         }
 
         void onFailure(Throwable t) {
