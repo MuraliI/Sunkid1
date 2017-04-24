@@ -47,15 +47,11 @@
 
             <TextView
                 android:id="@+id/text_ship_status"
+                style="@style/AppTheme.DiscoverItemTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/margin_small"
-                android:ellipsize="marquee"
-                android:maxLines="1"
-                android:textColor="@color/white"
-                android:textSize="@dimen/ship_location_text_size"
-                android:textStyle="bold"
                 tools:text="@string/hardcoded_home_status"/>
 
             <ImageView
