@@ -7,46 +7,55 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.support.annotation.DimenRes;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 import com.rcl.excalibur.R;
 
 
-public class RoundedCardView extends LinearLayout {
+public class TopRoundedFrameLayout extends FrameLayout {
+    private Path clipPath;
+    private RectF clipBoundsRect;
+    private RectF noCornersRect;
+
     private float radius;
 
-    public RoundedCardView(Context context) {
+    public TopRoundedFrameLayout(Context context) {
         super(context);
         init(context, null);
     }
 
-    public RoundedCardView(Context context, AttributeSet attrs) {
+    public TopRoundedFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public RoundedCardView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TopRoundedFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
-
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.RoundedView, 0, 0);
 
         try {
             radius = typedArray.getDimension(R.styleable.RoundedView_borderRadius,
-                    getResources().getDimension(R.dimen.default_radius));
+                    getResources().getDimension(R.dimen.planner_top_radius));
         } finally {
             typedArray.recycle();
         }
+
+        clipPath = new Path();
+        clipBoundsRect = new RectF();
+        noCornersRect = new RectF();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Path clipPath = new Path();
-        RectF cardRectF = new RectF(0, 0, this.getWidth(), this.getHeight());
-        clipPath.addRoundRect(cardRectF, radius, radius, Path.Direction.CW);
+        clipBoundsRect.set(canvas.getClipBounds());
+        noCornersRect.set(0, radius, this.getWidth(), this.getHeight());
+
+        clipPath.addRoundRect(clipBoundsRect, radius, radius, Path.Direction.CW);
+        clipPath.addRect(noCornersRect, Path.Direction.CW);
         canvas.clipPath(clipPath);
         super.onDraw(canvas);
     }
