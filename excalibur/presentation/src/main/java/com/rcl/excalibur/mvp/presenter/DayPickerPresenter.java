@@ -50,10 +50,11 @@ public class DayPickerPresenter {
         }
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
         view.setAdapterObserver(new AdapterObserver(this));
-        String preferenceDay = getSailingPreferenceUseCase.getDay();
-        int selectedDayPosition = preferenceDay != null ? Integer.parseInt(preferenceDay) - 1 : -1;
+        String day = getSailingPreferenceUseCase.getDay();
+        day = getDay(itinerary, activity.getResources(), day);
+        int selectedDayPosition = day != null ? Integer.parseInt(day) - 1 : -1;
         view.init(itinerary.getIndexCurrentDay(), selectedDayPosition);
-        setHeader(itinerary, sailingInfoModel.getShipCode(), activity.getResources(), preferenceDay);
+        setHeader(itinerary, sailingInfoModel.getShipCode(), activity.getResources(), day);
         setFooter(itinerary, activity.getResources());
         showCollectionInView(itinerary);
     }
@@ -75,10 +76,10 @@ public class DayPickerPresenter {
         }
     }
 
-    private void setHeader(ItineraryModel itinerary, String shipCode, Resources resources, String preferenceDay) {
+    private void setHeader(ItineraryModel itinerary, String shipCode, Resources resources, String calculatedDay) {
         StringBuilder formatedDay = new StringBuilder();
         formatedDay.append(resources.getString(R.string.day_title));
-        formatedDay.append(getDay(itinerary, resources, preferenceDay));
+        formatedDay.append(calculatedDay);
         String day = formatedDay.toString();
         String description = itinerary.getDescription();
         String shipName = getShipNameFromJson(view.getContext(), shipCode);
@@ -95,29 +96,30 @@ public class DayPickerPresenter {
         }
     }
 
-    private String getDay(ItineraryModel itineraryModel, Resources resources, String preferenceDay) {
+    private String getDay(ItineraryModel itineraryModel, Resources resources, String day) {
         if (CollectionUtils.isEmpty(itineraryModel.getEvents())) {
             return "";
         }
-        String day = "";
         List<EventModel> events = itineraryModel.getEvents();
         EventModel firstEvent = events.get(0);
-
-        if (!TextUtils.isEmpty(preferenceDay)) {
-            day += preferenceDay;
+        StringBuilder calculatedDay = new StringBuilder();
+        if (!TextUtils.isEmpty(day)) {
+            calculatedDay.append(day);
         } else {
             if (itineraryModel.getIndexCurrentDay() == -1) {
                 if (!TextUtils.isEmpty(firstEvent.getDay())) {
-                    day += firstEvent.getDay();
+                    calculatedDay.append(firstEvent.getDay());
                 }
             } else {
                 EventModel todayEvent = events.get(itineraryModel.getIndexCurrentDay());
                 if (todayEvent != null && !TextUtils.isEmpty(todayEvent.getDay())) {
-                    day += todayEvent.getDay();
+                    calculatedDay.append(todayEvent.getDay());
+                } else {
+                    calculatedDay.append("");
                 }
             }
         }
-        return day;
+        return calculatedDay.toString();
     }
 
     public class AdapterObserver extends DefaultPresentObserver<EventModel, DayPickerPresenter> {
