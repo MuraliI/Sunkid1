@@ -30,7 +30,7 @@
 
         <TextView
             android:id="@+id/text_arriving_debarking_time"
-            style="@style/AppTheme.DiscoverItemTextView"
+            style="@style/AppTheme.PlannerItemTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
