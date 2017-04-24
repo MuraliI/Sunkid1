@@ -36,8 +36,8 @@
 
     <style name="AppTheme.Headline1" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/proxima_nova_bold</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/font_color_dark_grey</item>
+        <item name="android:textSize">@dimen/headline1_text_size</item>
     </style>
 
     <style name="AppTheme.Headline2" parent="@android:style/Widget.TextView">
@@ -50,11 +50,12 @@
         <item name="fontPath">@string/proxima_nova_regular</item>
         <item name="android:textSize">@dimen/body_detail_font_size_description</item>
         <item name="android:textColor">@color/font_color_body</item>
+        <item name="android:lineSpacingMultiplier">@dimen/text_line_spacing</item>
     </style>
 
     <style name="AppTheme.Headline5" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/proxima_nova_regular</item>
-        <item name="android:textSize">16sp</item>
+        <item name="fontPath">@string/proxima_nova_semi_bold</item>
+        <item name="android:textSize">@dimen/headline5_text_size</item>
     </style>
 
     <style name="AppTheme.Headline5.Orange" parent="AppTheme.Headline5">
@@ -72,7 +73,7 @@
     </style>
 
     <style name="AppTheme.Headline7">
-        <item name="fontPath">@string/proxima_nova_semi_bold</item>
+        <item name="fontPath">@string/proxima_nova_bold</item>
         <item name="android:textColor">@color/font_color_dark_grey</item>
         <item name="android:textSize">@dimen/font_size_headline7</item>
     </style>
