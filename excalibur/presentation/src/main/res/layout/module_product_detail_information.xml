@@ -17,7 +17,7 @@
         android:weightSum="@integer/detail_header_total_weight">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/no_size"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_weight="@integer/detail_header_left_weight"
@@ -88,7 +88,7 @@
     <FrameLayout
         android:id="@+id/layout_reservation"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="@dimen/product_detail_reservation_height"
         android:background="@color/product_detail_reservation_background">
 
         <TextView
