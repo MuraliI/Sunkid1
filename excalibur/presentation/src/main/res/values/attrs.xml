@@ -25,6 +25,7 @@
         <attr name="type" format="enum">
             <enum name="white" value="1"/>
             <enum name="blue" value="2"/>
+            <enum name="transparent" value="3"/>
         </attr>
     </declare-styleable>
 
