@@ -3,6 +3,7 @@ package com.rcl.excalibur.mvp.view;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.util.Pair;
@@ -20,7 +21,9 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
+import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
@@ -42,6 +45,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int NO_MARGIN = 0;
     private static final float OFFSET_OVER_95_PERCENT = 0.95f;
     private static final float MAX_SLIDE_OFFSET = 1.0f;
+    private static final int DELAY_MILLIS_SCROLL = 100;
+    private static final int DELAY_MILLIS_COLLAPSE = 200;
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_all_day) View allDayView;
@@ -49,6 +54,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     @Bind(R.id.progress_service_call_planner) View progressBar;
     @Bind(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
     @Bind(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
+    @Bind(R.id.layout_planner_recycler_container) TopRoundedFrameLayout recyclerContainerLayout;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 
@@ -58,6 +64,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private Animation slideUpAnimation;
     private Animation slideUpAllDayAnimation;
     private Animation animationGoIn;
+
+    private Handler handler;
 
     private boolean isAllDayNecessary;
     private boolean isExpanded;
@@ -84,6 +92,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         initVerticalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_vertical_margin);
         initImageMargin = resources.getDimensionPixelSize(R.dimen.margin_small);
         peekHeight = resources.getDimensionPixelSize(R.dimen.planner_peek_height);
+
+        handler = new Handler();
 
         adapter = new FlexibleAdapter<>(null, fragment, true);
         adapter.setDisplayHeadersAtStartUp(true).setStickyHeaders(true);
@@ -127,7 +137,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                                 break;
                             case BottomSheetBehavior.STATE_COLLAPSED:
                                 if (isExpanded) {
-                                    setBottomSheetCollapsingState();
+                                    handler.postDelayed(() -> recyclerView.scrollToPosition(TOP_OF_LIST), DELAY_MILLIS_SCROLL);
+                                    handler.postDelayed(() -> setBottomSheetCollapsingState(), DELAY_MILLIS_COLLAPSE);
                                 }
                                 break;
                             default:
@@ -171,13 +182,20 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
         bottomSheetBehavior.setPeekHeight(peekHeight);
         containerLayout.startAnimation(animationGoIn);
-        hideHeadersView();
     }
 
     private void calculateItemMargins(float slideOffset) {
         int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
-        for (int i = 1; i <= visibleChildren; i++) {
+        for (int i = 0; i <= visibleChildren; i++) {
+            if (adapter.getItem(i) instanceof PlannerHeader) {
+                continue;
+            }
+
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
+            if (view == null) {
+                return;
+            }
+
             int verticalMargin = getMargin(slideOffset, initVerticalMargin);
             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
             resizeItemView(view, verticalMargin, horizontalMargin);
@@ -186,7 +204,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             resizeImage(view, imageMargin);
 
             RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
-            imageView.setRadius(R.dimen.default_radius);
+            if (imageView != null) {
+                imageView.setRadius(R.dimen.default_radius);
+            }
 
             if (slideOffset >= OFFSET_OVER_95_PERCENT) {
                 changeSeparatorVisibility(view, View.VISIBLE);
@@ -208,7 +228,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             if (view != null) {
                 if (adapter.isHeader(adapter.getItem(i))) {
                     firstHeader = (LinearLayout) view.findViewById(R.id.layout_planner_header_container);
-                    firstHeader.setVisibility(View.INVISIBLE);
+                    if (firstHeader != null) {
+                        firstHeader.setVisibility(View.INVISIBLE);
+                    }
                 } else {
                     setInitialViewState(recyclerView.getLayoutManager().findViewByPosition(i));
                 }
@@ -328,6 +350,12 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     public void showAllDayLayout() {
         isAllDayNecessary = true;
         allDayView.setVisibility(View.INVISIBLE);
+
+        final PlannerFragment fragment = getFragment();
+        if (fragment == null) {
+            return;
+        }
+        recyclerContainerLayout.setRadius(R.dimen.zero_radius);
     }
 
     public void showProgressBar(boolean show) {
