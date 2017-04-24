@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent">
 
     <!-- FIXME this is a temporary measure to load all the information from the service -->
     <ProgressBar
         android:id="@+id/progress_service_call_planner"
         style="@style/ProgressBarStyle"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_width="@dimen/progress_height_width"
+        android:layout_height="@dimen/progress_height_width"
+        android:layout_gravity="center_horizontal"/>
 
     <FrameLayout
         android:id="@+id/image_ship_invisible"
         android:layout_width="@dimen/no_size"
         android:layout_height="@dimen/no_size"
-        android:layout_marginTop="@dimen/ship_time_height"
-        android:layout_gravity="center_horizontal|top" />
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="@dimen/ship_time_height"/>
 
     <LinearLayout
         android:id="@+id/layout_planner_container"
@@ -30,20 +30,17 @@
 
         <TextView
             android:id="@+id/text_arriving_debarking_time"
+            style="@style/AppTheme.DiscoverItemTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableStart="@drawable/ship_icon"
-            android:text="@string/hardcoded_home_status"
-            android:textColor="@color/white"
-            android:textSize="@dimen/day_information_text_size"
-            android:textStyle="bold" />
+            android:text="@string/hardcoded_home_status"/>
 
         <include
             android:id="@+id/layout_planner_all_day"
             layout="@layout/planner_item_header"
             android:background="@drawable/background_planner_header"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <com.rcl.excalibur.custom.view.TopRoundedFrameLayout
             android:layout_width="match_parent"
@@ -56,7 +53,7 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never" />
+                android:overScrollMode="never"/>
         </com.rcl.excalibur.custom.view.TopRoundedFrameLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

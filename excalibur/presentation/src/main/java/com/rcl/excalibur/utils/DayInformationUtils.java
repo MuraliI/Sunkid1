@@ -32,7 +32,7 @@ public final class DayInformationUtils {
         if (modelPortType.equalsIgnoreCase(resources.getString(R.string.port_type_embark))
                 || modelPortType.equalsIgnoreCase(resources.getString(R.string.port_type_docked))
                 || modelPortType.equalsIgnoreCase(resources.getString(R.string.port_type_debark))) {
-            shipLocation = resources.getString(R.string.arriving_at_uper) + sailPort.getPortName();
+            shipLocation = sailPort.getPortName();
         } else if (modelPortType.equalsIgnoreCase(resources.getString(R.string.port_type_cruising))) {
             shipLocation = resources.getString(R.string.port_type_at_sea);
         } else {
@@ -49,23 +49,23 @@ public final class DayInformationUtils {
         if (day == FIRST_DAY) {
             arrivalDebarkTime = appendValues(resources.getString(R.string.departing_at),
                     getTimeFormat(Integer.valueOf(sailPort.getDepartureTime()), resources));
-            drawable = R.drawable.ship_icon;
+            drawable = R.drawable.ic_excursions;
         } else if (day == events.size()) {
             arrivalDebarkTime = appendValues(resources.getString(R.string.arriving_at),
                     getTimeFormat(Integer.valueOf(sailPort.getArrivalTime()), resources));
-            drawable = R.drawable.ship_icon;
+            drawable = R.drawable.ic_excursions;
         } else if ((getShipLocation(events, day, resources)).equalsIgnoreCase(resources.getString(R.string.port_type_at_sea))) {
             if ((day + 1) <= events.size()) {
                 sailPort = getSailPortByDay(events, (day + 1));
             }
             arrivalDebarkTime = appendValues(resources.getString(R.string.next_port), sailPort.getPortName());
-            drawable = R.drawable.ship_icon;
+            drawable = R.drawable.ic_excursions;
         } else {
             arrivalDebarkTime = appendValues(resources.getString(R.string.arriving_at),
                     getTimeFormat(Integer.valueOf(sailPort.getArrivalTime()), resources),
                     resources.getString(R.string.arriving_departing_separator),
                     resources.getString(R.string.departing_at), getTimeFormat(Integer.valueOf(sailPort.getDepartureTime()), resources));
-            drawable = R.drawable.ship_icon;
+            drawable = R.drawable.ic_excursions;
         }
 
         return new Pair<>(arrivalDebarkTime, drawable);

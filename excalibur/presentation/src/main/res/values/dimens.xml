@@ -195,11 +195,12 @@
     <!-- Date Picker-->
     <dimen name="day_picker_margin">45dp</dimen>
     <dimen name="day_picker_image_width">25dp</dimen>
-
     <dimen name="ship_time_height">30dp</dimen>
+
     <!-- Day Information-->
     <dimen name="ship_location_text_size">18sp</dimen>
     <dimen name="day_information_text_size">14sp</dimen>
-    <dimen name="product_shiptime_bar_padding">20dp</dimen>
+    <dimen name="product_shiptime_bar_padding">50dp</dimen>
+    <dimen name="progress_height_width">30dp</dimen>
 
 </resources>
