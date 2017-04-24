@@ -8,8 +8,8 @@
     <ProgressBar
         android:id="@+id/progress_service_call_planner"
         style="@style/ProgressBarStyle"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/progress_height_width"
+        android:layout_height="@dimen/progress_height_width"
         android:layout_gravity="center_horizontal"/>
 
     <FrameLayout
