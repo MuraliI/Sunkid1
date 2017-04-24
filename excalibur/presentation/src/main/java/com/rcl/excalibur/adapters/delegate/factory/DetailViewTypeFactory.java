@@ -48,9 +48,9 @@ public final class DetailViewTypeFactory {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
+        addTimeModule(viewTypes, resources, product);
         addPricesModule(viewTypes, offerings, resources, product);
         addCuisineModule(viewTypes, resources, product);
-        addTimeModule(viewTypes, resources, product);
         addDurationModule(viewTypes, resources, product);
         addAttireModule(viewTypes, resources, product);
         addRestrictionModules(viewTypes, resources, product);
