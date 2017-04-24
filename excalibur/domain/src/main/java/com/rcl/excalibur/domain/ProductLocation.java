@@ -1,6 +1,8 @@
 package com.rcl.excalibur.domain;
 
 
+import java.util.List;
+
 public class ProductLocation {
 
     private String locationName;
@@ -11,7 +13,8 @@ public class ProductLocation {
     private String locationPort;
     private int locationDeckNumber;
     private String locationDirection;
-    private LocationOperationHour[] locationOperationHours;
+    private List<LocationDeckInfo> deckInfo;
+    private List<LocationOperationHour> locationOperationHours;
 
     public String getLocationId() {
         return locationId;
@@ -77,11 +80,19 @@ public class ProductLocation {
         this.locationName = locationName;
     }
 
-    public LocationOperationHour[] getLocationOperationHours() {
+    public List<LocationDeckInfo> getDeckInfo() {
+        return deckInfo;
+    }
+
+    public void setDeckInfo(List<LocationDeckInfo> deckInfo) {
+        this.deckInfo = deckInfo;
+    }
+
+    public List<LocationOperationHour> getLocationOperationHours() {
         return locationOperationHours;
     }
 
-    public void setLocationOperationHours(LocationOperationHour[] locationOperationHours) {
+    public void setLocationOperationHours(List<LocationOperationHour> locationOperationHours) {
         this.locationOperationHours = locationOperationHours;
     }
 }

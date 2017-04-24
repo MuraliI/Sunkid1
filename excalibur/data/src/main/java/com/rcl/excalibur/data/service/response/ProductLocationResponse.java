@@ -1,6 +1,9 @@
 package com.rcl.excalibur.data.service.response;
 
 import com.google.gson.annotations.SerializedName;
+import com.rcl.excalibur.domain.LocationOperationHour;
+
+import java.util.List;
 
 
 public class ProductLocationResponse {
@@ -13,8 +16,8 @@ public class ProductLocationResponse {
     private String longitude;
     private String locationVenue;
     private String locationPort;
-    private DeckInfoResponse deckInfo;
-    private LocationOperationHourResponse[] locationOperationHours;
+    private List<DeckInfoResponse> deckInfo;
+    private List<LocationOperationHour> locationOperationHours;
 
     public String getLocationId() {
         return locationId;
@@ -81,19 +84,19 @@ public class ProductLocationResponse {
         this.locationPort = locationPort;
     }
 
-    public DeckInfoResponse getDeckInfo() {
+    public List<DeckInfoResponse> getDeckInfo() {
         return deckInfo;
     }
 
-    public void setDeckInfo(DeckInfoResponse deckInfo) {
+    public void setDeckInfo(List<DeckInfoResponse> deckInfo) {
         this.deckInfo = deckInfo;
     }
 
-    public LocationOperationHourResponse[] getLocationOperationHours() {
+    public List<LocationOperationHour> getLocationOperationHours() {
         return locationOperationHours;
     }
 
-    public void setLocationOperationHours(LocationOperationHourResponse[] locationOperationHours) {
+    public void setLocationOperationHours(List<LocationOperationHour> locationOperationHours) {
         this.locationOperationHours = locationOperationHours;
     }
 }

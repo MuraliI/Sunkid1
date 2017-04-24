@@ -223,8 +223,9 @@ public class Product {
         this.productMedia = productMedia;
     }
 
-    public String getTimeFrame() {
-        return convertToTime(productLocation.getOperatingHoursStart()) + " - " + convertToTime(productLocation.getOperatingHoursEnd());
+    public String getTimeFrame() { // FIXME: Location for product changed, in sprint 6 will be a story to review this
+        return convertToTime(productLocation.getLocationOperationHours().get(0).getStartTime())
+                + " - " + convertToTime(productLocation.getLocationOperationHours().get(0).getEndTime());
     }
 
     private String convertToTime(String time) {
