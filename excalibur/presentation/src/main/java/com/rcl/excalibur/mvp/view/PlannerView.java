@@ -185,6 +185,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             }
 
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
+            if (view == null) {
+                return;
+            }
+
             int verticalMargin = getMargin(slideOffset, initVerticalMargin);
             int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
             resizeItemView(view, verticalMargin, horizontalMargin);
@@ -193,7 +197,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             resizeImage(view, imageMargin);
 
             RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
-            imageView.setRadius(R.dimen.default_radius);
+            if (imageView != null) {
+                imageView.setRadius(R.dimen.default_radius);
+            }
 
             if (slideOffset >= OFFSET_OVER_95_PERCENT) {
                 changeSeparatorVisibility(view, View.VISIBLE);
