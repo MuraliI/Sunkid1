@@ -26,6 +26,7 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SubCategory;
+import com.rcl.excalibur.domain.preference.DiscoverPreference;
 import com.rcl.excalibur.domain.repository.OfferingRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.repository.SubCategoryRepository;
@@ -64,9 +65,12 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     private SubCategoryRepository subCategoryRepository;
     private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
 
-    public DiscoverServicesImpl(ProductRepository productRepository) {
+    private DiscoverPreference discoverPreference;
+
+    public DiscoverServicesImpl(ProductRepository productRepository, DiscoverPreference discoverPreference) {
         super(new ProductResponseDataMapper());
         this.productRepository = productRepository;
+        this.discoverPreference = discoverPreference;
         offeringResponseMapper = new OfferingResponseMapper((ProductResponseDataMapper) getMapper(), new PriceResponseMapper());
         offeringRepository = new OfferingDataRepository();
     }
@@ -240,6 +244,24 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     public void getProducts(DisposableObserver<Boolean> serviceCallCompletedObserver) {
         // TODO: This is a provisional implementation, once we have the final response from the serves.
         // This must be changed to consume all products with pagination support
+
+        if (discoverPreference.isCalledService()) {
+            Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
+                try {
+                    //TODO This is temporal, will be remove before the next sprint
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                observableEmitter.onNext(true);
+            }).subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(serviceCallCompletedObserver);
+            return;
+
+        }
+        discoverPreference.putCalledService(true);
         Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
             offeringRepository.deleteAll();
             productRepository.deleteAll();
