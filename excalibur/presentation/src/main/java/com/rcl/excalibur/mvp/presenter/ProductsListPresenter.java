@@ -2,11 +2,13 @@ package com.rcl.excalibur.mvp.presenter;
 
 
 import android.support.v4.util.Pair;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.adapters.base.LoadMoreScrollListener;
 import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
@@ -21,6 +23,19 @@ import java.util.List;
 public class ProductsListPresenter {
     private GetProductDbUseCase getProductDbUseCase;
     private ProductsListView view;
+    private int type;
+    private String categoryId;
+
+    private LoadMoreScrollListener scrollListener = new LoadMoreScrollListener() {
+        @Override
+        public void onLoadMore(int page, int totalItemsCount, RecyclerView recyclerView) {
+            final BaseActivity activity = view.getActivity();
+            if (activity == null) {
+                return;
+            }
+            showCollectionInView(getProductsByCategory(scrollListener.getCurrentPage(), activity));
+        }
+    };
 
     public ProductsListPresenter(ProductsListView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -32,14 +47,17 @@ public class ProductsListPresenter {
         if (activity == null) {
             return;
         }
+        this.type = type;
+        this.categoryId = categoryId;
         view.setAdapterObserver(new AdapterObserver(this));
-        view.init();
-        showCollectionInView(getProductsByCategory(type, categoryId, activity));
+        view.init(scrollListener);
+        showCollectionInView(getProductsByCategory(scrollListener.getCurrentPage(), activity));
     }
 
-    private List<Product> getProductsByCategory(int type, String categoryId, BaseActivity activity) {
+    private List<Product> getProductsByCategory(int offset, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
-        List<Product> allProducts = getProductDbUseCase.getAll(getType(activity, type));
+        String typeQuery = getType(activity, type);
+        List<Product> allProducts = getProductDbUseCase.getByType(typeQuery, LoadMoreScrollListener.MAX_COUNT, offset);
 
         if (categoryId == null) {
             childProducts = allProducts;
@@ -90,7 +108,7 @@ public class ProductsListPresenter {
         if (products == null || products.size() == 0) {
             view.addAlertNoProducts();
         } else {
-            view.addAll(products);
+            view.add(products);
         }
     }
 

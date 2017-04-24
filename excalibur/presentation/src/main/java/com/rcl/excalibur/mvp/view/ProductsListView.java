@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.ProductsAdapter;
+import com.rcl.excalibur.adapters.base.LoadMoreScrollListener;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.fragments.ProductsListFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
@@ -30,7 +31,7 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
         ButterKnife.bind(this, fragment.getView());
     }
 
-    public void init() {
+    public void init(LoadMoreScrollListener loadMoreScrollListener) {
         final Activity activity = getActivity();
         if (activity == null) {
             return;
@@ -38,10 +39,20 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
         adapter = new ProductsAdapter(adapterObserver);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
+        loadMoreScrollListener.init(recyclerView.getLayoutManager());
+        recyclerView.setOnScrollListener(loadMoreScrollListener);
     }
 
     public void addAll(List<Product> list) {
         adapter.addAll(list);
+    }
+
+    public void add(List<Product> list) {
+        if (adapter.getItemCount() > 0) {
+            adapter.add(adapter.getItemCount() - 1, list);
+        } else {
+            adapter.addAll(list);
+        }
     }
 
     public void addAlertNoProducts() {
