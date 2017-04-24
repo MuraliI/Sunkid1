@@ -4,7 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = DeckInfoEntity.TABLE_NAME)
+@Table(name = OperationHourEntity.TABLE_NAME)
 public class OperationHourEntity extends Model {
 
     public static final String TABLE_NAME = "operation_hour";
