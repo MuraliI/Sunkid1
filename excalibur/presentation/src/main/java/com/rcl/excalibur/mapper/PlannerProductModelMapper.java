@@ -1,8 +1,10 @@
 package com.rcl.excalibur.mapper;
 
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
 
+import com.google.gson.internal.LinkedHashTreeMap;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
@@ -16,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,52 +41,44 @@ public class PlannerProductModelMapper {
     public SparseArrayCompat<List<PlannerProductModel>> transform(List<Offering> input) {
         List<PlannerProductModel> timedProductList = new ArrayList<>();
         List<PlannerProductModel> allDayProducts = new ArrayList<>();
-
         SparseArrayCompat<List<PlannerProductModel>> productList = new SparseArrayCompat<>(2);
         productList.append(ALL_DAY_PRODUCT_LIST, allDayProducts);
         productList.append(TIMED_PRODUCT_LIST, timedProductList);
-
-        Map<Product, List<Offering>> productOfferingMap = createOfferingProductMap(input);
-
-        for (Map.Entry<Product, List<Offering>> entry : productOfferingMap.entrySet()) {
-            Product product = entry.getKey();
+        Map<String, List<Offering>> productOfferingMap = createOfferingProductMap(input);
+        for (Map.Entry<String, List<Offering>> entry : productOfferingMap.entrySet()) {
             List<Offering> productOfferingList = entry.getValue();
-
-            if (productOfferingList.size() > ALL_DAY_OFFERING_LIMIT) {
-                allDayProducts.add(createAllDayProductModel(product, productOfferingList));
+            if (productOfferingList.size() >= ALL_DAY_OFFERING_LIMIT) {
+                allDayProducts.add(createAllDayProductModel(productOfferingList));
             } else {
                 for (Offering offering : productOfferingList) {
-                    timedProductList.add(createNormalPlannerProductModel(product, offering));
+                    timedProductList.add(createNormalPlannerProductModel(offering));
                 }
             }
         }
-
         Collections.sort(allDayProducts);
         Collections.sort(timedProductList);
-
         return productList;
     }
 
-    private Map<Product, List<Offering>> createOfferingProductMap(List<Offering> input) {
-        Map<Product, List<Offering>> productOfferingMap = new HashMap<>();
+    private Map<String, List<Offering>> createOfferingProductMap(List<Offering> input) {
+        Map<String, List<Offering>> productOfferingMap = new LinkedHashTreeMap<>();
 
         for (Offering offering : input) {
-            List<Offering> offeringList = productOfferingMap.get(offering.getProduct());
-
+            String productId = offering.getProduct().getProductId();
+            List<Offering> offeringList = productOfferingMap.get(productId);
             if (offeringList == null) {
                 offeringList = new ArrayList<>();
-                productOfferingMap.put(offering.getProduct(), offeringList);
             }
-
             offeringList.add(offering);
+            productOfferingMap.put(productId, offeringList);
         }
 
         return productOfferingMap;
     }
 
-    private PlannerProductModel createAllDayProductModel(Product product, List<Offering> offeringList) {
+    private PlannerProductModel createAllDayProductModel(@NonNull List<Offering> offeringList) {
         Collections.sort(offeringList);
-
+        Product product = offeringList.get(0).getProduct();
         PlannerProductModel model = (PlannerProductModel) productInformationMapper.transform(product);
 
         Calendar allDayStartDate = Calendar.getInstance();
@@ -106,7 +99,9 @@ public class PlannerProductModelMapper {
         return model;
     }
 
-    private PlannerProductModel createNormalPlannerProductModel(Product product, Offering offering) {
+    private PlannerProductModel createNormalPlannerProductModel(Offering offering) {
+        Product product = offering.getProduct();
+
         PlannerProductModel model = (PlannerProductModel) productInformationMapper.transform(product);
 
         Calendar startDate = Calendar.getInstance();
