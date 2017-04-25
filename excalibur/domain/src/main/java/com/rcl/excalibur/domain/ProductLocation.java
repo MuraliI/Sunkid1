@@ -53,7 +53,7 @@ public class ProductLocation {
         this.longitude = longitude;
     }
 
-    public List<LocationDeckInfo> getDeckInfo() {
+    public List<LocationDeckInfo> getLocationDeckInfo() {
         return deckInfo;
     }
 

@@ -15,7 +15,7 @@ public final class LocationUtils {
 
     public static String getProductLocation(ProductLocation productLocation) {
         if (productLocation != null) {
-            List<LocationDeckInfo> deckInfoList = productLocation.getDeckInfo();
+            List<LocationDeckInfo> deckInfoList = productLocation.getLocationDeckInfo();
             if (deckInfoList != null && !deckInfoList.isEmpty()) {
                 // FIXME: We are using a provisional item, in the next Spring this logic should be fixed
                 return String.valueOf(deckInfoList.get(0).getDeckNumber())

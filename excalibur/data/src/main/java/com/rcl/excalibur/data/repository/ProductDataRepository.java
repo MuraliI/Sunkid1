@@ -314,7 +314,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         locationEntity.save();
 
         // DeckInfo
-        createDeckInfo(locationEntity, productLocation.getDeckInfo());
+        createDeckInfo(locationEntity, productLocation.getLocationDeckInfo());
 
         // Operation Hours
         createOperationHours(locationEntity, productLocation.getLocationOperationHours());
