@@ -41,13 +41,16 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         holder.name.setText(item.getProductName());
 
         boolean isShorex = CategoryUtil.isShorex(item.getProductType());
+        //TODO: Remove this in sprint 6 when consuming Location
+        isShorex = false;
         holder.findOnDeck.setVisibility(isShorex ? View.GONE : View.VISIBLE);
 
         holder.venue.setVisibility(isShorex ? View.GONE : View.VISIBLE);
         holder.venue.setText(item.getVenue());
 
         holder.deckAndDirection.setVisibility(isShorex ? View.GONE : View.VISIBLE);
-        holder.deckAndDirection.setText(item.getLocation());
+        //TODO: Remove "Deck" and create logic in sprint 6 when consuming Location
+        holder.deckAndDirection.setText("Deck " + item.getLocation());
 
         holder.port.setVisibility(isShorex ? View.VISIBLE : View.GONE);
         holder.port.setText(item.getPort());

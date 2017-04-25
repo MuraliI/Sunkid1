@@ -22,7 +22,7 @@ public class DiscoverTabPresenter {
         init();
     }
 
-    private void init() {
+    protected void init() {
         view.init();
         view.showLoadingView(true);
     }

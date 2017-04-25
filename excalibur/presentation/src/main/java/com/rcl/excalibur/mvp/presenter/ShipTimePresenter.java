@@ -16,6 +16,7 @@ public class ShipTimePresenter {
     private static final String TIME_ZONE = "GMT%s";
     protected static final String TYPE_BLUE = "2";
     protected static final String TYPE_WHITE = "1";
+    protected static final String TYPE_TRANSPARENT = "3";
     protected ShipTimeView view;
     protected GetShipTimeUseCase getShipTimeUseCase;
     protected GetShipTimeDbUseCase getShipTimeDbUseCase;
@@ -55,6 +56,10 @@ public class ShipTimePresenter {
     protected void applyType(String type) {
         if (TYPE_WHITE.equals(type)) {
             view.applyType(R.color.white, R.color.black);
+            return;
+        }
+        if (TYPE_TRANSPARENT.equals(type)) {
+            view.applyType(R.color.transparent, R.color.white);
             return;
         }
         view.applyType(R.color.bg_color, R.color.white);

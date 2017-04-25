@@ -201,7 +201,7 @@
     <string name="error_message_security_questions">Something went wrong, please try again.</string>
     <string name="error_message_no_information_yet">There is no information yet. Please try again later</string>
     <string name="hardcoded_home_status">At Sea</string>
-    <string name="hardcoded_day_tab">Day 6</string>
+    <string name="hardcoded_day_tab">Day 1</string>
 
     <!--Day Picker-->
     <string name="today_day_title">Today</string>
@@ -221,4 +221,20 @@
         <item>"Nov "</item>
         <item>"Dec "</item>
     </string-array>
+
+    <!-- Day Information-->
+    <string name="day_number">Day %d</string>
+    <string name="port_type_embark">EMBARK</string>
+    <string name="port_type_docked">DOCKED</string>
+    <string name="port_type_debark">DEBARK</string>
+    <string name="port_type_cruising">CRUISING</string>
+    <string name="port_type_at_sea">At Sea</string>
+    <string name="arriving_at_uper">"At "</string>
+    <string name="time_format_am">" AM"</string>
+    <string name="time_format_pm">" PM"</string>
+    <string name="time_format_separator">:</string>
+    <string name="next_port">"Next Port: "</string>
+    <string name="arriving_at">"Arriving at "</string>
+    <string name="departing_at">"Departing at "</string>
+    <string name="arriving_departing_separator">"; "</string>
 </resources>

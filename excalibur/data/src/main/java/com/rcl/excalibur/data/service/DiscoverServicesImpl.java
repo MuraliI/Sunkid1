@@ -26,6 +26,7 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SubCategory;
+import com.rcl.excalibur.domain.preference.DiscoverPreference;
 import com.rcl.excalibur.domain.repository.OfferingRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.repository.SubCategoryRepository;
@@ -59,15 +60,17 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     private static final int MAX_COUNT = 50;
 
     private final ProductRepository productRepository;
+    private final OfferingRepository offeringRepository;
+    private final OfferingResponseMapper offeringResponseMapper;
     private SubCategoryRepository subCategoryRepository;
     private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
 
-    private final OfferingRepository offeringRepository;
-    private final OfferingResponseMapper offeringResponseMapper;
+    private DiscoverPreference discoverPreference;
 
-    public DiscoverServicesImpl(ProductRepository productRepository) {
+    public DiscoverServicesImpl(ProductRepository productRepository, DiscoverPreference discoverPreference) {
         super(new ProductResponseDataMapper());
         this.productRepository = productRepository;
+        this.discoverPreference = discoverPreference;
         offeringResponseMapper = new OfferingResponseMapper((ProductResponseDataMapper) getMapper(), new PriceResponseMapper());
         offeringRepository = new OfferingDataRepository();
     }
@@ -241,6 +244,24 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     public void getProducts(DisposableObserver<Boolean> serviceCallCompletedObserver) {
         // TODO: This is a provisional implementation, once we have the final response from the serves.
         // This must be changed to consume all products with pagination support
+
+        if (discoverPreference.isCalledService()) {
+            Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
+                try {
+                    //TODO This is temporal, will be remove before the next sprint
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                observableEmitter.onNext(true);
+            }).subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(serviceCallCompletedObserver);
+            return;
+
+        }
+        discoverPreference.putCalledService(true);
         Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
             offeringRepository.deleteAll();
             productRepository.deleteAll();
@@ -256,13 +277,15 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
             ProductProcessor productProcessor = new ProductProcessor();
 
             try {
-                productProcessor.onResponse(dinningCall.execute(), DINING_TYPE);
-                productProcessor.onResponse(shorexCall.execute(), SHOREX_TYPE);
-                productProcessor.onResponse(activitiesCall.execute(), ACTIVITIES_TYPE);
-                productProcessor.onResponse(entertainmentCall.execute(), ENTERTAINMENT_TYPE);
-                productProcessor.onResponse(spaCall.execute(), SPA_TYPE);
-                productProcessor.onResponse(shoppingCall.execute(), SHOPPING_TYPE);
-                productProcessor.onResponse(guestServicesCall.execute(), GUEST_SERVICES_TYPE);
+                productProcessor.onResponse(dinningCall.execute());
+                productProcessor.onResponse(shorexCall.execute());
+                productProcessor.onResponse(activitiesCall.execute());
+                productProcessor.onResponse(entertainmentCall.execute());
+                productProcessor.onResponse(spaCall.execute());
+                productProcessor.onResponse(shoppingCall.execute());
+                productProcessor.onResponse(guestServicesCall.execute());
+
+                productProcessor.create();
             } catch (Exception e) {
                 productProcessor.onFailure(e);
                 observableEmitter.onNext(false);
@@ -387,13 +410,20 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         private List<Offering> offeringList = new ArrayList<>();
         private String productType;
 
+        void onResponse(Response<GetProductsResponse> response) {
+            mapDataProducts(response, productList, offeringList);
+        }
+
+        void create() {
+            productRepository.create(productList);
+            offeringRepository.create(offeringList);
+        }
+
         void onResponse(Response<GetProductsResponse> response, String productType) {
             this.productType = productType;
             mapDataProducts(response, productList, offeringList);
             productRepository.create(productList);
-
             offeringRepository.create(offeringList);
-
         }
 
         void onFailure(Throwable t) {
