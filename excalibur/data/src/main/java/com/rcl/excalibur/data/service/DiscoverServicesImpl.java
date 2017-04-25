@@ -438,7 +438,6 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                         if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
                             productResponse.setAdvisements(getProductAdvisementResponseAttire());
                         }
-                        //setProductLocationExtraParameters(productResponse.getProductLocation());
                         offeringList.addAll(offeringResponseMapper.transform(productResponse.getOffering(), productResponse));
                     }
                     productList.addAll(getMapper().transform(getProductsResponse.getProducts(), null));
