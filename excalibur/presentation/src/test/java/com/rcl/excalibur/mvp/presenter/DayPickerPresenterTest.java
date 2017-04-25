@@ -51,28 +51,29 @@ public class DayPickerPresenterTest {
     private SailPort sailPort1;
     private SailPort sailPort2;
 
-    private final String description = "7 NIGHT EASTERN CARIBBEAN CRUISE";
-    private final String shipCode = "AL";
-    private final String duration = "7";
+    private final String DESCRIPTION = "7 NIGHT EASTERN CARIBBEAN CRUISE";
+    private final String SHIPCODE = "AL";
+    private final String DURATION = "7";
 
 
-    private final String event1Day = "1";
-    private final String event1PortCode = "FLL";
-    private final String event1PortName = "FORT LAUDERDALE, FLORIDA";
-    private final String event1PortType = "EMBARK";
-    private final String event1PortArrivalDate = "04/23/2017";
-    private final String event1PortDepartureDate = "04/23/2017";
-    private final String event1PortArrivalTime = "0";
-    private final String event1PortDepartureTime = "163000";
 
-    private final String event2Day = "2";
-    private final String event2PortCode = "NAS";
-    private final String event2PortName = "NASSAU, BAHAMAS";
-    private final String event2PortType = "DOCKED";
-    private final String event2PortArrivalDate = "04/24/2017";
-    private final String event2PortDepartureDate = "04/24/2017";
-    private final String event2PortArrivalTime = "70000";
-    private final String event2PortDepartureTime = "140000";
+    private final String EVENT1_DAY = "1";
+    private final String EVENT1_PORT_CODE = "FLL";
+    private final String EVENT1_PORT_NAME = "FORT LAUDERDALE, FLORIDA";
+    private final String EVENT1_PORT_TYPE = "EMBARK";
+    private final String EVENT1_PORT_ARRIVAL_DATE = "04/23/2017";
+    private final String EVENT1_PORT_DEPARTURE_DATE = "04/23/2017";
+    private final String EVENT1_PORT_ARRIVAL_TIME = "0";
+    private final String EVENT1_PORT_DEPARTURE_TIME = "163000";
+
+    private final String EVENT2_DAY = "2";
+    private final String EVENT2_PORT_CODE = "NAS";
+    private final String EVENT2_PORT_NAME = "NASSAU, BAHAMAS";
+    private final String EVENT2_PORT_TYPE = "DOCKED";
+    private final String EVENT2_PORT_ARRIVAL_DATE = "04/24/2017";
+    private final String EVENT2_PORT_DEPARTURE_DATE = "04/24/2017";
+    private final String EVENT2_PORT_ARRIVAL_TIME = "70000";
+    private final String EVENT2_PORT_DEPARTURE_TIME = "140000";
 
 
 
@@ -89,37 +90,37 @@ public class DayPickerPresenterTest {
 
         sailDateInfo = new SailDateInfo();
         sailDateItinerary = new SailDateItinerary();
-        sailDateItinerary.setDescription(description);
+        sailDateItinerary.setDescription(DESCRIPTION);
 
         sailDateEvents = new ArrayList<>();
         event1 = new SailDateEvent();
-        event1.setDay(event1Day);
+        event1.setDay(EVENT1_DAY);
         sailPort1 = new SailPort();
-        sailPort1.setPortCode(event1PortCode);
-        sailPort1.setPortName(event1PortName);
-        sailPort1.setPortType(event1PortType);
-        sailPort1.setArrivalDate(event1PortArrivalDate);
-        sailPort1.setDepartureDate(event1PortDepartureDate);
-        sailPort1.setArrivalTime(event1PortArrivalTime);
-        sailPort1.setDepartureTime(event1PortDepartureTime);
+        sailPort1.setPortCode(EVENT1_PORT_CODE);
+        sailPort1.setPortName(EVENT1_PORT_NAME);
+        sailPort1.setPortType(EVENT1_PORT_TYPE);
+        sailPort1.setArrivalDate(EVENT1_PORT_ARRIVAL_DATE);
+        sailPort1.setDepartureDate(EVENT1_PORT_DEPARTURE_DATE);
+        sailPort1.setArrivalTime(EVENT1_PORT_ARRIVAL_TIME);
+        sailPort1.setDepartureTime(EVENT1_PORT_DEPARTURE_TIME);
         event1.setPort(sailPort1);
 
         event2 = new SailDateEvent();
-        event2.setDay(event2Day);
+        event2.setDay(EVENT2_DAY);
         sailPort2 = new SailPort();
-        sailPort2.setPortCode(event2PortCode);
-        sailPort2.setPortName(event2PortName);
-        sailPort2.setPortType(event2PortType);
-        sailPort2.setArrivalDate(event2PortArrivalDate);
-        sailPort2.setDepartureDate(event2PortDepartureDate);
-        sailPort2.setArrivalTime(event2PortArrivalTime);
-        sailPort2.setDepartureTime(event2PortDepartureTime);
+        sailPort2.setPortCode(EVENT2_PORT_CODE);
+        sailPort2.setPortName(EVENT2_PORT_NAME);
+        sailPort2.setPortType(EVENT2_PORT_TYPE);
+        sailPort2.setArrivalDate(EVENT2_PORT_ARRIVAL_DATE);
+        sailPort2.setDepartureDate(EVENT2_PORT_DEPARTURE_DATE);
+        sailPort2.setArrivalTime(EVENT2_PORT_ARRIVAL_TIME);
+        sailPort2.setDepartureTime(EVENT2_PORT_DEPARTURE_TIME);
         event2.setPort(sailPort2);
         sailDateEvents.add(event1);
         sailDateEvents.add(event2);
         sailDateItinerary.setEvents(sailDateEvents);
-        sailDateInfo.setDuration(duration);
-        sailDateInfo.setShipCode(shipCode);
+        sailDateInfo.setDuration(DURATION);
+        sailDateInfo.setShipCode(SHIPCODE);
         sailDateInfo.setItinerary(sailDateItinerary);
         when(view.getActivity()).thenReturn(activity);
         when(resources.getString(R.string.day_title)).thenReturn("Day ");
