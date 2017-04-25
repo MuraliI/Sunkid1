@@ -80,7 +80,7 @@ public class DayPickerPresenter {
         formatedDay.append(calculatedDay);
         String day = formatedDay.toString();
         String description = itinerary.getDescription();
-//TODO the endpoint is not developed yet and if read from the json file will crash the test
+        //TODO the endpoint is not developed yet and if read from the json file will crash the test
         String shipName = resources.getString(R.string.hardcoded_day_picker_ship_name);
         if (!TextUtils.isEmpty(description) && !TextUtils.isEmpty(day)) {
             view.setHeader(description, day, shipName);

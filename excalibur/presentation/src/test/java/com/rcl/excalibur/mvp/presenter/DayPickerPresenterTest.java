@@ -112,6 +112,7 @@ public class DayPickerPresenterTest {
         presenter.init();
         verify(getSaildDateDbUseCase).get();
         verify(getSailingPreferenceUseCase).getDay();
+        verify(view.getActivity().getResources());
     }
 
 
