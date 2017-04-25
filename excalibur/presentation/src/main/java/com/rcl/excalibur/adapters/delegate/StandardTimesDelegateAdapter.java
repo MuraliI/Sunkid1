@@ -15,7 +15,7 @@ import com.rcl.excalibur.utils.StringUtils;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -82,12 +82,12 @@ public class StandardTimesDelegateAdapter implements DelegateAdapter<StandardTim
     }
 
     static class StandardTimesViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.text_module_standard_times_title) TextView title;
-        @Bind(R.id.text_module_standard_times_days) TextView days;
-        @Bind(R.id.text_module_standard_times_times) TextView times;
-        @Bind(R.id.link_container) LinearLayout linkContainer;
-        @Bind(R.id.link_title) TextView linkTitle;
-        @Bind(R.id.link_arrow) ImageView linkArrow;
+        @BindView(R.id.text_module_standard_times_title) TextView title;
+        @BindView(R.id.text_module_standard_times_days) TextView days;
+        @BindView(R.id.text_module_standard_times_times) TextView times;
+        @BindView(R.id.link_container) LinearLayout linkContainer;
+        @BindView(R.id.link_title) TextView linkTitle;
+        @BindView(R.id.link_arrow) ImageView linkArrow;
         boolean expanded;
         List<String[]> daysAndTimes;
 

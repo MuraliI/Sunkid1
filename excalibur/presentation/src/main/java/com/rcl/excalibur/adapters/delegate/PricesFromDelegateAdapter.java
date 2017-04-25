@@ -14,7 +14,7 @@ import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -64,11 +64,11 @@ public class PricesFromDelegateAdapter implements DelegateAdapter<PricesFromDele
 
     public static class PricesFromViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.text_module_title)
+        @BindView(R.id.text_module_title)
         TextView textTitle;
-        @Bind(R.id.text_module_subtitle)
+        @BindView(R.id.text_module_subtitle)
         TextView textSubtitle;
-        @Bind(R.id.prices_container)
+        @BindView(R.id.prices_container)
         LinearLayout pricesContainer;
 
         public PricesFromViewHolder(ViewGroup parent) {

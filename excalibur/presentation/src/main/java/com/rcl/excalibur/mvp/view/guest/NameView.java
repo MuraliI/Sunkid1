@@ -10,14 +10,14 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class NameView extends ActivityView<NameActivity, Void, Void> {
-    @Bind(R.id.full_name) EditText fullName;
-    @Bind(R.id.name_error) TextView error;
-    @Bind(R.id.next_button) ImageView nextButton;
+    @BindView(R.id.full_name) EditText fullName;
+    @BindView(R.id.name_error) TextView error;
+    @BindView(R.id.next_button) ImageView nextButton;
 
     public NameView(NameActivity activity) {
         super(activity);
