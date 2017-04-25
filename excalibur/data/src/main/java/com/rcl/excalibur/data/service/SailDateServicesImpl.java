@@ -27,7 +27,7 @@ public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingI
     @Override
     public void getSailDate() {
         new Thread(() -> {
-            repository.deleteAll();
+
             Call<SailDateResponse> call = getSailDateApi().getEvents(SAILING_ID);
             SailDateProcessor sailDateProcessor = new SailDateProcessor();
             try {
@@ -45,6 +45,7 @@ public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingI
         void onResponse(Response<SailDateResponse> response) {
             // TODO: add validation succesfull response when webservice integrate
             if (response.body() != null) {
+                repository.deleteAll();
                 SailDateInfo dateInfoEntity = getMapper().transform(response.body().getSailingInfo(), null);
                 repository.create(dateInfoEntity);
             }

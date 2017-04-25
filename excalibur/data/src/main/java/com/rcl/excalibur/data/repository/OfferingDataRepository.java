@@ -27,6 +27,7 @@ import java.util.List;
 public class OfferingDataRepository extends BaseDataRepository<Offering, OfferingEntity, Void, OfferingDataMapper>
         implements OfferingRepository {
 
+    private static final String ORDER_BY_TITLE = "product.title";
     /*FIXME this can be in the base class, because all of the repositories should have a mapper to create an entry in the database*/
     private OfferingEntityDataMapper entityDataMapper;
 
@@ -42,14 +43,15 @@ public class OfferingDataRepository extends BaseDataRepository<Offering, Offerin
                 .where(DBUtil.eq(ProductEntity.COLUMN_PRODUCT_ID, input.getProduct() != null ? input.getProduct().getProductId() : ""))
                 .executeSingle();
         OfferingEntity offering = entityDataMapper.transform(input, product);
-        OfferingEntity dbOffering = new Select()
-                .from(OfferingEntity.class)
-                .where(DBUtil.and(DBUtil.eq(OfferingEntity.COLUMN_PRODUCT, product.getId())
-                        , DBUtil.eq(OfferingEntity.COLUMN_DATE, offering.getDate())))
-                .executeSingle();
-        if (dbOffering == null) {
-            offering.getPrice().save();
-            offering.save();
+        if (offering != null) {
+            OfferingEntity dbOffering = new Select()
+                    .from(OfferingEntity.class)
+                    .where(DBUtil.eq(OfferingEntity.COLUMN_OFFERING_ID, offering.getOfferingId()))
+                    .executeSingle();
+            if (dbOffering == null) {
+                offering.getPrice().save();
+                offering.save();
+            }
         }
     }
 
@@ -65,7 +67,10 @@ public class OfferingDataRepository extends BaseDataRepository<Offering, Offerin
 
         List<OfferingEntity> offerings = new Select()
                 .from(OfferingEntity.class)
+                .innerJoin(ProductEntity.class)
+                .on(DBUtil.on(OfferingEntity.TABLE_NAME, OfferingEntity.COLUMN_PRODUCT, ProductEntity.TABLE_NAME))
                 .where(DBUtil.eq(OfferingEntity.COLUMN_DATE, dateFormat.format(date)))
+                .orderBy(ORDER_BY_TITLE)
                 .execute();
 
         return getMapper().transform(offerings, null);
