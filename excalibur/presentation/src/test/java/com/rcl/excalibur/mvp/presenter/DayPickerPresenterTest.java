@@ -50,6 +50,32 @@ public class DayPickerPresenterTest {
 
     private SailPort sailPort1;
     private SailPort sailPort2;
+
+    private final String description = "7 NIGHT EASTERN CARIBBEAN CRUISE";
+    private final String shipCode = "AL";
+    private final String duration = "7";
+
+
+    private final String event1Day = "1";
+    private final String event1PortCode = "FLL";
+    private final String event1PortName = "FORT LAUDERDALE, FLORIDA";
+    private final String event1PortType = "EMBARK";
+    private final String event1PortArrivalDate = "04/23/2017";
+    private final String event1PortDepartureDate = "04/23/2017";
+    private final String event1PortArrivalTime = "0";
+    private final String event1PortDepartureTime = "163000";
+
+    private final String event2Day = "2";
+    private final String event2PortCode = "NAS";
+    private final String event2PortName = "NASSAU, BAHAMAS";
+    private final String event2PortType = "DOCKED";
+    private final String event2PortArrivalDate = "04/24/2017";
+    private final String event2PortDepartureDate = "04/24/2017";
+    private final String event2PortArrivalTime = "70000";
+    private final String event2PortDepartureTime = "140000";
+
+
+
     @Before
     public void setUp() throws Exception {
         PowerMockito.mockStatic(TextUtils.class);
@@ -63,37 +89,37 @@ public class DayPickerPresenterTest {
 
         sailDateInfo = new SailDateInfo();
         sailDateItinerary = new SailDateItinerary();
-        sailDateItinerary.setDescription("7 NIGHT EASTERN CARIBBEAN CRUISE");
+        sailDateItinerary.setDescription(description);
 
         sailDateEvents = new ArrayList<>();
         event1 = new SailDateEvent();
-        event1.setDay("1");
+        event1.setDay(event1Day);
         sailPort1 = new SailPort();
-        sailPort1.setPortCode("FLL");
-        sailPort1.setPortName("FORT LAUDERDALE, FLORIDA");
-        sailPort1.setPortType("EMBARK");
-        sailPort1.setArrivalDate("04/23/2017");
-        sailPort1.setDepartureDate("04/23/2017");
-        sailPort1.setArrivalTime("0");
-        sailPort1.setDepartureTime("163000");
+        sailPort1.setPortCode(event1PortCode);
+        sailPort1.setPortName(event1PortName);
+        sailPort1.setPortType(event1PortType);
+        sailPort1.setArrivalDate(event1PortArrivalDate);
+        sailPort1.setDepartureDate(event1PortDepartureDate);
+        sailPort1.setArrivalTime(event1PortArrivalTime);
+        sailPort1.setDepartureTime(event1PortDepartureTime);
         event1.setPort(sailPort1);
 
         event2 = new SailDateEvent();
-        event2.setDay("2");
+        event2.setDay(event2Day);
         sailPort2 = new SailPort();
-        sailPort2.setPortCode("NAS");
-        sailPort2.setPortName("NASSAU, BAHAMAS");
-        sailPort2.setPortType("DOCKED");
-        sailPort2.setArrivalDate("04/24/2017");
-        sailPort2.setDepartureDate("04/24/2017");
-        sailPort2.setArrivalTime("70000");
-        sailPort2.setDepartureTime("140000");
+        sailPort2.setPortCode(event2PortCode);
+        sailPort2.setPortName(event2PortName);
+        sailPort2.setPortType(event2PortType);
+        sailPort2.setArrivalDate(event2PortArrivalDate);
+        sailPort2.setDepartureDate(event2PortDepartureDate);
+        sailPort2.setArrivalTime(event2PortArrivalTime);
+        sailPort2.setDepartureTime(event2PortDepartureTime);
         event2.setPort(sailPort2);
         sailDateEvents.add(event1);
         sailDateEvents.add(event2);
         sailDateItinerary.setEvents(sailDateEvents);
-        sailDateInfo.setDuration("7");
-        sailDateInfo.setShipCode("AL");
+        sailDateInfo.setDuration(duration);
+        sailDateInfo.setShipCode(shipCode);
         sailDateInfo.setItinerary(sailDateItinerary);
         when(view.getActivity()).thenReturn(activity);
         when(resources.getString(R.string.day_title)).thenReturn("Day ");
