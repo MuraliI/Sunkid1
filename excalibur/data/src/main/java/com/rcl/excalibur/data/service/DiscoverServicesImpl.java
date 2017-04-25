@@ -88,7 +88,6 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     public void getSubCategories() {
         List<SubCategory> subCategories = new ArrayList<>();
 
-        subCategoryRepository.deleteAll();
 
         Call<GetSubCategoriesResponse> subCategoriesCall = getDiscoverApi().getSubCategories(SAILING_ID);
 
@@ -96,6 +95,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
 
             @Override
             public void onResponse(Call<GetSubCategoriesResponse> call, Response<GetSubCategoriesResponse> response) {
+                subCategoryRepository.deleteAll();
                 mapSubCategories(response, subCategories);
                 subCategoryRepository.create(subCategories);
             }
