@@ -400,9 +400,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                     DayInformationUtils.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime())));
             drawable = R.drawable.ic_excursions;
         } else if (PORT_TYPE_CRUISING.equals(sailPort.getPortType())) {
-            if ((day + 1) <= events.size()) {
-                sailPort = DayInformationUtils.getSailPortByDay(events, (day + 1));
-            }
+            sailPort = getPortTypeNextDay(events, day, sailPort);
             arrivalDebarkTime = DayInformationUtils.appendValues(resources.getString(R.string.next_port), sailPort.getPortName());
             drawable = R.drawable.ic_excursions;
         } else {
@@ -411,6 +409,16 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         }
 
         return new Pair<>(arrivalDebarkTime, drawable);
+    }
+
+    private static PortModel getPortTypeNextDay(List<EventModel> events, int day, PortModel sailPort) {
+        if ((day + 1) <= events.size()) {
+            sailPort = DayInformationUtils.getSailPortByDay(events, (day + 1));
+            if (PORT_TYPE_CRUISING.equals(sailPort.getPortType())) {
+                sailPort = getPortTypeNextDay(events, day + 1, sailPort);
+            }
+        }
+        return sailPort;
     }
 
     @OnClick(R.id.image_ship_invisible)
