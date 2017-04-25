@@ -94,7 +94,8 @@
                 android:layout_marginStart="@dimen/item_product_margin"
                 app:maxRange="@integer/planner_product_item_max_range"
                 app:offColor="@color/grey"
-                app:onColor="@color/black" />
+                app:onColor="@color/black"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <com.rcl.excalibur.utils.RoundedImageView

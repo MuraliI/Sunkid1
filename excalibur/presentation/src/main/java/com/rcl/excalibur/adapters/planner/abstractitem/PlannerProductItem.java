@@ -82,12 +82,13 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         } else {
             holder.productImage.setImageResource(R.drawable.placeholder_list_item);
         }
-        if (plannerProductModel.getUpChargeLevel() > 0) {
+        //TODO: this is commented because of ticket CORE-1630 but in next sprint we will use this logic
+        /*if (plannerProductModel.getUpChargeLevel() > 0) {
             holder.priceRange.setVisibility(View.VISIBLE);
             holder.priceRange.setValue(plannerProductModel.getUpChargeLevel());
         } else {
             holder.priceRange.setVisibility(View.GONE);
-        }
+        }*/
         holder.productPromoted.setVisibility(plannerProductModel.isFeatured() ? View.VISIBLE : View.GONE);
         holder.productName.setText(plannerProductModel.getProductName());
         holder.productOperatingHours.setText(plannerProductModel.getOperatingHours());

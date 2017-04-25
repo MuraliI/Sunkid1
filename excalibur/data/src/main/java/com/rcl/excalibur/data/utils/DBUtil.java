@@ -29,6 +29,10 @@ public final class DBUtil {
         return value;
     }
 
+    public static String on(String leftTable, String leftColumn, String rightTable) {
+        return String.format("%s.%s=%s.%s", leftTable, leftColumn, rightTable, COL_ID);
+    }
+
     public static String and(String... condition) {
         return condition("AND", condition);
     }
