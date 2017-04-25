@@ -9,6 +9,7 @@ import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -43,6 +44,7 @@ public class DiscoverTabPresenterTest {
         verify(view).openListScreen(fragmentToShow);
     }
 
+    @Ignore
     @Test
     public void testInit() throws Exception {
         //presenter.init();
