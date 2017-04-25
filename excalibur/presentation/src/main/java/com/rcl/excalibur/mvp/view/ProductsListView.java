@@ -43,8 +43,12 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
             return;
         }
 
-        publisherSubject.subscribe(pairConsumer);
+        adapter = new ProductsAdapter(adapterObserver);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setAdapter(adapter);
+
         final int startOffset = 0;
+        publisherSubject.subscribe(pairConsumer);
         loadMoreScrollListener = new LoadMoreScrollListener(recyclerView.getLayoutManager(), startOffset) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
@@ -52,10 +56,7 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
             }
         };
 
-        adapter = new ProductsAdapter(adapterObserver);
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        recyclerView.setAdapter(adapter);
-        recyclerView.setOnScrollListener(loadMoreScrollListener);
+        recyclerView.addOnScrollListener(loadMoreScrollListener);
 
         //First Call
         publisherSubject.onNext(new Pair<>(startOffset, LoadMoreScrollListener.MAX_COUNT));

@@ -7,7 +7,6 @@ import android.view.View;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
-import com.rcl.excalibur.adapters.base.LoadMoreScrollListener;
 import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
@@ -24,7 +23,6 @@ public class ProductsListPresenter {
     private ProductsListView view;
     private int type;
     private String categoryId;
-    private final int startOffset = 0;
 
     public ProductsListPresenter(ProductsListView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
