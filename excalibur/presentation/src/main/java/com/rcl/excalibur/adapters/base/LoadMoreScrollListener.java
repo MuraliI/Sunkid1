@@ -20,8 +20,9 @@ public abstract class LoadMoreScrollListener extends RecyclerView.OnScrollListen
 
     RecyclerView.LayoutManager mLayoutManager;
 
-    public void init(RecyclerView.LayoutManager layoutManager) {
+    public LoadMoreScrollListener(RecyclerView.LayoutManager layoutManager, int currentPage) {
         this.mLayoutManager = layoutManager;
+        this.currentPage = currentPage;
     }
 
     public int getLastVisibleItem(int[] lastVisibleItemPositions) {

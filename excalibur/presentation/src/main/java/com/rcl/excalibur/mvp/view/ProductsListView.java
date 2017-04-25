@@ -19,28 +19,46 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
 
 public class ProductsListView extends FragmentView<ProductsListFragment, Void, Pair<Product, View>> {
-    @Bind(R.id.recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.alert_no_products) RelativeLayout alertNoProducts;
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @Bind(R.id.alert_no_products)
+    RelativeLayout alertNoProducts;
 
     private ProductsAdapter adapter;
+    LoadMoreScrollListener loadMoreScrollListener;
+    private PublishSubject<Pair<Integer, Integer>> publisherSubject = PublishSubject.create();
 
     public ProductsListView(ProductsListFragment fragment) {
         super(fragment);
         ButterKnife.bind(this, fragment.getView());
     }
 
-    public void init(LoadMoreScrollListener loadMoreScrollListener) {
+    public void init(Consumer<Pair<Integer, Integer>> pairConsumer) {
         final Activity activity = getActivity();
         if (activity == null) {
             return;
         }
+
+        publisherSubject.subscribe(pairConsumer);
+        final int startOffset = 0;
+        loadMoreScrollListener = new LoadMoreScrollListener(recyclerView.getLayoutManager(), startOffset) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                publisherSubject.onNext(new Pair<>(page, LoadMoreScrollListener.MAX_COUNT));
+            }
+        };
+
         adapter = new ProductsAdapter(adapterObserver);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
-        loadMoreScrollListener.init(recyclerView.getLayoutManager());
         recyclerView.setOnScrollListener(loadMoreScrollListener);
+
+        //First Call
+        publisherSubject.onNext(new Pair<>(startOffset, LoadMoreScrollListener.MAX_COUNT));
     }
 
     public void addAll(List<Product> list) {

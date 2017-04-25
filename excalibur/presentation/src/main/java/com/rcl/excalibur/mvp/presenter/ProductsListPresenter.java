@@ -2,7 +2,6 @@ package com.rcl.excalibur.mvp.presenter;
 
 
 import android.support.v4.util.Pair;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.rcl.excalibur.R;
@@ -25,17 +24,7 @@ public class ProductsListPresenter {
     private ProductsListView view;
     private int type;
     private String categoryId;
-
-    private LoadMoreScrollListener scrollListener = new LoadMoreScrollListener() {
-        @Override
-        public void onLoadMore(int page, int totalItemsCount, RecyclerView recyclerView) {
-            final BaseActivity activity = view.getActivity();
-            if (activity == null) {
-                return;
-            }
-            showCollectionInView(getProductsByCategory(scrollListener.getCurrentPage(), activity));
-        }
-    };
+    private final int startOffset = 0;
 
     public ProductsListPresenter(ProductsListView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -50,14 +39,13 @@ public class ProductsListPresenter {
         this.type = type;
         this.categoryId = categoryId;
         view.setAdapterObserver(new AdapterObserver(this));
-        view.init(scrollListener);
-        showCollectionInView(getProductsByCategory(scrollListener.getCurrentPage(), activity));
+        view.init(pair -> showCollectionInView(getProductsByCategory(pair.first, pair.second, activity)));
     }
 
-    private List<Product> getProductsByCategory(int offset, BaseActivity activity) {
+    private List<Product> getProductsByCategory(int offset, int maxCount, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
         String typeQuery = getType(activity, type);
-        List<Product> allProducts = getProductDbUseCase.getByType(typeQuery, LoadMoreScrollListener.MAX_COUNT, offset);
+        List<Product> allProducts = getProductDbUseCase.getByType(typeQuery, maxCount, offset);
 
         if (categoryId == null) {
             childProducts = allProducts;
