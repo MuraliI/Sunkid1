@@ -283,7 +283,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         if (operationHourResponse != null) {
             operationHour = new LocationOperationHour();
             operationHour.setDayNumber(operationHourResponse.getDayNumber());
-            operationHour.setTimeOfDay(operationHour.getTimeOfDay());
+            operationHour.setTimeOfDay(operationHourResponse.getTimeOfDay());
             operationHour.setStartTime(operationHourResponse.getStartTime());
             operationHour.setEndTime(operationHourResponse.getEndTime());
         }
