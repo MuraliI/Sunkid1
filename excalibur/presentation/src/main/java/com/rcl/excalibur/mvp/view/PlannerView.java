@@ -26,6 +26,7 @@ import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.model.EventModel;
+import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.DayInformationUtils;
@@ -47,6 +48,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final float MAX_SLIDE_OFFSET = 1.0f;
     private static final int DELAY_MILLIS_SCROLL = 100;
     private static final int DELAY_MILLIS_COLLAPSE = 200;
+
+    private static final int FIRST_DAY = 1;
+    private static final String ARRIVING_DEPARTING_SEPARATOR = "; ";
+    private static final String PORT_TYPE_CRUISING = "CRUISING";
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.layout_planner_all_day) View allDayView;
@@ -371,7 +376,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         if (events == null) {
             setTextCompoundDrawableDayInfo(resources.getString(R.string.empty_string), 0);
         } else {
-            Pair<String, Integer> stringIntegerPair = DayInformationUtils.getArrivalDebarkDescription(events, day, resources);
+            Pair<String, Integer> stringIntegerPair = getArrivalDebarkDescription(events, day, resources);
             setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
         }
     }
@@ -379,6 +384,33 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private void setTextCompoundDrawableDayInfo(String text, int drawable) {
         shipArrivingDebarkingLabel.setText(text);
         shipArrivingDebarkingLabel.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
+    }
+
+    public static Pair<String, Integer> getArrivalDebarkDescription(List<EventModel> events, int day, Resources resources) {
+        String arrivalDebarkTime;
+        int drawable;
+        PortModel sailPort = DayInformationUtils.getSailPortByDay(events, day);
+
+        if (day == FIRST_DAY) {
+            arrivalDebarkTime = DayInformationUtils.appendValues(resources.getString(R.string.departing_at),
+                    DayInformationUtils.getTimeFormat(Integer.valueOf(sailPort.getDepartureTime())));
+            drawable = R.drawable.ic_excursions;
+        } else if (day == events.size()) {
+            arrivalDebarkTime = DayInformationUtils.appendValues(resources.getString(R.string.arriving_at),
+                    DayInformationUtils.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime())));
+            drawable = R.drawable.ic_excursions;
+        } else if (PORT_TYPE_CRUISING.equals(sailPort.getPortType())) {
+            if ((day + 1) <= events.size()) {
+                sailPort = DayInformationUtils.getSailPortByDay(events, (day + 1));
+            }
+            arrivalDebarkTime = DayInformationUtils.appendValues(resources.getString(R.string.next_port), sailPort.getPortName());
+            drawable = R.drawable.ic_excursions;
+        } else {
+            arrivalDebarkTime = DayInformationUtils.appendValues(resources.getString(R.string.arriving_at), DayInformationUtils.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime())), ARRIVING_DEPARTING_SEPARATOR, resources.getString(R.string.departing_at), DayInformationUtils.getTimeFormat(Integer.valueOf(sailPort.getDepartureTime())));
+            drawable = R.drawable.ic_excursions;
+        }
+
+        return new Pair<>(arrivalDebarkTime, drawable);
     }
 
     @OnClick(R.id.image_ship_invisible)

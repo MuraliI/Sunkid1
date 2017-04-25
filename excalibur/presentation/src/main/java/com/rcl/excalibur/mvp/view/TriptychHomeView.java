@@ -13,10 +13,12 @@ import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.custom.view.ShipView;
 import com.rcl.excalibur.custom.view.TriptychTabBarLayout;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.fragments.BaseTripTychFragment;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.model.EventModel;
+import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.DayInformationUtils;
@@ -29,6 +31,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, Void> {
+
+    private static final String PORT_TYPE_EMBARK = "EMBARK";
+    private static final String PORT_TYPE_DOCKED = "DOCKED";
+    private static final String PORT_TYPE_DEBARK = "DEBARK";
+    private static final String PORT_TYPE_CRUISING = "CRUISING";
 
     @Bind(R.id.pager_triptych_pager) ViewPager viewPager;
     @Bind(R.id.tab_triptych_tablayout) TriptychTabBarLayout tabBarLayout;
@@ -82,12 +89,26 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
         }
         Resources resources = activity.getResources();
         if (events == null) {
-            setTextShipLocation(resources.getString(R.string.empty_string),
-                    resources.getString(R.string.day_number, day));
+            setTextShipLocation(resources.getString(R.string.empty_string), resources.getString(R.string.day_number, day));
         } else {
-            setTextShipLocation(DayInformationUtils.getShipLocation(events, day, resources),
-                    resources.getString(R.string.day_number, day));
+            setTextShipLocation(getShipLocation(events, day, resources), resources.getString(R.string.day_number, day));
         }
+    }
+
+    public static String getShipLocation(List<EventModel> events, int day, Resources resources) {
+        String shipLocation;
+        PortModel sailPort = DayInformationUtils.getSailPortByDay(events, day);
+
+        String modelPortType = sailPort.getPortType();
+
+        if (PORT_TYPE_EMBARK.equals(modelPortType) || PORT_TYPE_DOCKED.equals(modelPortType) || PORT_TYPE_DEBARK.equals(modelPortType)) {
+            shipLocation = sailPort.getPortName();
+        } else if (PORT_TYPE_CRUISING.equals(modelPortType)) {
+            shipLocation = resources.getString(R.string.port_type_at_sea);
+        } else {
+            shipLocation = ConstantsUtil.EMPTY;
+        }
+        return shipLocation;
     }
 
     private void setTextShipLocation(String textShip, String textDay) {
