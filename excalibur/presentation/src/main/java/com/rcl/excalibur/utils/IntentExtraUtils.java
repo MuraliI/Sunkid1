@@ -5,6 +5,8 @@ import android.util.Base64;
 
 import java.io.UnsupportedEncodingException;
 
+import timber.log.Timber;
+
 public final class IntentExtraUtils {
 
 
@@ -19,6 +21,7 @@ public final class IntentExtraUtils {
             data = string.getBytes(OUTPUT_CHARSET);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            Timber.e("error encoding String", e.getMessage());
         }
         return Base64.encodeToString(data, Base64.DEFAULT);
     }
@@ -29,7 +32,7 @@ public final class IntentExtraUtils {
         try {
             stringExtra = new String(data, OUTPUT_CHARSET);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            Timber.e("error decoding String", e.getMessage());
         }
         return stringExtra;
     }
