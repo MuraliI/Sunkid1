@@ -14,7 +14,7 @@ import com.rcl.excalibur.domain.utils.CategoryUtil;
 
 import java.lang.ref.WeakReference;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
@@ -70,13 +70,13 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
     }
 
     class ProductInformationViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.text_product_detail_name) TextView name;
-        @Bind(R.id.text_product_venue) TextView venue;
-        @Bind(R.id.text_product_deck_and_direction) TextView deckAndDirection;
-        @Bind(R.id.text_product_port) TextView port;
-        @Bind(R.id.layout_reservation) View reservationLayout;
-        @Bind(R.id.button_find_on_deck) View findOnDeck;
-        @Bind(R.id.price_range_product) PriceRangeLayout priceRange;
+        @BindView(R.id.text_product_detail_name) TextView name;
+        @BindView(R.id.text_product_venue) TextView venue;
+        @BindView(R.id.text_product_deck_and_direction) TextView deckAndDirection;
+        @BindView(R.id.text_product_port) TextView port;
+        @BindView(R.id.layout_reservation) View reservationLayout;
+        @BindView(R.id.button_find_on_deck) View findOnDeck;
+        @BindView(R.id.price_range_product) PriceRangeLayout priceRange;
 
         private String productId;
         private WeakReference<Observer<String>> findOnDeckObserver;
