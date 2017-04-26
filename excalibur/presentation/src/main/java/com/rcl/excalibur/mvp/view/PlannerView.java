@@ -404,6 +404,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     @OnClick(R.id.text_arriving_debarking_time)
     public void showVoyageMap() {
-        ActivityUtils.startActivity(getActivity(), VoyageMapActivity.getStartIntent(getActivity()));
+        ActivityUtils.startActivityWithFade(getActivity(), VoyageMapActivity.getStartIntent(getActivity()));
     }
 }
