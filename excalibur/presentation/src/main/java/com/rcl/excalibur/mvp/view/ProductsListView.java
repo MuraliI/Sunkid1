@@ -23,8 +23,10 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 public class ProductsListView extends FragmentView<ProductsListFragment, Void, Pair<Product, View>> {
-    @Bind(R.id.recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.alert_no_products) RelativeLayout alertNoProducts;
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @Bind(R.id.alert_no_products)
+    RelativeLayout alertNoProducts;
 
     private ProductsAdapter adapter;
     LoadMoreScrollListener loadMoreScrollListener;
@@ -65,11 +67,7 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
     }
 
     public void add(List<Product> list) {
-        if (adapter.getItemCount() > 0) {
-            adapter.add(adapter.getItemCount() - 1, list);
-        } else {
-            adapter.addAll(list);
-        }
+        adapter.add(list);
     }
 
     public void addAlertNoProducts() {
