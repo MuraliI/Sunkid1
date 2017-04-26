@@ -20,7 +20,6 @@ public final class IntentExtraUtils {
         try {
             data = string.getBytes(OUTPUT_CHARSET);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
             Timber.e("error encoding String", e.getMessage());
         }
         return Base64.encodeToString(data, Base64.DEFAULT);
