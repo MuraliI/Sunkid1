@@ -64,12 +64,9 @@ public class PricesFromDelegateAdapter implements DelegateAdapter<PricesFromDele
 
     public static class PricesFromViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.text_module_title)
-        TextView textTitle;
-        @BindView(R.id.text_module_subtitle)
-        TextView textSubtitle;
-        @BindView(R.id.prices_container)
-        LinearLayout pricesContainer;
+        @BindView(R.id.text_module_title) TextView textTitle;
+        @BindView(R.id.text_module_subtitle) TextView textSubtitle;
+        @BindView(R.id.prices_container) LinearLayout pricesContainer;
 
         public PricesFromViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_item_detail_prices_from, parent, false));
