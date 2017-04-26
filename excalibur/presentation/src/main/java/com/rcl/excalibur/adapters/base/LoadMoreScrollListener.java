@@ -11,15 +11,15 @@ public abstract class LoadMoreScrollListener extends RecyclerView.OnScrollListen
      */
     private int visibleThreshold = 5;
     /**
-     * The amount of item on each load
+     * The amount of item on each load.
      */
     public static final int MAX_COUNT = 10;
     /**
-     * The current offset index of data you have loaded
+     * The current offset index of data you have loaded.
      */
     private int currentPage = 0;
     /**
-     * The total number of items in the dataset after the last load
+     * The total number of items in the dataset after the last load.
      */
     private int previousTotalItemCount = 0;
 
