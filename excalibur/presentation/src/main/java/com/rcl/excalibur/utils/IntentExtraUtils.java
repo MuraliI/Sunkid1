@@ -5,16 +5,32 @@ import android.util.Base64;
 
 import java.io.UnsupportedEncodingException;
 
-public class PutExtraUtils {
+public final class IntentExtraUtils {
 
-    public static String putExtraString(String string )
-    {
+
+    private static final String OUTPUT_CHARSET = "UTF-8";
+
+    private IntentExtraUtils() {
+    }
+
+    public static String putExtraString(String string) {
         byte[] data = new byte[0];
         try {
-            data = string.getBytes("UTF-8");
+            data = string.getBytes(OUTPUT_CHARSET);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return Base64.encodeToString(data, Base64.DEFAULT);
+    }
+
+    public static String getExtraString(String string) {
+        byte[] data = Base64.decode(string, Base64.DEFAULT);
+        String stringExtra = null;
+        try {
+            stringExtra = new String(data, OUTPUT_CHARSET);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return stringExtra;
     }
 }
