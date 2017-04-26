@@ -72,7 +72,7 @@ public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHo
     }
 
     class HeaderViewHolder extends FlexibleViewHolder {
-        @Bind(R.id.text_part_of_day) TextView partOfDayText;
+        @Bind(R.id.text_planner_part_of_day) TextView partOfDayText;
 
         HeaderViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter, true);
