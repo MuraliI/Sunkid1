@@ -1,5 +1,8 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import android.app.Activity;
+import android.content.res.Resources;
+import android.support.v4.util.Pair;
 import android.support.v4.util.SparseArrayCompat;
 
 import com.rcl.excalibur.R;
@@ -16,8 +19,10 @@ import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PlannerProductModel;
+import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.PlannerView;
+import com.rcl.excalibur.utils.DayInformationUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +44,10 @@ public class PlannerPresenter {
 
     private static final int HEADER_LIST_SIZE = 4;
     private static final long DELAY = 5000;
+
+    private static final int FIRST_DAY = 1;
+    private static final String ARRIVING_DEPARTING_SEPARATOR = "; ";
+    private static final String PORT_TYPE_CRUISING = "CRUISING";
 
     private PlannerProductModelMapper mapper;
 
@@ -75,21 +84,6 @@ public class PlannerPresenter {
         view.initBottomSheetBehavior();
 
         createHeaderList();
-    }
-
-    public void getArrivingDebarkingInfo() {
-        dayPreferences = getSailingPreferenceUseCase.getDay();
-        int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
-
-        SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
-        SailingInfoModel sailingInfoModel = sailingInformationModelDataMapper.transform(sailDateInfo);
-        ItineraryModel itinerary = sailingInfoModel.getItinerary();
-        if (itinerary == null) {
-            view.addArrivingDebarkingValues(null, selectedDay);
-        } else {
-            List<EventModel> events = itinerary.getEvents();
-            view.addArrivingDebarkingValues(events, selectedDay);
-        }
     }
 
     private void createHeaderList() {
@@ -147,5 +141,69 @@ public class PlannerPresenter {
         if (activity != null) {
             ((TriptychHomeActivity) activity).getShipLocationInfo();
         }
+    }
+
+    public void getArrivingDebarkingInfo() {
+        dayPreferences = getSailingPreferenceUseCase.getDay();
+        int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
+
+        SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
+        SailingInfoModel sailingInfoModel = sailingInformationModelDataMapper.transform(sailDateInfo);
+        ItineraryModel itinerary = sailingInfoModel.getItinerary();
+        if (itinerary == null) {
+            addArrivingDebarkingValues(null, selectedDay);
+        } else {
+            List<EventModel> events = itinerary.getEvents();
+            addArrivingDebarkingValues(events, selectedDay);
+        }
+    }
+
+    public void addArrivingDebarkingValues(List<EventModel> events, int day) {
+        Activity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        Resources resources = activity.getResources();
+        if (events == null) {
+            view.setTextCompoundDrawableDayInfo(resources.getString(R.string.empty_string), 0);
+        } else {
+            Pair<String, Integer> stringIntegerPair = getArrivalDebarkDescription(events, day, resources);
+            view.setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
+        }
+    }
+
+    public static Pair<String, Integer> getArrivalDebarkDescription(List<EventModel> events, int day, Resources resources) {
+        String arrivalDebarkTime;
+        int drawable;
+        PortModel sailPort = DayInformationUtils.getSailPortByDay(events, day);
+
+        if (day == FIRST_DAY) {
+            arrivalDebarkTime = DayInformationUtils.appendValues(resources.getString(R.string.departing_at),
+                    DayInformationUtils.getTimeFormat(Integer.valueOf(sailPort.getDepartureTime())));
+            drawable = R.drawable.ic_excursions;
+        } else if (day == events.size()) {
+            arrivalDebarkTime = DayInformationUtils.appendValues(resources.getString(R.string.arriving_at),
+                    DayInformationUtils.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime())));
+            drawable = R.drawable.ic_excursions;
+        } else if (PORT_TYPE_CRUISING.equals(sailPort.getPortType())) {
+            sailPort = getPortTypeNextDay(events, day, sailPort);
+            arrivalDebarkTime = DayInformationUtils.appendValues(resources.getString(R.string.next_port), sailPort.getPortName());
+            drawable = R.drawable.ic_excursions;
+        } else {
+            arrivalDebarkTime = DayInformationUtils.appendValues(resources.getString(R.string.arriving_at), DayInformationUtils.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime())), ARRIVING_DEPARTING_SEPARATOR, resources.getString(R.string.departing_at), DayInformationUtils.getTimeFormat(Integer.valueOf(sailPort.getDepartureTime())));
+            drawable = R.drawable.ic_excursions;
+        }
+
+        return new Pair<>(arrivalDebarkTime, drawable);
+    }
+
+    private static PortModel getPortTypeNextDay(List<EventModel> events, int day, PortModel sailPort) {
+        if ((day + 1) <= events.size()) {
+            sailPort = DayInformationUtils.getSailPortByDay(events, (day + 1));
+            if (PORT_TYPE_CRUISING.equals(sailPort.getPortType())) {
+                sailPort = getPortTypeNextDay(events, day + 1, sailPort);
+            }
+        }
+        return sailPort;
     }
 }
