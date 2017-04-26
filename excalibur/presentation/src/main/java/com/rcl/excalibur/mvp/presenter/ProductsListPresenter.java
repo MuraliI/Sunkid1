@@ -21,8 +21,6 @@ import java.util.List;
 public class ProductsListPresenter {
     private GetProductDbUseCase getProductDbUseCase;
     private ProductsListView view;
-    private int type;
-    private String categoryId;
 
     public ProductsListPresenter(ProductsListView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -34,13 +32,11 @@ public class ProductsListPresenter {
         if (activity == null) {
             return;
         }
-        this.type = type;
-        this.categoryId = categoryId;
         view.setAdapterObserver(new AdapterObserver(this));
-        view.init(pair -> showCollectionInView(getProductsByCategory(pair.first, pair.second, activity)));
+        view.init(pair -> showCollectionInView(getProductsByCategory(type, categoryId, pair.first, pair.second, activity)));
     }
 
-    private List<Product> getProductsByCategory(int offset, int maxCount, BaseActivity activity) {
+    private List<Product> getProductsByCategory(int type, String categoryId, int offset, int maxCount, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
         String typeQuery = getType(activity, type);
         List<Product> allProducts = getProductDbUseCase.getByType(typeQuery, maxCount, offset);
