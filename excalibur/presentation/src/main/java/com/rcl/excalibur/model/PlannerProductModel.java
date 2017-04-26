@@ -92,7 +92,11 @@ public class PlannerProductModel extends ProductInformationViewType implements C
 
     @Override
     public int compareTo(@NonNull PlannerProductModel input) {
-        return getStartDate().compareTo(input.getStartDate());
+        int result = getStartDate().compareTo(input.getStartDate());
+        if (result == 0) {
+            result = input.getProductName().compareToIgnoreCase(input.getProductName());
+        }
+        return result;
     }
 }
 
