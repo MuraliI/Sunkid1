@@ -13,7 +13,7 @@ public final class IntentExtraUtils {
     private IntentExtraUtils() {
     }
 
-    public static String putExtraString(String string) {
+    public static String encodePutExtraString(String string) {
         byte[] data = new byte[0];
         try {
             data = string.getBytes(OUTPUT_CHARSET);
@@ -23,7 +23,7 @@ public final class IntentExtraUtils {
         return Base64.encodeToString(data, Base64.DEFAULT);
     }
 
-    public static String getExtraString(String string) {
+    public static String decodeGetExtraString(String string) {
         byte[] data = Base64.decode(string, Base64.DEFAULT);
         String stringExtra = null;
         try {

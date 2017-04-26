@@ -2,7 +2,6 @@ package com.rcl.excalibur.utils;
 
 import android.util.Base64;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,8 +42,8 @@ public class IntentExtraUtilsTest {
     }
     @Test
     public void ExtraString() throws Exception {
-        String encriptString = IntentExtraUtils.putExtraString(EXTRA_ID);
-        String extraString = IntentExtraUtils.getExtraString(encriptString);
+        String encriptString = IntentExtraUtils.encodePutExtraString(EXTRA_ID);
+        String extraString = IntentExtraUtils.decodeGetExtraString(encriptString);
         assertEquals(extraString, EXTRA_ID);
     }
 

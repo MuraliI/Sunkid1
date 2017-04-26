@@ -22,7 +22,7 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
 
     public static Intent getIntent(final BaseActivity activity, String productId) {
         Intent intent = new Intent(activity, ProductDetailActivity.class);
-        intent.putExtra(EXTRA_DISCOVER_ITEM_ID, IntentExtraUtils.putExtraString(productId));
+        intent.putExtra(EXTRA_DISCOVER_ITEM_ID, IntentExtraUtils.encodePutExtraString(productId));
         return intent;
     }
 
@@ -39,7 +39,7 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
         presenter = new ProductDetailPresenter(new ProductDetailView(this)
                 , new GetProductDbUseCase(new ProductDataRepository())
                 , new GetOfferingsDbUseCase(new OfferingDataRepository()));
-        presenter.init(IntentExtraUtils.getExtraString(productId));
+        presenter.init(IntentExtraUtils.decodeGetExtraString(productId));
     }
 
     @OnClick(R.id.back_arrow)
