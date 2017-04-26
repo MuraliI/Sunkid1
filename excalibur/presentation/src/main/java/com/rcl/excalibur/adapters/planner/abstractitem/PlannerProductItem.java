@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractSectionableItem;
@@ -98,14 +98,14 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
     }
 
     public class ViewHolder extends FlexibleViewHolder {
-        @Bind(R.id.text_planner_product_name) TextView productName;
-        @Bind(R.id.text_planner_product_operating_hours) TextView productOperatingHours;
-        @Bind(R.id.text_planner_product_venue) TextView productVenue;
-        @Bind(R.id.text_itinerary_planner_deck_and_direction) TextView productDeckAndDirection;
-        @Bind(R.id.image_itinerary_product_picture) ImageView productImage;
-        @Bind(R.id.image_itinerary_product_icon) ImageView productCategoryIcon;
-        @Bind(R.id.image_itinerary_product_favorite) ImageView productPromoted;
-        @Bind(R.id.view_itinerary_product_price_range) PriceRangeLayout priceRange;
+        @BindView(R.id.text_planner_product_name) TextView productName;
+        @BindView(R.id.text_planner_product_operating_hours) TextView productOperatingHours;
+        @BindView(R.id.text_planner_product_venue) TextView productVenue;
+        @BindView(R.id.text_itinerary_planner_deck_and_direction) TextView productDeckAndDirection;
+        @BindView(R.id.image_itinerary_product_picture) ImageView productImage;
+        @BindView(R.id.image_itinerary_product_icon) ImageView productCategoryIcon;
+        @BindView(R.id.image_itinerary_product_favorite) ImageView productPromoted;
+        @BindView(R.id.view_itinerary_product_price_range) PriceRangeLayout priceRange;
 
         public ViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter);

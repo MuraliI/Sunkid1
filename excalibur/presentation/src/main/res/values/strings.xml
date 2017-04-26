@@ -24,7 +24,7 @@
     <string name="prices_from">Prices from</string>
     <string name="hyphen_with_spaces">" - "</string>
     <string name="price_free">Free</string>
-    <string name="deck_label">Deck</string>
+    <string name="deck_label">Deck 1%s</string>
 
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>

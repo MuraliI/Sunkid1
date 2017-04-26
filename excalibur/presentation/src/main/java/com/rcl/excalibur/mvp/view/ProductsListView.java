@@ -16,12 +16,12 @@ import com.rcl.excalibur.mvp.view.base.FragmentView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProductsListView extends FragmentView<ProductsListFragment, Void, Pair<Product, View>> {
-    @Bind(R.id.recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.alert_no_products) RelativeLayout alertNoProducts;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.alert_no_products) RelativeLayout alertNoProducts;
 
     private ProductsAdapter adapter;
 
