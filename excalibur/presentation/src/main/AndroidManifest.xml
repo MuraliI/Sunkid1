@@ -111,8 +111,9 @@
                     com.rcl.excalibur.data.entity.ItineraryEntity,
                     com.rcl.excalibur.data.entity.EventEntity,
                     com.rcl.excalibur.data.entity.PortEntity,
-		    com.rcl.excalibur.data.entity.ShipTimeEntity" />
-
-        <receiver android:name=".scheduler.SchedulerReceiver" />
+		            com.rcl.excalibur.data.entity.ShipTimeEntity,
+                    com.rcl.excalibur.data.entity.DeckInfoEntity,
+                    com.rcl.excalibur.data.entity.OperationHourEntity"/>
+        <receiver android:name=".scheduler.SchedulerReceiver" />   
     </application>
 </manifest>

@@ -1,25 +1,17 @@
 package com.rcl.excalibur.domain;
 
 
+import java.util.List;
+
 public class ProductLocation {
 
-    private String locationId;
     private String locationCode;
+    private String locationTitle;
     private String locationType;
-    private String operatingHoursStart;
-    private String operatingHoursEnd;
-    private String locationVenue;
-    private String locationPort;
-    private int locationDeckNumber;
-    private String locationDirection;
-
-    public String getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(String locationId) {
-        this.locationId = locationId;
-    }
+    private String latitude;
+    private String longitude;
+    private List<LocationDeckInfo> deckInfo;
+    private List<LocationOperationHour> locationOperationHours;
 
     public String getLocationCode() {
         return locationCode;
@@ -27,6 +19,14 @@ public class ProductLocation {
 
     public void setLocationCode(String locationCode) {
         this.locationCode = locationCode;
+    }
+
+    public String getLocationTitle() {
+        return locationTitle;
+    }
+
+    public void setLocationTitle(String locationTitle) {
+        this.locationTitle = locationTitle;
     }
 
     public String getLocationType() {
@@ -37,51 +37,35 @@ public class ProductLocation {
         this.locationType = locationType;
     }
 
-    public String getOperatingHoursStart() {
-        return operatingHoursStart;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setOperatingHoursStart(String operatingHoursStart) {
-        this.operatingHoursStart = operatingHoursStart;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
-    public String getOperatingHoursEnd() {
-        return operatingHoursEnd;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setOperatingHoursEnd(String operatingHoursEnd) {
-        this.operatingHoursEnd = operatingHoursEnd;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
-    public String getLocationVenue() {
-        return locationVenue;
+    public List<LocationDeckInfo> getLocationDeckInfo() {
+        return deckInfo;
     }
 
-    public void setLocationVenue(String locationVenue) {
-        this.locationVenue = locationVenue;
+    public void setDeckInfo(List<LocationDeckInfo> deckInfo) {
+        this.deckInfo = deckInfo;
     }
 
-    public String getLocationPort() {
-        return locationPort;
+    public List<LocationOperationHour> getLocationOperationHours() {
+        return locationOperationHours;
     }
 
-    public void setLocationPort(String locationPort) {
-        this.locationPort = locationPort;
-    }
-
-    public int getLocationDeckNumber() {
-        return locationDeckNumber;
-    }
-
-    public void setLocationDeckNumber(int locationDeckNumber) {
-        this.locationDeckNumber = locationDeckNumber;
-    }
-
-    public String getLocationDirection() {
-        return locationDirection;
-    }
-
-    public void setLocationDirection(String locationDirection) {
-        this.locationDirection = locationDirection;
+    public void setLocationOperationHours(List<LocationOperationHour> locationOperationHours) {
+        this.locationOperationHours = locationOperationHours;
     }
 }
