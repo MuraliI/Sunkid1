@@ -23,10 +23,8 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 public class ProductsListView extends FragmentView<ProductsListFragment, Void, Pair<Product, View>> {
-    @Bind(R.id.recycler_view)
-    RecyclerView recyclerView;
-    @Bind(R.id.alert_no_products)
-    RelativeLayout alertNoProducts;
+    @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    @Bind(R.id.alert_no_products) RelativeLayout alertNoProducts;
 
     private ProductsAdapter adapter;
     LoadMoreScrollListener loadMoreScrollListener;
