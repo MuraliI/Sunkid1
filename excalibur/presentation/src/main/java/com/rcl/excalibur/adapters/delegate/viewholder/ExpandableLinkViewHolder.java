@@ -14,16 +14,16 @@ import com.rcl.excalibur.adapters.delegate.viewholder.base.ExpandableContentView
 import java.util.LinkedList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
 public class ExpandableLinkViewHolder<VT extends RecyclerViewType> extends ExpandableContentViewHolder<VT> {
 
-    @Bind(R.id.expandable_link_module_title) TextView title;
-    @Bind(R.id.expandable_link_module_content) LinearLayout textContent;
-    @Bind(R.id.expandable_link_module_arrow) ImageView imageArrow;
+    @BindView(R.id.expandable_link_module_title) TextView title;
+    @BindView(R.id.expandable_link_module_content) LinearLayout textContent;
+    @BindView(R.id.expandable_link_module_arrow) ImageView imageArrow;
 
     private List<TextView> contentLines;
 

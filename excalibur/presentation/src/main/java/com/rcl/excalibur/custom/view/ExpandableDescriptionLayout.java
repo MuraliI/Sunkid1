@@ -16,7 +16,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 import com.rcl.excalibur.utils.analytics.AnalyticsManager;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -25,11 +25,11 @@ public class ExpandableDescriptionLayout extends FrameLayout implements Analytic
     private static final int DEFAULT_MAX_LINES_COUNT = 6;
     private static final int DEFAULT_ANIMATION_DURATION = 1000;
 
-    @Bind(R.id.text_description) TextView description;
-    @Bind(R.id.view_transparent_layout) View transParentLayout;
-    @Bind(R.id.text_see_more_btn) TextView seeMoreBtnText;
-    @Bind(R.id.image_dropdown_arrow) ImageView seeMoreArrowIcon;
-    @Bind(R.id.layout_show_more_container) View showMoreContainer;
+    @BindView(R.id.text_description) TextView description;
+    @BindView(R.id.view_transparent_layout) View transParentLayout;
+    @BindView(R.id.text_see_more_btn) TextView seeMoreBtnText;
+    @BindView(R.id.image_dropdown_arrow) ImageView seeMoreArrowIcon;
+    @BindView(R.id.layout_show_more_container) View showMoreContainer;
 
     private int maxLineCount;
     private int animationDuration;
