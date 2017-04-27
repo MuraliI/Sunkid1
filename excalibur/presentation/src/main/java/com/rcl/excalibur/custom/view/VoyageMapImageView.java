@@ -40,8 +40,6 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
 
     public void setImage(int resource) {
         this.setImage(ImageSource.resource(resource));
-        this.setScaleX(10000);
-        this.setScaleY(10000);
     }
 
     public void setCruiseCoord(PointF cruiseCoord) {

@@ -8,13 +8,13 @@ import com.rcl.excalibur.activity.VoyageMapActivity;
 import com.rcl.excalibur.custom.view.VoyageMapImageView;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     private static final int MINIMUM_DPI = 80;
 
-    @Bind(R.id.image_voyage_map) VoyageMapImageView voyageMapImage;
+    @BindView(R.id.image_voyage_map) VoyageMapImageView voyageMapImage;
 
     public VoyageMapView(VoyageMapActivity activity) {
         super(activity);
