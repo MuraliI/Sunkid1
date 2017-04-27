@@ -33,13 +33,13 @@ public class ProductsListPresenter {
             return;
         }
         view.setAdapterObserver(new AdapterObserver(this));
-        view.init();
-        showCollectionInView(getProductsByCategory(type, categoryId, activity));
+        view.init(pair -> showCollectionInView(getProductsByCategory(type, categoryId, pair.first, pair.second, activity)));
     }
 
-    private List<Product> getProductsByCategory(int type, String categoryId, BaseActivity activity) {
+    private List<Product> getProductsByCategory(int type, String categoryId, int offset, int maxCount, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
-        List<Product> allProducts = getProductDbUseCase.getAll(getType(activity, type));
+        String typeQuery = getType(activity, type);
+        List<Product> allProducts = getProductDbUseCase.getByType(typeQuery, maxCount, offset);
 
         if (categoryId == null) {
             childProducts = allProducts;
@@ -90,7 +90,7 @@ public class ProductsListPresenter {
         if (products == null || products.size() == 0) {
             view.addAlertNoProducts();
         } else {
-            view.addAll(products);
+            view.add(products);
         }
     }
 

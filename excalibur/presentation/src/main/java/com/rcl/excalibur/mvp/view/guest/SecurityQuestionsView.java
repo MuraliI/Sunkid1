@@ -13,14 +13,14 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SecurityQuestionsView extends ActivityView<SecurityQuestionsActivity, Void, String> {
     private static final String ERROR_MESSAGE = "Something went wrong, please try again";
-    @Bind(R.id.recycler_questions) RecyclerView recyclerView;
-    @Bind(R.id.progress_questions) ProgressBar progressBar;
+    @BindView(R.id.recycler_questions) RecyclerView recyclerView;
+    @BindView(R.id.progress_questions) ProgressBar progressBar;
     private SecurityQuestionsAdapter adapter;
 
     public SecurityQuestionsView(SecurityQuestionsActivity activity) {
