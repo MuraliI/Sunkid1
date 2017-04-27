@@ -34,6 +34,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="@dimen/margin_xsmall"
         android:layout_weight="@integer/layout_weight_0"
-        android:maxWidth="150dp" />
+        android:maxWidth="@dimen/dash_subtext_maxwidth" />
 
 </LinearLayout>

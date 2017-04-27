@@ -243,7 +243,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             productLocation.setLatitude(productLocationResponse.getLatitude());
             productLocation.setLongitude(productLocationResponse.getLongitude());
             productLocation.setDeckInfo(transformDeckInfo(productLocationResponse.getDeckInfo()));
-            productLocation.setLocationOperationHours(transformOperationHours(productLocationResponse.getLocationOperationHours()));
+            productLocation.setLocationOperationHours(transformOperationHours(productLocationResponse.getLocationOperatingHours()));
         }
         return productLocation;
     }

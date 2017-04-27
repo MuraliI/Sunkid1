@@ -181,7 +181,7 @@ public class ProductResponseDataMapperTest {
         productLocationResponse.setLatitude("100");
         productLocationResponse.setLongitude("100");
         productLocationResponse.setDeckInfo(deckInfoResponseList);
-        productLocationResponse.setLocationOperationHours(operationHourResponseList);
+        productLocationResponse.setLocationOperatingHours(operationHourResponseList);
 
         productResponse1.setProductLocation(productLocationResponse);
         productResponse2.setProductLocation(productLocationResponse);
@@ -339,7 +339,7 @@ public class ProductResponseDataMapperTest {
             assertEquals(deckInfoResponse.getDirection(), locationDeckInfo.getDirection());
         }
 
-        List<OperationHourResponse> operationHourResponseList = locationResponse.getLocationOperationHours();
+        List<OperationHourResponse> operationHourResponseList = locationResponse.getLocationOperatingHours();
         List<LocationOperationHour> locationOperationHourList = location.getLocationOperationHours();
 
         for (int i = 0; i < operationHourResponseList.size(); i++) {
@@ -510,7 +510,7 @@ public class ProductResponseDataMapperTest {
                 assertEquals(deckInfoResponse.getDirection(), locationDeckInfo.getDirection());
             }
 
-            List<OperationHourResponse> operationHourResponseList = productLocationResponse.getLocationOperationHours();
+            List<OperationHourResponse> operationHourResponseList = productLocationResponse.getLocationOperatingHours();
             List<LocationOperationHour> locationOperationHourList = productLocation.getLocationOperationHours();
 
             for (int i = 0; i < operationHourResponseList.size(); i++) {
