@@ -27,7 +27,6 @@ public class PlannerProductModelMapper {
     public static final int ALL_DAY_PRODUCT_LIST = 0;
     public static final int TIMED_PRODUCT_LIST = 1;
 
-    private static final int ALL_DAY_OFFERING_LIMIT = 10;
     private static final int ALL_DAY_DURATION_IN_MINUTES = 300;
     private static final int DEFAULT_DURATION = 0;
     private static final int FIRST_OFFERING = 0;
@@ -42,12 +41,12 @@ public class PlannerProductModelMapper {
     }
 
     public SparseArrayCompat<List<PlannerProductModel>> transform(List<Offering> input) {
-        List<PlannerProductModel> timedProductList = new ArrayList<>();
         List<PlannerProductModel> allDayProducts = new ArrayList<>();
+        List<PlannerProductModel> timedProduct = new ArrayList<>();
 
         SparseArrayCompat<List<PlannerProductModel>> productList = new SparseArrayCompat<>(INITIAL_CAPACITY);
         productList.append(ALL_DAY_PRODUCT_LIST, allDayProducts);
-        productList.append(TIMED_PRODUCT_LIST, timedProductList);
+        productList.append(TIMED_PRODUCT_LIST, timedProduct);
 
         Map<String, List<Offering>> productOfferingMap = createOfferingProductMap(input);
         for (Map.Entry<String, List<Offering>> entry : productOfferingMap.entrySet()) {
@@ -59,21 +58,13 @@ public class PlannerProductModelMapper {
                 allDayProducts.add(createAllDayProductModel(productOfferingList));
             } else {
                 for (Offering offering : productOfferingList) {
-                    timedProductList.add(createNormalPlannerProductModel(offering));
+                    timedProduct.add(createNormalPlannerProductModel(offering));
                 }
             }
-
-           /* if (productOfferingList.size() >= ALL_DAY_OFFERING_LIMIT) {
-                allDayProducts.add(createAllDayProductModel(productOfferingList));
-            } else {
-                for (Offering offering : productOfferingList) {
-                    timedProductList.add(createNormalPlannerProductModel(offering));
-                }
-            }*/
         }
 
         Collections.sort(allDayProducts);
-        Collections.sort(timedProductList);
+        Collections.sort(timedProduct);
 
         return productList;
     }
@@ -120,7 +111,6 @@ public class PlannerProductModelMapper {
         } else {
             model.setLocation(ConstantsUtil.EMPTY);
         }
-
 
         return model;
     }

@@ -60,7 +60,19 @@ public class Offering implements Comparable<Offering> {
 
     @Override
     public int compareTo(Offering o) {
-        if (o == null) {
+        int result = (int) (this.getCompleteDate().getTime() - o.getCompleteDate().getTime());
+        if (result == 0) {
+            result = o.getProduct().getProductTitle()
+                    .compareToIgnoreCase(o.getProduct().getProductTitle());
+        } else if (this.getCompleteDate().getTime() > o.getCompleteDate().getTime()) {
+            result = 1;
+        } else if (this.getCompleteDate().getTime() < o.getCompleteDate().getTime()) {
+            result = -1;
+        }
+        return result;
+
+
+        /*if (o == null) {
             return 0;
         } else if (this.getCompleteDate().getTime() > o.getCompleteDate().getTime()) {
             return 1;
@@ -68,8 +80,18 @@ public class Offering implements Comparable<Offering> {
             return -1;
         } else {
             return 0;
-        }
+        }*/
     }
+
+    /*@Override
+    public int compareTo(Offering input) {
+        int result = getCompleteDate().compareTo(input.getCompleteDate());
+        if (result == 0) {
+            result = input.getProduct().getProductTitle()
+                    .compareToIgnoreCase(input.getProduct().getProductTitle());
+        }
+        return result;
+    }*/
 
     public int compareByPrice(Offering o2) {
         if (o2 == null) {

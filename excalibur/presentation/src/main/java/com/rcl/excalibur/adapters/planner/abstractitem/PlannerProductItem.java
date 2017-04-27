@@ -24,6 +24,7 @@ import eu.davidea.viewholders.FlexibleViewHolder;
 public class PlannerProductItem extends AbstractSectionableItem<PlannerProductItem.ViewHolder, PlannerHeader> {
 
     private String id;
+    private int indexToBeAdded;
 
     private PlannerProductModel plannerProductModel;
 
@@ -95,6 +96,14 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         holder.productVenue.setText(plannerProductModel.getVenue());
         holder.productCategoryIcon.setImageResource(plannerProductModel.getResourceIdCategoryIcon());
         holder.productDeckAndDirection.setText(plannerProductModel.getLocation());
+    }
+
+    public int getIndexToBeAdded() {
+        return indexToBeAdded;
+    }
+
+    public void setIndexToBeAdded(int indexToBeAdded) {
+        this.indexToBeAdded = indexToBeAdded;
     }
 
     public class ViewHolder extends FlexibleViewHolder {

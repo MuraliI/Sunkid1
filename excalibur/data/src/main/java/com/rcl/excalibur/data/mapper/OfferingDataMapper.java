@@ -44,7 +44,7 @@ public class OfferingDataMapper extends BaseDataMapper<Offering, OfferingEntity,
                 time = 0 + time;
             }
 
-            output.setCompleteDate(simpleDateFormat.parse(input.getDate() + time/*input.getTime()*/));
+            output.setCompleteDate(simpleDateFormat.parse(input.getDate() + time));
 
         } catch (ParseException e) {
             Timber.e(DateUtil.DATE_PARSING_ERROR, this.getClass().toString(), e.getMessage());

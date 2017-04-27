@@ -23,6 +23,7 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     private boolean isAllDayProduct;
     private boolean isFeatured;
     private boolean isHighlighted;
+    private int indexToBeAdded;
 
     @DrawableRes
     public int getResourceIdCategoryIcon() {
@@ -88,6 +89,14 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     @Override
     public int getViewType() {
         return 0;
+    }
+
+    public int getIndexToBeAdded() {
+        return indexToBeAdded;
+    }
+
+    public void setIndexToBeAdded(int indexToBeAdded) {
+        this.indexToBeAdded = indexToBeAdded;
     }
 
     @Override
