@@ -24,7 +24,7 @@
     <TextView
         android:id="@+id/text_planner_expandable_label"
         style="@style/AppTheme.PlannerHeaderExpandableText"
-        android:text="@string/itinerary_product_list_see_all"
+        android:text="@string/planner_header_see_all"
         android:drawableEnd="@drawable/ic_chevron_down"
         android:drawablePadding="@dimen/margin_xsmall"
         android:layout_marginEnd="@dimen/margin_small"

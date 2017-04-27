@@ -131,8 +131,8 @@
     <string name="title_good_evening">Good Evening!</string>
     <string name="title_good_night">Good Night!</string>
     <string name="title_hello">Hello</string>
-    <string name="itinerary_product_list_see_all">See all</string>
-    <string name="itinerary_product_list_see_less">See less</string>
+    <string name="planner_header_see_all">See all</string>
+    <string name="planner_header_see_less">See less</string>
     <string name="itinerary_product_view_am">" AM"</string>
     <string name="itinerary_product_view_pm">" PM"</string>
     <string name="itinerary_product_view_colon">:</string>
