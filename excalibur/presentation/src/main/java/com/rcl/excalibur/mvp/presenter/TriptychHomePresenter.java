@@ -1,6 +1,13 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import android.app.Activity;
+import android.content.res.Resources;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+
+import com.rcl.excalibur.R;
+import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
@@ -8,15 +15,23 @@ import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.domain.interactor.GetSubCategoriesUseCase;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
+import com.rcl.excalibur.fragments.BaseTripTychFragment;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.ItineraryModel;
+import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
 
 import java.util.List;
 
 public class TriptychHomePresenter {
+
+    private static final String PORT_TYPE_EMBARK = "EMBARK";
+    private static final String PORT_TYPE_DOCKED = "DOCKED";
+    private static final String PORT_TYPE_DEBARK = "DISEMBARK";
+    private static final String PORT_TYPE_CRUISING = "CRUISING";
 
     private TriptychHomeView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
@@ -51,7 +66,7 @@ public class TriptychHomePresenter {
         getProductsUseCase.execute(new DefaultObserver<Boolean>() {
             @Override
             public void onNext(Boolean value) {
-                view.onServiceCallCompleted(value);
+                onServiceCallCompleted(value);
             }
         }, null);
 
@@ -67,11 +82,50 @@ public class TriptychHomePresenter {
         SailingInfoModel sailingInfoModel = sailingInformationModelDataMapper.transform(sailDateInfo);
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
         if (itinerary == null) {
-            view.addShipLocationValue(null, selectedDay);
+            addShipLocationValue(null, selectedDay);
         } else {
             List<EventModel> events = itinerary.getEvents();
-            view.addShipLocationValue(events, selectedDay);
+            addShipLocationValue(events, selectedDay);
         }
+    }
+
+    public void onServiceCallCompleted(boolean successfully) {
+        TriptychPagerAdapter adapter = (TriptychPagerAdapter) view.getViewAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            Fragment adapterFragment = adapter.getFragmentForPosition(i);
+            if (adapterFragment instanceof BaseTripTychFragment) {
+                ((BaseTripTychFragment) adapterFragment).onServiceCallCompleted(successfully);
+            }
+        }
+    }
+
+    public void addShipLocationValue(@NonNull List<EventModel> events, int day) {
+        Activity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        Resources resources = activity.getResources();
+        if (events == null) {
+            view.setTextShipLocation(resources.getString(R.string.empty_string), resources.getString(R.string.day_number, day));
+        } else {
+            view.setTextShipLocation(getShipLocation(events, day, resources), resources.getString(R.string.day_number, day));
+        }
+    }
+
+    public static String getShipLocation(List<EventModel> events, int day, Resources resources) {
+        String shipLocation;
+        PortModel sailPort = PortModel.getSailPortByDay(events, day);
+
+        String modelPortType = sailPort.getPortType();
+
+        if (PORT_TYPE_EMBARK.equals(modelPortType) || PORT_TYPE_DOCKED.equals(modelPortType) || PORT_TYPE_DEBARK.equals(modelPortType)) {
+            shipLocation = sailPort.getPortName();
+        } else if (PORT_TYPE_CRUISING.equals(modelPortType)) {
+            shipLocation = resources.getString(R.string.port_type_at_sea);
+        } else {
+            shipLocation = ConstantsUtil.EMPTY;
+        }
+        return shipLocation;
     }
 
 }
