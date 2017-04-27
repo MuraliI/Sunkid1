@@ -54,7 +54,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 
-    private LinearLayout firstHeader;
+    private View firstHeader;
     private LinearLayoutManager linearLayoutManager;
     private BottomSheetBehavior bottomSheetBehavior;
     private Animation slideUpAnimation;
@@ -223,7 +223,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
             if (view != null) {
                 if (adapter.isHeader(adapter.getItem(i))) {
-                    firstHeader = (LinearLayout) view.findViewById(R.id.layout_planner_header_container);
+                    firstHeader = view.findViewById(R.id.layout_planner_header_container);
                     if (firstHeader != null) {
                         firstHeader.setVisibility(View.INVISIBLE);
                     }
@@ -245,7 +245,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             setItemViewBackground(view, R.drawable.background_rounded_cue_card);
             changeSeparatorVisibility(view, View.GONE);
             RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
-            imageView.setRadius(R.dimen.zero_radius);
+            if (imageView != null) {
+                imageView.setRadius(R.dimen.zero_radius);
+            }
         }
     }
 
@@ -282,10 +284,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private void changeSeparatorVisibility(View parent, int visibility) {
         if (parent != null) {
-            View separator = ButterKnife.findById(parent, R.id.view_planner_item_separator);
-            if (separator != null) {
-                separator.setVisibility(visibility);
-            }
+//            View separator = ButterKnife.findById(parent, R.id.view_planner_item_separator);
+//            if (separator != null) {
+//                separator.setVisibility(visibility);
+//            }
         }
     }
 

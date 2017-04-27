@@ -23,6 +23,7 @@
     <dimen name="dashline_height">5dp</dimen>
     <dimen name="dash_width">3sp</dimen>
     <dimen name="dash_gap">3sp</dimen>
+    <dimen name="size_all_text_h2">22sp</dimen>
 
     <dimen name="home_arrow_margin_bottom">5dp</dimen>
     <dimen name="home_arrow_margin_top">20dp</dimen>
@@ -103,12 +104,15 @@
     <dimen name="itinerary_bottom_item_margin">20dp</dimen>
     <dimen name="itinerary_bottom_item_text_margin">16dp</dimen>
     <dimen name="itinerary_bottom_item_line_length">210dp</dimen>
-
+    <dimen name="margin_planner_hour_separator_text">4dp</dimen>
+    <dimen name="margin_planner_separator">8dp</dimen>
+    <dimen name="margin_planner_separator_left">32dp</dimen>
     <dimen name="planner_cue_card_height">170dp</dimen>
     <dimen name="planner_bottom_title">26sp</dimen>
     <dimen name="planner_bottom_text">16sp</dimen>
-    <dimen name="planner_header_title">26sp</dimen>
     <dimen name="planner_header_expandable">16sp</dimen>
+    <dimen name="height_planner_header">48dp</dimen>
+    <dimen name="width_planner_item">280dp</dimen>
 
     <dimen name="ship_button_category_size">25dp</dimen>
     <dimen name="ship_button_category_top_margin">10dp</dimen>

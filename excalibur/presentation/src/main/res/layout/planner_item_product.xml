@@ -109,10 +109,4 @@
             android:scaleType="centerCrop"
             tools:src="@drawable/placeholder_list_item" />
     </RelativeLayout>
-
-    <View
-        android:id="@+id/view_planner_item_separator"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/itinerary_separator_thickness"
-        android:background="@color/discover_grey" />
 </com.rcl.excalibur.custom.view.RoundedCardView>
