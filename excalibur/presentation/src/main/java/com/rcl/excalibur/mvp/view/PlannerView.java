@@ -402,7 +402,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         }
     }
 
-    @OnClick(R.id.text_arriving_debarking_time)
+    @OnClick(R.id.text_arriving_debarking_time_fixme)
     public void showVoyageMap() {
         ActivityUtils.startActivity(getActivity(), VoyageMapActivity.getStartIntent(getActivity()));
     }
