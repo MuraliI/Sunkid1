@@ -1,6 +1,7 @@
 package com.rcl.excalibur.adapters.planner.abstractitem;
 
 
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.custom.view.PriceRangeLayout;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.model.PlannerProductModel;
 import com.squareup.picasso.Picasso;
 
@@ -23,18 +25,22 @@ import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class PlannerProductItem extends AbstractSectionableItem<PlannerProductItem.ViewHolder, PlannerHeader> {
 
-    private String id;
     private int indexToBeAdded;
-
+    private String id;
+    private String timeLabel;
     private PlannerProductModel plannerProductModel;
 
-    public PlannerProductItem(String id, PlannerHeader header) {
+    public PlannerProductItem(String id, String timeLabel, PlannerHeader header) {
         super(header);
         this.id = id;
+        this.timeLabel = timeLabel;
     }
 
     @Override
     public boolean equals(Object inObject) {
+        if (inObject == null) {
+            return false;
+        }
         if (inObject instanceof PlannerProductItem) {
             PlannerProductItem inItem = (PlannerProductItem) inObject;
             return this.id.equals(inItem.id);
@@ -96,6 +102,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         holder.productVenue.setText(plannerProductModel.getVenue());
         holder.productCategoryIcon.setImageResource(plannerProductModel.getResourceIdCategoryIcon());
         holder.productDeckAndDirection.setText(plannerProductModel.getLocation());
+        holder.setTime(timeLabel);
     }
 
     public int getIndexToBeAdded() {
@@ -115,10 +122,26 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         @BindView(R.id.image_itinerary_product_icon) ImageView productCategoryIcon;
         @BindView(R.id.image_itinerary_product_favorite) ImageView productPromoted;
         @BindView(R.id.view_itinerary_product_price_range) PriceRangeLayout priceRange;
+        @BindView(R.id.layout_planner_item_separator_container) View separatorLayout;
+        @BindView(R.id.text_planner_separator_time) TextView timeTextView;
 
         public ViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter);
             ButterKnife.bind(this, itemView);
+        }
+
+        public void setTime(@Nullable String time) {
+            if (time == null || time.length() == 0) {
+                hideTime();
+            } else {
+                timeTextView.setVisibility(View.VISIBLE);
+                timeTextView.setText(time);
+            }
+        }
+
+        public void hideTime() {
+            timeTextView.setText(ConstantsUtil.EMPTY);
+            timeTextView.setVisibility(View.GONE);
         }
     }
 }

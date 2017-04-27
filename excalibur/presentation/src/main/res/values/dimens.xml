@@ -105,9 +105,8 @@
     <dimen name="itinerary_bottom_item_text_margin">16dp</dimen>
     <dimen name="itinerary_bottom_item_line_length">210dp</dimen>
     <dimen name="margin_planner_hour_separator_text">4dp</dimen>
-    <dimen name="margin_planner_separator">8dp</dimen>
-    <dimen name="margin_planner_separator_left">32dp</dimen>
-    <dimen name="planner_cue_card_height">170dp</dimen>
+    <dimen name="margin_planner_separator">4dp</dimen>
+    <dimen name="planner_cue_card_height">190dp</dimen>
     <dimen name="planner_bottom_title">26sp</dimen>
     <dimen name="planner_bottom_text">16sp</dimen>
     <dimen name="planner_header_expandable">16sp</dimen>

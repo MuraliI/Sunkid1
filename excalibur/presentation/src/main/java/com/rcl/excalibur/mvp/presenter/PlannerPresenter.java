@@ -10,11 +10,11 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
-import com.rcl.excalibur.adapters.planner.abstractitem.PlannerSeparator;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
@@ -22,8 +22,8 @@ import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PlannerProductModel;
 import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
-import com.rcl.excalibur.mvp.view.PlannerView;
 import com.rcl.excalibur.mvp.model.PlannerModel;
+import com.rcl.excalibur.mvp.view.PlannerView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -103,9 +103,6 @@ public class PlannerPresenter {
         List<AbstractFlexibleItem> plannerItems = new ArrayList<>();
         for (PlannerProductModel plannerProductModel : plannerProductModels) {
             plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getState())));
-            // TODO: mock
-            String timeLabel = new Random().nextBoolean() ? null : "10 AM";
-            plannerItems.add(new PlannerSeparator(lastItemId, timeLabel, headerList.get(plannerProductModel.getState())));
         }
         return plannerItems;
     }
@@ -148,7 +145,9 @@ public class PlannerPresenter {
     }
 
     private PlannerProductItem createPlannerItem(PlannerProductModel plannerProductModel, PlannerHeader plannerHeader) {
-        PlannerProductItem plannerProductItem = new PlannerProductItem(String.format(ITEM_FORMAT, ++lastItemId), plannerHeader);
+        // TODO: mock
+        String timeLabel = new Random().nextBoolean() ? null : "10 AM";
+        PlannerProductItem plannerProductItem = new PlannerProductItem(String.format(ITEM_FORMAT, ++lastItemId), timeLabel, plannerHeader);
         plannerProductItem.setPlannerProductModel(plannerProductModel);
         return plannerProductItem;
     }
