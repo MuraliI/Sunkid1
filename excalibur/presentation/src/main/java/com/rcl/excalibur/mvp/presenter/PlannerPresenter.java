@@ -14,7 +14,6 @@ import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
-import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
@@ -28,6 +27,7 @@ import com.rcl.excalibur.mvp.view.PlannerView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 
