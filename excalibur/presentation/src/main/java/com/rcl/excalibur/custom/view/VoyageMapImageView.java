@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.util.AttributeSet;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 
@@ -38,7 +39,7 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
     }
 
     public void setImage(int resource) {
-        //this.setImage(ImageSource.resource(resource));
+        this.setImage(ImageSource.resource(resource));
         this.setScaleX(10000);
         this.setScaleY(10000);
     }
