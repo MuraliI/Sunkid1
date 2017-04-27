@@ -38,12 +38,12 @@ public class MenuSectionResponse {
         this.sectionName = sectionName;
     }
 
-    public String getSectiondescription() {
+
+    public String getSectionDescription() {
         return sectionDescription;
     }
 
-    public void setSectiondescription(String sectiondescription) {
-        sectionDescription = sectiondescription;
+    public void setSectionDescription(String sectionDescription) {
+        this.sectionDescription = sectionDescription;
     }
-
 }
