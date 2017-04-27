@@ -1,5 +1,8 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import android.app.Activity;
+import android.content.res.Resources;
+import android.support.v4.util.Pair;
 import android.support.v4.util.SparseArrayCompat;
 
 import com.rcl.excalibur.R;
@@ -16,8 +19,10 @@ import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PlannerProductModel;
+import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.PlannerView;
+import com.rcl.excalibur.mvp.model.PlannerModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,6 +45,10 @@ public class PlannerPresenter {
     private static final int HEADER_LIST_SIZE = 4;
     private static final long DELAY = 5000;
 
+    private static final int FIRST_DAY = 1;
+    private static final String ARRIVING_DEPARTING_SEPARATOR = "; ";
+    private static final String PORT_TYPE_CRUISING = "CRUISING";
+
     private PlannerProductModelMapper mapper;
 
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
@@ -47,6 +56,7 @@ public class PlannerPresenter {
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
 
     private PlannerView view;
+    private PlannerModel model;
 
     private SparseArrayCompat<PlannerHeader> headerList;
 
@@ -59,8 +69,10 @@ public class PlannerPresenter {
                             PlannerProductModelMapper modelMapper,
                             GetSailingPreferenceUseCase getSailingPreferenceUseCase,
                             GetSaildDateDbUseCase getSaildDateDbUseCase,
-                            SailingInformationModelDataMapper sailingInformationModelDataMapper) {
+                            SailingInformationModelDataMapper sailingInformationModelDataMapper,
+                            PlannerModel model) {
         this.view = view;
+        this.model = model;
         this.useCase = useCase;
         this.mapper = modelMapper;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
@@ -75,21 +87,6 @@ public class PlannerPresenter {
         view.initBottomSheetBehavior();
 
         createHeaderList();
-    }
-
-    public void getArrivingDebarkingInfo() {
-        dayPreferences = getSailingPreferenceUseCase.getDay();
-        int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
-
-        SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
-        SailingInfoModel sailingInfoModel = sailingInformationModelDataMapper.transform(sailDateInfo);
-        ItineraryModel itinerary = sailingInfoModel.getItinerary();
-        if (itinerary == null) {
-            view.addArrivingDebarkingValues(null, selectedDay);
-        } else {
-            List<EventModel> events = itinerary.getEvents();
-            view.addArrivingDebarkingValues(events, selectedDay);
-        }
     }
 
     private void createHeaderList() {
@@ -142,10 +139,68 @@ public class PlannerPresenter {
         }
         items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
         view.addPlannerItems(items);
-        getArrivingDebarkingInfo();
+        getArrivingDisembarkingInfo();
         BaseActivity activity = view.getActivity();
         if (activity != null) {
             ((TriptychHomeActivity) activity).getShipLocationInfo();
         }
+    }
+
+    public void getArrivingDisembarkingInfo() {
+        dayPreferences = getSailingPreferenceUseCase.getDay();
+        int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
+
+        SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
+        SailingInfoModel sailingInfoModel = sailingInformationModelDataMapper.transform(sailDateInfo);
+        ItineraryModel itinerary = sailingInfoModel.getItinerary();
+        if (itinerary != null) {
+            List<EventModel> events = itinerary.getEvents();
+            addArrivingDisembarkingValues(events, selectedDay);
+        }
+    }
+
+    private void addArrivingDisembarkingValues(List<EventModel> events, int day) {
+        Activity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        if (events != null) {
+            Pair<String, Integer> stringIntegerPair = getArrivalDisembarkingDescription(events, day);
+            view.setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
+        }
+    }
+
+    private Pair<String, Integer> getArrivalDisembarkingDescription(List<EventModel> events, int day) {
+        Resources resources = view.getActivity().getResources();
+        int drawable;
+        PortModel sailPort = PortModel.getSailPortByDay(events, day);
+        drawable = R.drawable.ic_excursions;
+
+        if (day == FIRST_DAY) {
+            return new Pair<>(resources.getString(R.string.departing_at) + model.getTimeFormat(
+                    Integer.valueOf(sailPort.getDepartureTime())), drawable);
+        } else if (day == events.size()) {
+            return new Pair<>(resources.getString(R.string.arriving_at) + model.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime())),
+                    drawable);
+        } else if (PORT_TYPE_CRUISING.equals(sailPort.getPortType())) {
+            sailPort = getPortTypeNextDay(events, day, sailPort);
+            return new Pair<>(resources.getString(R.string.next_port) + sailPort.getPortName(), drawable);
+        } else {
+            return new Pair<>(resources.getString(R.string.arriving_at) + model.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime()))
+                    + ARRIVING_DEPARTING_SEPARATOR + resources.getString(R.string.departing_at)
+                    + model.getTimeFormat(Integer.valueOf(sailPort.getDepartureTime())), drawable);
+        }
+    }
+
+    private PortModel getPortTypeNextDay(List<EventModel> events, int day, PortModel sailPort) {
+        int nextDay = day + 1;
+        if (nextDay <= events.size()) {
+            sailPort = PortModel.getSailPortByDay(events, nextDay);
+            if (PORT_TYPE_CRUISING.equals(sailPort.getPortType())) {
+                sailPort = getPortTypeNextDay(events, nextDay, sailPort);
+            }
+        }
+        return sailPort;
     }
 }
