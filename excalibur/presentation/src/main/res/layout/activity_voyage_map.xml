@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sea_big">
+    android:background="@drawable/bg_sea">
 
     <com.rcl.excalibur.custom.view.VoyageMapImageView
         android:id="@+id/image_voyage_map"

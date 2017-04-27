@@ -8,18 +8,15 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.util.AttributeSet;
 
-import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 
 public class VoyageMapImageView extends SubsamplingScaleImageView {
-    private static final int DELAY_ANIMATION = 250;
     private static final float DENSITY_FACTOR = 420f;
-
-    private PointF sPin;
 
     private Paint paint;
     private Bitmap cruise;
+    private PointF cruiseCoord;
 
     public VoyageMapImageView(Context context, AttributeSet attr) {
         super(context, attr);
@@ -27,44 +24,33 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
     }
 
     public VoyageMapImageView(Context context) {
-        super(context);
+        super(context, null);
         initialize();
     }
 
     private void initialize() {
         paint = new Paint();
         float density = getResources().getDisplayMetrics().densityDpi;
-        cruise = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker);
+        cruise = BitmapFactory.decodeResource(this.getResources(), R.drawable.ship_big);
         float w = (density / DENSITY_FACTOR) * cruise.getWidth();
         float h = (density / DENSITY_FACTOR) * cruise.getHeight();
         cruise = Bitmap.createScaledBitmap(cruise, (int) w, (int) h, true);
     }
 
-    public void setPin(PointF sPin) {
-        this.sPin = sPin;
+    public void setImage(int resource) {
+        //this.setImage(ImageSource.resource(resource));
+        this.setScaleX(10000);
+        this.setScaleY(10000);
+    }
+
+    public void setCruiseCoord(PointF cruiseCoord) {
+        this.cruiseCoord = cruiseCoord;
         initialize();
         invalidate();
     }
 
     public PointF getPin() {
-        return sPin;
-    }
-
-    public void setImage(int resource) {
-        this.setImage(ImageSource.resource(resource));
-        //this.setPanLimit(PAN_LIMIT_OUTSIDE);
-    }
-
-    public void setCruiseCoord(PointF productCoord) {
-        invalidate();
-    }
-
-    public void animatePointToCenter(PointF pointF) {
-        animateScaleAndCenter(getMaxScale(), pointF)
-                .withDuration(DELAY_ANIMATION)
-                .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
-                .withInterruptible(false)
-                .start();
+        return cruiseCoord;
     }
 
     @Override
@@ -76,10 +62,21 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
         }
         paint.setAntiAlias(true);
 
-        if (sPin != null && cruise != null) {
-            float left = 300 - cruise.getWidth() / 2;
-            float top = 530 - cruise.getHeight();
-            canvas.drawBitmap(cruise, top, left, paint);
+        if (cruiseCoord == null || cruise == null) {
+            return;
         }
+
+        PointF vCruise = sourceToViewCoord(cruiseCoord);
+
+
+        float left = vCruise.x - (cruise.getWidth() / 2);
+        float top = vCruise.y - cruise.getHeight();
+        canvas.save(Canvas.MATRIX_SAVE_FLAG); //Saving the canvas and later restoring it so only this image will be rotated.
+        canvas.rotate(-20);
+        // Matrix matrix = new Matrix();
+        //matrix.setRotate(20, top, left);
+        //canvas.drawBitmap(cruise, matrix, null);
+        //canvas.drawBitmap(cruise, top, left, paint);
+        canvas.restore();
     }
 }

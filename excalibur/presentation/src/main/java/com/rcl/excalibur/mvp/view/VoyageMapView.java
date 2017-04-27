@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 
 public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     private static final int MINIMUM_DPI = 80;
+
     @Bind(R.id.image_voyage_map) VoyageMapImageView voyageMapImage;
 
     public VoyageMapView(VoyageMapActivity activity) {
@@ -24,7 +25,6 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
         voyageMapImage.setImage(resource);
         voyageMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_OUTSIDE);
         voyageMapImage.setMinimumDpi(MINIMUM_DPI);
-
     }
 
     public void setCruiseCoordinate(float xCoord, float yCoord) {

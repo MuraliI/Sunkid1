@@ -10,8 +10,12 @@ public class VoyageMapPresenter {
         this.view = view;
     }
 
+    public void init() {
+        initView();
+    }
+
     public void initView() {
-        view.initVoyageMapImage(R.drawable.map_05_fwd);
+        view.initVoyageMapImage(R.drawable.sea_big);
         view.setCruiseCoordinate(196, 526);
     }
 }

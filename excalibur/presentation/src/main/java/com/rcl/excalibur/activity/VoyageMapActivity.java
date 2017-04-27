@@ -17,7 +17,7 @@ public class VoyageMapActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voyage_map);
         presenter = new VoyageMapPresenter(new VoyageMapView(this));
-        presenter.initView();
+        presenter.init();
     }
 
     public static Intent getStartIntent(BaseActivity activity) {
