@@ -116,19 +116,21 @@ public class PlannerPresenter {
         List<AbstractFlexibleItem> tmpVisibleItems = new ArrayList<>(flexibleItems);
         List<AbstractFlexibleItem> hiddenItems = new ArrayList<>();
         for (int i = 0; i < tmpVisibleItems.size(); i++) {
-            PlannerProductItem plannerProductItem = (PlannerProductItem) tmpVisibleItems.get(i);
-            PlannerProductModel plannerProductModel = plannerProductItem.getPlannerProductModel();
+            if (tmpVisibleItems.get(i) instanceof PlannerProductItem) {
+                PlannerProductItem plannerProductItem = (PlannerProductItem) tmpVisibleItems.get(i);
+                PlannerProductModel plannerProductModel = plannerProductItem.getPlannerProductModel();
 
-            // TODO: Delete this if, only for testing
-            if (i <= 10 && i % 2 == 0) {
-                plannerProductModel.setFeatured(true);
-            }
+                // TODO: Delete this if, only for testing
+                if (i <= 10 && i % 2 == 0) {
+                    plannerProductModel.setFeatured(true);
+                }
 
-            if (!plannerProductModel.isFeatured()) {
-                hiddenIndex.add(i);
-                plannerProductItem.setIndexToBeAdded(i);
-                hiddenItems.add(plannerProductItem);
-                flexibleItems.remove(plannerProductItem);
+                if (!plannerProductModel.isFeatured()) {
+                    hiddenIndex.add(i);
+                    plannerProductItem.setIndexToBeAdded(i);
+                    hiddenItems.add(plannerProductItem);
+                    flexibleItems.remove(plannerProductItem);
+                }
             }
         }
         return new Pair<>(hiddenIndex, hiddenItems);
@@ -168,11 +170,11 @@ public class PlannerPresenter {
             view.showAllDayLayout();
         }
         visibleItems.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
-        Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems = getHiddenItems(visibleItems);
+//        Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems = getHiddenItems(visibleItems);
         view.addPlannerItems(visibleItems);
         //view.addPlannerItems(visibleItems, hiddenItems);
 
-        getArrivingDebarkingInfo();
+        getArrivingDisembarkingInfo();
         BaseActivity activity = view.getActivity();
         if (activity != null) {
             ((TriptychHomeActivity) activity).getShipLocationInfo();
