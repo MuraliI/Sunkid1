@@ -23,6 +23,7 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     private boolean isAllDayProduct;
     private boolean isFeatured;
     private boolean isHighlighted;
+    private int indexToBeAdded;
 
     @DrawableRes
     public int getResourceIdCategoryIcon() {
@@ -90,9 +91,21 @@ public class PlannerProductModel extends ProductInformationViewType implements C
         return 0;
     }
 
+    public int getIndexToBeAdded() {
+        return indexToBeAdded;
+    }
+
+    public void setIndexToBeAdded(int indexToBeAdded) {
+        this.indexToBeAdded = indexToBeAdded;
+    }
+
     @Override
     public int compareTo(@NonNull PlannerProductModel input) {
-        return getStartDate().compareTo(input.getStartDate());
+        int result = getStartDate().compareTo(input.getStartDate());
+        if (result == 0) {
+            result = input.getProductName().compareToIgnoreCase(input.getProductName());
+        }
+        return result;
     }
 }
 

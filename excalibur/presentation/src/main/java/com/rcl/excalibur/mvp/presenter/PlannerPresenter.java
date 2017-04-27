@@ -110,6 +110,31 @@ public class PlannerPresenter {
         return plannerItems;
     }
 
+    private Pair<List<Integer>, List<AbstractFlexibleItem>> getHiddenItems(final List<AbstractFlexibleItem> flexibleItems) {
+        List<Integer> hiddenIndex = new ArrayList<>();
+
+        List<AbstractFlexibleItem> tmpVisibleItems = new ArrayList<>(flexibleItems);
+        List<AbstractFlexibleItem> hiddenItems = new ArrayList<>();
+        for (int i = 0; i < tmpVisibleItems.size(); i++) {
+            PlannerProductItem plannerProductItem = (PlannerProductItem) tmpVisibleItems.get(i);
+            PlannerProductModel plannerProductModel = plannerProductItem.getPlannerProductModel();
+
+            // TODO: Delete this if, only for testing
+            if (i <= 10 && i % 2 == 0) {
+                plannerProductModel.setFeatured(true);
+            }
+
+            if (!plannerProductModel.isFeatured()) {
+                hiddenIndex.add(i);
+                plannerProductItem.setIndexToBeAdded(i);
+                hiddenItems.add(plannerProductItem);
+                flexibleItems.remove(plannerProductItem);
+            }
+        }
+        return new Pair<>(hiddenIndex, hiddenItems);
+    }
+
+
     private PlannerHeader createPlannerHeader(int textRes) {
         BaseActivity activity = view.getActivity();
         if (activity == null) {
@@ -135,16 +160,19 @@ public class PlannerPresenter {
         //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2017);
-        calendar.set(Calendar.DAY_OF_MONTH, 3);
+        calendar.set(Calendar.DAY_OF_MONTH, 5);
         calendar.set(Calendar.MONTH, Calendar.MAY);
         SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
-        List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
-        if (!items.isEmpty()) {
+        List<AbstractFlexibleItem> visibleItems = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
+        if (!visibleItems.isEmpty()) {
             view.showAllDayLayout();
         }
-        items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
-        view.addPlannerItems(items);
-        getArrivingDisembarkingInfo();
+        visibleItems.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
+        Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems = getHiddenItems(visibleItems);
+        view.addPlannerItems(visibleItems);
+        //view.addPlannerItems(visibleItems, hiddenItems);
+
+        getArrivingDebarkingInfo();
         BaseActivity activity = view.getActivity();
         if (activity != null) {
             ((TriptychHomeActivity) activity).getShipLocationInfo();

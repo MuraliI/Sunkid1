@@ -38,7 +38,7 @@ public class OfferingDataMapperTest {
     @Mock Product product;
     @Mock SellingPrice sellingPrice;
 
-    List<OfferingEntity> offeringEntities;
+    private List<OfferingEntity> offeringEntities;
 
     private OfferingDataMapper mapper;
 
@@ -79,7 +79,7 @@ public class OfferingDataMapperTest {
 
         assertEquals(offeringEntity.getOfferingId(), transformedOffering.getId());
         assertEquals(DateUtil.getStandardDateParser().parse(offeringEntity.getDate() + offeringEntity.getTime())
-                , transformedOffering.getDate());
+                , transformedOffering.getCompleteDate());
 
         //Product
         assertEquals(product.getProductId(), transformedOffering.getProduct().getProductId());

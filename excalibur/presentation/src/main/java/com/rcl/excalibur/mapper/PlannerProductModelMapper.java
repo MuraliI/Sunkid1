@@ -27,8 +27,10 @@ public class PlannerProductModelMapper {
     public static final int ALL_DAY_PRODUCT_LIST = 0;
     public static final int TIMED_PRODUCT_LIST = 1;
 
-    private static final int ALL_DAY_OFFERING_LIMIT = 10;
+    private static final int ALL_DAY_DURATION_IN_MINUTES = 300;
     private static final int DEFAULT_DURATION = 0;
+    private static final int FIRST_OFFERING = 0;
+    private static final int INITIAL_CAPACITY = 2;
 
     private BaseProductInformationMapper productInformationMapper;
     private Resources resources;
@@ -39,24 +41,31 @@ public class PlannerProductModelMapper {
     }
 
     public SparseArrayCompat<List<PlannerProductModel>> transform(List<Offering> input) {
-        List<PlannerProductModel> timedProductList = new ArrayList<>();
         List<PlannerProductModel> allDayProducts = new ArrayList<>();
-        SparseArrayCompat<List<PlannerProductModel>> productList = new SparseArrayCompat<>(2);
+        List<PlannerProductModel> timedProduct = new ArrayList<>();
+
+        SparseArrayCompat<List<PlannerProductModel>> productList = new SparseArrayCompat<>(INITIAL_CAPACITY);
         productList.append(ALL_DAY_PRODUCT_LIST, allDayProducts);
-        productList.append(TIMED_PRODUCT_LIST, timedProductList);
+        productList.append(TIMED_PRODUCT_LIST, timedProduct);
+
         Map<String, List<Offering>> productOfferingMap = createOfferingProductMap(input);
         for (Map.Entry<String, List<Offering>> entry : productOfferingMap.entrySet()) {
             List<Offering> productOfferingList = entry.getValue();
-            if (productOfferingList.size() >= ALL_DAY_OFFERING_LIMIT) {
+
+            long productDuration = productOfferingList.get(FIRST_OFFERING).getProduct()
+                    .getProductDuration().getDurationInMinutes();
+            if (productDuration >= ALL_DAY_DURATION_IN_MINUTES) {
                 allDayProducts.add(createAllDayProductModel(productOfferingList));
             } else {
                 for (Offering offering : productOfferingList) {
-                    timedProductList.add(createNormalPlannerProductModel(offering));
+                    timedProduct.add(createNormalPlannerProductModel(offering));
                 }
             }
         }
+
         Collections.sort(allDayProducts);
-        Collections.sort(timedProductList);
+        Collections.sort(timedProduct);
+
         return productList;
     }
 
@@ -78,18 +87,19 @@ public class PlannerProductModelMapper {
 
     private PlannerProductModel createAllDayProductModel(@NonNull List<Offering> offeringList) {
         Collections.sort(offeringList);
-        Product product = offeringList.get(0).getProduct();
+
+        Product product = offeringList.get(FIRST_OFFERING).getProduct();
         PlannerProductModel model = (PlannerProductModel) productInformationMapper.transform(product);
 
         Calendar allDayStartDate = Calendar.getInstance();
-        allDayStartDate.setTime(offeringList.get(0).getDate());
+        allDayStartDate.setTime(offeringList.get(FIRST_OFFERING).getCompleteDate());
 
-        Calendar allDayEndDate = Calendar.getInstance();
-        allDayEndDate.setTime(offeringList.get(offeringList.size() - 1).getDate());
+        Calendar allDayEndDate = calculateEndDate(offeringList.get(offeringList.size() - 1).getCompleteDate(),
+                product.getProductDuration());
 
-        model.setOperatingHours(calculateOperatingHours(allDayStartDate, allDayEndDate));
         model.setStartDate(allDayStartDate);
         model.setEndDate(allDayEndDate);
+        model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
         model.setHighlighted(product.isHighlighted());
         model.setFeatured(product.isFeatured());
         model.setAllDayProduct(true);
@@ -102,7 +112,6 @@ public class PlannerProductModelMapper {
             model.setLocation(ConstantsUtil.EMPTY);
         }
 
-
         return model;
     }
 
@@ -112,14 +121,12 @@ public class PlannerProductModelMapper {
         PlannerProductModel model = (PlannerProductModel) productInformationMapper.transform(product);
 
         Calendar startDate = Calendar.getInstance();
-        startDate.setTime(offering.getDate());
+        startDate.setTime(offering.getCompleteDate());
 
         model.setStartDate(startDate);
-        model.setEndDate(calculateEndDate(offering.getDate(), product.getProductDuration()));
+        model.setEndDate(calculateEndDate(offering.getCompleteDate(), product.getProductDuration()));
         model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
-        if (model.getProductType() != null) {
-            model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
-        }
+        model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
 
         String location = model.getLocation();
         if (location != null && !location.isEmpty()) {

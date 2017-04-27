@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.util.Pair;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -91,11 +92,15 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
         handler = new Handler();
 
+        DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
+        itemAnimator.setAddDuration(300);
+
         adapter = new FlexibleAdapter<>(null, fragment, true);
         adapter.setDisplayHeadersAtStartUp(true).setStickyHeaders(true);
         linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(itemAnimator);
         recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
@@ -314,12 +319,21 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         if (firstHeader != null && firstHeader.getVisibility() == View.VISIBLE) {
             firstHeader.setVisibility(View.INVISIBLE);
         }
+
         if (isAllDayNecessary && allDayView.getVisibility() == View.VISIBLE) {
             allDayView.setVisibility(View.INVISIBLE);
         }
     }
 
     public void addPlannerItems(List<AbstractFlexibleItem> items) {
+        adapter.addItems(TOP_OF_LIST, items);
+        containerLayout.setVisibility(View.VISIBLE);
+    }
+
+
+    private Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems;
+    public void addPlannerItems(List<AbstractFlexibleItem> items, Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems) {
+        this.hiddenItems = hiddenItems;
         adapter.addItems(TOP_OF_LIST, items);
         containerLayout.setVisibility(View.VISIBLE);
     }
@@ -366,13 +380,29 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     @OnClick(R.id.image_ship_invisible)
-    public void shipOnClick() {
+    void shipOnClick() {
         //Fixme temp onClick on Transparent ImageView
         final BaseActivity activity = getActivity();
         if (activity == null) {
             return;
         }
         ActivityUtils.startActivity(activity, ProductDeckMapActivity.getIntent(activity, null));
+    }
+
+    private boolean showAll = true;
+
+    @OnClick(R.id.layout_planner_all_day)
+    void onAllDayClick() {
+        /*List<Integer> index = hiddenItems.first;
+        List<AbstractFlexibleItem> items = hiddenItems.second;
+        for (int i = 0; i < items.size(); i++) {
+            if (showAll) {
+                adapter.addItem(index.get(i), items.get(i));
+            } else {
+                adapter.removeItems(index);
+            }
+        }
+        showAll = !showAll;*/
     }
 
     public void setShipInvisibleHeight(Pair<Integer, Integer> pair) {
