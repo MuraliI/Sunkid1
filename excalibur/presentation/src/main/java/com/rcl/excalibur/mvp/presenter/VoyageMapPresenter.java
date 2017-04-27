@@ -16,6 +16,6 @@ public class VoyageMapPresenter {
 
     public void initView() {
         view.initVoyageMapImage(R.drawable.voyage_land);
-        view.setCruiseCoordinate(196, 526);
+        view.setCruiseCoordinate(796, 826);
     }
 }
