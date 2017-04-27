@@ -11,7 +11,7 @@ import com.rcl.excalibur.domain.utils.ConstantsUtil;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractSectionableItem;
@@ -67,8 +67,8 @@ public class PlannerSeparator extends AbstractSectionableItem<PlannerSeparator.V
 
     public class ViewHolder extends FlexibleViewHolder {
 
-        @Bind(R.id.text_planner_separator_time) TextView timeTextView;
-        @Bind(R.id.view_planner_separator_extra_line) View extraLine;
+        @BindView(R.id.text_planner_separator_time) TextView timeTextView;
+        @BindView(R.id.view_planner_separator_extra_line) View extraLine;
 
         public ViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter);
