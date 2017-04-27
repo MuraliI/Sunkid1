@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Product {
+
+    public static final int STATUS_INVENTORY = 1;
+    public static final int STATUS_NON_INVENTORY = 2;
+    public static final int STATUS_WALK_UP = 3;
+
     private static final int TIME_LENGTH = 4;
     private String productId;
     private ProductCategory productCategory;
@@ -297,5 +302,18 @@ public class Product {
 
     public boolean isGuestServices() {
         return CategoryUtil.isGuestServices(productType.getProductType());
+    }
+
+    public int getStatus() {
+        if (isReservationRequired && !isScheduable) {
+            return STATUS_INVENTORY;
+        }
+        if (!isReservationRequired && isScheduable) {
+            return STATUS_NON_INVENTORY;
+        }
+        if (!isReservationRequired && !isScheduable) {
+            return STATUS_WALK_UP;
+        }
+        return -1;
     }
 }

@@ -44,6 +44,8 @@
     <string name="discover_item_detail_attire">Attire</string>
     <string name="discover_item_detail_know">Know Before You Go</string>
     <string name="product_detail_show_more">Show More</string>
+    <string name="title_show_times">Show Times</string>
+    <string name="title_times">Times</string>
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>

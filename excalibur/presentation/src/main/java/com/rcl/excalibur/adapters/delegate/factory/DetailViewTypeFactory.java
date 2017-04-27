@@ -272,8 +272,29 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addTimesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings,
-                                       @NonNull Resources res, Product product){
+                                       @NonNull Resources res, Product product) {
+        String title = res.getString(R.string.title_times);
+        int status = product.getStatus();
+        if (product.isEntertainment()) {
+            title = res.getString(R.string.title_show_times);
+        }
 
+        if (product.isActivities()) {
+            if (status == Product.STATUS_INVENTORY || status == Product.STATUS_NON_INVENTORY) {
+
+            }
+
+            if (status == Product.STATUS_WALK_UP) {
+                //Display in range
+            }
+        }
+
+        if (product.isShorex()) {
+        }
+
+        if (product.isSpa() || product.isGuestServices() || product.isShopping()) {
+            //Display in range
+        }
     }
 
     private void addLongDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, Product product) {
