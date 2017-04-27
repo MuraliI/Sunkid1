@@ -249,7 +249,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             setItemViewBackground(view, R.drawable.background_rounded_cue_card);
             changeSeparatorVisibility(view, View.GONE);
             RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
-            imageView.setRadius(R.dimen.zero_radius);
+            if (imageView != null) {
+                imageView.setRadius(R.dimen.zero_radius);
+            }
         }
     }
 

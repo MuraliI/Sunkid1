@@ -7,6 +7,7 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
+import com.rcl.excalibur.adapters.planner.abstractitem.PlannerSeparator;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
@@ -22,6 +23,7 @@ import com.rcl.excalibur.mvp.view.PlannerView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 
@@ -104,6 +106,9 @@ public class PlannerPresenter {
         List<AbstractFlexibleItem> plannerItems = new ArrayList<>();
         for (PlannerProductModel plannerProductModel : plannerProductModels) {
             plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getState())));
+            // TODO: mock
+            String timeLabel = new Random().nextBoolean() ? null : "10 AM";
+            plannerItems.add(new PlannerSeparator(lastItemId, timeLabel, headerList.get(plannerProductModel.getState())));
         }
         return plannerItems;
     }
