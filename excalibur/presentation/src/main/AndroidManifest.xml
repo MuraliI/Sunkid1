@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rcl.excalibur">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        android:protectionLevel="signature" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        android:protectionLevel="signature" />
 
     <application
         android:name=".RCLApp"
@@ -13,12 +17,15 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.HomeActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PlanListActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ProductDetailActivity"
+            android:exported="false"
             android:label="@string/empty_string"
             android:screenOrientation="portrait" />
         <activity
@@ -33,35 +40,40 @@
         </activity>
         <activity
             android:name=".activity.guest.NameActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.guest.EmailActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.guest.PasswordActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.guest.SecurityQuestionsActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.guest.AnswerQuestionActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.guest.CreateAccountDoneActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.ProductDeckMapActivity"
-            android:label="@string/empty_string"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".expandable.activity.ExpandableListActivity"
+            android:exported="false"
             android:label="@string/empty_string"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.DayPickerActivity"
+            android:exported="false"
             android:label="@string/empty_string"
             android:screenOrientation="portrait" />
 
@@ -103,8 +115,9 @@
                     com.rcl.excalibur.data.entity.ItineraryEntity,
                     com.rcl.excalibur.data.entity.EventEntity,
                     com.rcl.excalibur.data.entity.PortEntity,
-		    com.rcl.excalibur.data.entity.ShipTimeEntity" />
-
-        <receiver android:name=".scheduler.SchedulerReceiver" />
+		            com.rcl.excalibur.data.entity.ShipTimeEntity,
+                    com.rcl.excalibur.data.entity.DeckInfoEntity,
+                    com.rcl.excalibur.data.entity.OperationHourEntity"/>
+        <receiver android:name=".scheduler.SchedulerReceiver" />   
     </application>
 </manifest>

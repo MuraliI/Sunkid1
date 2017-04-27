@@ -11,7 +11,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.PromotionViewType;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -31,9 +31,9 @@ public class PromotionDelegateAdapter implements DelegateAdapter<PromotionDelega
 
     public static class PromotionViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.promotion_module_content) TextView textContent;
-        @Bind(R.id.promotion_module_arrow) ImageView imageArrow;
-        @Bind(R.id.promotion_module_title_link) TextView textLinkTitle;
+        @BindView(R.id.promotion_module_content) TextView textContent;
+        @BindView(R.id.promotion_module_arrow) ImageView imageArrow;
+        @BindView(R.id.promotion_module_title_link) TextView textLinkTitle;
 
 
         public PromotionViewHolder(ViewGroup parent) {

@@ -10,11 +10,11 @@ import com.rcl.excalibur.activity.DayPickerActivity;
 import com.rcl.excalibur.fragments.DayPickerFragment;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class DayPickerActivityView extends ActivityView<DayPickerActivity, Void, Void> {
 
-    @Bind(R.id.contentFrame) FrameLayout contentFrame;
+    @BindView(R.id.contentFrame) FrameLayout contentFrame;
     FragmentManager fargmentManager;
 
     public DayPickerActivityView(DayPickerActivity activity) {

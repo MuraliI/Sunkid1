@@ -2,9 +2,11 @@ package com.rcl.excalibur.data.mapper;
 
 
 import com.rcl.excalibur.data.service.response.ChildCategoryResponse;
+import com.rcl.excalibur.data.service.response.DeckInfoResponse;
 import com.rcl.excalibur.data.service.response.ItemsResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
+import com.rcl.excalibur.data.service.response.OperationHourResponse;
 import com.rcl.excalibur.data.service.response.ProductActivityLevelResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
 import com.rcl.excalibur.data.service.response.ProductCategoryResponse;
@@ -18,6 +20,8 @@ import com.rcl.excalibur.data.service.response.ProductRestrictionAnswerResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
 import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
+import com.rcl.excalibur.domain.LocationDeckInfo;
+import com.rcl.excalibur.domain.LocationOperationHour;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductAdvisement;
@@ -154,18 +158,32 @@ public class ProductResponseDataMapperTest {
 
         productResponse2.setActivityLevel(productActivityLevelResponse);
 
-        productLocationResponse = new ProductLocationResponse();
-        productLocationResponse.setLocationId("RYLTH_QN");
-        productLocationResponse.setLocationCode("RYLTH_QN");
-        productLocationResponse.setLocationType("VENUE");
-        productLocationResponse.setOperatingHoursEnd("1200");
-        productLocationResponse.setOperatingHoursStart("1100");
-        productLocationResponse.setLocationVenue("Royale Theatre");
-        productLocationResponse.setLocationPort("St. Martin");
-        productLocationResponse.setLocationDirection("AFT");
-        productLocationResponse.setLocationDeckNumber(12);
-        productResponse1.setProductLocation(productLocationResponse);
+        DeckInfoResponse deckInfoResponse = new DeckInfoResponse();
+        deckInfoResponse.setDeckNumber("5");
+        deckInfoResponse.setDirection("aft");
 
+        List<DeckInfoResponse> deckInfoResponseList = new ArrayList<>();
+        deckInfoResponseList.add(deckInfoResponse);
+
+        OperationHourResponse operationHourResponse = new OperationHourResponse();
+        operationHourResponse.setStartTime("9:00 AM");
+        operationHourResponse.setEndTime("11:00 AM");
+        operationHourResponse.setDayNumber("1");
+        operationHourResponse.setTimeOfDay("Breakfast");
+
+        List<OperationHourResponse> operationHourResponseList = new ArrayList<>();
+        operationHourResponseList.add(operationHourResponse);
+
+        productLocationResponse = new ProductLocationResponse();
+        productLocationResponse.setLocationCode("GIOV");
+        productLocationResponse.setLocationTitle("Dinner at Giovanni's Table");
+        productLocationResponse.setLocationType("DINING_VENUE");
+        productLocationResponse.setLatitude("100");
+        productLocationResponse.setLongitude("100");
+        productLocationResponse.setDeckInfo(deckInfoResponseList);
+        productLocationResponse.setLocationOperationHours(operationHourResponseList);
+
+        productResponse1.setProductLocation(productLocationResponse);
         productResponse2.setProductLocation(productLocationResponse);
 
         productDurationResponse = new ProductDurationResponse();
@@ -274,7 +292,6 @@ public class ProductResponseDataMapperTest {
 
         assertEquals(productResponse1.getProductClass(), product.getProductClass());
 
-
         assertEquals(productResponse1.getProductCategory().get(0).getCategoryDescription(), product.getProductCategory().getCategoryDescription());
         assertEquals(productResponse1.getProductCategory().get(0).getCategoryId(), product.getProductCategory().getCategoryId());
         assertEquals(productResponse1.getProductCategory().get(0).getCategoryName(), product.getProductCategory().getCategoryName());
@@ -285,7 +302,6 @@ public class ProductResponseDataMapperTest {
             assertEquals(productResponse1.getProductCategory().get(0).getChildCategory().get(j).getItems().getCategoryId(), product.getProductCategory().getChildCategory().get(j).getItems().getCategoryId());
         }
 
-
         assertEquals(productResponse1.getProductRank(), product.getProductRank());
 
         assertEquals(productResponse1.isReservationRequired(), product.isReservationRequired());
@@ -295,6 +311,7 @@ public class ProductResponseDataMapperTest {
         assertEquals(productResponse1.getActivityLevel().getActivityLevelDescription(), product.getActivityLevel().getActivityLevelDescription());
         assertEquals(productResponse1.getActivityLevel().getActivityLevelId(), product.getActivityLevel().getActivityLevelId());
         assertEquals(productResponse1.getActivityLevel().getActivityLevelTitle(), product.getActivityLevel().getActivityLevelTitle());
+
         for (int i = 0; i < productResponse1.getActivityLevel().getActivityLevelMedia().getMediaItem().size(); i++) {
             MediaItemResponse item = productResponse1.getActivityLevel().getActivityLevelMedia().getMediaItem().get(i);
             MediaItem itemProduct = product.getActivityLevel().getActivityLevelMedia().getMediaItem().get(i);
@@ -304,15 +321,36 @@ public class ProductResponseDataMapperTest {
 
         ProductLocationResponse locationResponse = productResponse1.getProductLocation();
         ProductLocation location = product.getProductLocation();
-        assertEquals(locationResponse.getLocationId(), location.getLocationId());
+
         assertEquals(locationResponse.getLocationCode(), location.getLocationCode());
+        assertEquals(locationResponse.getLocationTitle(), location.getLocationTitle());
         assertEquals(locationResponse.getLocationType(), location.getLocationType());
-        assertEquals(locationResponse.getOperatingHoursEnd(), location.getOperatingHoursEnd());
-        assertEquals(locationResponse.getOperatingHoursStart(), location.getOperatingHoursStart());
-        assertEquals(locationResponse.getLocationVenue(), location.getLocationVenue());
-        assertEquals(locationResponse.getLocationDeckNumber(), location.getLocationDeckNumber());
-        assertEquals(locationResponse.getLocationDirection(), location.getLocationDirection());
-        assertEquals(locationResponse.getLocationPort(), location.getLocationPort());
+        assertEquals(locationResponse.getLatitude(), location.getLatitude());
+        assertEquals(locationResponse.getLongitude(), location.getLongitude());
+
+        List<DeckInfoResponse> deckInfoResponseList = locationResponse.getDeckInfo();
+        List<LocationDeckInfo> locationDeckInfoList = location.getLocationDeckInfo();
+
+        for (int i = 0; i < deckInfoResponseList.size(); i++) {
+            DeckInfoResponse deckInfoResponse = deckInfoResponseList.get(i);
+            LocationDeckInfo locationDeckInfo = locationDeckInfoList.get(i);
+
+            assertEquals(deckInfoResponse.getDeckNumber(), locationDeckInfo.getDeckNumber());
+            assertEquals(deckInfoResponse.getDirection(), locationDeckInfo.getDirection());
+        }
+
+        List<OperationHourResponse> operationHourResponseList = locationResponse.getLocationOperationHours();
+        List<LocationOperationHour> locationOperationHourList = location.getLocationOperationHours();
+
+        for (int i = 0; i < operationHourResponseList.size(); i++) {
+            OperationHourResponse operationHourResponse = operationHourResponseList.get(i);
+            LocationOperationHour locationOperationHour = locationOperationHourList.get(i);
+
+            assertEquals(operationHourResponse.getDayNumber(), locationOperationHour.getDayNumber());
+            assertEquals(operationHourResponse.getTimeOfDay(), locationOperationHour.getTimeOfDay());
+            assertEquals(operationHourResponse.getStartTime(), locationOperationHour.getStartTime());
+            assertEquals(operationHourResponse.getEndTime(), locationOperationHour.getEndTime());
+        }
 
         assertEquals(productResponse1.getProductDuration().getDurationInMinutes(), product.getProductDuration().getDurationInMinutes());
         assertEquals(productResponse1.getProductDuration().getLagTimeInMinutes(), product.getProductDuration().getLagTimeInMinutes());
@@ -322,9 +360,11 @@ public class ProductResponseDataMapperTest {
         assertEquals(productResponse1.getCostType().getCostTypeCode(), product.getCostType().getCostTypeCode());
         assertEquals(productResponse1.getCostType().getCostTypeDescription(), product.getCostType().getCostTypeDescription());
         assertEquals(productResponse1.getCostType().getCostTypeTitle(), product.getCostType().getCostTypeTitle());
+
         for (int i = 0; i < productResponse1.getCostType().getCostTypeMedia().getMediaItem().size(); i++) {
             MediaItemResponse item = productResponse1.getCostType().getCostTypeMedia().getMediaItem().get(i);
             MediaItem itemProduct = product.getCostType().getCostTypeMedia().getMediaItem().get(i);
+
             assertEquals(item.getMediaRefLink(), itemProduct.getMediaRefLink());
             assertEquals(item.getMediaType(), itemProduct.getMediaType());
         }
@@ -424,7 +464,6 @@ public class ProductResponseDataMapperTest {
 
             assertEquals(productResponses.get(z).getProductClass(), productList.get(z).getProductClass());
 
-
             assertEquals(productResponses.get(z).getProductCategory().get(0).getCategoryDescription(), productList.get(z).getProductCategory().getCategoryDescription());
             assertEquals(productResponses.get(z).getProductCategory().get(0).getCategoryId(), productList.get(z).getProductCategory().getCategoryId());
             assertEquals(productResponses.get(z).getProductCategory().get(0).getCategoryName(), productList.get(z).getProductCategory().getCategoryName());
@@ -434,7 +473,6 @@ public class ProductResponseDataMapperTest {
                 assertEquals(productResponses.get(z).getProductCategory().get(0).getChildCategory().get(j).getItems().getCategoryName(), productList.get(z).getProductCategory().getChildCategory().get(j).getItems().getCategoryName());
                 assertEquals(productResponses.get(z).getProductCategory().get(0).getChildCategory().get(j).getItems().getCategoryId(), productList.get(z).getProductCategory().getChildCategory().get(j).getItems().getCategoryId());
             }
-
 
             assertEquals(productResponses.get(z).getProductRank(), productList.get(z).getProductRank());
 
@@ -452,15 +490,38 @@ public class ProductResponseDataMapperTest {
                 assertEquals(item.getMediaType(), itemProduct.getMediaType());
             }
 
-            assertEquals(productResponses.get(z).getProductLocation().getLocationId(), productList.get(z).getProductLocation().getLocationId());
-            assertEquals(productResponses.get(z).getProductLocation().getLocationCode(), productList.get(z).getProductLocation().getLocationCode());
-            assertEquals(productResponses.get(z).getProductLocation().getLocationType(), productList.get(z).getProductLocation().getLocationType());
-            assertEquals(productResponses.get(z).getProductLocation().getOperatingHoursEnd(), productList.get(z).getProductLocation().getOperatingHoursEnd());
-            assertEquals(productResponses.get(z).getProductLocation().getOperatingHoursStart(), productList.get(z).getProductLocation().getOperatingHoursStart());
-            assertEquals(productResponses.get(z).getProductLocation().getLocationVenue(), productList.get(z).getProductLocation().getLocationVenue());
-            assertEquals(productResponses.get(z).getProductLocation().getLocationPort(), productList.get(z).getProductLocation().getLocationPort());
-            assertEquals(productResponses.get(z).getProductLocation().getLocationDeckNumber(), productList.get(z).getProductLocation().getLocationDeckNumber());
-            assertEquals(productResponses.get(z).getProductLocation().getLocationDirection(), productList.get(z).getProductLocation().getLocationDirection());
+            ProductLocationResponse productLocationResponse = productResponses.get(z).getProductLocation();
+            ProductLocation productLocation = productList.get(z).getProductLocation();
+
+            assertEquals(productLocationResponse.getLocationCode(), productLocation.getLocationCode());
+            assertEquals(productLocationResponse.getLocationTitle(), productLocation.getLocationTitle());
+            assertEquals(productLocationResponse.getLocationType(), productLocation.getLocationType());
+            assertEquals(productLocationResponse.getLatitude(), productLocation.getLatitude());
+            assertEquals(productLocationResponse.getLongitude(), productLocation.getLongitude());
+
+            List<DeckInfoResponse> deckInfoResponseList = productLocationResponse.getDeckInfo();
+            List<LocationDeckInfo> locationDeckInfoList = productLocation.getLocationDeckInfo();
+
+            for (int i = 0; i < deckInfoResponseList.size(); i++) {
+                DeckInfoResponse deckInfoResponse = deckInfoResponseList.get(i);
+                LocationDeckInfo locationDeckInfo = locationDeckInfoList.get(i);
+
+                assertEquals(deckInfoResponse.getDeckNumber(), locationDeckInfo.getDeckNumber());
+                assertEquals(deckInfoResponse.getDirection(), locationDeckInfo.getDirection());
+            }
+
+            List<OperationHourResponse> operationHourResponseList = productLocationResponse.getLocationOperationHours();
+            List<LocationOperationHour> locationOperationHourList = productLocation.getLocationOperationHours();
+
+            for (int i = 0; i < operationHourResponseList.size(); i++) {
+                OperationHourResponse operationHourResponse = operationHourResponseList.get(i);
+                LocationOperationHour locationOperationHour = locationOperationHourList.get(i);
+
+                assertEquals(operationHourResponse.getDayNumber(), locationOperationHour.getDayNumber());
+                assertEquals(operationHourResponse.getTimeOfDay(), locationOperationHour.getTimeOfDay());
+                assertEquals(operationHourResponse.getStartTime(), locationOperationHour.getStartTime());
+                assertEquals(operationHourResponse.getEndTime(), locationOperationHour.getEndTime());
+            }
 
             assertEquals(productResponses.get(z).getProductDuration().getDurationInMinutes(), productList.get(z).getProductDuration().getDurationInMinutes());
             assertEquals(productResponses.get(z).getProductDuration().getLagTimeInMinutes(), productList.get(z).getProductDuration().getLagTimeInMinutes());
@@ -535,7 +596,6 @@ public class ProductResponseDataMapperTest {
 
             assertEquals(productResponses.get(z).getProductLongDescription(), productList.get(z).getProductLongDescription());
 
-
             for (int i = 0; i < productResponses.get(z).getProductMedia().getMediaItem().size(); i++) {
                 MediaItemResponse item = productResponses.get(z).getProductMedia().getMediaItem().get(i);
                 MediaItem itemProduct = productList.get(z).getProductMedia().getMediaItem().get(i);
@@ -543,8 +603,5 @@ public class ProductResponseDataMapperTest {
                 assertEquals(item.getMediaType(), itemProduct.getMediaType());
             }
         }
-
-
     }
-
 }

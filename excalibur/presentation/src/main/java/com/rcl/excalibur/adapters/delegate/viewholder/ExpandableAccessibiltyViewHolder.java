@@ -11,16 +11,16 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.viewholder.base.ExpandableContentViewHolder;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
 public class ExpandableAccessibiltyViewHolder<VT extends RecyclerViewType> extends ExpandableContentViewHolder<VT> {
 
-    @Bind(R.id.expandable_accessilibility_module_title) TextView title;
-    @Bind(R.id.expandable_accessibility_module_content) LinearLayout layoutContent;
-    @Bind(R.id.expandable_accessilibility_module_arrow) ImageView imageArrow;
+    @BindView(R.id.expandable_accessilibility_module_title) TextView title;
+    @BindView(R.id.expandable_accessibility_module_content) LinearLayout layoutContent;
+    @BindView(R.id.expandable_accessilibility_module_arrow) ImageView imageArrow;
 
     public ExpandableAccessibiltyViewHolder(ViewGroup parent, OnViewExpandedListener<VT> listener) {
         super(LayoutInflater.from(parent.getContext()).inflate(

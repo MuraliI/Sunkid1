@@ -34,7 +34,7 @@ import com.rcl.excalibur.utils.RoundedImageView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
@@ -49,13 +49,13 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int DELAY_MILLIS_SCROLL = 100;
     private static final int DELAY_MILLIS_COLLAPSE = 200;
 
-    @Bind(R.id.recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.layout_planner_all_day) View allDayView;
-    @Bind(R.id.layout_planner_container) LinearLayout containerLayout;
-    @Bind(R.id.progress_service_call_planner) View progressBar;
-    @Bind(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
-    @Bind(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
-    @Bind(R.id.layout_planner_recycler_container) TopRoundedFrameLayout recyclerContainerLayout;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.layout_planner_all_day) View allDayView;
+    @BindView(R.id.layout_planner_container) LinearLayout containerLayout;
+    @BindView(R.id.progress_service_call_planner) View progressBar;
+    @BindView(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
+    @BindView(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
+    @BindView(R.id.layout_planner_recycler_container) TopRoundedFrameLayout recyclerContainerLayout;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 

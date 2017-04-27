@@ -10,18 +10,18 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.guest.EmailActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class EmailView extends ActivityView<EmailActivity, Void, Void> {
     public static final float ACTIVE = 1f;
     public static final float INACTIVE = 0.24f;
-    @Bind(R.id.email_layout) RelativeLayout emailLayout;
-    @Bind(R.id.edit_email) EditText editTextEmail;
-    @Bind(R.id.text_show_error) TextView textViewEmailAddressError;
-    @Bind(R.id.image_next_screen) ImageView imageViewNext;
-    @Bind(R.id.image_back_screen) ImageView imageViewBack;
+    @BindView(R.id.email_layout) RelativeLayout emailLayout;
+    @BindView(R.id.edit_email) EditText editTextEmail;
+    @BindView(R.id.text_show_error) TextView textViewEmailAddressError;
+    @BindView(R.id.image_next_screen) ImageView imageViewNext;
+    @BindView(R.id.image_back_screen) ImageView imageViewBack;
     private boolean isPossibleNavigate;
 
 

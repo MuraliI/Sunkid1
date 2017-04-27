@@ -24,18 +24,18 @@ import com.rcl.excalibur.utils.DayInformationUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, Void> {
 
-    @Bind(R.id.pager_triptych_pager) ViewPager viewPager;
-    @Bind(R.id.tab_triptych_tablayout) TriptychTabBarLayout tabBarLayout;
-    @Bind(R.id.ship_view) ShipView shipView;
-    @Bind(R.id.text_ship_status) TextView shipLocationLabel;
+    @BindView(R.id.pager_triptych_pager) ViewPager viewPager;
+    @BindView(R.id.tab_triptych_tablayout) TriptychTabBarLayout tabBarLayout;
+    @BindView(R.id.ship_view) ShipView shipView;
+    @BindView(R.id.text_ship_status) TextView shipLocationLabel;
 
-    @Bind(R.id.date_picker_plans_tab) TextView datePickerDayLabel;
+    @BindView(R.id.date_picker_plans_tab) TextView datePickerDayLabel;
 
     public TriptychHomeView(TriptychHomeActivity activity) {
         super(activity);

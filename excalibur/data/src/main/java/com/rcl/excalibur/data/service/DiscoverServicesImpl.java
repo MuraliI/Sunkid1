@@ -16,7 +16,6 @@ import com.rcl.excalibur.data.service.response.GetSubCategoriesResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
-import com.rcl.excalibur.data.service.response.ProductLocationResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
@@ -396,14 +395,6 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         return productAdvisementResponses;
     }
 
-    // TODO: Hardcoded method to be removed once the service provides this details
-    private void setProductLocationExtraParameters(ProductLocationResponse productLocationResponse) {
-        productLocationResponse.setLocationVenue("Royale Theatre");
-        productLocationResponse.setLocationPort("St. Martin");
-        productLocationResponse.setLocationDirection("AFT");
-        productLocationResponse.setLocationDeckNumber(12);
-    }
-
     private class ProductProcessor {
 
         private List<Product> productList = new ArrayList<>();
@@ -447,7 +438,6 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                         if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
                             productResponse.setAdvisements(getProductAdvisementResponseAttire());
                         }
-                        setProductLocationExtraParameters(productResponse.getProductLocation());
                         offeringList.addAll(offeringResponseMapper.transform(productResponse.getOffering(), productResponse));
                     }
                     productList.addAll(getMapper().transform(getProductsResponse.getProducts(), null));
