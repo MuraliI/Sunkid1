@@ -12,12 +12,12 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeView extends ActivityView<HomeActivity, Void, DiscoverItemModel> {
 
-    @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
     private PlanAdapter adapter;
 
     public HomeView(HomeActivity activity) {

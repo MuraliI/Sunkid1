@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
@@ -63,10 +63,10 @@ public class ProductsAdapter extends BaseAdapter<Product, Pair<Product, View>, P
 
     static class DiscoverViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.card_image) ImageView imageView;
-        @Bind(R.id.card_title) TextView titleTextView;
-        @Bind(R.id.card_venue) TextView venueTextView;
-        @Bind(R.id.card_location) TextView locationTextView;
+        @BindView(R.id.card_image) ImageView imageView;
+        @BindView(R.id.card_title) TextView titleTextView;
+        @BindView(R.id.card_venue) TextView venueTextView;
+        @BindView(R.id.card_location) TextView locationTextView;
         private Product product;
         private WeakReference<Observer<Pair<Product, View>>> observerRef;
 

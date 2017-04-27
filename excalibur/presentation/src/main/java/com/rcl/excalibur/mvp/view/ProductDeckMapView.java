@@ -18,14 +18,14 @@ import com.rcl.excalibur.custom.view.DeckMapPopupLayout;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity, Void, Void> {
     private static final int MINIMUM_DPI = 80;
     private static final float HALF_FACTOR = 2.0f;
 
-    @Bind(R.id.image_deck_map) DeckMapImageView deckMapImage;
+    @BindView(R.id.image_deck_map) DeckMapImageView deckMapImage;
 
     private DeckMapPopupLayout popupView;
     private PopupWindow popupWindow;

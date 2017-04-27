@@ -15,6 +15,8 @@ public interface ProductRepository {
 
     List<Product> getAll(String type);
 
+    List<Product> getByType(String type, int maxCount, int offset);
+
     Product get(String id);
 
     void deleteAll();

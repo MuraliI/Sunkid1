@@ -12,19 +12,16 @@ import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
-import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
-import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -303,16 +300,6 @@ public final class DetailViewTypeFactory {
             return;
         }
         recyclerViewTypeList.add(new ExpandableDescriptionViewType(description));
-    }
-
-    private void addProductLocationTypes(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, Product product) {
-        final ProductLocation productLocation = product.getProductLocation();
-        if (productLocation == null || isHoursEmpty(productLocation.getOperatingHoursEnd())) {
-            return;
-        }
-        ArrayList<String[]> arrayListTimes = new ArrayList<>();
-        arrayListTimes.add(new String[]{resources.getString(R.string.day_1), product.getTimeFrame()});
-        recyclerViewTypeList.add(new StandardTimesViewType(resources.getString(R.string.operating_hours), arrayListTimes));
     }
 
     private void addProductLevel(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, Product product) {

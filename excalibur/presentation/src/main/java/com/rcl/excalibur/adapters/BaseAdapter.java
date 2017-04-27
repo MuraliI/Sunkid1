@@ -64,6 +64,15 @@ public abstract class BaseAdapter<T, OT, VH extends RecyclerView.ViewHolder> ext
         notifyItemInserted(items.size() - 1);
     }
 
+    public void add(List<T> newItems) {
+        if (isEmpty(newItems)) {
+            return;
+        }
+        int position = items.size() - 1;
+        items.addAll(newItems);
+        notifyItemRangeInserted(position, newItems.size());
+    }
+
     public void add(int position, T item) {
         items.add(position, item);
         notifyItemInserted(position);

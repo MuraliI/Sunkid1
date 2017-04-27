@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.BaseAdapter;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
@@ -44,8 +44,8 @@ public class SecurityQuestionsAdapter extends BaseAdapter<String, String, Securi
 
 
     class SecurityQuestionsHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.radio_question) RadioButton radioButton;
-        @Bind(R.id.text_question) TextView question;
+        @BindView(R.id.radio_question) RadioButton radioButton;
+        @BindView(R.id.text_question) TextView question;
 
         SecurityQuestionsHolder(View itemView) {
             super(itemView);
