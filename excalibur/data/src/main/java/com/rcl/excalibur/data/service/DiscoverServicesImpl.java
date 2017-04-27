@@ -16,7 +16,6 @@ import com.rcl.excalibur.data.service.response.GetProductsResponse;
 import com.rcl.excalibur.data.service.response.GetSubCategoriesResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
-import com.rcl.excalibur.data.service.response.MenuResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
@@ -109,7 +108,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     }
 
     @Override
-    public void getMenues() {
+    public void getMenus() {
         Call<GetMenuResponse> call = getDiscoverApi().getMenus(SAILING_ID, "GIOV");
 
         call.enqueue(new Callback<GetMenuResponse>() {
