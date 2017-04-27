@@ -125,6 +125,7 @@
     <string name="day_1">Day 1</string>
     <string name="guest_should_be">Guests should be</string>
     <string name="mins">%d mins</string>
+    <string name="day_arg">Day %s</string>
     <string name="duration">Duration</string>
     <string name="sessions_from">Sessions from</string>
 

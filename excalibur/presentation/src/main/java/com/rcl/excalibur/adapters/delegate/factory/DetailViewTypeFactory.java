@@ -12,6 +12,7 @@ import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
+import com.rcl.excalibur.adapters.viewtype.TimesViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Offering;
@@ -45,7 +46,7 @@ public final class DetailViewTypeFactory {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
-        addTimeModule(viewTypes, resources, product);
+        addTimesModule(viewTypes, offerings, resources, product);
         addPricesModule(viewTypes, offerings, resources, product);
         addCuisineModule(viewTypes, resources, product);
         addDurationModule(viewTypes, resources, product);
@@ -283,6 +284,7 @@ public final class DetailViewTypeFactory {
 
             if (status == Product.STATUS_WALK_UP) {
                 //Display in range
+                recyclerViewTypeList.add(TimesViewType.getViewTypes(title, res, product.getProductLocation().getLocationOperationHours()));
             }
         }
 
@@ -291,6 +293,7 @@ public final class DetailViewTypeFactory {
 
         if (product.isSpa() || product.isGuestServices() || product.isShopping()) {
             //Display in range
+            recyclerViewTypeList.add(TimesViewType.getViewTypes(title, res, product.getProductLocation().getLocationOperationHours()));
         }
     }
 
