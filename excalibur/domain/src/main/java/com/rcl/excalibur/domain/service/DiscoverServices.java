@@ -22,4 +22,6 @@ public interface DiscoverServices {
     void getActivities();
 
     void getSubCategories();
+
+    void getMenues();
 }
