@@ -2,43 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_planner_header_container"
-    android:layout_gravity="center_vertical"
-    android:gravity="center_vertical"
-    android:paddingTop="@dimen/margin_small"
-    android:background="@drawable/background_cue_card"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_planner_header">
+    android:layout_height="@dimen/height_planner_header"
+    android:background="@drawable/background_cue_card">
 
     <TextView
-        tools:text="Morning"
         android:id="@+id/text_planner_part_of_day"
         style="@style/AppTheme.Headline2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/margin_small"
         android:layout_toStartOf="@+id/text_planner_expandable_label"
-        android:layout_above="@+id/view_planner_header_separator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
+        tools:text="All Day" />
 
     <TextView
         android:id="@+id/text_planner_expandable_label"
         style="@style/AppTheme.PlannerHeaderExpandableText"
-        android:text="@string/planner_header_see_all"
-        android:drawableEnd="@drawable/ic_chevron_down"
-        android:drawablePadding="@dimen/margin_xsmall"
-        android:layout_marginEnd="@dimen/margin_small"
-        android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginEnd="@dimen/margin_small"
+        android:drawableEnd="@drawable/ic_chevron_down"
+        android:drawablePadding="@dimen/margin_xsmall"
+        android:gravity="center_vertical"
+        android:text="@string/planner_header_see_all" />
 
     <View
         android:id="@+id/view_planner_header_separator"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/itinerary_separator_thickness"
+        android:layout_alignParentBottom="true"
         android:background="@color/discover_grey" />
 </RelativeLayout>
