@@ -4,9 +4,11 @@ import java.util.Date;
 
 public class Offering implements Comparable<Offering> {
     private String id;
-    private Date date;
+    private String date;
+    private String time;
     private SellingPrice price;
     private Product product;
+    private Date completeDate;
 
     public String getId() {
         return id;
@@ -16,12 +18,28 @@ public class Offering implements Comparable<Offering> {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Date getCompleteDate() {
+        return completeDate;
+    }
+
+    public void setCompleteDate(Date completeDate) {
+        this.completeDate = completeDate;
     }
 
     public SellingPrice getPrice() {
@@ -44,9 +62,9 @@ public class Offering implements Comparable<Offering> {
     public int compareTo(Offering o) {
         if (o == null) {
             return 0;
-        } else if (this.getDate().getTime() > o.getDate().getTime()) {
+        } else if (this.getCompleteDate().getTime() > o.getCompleteDate().getTime()) {
             return 1;
-        } else if (this.getDate().getTime() < o.getDate().getTime()) {
+        } else if (this.getCompleteDate().getTime() < o.getCompleteDate().getTime()) {
             return -1;
         } else {
             return 0;
@@ -54,7 +72,6 @@ public class Offering implements Comparable<Offering> {
     }
 
     public int compareByPrice(Offering o2) {
-
         if (o2 == null) {
             return 0;
         }

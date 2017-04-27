@@ -101,9 +101,9 @@ public class PlannerProductModelMapper {
         PlannerProductModel model = (PlannerProductModel) productInformationMapper.transform(product);
 
         Calendar allDayStartDate = Calendar.getInstance();
-        allDayStartDate.setTime(offeringList.get(FIRST_OFFERING).getDate());
+        allDayStartDate.setTime(offeringList.get(FIRST_OFFERING).getCompleteDate());
 
-        Calendar allDayEndDate = calculateEndDate(offeringList.get(offeringList.size() - 1).getDate(),
+        Calendar allDayEndDate = calculateEndDate(offeringList.get(offeringList.size() - 1).getCompleteDate(),
                 product.getProductDuration());
 
         model.setStartDate(allDayStartDate);
@@ -131,10 +131,10 @@ public class PlannerProductModelMapper {
         PlannerProductModel model = (PlannerProductModel) productInformationMapper.transform(product);
 
         Calendar startDate = Calendar.getInstance();
-        startDate.setTime(offering.getDate());
+        startDate.setTime(offering.getCompleteDate());
 
         model.setStartDate(startDate);
-        model.setEndDate(calculateEndDate(offering.getDate(), product.getProductDuration()));
+        model.setEndDate(calculateEndDate(offering.getCompleteDate(), product.getProductDuration()));
         model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
         model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
 

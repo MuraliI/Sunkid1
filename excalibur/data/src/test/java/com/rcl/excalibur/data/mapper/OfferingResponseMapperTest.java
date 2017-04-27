@@ -4,7 +4,6 @@ package com.rcl.excalibur.data.mapper;
 import com.rcl.excalibur.data.service.response.OfferingResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
-import com.rcl.excalibur.data.utils.DateUtil;
 import com.rcl.excalibur.data.utils.TestUtils;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
@@ -16,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -74,7 +72,7 @@ public class OfferingResponseMapperTest {
         Offering transformedOffering = transformedOfferings.get(0);
         assertNotNull(transformedOffering);
         assertEquals(testOfferingResponse.getOfferingId(), transformedOffering.getId());
-        assertEquals(startDate.getTime(), transformedOffering.getDate());
+        assertEquals(startDate.getTime(), transformedOffering.getCompleteDate());
 
         //Product
         assertEquals(testProduct.getProductId(), transformedOffering.getProduct().getProductId());
