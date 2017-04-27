@@ -420,9 +420,21 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     }
 
     @Override
+    public List<Product> getByType(@NonNull final String type, int maxCount, int offset) {
+        final TypeEntity typeEntity = new Select()
+                .from(TypeEntity.class)
+                .where(eq(TypeEntity.COLUMN_TYPE, type))
+                .executeSingle();
+        if (typeEntity == null) {
+            return new ArrayList<>();
+        }
+        String condition = eq(ProductEntity.COLUMN_TYPE, typeEntity.getId());
+        return this.getBatch(condition, maxCount, offset);
+    }
+
+    @Override
     public Product get(String id) {
         return get(ProductEntity.COLUMN_PRODUCT_ID, id);
     }
-
 
 }
