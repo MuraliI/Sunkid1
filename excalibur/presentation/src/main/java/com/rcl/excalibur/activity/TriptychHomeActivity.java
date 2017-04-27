@@ -3,6 +3,7 @@ package com.rcl.excalibur.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
@@ -22,10 +23,15 @@ import com.rcl.excalibur.domain.preference.SailingPreferences;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
+import com.rcl.excalibur.utils.ActivityUtils;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class TriptychHomeActivity extends BaseActivity {
     protected TriptychHomePresenter presenter;
     private SailingPreferences sailingPreferences;
+    @Bind(R.id.image_ship) View sharedElement;
 
     public static Intent getStartIntent(final BaseActivity activity) {
         return new Intent(activity, TriptychHomeActivity.class);
@@ -35,6 +41,7 @@ public class TriptychHomeActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_triptych_home_screen);
+        ButterKnife.bind(this);
         sailingPreferences = new SailingPreferenceImpl(this);
 
         DiscoverServicesImpl impl = new DiscoverServicesImpl(new ProductDataRepository()
@@ -62,5 +69,9 @@ public class TriptychHomeActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         presenter.getShipLocationInfo();
+    }
+
+    public void goToVoyageActivity() {
+        ActivityUtils.startActivityWithSharedElement(this, VoyageMapActivity.getStartIntent(this), sharedElement, "Ship");
     }
 }
