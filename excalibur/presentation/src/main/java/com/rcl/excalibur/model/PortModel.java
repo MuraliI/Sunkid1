@@ -1,6 +1,10 @@
 
 package com.rcl.excalibur.model;
 
+import android.support.annotation.NonNull;
+
+import java.util.List;
+
 public class PortModel {
     public static final String PORT_TYPE_EMBARK = "EMBARK";
     public static final String PORT_TYPE_DOCKED = "DOCKED";
@@ -70,5 +74,15 @@ public class PortModel {
 
     public void setPortType(String portType) {
         this.portType = portType;
+    }
+
+    public static PortModel getSailPortByDay(@NonNull List<EventModel> events, int day) {
+        PortModel sailPort = new PortModel();
+        for (EventModel sailPortEventElement : events) {
+            if (Integer.valueOf(sailPortEventElement.getDay()) == day) {
+                sailPort = sailPortEventElement.getPort();
+            }
+        }
+        return sailPort;
     }
 }
