@@ -11,13 +11,13 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.guest.PasswordActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PasswordView extends ActivityView<PasswordActivity, Void, Void> {
-    @Bind(R.id.edit_create_password) EditText editTextPassword;
-    @Bind(R.id.text_show_error) TextView textViewError;
-    @Bind(R.id.image_next_screen) ImageView imageViewNext;
+    @BindView(R.id.edit_create_password) EditText editTextPassword;
+    @BindView(R.id.text_show_error) TextView textViewError;
+    @BindView(R.id.image_next_screen) ImageView imageViewNext;
 
     public PasswordView(PasswordActivity activity) {
         super(activity);

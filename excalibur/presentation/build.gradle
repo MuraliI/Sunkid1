@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
@@ -72,6 +71,7 @@ dependencies {
     compile project(':data')
 
     compile presentationDependencies.butterKnife,
+            presentationDependencies.annotationProcessor,
             presentationDependencies.recyclerView,
             presentationDependencies.activeAndroid,
             presentationDependencies.appSupport,

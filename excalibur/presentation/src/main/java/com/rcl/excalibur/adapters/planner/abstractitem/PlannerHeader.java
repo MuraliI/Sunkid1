@@ -10,7 +10,7 @@ import com.rcl.excalibur.R;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractHeaderItem;
@@ -72,7 +72,7 @@ public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHo
     }
 
     class HeaderViewHolder extends FlexibleViewHolder {
-        @Bind(R.id.text_part_of_day) TextView partOfDayText;
+        @BindView(R.id.text_part_of_day) TextView partOfDayText;
 
         HeaderViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter, true);

@@ -3,12 +3,16 @@ package com.rcl.excalibur.mapper;
 
 import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
 import com.rcl.excalibur.data.utils.Preconditions;
+import com.rcl.excalibur.domain.LocationDeckInfo;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -26,15 +30,22 @@ public class ProductInformationMapperTest {
 
     @Before
     public void setUp() {
-
         mapper = new ProductInformationMapper();
 
         entity1 = new Product();
         entity1.setProductId(PRODUCT_ID);
         entity1.setProductTitle(PRODUCT_NAME);
+
+        LocationDeckInfo locationDeckInfo = new LocationDeckInfo();
+        locationDeckInfo.setDeckNumber(String.valueOf(PRODUCT_DECK_NUMBER));
+        locationDeckInfo.setDirection(PRODUCT_DIRECTION);
+
+        List<LocationDeckInfo> locationDeckInfoList = new ArrayList<>();
+        locationDeckInfoList.add(locationDeckInfo);
+
         ProductLocation location = new ProductLocation();
-        location.setLocationDeckNumber(PRODUCT_DECK_NUMBER);
-        location.setLocationDirection(PRODUCT_DIRECTION);
+        location.setDeckInfo(locationDeckInfoList);
+
         entity1.setProductLocation(location);
 
         entity2 = null;
@@ -58,5 +69,4 @@ public class ProductInformationMapperTest {
             assertEquals("Exception Message is wrong", e.getMessage(), Preconditions.MESSAGE_NOT_NULL);
         }
     }
-
 }

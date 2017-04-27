@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
 
@@ -34,12 +34,12 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, int[]
     private static final String ANDROID = "android";
     private static final int NOT_FOUND_STATUS_BAR = -1;
 
-    @Bind(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
-    @Bind(R.id.app_bar_layout_detail) AppBarLayout appBarLayout;
-    @Bind(R.id.realtime_blur_view) RealtimeBlurView realtimeBlurView;
-    @Bind(R.id.toolbar_detail) Toolbar detailToolbar;
-    @Bind(R.id.image_hero) ImageView heroImage;
-    @Bind(R.id.tv_detail_toolbar_title) TextView titleToolbarTextView;
+    @BindView(R.id.recycler_discover_item_details) RecyclerView planDetailRecycler;
+    @BindView(R.id.app_bar_layout_detail) AppBarLayout appBarLayout;
+    @BindView(R.id.realtime_blur_view) RealtimeBlurView realtimeBlurView;
+    @BindView(R.id.toolbar_detail) Toolbar detailToolbar;
+    @BindView(R.id.image_hero) ImageView heroImage;
+    @BindView(R.id.tv_detail_toolbar_title) TextView titleToolbarTextView;
 
     private Animation upAnimation;
     private Animation downAnimation;

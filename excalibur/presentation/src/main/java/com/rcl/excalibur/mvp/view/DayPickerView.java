@@ -14,17 +14,17 @@ import com.rcl.excalibur.mvp.view.base.FragmentView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DayPickerView extends FragmentView<DayPickerFragment, Void, EventModel> {
 
-    @Bind(R.id.day_picker_startandend_date) TextView fotterDate;
-    @Bind(R.id.day_picker_header_description) TextView dateDescription;
-    @Bind(R.id.day_picker_header_calendar_day) TextView dayTitle;
-    @Bind(R.id.day_picker_header_ship_name) TextView dayTitleShipName;
-    @Bind(R.id.recycler_discover_item_details) RecyclerView recyclerView;
+    @BindView(R.id.day_picker_startandend_date) TextView fotterDate;
+    @BindView(R.id.day_picker_header_description) TextView dateDescription;
+    @BindView(R.id.day_picker_header_calendar_day) TextView dayTitle;
+    @BindView(R.id.day_picker_header_ship_name) TextView dayTitleShipName;
+    @BindView(R.id.recycler_discover_item_details) RecyclerView recyclerView;
 
     private EventsAdapter adapter;
 

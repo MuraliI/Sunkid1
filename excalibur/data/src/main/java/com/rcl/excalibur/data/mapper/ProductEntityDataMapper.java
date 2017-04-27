@@ -6,10 +6,12 @@ import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
 import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
+import com.rcl.excalibur.data.entity.DeckInfoEntity;
 import com.rcl.excalibur.data.entity.DurationEntity;
 import com.rcl.excalibur.data.entity.LocationEntity;
 import com.rcl.excalibur.data.entity.MediaEntity;
 import com.rcl.excalibur.data.entity.MediaValueEntity;
+import com.rcl.excalibur.data.entity.OperationHourEntity;
 import com.rcl.excalibur.data.entity.PreferenceEntity;
 import com.rcl.excalibur.data.entity.PreferenceValueEntity;
 import com.rcl.excalibur.data.entity.ProductEntity;
@@ -18,6 +20,8 @@ import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
 import com.rcl.excalibur.data.entity.TypeEntity;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.ChildCategory;
+import com.rcl.excalibur.domain.LocationDeckInfo;
+import com.rcl.excalibur.domain.LocationOperationHour;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
@@ -221,15 +225,56 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         if (locationEntity != null) {
             productLocation = new ProductLocation();
             productLocation.setLocationCode(locationEntity.getCode());
+            productLocation.setLocationTitle(locationEntity.getTitle());
             productLocation.setLocationType(locationEntity.getType());
-            productLocation.setOperatingHoursEnd(locationEntity.getHoursEnd());
-            productLocation.setOperatingHoursStart(locationEntity.getHoursStart());
-            productLocation.setLocationVenue(locationEntity.getVenue());
-            productLocation.setLocationPort(locationEntity.getPort());
-            productLocation.setLocationDeckNumber(locationEntity.getDeckNumber());
-            productLocation.setLocationDirection(locationEntity.getDirection());
+            productLocation.setLatitude(locationEntity.getLatitude());
+            productLocation.setLongitude(locationEntity.getLongitude());
+            productLocation.setDeckInfo(transformDeckInfo(locationEntity.getDeckInfo()));
+            productLocation.setLocationOperationHours(transformOperationHour(locationEntity.getOperationHours()));
         }
         return productLocation;
+    }
+
+    private List<LocationDeckInfo> transformDeckInfo(List<DeckInfoEntity> deckInfoEntityList) {
+        List<LocationDeckInfo> locationDeckInfoList = new ArrayList<>();
+        if (deckInfoEntityList != null) {
+            for (DeckInfoEntity deckInfoEntity : deckInfoEntityList) {
+                locationDeckInfoList.add(transform(deckInfoEntity));
+            }
+        }
+        return locationDeckInfoList;
+    }
+
+    private LocationDeckInfo transform(DeckInfoEntity deckInfoEntity) {
+        LocationDeckInfo locationDeckInfo = null;
+        if (deckInfoEntity != null) {
+            locationDeckInfo = new LocationDeckInfo();
+            locationDeckInfo.setDeckNumber(deckInfoEntity.getDeckNumber());
+            locationDeckInfo.setDirection(deckInfoEntity.getDirection());
+        }
+        return locationDeckInfo;
+    }
+
+    private List<LocationOperationHour> transformOperationHour(List<OperationHourEntity> operationHourEntityList) {
+        List<LocationOperationHour> locationOperationHours = new ArrayList<>();
+        if (operationHourEntityList != null) {
+            for (OperationHourEntity operationHourEntity : operationHourEntityList) {
+                locationOperationHours.add(transform(operationHourEntity));
+            }
+        }
+        return locationOperationHours;
+    }
+
+    private LocationOperationHour transform(OperationHourEntity operationHourEntity) {
+        LocationOperationHour locationOperationHour = null;
+        if (operationHourEntity != null) {
+            locationOperationHour = new LocationOperationHour();
+            locationOperationHour.setDayNumber(operationHourEntity.getDayNumber());
+            locationOperationHour.setTimeOfDay(operationHourEntity.getTimeOfDay());
+            locationOperationHour.setStartTime(operationHourEntity.getStartTime());
+            locationOperationHour.setEndTime(operationHourEntity.getEndTime());
+        }
+        return locationOperationHour;
     }
 
     private ProductActivityLevel transform(ActivityLevelEntity entity) {
