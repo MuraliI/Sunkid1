@@ -1,7 +1,6 @@
 package com.rcl.excalibur.mapper;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
 
 import com.google.gson.internal.LinkedHashTreeMap;
@@ -55,11 +54,9 @@ public class PlannerProductModelMapper {
             long productDuration = productOfferingList.get(FIRST_OFFERING).getProduct()
                     .getProductDuration().getDurationInMinutes();
             if (productDuration >= ALL_DAY_DURATION_IN_MINUTES) {
-                allDayProducts.add(createAllDayProductModel(productOfferingList));
+                allDayProducts.addAll(createPlannerProductModelList(productOfferingList, true));
             } else {
-                for (Offering offering : productOfferingList) {
-                    timedProduct.add(createNormalPlannerProductModel(offering));
-                }
+                timedProduct.addAll(createPlannerProductModelList(productOfferingList, false));
             }
         }
 
@@ -85,37 +82,16 @@ public class PlannerProductModelMapper {
         return productOfferingMap;
     }
 
-    private PlannerProductModel createAllDayProductModel(@NonNull List<Offering> offeringList) {
-        Collections.sort(offeringList);
-
-        Product product = offeringList.get(FIRST_OFFERING).getProduct();
-        PlannerProductModel model = (PlannerProductModel) productInformationMapper.transform(product);
-
-        Calendar allDayStartDate = Calendar.getInstance();
-        allDayStartDate.setTime(offeringList.get(FIRST_OFFERING).getCompleteDate());
-
-        Calendar allDayEndDate = calculateEndDate(offeringList.get(offeringList.size() - 1).getCompleteDate(),
-                product.getProductDuration());
-
-        model.setStartDate(allDayStartDate);
-        model.setEndDate(allDayEndDate);
-        model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
-        model.setHighlighted(product.isHighlighted());
-        model.setFeatured(product.isFeatured());
-        model.setAllDayProduct(true);
-        model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
-
-        String location = model.getLocation();
-        if (location != null && !location.isEmpty()) {
-            model.setLocation(resources.getString(R.string.deck_label, model.getLocation()));
-        } else {
-            model.setLocation(ConstantsUtil.EMPTY);
+    @SuppressWarnings("Convert2streamapi")
+    private List<PlannerProductModel> createPlannerProductModelList(List<Offering> productOfferingList, boolean isAllDayProduct) {
+        List<PlannerProductModel> plannerProductModelList = new ArrayList<>();
+        for (Offering offering : productOfferingList) {
+            plannerProductModelList.add(createPlannerProductModel(offering, isAllDayProduct));
         }
-
-        return model;
+        return plannerProductModelList;
     }
 
-    private PlannerProductModel createNormalPlannerProductModel(Offering offering) {
+    private PlannerProductModel createPlannerProductModel(Offering offering, boolean isAllDayProduct) {
         Product product = offering.getProduct();
 
         PlannerProductModel model = (PlannerProductModel) productInformationMapper.transform(product);
@@ -137,6 +113,7 @@ public class PlannerProductModelMapper {
 
         model.setFeatured(product.isFeatured());
         model.setHighlighted(product.isHighlighted());
+        model.setAllDayProduct(isAllDayProduct);
 
         return model;
     }

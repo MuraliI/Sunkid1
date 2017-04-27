@@ -46,7 +46,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int DELAY_MILLIS_COLLAPSE = 200;
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.layout_planner_all_day) View allDayView;
+    //@BindView(R.id.layout_planner_all_day) View allDayView;
     @BindView(R.id.layout_planner_container) LinearLayout containerLayout;
     @BindView(R.id.progress_service_call_planner) View progressBar;
     @BindView(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
@@ -172,6 +172,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         bottomSheetBehavior.setPeekHeight(NO_PEEK_HEIGHT);
         calculateItemMargins(MAX_SLIDE_OFFSET);
         showHeadersView();
+
+        //adapter.showAllHeaders();
     }
 
     private void setBottomSheetCollapsingState() {
@@ -183,6 +185,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
         bottomSheetBehavior.setPeekHeight(peekHeight);
         containerLayout.startAnimation(animationGoIn);
+
+        //adapter.hideAllHeaders();
     }
 
     private void calculateItemMargins(float slideOffset) {
@@ -304,14 +308,14 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                 firstHeader.startAnimation(slideUpAnimation);
                 firstHeader.setVisibility(View.VISIBLE);
             }
-            allDayView.setBackgroundResource(R.drawable.background_planner_header);
+            /*allDayView.setBackgroundResource(R.drawable.background_planner_header);
             allDayView.startAnimation(slideUpAllDayAnimation);
-            allDayView.setVisibility(View.VISIBLE);
+            allDayView.setVisibility(View.VISIBLE);*/
         } else if (firstHeader != null) {
             firstHeader.setBackgroundResource(R.drawable.background_planner_header);
             firstHeader.startAnimation(slideUpAnimation);
             firstHeader.setVisibility(View.VISIBLE);
-            allDayView.setVisibility(View.GONE);
+            //allDayView.setVisibility(View.GONE);
         }
     }
 
@@ -320,9 +324,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             firstHeader.setVisibility(View.INVISIBLE);
         }
 
-        if (isAllDayNecessary && allDayView.getVisibility() == View.VISIBLE) {
+        /*if (isAllDayNecessary && allDayView.getVisibility() == View.VISIBLE) {
             allDayView.setVisibility(View.INVISIBLE);
-        }
+        }*/
     }
 
     public void addPlannerItems(List<AbstractFlexibleItem> items) {
@@ -332,6 +336,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
 
     private Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems;
+
     public void addPlannerItems(List<AbstractFlexibleItem> items, Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems) {
         this.hiddenItems = hiddenItems;
         adapter.addItems(TOP_OF_LIST, items);
@@ -360,13 +365,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     public void showAllDayLayout() {
-        isAllDayNecessary = true;
-        allDayView.setVisibility(View.INVISIBLE);
-
-        final PlannerFragment fragment = getFragment();
-        if (fragment == null) {
-            return;
-        }
+        //isAllDayNecessary = true;
+        //allDayView.setVisibility(View.INVISIBLE);
         recyclerContainerLayout.setRadius(R.dimen.zero_radius);
     }
 
@@ -391,7 +391,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private boolean showAll = true;
 
-    @OnClick(R.id.layout_planner_all_day)
     void onAllDayClick() {
         /*List<Integer> index = hiddenItems.first;
         List<AbstractFlexibleItem> items = hiddenItems.second;

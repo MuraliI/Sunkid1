@@ -16,6 +16,9 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     public static final int STATE_EVENING = 1;
     public static final int STATE_LATE_NIGHT = 0;
 
+    public static final int GENERAL_HEADER = 0;
+    public static final int ALL_DAY_HEADER = 1;
+
     @DrawableRes private int resourceIdCategoryIcon;
     private String operatingHours;
     private Calendar startDate;
@@ -64,6 +67,10 @@ public class PlannerProductModel extends ProductInformationViewType implements C
 
     public void setAllDayProduct(boolean allDayProduct) {
         isAllDayProduct = allDayProduct;
+    }
+
+    public int getHeaderItBelongs() {
+        return isAllDayProduct ? ALL_DAY_HEADER : GENERAL_HEADER;
     }
 
     public int getState() {

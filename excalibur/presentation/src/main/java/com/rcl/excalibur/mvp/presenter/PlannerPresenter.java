@@ -10,7 +10,6 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
-import com.rcl.excalibur.adapters.planner.abstractitem.PlannerSeparator;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
@@ -22,20 +21,17 @@ import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PlannerProductModel;
 import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
-import com.rcl.excalibur.mvp.view.PlannerView;
 import com.rcl.excalibur.mvp.model.PlannerModel;
+import com.rcl.excalibur.mvp.view.PlannerView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_AFTERNOON;
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_EVENING;
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_LATE_NIGHT;
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
+import static com.rcl.excalibur.model.PlannerProductModel.ALL_DAY_HEADER;
+import static com.rcl.excalibur.model.PlannerProductModel.GENERAL_HEADER;
 
 public class PlannerPresenter {
 
@@ -93,19 +89,17 @@ public class PlannerPresenter {
 
     private void createHeaderList() {
         headerList = new SparseArrayCompat<>(HEADER_LIST_SIZE);
-        headerList.append(STATE_MORNING, createPlannerHeader(R.string.title_morning));
-        headerList.append(STATE_AFTERNOON, createPlannerHeader(R.string.title_afternoon));
-        headerList.append(STATE_EVENING, createPlannerHeader(R.string.title_evening));
-        headerList.append(STATE_LATE_NIGHT, createPlannerHeader(R.string.title_late_night));
+        headerList.append(GENERAL_HEADER, createPlannerHeader(R.string.empty_string));
+        headerList.append(ALL_DAY_HEADER, createPlannerHeader(R.string.planner_title_all_day));
     }
 
     private List<AbstractFlexibleItem> addPlannerItems(final List<PlannerProductModel> plannerProductModels) {
         List<AbstractFlexibleItem> plannerItems = new ArrayList<>();
         for (PlannerProductModel plannerProductModel : plannerProductModels) {
-            plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getState())));
-            // TODO: mock
+            plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getHeaderItBelongs())));
+            /*// TODO: mock
             String timeLabel = new Random().nextBoolean() ? null : "10 AM";
-            plannerItems.add(new PlannerSeparator(lastItemId, timeLabel, headerList.get(plannerProductModel.getState())));
+            plannerItems.add(new PlannerSeparator(lastItemId, timeLabel, headerList.get(plannerProductModel.getState())));*/
         }
         return plannerItems;
     }
@@ -164,13 +158,11 @@ public class PlannerPresenter {
         calendar.set(Calendar.YEAR, 2017);
         calendar.set(Calendar.DAY_OF_MONTH, 5);
         calendar.set(Calendar.MONTH, Calendar.MAY);
+
         SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
-        List<AbstractFlexibleItem> visibleItems = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
-        if (!visibleItems.isEmpty()) {
-            view.showAllDayLayout();
-        }
-        visibleItems.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
-//        Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems = getHiddenItems(visibleItems);
+        List<AbstractFlexibleItem> visibleItems = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST));
+        visibleItems.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST)));
+        //Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems = getHiddenItems(visibleItems);
         view.addPlannerItems(visibleItems);
         //view.addPlannerItems(visibleItems, hiddenItems);
 
