@@ -47,7 +47,7 @@ public interface DiscoverApi {
     @GET("categories/en/royal-mobile")
     Call<GetSubCategoriesResponse> getSubCategories(@Query("sailingID") String sailingID);
 
-    @GET("/menus")
+    @GET("venue/menus")
     Call<GetMenuResponse> getMenus(@Query("sailingID") String sailingID
             , @Query("venueCode") String venueCode);
 }
