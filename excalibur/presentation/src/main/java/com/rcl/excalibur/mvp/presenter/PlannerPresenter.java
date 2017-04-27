@@ -166,12 +166,12 @@ public class PlannerPresenter {
         }
 
         if (events != null) {
-            Pair<String, Integer> stringIntegerPair = getArrivalDebarkDescription(events, day);
+            Pair<String, Integer> stringIntegerPair = getArrivalDisembarkingDescription(events, day);
             view.setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
         }
     }
 
-    private Pair<String, Integer> getArrivalDebarkDescription(List<EventModel> events, int day) {
+    private Pair<String, Integer> getArrivalDisembarkingDescription(List<EventModel> events, int day) {
         Resources resources = view.getActivity().getResources();
         int drawable;
         PortModel sailPort = PortModel.getSailPortByDay(events, day);
