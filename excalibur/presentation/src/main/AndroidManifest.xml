@@ -113,7 +113,10 @@
                     com.rcl.excalibur.data.entity.PortEntity,
 		            com.rcl.excalibur.data.entity.ShipTimeEntity,
                     com.rcl.excalibur.data.entity.DeckInfoEntity,
-                    com.rcl.excalibur.data.entity.OperationHourEntity"/>
-        <receiver android:name=".scheduler.SchedulerReceiver" />   
+                    com.rcl.excalibur.data.entity.OperationHourEntity,
+                    com.rcl.excalibur.data.entity.MenuEntity,
+                    com.rcl.excalibur.data.entity.MenuSectionEntity,
+                    com.rcl.excalibur.data.entity.MenuAdvisoryTagEntity"/>
+        <receiver android:name=".scheduler.SchedulerReceiver" />
     </application>
 </manifest>
