@@ -139,14 +139,14 @@ public class PlannerPresenter {
         }
         items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
         view.addPlannerItems(items);
-        getArrivingDebarkingInfo();
+        getArrivingDisembarkingInfo();
         BaseActivity activity = view.getActivity();
         if (activity != null) {
             ((TriptychHomeActivity) activity).getShipLocationInfo();
         }
     }
 
-    public void getArrivingDebarkingInfo() {
+    public void getArrivingDisembarkingInfo() {
         dayPreferences = getSailingPreferenceUseCase.getDay();
         int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
 
@@ -155,19 +155,17 @@ public class PlannerPresenter {
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
         if (itinerary != null) {
             List<EventModel> events = itinerary.getEvents();
-            addArrivingDebarkingValues(events, selectedDay);
+            addArrivingDisembarkingValues(events, selectedDay);
         }
     }
 
-    private void addArrivingDebarkingValues(List<EventModel> events, int day) {
+    private void addArrivingDisembarkingValues(List<EventModel> events, int day) {
         Activity activity = view.getActivity();
         if (activity == null) {
             return;
         }
-        Resources resources = activity.getResources();
-        if (events == null) {
-            view.setTextCompoundDrawableDayInfo(resources.getString(R.string.empty_string), 0);
-        } else {
+
+        if (events != null) {
             Pair<String, Integer> stringIntegerPair = getArrivalDebarkDescription(events, day);
             view.setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
         }

@@ -70,7 +70,7 @@ public class PlannerFragment extends BaseTripTychFragment implements FlexibleAda
 
     public void onResume() {
         super.onResume();
-        presenter.getArrivingDebarkingInfo();
+        presenter.getArrivingDisembarkingInfo();
     }
 
     @Override
