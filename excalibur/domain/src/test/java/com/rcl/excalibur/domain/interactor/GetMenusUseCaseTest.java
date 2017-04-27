@@ -15,15 +15,15 @@ import io.reactivex.observers.DisposableObserver;
 
 import static org.mockito.Mockito.verify;
 
-public class GetMenuesUseCaseTest {
-    GetMenuesUseCase getMenuesUseCase;
+public class GetMenusUseCaseTest {
+    GetMenusUseCase getMenusUseCase;
     @Mock
     DiscoverServices discoverServices;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        getMenuesUseCase = new GetMenuesUseCase(discoverServices);
+        getMenusUseCase = new GetMenusUseCase(discoverServices);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class GetMenuesUseCaseTest {
             }
         };
 
-        getMenuesUseCase.buildUseCaseObservable(observer, null);
-        verify(discoverServices).getMenues();
+        getMenusUseCase.buildUseCaseObservable(observer, null);
+        verify(discoverServices).getMenus();
     }
 }

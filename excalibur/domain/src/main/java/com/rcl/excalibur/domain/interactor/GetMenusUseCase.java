@@ -9,17 +9,17 @@ import java.util.List;
 import io.reactivex.observers.DisposableObserver;
 
 
-public class GetMenuesUseCase extends UseCase<List<Menu>, Void> {
+public class GetMenusUseCase extends UseCase<List<Menu>, Void> {
 
     private final DiscoverServices discoverServices;
 
-    public GetMenuesUseCase(DiscoverServices discoverServices) {
+    public GetMenusUseCase(DiscoverServices discoverServices) {
         super();
         this.discoverServices = discoverServices;
     }
 
     @Override
     void buildUseCaseObservable(DisposableObserver<List<Menu>> observer, Void aVoid) {
-        discoverServices.getMenues();
+        discoverServices.getMenus();
     }
 }

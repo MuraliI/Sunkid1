@@ -23,5 +23,5 @@ public interface DiscoverServices {
 
     void getSubCategories();
 
-    void getMenues();
+    void getMenus();
 }
