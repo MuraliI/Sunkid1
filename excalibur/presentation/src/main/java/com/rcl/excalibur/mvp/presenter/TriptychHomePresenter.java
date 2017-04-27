@@ -23,7 +23,6 @@ import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
-import com.rcl.excalibur.utils.DayInformationUtils;
 
 import java.util.List;
 
@@ -115,7 +114,7 @@ public class TriptychHomePresenter {
 
     public static String getShipLocation(List<EventModel> events, int day, Resources resources) {
         String shipLocation;
-        PortModel sailPort = DayInformationUtils.getSailPortByDay(events, day);
+        PortModel sailPort = PortModel.getSailPortByDay(events, day);
 
         String modelPortType = sailPort.getPortType();
 
