@@ -22,12 +22,8 @@ import com.rcl.excalibur.domain.preference.SailingPreferences;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
-import com.appdynamics.eumagent.runtime.Instrumentation;
-
 
 public class TriptychHomeActivity extends BaseActivity {
-    private static final String KEY_REPORTING_APP_DYNAMICS = "AD-AAB-AAD-PKJ";
-
     protected TriptychHomePresenter presenter;
     private SailingPreferences sailingPreferences;
 
@@ -38,7 +34,6 @@ public class TriptychHomeActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Instrumentation.start(TriptychHomeActivity.KEY_REPORTING_APP_DYNAMICS, getApplicationContext());
         setContentView(R.layout.activity_triptych_home_screen);
         sailingPreferences = new SailingPreferenceImpl(this);
 
