@@ -4,9 +4,9 @@ package com.rcl.excalibur.data.utils;
 import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.api.GuestApi;
-import com.rcl.excalibur.data.service.api.SailDateApi;
 import com.rcl.excalibur.data.service.api.ShipTimeApi;
 import com.rcl.excalibur.data.service.response.BaseResponse;
+import com.rcl.excalibur.data.service.api.SailDateApi;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +19,6 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public final class ServiceUtil {
 
-    private static final String API_KEY = "CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09";
     private static final String SUCCESS = "SUCCESS";
     private static DiscoverApi discoverApi;
     private static GuestApi guestApi;
@@ -86,18 +85,6 @@ public final class ServiceUtil {
         final OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
                 .readTimeout(BuildConfig.READ_TIMEOUT, TimeUnit.SECONDS)
                 .connectTimeout(BuildConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS);
-
-//        builder.addInterceptor(chain -> {
-//            Request original = chain.request();
-//            HttpUrl originalHttpUrl = original.url();
-//            HttpUrl url = originalHttpUrl.newBuilder()
-//                    .addQueryParameter("apikey", API_KEY)
-//                    .build();
-//            Request.Builder requestBuilder = original.newBuilder()
-//                    .url(url);
-//            Request request = requestBuilder.build();
-//            return chain.proceed(request);
-//        });
 
         if (BuildConfig.DEBUG) {
             //show request log in debug mode
