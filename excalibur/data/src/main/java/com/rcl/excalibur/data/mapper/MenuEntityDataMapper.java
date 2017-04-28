@@ -86,18 +86,6 @@ public class MenuEntityDataMapper extends BaseDataMapper<Menu, MenuEntity, Void>
 
     }
 
-
-    /*
-    private MenuItemMedia transform(MenuItemMedia entity) {
-        MenuItemMedia output = new MenuItemMedia();
-        if (entity == null) {
-            return output;
-        }
-        output.setMediaItem(mediaItemDataMapper.transform(entity.getMediaItem()), null));
-        return output;
-
-    }*/
-
     private MenuItem transform(MenuItemEntity entity) {
         MenuItem output = new MenuItem();
         if (entity == null) {
@@ -106,7 +94,7 @@ public class MenuEntityDataMapper extends BaseDataMapper<Menu, MenuEntity, Void>
         output.setMenuItemTitle(entity.getMenuItemTitle());
         output.setMenuItemDescription(entity.getMenuItemDescription());
         output.setMenuItemAdvisoryTags(transformMenuItemAdvisoryTag(entity.getMenuItemAdvisoryTags()));
-        //output.setMenuItemMedia(transform(entity.getMenuMedia().getValues()));
+        //TODO peinding mapper MenuItemMedia
         return output;
 
     }
