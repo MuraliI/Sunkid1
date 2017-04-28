@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'adeum' // this line added for AppDynamics
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -101,6 +102,20 @@ dependencies {
 
     //Development
     compile files('libs/adobeMobileLibrary-4.13.4.jar')
+    //AppDynamics
+    compile 'com.appdynamics:appdynamics-runtime:4.3.0.2'
+}
+
+adeum { // this section added for AppDynamics
+    account {
+        name 'RoyalCaribbeanCruisesLtd-a0Q3400000EpgnVEAR'
+        licenseKey '2388469d-799f-44c1-9c2e-d4425ef507ff'
+    }
+
+    proguardMappingFileUpload {
+        failBuildOnUploadFailure true //should build fail if upload fails? Defaults to false.
+        enabled true //enables automatic uploads. Defaults to true.
+    }
 }
 
 apply plugin: 'checkstyle'
