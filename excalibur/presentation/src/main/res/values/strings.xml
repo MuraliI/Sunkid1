@@ -126,11 +126,6 @@
     <string name="sessions_from">Sessions from</string>
 
     <!-- Planner -->
-    <string name="title_good_morning">Good Morning!</string>
-    <string name="title_good_afternoon">Good Afternoon!</string>
-    <string name="title_good_evening">Good Evening!</string>
-    <string name="title_good_night">Good Night!</string>
-    <string name="title_hello">Hello</string>
     <string name="planner_header_see_all">See all</string>
     <string name="planner_header_see_less">See less</string>
     <string name="itinerary_product_view_am">" AM"</string>

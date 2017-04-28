@@ -2,6 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
 import android.support.v4.util.SparseArrayCompat;
 
@@ -129,13 +130,13 @@ public class PlannerPresenter {
     }
 
 
-    private PlannerHeader createPlannerHeader(int textRes) {
+    private PlannerHeader createPlannerHeader(@StringRes int textRes) {
         BaseActivity activity = view.getActivity();
         if (activity == null) {
             return null;
         }
         PlannerHeader plannerHeader = new PlannerHeader(String.format(HEADER_FORMAT, ++lastHeaderId));
-        plannerHeader.setTitle(activity.getString(textRes));
+        plannerHeader.setTitle(textRes);
         return plannerHeader;
     }
 

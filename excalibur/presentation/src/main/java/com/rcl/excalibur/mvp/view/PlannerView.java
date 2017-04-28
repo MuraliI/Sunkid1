@@ -3,11 +3,14 @@ package com.rcl.excalibur.mvp.view;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -24,10 +27,12 @@ import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
 import com.rcl.excalibur.fragments.PlannerFragment;
+import com.rcl.excalibur.model.PlannerProductModel;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.RoundedImageView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,6 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import timber.log.Timber;
 
 public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int TOP_OF_LIST = 0;
@@ -69,6 +75,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private boolean initialized;
     private boolean bottomSheetIsSliding;
 
+    private int currentTopElementIndex = -1;
+    @StringRes private int currentPartOfDayResource;
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
     private int initImageMargin;
@@ -114,6 +122,28 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             @Override
             public void onChildViewDetachedFromWindow(View view) {
                 // No op
+            }
+        });
+        recyclerView.addOnScrollListener(new OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int first = linearLayoutManager.findFirstVisibleItemPosition();
+                int firstCompletely = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+                Timber.d("FIRST_V: " + first);
+                Timber.d("FIRST_V C: " + firstCompletely);
+                if (currentTopElementIndex != firstCompletely) {
+                    currentTopElementIndex = firstCompletely;
+                    PlannerProductItem productItem = getNextItem(currentTopElementIndex);
+                    if (productItem != null) {
+                        PlannerProductModel productModel = productItem.getPlannerProductModel();
+                        if (productModel != null) {
+                            int partOfDayResource = getPartOfDayResource(productModel);
+                            if (partOfDayResource != currentPartOfDayResource) {
+                                updateHeader(productItem, partOfDayResource);
+                            }
+                        }
+                    }
+                }
             }
         });
     }
@@ -412,5 +442,44 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
             params.height = pair.second;
             imageShipInvisible.setLayoutParams(params);
         }
+    }
+
+    @Nullable
+    private PlannerProductItem getNextItem(int index) {
+        if (index == 0) {
+            index++;
+        }
+        if (adapter.getItem(index) instanceof PlannerProductItem) {
+            return (PlannerProductItem) adapter.getItem(index);
+        }
+        return null;
+    }
+
+    private void updateHeader(@NonNull PlannerProductItem item, @StringRes int newPartOfDayResource) {
+        PlannerProductModel model = item.getPlannerProductModel();
+        if (!model.isAllDayProduct()) {
+            PlannerHeader header = item.getHeader();
+            header.setTitle(newPartOfDayResource);
+            adapter.notifyItemChanged(0);
+            currentPartOfDayResource = newPartOfDayResource;
+        }
+    }
+
+    @StringRes
+    private int getPartOfDayResource(@NonNull PlannerProductModel productModel) {
+        Calendar startDate = productModel.getStartDate();
+        if (startDate != null) {
+            int hourOfDay = startDate.get(Calendar.HOUR_OF_DAY);
+            if (hourOfDay >= 6 && hourOfDay < 12) {
+                return R.string.title_morning;
+            } else if (hourOfDay >= 12 && hourOfDay < 17) {
+                return R.string.title_afternoon;
+            } else if (hourOfDay >= 17 && hourOfDay < 23) {
+                return R.string.title_evening;
+            } else {
+                return R.string.title_late_night;
+            }
+        }
+        return R.string.empty_string;
     }
 }
