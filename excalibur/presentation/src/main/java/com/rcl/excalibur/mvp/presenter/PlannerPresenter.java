@@ -42,7 +42,6 @@ public class PlannerPresenter {
     private static final String ITEM_FORMAT = "I%s";
 
     private static final int HEADER_LIST_SIZE = 4;
-    private static final long DELAY = 5000;
 
     private static final int FIRST_DAY = 1;
     private static final String ARRIVING_DEPARTING_SEPARATOR = "; ";
