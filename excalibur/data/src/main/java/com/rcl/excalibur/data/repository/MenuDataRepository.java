@@ -20,6 +20,7 @@ import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.MenuAdvisoryTag;
 import com.rcl.excalibur.domain.MenuItem;
 import com.rcl.excalibur.domain.MenuItemAdvisoryTag;
+import com.rcl.excalibur.domain.MenuItemMedia;
 import com.rcl.excalibur.domain.MenuMedia;
 import com.rcl.excalibur.domain.MenuSection;
 import com.rcl.excalibur.domain.repository.MenuRepository;
@@ -41,7 +42,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         final MenuEntity entity = new MenuEntity();
         entity.setDayNumber(input.getDayNumber());
         entity.setMenuName(input.getMenuName());
-        //TODO fix bug duplicate entity
+        //TODO fix bug --duplicate entity
         //MenuMedia
         //create(entity, input.getMenuMedia());
         entity.save();
@@ -91,7 +92,27 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
             menuItemEntity.setMenuSectionEntity(entity);
             menuItemEntity.save();
             createMenuItemAdvisoryTag(menuItemEntity, menuItem.getMenuItemAdvisoryTags());
+            //TODO fix bug --duplicate entity
+            //createMenuItemMedia(menuItemEntity, menuItem.getMenuItemMedia());
         }
+
+    }
+
+    //TODO fix bug --duplicate entity
+    private void createMenuItemMedia(final MenuItemEntity menuItemEntity, final MenuItemMedia menuItemMedia) {
+
+        if (menuItemMedia == null || CollectionUtils.isEmpty(menuItemMedia.getMediaItem())) {
+            return;
+        }
+        MediaEntity mediaEntity = new MediaEntity();
+        mediaEntity.save();
+        for (MediaItem mediaItem : menuItemMedia.getMediaItem()) {
+            final MediaValueEntity mediaValueEntity = new MediaValueEntity();
+            mediaValueEntity.setLink(mediaItem.getMediaRefLink());
+            mediaValueEntity.setMedia(mediaEntity);
+            mediaValueEntity.save();
+        }
+        menuItemEntity.setMediaEntity(mediaEntity);
 
     }
 
@@ -145,6 +166,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
 
     @Override
     public void deleteAll() {
+        new Delete().from(MenuItemAdvisoryTagEntity.class).execute();
         new Delete().from(MenuItemEntity.class).execute();
         new Delete().from(MenuAdvisoryTagEntity.class).execute();
         new Delete().from(MenuSectionEntity.class).execute();
