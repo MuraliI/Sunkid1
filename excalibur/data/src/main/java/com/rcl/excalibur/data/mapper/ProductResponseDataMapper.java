@@ -352,11 +352,12 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         ProductCategoryResponse productCategoryResponse = productCategoryResponses.get(0);
 
         ProductCategory productCategory = new ProductCategory();
-        productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
-        productCategory.setCategoryId(productCategoryResponse.getCategoryId());
-        productCategory.setCategoryName(productCategoryResponse.getCategoryName());
-        productCategory.setChildCategory(transformChildCategories(productCategoryResponse.getChildCategory()));
-
+        if (productCategoryResponse != null) {
+            productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
+            productCategory.setCategoryId(productCategoryResponse.getCategoryId());
+            productCategory.setCategoryName(productCategoryResponse.getCategoryName());
+            productCategory.setChildCategory(transformChildCategories(productCategoryResponse.getChildCategory()));
+        }
         return productCategory;
     }
 
