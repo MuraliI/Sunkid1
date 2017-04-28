@@ -22,15 +22,15 @@ import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity, Void, Void> {
     private static final int MINIMUM_DPI = 80;
     private static final float HALF_FACTOR = 2.0f;
 
-    @Bind(R.id.image_deck_map) DeckMapImageView deckMapImage;
-    @Bind(R.id.horizontal_deck_selector) HorizontalPickerView<Integer> deckSelectorPicker;
+    @BindView(R.id.image_deck_map) DeckMapImageView deckMapImage;
+    @BindView(R.id.horizontal_deck_selector) HorizontalPickerView<Integer> deckSelectorPicker;
 
     private DeckMapPopupLayout popupView;
     private PopupWindow popupWindow;

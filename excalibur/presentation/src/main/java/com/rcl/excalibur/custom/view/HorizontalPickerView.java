@@ -15,13 +15,13 @@ import com.rcl.excalibur.custom.adapter.HorizontalPickerViewAdapter;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class HorizontalPickerView<T> extends FrameLayout {
 
-    @Bind(R.id.recycler_view_deck_list) RecyclerView deckSelector;
+    @BindView(R.id.recycler_view_deck_list) RecyclerView deckSelector;
 
     private LinearLayoutManager layoutManager;
     private HorizontalPickerViewAdapter<T> horizontalPickerViewAdapter;
