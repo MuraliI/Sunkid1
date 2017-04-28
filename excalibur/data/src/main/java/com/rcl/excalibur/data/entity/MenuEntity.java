@@ -47,7 +47,7 @@ public class MenuEntity extends Model {
         this.menuMedia = menuMedia;
     }
 
-    public List<MenuAdvisoryTagEntity> getAdvisements() {
+    public List<MenuAdvisoryTagEntity> getMenuAdvisoryTag() {
         return getMany(MenuAdvisoryTagEntity.class, MenuAdvisoryTagEntity.COLUMN_MENU);
     }
     public List<MenuSectionEntity> getMenuSection() {

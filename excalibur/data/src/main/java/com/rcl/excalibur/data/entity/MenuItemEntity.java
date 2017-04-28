@@ -4,7 +4,6 @@ package com.rcl.excalibur.data.entity;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.rcl.excalibur.domain.MenuItemMedia;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class MenuItemEntity extends Model {
     @Column(name = COLUMN_MENU_ITEM_TITLE)
     private String menuItemTitle;
     @Column(name = COLUMN_MENU_ITEM_MEDIA)
-    private MenuItemMedia menuItemMedia;
+    private MediaEntity menuMedia;
     @Column(name = COLUMN_MENU_SECTION)
     private MenuSectionEntity menuSectionEntity;
 
@@ -44,14 +43,7 @@ public class MenuItemEntity extends Model {
         this.menuItemTitle = menuItemTitle;
     }
 
-    public MenuItemMedia getMenuItemMedia() {
-        return menuItemMedia;
-    }
-
-    public void setMenuItemMedia(MenuItemMedia menuItemMedia) {
-        this.menuItemMedia = menuItemMedia;
-    }
-    public List<MenuItemAdvisoryTagEntity> getAdvisements() {
+    public List<MenuItemAdvisoryTagEntity> getMenuItemAdvisoryTags() {
         return getMany(MenuItemAdvisoryTagEntity.class, MenuItemAdvisoryTagEntity.COLUMN_MENU_ITEM);
     }
 
@@ -61,5 +53,13 @@ public class MenuItemEntity extends Model {
 
     public void setMenuSectionEntity(MenuSectionEntity menuSectionEntity) {
         this.menuSectionEntity = menuSectionEntity;
+    }
+
+    public MediaEntity getMenuMedia() {
+        return menuMedia;
+    }
+
+    public void setMenuMedia(MediaEntity menuMedia) {
+        this.menuMedia = menuMedia;
     }
 }

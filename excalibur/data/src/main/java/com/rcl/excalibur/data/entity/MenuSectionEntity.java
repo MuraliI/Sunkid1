@@ -14,6 +14,7 @@ public class MenuSectionEntity extends Model {
 
     public static final String COLUMN_SECTION_NAME = "section_name";
     public static final String COLUMN_SECTION_DESCRIPTION = "section_description";
+    public static final String COLUMN_MENU_SECTION_MEDIA = "menu_section_media";
     public static final String COLUMN_MENU = "menu";
 
 
@@ -21,8 +22,11 @@ public class MenuSectionEntity extends Model {
     private String sectionName;
     @Column(name = COLUMN_SECTION_DESCRIPTION)
     private String sectionDescription;
+    @Column(name = COLUMN_MENU_SECTION_MEDIA)
+    private SectionMediaEntity sectionMediaEntity;
     @Column(name = COLUMN_MENU)
     private MenuEntity menuEntity;
+
 
     public String getSectionName() {
         return sectionName;
@@ -48,8 +52,16 @@ public class MenuSectionEntity extends Model {
         this.menuEntity = menuEntity;
     }
 
-    public List<MenuItemEntity> getMenuSection() {
+    public List<MenuItemEntity> getMenuItemEntity() {
         return getMany(MenuItemEntity.class, MenuItemEntity.COLUMN_MENU_SECTION);
+    }
+
+    public SectionMediaEntity getSectionMediaEntity() {
+        return sectionMediaEntity;
+    }
+
+    public void setSectionMediaEntity(SectionMediaEntity sectionMediaEntity) {
+        this.sectionMediaEntity = sectionMediaEntity;
     }
 }
 
