@@ -12,7 +12,6 @@
     <color name="transparent">#00000000</color>
     <color name="grey">#C8C8C8</color>
     <color name="ribbon_ship_time">#88676767</color>
-    <color name="transparent_white">#33FFFFFF</color>
     <color name="plan_list_lightblue">#1EADFF</color>
     <color name="plan_list_grey">#D8D8D8</color>
     <color name="discover_black">#34323d</color>
@@ -55,5 +54,10 @@
     <!-- Date Picker -->
     <color name="selector_bar_color">#1da4ed</color>
     <color name="selector_bg_color">#0d1da4ed</color>
+
+    <!-- Deck Plans -->
+    <color name="bg_toolbar_color">#127FE8</color>
+    <color name="bg_deck_selector_color">#006ECD</color>
+    <color name="bg_selected_transparent_white">#33FFFFFF</color>
 
 </resources>

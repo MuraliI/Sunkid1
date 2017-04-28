@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="@dimen/deck_map_ship_icon_size"
+        android:layout_height="@dimen/deck_map_ship_icon_size"
+        android:contentDescription="@string/empty_string"
+        android:src="@drawable/icon_calendar_tab"/>
+
+    <TextView
+        android:id="@+id/text_deck_number"
+        style="@style/AppTheme.DeckPickerButtom"
+        android:layout_marginStart="@dimen/deck_map_deck_number_margin_start"
+        android:layout_marginEnd="@dimen/deck_map_deck_number_margin_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="@string/deck_number"/>
+
+    <ImageView
+        android:layout_width="@dimen/deck_map_dropdown_size"
+        android:layout_height="@dimen/deck_map_dropdown_size"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/empty_string"
+        android:src="@drawable/ic_arrow_drop_down"/>
+
+</LinearLayout>

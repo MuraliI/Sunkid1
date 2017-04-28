@@ -2,11 +2,15 @@ package com.rcl.excalibur.mvp.presenter;
 
 
 import android.graphics.PointF;
+import android.util.Pair;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDeckMapView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.rcl.excalibur.utils.CategoryUtils.ACTIVITIES;
 import static com.rcl.excalibur.utils.CategoryUtils.DINING;
@@ -26,6 +30,23 @@ public class ProductDeckMapPresenter {
     private static final int Y_4 = 539;
     private static final int X_5 = 243;
     private static final int Y_5 = 558;
+
+    private static final List<Pair<Integer, Integer>> DECK_IMAGES = new ArrayList<>(12);
+
+    static {
+        DECK_IMAGES.add(new Pair<>(1, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(2, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(3, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(4, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(5, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(6, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(7, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(8, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(9, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(10, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(11, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(12, R.drawable.map_05_fwd));
+    }
 
     private GetProductDbUseCase getProductDbUseCase;
     private ProductDeckMapView view;
@@ -48,6 +69,7 @@ public class ProductDeckMapPresenter {
     }
 
     private void initView() {
+        view.initDecks(DECK_IMAGES);
         view.initDeckImage(R.drawable.map_05_fwd);
         view.setProductCoordinate(xCoord, yCoord);
         view.initPopupLayout();

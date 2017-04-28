@@ -6,6 +6,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
@@ -15,8 +16,11 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.custom.view.DeckMapImageView;
 import com.rcl.excalibur.custom.view.DeckMapPopupLayout;
+import com.rcl.excalibur.custom.view.HorizontalPickerView;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,6 +30,7 @@ public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity, Voi
     private static final float HALF_FACTOR = 2.0f;
 
     @Bind(R.id.image_deck_map) DeckMapImageView deckMapImage;
+    @Bind(R.id.horizontal_deck_selector) HorizontalPickerView<Integer> deckSelectorPicker;
 
     private DeckMapPopupLayout popupView;
     private PopupWindow popupWindow;
@@ -33,6 +38,10 @@ public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity, Voi
     public ProductDeckMapView(ProductDeckMapActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
+    }
+
+    public void initDecks(List<Pair<Integer, Integer>> deckImagesMap) {
+        deckSelectorPicker.setItems(deckImagesMap);
     }
 
     public void initDeckImage(int resource) {
