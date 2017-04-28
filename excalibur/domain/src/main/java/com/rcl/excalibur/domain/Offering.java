@@ -72,11 +72,11 @@ public class Offering implements Comparable<Offering> {
         int result = calendarActual.compareTo(calendarInput);
         if (result == 0) {
             result = getProduct().getProductTitle().compareToIgnoreCase(input.getProduct().getProductTitle());
-        } else if (calendarActual.get(Calendar.HOUR) >= MORNING_START_HOUR
-                && calendarInput.get(Calendar.HOUR) < MORNING_START_HOUR) {
+        } else if (calendarActual.get(Calendar.HOUR_OF_DAY) >= MORNING_START_HOUR
+                && calendarInput.get(Calendar.HOUR_OF_DAY) < MORNING_START_HOUR) {
             result = -1;
-        } else if (calendarActual.get(Calendar.HOUR) < MORNING_START_HOUR
-                && calendarInput.get(Calendar.HOUR) >= MORNING_START_HOUR) {
+        } else if (calendarActual.get(Calendar.HOUR_OF_DAY) < MORNING_START_HOUR
+                && calendarInput.get(Calendar.HOUR_OF_DAY) >= MORNING_START_HOUR) {
             result = 1;
         }
         return result;

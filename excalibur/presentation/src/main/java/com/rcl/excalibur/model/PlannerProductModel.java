@@ -126,11 +126,11 @@ public class PlannerProductModel extends ProductInformationViewType implements C
         int result = getStartDate().compareTo(input.getStartDate());
         if (result == 0) {
             result = getProductName().compareToIgnoreCase(input.getProductName());
-        } else if (getStartDate().get(Calendar.HOUR) >= MORNING_START_HOUR
-                && input.getStartDate().get(Calendar.HOUR) < MORNING_START_HOUR) {
+        } else if (getStartDate().get(Calendar.HOUR_OF_DAY) >= MORNING_START_HOUR
+                && input.getStartDate().get(Calendar.HOUR_OF_DAY) < MORNING_START_HOUR) {
             result = -1;
-        } else if (getStartDate().get(Calendar.HOUR) < MORNING_START_HOUR
-                && input.getStartDate().get(Calendar.HOUR) >= MORNING_START_HOUR) {
+        } else if (getStartDate().get(Calendar.HOUR_OF_DAY) < MORNING_START_HOUR
+                && input.getStartDate().get(Calendar.HOUR_OF_DAY) >= MORNING_START_HOUR) {
             result = 1;
         }
         return result;
