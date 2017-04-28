@@ -5,18 +5,24 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = MediaEntity.TABLE_NAME)
+import java.util.List;
+
+@Table(name = MenuSectionEntity.TABLE_NAME)
 public class MenuSectionEntity extends Model {
 
     public static final String TABLE_NAME = "menu_section";
 
     public static final String COLUMN_SECTION_NAME = "section_name";
     public static final String COLUMN_SECTION_DESCRIPTION = "section_description";
+    public static final String COLUMN_MENU = "menu";
+
 
     @Column(name = COLUMN_SECTION_NAME)
     private String sectionName;
     @Column(name = COLUMN_SECTION_DESCRIPTION)
     private String sectionDescription;
+    @Column(name = COLUMN_MENU)
+    private MenuEntity menuEntity;
 
     public String getSectionName() {
         return sectionName;
@@ -32,6 +38,18 @@ public class MenuSectionEntity extends Model {
 
     public void setSectionDescription(String sectionDescription) {
         this.sectionDescription = sectionDescription;
+    }
+
+    public MenuEntity getMenuEntity() {
+        return menuEntity;
+    }
+
+    public void setMenuEntity(MenuEntity menuEntity) {
+        this.menuEntity = menuEntity;
+    }
+
+    public List<MenuItemEntity> getMenuSection() {
+        return getMany(MenuItemEntity.class, MenuItemEntity.COLUMN_MENU_SECTION);
     }
 }
 

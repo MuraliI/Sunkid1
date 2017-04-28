@@ -5,7 +5,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = MediaEntity.TABLE_NAME)
+@Table(name = MenuAdvisoryTagEntity.TABLE_NAME)
 public class MenuAdvisoryTagEntity extends Model {
 
     public static final String TABLE_NAME = "menu_advisory_tag";
@@ -25,5 +25,13 @@ public class MenuAdvisoryTagEntity extends Model {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public MenuEntity getMenuEntity() {
+        return menuEntity;
+    }
+
+    public void setMenuEntity(MenuEntity menuEntity) {
+        this.menuEntity = menuEntity;
     }
 }
