@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.util.AttributeSet;
@@ -13,11 +14,14 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 
 public class VoyageMapImageView extends SubsamplingScaleImageView {
-    private static final float DENSITY_FACTOR = 1800f;
+    private static final float DENSITY_FACTOR = 1400f;
 
     private Paint paint;
     private Bitmap cruise;
     private PointF cruiseCoord;
+    private Matrix shipMatrix;
+    private Matrix localMatrix;
+    private boolean cruiseWasDrawed = false;
 
     public VoyageMapImageView(Context context, AttributeSet attr) {
         super(context, attr);
@@ -36,6 +40,9 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
         float w = (density / DENSITY_FACTOR) * cruise.getWidth();
         float h = (density / DENSITY_FACTOR) * cruise.getHeight();
         cruise = Bitmap.createScaledBitmap(cruise, (int) w, (int) h, true);
+        Matrix matrixRotation = new Matrix();
+        matrixRotation.postRotate(20);
+        cruise = Bitmap.createBitmap(cruise, 0, 0, cruise.getWidth(), cruise.getHeight(), matrixRotation, true);
     }
 
     public void setImage(int resource) {
@@ -46,6 +53,8 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
         this.cruiseCoord = cruiseCoord;
         initialize();
         invalidate();
+        shipMatrix = new Matrix();
+        localMatrix = new Matrix();
     }
 
     public PointF getPin() {
@@ -69,12 +78,33 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
 
         float left = vCruise.x - (cruise.getWidth() / 2);
         float top = vCruise.y - cruise.getHeight();
-        //canvas.save(Canvas.MATRIX_SAVE_FLAG); //Saving the canvas and later restoring it so only this image will be rotated.
-        //canvas.rotate(-20);
-        // Matrix matrix = new Matrix();
-        //matrix.setRotate(20, top, left);
-        //canvas.drawBitmap(cruise, matrix, null);
         canvas.drawBitmap(cruise, left, top, paint);
-        //canvas.restore();
+
+        //canvas.save(Canvas.MATRIX_SAVE_FLAG); //Saving the canvas and later restoring it so only this image will be rotated.
+        //canvas.rotate(20);
+        //shipMatrix.setRotate(20f, top, left);
+/*
+        if (shipMatrix.isIdentity()) {
+            try {
+                Field field = this.getClass().getSuperclass().getDeclaredField("matrix");
+                field.setAccessible(true);
+                shipMatrix = new Matrix((Matrix) field.get(this));
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            localMatrix = new Matrix(shipMatrix);
+            localMatrix.postRotate(20);
+            //localMatrix.setRotate(30);
+            //canvas.drawBitmap(cruise, left, top, paint);
+        }
+        if (!localMatrix.isIdentity()) {
+            canvas.drawBitmap(cruise, localMatrix, paint);
+        }
+
+        */
+
+
     }
 }
