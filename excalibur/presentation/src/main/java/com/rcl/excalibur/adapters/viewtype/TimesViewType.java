@@ -3,6 +3,8 @@ package com.rcl.excalibur.adapters.viewtype;
 import android.content.res.Resources;
 import android.support.v4.util.Pair;
 
+import com.google.common.base.Joiner;
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.data.utils.DateUtil;
 import com.rcl.excalibur.domain.LocationOperationHour;
@@ -24,6 +26,8 @@ import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_TI
 
 public class TimesViewType implements RecyclerViewType {
 
+    private static final String COMMA_SEPARATOR = ",";
+    private static final int START_TIMES_LIMIT = 4;
     private String title;
     private List<Pair<String, String>> times;
 
@@ -31,7 +35,6 @@ public class TimesViewType implements RecyclerViewType {
         try {
             int dayA = Integer.parseInt(o1.first);
             int dayB = Integer.parseInt(o2.first);
-
             if (dayA < dayB) {
                 return -1;
             } else {
@@ -88,8 +91,8 @@ public class TimesViewType implements RecyclerViewType {
 //        long dateTime = Long.parseLong(SAILING_ID);
         long dateTime = 1493596801000L;
         Calendar sailingDate = Calendar.getInstance();
-        sailingDate.setTimeInMillis(dateTime);
 //        int duration = Integer.parseInt(sailDateInfo.getDuration());
+        sailingDate.setTimeInMillis(dateTime);
         int duration = 5;
         int dayCounter = 1;
 
@@ -104,19 +107,22 @@ public class TimesViewType implements RecyclerViewType {
         for (Pair<String, Date> day : voyageDays) {
             String dateFilter = DateUtil.getHourlessDateParser().format(day.second);
             Observable.fromIterable(offerings)
-                    .subscribeOn(AndroidSchedulers.mainThread())
                     .filter(object -> dateFilter.equals(DateUtil.getHourlessDateParser().format(object.getDate())))
                     .toList()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(offeringsForDay -> {
                         String dayNumber = day.first;
-                        StringBuilder hours = new StringBuilder();
-                        for (Offering offering : offeringsForDay) {
-                            hours.append(DateUtils.getDateHour(offering.getDate(), res));
-                            hours.append(",");
+                        String hourStr = "";
+                        if (offeringsForDay.size() > START_TIMES_LIMIT) {
+                            List<String> hours = new ArrayList<>();
+                            for (Offering offering : offeringsForDay) {
+                                hours.add(DateUtils.getDateHour(offering.getDate(), res));
+                            }
+                            hourStr = Joiner.on(COMMA_SEPARATOR).join(hours);
+                        } else {
+                            hourStr = res.getString(R.string.times_vary);
                         }
-                        String hoursSet = hours.substring(0, hours.length() - 1).toString();
-                        times.add(new Pair<>(dayNumber, hoursSet));
+                        times.add(new Pair<>(dayNumber, hourStr));
                     });
         }
         Collections.sort(times, PAIR_COMPARATOR);
