@@ -14,7 +14,12 @@ public class VoyageMapPresenter {
         initView();
     }
 
-    public void initView() {
+    public void onBackPressed() {
+        view.showShipAndFinishWithTransition();
+    }
+
+    private void initView() {
+        view.hideShip();
         view.initVoyageMapImage(R.drawable.voyage_land);
         view.setCruiseCoordinate(796, 826);
     }
