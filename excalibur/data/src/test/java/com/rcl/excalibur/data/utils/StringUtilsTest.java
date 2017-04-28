@@ -1,5 +1,6 @@
 package com.rcl.excalibur.data.utils;
 
+import android.text.TextUtils;
 import android.util.Base64;
 
 import org.junit.Assert;
@@ -13,14 +14,16 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.io.UnsupportedEncodingException;
 
 import static junit.framework.Assert.assertEquals;
+import static org.mockito.Matchers.any;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Base64.class})
+@PrepareForTest({Base64.class, TextUtils.class})
 public class StringUtilsTest {
 
     @Before
     public void setUp() {
         PowerMockito.mockStatic(Base64.class);
+        PowerMockito.mockStatic(TextUtils.class);
     }
 
     @Test
@@ -43,11 +46,14 @@ public class StringUtilsTest {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
-        String encriptString = StringUtils.encodeString(EXTRA_ID);
-        String extraString = StringUtils.decodeString(encriptString);
+        PowerMockito.when(TextUtils.isEmpty(any())).thenReturn(false);
+        String encryptString = StringUtils.encodeString(EXTRA_ID);
+        String extraString = StringUtils.decodeString(encryptString);
         assertEquals(extraString, EXTRA_ID);
+
+        PowerMockito.when(TextUtils.isEmpty(null)).thenReturn(true);
         assertEquals(null, StringUtils.encodeString(null));
+        PowerMockito.when(TextUtils.isEmpty(null)).thenReturn(true);
         assertEquals(null, StringUtils.decodeString(null));
     }
 
