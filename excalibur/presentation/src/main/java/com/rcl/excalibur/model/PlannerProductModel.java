@@ -10,6 +10,8 @@ import java.util.Calendar;
 
 public class PlannerProductModel extends ProductInformationViewType implements Comparable<PlannerProductModel> {
 
+    private static final int MORNING_START_HOUR = 6;
+
     public static final int STATE_ALL_DAY = 4;
     public static final int STATE_MORNING = 3;
     public static final int STATE_AFTERNOON = 2;
@@ -21,6 +23,7 @@ public class PlannerProductModel extends ProductInformationViewType implements C
 
     @DrawableRes private int resourceIdCategoryIcon;
     private String operatingHours;
+    private String startHourText;
     private Calendar startDate;
     private Calendar endDate;
     private boolean isAllDayProduct;
@@ -93,6 +96,10 @@ public class PlannerProductModel extends ProductInformationViewType implements C
         isHighlighted = highlighted;
     }
 
+    public boolean isStartHourDifferent(PlannerProductModel plannerProductModel) {
+        return this.getStartDate().get(Calendar.HOUR) != plannerProductModel.getStartDate().get(Calendar.HOUR);
+    }
+
     @Override
     public int getViewType() {
         return 0;
@@ -106,11 +113,25 @@ public class PlannerProductModel extends ProductInformationViewType implements C
         this.indexToBeAdded = indexToBeAdded;
     }
 
+    public String getStartHourText() {
+        return startHourText;
+    }
+
+    public void setStartHourText(String startHourText) {
+        this.startHourText = startHourText;
+    }
+
     @Override
     public int compareTo(@NonNull PlannerProductModel input) {
         int result = getStartDate().compareTo(input.getStartDate());
         if (result == 0) {
-            result = input.getProductName().compareToIgnoreCase(input.getProductName());
+            result = getProductName().compareToIgnoreCase(input.getProductName());
+        } else if (getStartDate().get(Calendar.HOUR) >= MORNING_START_HOUR
+                && input.getStartDate().get(Calendar.HOUR) < MORNING_START_HOUR) {
+            result = -1;
+        } else if (getStartDate().get(Calendar.HOUR) < MORNING_START_HOUR
+                && input.getStartDate().get(Calendar.HOUR) >= MORNING_START_HOUR) {
+            result = 1;
         }
         return result;
     }

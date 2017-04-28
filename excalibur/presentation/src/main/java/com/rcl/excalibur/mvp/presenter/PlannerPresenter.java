@@ -14,6 +14,7 @@ import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
+import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
@@ -23,6 +24,7 @@ import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.model.PlannerModel;
 import com.rcl.excalibur.mvp.view.PlannerView;
+import com.rcl.excalibur.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -95,7 +97,27 @@ public class PlannerPresenter {
 
     private List<AbstractFlexibleItem> addPlannerItems(final List<PlannerProductModel> plannerProductModels) {
         List<AbstractFlexibleItem> plannerItems = new ArrayList<>();
-        for (PlannerProductModel plannerProductModel : plannerProductModels) {
+        /*for (PlannerProductModel plannerProductModel : plannerProductModels) {
+            plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getHeaderItBelongs())));
+        }*/
+
+        for (int i = 0; i < plannerProductModels.size(); i++) {
+            PlannerProductModel plannerProductModel = plannerProductModels.get(i);
+
+            if (!plannerProductModel.isAllDayProduct()) {
+                PlannerProductModel previousPlannerProductModel = i > 0 ? plannerProductModels.get(i - 1) : null;
+                if (previousPlannerProductModel == null
+                        || plannerProductModel.isStartHourDifferent(previousPlannerProductModel)) {
+                    String startHourText = null;
+                    final PlannerFragment fragment = view.getFragment();
+                    if (fragment != null) {
+                        startHourText = DateUtils.getDateHour(
+                                plannerProductModel.getStartDate().getTime(), fragment.getResources());
+                    }
+                    plannerProductModel.setStartHourText(startHourText);
+                }
+            }
+
             plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getHeaderItBelongs())));
         }
         return plannerItems;
@@ -126,7 +148,6 @@ public class PlannerPresenter {
         }
         return new Pair<>(hiddenIndex, hiddenItems);
     }
-
 
     private PlannerHeader createPlannerHeader(int textRes) {
         BaseActivity activity = view.getActivity();

@@ -1,8 +1,11 @@
 package com.rcl.excalibur.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Offering implements Comparable<Offering> {
+    private static final int MORNING_START_HOUR = 6;
+
     private String id;
     private String date;
     private String time;
@@ -59,35 +62,76 @@ public class Offering implements Comparable<Offering> {
     }
 
     @Override
-    public int compareTo(Offering o) {
-        int result = (int) (this.getCompleteDate().getTime() - o.getCompleteDate().getTime());
+    public int compareTo(Offering input) {
+        Calendar calendarActual = Calendar.getInstance();
+        calendarActual.setTimeInMillis(getCompleteDate().getTime());
+
+        Calendar calendarInput = Calendar.getInstance();
+        calendarInput.setTimeInMillis(input.getCompleteDate().getTime());
+
+        int result = calendarActual.compareTo(calendarInput);
         if (result == 0) {
-            result = o.getProduct().getProductTitle()
-                    .compareToIgnoreCase(o.getProduct().getProductTitle());
-        } else if (this.getCompleteDate().getTime() > o.getCompleteDate().getTime()) {
-            result = 1;
-        } else if (this.getCompleteDate().getTime() < o.getCompleteDate().getTime()) {
+            result = getProduct().getProductTitle().compareToIgnoreCase(input.getProduct().getProductTitle());
+        } else if (calendarActual.get(Calendar.HOUR) >= MORNING_START_HOUR
+                && calendarInput.get(Calendar.HOUR) < MORNING_START_HOUR) {
             result = -1;
+        } else if (calendarActual.get(Calendar.HOUR) < MORNING_START_HOUR
+                && calendarInput.get(Calendar.HOUR) >= MORNING_START_HOUR) {
+            result = 1;
         }
         return result;
+    }
 
+    /*@Override
+    public int compareTo(Offering input) {
+        int result = (int) (this.getCompleteDate().getTime() - input.getCompleteDate().getTime());
+        if (result == 0) {
+            result = this.getProduct().getProductTitle()
+                    .compareToIgnoreCase(input.getProduct().getProductTitle());
+        } else {
+            Calendar calendarActual = Calendar.getInstance();
+            calendarActual.setTimeInMillis(this.getCompleteDate().getTime());
 
-        /*if (o == null) {
+            Calendar calendarInput = Calendar.getInstance();
+            calendarInput.setTimeInMillis(input.getCompleteDate().getTime());
+
+            if (calendarActual.get(Calendar.HOUR) >= MORNING_START_HOUR
+                    && calendarInput.get(Calendar.HOUR) < MORNING_START_HOUR) {
+                return -1;
+            }
+
+            if (calendarActual.get(Calendar.HOUR) < MORNING_START_HOUR
+                    && calendarInput.get(Calendar.HOUR) >= MORNING_START_HOUR) {
+                return 1;
+            }
+
+            if (this.getCompleteDate().getTime() > input.getCompleteDate().getTime()) {
+                result = 1;
+            } else if (this.getCompleteDate().getTime() < input.getCompleteDate().getTime()) {
+                result = -1;
+            }
+        }
+        return result;
+    }*/
+
+    /*@Override
+    public int compareTo(Offering input) {
+        if (input == null) {
             return 0;
-        } else if (this.getCompleteDate().getTime() > o.getCompleteDate().getTime()) {
+        } else if (this.getCompleteDate().getTime() > input.getCompleteDate().getTime()) {
             return 1;
-        } else if (this.getCompleteDate().getTime() < o.getCompleteDate().getTime()) {
+        } else if (this.getCompleteDate().getTime() < input.getCompleteDate().getTime()) {
             return -1;
         } else {
             return 0;
-        }*/
-    }
+        }
+    }*/
 
     /*@Override
     public int compareTo(Offering input) {
         int result = getCompleteDate().compareTo(input.getCompleteDate());
         if (result == 0) {
-            result = input.getProduct().getProductTitle()
+            result = getProduct().getProductTitle()
                     .compareToIgnoreCase(input.getProduct().getProductTitle());
         }
         return result;

@@ -102,7 +102,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         holder.productVenue.setText(plannerProductModel.getVenue());
         holder.productCategoryIcon.setImageResource(plannerProductModel.getResourceIdCategoryIcon());
         holder.productDeckAndDirection.setText(plannerProductModel.getLocation());
-        holder.setTime(timeLabel);
+        holder.setTime(plannerProductModel.getStartHourText());
     }
 
     public int getIndexToBeAdded() {
@@ -131,7 +131,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         }
 
         public void setTime(@Nullable String time) {
-            if (time == null || time.length() == 0) {
+            if (time == null || time.isEmpty()) {
                 hideTime();
             } else {
                 timeTextView.setVisibility(View.VISIBLE);
