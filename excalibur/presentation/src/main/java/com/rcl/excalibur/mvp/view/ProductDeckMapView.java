@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity, Void, Void> {
+public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity, Void, Pair<Integer, Integer>> {
     private static final int MINIMUM_DPI = 80;
     private static final float HALF_FACTOR = 2.0f;
 
@@ -42,6 +42,7 @@ public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity, Voi
 
     public void initDecks(List<Pair<Integer, Integer>> deckImagesMap) {
         deckSelectorPicker.setItems(deckImagesMap);
+        deckSelectorPicker.subscribeToItemClick(getAdapterObserver());
     }
 
     public void initDeckImage(int resource) {
@@ -119,5 +120,15 @@ public class ProductDeckMapView extends ActivityView<ProductDeckMapActivity, Voi
 
     public RectF getMarkerArea() {
         return deckMapImage.getMarkerArea();
+    }
+
+    public void onDeckSelected(Pair<Integer, Integer> deck) {
+        deckMapImage.setImage(deck.first);
+        deckSelectorPicker.setSelectedItem(deck);
+    }
+
+    public void setInitialDeck(Pair<Integer, Integer> deck) {
+        initDeckImage(deck.second);
+        deckSelectorPicker.setSelectedItem(deck);
     }
 }

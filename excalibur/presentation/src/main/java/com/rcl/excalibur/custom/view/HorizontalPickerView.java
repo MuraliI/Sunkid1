@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Pair;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.rcl.excalibur.R;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observer;
 
 
 public class HorizontalPickerView<T> extends FrameLayout {
@@ -64,5 +66,33 @@ public class HorizontalPickerView<T> extends FrameLayout {
             this.layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             deckSelector.setLayoutManager(layoutManager);
         }
+    }
+
+    public void subscribeToItemClick(Observer<Pair<Integer, T>> observer) {
+        horizontalPickerViewAdapter.setItemClickObserver(observer);
+    }
+
+    public void setSelectedItem(Pair<Integer, T> item) {
+        int position = horizontalPickerViewAdapter.getItems().indexOf(item);
+        if (layoutManager.getChildCount() == 0) {
+            horizontalPickerViewAdapter.setSelectedItem(item);
+            deckSelector.smoothScrollToPosition(position);
+        } else {
+            View view = layoutManager.findViewByPosition(position);
+            scrollToRecyclerItem(view);
+            view.setFocusableInTouchMode(true);
+            view.requestFocus();
+            view.setOnFocusChangeListener((focusedView, hasFocus) -> {
+                focusedView.setFocusableInTouchMode(hasFocus);
+                focusedView.setOnFocusChangeListener(null);
+            });
+        }
+    }
+
+    private void scrollToRecyclerItem(View item) {
+        int itemWidth = item.getWidth();
+        int parentWidth = getWidth();
+        int calculatedScroll = item.getLeft() - ((parentWidth / 2) - (itemWidth / 2));
+        deckSelector.smoothScrollBy(calculatedScroll, 0);
     }
 }

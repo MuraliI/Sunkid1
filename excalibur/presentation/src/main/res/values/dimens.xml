@@ -121,6 +121,7 @@
     <dimen name="deck_map_deck_number_margin_start">7dp</dimen>
     <dimen name="deck_map_deck_number_margin_end">2dp</dimen>
     <dimen name="deck_map_deck_selector_height">70dp</dimen>
+    <dimen name="deck_map_selector_item_width">50dp</dimen>
 
 
     <!-- Login Flow -->

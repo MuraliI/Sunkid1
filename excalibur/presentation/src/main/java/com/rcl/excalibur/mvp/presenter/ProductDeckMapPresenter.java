@@ -69,8 +69,9 @@ public class ProductDeckMapPresenter {
     }
 
     private void initView() {
+        view.setAdapterObserver(new DeckSelectorObserver(this));
         view.initDecks(DECK_IMAGES);
-        view.initDeckImage(R.drawable.map_05_fwd);
+        view.setInitialDeck(DECK_IMAGES.get(DECK_IMAGES.size() - 1));
         view.setProductCoordinate(xCoord, yCoord);
         view.initPopupLayout();
     }
@@ -128,5 +129,21 @@ public class ProductDeckMapPresenter {
         }
         view.moveToProductCoordinate(xCoord, yCoord);
         view.showProductOnPopupLayout(product);
+    }
+
+    private void onDeckSelected(Pair<Integer, Integer> deck) {
+        view.onDeckSelected(deck);
+    }
+
+    private class DeckSelectorObserver extends DefaultPresentObserver<Pair<Integer, Integer>, ProductDeckMapPresenter> {
+
+        DeckSelectorObserver(ProductDeckMapPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Pair<Integer, Integer> value) {
+            getPresenter().onDeckSelected(value);
+        }
     }
 }

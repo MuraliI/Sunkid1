@@ -6,7 +6,7 @@ import com.rcl.excalibur.R;
 
 import java.util.HashMap;
 
-public class CategoryUtils {
+public final class CategoryUtils {
 
     public static final String DINING = "DINING";
     public static final String SHOREX = "SHOREX";
