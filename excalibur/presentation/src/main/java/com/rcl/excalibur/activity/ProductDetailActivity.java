@@ -7,8 +7,10 @@ import android.support.design.widget.AppBarLayout;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.repository.OfferingDataRepository;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.data.repository.SailDateDataRepository;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.mvp.presenter.ProductDetailPresenter;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
 import com.rcl.excalibur.utils.IntentExtraUtils;
@@ -38,7 +40,8 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
         String productId = intent.getExtras().getString(EXTRA_DISCOVER_ITEM_ID);
         presenter = new ProductDetailPresenter(new ProductDetailView(this)
                 , new GetProductDbUseCase(new ProductDataRepository())
-                , new GetOfferingsDbUseCase(new OfferingDataRepository()));
+                , new GetOfferingsDbUseCase(new OfferingDataRepository())
+                , new GetSaildDateDbUseCase(new SailDateDataRepository()));
         presenter.init(IntentExtraUtils.decodeGetExtraString(productId));
     }
 

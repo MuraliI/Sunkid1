@@ -21,6 +21,7 @@ import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductType;
+import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
 
 import java.util.Collections;
@@ -42,11 +43,11 @@ public final class DetailViewTypeFactory {
     private DetailViewTypeFactory() {
     }
 
-    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, List<Offering> offerings, Resources resources) {
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, List<Offering> offerings, SailDateInfo sailDateInfo, Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
-        addTimesModule(viewTypes, offerings, resources, product);
+        addTimesModule(viewTypes, offerings, sailDateInfo, resources, product);
         addPricesModule(viewTypes, offerings, resources, product);
         addCuisineModule(viewTypes, resources, product);
         addDurationModule(viewTypes, resources, product);
@@ -270,30 +271,30 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addTimesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings,
-                                       @NonNull Resources res, Product product) {
+                                       SailDateInfo sailDateInfo, @NonNull Resources res, Product product) {
         String title = res.getString(R.string.title_times);
         int status = product.getStatus();
         if (product.isEntertainment()) {
             title = res.getString(R.string.title_show_times);
+            TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, res, offerings, sailDateInfo);
         }
 
         if (product.isActivities()) {
             if (status == Product.STATUS_INVENTORY || status == Product.STATUS_NON_INVENTORY) {
-
+                TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, res, offerings, sailDateInfo);
             }
 
             if (status == Product.STATUS_WALK_UP) {
-                //Display in range
-                recyclerViewTypeList.add(TimesViewType.getViewTypes(title, res, product.getProductLocation().getLocationOperationHours()));
+                TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, product.getProductLocation().getLocationOperationHours());
             }
         }
 
         if (product.isShorex()) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, title, res.getString(R.string.times_vary));
         }
 
         if (product.isSpa() || product.isGuestServices() || product.isShopping()) {
-            //Display in range
-            recyclerViewTypeList.add(TimesViewType.getViewTypes(title, res, product.getProductLocation().getLocationOperationHours()));
+            TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, product.getProductLocation().getLocationOperationHours());
         }
     }
 

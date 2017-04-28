@@ -34,7 +34,7 @@ public class TimesDelegateAdapter implements DelegateAdapter<TimesDelegateAdapte
             View itemView = LayoutInflater.from(context).inflate(R.layout.item_text_dash_text, null);
             TextView text = (TextView) itemView.findViewById(R.id.text);
             TextView subtext = (TextView) itemView.findViewById(R.id.subtext);
-            text.setText(pair.first);
+            text.setText(context.getResources().getString(R.string.day_arg, pair.first));
             subtext.setText(pair.second);
             holder.timesContainer.addView(itemView);
         }

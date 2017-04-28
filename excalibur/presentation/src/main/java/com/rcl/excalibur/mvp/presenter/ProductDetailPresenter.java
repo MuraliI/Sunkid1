@@ -10,8 +10,10 @@ import com.rcl.excalibur.adapters.delegate.factory.DetailViewTypeFactory;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
@@ -23,16 +25,18 @@ public class ProductDetailPresenter {
     protected boolean isTitleVisible = false;
     private GetProductDbUseCase getProductDbUseCase;
     private GetOfferingsDbUseCase getOfferingsDbUseCase;
+    private GetSaildDateDbUseCase getSaildDateDbUseCase;
     private ProductDetailView view;
 
     private Product product;
 
     public ProductDetailPresenter(ProductDetailView view
             , GetProductDbUseCase getProductDbUseCase
-            , GetOfferingsDbUseCase getOfferingsDbUseCase) {
+            , GetOfferingsDbUseCase getOfferingsDbUseCase, GetSaildDateDbUseCase getSaildDateDbUseCase) {
         this.view = view;
         this.getProductDbUseCase = getProductDbUseCase;
         this.getOfferingsDbUseCase = getOfferingsDbUseCase;
+        this.getSaildDateDbUseCase = getSaildDateDbUseCase;
     }
 
     public void init(String productId) {
@@ -62,8 +66,10 @@ public class ProductDetailPresenter {
         view.setAdapterObserver(new FindOnDeckClickObserver(this));
 
         final List<Offering> offerings = getOfferingsDbUseCase.getOfferingsForProduct(product);
+        final SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
         final List<RecyclerViewType> viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(product
                 , offerings
+                , sailDateInfo
                 , view.getActivity().getResources());
         view.render(viewTypes);
     }

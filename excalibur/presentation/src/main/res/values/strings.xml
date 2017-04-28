@@ -46,6 +46,8 @@
     <string name="product_detail_show_more">Show More</string>
     <string name="title_show_times">Show Times</string>
     <string name="title_times">Times</string>
+    <string name="times_vary">Times Vary</string>
+
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
