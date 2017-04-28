@@ -283,7 +283,6 @@ public final class DetailViewTypeFactory {
             if (status == Product.STATUS_INVENTORY || status == Product.STATUS_NON_INVENTORY) {
                 TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, res, offerings, sailDateInfo);
             }
-
             if (status == Product.STATUS_WALK_UP) {
                 TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, product.getProductLocation().getLocationOperationHours());
             }

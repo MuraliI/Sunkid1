@@ -27,7 +27,7 @@ public class TimesViewType implements RecyclerViewType {
 
     private static final String COMMA_SEPARATOR = ", ";
     private static final String RANGE_SEPARATOR = " - ";
-    private static final int START_TIMES_LIMIT = 4;
+    private static final int TIMES_TO_DISPLAY_LIMIT = 4;
     private String title;
     private List<Pair<String, String>> times;
 
@@ -111,7 +111,7 @@ public class TimesViewType implements RecyclerViewType {
                         if (offeringsForDay.size() > 0) {
                             String dayNumber = day.first;
                             String hourStr = "";
-                            if (offeringsForDay.size() > START_TIMES_LIMIT) {
+                            if (offeringsForDay.size() > TIMES_TO_DISPLAY_LIMIT) {
                                 hourStr = res.getString(R.string.times_vary);
                             } else {
                                 List<String> hours = new ArrayList<>();
