@@ -70,7 +70,12 @@ public class PlannerProductModelMapper {
         Map<String, List<Offering>> productOfferingMap = new LinkedHashTreeMap<>();
 
         for (Offering offering : input) {
-            String productId = offering.getProduct().getProductId();
+            Product product = offering.getProduct();
+            if (false) { // TODO: Replace with !product.isHighlighted() before send PR
+                continue;
+            }
+
+            String productId = product.getProductId();
             List<Offering> offeringList = productOfferingMap.get(productId);
             if (offeringList == null) {
                 offeringList = new ArrayList<>();
