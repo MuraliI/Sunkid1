@@ -85,7 +85,7 @@ public class PlannerPresenter {
         view.showProgressBar(true);
         view.initAnimation();
         view.initBottomSheetBehavior();
-
+        view.setViewObserver(new OnScrolledObserver(this));
         createHeaderList();
     }
 
@@ -231,4 +231,18 @@ public class PlannerPresenter {
         }
         return sailPort;
     }
+
+    public static class OnScrolledObserver extends DefaultPresentObserver<PlannerProductItem, PlannerPresenter> {
+
+        public OnScrolledObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(PlannerProductItem value) {
+
+        }
+    }
+
+
 }

@@ -40,9 +40,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
-import timber.log.Timber;
 
-public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
+public class PlannerView extends FragmentView<PlannerFragment, PlannerProductItem, Void> {
     private static final int TOP_OF_LIST = 0;
     private static final int NO_PEEK_HEIGHT = 0;
     private static final int NO_MARGIN = 0;
@@ -127,13 +126,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         recyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                int first = linearLayoutManager.findFirstVisibleItemPosition();
                 int firstCompletely = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
-                Timber.d("FIRST_V: " + first);
-                Timber.d("FIRST_V C: " + firstCompletely);
                 if (currentTopElementIndex != firstCompletely) {
                     currentTopElementIndex = firstCompletely;
                     PlannerProductItem productItem = getNextItem(currentTopElementIndex);
+//                    onViewNext(productItem);
                     if (productItem != null) {
                         PlannerProductModel productModel = productItem.getPlannerProductModel();
                         if (productModel != null) {
