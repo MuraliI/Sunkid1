@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.data.utils.Preconditions;
+import com.rcl.excalibur.data.utils.StringUtils;
 
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class BasePreferenceImpl {
     }
 
     protected void put(@NonNull String key, String value) {
-        preferences.edit().putString(key, value).commit();
+        preferences.edit().putString(key, StringUtils.decodeString(value)).commit();
     }
 
     protected void put(@NonNull String key, boolean value) {
@@ -50,7 +51,7 @@ public class BasePreferenceImpl {
     }
 
     protected String getString(@NonNull String key) {
-        return preferences.getString(key, null);
+        return StringUtils.decodeString(preferences.getString(key, null));
     }
 
     protected boolean getBoolean(@NonNull String key) {

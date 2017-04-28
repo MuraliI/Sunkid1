@@ -1,7 +1,8 @@
-package com.rcl.excalibur.utils;
+package com.rcl.excalibur.data.utils;
 
 import android.util.Base64;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,15 +16,18 @@ import static junit.framework.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Base64.class})
-public class IntentExtraUtilsTest {
-
-    private final String EXTRA_ID = "Some Id";
-    private final String ENCODE = "U29tZSBJRA==";
-    private final String OUTPUT_CHARSET = "UTF-8";
+public class StringUtilsTest {
 
     @Before
     public void setUp() {
         PowerMockito.mockStatic(Base64.class);
+    }
+
+    @Test
+    public void encodeDecode() throws Exception {
+        String EXTRA_ID = "Some Id";
+        String ENCODE = "U29tZSBJRA==";
+        String OUTPUT_CHARSET = "UTF-8";
         byte[] dataout =  new byte[7];
         dataout[0]=83;
         dataout[1]=111;
@@ -39,12 +43,23 @@ public class IntentExtraUtilsTest {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-    }
-    @Test
-    public void ExtraString() throws Exception {
-        String encriptString = IntentExtraUtils.encodePutExtraString(EXTRA_ID);
-        String extraString = IntentExtraUtils.decodeGetExtraString(encriptString);
+
+        String encriptString = StringUtils.encodeString(EXTRA_ID);
+        String extraString = StringUtils.decodeString(encriptString);
         assertEquals(extraString, EXTRA_ID);
+        assertEquals(null, StringUtils.encodeString(null));
+        assertEquals(null, StringUtils.decodeString(null));
     }
 
+
+    @Test
+    public void getRightPrice() throws Exception {
+        Float zeroPrice = 0.0f;
+        Float myPrice = 21.54f;
+        Float myExactPrice = 21.00f;
+
+        Assert.assertTrue("Failed getRightPrice", "0".equals(StringUtils.getPriceFormatted(zeroPrice)));
+        Assert.assertTrue("Failed getRightPrice", "21.54".equals(StringUtils.getPriceFormatted(myPrice)));
+        Assert.assertTrue("Failed getRightPrice", "21".equals(StringUtils.getPriceFormatted(myExactPrice)));
+    }
 }

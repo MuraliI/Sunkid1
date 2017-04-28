@@ -80,6 +80,12 @@ dependencies {
     testCompile testDependencies.assertj
     testCompile testDependencies.mockito
     testCompile testDependencies.robolectric
+
+    androidTestCompile presentationTestDependencies.mockito,
+            presentationTestDependencies.dexmaker,
+            presentationTestDependencies.dexmakerMockito
+    testCompile 'org.powermock:powermock-module-junit4:1.4.12'
+    testCompile 'org.powermock:powermock-api-mockito:1.4.12'
 }
 
 apply plugin: 'checkstyle'
