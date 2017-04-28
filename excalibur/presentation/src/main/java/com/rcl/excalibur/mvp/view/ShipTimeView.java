@@ -11,12 +11,12 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.fragments.ShipTimeFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ShipTimeView extends FragmentView<ShipTimeFragment, Void, Void> {
 
-    @Bind(R.id.ship_time_date) TextView shipTimeDate;
+    @BindView(R.id.ship_time_date) TextView shipTimeDate;
 
     public ShipTimeView(ShipTimeFragment fragment) {
         super(fragment);

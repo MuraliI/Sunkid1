@@ -6,7 +6,8 @@ import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
 import com.rcl.excalibur.data.utils.Preconditions;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.utils.ConstantsUtil;
+import com.rcl.excalibur.domain.ProductLocation;
+import com.rcl.excalibur.utils.LocationUtils;
 
 import java.util.List;
 
@@ -22,11 +23,9 @@ abstract class BaseProductInformationMapper<T extends ProductInformationViewType
         productBasicInformation.setProductType(item.getProductType() != null ? item.getProductType().getProductType() : null);
         productBasicInformation.setReservationRequired(item.isReservationRequired());
         if (item.getProductLocation() != null) {
-            productBasicInformation.setVenue(item.getProductLocation().getLocationVenue());
-            productBasicInformation.setLocation(
-                    String.valueOf(item.getProductLocation().getLocationDeckNumber())
-                            + ConstantsUtil.WHITE_SPACE + item.getProductLocation().getLocationDirection());
-            productBasicInformation.setPort(item.getProductLocation().getLocationPort());
+            ProductLocation location = item.getProductLocation();
+            productBasicInformation.setVenue(location.getLocationTitle());
+            productBasicInformation.setLocation(LocationUtils.getProductLocation(location));
         }
         productBasicInformation.setUpChargeLevel(item.getProductUpcharge());
         productBasicInformation.setProductMedia(

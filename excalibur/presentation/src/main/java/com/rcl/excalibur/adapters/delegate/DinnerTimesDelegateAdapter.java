@@ -15,7 +15,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DinnerTimesViewType;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
@@ -48,10 +48,10 @@ public class DinnerTimesDelegateAdapter implements DelegateAdapter<DinnerTimesDe
     }
 
     static class TimesViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.text_module_lunch_time) TextView lunchTime;
-        @Bind(R.id.discover_detail_lunch_menu) View lunchMenu;
-        @Bind(R.id.text_module_dinner_time) TextView dinnerTime;
-        @Bind(R.id.discover_detail_dinner_menu) View dinnerMenu;
+        @BindView(R.id.text_module_lunch_time) TextView lunchTime;
+        @BindView(R.id.discover_detail_lunch_menu) View lunchMenu;
+        @BindView(R.id.text_module_dinner_time) TextView dinnerTime;
+        @BindView(R.id.discover_detail_dinner_menu) View dinnerMenu;
 
         TimesViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_item_detail_dinner_times, parent, false));

@@ -1,7 +1,5 @@
 package com.rcl.excalibur.mvp.view;
 
-
-import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -25,15 +23,13 @@ import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
 import com.rcl.excalibur.fragments.PlannerFragment;
-import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
-import com.rcl.excalibur.utils.DayInformationUtils;
 import com.rcl.excalibur.utils.RoundedImageView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
@@ -48,13 +44,13 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     private static final int DELAY_MILLIS_SCROLL = 100;
     private static final int DELAY_MILLIS_COLLAPSE = 200;
 
-    @Bind(R.id.recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.layout_planner_all_day) View allDayView;
-    @Bind(R.id.layout_planner_container) LinearLayout containerLayout;
-    @Bind(R.id.progress_service_call_planner) View progressBar;
-    @Bind(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
-    @Bind(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
-    @Bind(R.id.layout_planner_recycler_container) TopRoundedFrameLayout recyclerContainerLayout;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.layout_planner_all_day) View allDayView;
+    @BindView(R.id.layout_planner_container) LinearLayout containerLayout;
+    @BindView(R.id.progress_service_call_planner) View progressBar;
+    @BindView(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
+    @BindView(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
+    @BindView(R.id.layout_planner_recycler_container) TopRoundedFrameLayout recyclerContainerLayout;
 
     private FlexibleAdapter<AbstractFlexibleItem> adapter;
 
@@ -362,21 +358,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    public void addArrivingDebarkingValues(List<EventModel> events, int day) {
-        Activity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-        Resources resources = activity.getResources();
-        if (events == null) {
-            setTextCompoundDrawableDayInfo(resources.getString(R.string.empty_string), 0);
-        } else {
-            Pair<String, Integer> stringIntegerPair = DayInformationUtils.getArrivalDebarkDescription(events, day, resources);
-            setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
-        }
-    }
-
-    private void setTextCompoundDrawableDayInfo(String text, int drawable) {
+    public void setTextCompoundDrawableDayInfo(String text, int drawable) {
         shipArrivingDebarkingLabel.setText(text);
         shipArrivingDebarkingLabel.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
     }

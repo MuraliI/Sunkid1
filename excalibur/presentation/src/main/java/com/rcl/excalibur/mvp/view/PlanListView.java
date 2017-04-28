@@ -13,17 +13,17 @@ import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class PlanListView extends ActivityView<PlanListActivity, Void, DiscoverItemModel> {
 
-    @Bind(R.id.plans_header_name) TextView plansHeaderName;
-    @Bind(R.id.toolbar_header) Toolbar toolbar;
-    @Bind(R.id.tab_layout_products_list_categories) TabLayout tabProductCategories;
-    @Bind(R.id.full_content) ViewPager pagerFragment;
-    @Bind(R.id.category_icon) ImageView categoryIcon;
+    @BindView(R.id.plans_header_name) TextView plansHeaderName;
+    @BindView(R.id.toolbar_header) Toolbar toolbar;
+    @BindView(R.id.tab_layout_products_list_categories) TabLayout tabProductCategories;
+    @BindView(R.id.full_content) ViewPager pagerFragment;
+    @BindView(R.id.category_icon) ImageView categoryIcon;
 
     public PlanListView(PlanListActivity activity) {
         super(activity);

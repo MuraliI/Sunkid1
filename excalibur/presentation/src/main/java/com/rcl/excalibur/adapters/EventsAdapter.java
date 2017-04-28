@@ -13,7 +13,7 @@ import com.rcl.excalibur.model.PortModel;
 
 import java.lang.ref.WeakReference;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
@@ -87,12 +87,12 @@ public class EventsAdapter extends BaseAdapter<EventModel, EventModel, EventsAda
 
     class DayPickerViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.text_day) TextView dayTextView;
-        @Bind(R.id.text_place) TextView placeTextView;
-        @Bind(R.id.image_port_type) ImageView portTypeImageView;
-        @Bind(R.id.image_is_today) ImageView isTodayImageView;
-        @Bind(R.id.view_select_day) View selectedDayView;
-        @Bind(R.id.container_day_picker) View containerDayPicker;
+        @BindView(R.id.text_day) TextView dayTextView;
+        @BindView(R.id.text_place) TextView placeTextView;
+        @BindView(R.id.image_port_type) ImageView portTypeImageView;
+        @BindView(R.id.image_is_today) ImageView isTodayImageView;
+        @BindView(R.id.view_select_day) View selectedDayView;
+        @BindView(R.id.container_day_picker) View containerDayPicker;
         private EventModel event;
         private WeakReference<Observer<EventModel>> observerRef;
 
