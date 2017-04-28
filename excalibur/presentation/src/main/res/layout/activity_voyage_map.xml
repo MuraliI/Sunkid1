@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/caribbean_map_2_1">
+    android:background="@drawable/bg_sea"
+    android:orientation="vertical">
+
+    <fragment
+        android:id="@+id/ship_time_fragment"
+        android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/ship_time" />
+
+    <include
+        android:id="@+id/tab_voyage_map"
+        layout="@layout/custom_tabview_triptychtab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.rcl.excalibur.custom.view.VoyageMapImageView
         android:id="@+id/image_voyage_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.rcl.excalibur.mvp.view;
 
 import android.graphics.PointF;
+import android.widget.LinearLayout;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
@@ -15,6 +16,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     private static final int MINIMUM_DPI = 80;
 
     @BindView(R.id.image_voyage_map) VoyageMapImageView voyageMapImage;
+    @BindView(R.id.tab_voyage_map) LinearLayout voyageMapCollapsible;
 
     public VoyageMapView(VoyageMapActivity activity) {
         super(activity);
@@ -25,6 +27,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
         voyageMapImage.setImage(resource);
         voyageMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_OUTSIDE);
         voyageMapImage.setMinimumDpi(MINIMUM_DPI);
+        voyageMapCollapsible.setAlpha(0);
     }
 
     public void setCruiseCoordinate(float xCoord, float yCoord) {
@@ -32,5 +35,9 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
             return;
         }
         voyageMapImage.setCruiseCoord(new PointF(xCoord, yCoord));
+    }
+
+    public void setCruiseAngle(long cruiseAngle) {
+        voyageMapImage.setAngle(cruiseAngle);
     }
 }
