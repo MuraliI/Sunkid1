@@ -21,7 +21,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
-import com.rcl.excalibur.activity.VoyageMapActivity;
+import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
@@ -404,6 +404,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     @OnClick(R.id.text_arriving_debarking_time_fixme)
     public void showVoyageMap() {
-        ActivityUtils.startActivityWithFade(getActivity(), VoyageMapActivity.getStartIntent(getActivity()));
+        if (getActivity() != null) {
+            ((TriptychHomeActivity) getActivity()).goToVoyageActivity();
+        }
     }
 }

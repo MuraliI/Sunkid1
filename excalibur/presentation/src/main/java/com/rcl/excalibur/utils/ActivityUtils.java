@@ -17,31 +17,25 @@ public final class ActivityUtils {
         activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
 
-    public static void startActivityWithFade(Activity activity, final Intent intent) {
-        activity.startActivity(intent);
-        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-    }
-
     public static void startActivityWithSharedElement(Activity previousActivity
             , final Intent intent
             , View sharedElement
-            , String sharedElelemntName) {
+            , String sharedElementName) {
 
         ActivityOptions activityOptionsCompat = ActivityOptions
                 .makeSceneTransitionAnimation(previousActivity
                         , sharedElement
-                        , sharedElelemntName);
+                        , sharedElementName);
 
         previousActivity.startActivity(intent, activityOptionsCompat.toBundle());
+    }
+
+    public static void startActivityWithSharedElement(Activity previousActivity, final Intent intent, View sharedElement) {
+        startActivityWithSharedElement(previousActivity, intent, sharedElement, sharedElement.getTransitionName());
     }
 
     public static void onBackActivity(Activity activity) {
         activity.finish();
         activity.overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
-    }
-
-    public static void onBackActivityWithFade(Activity activity) {
-        activity.finish();
-        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

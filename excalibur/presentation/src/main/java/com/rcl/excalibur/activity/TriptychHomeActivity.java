@@ -25,13 +25,13 @@ import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TriptychHomeActivity extends BaseActivity {
     protected TriptychHomePresenter presenter;
     private SailingPreferences sailingPreferences;
-    @Bind(R.id.image_ship) View sharedElement;
+    @BindView(R.id.image_ship) View sharedElement;
 
     public static Intent getStartIntent(final BaseActivity activity) {
         return new Intent(activity, TriptychHomeActivity.class);
@@ -72,6 +72,6 @@ public class TriptychHomeActivity extends BaseActivity {
     }
 
     public void goToVoyageActivity() {
-        ActivityUtils.startActivityWithSharedElement(this, VoyageMapActivity.getStartIntent(this), sharedElement, "Ship");
+        ActivityUtils.startActivityWithSharedElement(this, VoyageMapActivity.getStartIntent(this), sharedElement);
     }
 }

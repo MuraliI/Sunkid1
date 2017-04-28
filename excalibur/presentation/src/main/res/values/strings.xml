@@ -237,4 +237,5 @@
     <string name="arriving_at">"Arriving at "</string>
     <string name="departing_at">"Departing at "</string>
     <string name="arriving_departing_separator">"; "</string>
+    <string name="shared_element_ship">Ship</string>
 </resources>

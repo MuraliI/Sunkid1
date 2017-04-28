@@ -8,4 +8,12 @@
         android:id="@+id/image_voyage_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/image_ship_voyage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ship_big"
+        android:transitionName="@string/shared_element_ship"
+        android:contentDescription="@null" />
 </android.support.design.widget.CoordinatorLayout>
