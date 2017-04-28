@@ -1,4 +1,4 @@
-package com.rcl.excalibur.custom.adapter;
+package com.rcl.excalibur.custom.view.adapter;
 
 
 import android.support.annotation.NonNull;
@@ -16,8 +16,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.subjects.PublishSubject;
 
 
 public class HorizontalPickerViewAdapter<O> extends RecyclerView.Adapter<HorizontalPickerViewAdapter.HorizontalDeckPickerViewHolder> {
@@ -45,7 +45,7 @@ public class HorizontalPickerViewAdapter<O> extends RecyclerView.Adapter<Horizon
         }
 
         if (observerWeakReference.get() != null) {
-            holder.observable.subscribe(observerWeakReference.get());
+            holder.clickPublisher.subscribe(observerWeakReference.get());
         }
     }
 
@@ -75,14 +75,12 @@ public class HorizontalPickerViewAdapter<O> extends RecyclerView.Adapter<Horizon
 
         @BindView(R.id.text_deck_selector_number) TextView deckNumber;
 
-        private Observable<Pair<Integer, O>> observable;
+        private PublishSubject<Pair<Integer, O>> clickPublisher = PublishSubject.create();
 
         HorizontalDeckPickerViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_deck_selector_textview, parent, false));
             ButterKnife.bind(this, itemView);
-            observable = Observable.create(
-                    emitter -> itemView.setOnClickListener(
-                            view -> emitter.onNext(items.get(getAdapterPosition()))));
+            itemView.setOnClickListener(view -> clickPublisher.onNext(items.get(getAdapterPosition())));
         }
     }
 }

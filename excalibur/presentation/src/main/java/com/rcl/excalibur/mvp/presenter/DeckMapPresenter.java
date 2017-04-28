@@ -7,7 +7,9 @@ import android.util.Pair;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
-import com.rcl.excalibur.mvp.view.ProductDeckMapView;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresenterConsumer;
+import com.rcl.excalibur.mvp.view.DeckMapView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ import static com.rcl.excalibur.utils.CategoryUtils.ENTERTAINMENT;
 import static com.rcl.excalibur.utils.CategoryUtils.SHOREX;
 import static com.rcl.excalibur.utils.CategoryUtils.SPA;
 
-public class ProductDeckMapPresenter {
+public class DeckMapPresenter {
 
     private static final int X_1 = 196;
     private static final int Y_1 = 526;
@@ -49,13 +51,13 @@ public class ProductDeckMapPresenter {
     }
 
     private GetProductDbUseCase getProductDbUseCase;
-    private ProductDeckMapView view;
+    private DeckMapView view;
 
     private Product product;
     private float xCoord;
     private float yCoord;
 
-    public ProductDeckMapPresenter(ProductDeckMapView view, GetProductDbUseCase getProductDbUseCase) {
+    public DeckMapPresenter(DeckMapView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
         this.getProductDbUseCase = getProductDbUseCase;
     }
@@ -70,7 +72,7 @@ public class ProductDeckMapPresenter {
 
     private void initView() {
         view.setAdapterObserver(new DeckSelectorObserver(this));
-        view.initDecks(DECK_IMAGES);
+        view.init(DECK_IMAGES, new DeckButtonConsumer(this));
         view.setInitialDeck(DECK_IMAGES.get(DECK_IMAGES.size() - 1));
         view.setProductCoordinate(xCoord, yCoord);
         view.initPopupLayout();
@@ -135,15 +137,31 @@ public class ProductDeckMapPresenter {
         view.onDeckSelected(deck);
     }
 
-    private class DeckSelectorObserver extends DefaultPresentObserver<Pair<Integer, Integer>, ProductDeckMapPresenter> {
+    private void onDeckSelectorButtonClicked(Boolean opened) {
+        view.openDeckSelector(opened);
+    }
 
-        DeckSelectorObserver(ProductDeckMapPresenter presenter) {
+    private class DeckSelectorObserver extends DefaultPresentObserver<Pair<Integer, Integer>, DeckMapPresenter> {
+
+        DeckSelectorObserver(DeckMapPresenter presenter) {
             super(presenter);
         }
 
         @Override
         public void onNext(Pair<Integer, Integer> value) {
             getPresenter().onDeckSelected(value);
+        }
+    }
+
+    private class DeckButtonConsumer extends DefaultPresenterConsumer<Boolean, DeckMapPresenter> {
+
+        public DeckButtonConsumer(DeckMapPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void accept(Boolean value) throws Exception {
+            getPresenter().onDeckSelectorButtonClicked(value);
         }
     }
 }

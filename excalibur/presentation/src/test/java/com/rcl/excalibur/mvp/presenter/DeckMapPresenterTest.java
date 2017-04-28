@@ -7,7 +7,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
-import com.rcl.excalibur.mvp.view.ProductDeckMapView;
+import com.rcl.excalibur.mvp.view.DeckMapView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,10 +19,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-public class ProductDeckMapPresenterTest {
+public class DeckMapPresenterTest {
     final String productId = "1";
-    ProductDeckMapPresenter presenter;
-    @Mock ProductDeckMapView view;
+    DeckMapPresenter presenter;
+    @Mock DeckMapView view;
     @Mock GetProductDbUseCase getProductDbUseCase;
     @Mock RectF rectF;
     Product product;
@@ -30,7 +30,7 @@ public class ProductDeckMapPresenterTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new ProductDeckMapPresenter(view, getProductDbUseCase);
+        presenter = new DeckMapPresenter(view, getProductDbUseCase);
 
         product = new Product();
         product.setProductId(productId);

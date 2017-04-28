@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_sea"
-    android:orientation="vertical">
+    android:background="@drawable/bg_sea">
 
-    <fragment
-        android:id="@+id/ship_time_fragment"
-        android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
+    <!-- DeckMap -->
+    <com.rcl.excalibur.custom.view.DeckMapImageView
+        android:id="@+id/image_deck_map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:type="blue"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_header"/>
 
+    <!-- Deck Selector-->
+    <include
+        android:id="@+id/horizontal_deck_selector"
+        layout="@layout/custom_layout_picker_with_gradient_borders"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/deck_map_deck_selector_height"
+        android:layout_below="@+id/toolbar_header"/>
+
+    <!-- Toolbar -->
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_header"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/bg_toolbar_color"
+        android:layout_below="@+id/ship_time_fragment"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <ImageView
@@ -38,15 +47,12 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <include
-        android:id="@+id/horizontal_deck_selector"
-        layout="@layout/custom_layout_picker_with_gradient_borders"
+    <!-- Ship Time -->
+    <fragment
+        android:id="@+id/ship_time_fragment"
+        android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/deck_map_deck_selector_height"/>
+        android:layout_height="wrap_content"
+        app:type="blue"/>
 
-    <com.rcl.excalibur.custom.view.DeckMapImageView
-        android:id="@+id/image_deck_map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-</LinearLayout>
+</RelativeLayout>

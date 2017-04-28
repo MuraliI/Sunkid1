@@ -1,4 +1,4 @@
-package com.rcl.excalibur.mvp.presenter;
+package com.rcl.excalibur.mvp.presenter.rx;
 
 
 import java.lang.ref.WeakReference;

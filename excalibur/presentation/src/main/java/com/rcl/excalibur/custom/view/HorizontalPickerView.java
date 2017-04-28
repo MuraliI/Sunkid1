@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.custom.adapter.HorizontalPickerViewAdapter;
+import com.rcl.excalibur.custom.view.adapter.HorizontalPickerViewAdapter;
 
 import java.util.List;
 
@@ -23,11 +23,15 @@ import io.reactivex.Observer;
 
 public class HorizontalPickerView<T> extends FrameLayout {
 
+    public static final int HIDE_ANIMATION_DURATION = 500;
+    public static final int ORIGINAL_TRANSLATION_Y = 0;
+
     @BindView(R.id.recycler_view_deck_list) RecyclerView deckSelector;
 
     private LinearLayoutManager layoutManager;
     private HorizontalPickerViewAdapter<T> horizontalPickerViewAdapter;
 
+    private boolean isDeckSelectoShown;
 
     public HorizontalPickerView(@NonNull Context context) {
         super(context);
@@ -60,6 +64,12 @@ public class HorizontalPickerView<T> extends FrameLayout {
         }
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setTranslationY(isDeckSelectoShown ? ORIGINAL_TRANSLATION_Y : -getMeasuredHeight());
+    }
+
     public void setLayoutManager(LinearLayoutManager layoutManager) {
         if (layoutManager != null) {
             this.layoutManager = layoutManager;
@@ -79,13 +89,15 @@ public class HorizontalPickerView<T> extends FrameLayout {
             deckSelector.smoothScrollToPosition(position);
         } else {
             View view = layoutManager.findViewByPosition(position);
-            scrollToRecyclerItem(view);
             view.setFocusableInTouchMode(true);
             view.requestFocus();
             view.setOnFocusChangeListener((focusedView, hasFocus) -> {
                 focusedView.setFocusableInTouchMode(hasFocus);
                 focusedView.setOnFocusChangeListener(null);
             });
+            if (position >= layoutManager.findFirstVisibleItemPosition() && position <= layoutManager.findLastVisibleItemPosition()) {
+                scrollToRecyclerItem(view);
+            }
         }
     }
 
@@ -94,5 +106,12 @@ public class HorizontalPickerView<T> extends FrameLayout {
         int parentWidth = getWidth();
         int calculatedScroll = item.getLeft() - ((parentWidth / 2) - (itemWidth / 2));
         deckSelector.smoothScrollBy(calculatedScroll, 0);
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+        isDeckSelectoShown = !(visibility == View.GONE);
+        float translation = isDeckSelectoShown ? ORIGINAL_TRANSLATION_Y : -getHeight();
+        animate().translationY(translation).setDuration(HIDE_ANIMATION_DURATION).start();
     }
 }
