@@ -237,4 +237,8 @@
     <string name="arriving_at">"Arriving at "</string>
     <string name="departing_at">"Departing at "</string>
     <string name="arriving_departing_separator">"; "</string>
+
+    <!-- Dining Menu  -->
+    <string name="menu_header_title">Menu</string>
+
 </resources>
