@@ -15,7 +15,6 @@ import com.rcl.excalibur.utils.DateUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -26,24 +25,11 @@ import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_TI
 
 public class TimesViewType implements RecyclerViewType {
 
-    private static final String COMMA_SEPARATOR = ",";
+    private static final String COMMA_SEPARATOR = ", ";
+    private static final String RANGE_SEPARATOR = " - ";
     private static final int START_TIMES_LIMIT = 4;
     private String title;
     private List<Pair<String, String>> times;
-
-    private static final Comparator<Pair<String, String>> PAIR_COMPARATOR = (o1, o2) -> {
-        try {
-            int dayA = Integer.parseInt(o1.first);
-            int dayB = Integer.parseInt(o2.first);
-            if (dayA < dayB) {
-                return -1;
-            } else {
-                return 1;
-            }
-        } catch (Exception ex) {
-            return 0;
-        }
-    };
 
     public TimesViewType(String title, List<Pair<String, String>> times) {
         this.title = title;
@@ -72,14 +58,25 @@ public class TimesViewType implements RecyclerViewType {
     }
 
     public static void addTimesViewTypes(List<RecyclerViewType> recyclerViewTypes, String title, List<LocationOperationHour> operationHours) {
-
         List<Pair<String, String>> times = new ArrayList<>();
         for (LocationOperationHour operationHour : operationHours) {
             String dayNumber = operationHour.getDayNumber();
-            String range = operationHour.getStartTime() + " - " + operationHour.getEndTime();
+            String range = operationHour.getStartTime() + RANGE_SEPARATOR + operationHour.getEndTime();
             times.add(new Pair<>(dayNumber, range));
         }
-        Collections.sort(times, PAIR_COMPARATOR);
+        Collections.sort(times, (o1, o2) -> {
+            try {
+                int dayA = Integer.parseInt(o1.first);
+                int dayB = Integer.parseInt(o2.first);
+                if (dayA < dayB) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            } catch (Exception ex) {
+                return 0;
+            }
+        });
         recyclerViewTypes.add(new TimesViewType(title, times));
     }
 
@@ -111,21 +108,22 @@ public class TimesViewType implements RecyclerViewType {
                     .toList()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(offeringsForDay -> {
-                        String dayNumber = day.first;
-                        String hourStr = "";
-                        if (offeringsForDay.size() > START_TIMES_LIMIT) {
-                            List<String> hours = new ArrayList<>();
-                            for (Offering offering : offeringsForDay) {
-                                hours.add(DateUtils.getDateHour(offering.getDate(), res));
+                        if (offeringsForDay.size() > 0) {
+                            String dayNumber = day.first;
+                            String hourStr = "";
+                            if (offeringsForDay.size() > START_TIMES_LIMIT) {
+                                hourStr = res.getString(R.string.times_vary);
+                            } else {
+                                List<String> hours = new ArrayList<>();
+                                for (Offering offering : offeringsForDay) {
+                                    hours.add(DateUtils.getDateHour(offering.getDate(), res));
+                                }
+                                hourStr = Joiner.on(COMMA_SEPARATOR).join(hours);
                             }
-                            hourStr = Joiner.on(COMMA_SEPARATOR).join(hours);
-                        } else {
-                            hourStr = res.getString(R.string.times_vary);
+                            times.add(new Pair<>(dayNumber, hourStr));
                         }
-                        times.add(new Pair<>(dayNumber, hourStr));
                     });
         }
-        Collections.sort(times, PAIR_COMPARATOR);
         recyclerViewTypes.add(new TimesViewType(title, times));
     }
 }

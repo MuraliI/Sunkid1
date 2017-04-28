@@ -45,14 +45,10 @@ public class TimesDelegateAdapter implements DelegateAdapter<TimesDelegateAdapte
 
         private boolean collapsed = true;
 
-        @BindView(R.id.text_module_title)
-        TextView textTitle;
-        @BindView(R.id.times_container)
-        LinearLayout timesContainer;
-        @BindView(R.id.show_more_container)
-        LinearLayout showMoreContainer;
-        @BindView(R.id.show_more_arrow)
-        ImageView showMoreArrow;
+        @BindView(R.id.text_module_title) TextView textTitle;
+        @BindView(R.id.times_container) LinearLayout timesContainer;
+        @BindView(R.id.show_more_container) LinearLayout showMoreContainer;
+        @BindView(R.id.show_more_arrow) ImageView showMoreArrow;
 
         public TimesViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_item_detail_times, parent, false));
