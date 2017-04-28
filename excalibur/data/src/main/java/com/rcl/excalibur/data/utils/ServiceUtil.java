@@ -5,9 +5,9 @@ import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.api.GuestApi;
 import com.rcl.excalibur.data.service.api.MenuApi;
+import com.rcl.excalibur.data.service.api.SailDateApi;
 import com.rcl.excalibur.data.service.api.ShipTimeApi;
 import com.rcl.excalibur.data.service.response.BaseResponse;
-import com.rcl.excalibur.data.service.api.SailDateApi;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +20,7 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public final class ServiceUtil {
 
+    public static final String APIKEY = "CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09";
     private static final String SUCCESS = "SUCCESS";
     private static DiscoverApi discoverApi;
     private static GuestApi guestApi;

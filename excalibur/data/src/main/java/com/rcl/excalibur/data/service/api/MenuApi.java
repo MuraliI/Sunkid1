@@ -9,6 +9,7 @@ import retrofit2.http.Query;
 
 public interface MenuApi {
     @GET("venue/menus")
-    Call<GetMenuResponse> getMenus(@Query("sailingID") String sailingID
-            , @Query("venueCode") String venueCode);
+    Call<GetMenuResponse> getMenus(@Query("sailingID") String sailingID,
+                                   @Query("venueCode") String venueCode,
+                                   @Query("apikey") String apiKey);
 }

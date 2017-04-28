@@ -5,6 +5,7 @@ import com.rcl.excalibur.data.mapper.MenuDataMapper;
 import com.rcl.excalibur.data.repository.MenuDataRepository;
 import com.rcl.excalibur.data.service.response.GetMenuResponse;
 import com.rcl.excalibur.data.service.response.MenuResponse;
+import com.rcl.excalibur.data.utils.ServiceUtil;
 import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.service.MenuServices;
 
@@ -31,7 +32,7 @@ public class MenuServicesImpl extends BaseDataService<Menu, MenuResponse, Void> 
 
     @Override
     public void getMenu() {
-        Call<GetMenuResponse> call = getMenuApi().getMenus(SAILING_ID, "GIOV");
+        Call<GetMenuResponse> call = getMenuApi().getMenus(SAILING_ID, "GIOV", ServiceUtil.APIKEY);
         call.enqueue(new Callback<GetMenuResponse>() {
             @Override
             public void onResponse(Call<GetMenuResponse> call, Response<GetMenuResponse> response) {
@@ -40,7 +41,9 @@ public class MenuServicesImpl extends BaseDataService<Menu, MenuResponse, Void> 
                     List<Menu> menus = getMapper().transform(response.body().getMenu(), null);
                     for (Menu menu : menus) {
                         repository.create(menu);
+
                     }
+                    repository.getAll();
                 }
             }
 
