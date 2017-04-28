@@ -2,26 +2,20 @@ package com.rcl.excalibur.activity;
 
 
 import android.content.Intent;
-import android.graphics.PointF;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewTreeObserver;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.custom.view.DeckMapImageView;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.presenter.DeckMapPresenter;
 import com.rcl.excalibur.mvp.view.DeckMapView;
 
-public class DeckMapActivity extends BaseActivity implements View.OnTouchListener,
-        ViewTreeObserver.OnGlobalLayoutListener {
+public class DeckMapActivity extends BaseActivity/* implements View.OnTouchListener,
+        ViewTreeObserver.OnGlobalLayoutListener */ {
     private static final String EXTRA_PRODUCT_ITEM_ID = "EXTRA_PRODUCT_ITEM_ID";
 
     protected DeckMapPresenter presenter;
-    private GestureDetector gestureDetector;
+//    private GestureDetector gestureDetector;
 
     public static Intent getIntent(final BaseActivity activity, String productItemId) {
         Intent intent = new Intent(activity, DeckMapActivity.class);
@@ -42,10 +36,10 @@ public class DeckMapActivity extends BaseActivity implements View.OnTouchListene
         presenter = new DeckMapPresenter(new DeckMapView(this),
                 new GetProductDbUseCase(new ProductDataRepository()));
         presenter.init(productItemId);
-        initGestureDetector(presenter);
+//        initGestureDetector(presenter);
     }
 
-    // Cannot be passed to View because is very expensive to implement
+    /*// Cannot be passed to View because is very expensive to implement
     private void initGestureDetector(DeckMapPresenter presenter) {
         gestureDetector = new GestureDetector(this,
                 new GestureDetector.SimpleOnGestureListener() {
@@ -56,25 +50,25 @@ public class DeckMapActivity extends BaseActivity implements View.OnTouchListene
                     }
                 }
         );
-    }
+    }*/
 
-    @Override
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDismissPopupWindow();
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onTouch(View view, MotionEvent event) {
         if (view instanceof DeckMapImageView) {
             return gestureDetector.onTouchEvent(event);
         }
         presenter.onDismissPopupWindow();
         return true;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onGlobalLayout() {
         presenter.onGlobalLayout();
-    }
+    }*/
 }

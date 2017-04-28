@@ -1,7 +1,6 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import android.graphics.PointF;
 import android.util.Pair;
 
 import com.rcl.excalibur.R;
@@ -14,15 +13,9 @@ import com.rcl.excalibur.mvp.view.DeckMapView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.rcl.excalibur.utils.CategoryUtils.ACTIVITIES;
-import static com.rcl.excalibur.utils.CategoryUtils.DINING;
-import static com.rcl.excalibur.utils.CategoryUtils.ENTERTAINMENT;
-import static com.rcl.excalibur.utils.CategoryUtils.SHOREX;
-import static com.rcl.excalibur.utils.CategoryUtils.SPA;
-
 public class DeckMapPresenter {
 
-    private static final int X_1 = 196;
+    /*private static final int X_1 = 196;
     private static final int Y_1 = 526;
     private static final int X_2 = 116;
     private static final int Y_2 = 841;
@@ -31,7 +24,7 @@ public class DeckMapPresenter {
     private static final int X_4 = 120;
     private static final int Y_4 = 539;
     private static final int X_5 = 243;
-    private static final int Y_5 = 558;
+    private static final int Y_5 = 558;*/
 
     private static final List<Pair<Integer, Integer>> DECK_IMAGES = new ArrayList<>(12);
 
@@ -65,7 +58,7 @@ public class DeckMapPresenter {
     public void init(String productId) {
         product = getProductDbUseCase.get(productId);
         if (product != null) {
-            setCoordinate(product.getProductType().getProductType());
+//            setCoordinate(product.getProductType().getProductType());
         }
         initView();
     }
@@ -73,12 +66,12 @@ public class DeckMapPresenter {
     private void initView() {
         view.setAdapterObserver(new DeckSelectorObserver(this));
         view.init(DECK_IMAGES, new DeckButtonConsumer(this));
-        view.setInitialDeck(DECK_IMAGES.get(DECK_IMAGES.size() - 1));
-        view.setProductCoordinate(xCoord, yCoord);
-        view.initPopupLayout();
+        view.onDeckSelected(DECK_IMAGES.get(DECK_IMAGES.size() - 1));
+        /*view.setProductCoordinate(xCoord, yCoord);
+        view.initPopupLayout();*/
     }
 
-    // TODO: In a future we'll get this coordinate from the service
+    /*// TODO: In a future we'll get this coordinate from the service
     private void setCoordinate(String productType) {
         switch (productType) {
             case SPA:
@@ -106,32 +99,32 @@ public class DeckMapPresenter {
                 yCoord = Y_1;
                 break;
         }
-    }
+    }*/
 
-    public void onTouchDeckMapImage(PointF touchedLocation) {
+    /*public void onTouchDeckMapImage(PointF touchedLocation) {
         if (view.isDeckMapImageReady() && view.getMarkerArea().contains(touchedLocation.x, touchedLocation.y)) {
             moveToCoordinateAndShowPopup();
         }
-    }
+    }*/
 
-    public void onDismissPopupWindow() {
+    /*public void onDismissPopupWindow() {
         view.dismissPopupWindow();
-    }
+    }*/
 
-    public void onGlobalLayout() {
+    /*public void onGlobalLayout() {
         if (view.isDeckMapImageReady()) {
             view.removeTreeObserver();
             moveToCoordinateAndShowPopup();
         }
-    }
+    }*/
 
-    private void moveToCoordinateAndShowPopup() {
+    /*private void moveToCoordinateAndShowPopup() {
         if (product == null) {
             return;
         }
         view.moveToProductCoordinate(xCoord, yCoord);
         view.showProductOnPopupLayout(product);
-    }
+    }*/
 
     private void onDeckSelected(Pair<Integer, Integer> deck) {
         view.onDeckSelected(deck);

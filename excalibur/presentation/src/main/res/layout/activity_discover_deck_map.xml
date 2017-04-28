@@ -6,13 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_sea">
 
-    <!-- DeckMap -->
-    <com.rcl.excalibur.custom.view.DeckMapImageView
-        android:id="@+id/image_deck_map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_header"/>
-
     <!-- Deck Selector-->
     <include
         android:id="@+id/horizontal_deck_selector"
@@ -26,8 +19,8 @@
         android:id="@+id/toolbar_header"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/bg_toolbar_color"
         android:layout_below="@+id/ship_time_fragment"
+        android:background="@color/bg_toolbar_color"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <ImageView
@@ -46,6 +39,22 @@
             android:layout_gravity="center"/>
 
     </android.support.v7.widget.Toolbar>
+
+    <!-- DeckMap -->
+    <ScrollView
+        android:id="@+id/scrollView_deck_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_header">
+
+        <ImageView
+            android:id="@+id/image_deck_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:src="@drawable/map_05_fwd"/>
+
+    </ScrollView>
 
     <!-- Ship Time -->
     <fragment
