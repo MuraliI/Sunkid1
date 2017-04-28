@@ -2,7 +2,7 @@ package com.rcl.excalibur.domain.interactor;
 
 
 import com.rcl.excalibur.domain.Menu;
-import com.rcl.excalibur.domain.service.DiscoverServices;
+import com.rcl.excalibur.domain.service.MenuServices;
 
 import java.util.List;
 
@@ -11,15 +11,15 @@ import io.reactivex.observers.DisposableObserver;
 
 public class GetMenusUseCase extends UseCase<List<Menu>, Void> {
 
-    private final DiscoverServices discoverServices;
+    private final MenuServices menuServices;
 
-    public GetMenusUseCase(DiscoverServices discoverServices) {
+    public GetMenusUseCase(MenuServices menuServices) {
         super();
-        this.discoverServices = discoverServices;
+        this.menuServices = menuServices;
     }
 
     @Override
     void buildUseCaseObservable(DisposableObserver<List<Menu>> observer, Void aVoid) {
-        discoverServices.getMenus();
+        menuServices.getMenu();
     }
 }

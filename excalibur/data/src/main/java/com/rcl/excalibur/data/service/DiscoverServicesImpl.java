@@ -11,7 +11,6 @@ import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
-import com.rcl.excalibur.data.service.response.GetMenuResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
 import com.rcl.excalibur.data.service.response.GetSubCategoriesResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
@@ -103,23 +102,6 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
             @Override
             public void onFailure(Call<GetSubCategoriesResponse> call, Throwable t) {
                 logOnFailureError(t, "");
-            }
-        });
-    }
-
-    @Override
-    public void getMenus() {
-        Call<GetMenuResponse> call = getDiscoverApi().getMenus(SAILING_ID, "GIOV");
-
-        call.enqueue(new Callback<GetMenuResponse>() {
-            @Override
-            public void onResponse(Call<GetMenuResponse> call, Response<GetMenuResponse> response) {
-                Timber.d("Succesfull", response.body().getResponseStatus());
-            }
-
-            @Override
-            public void onFailure(Call<GetMenuResponse> call, Throwable t) {
-                Timber.e("Error", t.getMessage());
             }
         });
     }
