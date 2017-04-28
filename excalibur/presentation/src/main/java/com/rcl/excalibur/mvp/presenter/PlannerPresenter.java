@@ -2,6 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
 import android.support.v4.util.SparseArrayCompat;
 
@@ -85,7 +86,7 @@ public class PlannerPresenter {
         view.showProgressBar(true);
         view.initAnimation();
         view.initBottomSheetBehavior();
-
+        view.setViewObserver(new OnScrolledObserver(this));
         createHeaderList();
     }
 
@@ -149,13 +150,13 @@ public class PlannerPresenter {
         return new Pair<>(hiddenIndex, hiddenItems);
     }
 
-    private PlannerHeader createPlannerHeader(int textRes) {
+    private PlannerHeader createPlannerHeader(@StringRes int textRes) {
         BaseActivity activity = view.getActivity();
         if (activity == null) {
             return null;
         }
         PlannerHeader plannerHeader = new PlannerHeader(String.format(HEADER_FORMAT, ++lastHeaderId));
-        plannerHeader.setTitle(activity.getString(textRes));
+        plannerHeader.setTitle(textRes);
         return plannerHeader;
     }
 
@@ -250,4 +251,18 @@ public class PlannerPresenter {
         }
         return sailPort;
     }
+
+    public static class OnScrolledObserver extends DefaultPresentObserver<PlannerProductItem, PlannerPresenter> {
+
+        public OnScrolledObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(PlannerProductItem value) {
+
+        }
+    }
+
+
 }

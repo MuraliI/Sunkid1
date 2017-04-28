@@ -1,6 +1,7 @@
 package com.rcl.excalibur.adapters.planner.abstractitem;
 
 
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import eu.davidea.viewholders.FlexibleViewHolder;
 public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHolder> {
 
     private String id;
-    private String title;
+    @StringRes private int title;
 
     public PlannerHeader(String id) {
         super();
@@ -51,11 +52,12 @@ public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHo
         this.id = id;
     }
 
-    public String getTitle() {
+    @StringRes
+    public int getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@StringRes int title) {
         this.title = title;
     }
 
