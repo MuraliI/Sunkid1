@@ -3,6 +3,7 @@ package com.rcl.excalibur.domain.interactor;
 
 import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.service.DiscoverServices;
+import com.rcl.excalibur.domain.service.MenuServices;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,12 +19,12 @@ import static org.mockito.Mockito.verify;
 public class GetMenusUseCaseTest {
     GetMenusUseCase getMenusUseCase;
     @Mock
-    DiscoverServices discoverServices;
+    MenuServices menuServices;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        getMenusUseCase = new GetMenusUseCase(discoverServices);
+        getMenusUseCase = new GetMenusUseCase(menuServices);
     }
 
     @Test
@@ -46,6 +47,6 @@ public class GetMenusUseCaseTest {
         };
 
         getMenusUseCase.buildUseCaseObservable(observer, null);
-        verify(discoverServices).getMenus();
+        verify(menuServices).getMenu();
     }
 }
