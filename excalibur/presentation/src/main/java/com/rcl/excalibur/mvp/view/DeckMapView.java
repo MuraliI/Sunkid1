@@ -1,19 +1,15 @@
 package com.rcl.excalibur.mvp.view;
 
 
-import android.support.annotation.NonNull;
 import android.util.Pair;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
+import android.widget.ScrollView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.DeckMapActivity;
-import com.rcl.excalibur.custom.view.DeckMapPopupLayout;
 import com.rcl.excalibur.custom.view.DeckSelectorButton;
 import com.rcl.excalibur.custom.view.HorizontalPickerView;
-import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import java.util.List;
@@ -22,19 +18,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 
-//import com.rcl.excalibur.custom.view.DeckMapImageView;
-
 public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Integer, Integer>> {
-    private static final int MINIMUM_DPI = 80;
-    private static final float HALF_FACTOR = 2.0f;
 
-    //@BindView(R.id.image_deck_map) DeckMapImageView deckMapImage;
     @BindView(R.id.image_deck_map) ImageView deckMapImage;
     @BindView(R.id.horizontal_deck_selector) HorizontalPickerView<Integer> deckSelectorPicker;
     @BindView(R.id.button_deck_selector) DeckSelectorButton deckSelectorButton;
-
-    private DeckMapPopupLayout popupView;
-    private PopupWindow popupWindow;
+    @BindView(R.id.scrollView_deck_map)
+    ScrollView deckMapScrollView;
+    @BindView(R.id.image_dropdown)
+    ImageView deckSelectorArrowImage;
 
     public DeckMapView(DeckMapActivity activity) {
         super(activity);
@@ -47,82 +39,22 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
         deckSelectorButton.setButtonObserver(deckSelectorButtonObserver);
     }
 
-    /*public void initDeckImage(int resource) {
-        deckMapImage.setImage(resource);
-        deckMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_OUTSIDE);
-        deckMapImage.setMinimumDpi(MINIMUM_DPI);
-
-        DeckMapActivity activity = getActivity();
-        if (activity != null) {
-            deckMapImage.getViewTreeObserver().addOnGlobalLayoutListener(activity);
-            deckMapImage.setOnTouchListener(activity);
-        }
-    }*/
-
-    /*public void initPopupLayout() {
-        popupView = new DeckMapPopupLayout(getContext());
-        popupWindow = new PopupWindow(
-                popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setTouchable(true);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        DeckMapActivity activity = getActivity();
-        if (activity != null) {
-            popupWindow.setTouchInterceptor(activity);
-        }
-    }*/
-
-    /*public void setProductCoordinate(float xCoord, float yCoord) {
-        if (xCoord == 0 && yCoord == 0) {
-            return;
-        }
-        deckMapImage.setProductCoord(new PointF(xCoord, yCoord));
-    }*/
-
-    /*public void moveToProductCoordinate(float xCoord, float yCoord) {
-        deckMapImage.animatePointToCenter(new PointF(xCoord, yCoord));
-    }*/
-
-    /*public boolean isDeckMapImageReady() {
-        return deckMapImage.isReady();
-    }*/
-
-    /*public void removeTreeObserver() {
-        DeckMapActivity activity = getActivity();
-        if (activity != null) {
-            deckMapImage.getViewTreeObserver()
-                    .removeOnGlobalLayoutListener(activity);
-        }
-    }*/
-
-    public void showProductOnPopupLayout(@NonNull Product product) {
-        DeckMapActivity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-
-        float elevationError = activity.getResources().getDimension(R.dimen.item_deck_elevation_error);
-        float popUpHeight = activity.getResources().getDimensionPixelOffset(R.dimen.item_deck_height);
-        int elevation = (int) (popUpHeight / HALF_FACTOR + deckMapImage.getMeasuredHeight() - elevationError);
-
-        popupView.setProduct(product);
-        popupWindow.showAtLocation(deckMapImage, Gravity.CENTER, 0, -elevation);
+    public void moveToYPosition(int y) {
+        deckMapScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                deckMapScrollView.smoothScrollTo(0, y);
+            }
+        });
     }
 
-    /*public void dismissPopupWindow() {
-        if (popupWindow == null) {
-            return;
-        }
-        popupWindow.dismiss();
-    }*/
+    public void enableDisableDeckSelector(Boolean enable) {
+        deckSelectorButton.setEnabled(enable);
+    }
 
-    /*public RectF getMarkerArea() {
-        return deckMapImage.getMarkerArea();
-    }*/
+    public void hideArrowDeckSelector(Boolean hide) {
+        deckSelectorArrowImage.setVisibility(hide ? View.VISIBLE : View.INVISIBLE);
+    }
 
     public void onDeckSelected(Pair<Integer, Integer> deck) {
         deckMapImage.setImageResource(deck.second);

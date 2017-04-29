@@ -1,26 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
-import android.graphics.PointF;
-import android.graphics.RectF;
-
-import com.rcl.excalibur.R;
-import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.ProductType;
-import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
-import com.rcl.excalibur.mvp.view.DeckMapView;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import static org.mockito.Matchers.anyFloat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-
 public class DeckMapPresenterTest {
-    final String productId = "1";
+    /*final String productId = "1";
     DeckMapPresenter presenter;
     @Mock DeckMapView view;
     @Mock GetProductDbUseCase getProductDbUseCase;
@@ -81,7 +62,7 @@ public class DeckMapPresenterTest {
         verify(view).moveToProductCoordinate(anyFloat(), anyFloat());
         verify(view).showProductOnPopupLayout(product);
 
-    }
+    }*/
 
 
 }
