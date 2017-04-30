@@ -6,9 +6,9 @@ import java.util.List;
 public class Menu {
 
     private String dayNumber;
-    private List<MenuAdvisoryTag> menuAdvisoryTag;
-    private MenuMedia menuMedia;
+    private Media menuMedia;
     private String menuName;
+    private List<MenuAdvisoryTag> menuAdvisoryTag;
     private List<MenuSection> menuSections;
 
     public String getDayNumber() {
@@ -27,11 +27,11 @@ public class Menu {
         this.menuAdvisoryTag = menuAdvisoryTag;
     }
 
-    public MenuMedia getMenuMedia() {
+    public Media getMenuMedia() {
         return menuMedia;
     }
 
-    public void setMenuMedia(MenuMedia menuMedia) {
+    public void setMenuMedia(Media menuMedia) {
         this.menuMedia = menuMedia;
     }
 

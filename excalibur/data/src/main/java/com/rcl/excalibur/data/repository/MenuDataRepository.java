@@ -15,13 +15,13 @@ import com.rcl.excalibur.data.entity.MenuSectionEntity;
 import com.rcl.excalibur.data.mapper.MediaEntityDataMapper;
 import com.rcl.excalibur.data.mapper.MenuEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.MenuAdvisoryTag;
 import com.rcl.excalibur.domain.MenuItem;
 import com.rcl.excalibur.domain.MenuItemAdvisoryTag;
 import com.rcl.excalibur.domain.MenuItemMedia;
-import com.rcl.excalibur.domain.MenuMedia;
 import com.rcl.excalibur.domain.MenuSection;
 import com.rcl.excalibur.domain.repository.MenuRepository;
 
@@ -43,7 +43,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         entity.setDayNumber(input.getDayNumber());
         entity.setMenuName(input.getMenuName());
         //MenuMedia
-        // create(entity, input.getMenuMedia());
+        //create(entity, input.getMenuMedia());
         entity.save();
         //MenuAdvisoryTag
         createMenuAdvisoryTag(entity, input.getMenuAdvisoryTag());
@@ -129,7 +129,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
     }
 
     //FIXME bug duplicate principal entity
-    private void create(final MenuEntity entity, final MenuMedia menuMedia) {
+    private void create(final MenuEntity entity, final Media menuMedia) {
 
         if (menuMedia == null || CollectionUtils.isEmpty(menuMedia.getMediaItem())) {
             return;

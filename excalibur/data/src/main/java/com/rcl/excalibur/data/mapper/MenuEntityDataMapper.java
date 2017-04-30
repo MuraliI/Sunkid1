@@ -10,12 +10,12 @@ import com.rcl.excalibur.data.entity.MenuItemAdvisoryTagEntity;
 import com.rcl.excalibur.data.entity.MenuItemEntity;
 import com.rcl.excalibur.data.entity.MenuSectionEntity;
 import com.rcl.excalibur.data.entity.SectionMediaEntity;
+import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.MenuAdvisoryTag;
 import com.rcl.excalibur.domain.MenuItem;
 import com.rcl.excalibur.domain.MenuItemAdvisoryTag;
-import com.rcl.excalibur.domain.MenuMedia;
 import com.rcl.excalibur.domain.MenuSection;
 import com.rcl.excalibur.domain.SectionMedia;
 
@@ -76,8 +76,8 @@ public class MenuEntityDataMapper extends BaseDataMapper<Menu, MenuEntity, Void>
         return output;
     }
 
-    private MenuMedia transform(MediaEntity entity) {
-        MenuMedia output = new MenuMedia();
+    private Media transform(MediaEntity entity) {
+        Media output = new Media();
         if (entity == null) {
             return output;
         }
