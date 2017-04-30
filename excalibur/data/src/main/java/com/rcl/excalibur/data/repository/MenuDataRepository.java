@@ -42,9 +42,8 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         final MenuEntity entity = new MenuEntity();
         entity.setDayNumber(input.getDayNumber());
         entity.setMenuName(input.getMenuName());
-        //TODO fix bug --duplicate entity
         //MenuMedia
-        //create(entity, input.getMenuMedia());
+        // create(entity, input.getMenuMedia());
         entity.save();
         //MenuAdvisoryTag
         createMenuAdvisoryTag(entity, input.getMenuAdvisoryTag());
@@ -92,13 +91,13 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
             menuItemEntity.setMenuSectionEntity(entity);
             menuItemEntity.save();
             createMenuItemAdvisoryTag(menuItemEntity, menuItem.getMenuItemAdvisoryTags());
-            //TODO fix bug --duplicate entity
+            //FIXME bug --duplicate entity
             //createMenuItemMedia(menuItemEntity, menuItem.getMenuItemMedia());
         }
 
     }
 
-    //TODO fix bug --duplicate entity
+    //FIXME bug duplicate principal entity
     private void createMenuItemMedia(final MenuItemEntity menuItemEntity, final MenuItemMedia menuItemMedia) {
 
         if (menuItemMedia == null || CollectionUtils.isEmpty(menuItemMedia.getMediaItem())) {
@@ -129,7 +128,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
 
     }
 
-    //TODO fix bug duplicate entity
+    //FIXME bug duplicate principal entity
     private void create(final MenuEntity entity, final MenuMedia menuMedia) {
 
         if (menuMedia == null || CollectionUtils.isEmpty(menuMedia.getMediaItem())) {

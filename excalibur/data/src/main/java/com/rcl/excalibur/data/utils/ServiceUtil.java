@@ -11,7 +11,9 @@ import com.rcl.excalibur.data.service.response.BaseResponse;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,7 +22,9 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public final class ServiceUtil {
 
-    public static final String APIKEY = "CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09";
+    private static final String APIKEY = "CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09";
+    private static final String ARGUMNET_APIKEY = "apikey";
+
     private static final String SUCCESS = "SUCCESS";
     private static DiscoverApi discoverApi;
     private static GuestApi guestApi;
@@ -74,10 +78,10 @@ public final class ServiceUtil {
 
     public static MenuApi getMenuApi() {
         if (menuApi == null) {
-            Retrofit retrofit = new Retrofit.Builder().
-                    baseUrl(BuildConfig.MENUS_API_URL).
-                    addConverterFactory(GsonConverterFactory.create()).
-                    client(getClient())
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BuildConfig.MENUS_API_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(getClient())
                     .build();
             menuApi = retrofit.create(MenuApi.class);
         }
@@ -100,8 +104,18 @@ public final class ServiceUtil {
     private static OkHttpClient getClient() {
         final OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
                 .readTimeout(BuildConfig.READ_TIMEOUT, TimeUnit.SECONDS)
-                .connectTimeout(BuildConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS);
+                .connectTimeout(BuildConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .addInterceptor(chain -> {
+                    Request defaultRequest = chain.request();
+                    HttpUrl defaulthttpUrl = defaultRequest.url();
+                    HttpUrl httpUrl = defaulthttpUrl.newBuilder()
+                            .addQueryParameter(ARGUMNET_APIKEY, APIKEY)
+                            .build();
 
+                    Request.Builder requestBuilder = defaultRequest.newBuilder().url(httpUrl);
+
+                    return chain.proceed(requestBuilder.build());
+                });
         if (BuildConfig.DEBUG) {
             //show request log in debug mode
             builder.addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BODY));
@@ -109,6 +123,5 @@ public final class ServiceUtil {
 
         return builder.build();
     }
-
 
 }

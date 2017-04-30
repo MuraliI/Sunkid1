@@ -14,14 +14,19 @@ public class MenuEntity extends Model {
 
     public static final String COLUMN_DAY_NUMBER = "day_number";
     public static final String COLUMN_MENU_NAME = "menu_name";
-    public static final String COLUMN_MEDIA = "media";
+    public static final String COLUMN_MEDIA = "menu_media";
 
     @Column(name = COLUMN_DAY_NUMBER)
     private String dayNumber;
     @Column(name = COLUMN_MENU_NAME)
     private String menuName;
-    @Column(name = COLUMN_MEDIA)
+    @Column(name = COLUMN_MEDIA, onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+
     private MediaEntity menuMedia;
+
+    public MenuEntity() {
+        super();
+    }
 
     public String getDayNumber() {
         return dayNumber;
