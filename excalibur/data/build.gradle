@@ -20,6 +20,7 @@ android {
         buildConfigField "int", "READ_TIMEOUT", "60"
         buildConfigField "int", "CONNECT_TIMEOUT", "60"
     }
+
     buildTypes {
         debug {
             buildConfigField "String", "DISCOVER_API_URL", '"' + baseUrlCloud + 'test/search-api/v1/' + '"'
@@ -29,7 +30,8 @@ android {
         }
         release.initWith(debug)
     }
-    compileOptions {
+
+    compileOptions  {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -47,8 +49,7 @@ android {
         abortOnError false
         ignoreWarnings true
         disable 'InvalidPackage'  // Some libraries have issues with this
-        disable 'OldTargetApi'
-        // Due to Robolectric that modifies the manifest when running tests
+        disable 'OldTargetApi'  // Due to Robolectric that modifies the manifest when running tests
     }
 }
 
