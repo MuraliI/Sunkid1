@@ -351,6 +351,10 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
 
         ProductCategoryResponse productCategoryResponse = productCategoryResponses.get(0);
 
+        if (productCategoryResponse == null) {
+            return new ProductCategory();
+        }
+
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
         productCategory.setCategoryId(productCategoryResponse.getCategoryId());

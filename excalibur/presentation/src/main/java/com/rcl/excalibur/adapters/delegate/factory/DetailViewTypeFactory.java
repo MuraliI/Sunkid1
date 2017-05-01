@@ -27,8 +27,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.rcl.excalibur.utils.PresentationDateUtils.MINUTES_IN_HOUR;
 import static com.rcl.excalibur.data.utils.StringUtils.getPriceFormatted;
+import static com.rcl.excalibur.utils.PresentationDateUtils.MINUTES_IN_HOUR;
 
 public final class DetailViewTypeFactory {
 
@@ -45,6 +45,9 @@ public final class DetailViewTypeFactory {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
+        if (product.isDining()) {
+            addDinningTypeModule(viewTypes, resources, product);
+        }
         addTimeModule(viewTypes, resources, product);
         addPricesModule(viewTypes, offerings, resources, product);
         addCuisineModule(viewTypes, resources, product);
@@ -57,6 +60,13 @@ public final class DetailViewTypeFactory {
         addLegalModule(viewTypes, resources, product);
 
         return viewTypes;
+    }
+
+    private static void addDinningTypeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
+        if (product.getCostType() != null) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList,
+                    resources.getString(R.string.dining_type), product.getCostType().getCostTypeTitle());
+        }
     }
 
     private static void addTimeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {

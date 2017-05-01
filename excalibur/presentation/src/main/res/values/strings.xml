@@ -161,10 +161,10 @@
     <plurals name="product_min">
         <item quantity="other">%d min</item>
     </plurals>
+    <string name="dining_type">Dinning Type</string>
     <string name="advisement_cuisine">Cuisine</string>
     <string name="accessibility">Accessibility &amp; Other Info</string>
     <string name="detail_module_height">Height Restriction</string>
-
     <string name="guest_name_label">Let\'s start with your name</string>
     <string name="guest_name_hint">First and last name</string>
 

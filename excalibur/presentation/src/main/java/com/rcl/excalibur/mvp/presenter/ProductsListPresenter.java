@@ -17,6 +17,8 @@ import com.rcl.excalibur.utils.ActivityUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.rcl.excalibur.mvp.view.ProductsListView.START_OFFSET;
+
 
 public class ProductsListPresenter {
     private GetProductDbUseCase getProductDbUseCase;
@@ -33,7 +35,7 @@ public class ProductsListPresenter {
             return;
         }
         view.setAdapterObserver(new AdapterObserver(this));
-        view.init(pair -> showCollectionInView(getProductsByCategory(type, categoryId, pair.first, pair.second, activity)));
+        view.init(pair -> showCollectionInView(getProductsByCategory(type, categoryId, pair.first, pair.second, activity), pair.first));
     }
 
     private List<Product> getProductsByCategory(int type, String categoryId, int offset, int maxCount, BaseActivity activity) {
@@ -53,6 +55,14 @@ public class ProductsListPresenter {
             }
         }
         return childProducts;
+    }
+
+    private void showCollectionInView(List<Product> products, int page) {
+        if ((products == null || products.size() == 0) && page == START_OFFSET) {
+            view.addAlertNoProducts();
+        } else {
+            view.add(products);
+        }
     }
 
     private String getType(final BaseActivity activity, int type) {
@@ -84,14 +94,6 @@ public class ProductsListPresenter {
         }
 
         return categorySelected;
-    }
-
-    private void showCollectionInView(List<Product> products) {
-        if (products == null || products.size() == 0) {
-            view.addAlertNoProducts();
-        } else {
-            view.add(products);
-        }
     }
 
     private class AdapterObserver extends DefaultPresentObserver<Pair<Product, View>, ProductsListPresenter> {
