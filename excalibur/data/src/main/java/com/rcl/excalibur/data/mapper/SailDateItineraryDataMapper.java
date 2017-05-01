@@ -50,7 +50,7 @@ public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerar
 
     private SailDateEvent transform(SailDateEventResponse eventResponse) {
         SailDateEvent sailDateEvent = new SailDateEvent();
-        sailDateEvent.setDay(eventResponse.getDay());
+        sailDateEvent.setDay(String.valueOf(eventResponse.getDay()));
         sailDateEvent.setPort(transform(eventResponse.getPort()));
         return sailDateEvent;
     }
