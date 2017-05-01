@@ -12,7 +12,6 @@ import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.utils.DateUtils;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -22,7 +21,6 @@ import java.util.List;
 import io.reactivex.Observable;
 
 import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_TIMES;
-import static com.rcl.excalibur.data.service.SailDateServicesImpl.SAIL_DATE;
 
 public class TimesViewType implements RecyclerViewType {
 
@@ -85,21 +83,26 @@ public class TimesViewType implements RecyclerViewType {
 
     public static void addTimesViewTypes(List<RecyclerViewType> recyclerViewTypes, String title,
                                          Resources res, List<Offering> offerings, SailDateInfo sailDateInfo) {
-        if (sailDateInfo == null || sailDateInfo.getShipCode() == null) {
-            return;
-        }
-        Date dateTime = null;
-        try {
-            dateTime = DateUtil.getHourlessDateParser().parse(SAIL_DATE);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        if(dateTime != null) {
-            int duration = Integer.parseInt(sailDateInfo.getDuration());
+//        if (sailDateInfo == null || sailDateInfo.getShipCode() == null) {
+//            return;
+//        }
+//        Date dateTime = null;
+//        int duration = Integer.parseInt(sailDateInfo.getDuration());
+//        int dayCounter = 1;
+//        try {
+//            dateTime = DateUtil.getHourlessDateParser().parse(SAIL_DATE);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+
+        long dateTimeLong = 1493683201000L;
+        Date dateTime = new Date(dateTimeLong);
+        int duration = 5;
+        int dayCounter = 1;
+
+        if (dateTime != null) {
             Calendar sailingDate = Calendar.getInstance();
             sailingDate.setTime(dateTime);
-            int dayCounter = 1;
-
             List<Pair<String, Date>> voyageDays = new ArrayList<>();
             do {
                 voyageDays.add(new Pair(String.valueOf(dayCounter), sailingDate.getTime()));

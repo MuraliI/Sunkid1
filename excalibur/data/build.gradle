@@ -1,4 +1,3 @@
-
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 
@@ -6,35 +5,29 @@ android {
     defaultPublishConfig "debug"
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
+    def baseUrlCloud = 'http://10.16.6.134:8090/'
+    def baseUrlShip = 'http://10.16.6.134:8090/'
 
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
-
     defaultConfig {
         minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
         targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
         versionCode globalConfiguration.getAt("androidVersionCode")
-
         buildConfigField "int", "CORE_POOL_SIZE", "3"
         buildConfigField "int", "MAXIMUM_POOL_SIZE", "5"
         buildConfigField "long", "KEEP_ALIVE_TIME", "10"
         buildConfigField "int", "READ_TIMEOUT", "60"
         buildConfigField "int", "CONNECT_TIMEOUT", "60"
-
     }
     buildTypes {
-        release {
-            buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.4.8:10100/v1/"'
-            buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
-            buildConfigField "String", "GUEST_API_URL", '"http://10.16.6.134:8090/v1/"'
-            buildConfigField "String", "SHIP_TIME_API_URL", '"http://10.16.6.134:8090/v1/"'
-        }
         debug {
-            buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.4.8:10100/v1/"'
+            buildConfigField "String", "DISCOVER_API_URL", '"' + baseUrlCloud + 'test/search-api/v1/' + '"'
             buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
             buildConfigField "String", "GUEST_API_URL", '"http://10.16.6.134:8090/v1/"'
             buildConfigField "String", "SHIP_TIME_API_URL", '"http://10.16.6.134:8090/v1/"'
         }
+        release.initWith(debug)
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -54,7 +47,8 @@ android {
         abortOnError false
         ignoreWarnings true
         disable 'InvalidPackage'  // Some libraries have issues with this
-        disable 'OldTargetApi'    // Due to Robolectric that modifies the manifest when running tests
+        disable 'OldTargetApi'
+        // Due to Robolectric that modifies the manifest when running tests
     }
 }
 
@@ -78,11 +72,11 @@ dependencies {
             generalDependencies.timber
 
     testCompile testDependencies.junit,
-                testDependencies.assertj,
-                testDependencies.mockito,
-                testDependencies.robolectric,
-                presentationTestDependencies.powermockModuleJunit4,
-                presentationTestDependencies.powermockApiMockitoV
+            testDependencies.assertj,
+            testDependencies.mockito,
+            testDependencies.robolectric,
+            presentationTestDependencies.powermockModuleJunit4,
+            presentationTestDependencies.powermockApiMockitoV
 
     androidTestCompile presentationTestDependencies.mockito,
             presentationTestDependencies.dexmaker,
