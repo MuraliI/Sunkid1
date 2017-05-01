@@ -13,7 +13,7 @@ import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.mvp.presenter.ProductDetailPresenter;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
-import com.rcl.excalibur.utils.IntentExtraUtils;
+import com.rcl.excalibur.data.utils.StringUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,7 +24,7 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
 
     public static Intent getIntent(final BaseActivity activity, String productId) {
         Intent intent = new Intent(activity, ProductDetailActivity.class);
-        intent.putExtra(EXTRA_DISCOVER_ITEM_ID, IntentExtraUtils.encodePutExtraString(productId));
+        intent.putExtra(EXTRA_DISCOVER_ITEM_ID, StringUtils.encodeString(productId));
         return intent;
     }
 
@@ -42,7 +42,7 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
                 , new GetProductDbUseCase(new ProductDataRepository())
                 , new GetOfferingsDbUseCase(new OfferingDataRepository())
                 , new GetSaildDateDbUseCase(new SailDateDataRepository()));
-        presenter.init(IntentExtraUtils.decodeGetExtraString(productId));
+        presenter.init(StringUtils.decodeString(productId));
     }
 
     @OnClick(R.id.back_arrow)

@@ -32,7 +32,8 @@ public class ProductDetailPresenter {
 
     public ProductDetailPresenter(ProductDetailView view
             , GetProductDbUseCase getProductDbUseCase
-            , GetOfferingsDbUseCase getOfferingsDbUseCase, GetSaildDateDbUseCase getSaildDateDbUseCase) {
+            , GetOfferingsDbUseCase getOfferingsDbUseCase
+            , GetSaildDateDbUseCase getSaildDateDbUseCase) {
         this.view = view;
         this.getProductDbUseCase = getProductDbUseCase;
         this.getOfferingsDbUseCase = getOfferingsDbUseCase;

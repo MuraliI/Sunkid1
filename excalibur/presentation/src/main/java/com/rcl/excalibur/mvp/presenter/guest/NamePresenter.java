@@ -8,11 +8,11 @@ import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.mvp.view.guest.NameView;
 import com.rcl.excalibur.utils.ActivityUtils;
-import com.rcl.excalibur.utils.StringUtils;
+import com.rcl.excalibur.data.utils.StringUtils;
 
-import static com.rcl.excalibur.utils.StringUtils.SPLIT_SEPARATOR;
-import static com.rcl.excalibur.utils.StringUtils.capitalizeAllWords;
-import static com.rcl.excalibur.utils.StringUtils.removeBarreled;
+import static com.rcl.excalibur.data.utils.StringUtils.SPLIT_SEPARATOR;
+import static com.rcl.excalibur.data.utils.StringUtils.capitalizeAllWords;
+import static com.rcl.excalibur.data.utils.StringUtils.removeBarreled;
 
 public class NamePresenter {
     private static final String BRAND = "r";
