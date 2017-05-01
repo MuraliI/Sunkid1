@@ -19,9 +19,9 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_TIMES;
+import static com.rcl.excalibur.data.service.SailDateServicesImpl.SAIL_DATE;
 
 public class TimesViewType implements RecyclerViewType {
 
@@ -77,20 +77,20 @@ public class TimesViewType implements RecyclerViewType {
                 return 0;
             }
         });
-        recyclerViewTypes.add(new TimesViewType(title, times));
+        if (times.size() > 0) {
+            recyclerViewTypes.add(new TimesViewType(title, times));
+        }
     }
 
     public static void addTimesViewTypes(List<RecyclerViewType> recyclerViewTypes, String title,
                                          Resources res, List<Offering> offerings, SailDateInfo sailDateInfo) {
-//        if (sailDateInfo == null || sailDateInfo.getShipCode() == null) {
-//            return;
-//        }
-//        long dateTime = Long.parseLong(SAILING_ID);
-        long dateTime = 1493596801000L;
+        if (sailDateInfo == null || sailDateInfo.getShipCode() == null) {
+            return;
+        }
+        long dateTime = Long.parseLong(SAIL_DATE);
+        int duration = Integer.parseInt(sailDateInfo.getDuration());
         Calendar sailingDate = Calendar.getInstance();
-//        int duration = Integer.parseInt(sailDateInfo.getDuration());
         sailingDate.setTimeInMillis(dateTime);
-        int duration = 5;
         int dayCounter = 1;
 
         List<Pair<String, Date>> voyageDays = new ArrayList<>();
@@ -106,7 +106,6 @@ public class TimesViewType implements RecyclerViewType {
             Observable.fromIterable(offerings)
                     .filter(object -> dateFilter.equals(DateUtil.getHourlessDateParser().format(object.getDate())))
                     .toList()
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(offeringsForDay -> {
                         if (offeringsForDay.size() > 0) {
                             String dayNumber = day.first;
@@ -124,6 +123,8 @@ public class TimesViewType implements RecyclerViewType {
                         }
                     });
         }
-        recyclerViewTypes.add(new TimesViewType(title, times));
+        if (times.size() > 0) {
+            recyclerViewTypes.add(new TimesViewType(title, times));
+        }
     }
 }

@@ -38,6 +38,8 @@ public class TimesDelegateAdapter implements DelegateAdapter<TimesDelegateAdapte
             subtext.setText(pair.second);
             holder.timesContainer.addView(itemView);
         }
+
+        holder.showMoreContainer.setVisibility(item.getTimes().size() > 1 ? View.VISIBLE : View.INVISIBLE);
         holder.collapseOrExpandContent(true);
     }
 

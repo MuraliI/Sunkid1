@@ -16,7 +16,7 @@ import static com.rcl.excalibur.data.utils.ServiceUtil.getSailDateApi;
 
 public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingInfoResponse, Void> implements SailDateServices {
 
-    public static final String SAILING_ID = "1492905600000";
+    public static final String SAIL_DATE = "1492905600000";
 
     private final SailDateDataRepository repository;
 
@@ -29,7 +29,7 @@ public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingI
     public void getSailDate() {
         new Thread(() -> {
 
-            Call<SailDateResponse> call = getSailDateApi().getEvents(SAILING_ID);
+            Call<SailDateResponse> call = getSailDateApi().getEvents(SAIL_DATE);
             SailDateProcessor sailDateProcessor = new SailDateProcessor();
             try {
                 sailDateProcessor.onResponse(call.execute());

@@ -229,7 +229,7 @@ public final class DetailViewTypeFactory {
             float adultPrice = -1;
             float childPrice = -1;
 
-            if (product.isSpa()) {
+            if (product.isSpa() && product.getStartingFromPrice() != null) {
                 adultPrice = product.getStartingFromPrice().getAdultPrice();
                 childPrice = product.getStartingFromPrice().getChildPrice();
             } else {
