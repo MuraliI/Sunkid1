@@ -6,7 +6,8 @@ android {
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
     def baseUrlCloud = 'http://10.16.6.134:8090/'
-    def baseUrlShip = 'http://10.16.6.134:8090/'
+    def apiCommerceUrl = '"' + baseUrlCloud + 'test/search-api/v1/' + '"'
+    def apiNonCommerceUrl = '"' + baseUrlCloud + 'test/v1/' + '"'
 
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
@@ -23,10 +24,11 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "DISCOVER_API_URL", '"' + baseUrlCloud + 'test/search-api/v1/' + '"'
+            buildConfigField "String", "DISCOVER_API_URL", apiCommerceUrl
             buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
-            buildConfigField "String", "GUEST_API_URL", '"http://10.16.6.134:8090/v1/"'
-            buildConfigField "String", "SHIP_TIME_API_URL", '"http://10.16.6.134:8090/v1/"'
+            buildConfigField "String", "GUEST_API_URL", apiNonCommerceUrl
+            buildConfigField "String", "SAIL_API_URL", apiNonCommerceUrl
+            buildConfigField "String", "SHIP_TIME_API_URL", apiNonCommerceUrl
         }
         release.initWith(debug)
     }
