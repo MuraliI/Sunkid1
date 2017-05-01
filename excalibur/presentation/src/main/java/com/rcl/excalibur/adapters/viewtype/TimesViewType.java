@@ -12,6 +12,7 @@ import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.utils.DateUtils;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -87,44 +88,51 @@ public class TimesViewType implements RecyclerViewType {
         if (sailDateInfo == null || sailDateInfo.getShipCode() == null) {
             return;
         }
-        long dateTime = Long.parseLong(SAIL_DATE);
-        int duration = Integer.parseInt(sailDateInfo.getDuration());
-        Calendar sailingDate = Calendar.getInstance();
-        sailingDate.setTimeInMillis(dateTime);
-        int dayCounter = 1;
-
-        List<Pair<String, Date>> voyageDays = new ArrayList<>();
-        do {
-            voyageDays.add(new Pair(String.valueOf(dayCounter), sailingDate.getTime()));
-            sailingDate.add(Calendar.DATE, 1);
-            dayCounter++;
-        } while (dayCounter <= duration);
-
-        List<Pair<String, String>> times = new ArrayList<>();
-        for (Pair<String, Date> day : voyageDays) {
-            String dateFilter = DateUtil.getHourlessDateParser().format(day.second);
-            Observable.fromIterable(offerings)
-                    .filter(object -> dateFilter.equals(DateUtil.getHourlessDateParser().format(object.getDate())))
-                    .toList()
-                    .subscribe(offeringsForDay -> {
-                        if (offeringsForDay.size() > 0) {
-                            String dayNumber = day.first;
-                            String hourStr = "";
-                            if (offeringsForDay.size() > TIMES_TO_DISPLAY_LIMIT) {
-                                hourStr = res.getString(R.string.times_vary);
-                            } else {
-                                List<String> hours = new ArrayList<>();
-                                for (Offering offering : offeringsForDay) {
-                                    hours.add(DateUtils.getDateHour(offering.getDate(), res));
-                                }
-                                hourStr = Joiner.on(COMMA_SEPARATOR).join(hours);
-                            }
-                            times.add(new Pair<>(dayNumber, hourStr));
-                        }
-                    });
+        Date dateTime = null;
+        try {
+            dateTime = DateUtil.getHourlessDateParser().parse(SAIL_DATE);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        if (times.size() > 0) {
-            recyclerViewTypes.add(new TimesViewType(title, times));
+        if(dateTime != null) {
+            int duration = Integer.parseInt(sailDateInfo.getDuration());
+            Calendar sailingDate = Calendar.getInstance();
+            sailingDate.setTime(dateTime);
+            int dayCounter = 1;
+
+            List<Pair<String, Date>> voyageDays = new ArrayList<>();
+            do {
+                voyageDays.add(new Pair(String.valueOf(dayCounter), sailingDate.getTime()));
+                sailingDate.add(Calendar.DATE, 1);
+                dayCounter++;
+            } while (dayCounter <= duration);
+
+            List<Pair<String, String>> times = new ArrayList<>();
+            for (Pair<String, Date> day : voyageDays) {
+                String dateFilter = DateUtil.getHourlessDateParser().format(day.second);
+                Observable.fromIterable(offerings)
+                        .filter(object -> dateFilter.equals(DateUtil.getHourlessDateParser().format(object.getDate())))
+                        .toList()
+                        .subscribe(offeringsForDay -> {
+                            if (offeringsForDay.size() > 0) {
+                                String dayNumber = day.first;
+                                String hourStr = "";
+                                if (offeringsForDay.size() > TIMES_TO_DISPLAY_LIMIT) {
+                                    hourStr = res.getString(R.string.times_vary);
+                                } else {
+                                    List<String> hours = new ArrayList<>();
+                                    for (Offering offering : offeringsForDay) {
+                                        hours.add(DateUtils.getDateHour(offering.getDate(), res));
+                                    }
+                                    hourStr = Joiner.on(COMMA_SEPARATOR).join(hours);
+                                }
+                                times.add(new Pair<>(dayNumber, hourStr));
+                            }
+                        });
+            }
+            if (times.size() > 0) {
+                recyclerViewTypes.add(new TimesViewType(title, times));
+            }
         }
     }
 }

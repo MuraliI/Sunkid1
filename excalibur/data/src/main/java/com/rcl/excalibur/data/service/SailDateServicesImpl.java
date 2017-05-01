@@ -16,7 +16,7 @@ import static com.rcl.excalibur.data.utils.ServiceUtil.getSailDateApi;
 
 public class SailDateServicesImpl extends BaseDataService<SailDateInfo, SailingInfoResponse, Void> implements SailDateServices {
 
-    public static final String SAIL_DATE = "1492905600000";
+    public static final String SAIL_DATE = "20170702";
 
     private final SailDateDataRepository repository;
 
