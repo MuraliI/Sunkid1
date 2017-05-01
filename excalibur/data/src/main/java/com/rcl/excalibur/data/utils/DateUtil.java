@@ -19,6 +19,7 @@ public final class DateUtil {
     public static final String HOURLESS_DATE_FORMAT = "yyyyMMdd";
     public static final String DATE_PARSING_ERROR = "Date parsing failed in %s1, parser exception: %s2";
     public static final String TIME_FORMAT = "h:mm a";
+    public static final String DATE_FORMAT_ISO = "yyyyMMdd'T'HHmmss";
 
     private DateUtil() {
     }
@@ -53,6 +54,10 @@ public final class DateUtil {
 
     public static SimpleDateFormat getHourlessDateParser() {
         return new SimpleDateFormat(HOURLESS_DATE_FORMAT, Locale.US);
+    }
+
+    public static SimpleDateFormat getDateFormatISO() {
+        return new SimpleDateFormat(DATE_FORMAT_ISO, Locale.US);
     }
 
     public static String getTime(Date date) {

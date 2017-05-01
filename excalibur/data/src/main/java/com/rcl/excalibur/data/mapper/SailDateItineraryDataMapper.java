@@ -7,6 +7,7 @@ import com.rcl.excalibur.data.service.response.DateItineraryResponse;
 import com.rcl.excalibur.data.service.response.PortResponse;
 import com.rcl.excalibur.data.service.response.SailDateEventResponse;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.data.utils.DateUtil;
 import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.domain.SailDateItinerary;
 import com.rcl.excalibur.domain.SailPort;
@@ -21,6 +22,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerary, DateItineraryResponse, Void> {
+
+    private final String formatHourMinute = "HHmm";
 
     @Nullable
     @Override
@@ -71,12 +74,18 @@ public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerar
 
     private Calendar getFormatedCalendar(String dateToTransform) {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.getDefault());
+        SimpleDateFormat dateformat = DateUtil.getDateFormatISO();
         try {
             Date date = dateformat.parse(dateToTransform);
-            //date.setHours(date.getHours() - 1);
             calendar.setTime(date);
         } catch (ParseException e) {
+            //Fixme Remove when Service data is fixed
+            try {
+                Date date = dateformat.parse("20170702T000000");
+                calendar.setTime(date);
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
         }
 
@@ -88,6 +97,7 @@ public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerar
     }
 
     private String formatedTime(Calendar calendar) {
-        return calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+        SimpleDateFormat format = new SimpleDateFormat(formatHourMinute);
+        return format.format(calendar.getTime());
     }
 }

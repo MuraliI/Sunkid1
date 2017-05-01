@@ -96,7 +96,7 @@ public class TimesViewType implements RecyclerViewType {
             e.printStackTrace();
         }
 
-//        Mock Data for Testing
+//        Mock Data to display Module
 //        long dateTimeLong = 1493683201000L;
 //        Date dateTime = new Date(dateTimeLong);
 //        int duration = 5;
