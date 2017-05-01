@@ -11,8 +11,14 @@ import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.domain.SailDateItinerary;
 import com.rcl.excalibur.domain.SailPort;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerary, DateItineraryResponse, Void> {
 
@@ -51,13 +57,37 @@ public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerar
 
     private SailPort transform(PortResponse portResponse) {
         SailPort sailPort = new SailPort();
+        Calendar arrivalDateTime = getFormatedCalendar(portResponse.getArrivalDateTime());
+        Calendar departureDateTime = getFormatedCalendar(portResponse.getDepartureDateTime());
         sailPort.setPortCode(portResponse.getPortCode());
         sailPort.setPortName(portResponse.getPortName());
         sailPort.setPortType(portResponse.getPortType());
-        sailPort.setDepartureTime(portResponse.getDepartureTime());
-        sailPort.setDepartureDate(portResponse.getDepartureDate());
-        sailPort.setArrivalTime(portResponse.getArrivalTime());
-        sailPort.setArrivalDate(portResponse.getArrivalDate());
+        sailPort.setDepartureTime(formatedTime(departureDateTime));
+        sailPort.setDepartureDate(formatedDate(departureDateTime));
+        sailPort.setArrivalTime(formatedTime(arrivalDateTime));
+        sailPort.setArrivalDate(formatedDate(arrivalDateTime));
         return sailPort;
+    }
+
+    private Calendar getFormatedCalendar(String dateToTransform) {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.getDefault());
+        try {
+            Date date = dateformat.parse(dateToTransform);
+            //date.setHours(date.getHours() - 1);
+            calendar.setTime(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return calendar;
+    }
+
+    private String formatedDate(Calendar calendar) {
+        return calendar.get(Calendar.YEAR) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    private String formatedTime(Calendar calendar) {
+        return calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
     }
 }
