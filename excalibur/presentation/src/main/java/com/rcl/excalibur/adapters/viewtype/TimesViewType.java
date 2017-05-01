@@ -21,6 +21,7 @@ import java.util.List;
 import io.reactivex.Observable;
 
 import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_TIMES;
+import static com.rcl.excalibur.data.service.SailDateServicesImpl.SAIL_DATE;
 
 public class TimesViewType implements RecyclerViewType {
 
@@ -83,22 +84,23 @@ public class TimesViewType implements RecyclerViewType {
 
     public static void addTimesViewTypes(List<RecyclerViewType> recyclerViewTypes, String title,
                                          Resources res, List<Offering> offerings, SailDateInfo sailDateInfo) {
-//        if (sailDateInfo == null || sailDateInfo.getShipCode() == null) {
-//            return;
-//        }
-//        Date dateTime = null;
-//        int duration = Integer.parseInt(sailDateInfo.getDuration());
-//        int dayCounter = 1;
-//        try {
-//            dateTime = DateUtil.getHourlessDateParser().parse(SAIL_DATE);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-
-        long dateTimeLong = 1493683201000L;
-        Date dateTime = new Date(dateTimeLong);
-        int duration = 5;
+        if (sailDateInfo == null || sailDateInfo.getShipCode() == null) {
+            return;
+        }
+        Date dateTime = null;
+        int duration = Integer.parseInt(sailDateInfo.getDuration());
         int dayCounter = 1;
+        try {
+            dateTime = DateUtil.getHourlessDateParser().parse(SAIL_DATE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        Mock Data for Testing
+//        long dateTimeLong = 1493683201000L;
+//        Date dateTime = new Date(dateTimeLong);
+//        int duration = 5;
+//        int dayCounter = 1;
 
         if (dateTime != null) {
             Calendar sailingDate = Calendar.getInstance();
