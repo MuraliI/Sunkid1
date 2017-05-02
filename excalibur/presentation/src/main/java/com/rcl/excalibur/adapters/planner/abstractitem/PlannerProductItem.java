@@ -27,13 +27,11 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
 
     private int indexToBeAdded;
     private String id;
-    private String timeLabel;
     private PlannerProductModel plannerProductModel;
 
-    public PlannerProductItem(String id, String timeLabel, PlannerHeader header) {
+    public PlannerProductItem(String id, PlannerHeader header) {
         super(header);
         this.id = id;
-        this.timeLabel = timeLabel;
     }
 
     @Override
@@ -102,7 +100,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         holder.productVenue.setText(plannerProductModel.getVenue());
         holder.productCategoryIcon.setImageResource(plannerProductModel.getResourceIdCategoryIcon());
         holder.productDeckAndDirection.setText(plannerProductModel.getLocation());
-        holder.setTime(plannerProductModel.getStartHourText());
+        holder.setTime(null); // Passing null instead of plannerProductModel.getStartHourText() to hide the hours
     }
 
     public int getIndexToBeAdded() {
@@ -130,7 +128,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
             ButterKnife.bind(this, itemView);
         }
 
-        public void setTime(@Nullable String time) {
+        void setTime(@Nullable String time) {
             if (time == null || time.isEmpty()) {
                 hideTime();
             } else {
@@ -139,7 +137,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
             }
         }
 
-        public void hideTime() {
+        void hideTime() {
             timeTextView.setText(ConstantsUtil.EMPTY);
             timeTextView.setVisibility(View.GONE);
         }

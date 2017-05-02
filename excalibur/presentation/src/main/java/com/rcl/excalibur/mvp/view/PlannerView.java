@@ -22,6 +22,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.adapters.planner.PlannerAdapter;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
@@ -29,14 +30,18 @@ import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.RoundedImageView;
+import com.rcl.excalibur.utils.comparator.PlannerProductItemComparator;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import eu.davidea.flexibleadapter.FlexibleAdapter;
-import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.flexibleadapter.items.IHeader;
+import eu.davidea.flexibleadapter.items.ISectionable;
+import io.reactivex.Observer;
+import timber.log.Timber;
 
 public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private static final int TOP_OF_LIST = 0;
@@ -55,7 +60,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     @BindView(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
     @BindView(R.id.layout_planner_recycler_container) TopRoundedFrameLayout recyclerContainerLayout;
 
-    private FlexibleAdapter<AbstractFlexibleItem> adapter;
+    private PlannerAdapter adapter;
 
     private View firstHeader;
     private LinearLayoutManager linearLayoutManager;
@@ -63,6 +68,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private Animation slideUpAnimation;
     private Animation slideUpAllDayAnimation;
     private Animation animationGoIn;
+
+    private Observer<PlannerHeader> expandCollapseObserver;
 
     private Handler handler;
 
@@ -97,7 +104,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setAddDuration(300);
 
-        adapter = new FlexibleAdapter<>(null, fragment, true);
+        adapter = new PlannerAdapter(null, fragment, true);
         adapter.setDisplayHeadersAtStartUp(true).setStickyHeaders(true);
         linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -301,10 +308,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     private void changeSeparatorVisibility(View parent, int visibility) {
         if (parent != null) {
-//            View separator = ButterKnife.findById(parent, R.id.view_planner_item_separator);
-//            if (separator != null) {
-//                separator.setVisibility(visibility);
-//            }
+            View separator = ButterKnife.findById(parent, R.id.layout_planner_item_separator_container);
+            if (separator != null) {
+                separator.setVisibility(visibility);
+            }
         }
     }
 
@@ -320,7 +327,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
             allDayView.startAnimation(slideUpAllDayAnimation);
             allDayView.setVisibility(View.VISIBLE);*/
         } else if (firstHeader != null) {
-            firstHeader.setBackgroundResource(R.drawable.background_planner_header);
+            firstHeader.setBackgroundResource(R.drawable.background_cue_card); //background_planner_header
             firstHeader.startAnimation(slideUpAnimation);
             firstHeader.setVisibility(View.VISIBLE);
             //allDayView.setVisibility(View.GONE);
@@ -337,23 +344,15 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         }*/
     }
 
-    public void addPlannerItems(List<AbstractFlexibleItem> items) {
-        adapter.addItems(TOP_OF_LIST, items);
-        containerLayout.setVisibility(View.VISIBLE);
-    }
-
-
-    private Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems;
-
-    public void addPlannerItems(List<AbstractFlexibleItem> items, Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems) {
-        this.hiddenItems = hiddenItems;
+    public void addPlannerItems(List<IFlexible> items) {
         adapter.addItems(TOP_OF_LIST, items);
         containerLayout.setVisibility(View.VISIBLE);
     }
 
     public void onItemClick(int position) {
-        AbstractFlexibleItem item = adapter.getItem(position);
-        if (item instanceof PlannerProductItem) {
+        Timber.e("click on %s", position);
+        IFlexible item = adapter.getItem(position);
+        if (!adapter.isHeader(item)) {
             PlannerProductItem productItem = (PlannerProductItem) item;
             BaseActivity activity = getActivity();
             if (activity == null) {
@@ -369,13 +368,17 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
                     ProductDetailActivity.getIntent(activity, productItem.getPlannerProductModel().getProductId()),
                     sharedItemView,
                     getActivity().getString(R.string.shared_element_transition_name));
+        } else {
+            onExpandCollapseNext((PlannerHeader) item);
         }
     }
 
-    public void showAllDayLayout() {
-        //isAllDayNecessary = true;
-        //allDayView.setVisibility(View.INVISIBLE);
-        recyclerContainerLayout.setRadius(R.dimen.zero_radius);
+    public void addItemToSection(ISectionable itemToAdd, IHeader header) {
+        adapter.addItemToSection(itemToAdd, header, new PlannerProductItemComparator());
+    }
+
+    public void removeItemsFromSection(IHeader header) {
+        adapter.removeItemsFromSection(header);
     }
 
     public void showProgressBar(boolean show) {
@@ -395,21 +398,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
             return;
         }
         ActivityUtils.startActivity(activity, ProductDeckMapActivity.getIntent(activity, null));
-    }
-
-    private boolean showAll = true;
-
-    void onAllDayClick() {
-        /*List<Integer> index = hiddenItems.first;
-        List<AbstractFlexibleItem> items = hiddenItems.second;
-        for (int i = 0; i < items.size(); i++) {
-            if (showAll) {
-                adapter.addItem(index.get(i), items.get(i));
-            } else {
-                adapter.removeItems(index);
-            }
-        }
-        showAll = !showAll;*/
     }
 
     public void setShipInvisibleHeight(Pair<Integer, Integer> pair) {
@@ -446,5 +434,18 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     public void updateHeader() {
         adapter.notifyItemChanged(0);
+    }
+
+    // COLLAPSE | EXPAND - OBSERVER
+
+    private void onExpandCollapseNext(PlannerHeader header) {
+        if (expandCollapseObserver == null) {
+            return;
+        }
+        expandCollapseObserver.onNext(header);
+    }
+
+    public void setExpandCollapseObserver(Observer<PlannerHeader> expandCollapseObserver) {
+        this.expandCollapseObserver = expandCollapseObserver;
     }
 }

@@ -32,9 +32,9 @@ import com.rcl.excalibur.utils.DateUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
-import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.flexibleadapter.items.ISectionable;
 import timber.log.Timber;
 
 import static com.rcl.excalibur.model.PlannerProductModel.ALL_DAY_HEADER;
@@ -43,7 +43,6 @@ import static com.rcl.excalibur.model.PlannerProductModel.GENERAL_HEADER;
 public class PlannerPresenter {
 
     static final String DAY_DEFAULT_VALUE = "1";
-    private GetOfferingsDbUseCase useCase;
     private static final String HEADER_FORMAT = "H%s";
     private static final String ITEM_FORMAT = "I%s";
 
@@ -57,12 +56,15 @@ public class PlannerPresenter {
 
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
+    private GetOfferingsDbUseCase useCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
 
     private PlannerView view;
     private PlannerModel model;
 
     private SparseArrayCompat<PlannerHeader> headerList;
+    private List<IFlexible> hiddenGeneralItems = new ArrayList<>();
+    private List<IFlexible> hiddenAllDayItems = new ArrayList<>();
 
     @StringRes private int currentPartOfDayResource;
     private int lastHeaderId = 0;
@@ -90,24 +92,22 @@ public class PlannerPresenter {
         view.initAnimation();
         view.initBottomSheetBehavior();
         view.setViewObserver(new OnScrolledObserver(this));
+        view.setExpandCollapseObserver(new OnExpandCollapseObserver(this));
+
         createHeaderList();
     }
 
     private void createHeaderList() {
         headerList = new SparseArrayCompat<>(HEADER_LIST_SIZE);
-        headerList.append(GENERAL_HEADER, createPlannerHeader(R.string.empty_string));
-        headerList.append(ALL_DAY_HEADER, createPlannerHeader(R.string.planner_title_all_day));
+        headerList.append(GENERAL_HEADER, createPlannerHeader(R.string.empty_string, false));
+        headerList.append(ALL_DAY_HEADER, createPlannerHeader(R.string.planner_title_all_day, true));
     }
 
-    private List<AbstractFlexibleItem> addPlannerItems(final List<PlannerProductModel> plannerProductModels) {
-        List<AbstractFlexibleItem> plannerItems = new ArrayList<>();
-        /*for (PlannerProductModel plannerProductModel : plannerProductModels) {
-            plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getHeaderItBelongs())));
-        }*/
 
+    private List<IFlexible> addPlannerItems(final List<PlannerProductModel> plannerProductModels) {
+        List<IFlexible> plannerItems = new ArrayList<>();
         for (int i = 0; i < plannerProductModels.size(); i++) {
             PlannerProductModel plannerProductModel = plannerProductModels.get(i);
-
             if (!plannerProductModel.isAllDayProduct()) {
                 PlannerProductModel previousPlannerProductModel = i > 0 ? plannerProductModels.get(i - 1) : null;
                 if (previousPlannerProductModel == null
@@ -122,51 +122,43 @@ public class PlannerPresenter {
                 }
             }
 
-            plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getHeaderItBelongs())));
+            // TODO: Delete this if, only for testing
+            if (i <= 5 && i % 2 == 0) {
+                plannerProductModel.setFeatured(true);
+            } else {
+                plannerProductModel.setFeatured(false);
+            }
+
+            PlannerProductItem plannerProductItem = createPlannerItem(plannerProductModel,
+                    headerList.get(plannerProductModel.getHeaderItBelongs()));
+
+            if (!plannerProductModel.isFeatured()) {
+                if (plannerProductModel.isAllDayProduct()) {
+                    hiddenAllDayItems.add(plannerProductItem);
+                } else {
+                    hiddenGeneralItems.add(plannerProductItem);
+                }
+                continue;
+            }
+
+            plannerItems.add(plannerProductItem);
         }
         return plannerItems;
     }
 
-    private Pair<List<Integer>, List<AbstractFlexibleItem>> getHiddenItems(final List<AbstractFlexibleItem> flexibleItems) {
-        List<Integer> hiddenIndex = new ArrayList<>();
-
-        List<AbstractFlexibleItem> tmpVisibleItems = new ArrayList<>(flexibleItems);
-        List<AbstractFlexibleItem> hiddenItems = new ArrayList<>();
-        for (int i = 0; i < tmpVisibleItems.size(); i++) {
-            if (tmpVisibleItems.get(i) instanceof PlannerProductItem) {
-                PlannerProductItem plannerProductItem = (PlannerProductItem) tmpVisibleItems.get(i);
-                PlannerProductModel plannerProductModel = plannerProductItem.getPlannerProductModel();
-
-                // TODO: Delete this if, only for testing
-                if (i <= 10 && i % 2 == 0) {
-                    plannerProductModel.setFeatured(true);
-                }
-
-                if (!plannerProductModel.isFeatured()) {
-                    hiddenIndex.add(i);
-                    plannerProductItem.setIndexToBeAdded(i);
-                    hiddenItems.add(plannerProductItem);
-                    flexibleItems.remove(plannerProductItem);
-                }
-            }
-        }
-        return new Pair<>(hiddenIndex, hiddenItems);
-    }
-
-    private PlannerHeader createPlannerHeader(@StringRes int textRes) {
+    private PlannerHeader createPlannerHeader(@StringRes int textRes, boolean isAllDayHeader) {
         BaseActivity activity = view.getActivity();
         if (activity == null) {
             return null;
         }
         PlannerHeader plannerHeader = new PlannerHeader(String.format(HEADER_FORMAT, ++lastHeaderId));
         plannerHeader.setTitle(textRes);
+        plannerHeader.setAllDayHeader(isAllDayHeader);
         return plannerHeader;
     }
 
     private PlannerProductItem createPlannerItem(PlannerProductModel plannerProductModel, PlannerHeader plannerHeader) {
-        // TODO: mock
-        String timeLabel = new Random().nextBoolean() ? null : "10 AM";
-        PlannerProductItem plannerProductItem = new PlannerProductItem(String.format(ITEM_FORMAT, ++lastItemId), timeLabel, plannerHeader);
+        PlannerProductItem plannerProductItem = new PlannerProductItem(String.format(ITEM_FORMAT, ++lastItemId), plannerHeader);
         plannerProductItem.setPlannerProductModel(plannerProductModel);
         return plannerProductItem;
     }
@@ -184,11 +176,9 @@ public class PlannerPresenter {
         calendar.set(Calendar.MONTH, Calendar.MAY);
 
         SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
-        List<AbstractFlexibleItem> visibleItems = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST));
+        List<IFlexible> visibleItems = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST));
         visibleItems.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST)));
-        //Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems = getHiddenItems(visibleItems);
         view.addPlannerItems(visibleItems);
-        //view.addPlannerItems(visibleItems, hiddenItems);
 
         getArrivingDisembarkingInfo();
         BaseActivity activity = view.getActivity();
@@ -314,5 +304,39 @@ public class PlannerPresenter {
         }
     }
 
+    private static class OnExpandCollapseObserver extends DefaultPresentObserver<PlannerHeader, PlannerPresenter> {
+        OnExpandCollapseObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
 
+        @Override
+        public void onNext(PlannerHeader header) {
+            PlannerPresenter presenter = getPresenter();
+            if (header.isSectionExpanded()) {
+                presenter.collapseSection(header);
+            } else {
+                presenter.expandSection(header);
+            }
+        }
+    }
+
+    private void expandSection(PlannerHeader header) {
+        List<IFlexible> itemsToAdd;
+        if (header.isAllDayHeader()) {
+            itemsToAdd = hiddenAllDayItems;
+        } else {
+            itemsToAdd = hiddenGeneralItems;
+        }
+
+        for (IFlexible item : itemsToAdd) {
+            view.addItemToSection((ISectionable) item, header);
+        }
+
+        header.setSectionExpanded(true);
+    }
+
+    private void collapseSection(PlannerHeader header) {
+        view.removeItemsFromSection(header);
+        header.setSectionExpanded(false);
+    }
 }

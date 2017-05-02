@@ -19,8 +19,11 @@ import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHolder> {
 
-    private String id;
     @StringRes private int title;
+    private String id;
+
+    private boolean isAllDayHeader;
+    private boolean isSectionExpanded;
 
     public PlannerHeader(String id) {
         super();
@@ -77,9 +80,9 @@ public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHo
     }
 
     class HeaderViewHolder extends FlexibleViewHolder {
+
         @BindView(R.id.text_planner_part_of_day) TextView partOfDayText;
         @BindView(R.id.text_planner_expandable_label) TextView expandableText;
-
         HeaderViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter, true);
             ButterKnife.bind(this, itemView);
@@ -94,5 +97,22 @@ public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHo
             expandableText.setText(R.string.planner_header_see_all);
             expandableText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_chevron_down, 0);
         }
+
+    }
+
+    public boolean isAllDayHeader() {
+        return isAllDayHeader;
+    }
+
+    public void setAllDayHeader(boolean allDayHeader) {
+        isAllDayHeader = allDayHeader;
+    }
+
+    public boolean isSectionExpanded() {
+        return isSectionExpanded;
+    }
+
+    public void setSectionExpanded(boolean sectionExpanded) {
+        isSectionExpanded = sectionExpanded;
     }
 }
