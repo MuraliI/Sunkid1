@@ -1,17 +1,13 @@
 package com.rcl.excalibur.data.mapper;
 
 import com.rcl.excalibur.data.MockMediaitemResponse;
+import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.MenuAdvisoryTagResponse;
 import com.rcl.excalibur.data.service.response.MenuItemAdvisoryTagResponse;
-import com.rcl.excalibur.data.service.response.MenuItemMediaResponse;
 import com.rcl.excalibur.data.service.response.MenuItemResponse;
-import com.rcl.excalibur.data.service.response.MenuMediaResponse;
 import com.rcl.excalibur.data.service.response.MenuResponse;
 import com.rcl.excalibur.data.service.response.MenuSectionResponse;
-import com.rcl.excalibur.data.service.response.SectionMediaResponse;
 import com.rcl.excalibur.domain.Menu;
-import com.rcl.excalibur.domain.MenuItem;
-import com.rcl.excalibur.domain.MenuItemMedia;
 
 import org.junit.After;
 import org.junit.Before;
@@ -32,12 +28,12 @@ public class MenuDataMapperTest {
     MenuAdvisoryTagResponse menuAdvisoryTagResponse1, menuAdvisoryTagResponse2;
     List<MenuSectionResponse> menuSectionResponseList;
     MenuSectionResponse menuSectionResponse1, menuSectionResponse2;
-    MenuMediaResponse menuMediaResponse;
-    SectionMediaResponse sectionMediaResponse;
+    MediaResponse menuMediaResponse;
+    MediaResponse sectionMediaResponse;
 
     List<MenuItemAdvisoryTagResponse> menuItemAdvisoryTagResponseList;
     MenuItemAdvisoryTagResponse menuItemAdvisoryTagResponse1;
-    MenuItemMediaResponse menuItemMediaResponse;
+    MediaResponse menuItemMediaResponse;
     List<MenuItemResponse> menuItemResponses;
     MenuItemResponse menuItemResponse;
 
@@ -55,13 +51,13 @@ public class MenuDataMapperTest {
         menuSectionResponse1 = new MenuSectionResponse();
         menuSectionResponse2 = new MenuSectionResponse();
 
-        sectionMediaResponse = new SectionMediaResponse();
+        sectionMediaResponse = new MediaResponse();
         menuItemAdvisoryTagResponseList =new ArrayList<>();
         menuItemAdvisoryTagResponse1 = new MenuItemAdvisoryTagResponse();
         menuItemResponse = new MenuItemResponse();
-        menuItemMediaResponse= new MenuItemMediaResponse();
+        menuItemMediaResponse= new MediaResponse();
 
-        menuMediaResponse = new MenuMediaResponse();
+        menuMediaResponse = new MediaResponse();
 
 
 
@@ -83,7 +79,6 @@ public class MenuDataMapperTest {
         menuItemAdvisoryTagResponse1.setTitle("WILD MUSHROOM SOUP");
         menuItemAdvisoryTagResponseList.add(menuItemAdvisoryTagResponse1);
         menuItemResponse.setMenuItemAdvisoryTags(menuItemAdvisoryTagResponseList);
-        menuItemMediaResponse = new MenuItemMediaResponse();
         menuItemMediaResponse.setMediaItem(MockMediaitemResponse.getMockMockMediaitemResponse());
         menuItemResponse.setMenuItemMedia(menuItemMediaResponse);
         menuItemResponses = new ArrayList<>();

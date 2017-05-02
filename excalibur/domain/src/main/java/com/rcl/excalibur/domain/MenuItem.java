@@ -6,7 +6,7 @@ import java.util.List;
 public class MenuItem {
 
     private List<MenuItemAdvisoryTag> menuItemAdvisoryTags;
-    private MenuItemMedia menuItemMedia;
+    private Media menuItemMedia;
     private String menuItemDescription;
     private String menuItemTitle;
 
@@ -17,15 +17,6 @@ public class MenuItem {
     public void setMenuItemAdvisoryTags(List<MenuItemAdvisoryTag> menuItemAdvisoryTags) {
         this.menuItemAdvisoryTags = menuItemAdvisoryTags;
     }
-
-    public MenuItemMedia getMenuItemMedia() {
-        return menuItemMedia;
-    }
-
-    public void setMenuItemMedia(MenuItemMedia menuItemMedia) {
-        this.menuItemMedia = menuItemMedia;
-    }
-
 
     public String getMenuItemTitle() {
         return menuItemTitle;
@@ -41,5 +32,13 @@ public class MenuItem {
 
     public void setMenuItemDescription(String menuItemDescription) {
         this.menuItemDescription = menuItemDescription;
+    }
+
+    public Media getMenuItemMedia() {
+        return menuItemMedia;
+    }
+
+    public void setMenuItemMedia(Media menuItemMedia) {
+        this.menuItemMedia = menuItemMedia;
     }
 }

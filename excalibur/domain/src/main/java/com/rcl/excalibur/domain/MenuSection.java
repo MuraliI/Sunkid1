@@ -7,7 +7,7 @@ import java.util.List;
 public class MenuSection {
 
     private List<MenuItem> menuItem;
-    private SectionMedia sectionMedia;
+    private Media sectionMedia;
     private String sectionName;
     private String sectionDescription;
 
@@ -17,14 +17,6 @@ public class MenuSection {
 
     public void setMenuItem(List<MenuItem> menuItem) {
         this.menuItem = menuItem;
-    }
-
-    public SectionMedia getSectionMedia() {
-        return sectionMedia;
-    }
-
-    public void setSectionMedia(SectionMedia sectionMedia) {
-        this.sectionMedia = sectionMedia;
     }
 
     public String getSectionName() {
@@ -43,4 +35,19 @@ public class MenuSection {
         sectionDescription = sectiondescription;
     }
 
+    public Media getSectionMedia() {
+        return sectionMedia;
+    }
+
+    public void setSectionMedia(Media sectionMedia) {
+        this.sectionMedia = sectionMedia;
+    }
+
+    public String getSectionDescription() {
+        return sectionDescription;
+    }
+
+    public void setSectionDescription(String sectionDescription) {
+        this.sectionDescription = sectionDescription;
+    }
 }

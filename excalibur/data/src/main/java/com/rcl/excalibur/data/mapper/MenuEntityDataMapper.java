@@ -9,15 +9,12 @@ import com.rcl.excalibur.data.entity.MenuEntity;
 import com.rcl.excalibur.data.entity.MenuItemAdvisoryTagEntity;
 import com.rcl.excalibur.data.entity.MenuItemEntity;
 import com.rcl.excalibur.data.entity.MenuSectionEntity;
-import com.rcl.excalibur.data.entity.SectionMediaEntity;
 import com.rcl.excalibur.domain.Media;
-import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.MenuAdvisoryTag;
 import com.rcl.excalibur.domain.MenuItem;
 import com.rcl.excalibur.domain.MenuItemAdvisoryTag;
 import com.rcl.excalibur.domain.MenuSection;
-import com.rcl.excalibur.domain.SectionMedia;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,16 +63,6 @@ public class MenuEntityDataMapper extends BaseDataMapper<Menu, MenuEntity, Void>
         return output;
     }
 
-    private SectionMedia transform(SectionMediaEntity input) {
-        SectionMedia output = new SectionMedia();
-        if (input == null) {
-            return output;
-        }
-        List<MediaItem> mediaItem = mediaItemDataMapper.transform(input.getMenuMedia().getValues(), null);
-        output.setMediaItem(mediaItem);
-        return output;
-    }
-
     private Media transform(MediaEntity entity) {
         Media output = new Media();
         if (entity == null) {
@@ -94,7 +81,7 @@ public class MenuEntityDataMapper extends BaseDataMapper<Menu, MenuEntity, Void>
         output.setMenuItemTitle(entity.getMenuItemTitle());
         output.setMenuItemDescription(entity.getMenuItemDescription());
         output.setMenuItemAdvisoryTags(transformMenuItemAdvisoryTag(entity.getMenuItemAdvisoryTags()));
-        //TODO peinding mapper MenuItemMedia
+        output.setMenuItemMedia(transform(entity.getMediaEntity()));
         return output;
 
     }

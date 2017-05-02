@@ -23,7 +23,7 @@ public class MenuSectionEntity extends Model {
     @Column(name = COLUMN_SECTION_DESCRIPTION)
     private String sectionDescription;
     @Column(name = COLUMN_MENU_SECTION_MEDIA)
-    private SectionMediaEntity sectionMediaEntity;
+    private MediaEntity sectionMediaEntity;
     @Column(name = COLUMN_MENU)
     private MenuEntity menuEntity;
 
@@ -60,11 +60,11 @@ public class MenuSectionEntity extends Model {
         return getMany(MenuItemEntity.class, MenuItemEntity.COLUMN_MENU_SECTION);
     }
 
-    public SectionMediaEntity getSectionMediaEntity() {
+    public MediaEntity getSectionMediaEntity() {
         return sectionMediaEntity;
     }
 
-    public void setSectionMediaEntity(SectionMediaEntity sectionMediaEntity) {
+    public void setSectionMediaEntity(MediaEntity sectionMediaEntity) {
         this.sectionMediaEntity = sectionMediaEntity;
     }
 }

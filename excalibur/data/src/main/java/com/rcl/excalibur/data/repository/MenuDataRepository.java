@@ -21,7 +21,6 @@ import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.MenuAdvisoryTag;
 import com.rcl.excalibur.domain.MenuItem;
 import com.rcl.excalibur.domain.MenuItemAdvisoryTag;
-import com.rcl.excalibur.domain.MenuItemMedia;
 import com.rcl.excalibur.domain.MenuSection;
 import com.rcl.excalibur.domain.repository.MenuRepository;
 
@@ -74,6 +73,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
             menuSectionEntity.setSectionName(menuSection.getSectionName());
             menuSectionEntity.setSectionDescription(menuSection.getSectiondescription());
             menuSectionEntity.setMenuEntity(entity);
+            menuSectionEntity.setSectionMediaEntity(create(menuSection.getSectionMedia()));
             menuSectionEntity.save();
             createMenuItemEntity(menuSectionEntity, menuSection.getMenuItem());
         }
@@ -89,27 +89,10 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
             menuItemEntity.setMenuItemTitle(menuItem.getMenuItemTitle());
             menuItemEntity.setMenuItemDescription(menuItem.getMenuItemDescription());
             menuItemEntity.setMenuSectionEntity(entity);
+            menuItemEntity.setMediaEntity(create(menuItem.getMenuItemMedia()));
             menuItemEntity.save();
             createMenuItemAdvisoryTag(menuItemEntity, menuItem.getMenuItemAdvisoryTags());
-            createMenuItemMedia(menuItemEntity, menuItem.getMenuItemMedia());
         }
-
-    }
-
-    private void createMenuItemMedia(final MenuItemEntity menuItemEntity, final MenuItemMedia menuItemMedia) {
-
-        if (menuItemMedia == null || CollectionUtils.isEmpty(menuItemMedia.getMediaItem())) {
-            return;
-        }
-        MediaEntity mediaEntity = new MediaEntity();
-        mediaEntity.save();
-        for (MediaItem mediaItem : menuItemMedia.getMediaItem()) {
-            final MediaValueEntity mediaValueEntity = new MediaValueEntity();
-            mediaValueEntity.setLink(mediaItem.getMediaRefLink());
-            mediaValueEntity.setMedia(mediaEntity);
-            mediaValueEntity.save();
-        }
-        menuItemEntity.setMediaEntity(mediaEntity);
 
     }
 

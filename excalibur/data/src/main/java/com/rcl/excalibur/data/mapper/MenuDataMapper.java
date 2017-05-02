@@ -3,22 +3,18 @@ package com.rcl.excalibur.data.mapper;
 
 import android.support.annotation.Nullable;
 
+import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.MenuAdvisoryTagResponse;
 import com.rcl.excalibur.data.service.response.MenuItemAdvisoryTagResponse;
-import com.rcl.excalibur.data.service.response.MenuItemMediaResponse;
 import com.rcl.excalibur.data.service.response.MenuItemResponse;
-import com.rcl.excalibur.data.service.response.MenuMediaResponse;
 import com.rcl.excalibur.data.service.response.MenuResponse;
 import com.rcl.excalibur.data.service.response.MenuSectionResponse;
-import com.rcl.excalibur.data.service.response.SectionMediaResponse;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.MenuAdvisoryTag;
 import com.rcl.excalibur.domain.MenuItem;
 import com.rcl.excalibur.domain.MenuItemAdvisoryTag;
-import com.rcl.excalibur.domain.MenuItemMedia;
 import com.rcl.excalibur.domain.MenuSection;
-import com.rcl.excalibur.domain.SectionMedia;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,27 +65,8 @@ public class MenuDataMapper extends BaseDataMapper<Menu, MenuResponse, Void> {
         return output;
     }
 
-    private SectionMedia transform(SectionMediaResponse input) {
-        SectionMedia output = new SectionMedia();
-        if (input == null) {
-            return output;
-        }
-        output.setMediaItem(mediaItemDataMapper.transform(input.getMediaItem(), null));
-        return output;
-    }
-
-    private Media transform(MenuMediaResponse entity) {
+    private Media transform(MediaResponse entity) {
         Media output = new Media();
-        if (entity == null) {
-            return output;
-        }
-        output.setMediaItem(mediaItemDataMapper.transform(entity.getMediaItem(), null));
-        return output;
-
-    }
-
-    private MenuItemMedia transform(MenuItemMediaResponse entity) {
-        MenuItemMedia output = new MenuItemMedia();
         if (entity == null) {
             return output;
         }

@@ -8,7 +8,7 @@ import java.util.List;
 public class MenuItemResponse {
 
     private List<MenuItemAdvisoryTagResponse> menuItemAdvisoryTags;
-    private MenuItemMediaResponse menuItemMedia;
+    private MediaResponse menuItemMedia;
     @SerializedName("menuItemdescription")
     private String menuItemDescription;
     @SerializedName("menuItemtitle")
@@ -21,16 +21,6 @@ public class MenuItemResponse {
     public void setMenuItemAdvisoryTags(List<MenuItemAdvisoryTagResponse> menuItemAdvisoryTags) {
         this.menuItemAdvisoryTags = menuItemAdvisoryTags;
     }
-
-    public MenuItemMediaResponse getMenuItemMedia() {
-        return menuItemMedia;
-    }
-
-    public void setMenuItemMedia(MenuItemMediaResponse menuItemMedia) {
-        this.menuItemMedia = menuItemMedia;
-    }
-
-
 
     public String getMenuItemTitle() {
         return menuItemTitle;
@@ -46,5 +36,13 @@ public class MenuItemResponse {
 
     public void setMenuItemDescription(String menuItemDescription) {
         this.menuItemDescription = menuItemDescription;
+    }
+
+    public MediaResponse getMenuItemMedia() {
+        return menuItemMedia;
+    }
+
+    public void setMenuItemMedia(MediaResponse menuItemMedia) {
+        this.menuItemMedia = menuItemMedia;
     }
 }

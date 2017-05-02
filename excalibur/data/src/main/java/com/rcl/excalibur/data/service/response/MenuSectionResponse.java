@@ -1,15 +1,17 @@
 
 package com.rcl.excalibur.data.service.response;
 
-import java.util.List;
-import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+import javax.annotation.Generated;
 
 @Generated("net.hexar.json2pojo")
 public class MenuSectionResponse {
 
     private List<MenuItemResponse> menuItem;
-    private SectionMediaResponse sectionMedia;
+    private MediaResponse sectionMedia;
     private String sectionName;
     @SerializedName("sectiondescription")
     private String sectionDescription;
@@ -20,14 +22,6 @@ public class MenuSectionResponse {
 
     public void setMenuItem(List<MenuItemResponse> menuItem) {
         this.menuItem = menuItem;
-    }
-
-    public SectionMediaResponse getSectionMedia() {
-        return sectionMedia;
-    }
-
-    public void setSectionMedia(SectionMediaResponse sectionMedia) {
-        this.sectionMedia = sectionMedia;
     }
 
     public String getSectionName() {
@@ -45,5 +39,13 @@ public class MenuSectionResponse {
 
     public void setSectionDescription(String sectionDescription) {
         this.sectionDescription = sectionDescription;
+    }
+
+    public MediaResponse getSectionMedia() {
+        return sectionMedia;
+    }
+
+    public void setSectionMedia(MediaResponse sectionMedia) {
+        this.sectionMedia = sectionMedia;
     }
 }

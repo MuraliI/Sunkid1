@@ -7,7 +7,7 @@ public class MenuResponse {
 
     private String dayNumber;
     private List<MenuAdvisoryTagResponse> menuAdvisoryTag;
-    private MenuMediaResponse menuMedia;
+    private MediaResponse menuMedia;
     private String menuName;
     private List<MenuSectionResponse> menuSections;
 
@@ -27,14 +27,6 @@ public class MenuResponse {
         this.menuAdvisoryTag = menuAdvisoryTag;
     }
 
-    public MenuMediaResponse getMenuMedia() {
-        return menuMedia;
-    }
-
-    public void setMenuMedia(MenuMediaResponse menuMedia) {
-        this.menuMedia = menuMedia;
-    }
-
     public String getMenuName() {
         return menuName;
     }
@@ -51,4 +43,11 @@ public class MenuResponse {
         this.menuSections = menuSections;
     }
 
+    public MediaResponse getMenuMedia() {
+        return menuMedia;
+    }
+
+    public void setMenuMedia(MediaResponse menuMedia) {
+        this.menuMedia = menuMedia;
+    }
 }
