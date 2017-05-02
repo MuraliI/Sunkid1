@@ -128,7 +128,7 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
     }
 
     public void onDeckSelected(Pair<Integer, Integer> deck) {
-        deckMapImage.setImage(deck.first);
+        deckMapImage.setImage(deck.second);
         deckSelectorPicker.setSelectedItem(deck);
         if (getContext() != null) {
             deckSelectorButton.setText(getContext().getString(R.string.deck_number, String.valueOf(deck.first)));

@@ -3,6 +3,8 @@ package com.rcl.excalibur.custom.view;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,13 +41,11 @@ public class DeckSelectorButton extends LinearLayout {
     }
 
     private void init() {
+        final Animation openAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_180_degrees_counter_clockwise);
+        final Animation closeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_180_degrees_clockwise);
         this.setOnClickListener(view -> {
+            openSelector.startAnimation(isDeckSelectorOpen ? closeAnimation : openAnimation);
             isDeckSelectorOpen = !isDeckSelectorOpen;
-            openSelector.setImageDrawable(getResources()
-                    .getDrawable(isDeckSelectorOpen
-                                    ? R.drawable.ic_arrow_drop_up
-                                    : R.drawable.ic_arrow_drop_down
-                            , getContext().getTheme()));
             deckSelectorButtonPressedPublisher.onNext(isDeckSelectorOpen);
         });
     }

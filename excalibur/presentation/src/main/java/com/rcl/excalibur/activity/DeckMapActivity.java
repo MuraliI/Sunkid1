@@ -16,9 +16,13 @@ import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.presenter.DeckMapPresenter;
 import com.rcl.excalibur.mvp.view.DeckMapView;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class DeckMapActivity extends BaseActivity implements View.OnTouchListener,
         ViewTreeObserver.OnGlobalLayoutListener {
     private static final String EXTRA_PRODUCT_ITEM_ID = "EXTRA_PRODUCT_ITEM_ID";
+
 
     protected DeckMapPresenter presenter;
     private GestureDetector gestureDetector;
@@ -43,6 +47,8 @@ public class DeckMapActivity extends BaseActivity implements View.OnTouchListene
                 new GetProductDbUseCase(new ProductDataRepository()));
         presenter.init(productItemId);
         initGestureDetector(presenter);
+
+        ButterKnife.bind(this);
     }
 
     // Cannot be passed to View because is very expensive to implement
@@ -56,6 +62,11 @@ public class DeckMapActivity extends BaseActivity implements View.OnTouchListene
                     }
                 }
         );
+    }
+
+    @OnClick(R.id.button_close_deck_map)
+    public void onClosedButtonClicked(View view) {
+        presenter.onCloseClicked();
     }
 
     @Override
