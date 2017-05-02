@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.flexibleadapter.items.IHeader;
 import timber.log.Timber;
 
 import static com.rcl.excalibur.model.PlannerProductModel.ALL_DAY_HEADER;
@@ -303,7 +304,7 @@ public class PlannerPresenter {
         }
     }
 
-    private static class OnExpandCollapseObserver extends DefaultPresentObserver<PlannerHeader, PlannerPresenter> {
+    private static class OnExpandCollapseObserver extends DefaultPresentObserver<List<IHeader>, PlannerPresenter> {
         private boolean isExpanded = false;
 
         OnExpandCollapseObserver(PlannerPresenter presenter) {
@@ -311,7 +312,7 @@ public class PlannerPresenter {
         }
 
         @Override
-        public void onNext(PlannerHeader header) {
+        public void onNext(List<IHeader> headers) {
             /*PlannerPresenter presenter = getPresenter();
             if (header.isSectionExpanded()) {
                 presenter.collapseSection(header);
@@ -322,8 +323,10 @@ public class PlannerPresenter {
             PlannerPresenter presenter = getPresenter();
             if (isExpanded) {
                 presenter.collapseSections();
+                presenter.updateHeaders(headers, false);
             } else {
                 presenter.expandSections();
+                presenter.updateHeaders(headers, true);
             }
             isExpanded = !isExpanded;
         }
@@ -359,6 +362,13 @@ public class PlannerPresenter {
         for (IFlexible item : itemsToAdd) {
             PlannerProductItem plannerProductItem = (PlannerProductItem) item;
             view.addItemToSection(plannerProductItem, plannerProductItem.getHeader());
+        }
+    }
+
+    private void updateHeaders(List<IHeader> headers, boolean isExpanded) {
+        for (IHeader header : headers) {
+            ((PlannerHeader) header).setSectionExpanded(isExpanded);
+            view.updateHeader(header);
         }
     }
 

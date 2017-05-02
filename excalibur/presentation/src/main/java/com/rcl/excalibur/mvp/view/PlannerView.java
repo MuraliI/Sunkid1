@@ -71,7 +71,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private Animation slideUpAllDayAnimation;
     private Animation animationGoIn;
 
-    private Observer<PlannerHeader> expandCollapseObserver;
+    private Observer<List<IHeader>> expandCollapseObserver;
     private List<Integer> itemsToRemove;
 
     private Handler handler;
@@ -115,8 +115,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-        DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
-        itemAnimator.setAddDuration(300);
         recyclerView.setItemAnimator(itemAnimator);
         recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
@@ -384,7 +382,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
                     sharedItemView,
                     getActivity().getString(R.string.shared_element_transition_name));
         } else {
-            onExpandCollapseNext((PlannerHeader) item);
+            onExpandCollapseNext(adapter.getHeaderItems());
         }
     }
 
@@ -400,7 +398,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     public void removeItems() {
         adapter.removeItems(itemsToRemove);
         itemsToRemove.clear();
-        recyclerView.scrollToPosition(TOP_OF_LIST);
     }
 
     /*public void addItemToSection(ISectionable itemToAdd, IHeader header) {
@@ -473,14 +470,14 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     // COLLAPSE | EXPAND - OBSERVER
 
-    private void onExpandCollapseNext(PlannerHeader header) {
+    private void onExpandCollapseNext(List<IHeader> headers) {
         if (expandCollapseObserver == null) {
             return;
         }
-        expandCollapseObserver.onNext(header);
+        expandCollapseObserver.onNext(headers);
     }
 
-    public void setExpandCollapseObserver(Observer<PlannerHeader> expandCollapseObserver) {
+    public void setExpandCollapseObserver(Observer<List<IHeader>> expandCollapseObserver) {
         this.expandCollapseObserver = expandCollapseObserver;
     }
 }
