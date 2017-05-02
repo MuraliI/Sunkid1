@@ -84,7 +84,7 @@ public final class DateUtil {
         try {
             date = dateformat.parse(dateToTransform);
         } catch (ParseException e) {
-            //Fixme Remove when Service data is fixed
+            //FIXME Remove when Service data is fixed
             try {
                 date = dateformat.parse("20170702T000000");
             } catch (ParseException e1) {
