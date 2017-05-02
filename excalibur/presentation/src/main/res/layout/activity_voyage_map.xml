@@ -14,10 +14,10 @@
         tools:layout="@layout/ship_time" />
 
     <include
-        android:id="@+id/tab_voyage_map"
+        android:id="@+id/collapsible_tab"
         layout="@layout/custom_tabview_triptychtab"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <com.rcl.excalibur.custom.view.VoyageMapImageView
         android:id="@+id/image_voyage_map"
