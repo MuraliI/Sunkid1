@@ -22,6 +22,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
 
     @BindView(R.id.image_voyage_map) VoyageMapImageView voyageMapImage;
     @BindView(R.id.date_picker_plans_tab) TextView dayPickerText;
+    @BindView(R.id.text_ship_status) TextView textShipText;
     @BindView(R.id.view_white_voyage_map) View whiteBarView;
 
     public VoyageMapView(VoyageMapActivity activity) {
@@ -51,11 +52,16 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     }
 
     public void setHeader(String day) {
-        dayPickerText.setText(day);
+
     }
 
     @OnClick(R.id.date_picker_plans_tab)
     public void onDayPickerClick() {
         ActivityUtils.startActivity(getActivity(), DayPickerActivity.getStartIntent(getActivity()));
+    }
+
+    public void setTextShipLocation(String textShip, String day) {
+        dayPickerText.setText(day);
+        textShipText.setText(textShip);
     }
 }
