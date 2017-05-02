@@ -1,7 +1,11 @@
 package com.rcl.excalibur.mvp.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.graphics.PointF;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -19,7 +23,12 @@ import butterknife.OnClick;
 public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     private static final int MINIMUM_DPI = 80;
     private static final int SCREEN_DIVISOR = 2;
+    private static final String ANIMATOR_PROPERTY = "alpha";
+    private static final float ALPHA_OFF = 0.0f;
+    private static final float ALPHA_VISIBLE = 1.0f;
+    private static final int ANIMATOR_DURATION = 250;
 
+    @BindView(R.id.image_ship_voyage) ImageView ship;
     @BindView(R.id.image_voyage_map) VoyageMapImageView voyageMapImage;
     @BindView(R.id.date_picker_plans_tab) TextView dayPickerText;
     @BindView(R.id.text_ship_status) TextView textShipText;
@@ -51,13 +60,38 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
         voyageMapImage.setAngle(cruiseAngle);
     }
 
-    public void setHeader(String day) {
-
+    @OnClick(R.id.date_picker_plans_tab)
+    void onDayPickerClick() {
+        ActivityUtils.startActivity(getActivity(), DayPickerActivity.getStartIntent(getActivity()));
     }
 
-    @OnClick(R.id.date_picker_plans_tab)
-    public void onDayPickerClick() {
-        ActivityUtils.startActivity(getActivity(), DayPickerActivity.getStartIntent(getActivity()));
+    public void hideShip() {
+        Animator animator = ObjectAnimator.ofFloat(ship, ANIMATOR_PROPERTY, ALPHA_OFF);
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                ship.setVisibility(View.GONE);
+            }
+        });
+        animator.setDuration(ANIMATOR_DURATION)
+                .start();
+    }
+
+    public void showShipAndFinishWithTransition() {
+        ship.setVisibility(View.VISIBLE);
+        Animator animator = ObjectAnimator.ofFloat(ship, ANIMATOR_PROPERTY, ALPHA_VISIBLE);
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                if (getActivity() != null) {
+                    getActivity().finishAfterTransition();
+                }
+            }
+        });
+        animator.setDuration(ANIMATOR_DURATION)
+                .start();
     }
 
     public void setTextShipLocation(String textShip, String day) {

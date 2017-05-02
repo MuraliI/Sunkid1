@@ -43,12 +43,12 @@ public class VoyageMapPresenter {
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
     }
 
-    public void init() {
+    public void initTab() {
         view.init(getScreenWidth());
         initVoyageMapImage();
     }
 
-    public int getScreenWidth() {
+    private int getScreenWidth() {
         VoyageMapActivity activity = view.getActivity();
         if (activity == null) {
             return 0;
@@ -59,9 +59,10 @@ public class VoyageMapPresenter {
         return size.x;
     }
 
-    public void initVoyageMapImage() {
+    private void initVoyageMapImage() {
         view.setCruiseCoordinate(796, 826);
         view.setCruiseAngle(20);
+        view.hideShip();
         view.initVoyageMapImage(R.drawable.voyage_land);
     }
 
@@ -71,7 +72,6 @@ public class VoyageMapPresenter {
             return;
         }
         String day = getSailingPreferenceUseCase.getDay();
-
         if (TextUtils.isEmpty(day)) {
             day = activity.getResources().getString(R.string.day_1);
         } else {
@@ -126,5 +126,9 @@ public class VoyageMapPresenter {
             shipLocation = ConstantsUtil.EMPTY;
         }
         return shipLocation;
+    }
+
+    public void onBackPressed() {
+        view.showShipAndFinishWithTransition();
     }
 }
