@@ -6,6 +6,10 @@ android {
     defaultPublishConfig "debug"
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
+    def API_KEY = '"CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09"'
+    def BASE_URL_CLOUD = 'http://10.16.6.134:8090/'
+    def API_COMMERCE_URL = '"' + BASE_URL_CLOUD + 'test/search-api/v1/' + '"'
+    def API_NON_COMMERCE_URL = '"' + BASE_URL_CLOUD + 'test/v1/' + '"'
 
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
@@ -23,24 +27,15 @@ android {
 
     }
     buildTypes {
-        release {
-            buildConfigField "String", "APIKEY", '"CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09"'
-
-            buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.4.8:10100/v1/"'
-            buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
-            buildConfigField "String", "GUEST_API_URL", '"http://10.16.6.134:8090/v1/"'
-            buildConfigField "String", "SHIP_TIME_API_URL", '"http://10.16.6.134:8090/v1/"'
-            buildConfigField "String", "MENUS_API_URL", '"http://10.16.6.134:8090/test/search-api/v1/"'
-        }
         debug {
-            buildConfigField "String", "APIKEY", '"CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09"'
-
-            buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.4.8:10100/v1/"'
+            buildConfigField "String", "API_KEY", API_KEY
+            buildConfigField "String", "DISCOVER_API_URL", API_COMMERCE_URL
             buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
-            buildConfigField "String", "GUEST_API_URL", '"http://10.16.6.134:8090/v1/"'
-            buildConfigField "String", "SHIP_TIME_API_URL", '"http://10.16.6.134:8090/v1/"'
-            buildConfigField "String", "MENUS_API_URL", '"http://10.16.6.134:8090/test/search-api/v1/"'
+            buildConfigField "String", "GUEST_API_URL", API_NON_COMMERCE_URL
+            buildConfigField "String", "SAIL_API_URL", API_NON_COMMERCE_URL
+            buildConfigField "String", "SHIP_TIME_API_URL", API_NON_COMMERCE_URL
         }
+        release.initWith(debug)
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

@@ -12,6 +12,7 @@ import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
 import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
+import com.rcl.excalibur.adapters.viewtype.TimesViewType;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Offering;
@@ -20,6 +21,7 @@ import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductType;
+import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.mapper.ProductInformationMapper;
 
 import java.util.Collections;
@@ -41,11 +43,11 @@ public final class DetailViewTypeFactory {
     private DetailViewTypeFactory() {
     }
 
-    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, List<Offering> offerings, Resources resources) {
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, List<Offering> offerings, SailDateInfo sailDateInfo, Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
-        addTimeModule(viewTypes, resources, product);
+        addTimesModule(viewTypes, offerings, sailDateInfo, resources, product);
         addPricesModule(viewTypes, offerings, resources, product);
         addCuisineModule(viewTypes, resources, product);
         addDurationModule(viewTypes, resources, product);
@@ -218,8 +220,8 @@ public final class DetailViewTypeFactory {
         recyclerViewTypeList.add(new ExpandableAccesibilityViewType(res.getString(R.string.accessibility), accessibilities));
     }
 
-    private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings
-            , @NonNull Resources res, Product product) {
+    private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings,
+                                        @NonNull Resources res, Product product) {
 
         if (!product.isShopping() && !product.isDining()) {
 
@@ -227,7 +229,7 @@ public final class DetailViewTypeFactory {
             float adultPrice = -1;
             float childPrice = -1;
 
-            if (product.isSpa()) {
+            if (product.isSpa() && product.getStartingFromPrice() != null) {
                 adultPrice = product.getStartingFromPrice().getAdultPrice();
                 childPrice = product.getStartingFromPrice().getChildPrice();
             } else {
@@ -265,6 +267,32 @@ public final class DetailViewTypeFactory {
                         res.getString(R.string.prices_from), map, product);
                 recyclerViewTypeList.add(pricesFromViewType);
             }
+        }
+    }
+
+    private static void addTimesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings,
+                                       SailDateInfo sailDateInfo, @NonNull Resources res, Product product) {
+        String title = res.getString(R.string.title_times);
+        if (product.isEntertainment()) {
+            title = res.getString(R.string.title_show_times);
+            TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, res, offerings, sailDateInfo);
+        }
+
+        if (product.isActivities()) {
+            if (product.isInventory() || product.isNonInveentory()) {
+                TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, res, offerings, sailDateInfo);
+            }
+            if (product.isWalkUp()) {
+                TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, product.getProductLocation().getLocationOperationHours());
+            }
+        }
+
+        if (product.isShorex()) {
+            addTitleAndDescriptionTypes(recyclerViewTypeList, title, res.getString(R.string.times_vary));
+        }
+
+        if (product.isSpa() || product.isGuestServices() || product.isShopping()) {
+            TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, product.getProductLocation().getLocationOperationHours());
         }
     }
 

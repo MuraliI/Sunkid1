@@ -4,6 +4,7 @@ import com.rcl.excalibur.data.service.response.DateItineraryResponse;
 import com.rcl.excalibur.data.service.response.PortResponse;
 import com.rcl.excalibur.data.service.response.SailDateEventResponse;
 import com.rcl.excalibur.data.service.response.SailingInfoResponse;
+import com.rcl.excalibur.data.utils.DateUtil;
 import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.SailDateItinerary;
@@ -13,7 +14,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -48,10 +51,8 @@ public class SailDateInfoDataMapperTest {
         portResponse1.setPortCode("FLL");
         portResponse1.setPortName("FORT LAUDERDALE, FLORIDA");
         portResponse1.setPortType("EMBARK");
-        portResponse1.setArrivalDate("04/23/2017");
-        portResponse1.setDepartureDate("04/23/2017");
-        portResponse1.setArrivalTime("0");
-        portResponse1.setDepartureTime("163000");
+        portResponse1.setDepartureDateTime("20170507T160000");
+        portResponse1.setArrivalDateTime("20170513T160000");
         event1.setPort(portResponse1);
 
         event2 = new SailDateEventResponse();
@@ -60,10 +61,8 @@ public class SailDateInfoDataMapperTest {
         portResponse2.setPortCode("NAS");
         portResponse2.setPortName("NASSAU, BAHAMAS");
         portResponse2.setPortType("DOCKED");
-        portResponse2.setArrivalDate("04/24/2017");
-        portResponse2.setDepartureDate("04/24/2017");
-        portResponse2.setArrivalTime("70000");
-        portResponse2.setDepartureTime("140000");
+        portResponse2.setDepartureDateTime("20170507T160000");
+        portResponse2.setArrivalDateTime("20170513T160000");
         event2.setPort(portResponse2);
 
         events.add(event1);
@@ -74,7 +73,6 @@ public class SailDateInfoDataMapperTest {
         sailingInfoResponse.setDuration("7");
         sailingInfoResponse.setShipCode("AL");
         sailingInfoResponse.setItinerary(dateItineraryResponse);
-
 
     }
 
@@ -116,10 +114,17 @@ public class SailDateInfoDataMapperTest {
             assertEquals(portResponse.getPortName(), sailPort.getPortName());
             assertEquals(portResponse.getPortType(), sailPort.getPortType());
             assertEquals(portResponse.getPortCode(), sailPort.getPortCode());
-            assertEquals(portResponse.getArrivalDate(), sailPort.getArrivalDate());
-            assertEquals(portResponse.getDepartureDate(), sailPort.getDepartureDate());
-            assertEquals(portResponse.getArrivalTime(), sailPort.getArrivalTime());
-            assertEquals(portResponse.getDepartureTime(), sailPort.getDepartureTime());
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
+
+            Date arrivalDate = DateUtil.getDateFormatISO().parse(portResponse.getArrivalDateTime());
+            assertEquals(dateFormat.format(arrivalDate), sailPort.getArrivalDate());
+            assertEquals(timeFormat.format(arrivalDate), sailPort.getArrivalTime());
+
+            Date departureDate = DateUtil.getDateFormatISO().parse(portResponse.getDepartureDateTime());
+            assertEquals(dateFormat.format(departureDate), sailPort.getDepartureDate());
+            assertEquals(timeFormat.format(departureDate), sailPort.getDepartureTime());
         }
     }
 

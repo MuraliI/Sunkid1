@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginStart="@dimen/margin_normal"
-        tools:text="@string/starting_from" />
+        tools:text="@string/prices_from" />
 
     <LinearLayout
         android:id="@+id/prices_container"

@@ -44,7 +44,7 @@ public final class PlannerModel {
         if (isMinute) {
             stringTime = arrivalTimeString.substring(endString - END_TIME_INDEX, endString - MIDDLE_TIME_INDEX);
         } else {
-            String subString = arrivalTimeString.substring(BEGIN_TIME_INDEX, endString - END_TIME_INDEX);
+            String subString = arrivalTimeString.substring(BEGIN_TIME_INDEX, MIDDLE_TIME_INDEX);
             int hour = Integer.valueOf(subString);
             int subStringValue = (hour == MIDNIGHT_TIME_VALUE || hour == MIDDAY_TIME_VALUE) ? MIDDAY_TIME_VALUE : (hour - dif);
             stringTime = String.valueOf(subStringValue);
