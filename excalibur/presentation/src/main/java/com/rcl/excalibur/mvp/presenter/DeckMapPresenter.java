@@ -4,13 +4,11 @@ package com.rcl.excalibur.mvp.presenter;
 import android.util.Pair;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.DeckMapActivity;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresenterConsumer;
 import com.rcl.excalibur.mvp.view.DeckMapView;
-import com.rcl.excalibur.utils.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -125,7 +125,7 @@ public class HorizontalPickerView<T> extends FrameLayout {
     @Override
     public void setVisibility(int visibility) {
         isDeckSelectorShown = !(visibility == View.GONE);
-        float translation = isDeckSelectoShown ? ORIGINAL_TRANSLATION_Y : -getHeight();
+        float translation = isDeckSelectorShown ? ORIGINAL_TRANSLATION_Y : -getHeight();
         animate().translationY(translation).setDuration(revealAnimationDuration).start();
     }
 }
