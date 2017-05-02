@@ -365,7 +365,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     @OnClick(R.id.image_ship_invisible)
-    public void shipOnClick() {
+    void shipOnClick() {
         //Fixme temp onClick on Transparent ImageView
         final BaseActivity activity = getActivity();
         if (activity == null) {
@@ -384,8 +384,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         }
     }
 
-    @OnClick(R.id.text_arriving_debarking_time_fixme)
-    public void showVoyageMap() {
+    @OnClick(R.id.text_arriving_debarking_time)
+    void showVoyageMap() {
         if (getActivity() != null) {
             ((TriptychHomeActivity) getActivity()).goToVoyageActivity();
         }

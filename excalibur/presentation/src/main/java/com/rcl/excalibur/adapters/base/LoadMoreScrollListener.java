@@ -4,12 +4,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 public abstract class LoadMoreScrollListener extends RecyclerView.OnScrollListener {
-
+    private static final int INITIAL_THRESHOLD = 5;
     /**
      * The minimum amount of items to have below your current scroll position
      * before loading more.
      */
-    private int visibleThreshold = 5;
+    private int visibleThreshold = INITIAL_THRESHOLD;
     /**
      * The amount of item on each load.
      */

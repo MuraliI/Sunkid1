@@ -3,6 +3,7 @@ package com.rcl.excalibur.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 
 import com.rcl.excalibur.R;
@@ -31,7 +32,8 @@ import butterknife.ButterKnife;
 public class TriptychHomeActivity extends BaseActivity {
     protected TriptychHomePresenter presenter;
     private SailingPreferences sailingPreferences;
-    @BindView(R.id.image_ship) View sharedElement;
+    @BindView(R.id.day_picker_tab) View tabElement;
+    @BindView(R.id.image_ship) View shipElement;
 
     public static Intent getStartIntent(final BaseActivity activity) {
         return new Intent(activity, TriptychHomeActivity.class);
@@ -72,6 +74,8 @@ public class TriptychHomeActivity extends BaseActivity {
     }
 
     public void goToVoyageActivity() {
-        ActivityUtils.startActivityWithSharedElement(this, VoyageMapActivity.getStartIntent(this), sharedElement);
+        Pair<View, String> tabPair = Pair.create(tabElement, getString(R.string.shared_element_tab));
+        Pair<View, String> shipPair = Pair.create(shipElement, shipElement.getTransitionName());
+        ActivityUtils.startActivityWithSharedElements(this, VoyageMapActivity.getStartIntent(this), tabPair, shipPair);
     }
 }

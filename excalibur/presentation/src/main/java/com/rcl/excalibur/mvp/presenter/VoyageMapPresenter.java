@@ -12,19 +12,22 @@ import com.rcl.excalibur.mvp.view.VoyageMapView;
 public class VoyageMapPresenter {
     private VoyageMapView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
-    String day;
+    private String day;
 
     public VoyageMapPresenter(VoyageMapView view, GetSailingPreferenceUseCase getSailingPreferenceUseCase) {
         this.view = view;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
     }
 
-    public void init() {
+    public void initMap() {
         initVoyageMapImage();
+    }
+
+    public void initTab() {
         view.init(getScreenWidth());
     }
 
-    public int getScreenWidth() {
+    private int getScreenWidth() {
         VoyageMapActivity activity = view.getActivity();
         if (activity == null) {
             return 0;
@@ -35,7 +38,7 @@ public class VoyageMapPresenter {
         return size.x;
     }
 
-    public void initVoyageMapImage() {
+    private void initVoyageMapImage() {
         view.setCruiseCoordinate(796, 826);
         view.setCruiseAngle(20);
         view.hideShip();

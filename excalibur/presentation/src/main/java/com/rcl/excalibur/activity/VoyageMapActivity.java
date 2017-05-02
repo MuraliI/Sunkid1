@@ -24,8 +24,7 @@ public class VoyageMapActivity extends BaseActivity {
         ButterKnife.bind(this);
         final SailingPreferences sailingPreferences = new SailingPreferenceImpl(getApplicationContext());
         presenter = new VoyageMapPresenter(new VoyageMapView(this), new GetSailingPreferenceUseCase(sailingPreferences));
-        presenter.init();
-
+        presenter.initTab();
         Transition transition = getWindow().getSharedElementEnterTransition();
         transition.addListener(new Transition.TransitionListener() {
             @Override
@@ -35,7 +34,7 @@ public class VoyageMapActivity extends BaseActivity {
 
             @Override
             public void onTransitionEnd(Transition transition) {
-                presenter.init();
+                presenter.initMap();
             }
 
             @Override

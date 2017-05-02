@@ -4,6 +4,7 @@ package com.rcl.excalibur.utils;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.util.Pair;
 import android.view.View;
 
 import com.rcl.excalibur.R;
@@ -32,6 +33,12 @@ public final class ActivityUtils {
 
     public static void startActivityWithSharedElement(Activity previousActivity, final Intent intent, View sharedElement) {
         startActivityWithSharedElement(previousActivity, intent, sharedElement, sharedElement.getTransitionName());
+    }
+
+    @SafeVarargs
+    public static void startActivityWithSharedElements(Activity previousActivity, final Intent intent, Pair<View, String>... items) {
+        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(previousActivity, items);
+        previousActivity.startActivity(intent, activityOptions.toBundle());
     }
 
     public static void onBackActivity(Activity activity) {

@@ -64,7 +64,7 @@ public final class SchedulerManager {
         if (context == null) {
             return;
         }
-        Log.d("SchedulerReceiver", "init: " + new Date().toString());
+        Log.d("SchedulerReceiver", "initMap: " + new Date().toString());
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         final long currentTimeMillis = System.currentTimeMillis();
 
