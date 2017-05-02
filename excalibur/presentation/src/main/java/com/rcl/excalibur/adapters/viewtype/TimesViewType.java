@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
+import timber.log.Timber;
 
 import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_TIMES;
 import static com.rcl.excalibur.data.service.SailDateServicesImpl.SAIL_DATE;
@@ -93,7 +94,7 @@ public class TimesViewType implements RecyclerViewType {
         try {
             dateTime = DateUtil.getHourlessDateParser().parse(SAIL_DATE);
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
         if (dateTime != null) {
