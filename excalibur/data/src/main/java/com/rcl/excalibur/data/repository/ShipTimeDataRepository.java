@@ -9,7 +9,9 @@ import com.rcl.excalibur.data.mapper.ShipTimeEntityDataMapper;
 import com.rcl.excalibur.domain.ShipTime;
 import com.rcl.excalibur.domain.repository.ShipTimeRepository;
 
-public class ShipTimeDataRepository extends BaseDataRepository<ShipTime, ShipTimeEntity, Void, ShipTimeEntityDataMapper> implements ShipTimeRepository {
+public class ShipTimeDataRepository
+        extends BaseDataRepository<ShipTime, ShipTimeEntity, Void, ShipTimeEntityDataMapper>
+        implements ShipTimeRepository {
 
     public ShipTimeDataRepository() {
         super(new ShipTimeEntityDataMapper(), ShipTimeEntity.class);

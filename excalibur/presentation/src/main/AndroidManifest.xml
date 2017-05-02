@@ -54,7 +54,6 @@
             android:name=".activity.guest.SecurityQuestionsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.guest.AnswerQuestionActivity"
             android:exported="false"
@@ -74,6 +73,11 @@
         <activity
             android:name=".activity.DayPickerActivity"
             android:exported="false"
+            android:label="@string/empty_string"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.DiningMenuActivity"
             android:label="@string/empty_string"
             android:screenOrientation="portrait" />
 

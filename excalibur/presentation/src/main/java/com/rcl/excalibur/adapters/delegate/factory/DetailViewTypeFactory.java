@@ -207,8 +207,8 @@ public final class DetailViewTypeFactory {
         recyclerViewTypeList.add(new DescriptionViewType(description));
     }
 
-    private static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title,
-                                                    final String description) {
+    public static void addTitleAndDescriptionTypes(final List<RecyclerViewType> recyclerViewTypeList, final String title,
+                                                   final String description) {
         recyclerViewTypeList.add(new TitleAndDescriptionViewType(title, description));
     }
 
