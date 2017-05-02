@@ -21,7 +21,6 @@ public class MenuEntity extends Model {
     @Column(name = COLUMN_MENU_NAME)
     private String menuName;
     @Column(name = COLUMN_MEDIA, onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-
     private MediaEntity menuMedia;
 
     public MenuEntity() {

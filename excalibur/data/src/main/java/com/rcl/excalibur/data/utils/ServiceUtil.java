@@ -22,7 +22,6 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public final class ServiceUtil {
 
-    private static final String APIKEY = "CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09";
     private static final String ARGUMNET_APIKEY = "apikey";
 
     private static final String SUCCESS = "SUCCESS";
@@ -109,7 +108,7 @@ public final class ServiceUtil {
                     Request defaultRequest = chain.request();
                     HttpUrl defaulthttpUrl = defaultRequest.url();
                     HttpUrl httpUrl = defaulthttpUrl.newBuilder()
-                            .addQueryParameter(ARGUMNET_APIKEY, APIKEY)
+                            .addQueryParameter(ARGUMNET_APIKEY, BuildConfig.APIKEY)
                             .build();
 
                     Request.Builder requestBuilder = defaultRequest.newBuilder().url(httpUrl);
@@ -121,7 +120,7 @@ public final class ServiceUtil {
             builder.addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BODY));
         }
 
-        return builder.build();
+        return builder.cache(null).build();
     }
 
 }

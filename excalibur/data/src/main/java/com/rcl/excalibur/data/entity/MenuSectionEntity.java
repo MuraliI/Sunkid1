@@ -27,6 +27,10 @@ public class MenuSectionEntity extends Model {
     @Column(name = COLUMN_MENU)
     private MenuEntity menuEntity;
 
+    public MenuSectionEntity() {
+        super();
+    }
+
 
     public String getSectionName() {
         return sectionName;

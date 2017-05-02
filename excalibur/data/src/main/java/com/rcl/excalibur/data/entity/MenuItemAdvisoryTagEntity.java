@@ -19,6 +19,10 @@ public class MenuItemAdvisoryTagEntity extends Model {
     @Column(name = COLUMN_MENU_ITEM)
     private MenuItemEntity menuItemEntity;
 
+    public MenuItemAdvisoryTagEntity() {
+        super();
+    }
+
     public String getTitle() {
         return title;
     }
