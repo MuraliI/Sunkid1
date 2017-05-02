@@ -1,28 +1,31 @@
+
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
     defaultPublishConfig "debug"
 
-    def API_KEY = "CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09"
     def globalConfiguration = rootProject.extensions.getByName("ext")
+    def API_KEY = '"CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09"'
     def BASE_URL_CLOUD = 'http://10.16.6.134:8090/'
     def API_COMMERCE_URL = '"' + BASE_URL_CLOUD + 'test/search-api/v1/' + '"'
     def API_NON_COMMERCE_URL = '"' + BASE_URL_CLOUD + 'test/v1/' + '"'
 
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
     defaultConfig {
         minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
         targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
         versionCode globalConfiguration.getAt("androidVersionCode")
+
         buildConfigField "int", "CORE_POOL_SIZE", "3"
         buildConfigField "int", "MAXIMUM_POOL_SIZE", "5"
         buildConfigField "long", "KEEP_ALIVE_TIME", "10"
         buildConfigField "int", "READ_TIMEOUT", "60"
         buildConfigField "int", "CONNECT_TIMEOUT", "60"
-    }
 
+    }
     buildTypes {
         debug {
             buildConfigField "String", "API_KEY", API_KEY
@@ -34,8 +37,7 @@ android {
         }
         release.initWith(debug)
     }
-
-    compileOptions  {
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
