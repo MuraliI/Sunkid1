@@ -90,7 +90,7 @@ public final class StringUtils {
 
     public static String encodeString(String string) {
         if (TextUtils.isEmpty(string)) {
-            return null;
+            return string;
         }
 
         try {
@@ -100,17 +100,16 @@ public final class StringUtils {
         } catch (UnsupportedEncodingException e) {
             Timber.e(ERROR_ENCODING_STRING, e.getMessage());
         }
-        return null;
+        return string;
     }
 
     public static String decodeString(String string) {
-        if (string == null) {
-            return null;
+        if (TextUtils.isEmpty(string)) {
+            return string;
         }
-
-        byte[] data = Base64.decode(string, Base64.DEFAULT);
-        String stringExtra = null;
+        String stringExtra = string;
         try {
+            byte[] data = Base64.decode(string, Base64.DEFAULT);
             stringExtra = new String(data, OUTPUT_CHARSET);
         } catch (UnsupportedEncodingException e) {
             Timber.e(ERROR_DECODING_STRING, e.getMessage());
