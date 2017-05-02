@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.mvp.presenter.MenuListPresenter;
+import com.rcl.excalibur.domain.MenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observer;
 
-public class DiningMenuCardAdapter extends BaseAdapter<MenuListPresenter.Menu, Void, DiningMenuCardAdapter.TitleAndDescriptionViewHolder> {
+public class DiningMenuCardAdapter extends BaseAdapter<MenuItem, Void, DiningMenuCardAdapter.TitleAndDescriptionViewHolder> {
 
     public DiningMenuCardAdapter(Observer<Void> observer) {
         super(observer);
@@ -20,9 +20,9 @@ public class DiningMenuCardAdapter extends BaseAdapter<MenuListPresenter.Menu, V
 
     @Override
     public void onBindViewHolder(TitleAndDescriptionViewHolder holder, int position) {
-        final MenuListPresenter.Menu menu = items.get(position);
-        holder.title.setText(menu.getTitle());
-        holder.textDescription.setText(menu.getDescription());
+        final MenuItem menu = items.get(position);
+        holder.title.setText(menu.getMenuItemTitle());
+        holder.textDescription.setText(menu.getMenuItemDescription());
     }
 
     @Override

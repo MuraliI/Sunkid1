@@ -4,7 +4,9 @@ import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.PlanListActivity;
+import com.rcl.excalibur.activity.DiningMenuActivity;
+import com.rcl.excalibur.data.repository.MenuDataRepository;
+import com.rcl.excalibur.data.service.MenuServicesImpl;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -32,7 +34,12 @@ public class DiscoverTabView extends FragmentView<DiscoverTabFragment, Void, Voi
         if (activity == null) {
             return;
         }
-        ActivityUtils.startActivity(activity, PlanListActivity.getStartIntent(activity, fragmentToShow));
+
+        //TODO: Change clic
+        new MenuServicesImpl(new MenuDataRepository()).getMenu();
+
+        //ActivityUtils.startActivity(activity, PlanListActivity.getStartIntent(activity, fragmentToShow));
+        ActivityUtils.startActivity(activity, DiningMenuActivity.getStartIntent(activity, "GIOV"));
     }
 
     public void init() {
