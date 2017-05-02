@@ -9,7 +9,7 @@
         android:layout_width="@dimen/deck_map_ship_icon_size"
         android:layout_height="@dimen/deck_map_ship_icon_size"
         android:contentDescription="@string/empty_string"
-        android:src="@drawable/icon_calendar_tab"/>
+        android:src="@drawable/ic_ship_deck_map"/>
 
     <TextView
         android:id="@+id/text_deck_number"

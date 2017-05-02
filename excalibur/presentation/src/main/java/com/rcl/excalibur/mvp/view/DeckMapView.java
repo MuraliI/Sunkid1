@@ -23,10 +23,8 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
     @BindView(R.id.image_deck_map) ImageView deckMapImage;
     @BindView(R.id.horizontal_deck_selector) HorizontalPickerView<Integer> deckSelectorPicker;
     @BindView(R.id.button_deck_selector) DeckSelectorButton deckSelectorButton;
-    @BindView(R.id.scrollView_deck_map)
-    ScrollView deckMapScrollView;
-    @BindView(R.id.image_dropdown)
-    ImageView deckSelectorArrowImage;
+    @BindView(R.id.scrollView_deck_map) ScrollView deckMapScrollView;
+    @BindView(R.id.image_dropdown) ImageView deckSelectorArrowImage;
 
     public DeckMapView(DeckMapActivity activity) {
         super(activity);
