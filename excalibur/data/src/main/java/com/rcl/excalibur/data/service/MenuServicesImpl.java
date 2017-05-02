@@ -46,6 +46,7 @@ public class MenuServicesImpl extends BaseDataService<Menu, MenuResponse, Void> 
         void onResponse(Response<GetMenuResponse> response) {
             if (response.body() != null) {
                 List<Menu> menus = getMapper().transform(response.body().getMenu(), null);
+                repository.deleteAll();
                 for (Menu menu : menus) {
                     repository.create(menu);
 

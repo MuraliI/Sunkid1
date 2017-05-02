@@ -27,6 +27,8 @@ import com.rcl.excalibur.domain.repository.MenuRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.rcl.excalibur.data.utils.DBUtil.eq;
+
 public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Void, MenuEntityDataMapper>
         implements MenuRepository {
 
@@ -144,6 +146,33 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
                 .from(MenuEntity.class)
                 .execute();
         return getMapper().transform(entities, null);
+    }
+
+    @Override
+    public List<MenuItem> getAllMenuItemByMenuName(String menuName) {
+
+        List<MenuItem> menuItems = new ArrayList<>();
+        final List<MenuEntity> entities = new Select()
+                .from(MenuEntity.class)
+                .where(eq(MenuEntity.COLUMN_MENU_NAME, menuName))
+                .execute();
+        List<Menu> menu = getMapper().transform(entities, null);
+        for (Menu menuEntity : menu) {
+            if (menuEntity != null) {
+                for (MenuSection menuSection : menuEntity.getMenuSections()) {
+                    if (menuSection != null) {
+                        for (MenuItem menuItemEntity : menuSection.getMenuItem()) {
+                            if (menuItemEntity != null) {
+                                menuItems.add(menuItemEntity);
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        return menuItems;
     }
 
     @Override

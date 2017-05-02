@@ -73,7 +73,7 @@ public class MenuEntityDataMapper extends BaseDataMapper<Menu, MenuEntity, Void>
 
     }
 
-    private MenuItem transform(MenuItemEntity entity) {
+    public MenuItem transform(MenuItemEntity entity) {
         MenuItem output = new MenuItem();
         if (entity == null) {
             return output;
