@@ -66,7 +66,7 @@ public class DeckMapActivity extends BaseActivity implements View.OnTouchListene
     }
 
     @OnClick(R.id.button_close_deck_map)
-    public void onClosedButtonClicked(View view) {
+    public void onCloseButtonClicked(View view) {
         presenter.onCloseClicked();
     }
 
