@@ -2,6 +2,7 @@ package com.rcl.excalibur.domain.interactor;
 
 import com.rcl.excalibur.domain.repository.MenuRepository;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -20,10 +21,14 @@ public class GetMenuDbUseCaseTest {
         MockitoAnnotations.initMocks(this);
         useCase = new GetMenuDbUseCase(repository);
     }
-
+    @Test
+    public void getData() throws Exception {
+        assertEquals(repository, useCase.getData());
+    }
     @Test
     public void getAll() throws Exception {
-        assertEquals(repository, useCase.getData());
+        repository.getAll();
+        Mockito.verify(repository).getAll();
 
     }
 
@@ -31,5 +36,11 @@ public class GetMenuDbUseCaseTest {
     public void getAllMenuItemByMenuName() throws Exception {
         useCase.getAllMenuItemByMenuName(MENU_NAME);
         Mockito.verify(repository).getAllMenuItemByMenuName(MENU_NAME);
+    }
+
+    @Test
+    public void get() throws Exception {
+        useCase.getAllMenuName();
+        Mockito.verify(repository).getAllMenuName();
     }
 }

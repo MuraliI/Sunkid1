@@ -20,6 +20,9 @@ public class GetMenuDbUseCase extends UseCaseSync<MenuRepository> {
     public List<MenuItem> getAllMenuItemByMenuName(String nameMenu) {
         return getData().getAllMenuItemByMenuName(nameMenu);
     }
+    public List<String> getAllMenuName() {
+        return getData().getAllMenuName();
+    }
 
 
 }

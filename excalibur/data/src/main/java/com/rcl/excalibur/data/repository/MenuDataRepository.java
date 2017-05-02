@@ -176,6 +176,15 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
     }
 
     @Override
+    public List<String> getAllMenuName() {
+        List<String> menuNames = new ArrayList<>();
+        for (Menu menu : getAll()) {
+            menuNames.add(menu.getMenuName());
+        }
+        return menuNames;
+    }
+
+    @Override
     public void deleteAll() {
         //TODO delete only Mediaitem by Menu, MenuSection and MenuItem
         /*

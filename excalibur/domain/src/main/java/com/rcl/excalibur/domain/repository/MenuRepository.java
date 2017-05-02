@@ -15,4 +15,6 @@ public interface MenuRepository {
 
     List<MenuItem> getAllMenuItemByMenuName(String menuName);
 
+    List<String> getAllMenuName();
+
 }
