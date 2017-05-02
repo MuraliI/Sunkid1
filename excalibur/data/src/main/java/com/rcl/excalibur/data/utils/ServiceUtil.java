@@ -21,7 +21,6 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public final class ServiceUtil {
 
-    //Fixme refactor this to config
     private static final String SUCCESS = "SUCCESS";
     private static final String API_KEY_PARAM = "apikey";
     private static DiscoverApi discoverApi;
