@@ -7,7 +7,7 @@ import com.activeandroid.annotation.Table;
 
 import java.util.List;
 
-@Table(name = MediaEntity.TABLE_NAME)
+@Table(name = MenuEntity.TABLE_NAME)
 public class MenuEntity extends Model {
 
     public static final String TABLE_NAME = "menu";
@@ -20,7 +20,7 @@ public class MenuEntity extends Model {
     private String dayNumber;
     @Column(name = COLUMN_MENU_NAME)
     private String menuName;
-    @Column(name = COLUMN_MEDIA, onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+    @Column(name = COLUMN_MEDIA)
     private MediaEntity menuMedia;
 
     public MenuEntity() {
@@ -54,6 +54,7 @@ public class MenuEntity extends Model {
     public List<MenuAdvisoryTagEntity> getMenuAdvisoryTag() {
         return getMany(MenuAdvisoryTagEntity.class, MenuAdvisoryTagEntity.COLUMN_MENU);
     }
+
     public List<MenuSectionEntity> getMenuSection() {
         return getMany(MenuSectionEntity.class, MenuSectionEntity.COLUMN_MENU);
     }

@@ -43,7 +43,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         entity.setDayNumber(input.getDayNumber());
         entity.setMenuName(input.getMenuName());
         //MenuMedia
-        //create(entity, input.getMenuMedia()); 52
+        entity.setMenuMedia(create(input.getMenuMedia()));
         entity.save();
         //MenuAdvisoryTag
         createMenuAdvisoryTag(entity, input.getMenuAdvisoryTag());
@@ -91,13 +91,11 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
             menuItemEntity.setMenuSectionEntity(entity);
             menuItemEntity.save();
             createMenuItemAdvisoryTag(menuItemEntity, menuItem.getMenuItemAdvisoryTags());
-            //FIXME bug --duplicate entity
-            //createMenuItemMedia(menuItemEntity, menuItem.getMenuItemMedia());
+            createMenuItemMedia(menuItemEntity, menuItem.getMenuItemMedia());
         }
 
     }
 
-    //FIXME bug duplicate principal entity
     private void createMenuItemMedia(final MenuItemEntity menuItemEntity, final MenuItemMedia menuItemMedia) {
 
         if (menuItemMedia == null || CollectionUtils.isEmpty(menuItemMedia.getMediaItem())) {
@@ -128,22 +126,21 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
 
     }
 
-    //FIXME bug duplicate principal entity
-    private void create(final MenuEntity entity, final Media menuMedia) {
+    private MediaEntity create(final Media media) {
 
-        if (menuMedia == null || CollectionUtils.isEmpty(menuMedia.getMediaItem())) {
-            return;
+        if (media == null || CollectionUtils.isEmpty(media.getMediaItem())) {
+            return null;
         }
         final MediaEntity mediaEntity = new MediaEntity();
         mediaEntity.save();
-        for (MediaItem mediaItem : menuMedia.getMediaItem()) {
+        for (MediaItem mediaItem : media.getMediaItem()) {
             final MediaValueEntity mediaValueEntity = new MediaValueEntity();
             mediaValueEntity.setType(mediaItem.getMediaType());
             mediaValueEntity.setLink(mediaItem.getMediaRefLink());
             mediaValueEntity.setMedia(mediaEntity);
             mediaValueEntity.save();
         }
-        entity.setMenuMedia(mediaEntity);
+        return mediaEntity;
 
     }
 
