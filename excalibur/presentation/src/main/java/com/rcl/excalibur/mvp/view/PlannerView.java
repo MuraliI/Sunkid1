@@ -320,10 +320,10 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
 
     private void changeSeparatorVisibility(View parent, int visibility) {
         if (parent != null) {
-//            View separator = ButterKnife.findById(parent, R.id.view_planner_item_separator);
-//            if (separator != null) {
-//                separator.setVisibility(visibility);
-//            }
+            View separator = ButterKnife.findById(parent, R.id.layout_planner_item_separator_container);
+            if (separator != null) {
+                separator.setVisibility(visibility);
+            }
         }
     }
 
