@@ -7,12 +7,11 @@ import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.DiningMenuCardAdapter;
+import com.rcl.excalibur.domain.MenuItem;
 import com.rcl.excalibur.fragments.MenuListFragment;
-import com.rcl.excalibur.mvp.presenter.MenuListPresenter;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 
 import java.util.List;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,13 +32,12 @@ public class MenuListView extends FragmentView<MenuListFragment, Void, Void> {
         if (activity == null) {
             return;
         }
-
         adapter = new DiningMenuCardAdapter(adapterObserver);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
     }
 
-    public void addAll(List<MenuListPresenter.Menu> menus) {
+    public void addAll(List<MenuItem> menus) {
         adapter.addAll(menus);
     }
 

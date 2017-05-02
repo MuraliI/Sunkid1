@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.data.repository.ProductDataRepository;
-import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
+import com.rcl.excalibur.data.repository.MenuDataRepository;
+import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
 import com.rcl.excalibur.mvp.presenter.MenuListPresenter;
 import com.rcl.excalibur.mvp.view.MenuListView;
 
@@ -42,7 +42,7 @@ public class MenuListFragment extends Fragment {
             return;
         }
         final String idTypeMenu = bundle.getString(ARGUMENT_DINING_MENU_ID);
-        presenter = new MenuListPresenter(new MenuListView(this), new GetProductDbUseCase(new ProductDataRepository()));
+        presenter = new MenuListPresenter(new MenuListView(this), new GetMenuDbUseCase(new MenuDataRepository()));
         presenter.init(idTypeMenu);
     }
 }
