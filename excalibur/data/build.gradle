@@ -71,21 +71,28 @@ dependencies {
 
     compile project(':domain')
     provided dataDependencies.javaxAnnotation
-    compile dataDependencies.okHttp
-    compile dataDependencies.gson
-    compile dataDependencies.rxJava
-    compile dataDependencies.rxAndroid
-    compile dataDependencies.androidAnnotations
-    compile dataDependencies.activeAndroid
-    compile dataDependencies.retrofit
-    compile dataDependencies.retrofitGson
-    compile dataDependencies.okHttpLogging
-    compile generalDependencies.timber
 
-    testCompile testDependencies.junit
-    testCompile testDependencies.assertj
-    testCompile testDependencies.mockito
-    testCompile testDependencies.robolectric
+    compile dataDependencies.okHttp,
+            dataDependencies.gson,
+            dataDependencies.rxJava,
+            dataDependencies.rxAndroid,
+            dataDependencies.androidAnnotations,
+            dataDependencies.activeAndroid,
+            dataDependencies.retrofit,
+            dataDependencies.retrofitGson,
+            dataDependencies.okHttpLogging,
+            generalDependencies.timber
+
+    testCompile testDependencies.junit,
+                testDependencies.assertj,
+                testDependencies.mockito,
+                testDependencies.robolectric,
+                presentationTestDependencies.powermockModuleJunit4,
+                presentationTestDependencies.powermockApiMockitoV
+
+    androidTestCompile presentationTestDependencies.mockito,
+            presentationTestDependencies.dexmaker,
+            presentationTestDependencies.dexmakerMockito
 }
 
 apply plugin: 'checkstyle'

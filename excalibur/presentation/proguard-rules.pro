@@ -15,3 +15,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-keep class com.appdynamics.eumagent.runtime.DontObfuscate
+-keep @com.appdynamics.eumagent.runtime.DontObfuscate class * { *; }
