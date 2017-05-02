@@ -23,6 +23,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.adapters.planner.PlannerAdapter;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
@@ -33,18 +34,16 @@ import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.RoundedImageView;
 import com.rcl.excalibur.utils.comparator.PlannerProductItemComparator;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import eu.davidea.flexibleadapter.FlexibleAdapter;
-import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.flexibleadapter.items.IHeader;
 import eu.davidea.flexibleadapter.items.ISectionable;
+import io.reactivex.Observer;
 import timber.log.Timber;
 
 public class PlannerView extends FragmentView<PlannerFragment, PlannerProductItem, Void> {
@@ -64,7 +63,7 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
     @BindView(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
     @BindView(R.id.layout_planner_recycler_container) TopRoundedFrameLayout recyclerContainerLayout;
 
-    private FlexibleAdapter<AbstractFlexibleItem> adapter;
+    private PlannerAdapter adapter;
 
     private View firstHeader;
     private LinearLayoutManager linearLayoutManager;
@@ -73,6 +72,8 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
     private Animation slideUpAllDayAnimation;
     private Animation animationGoIn;
 
+    private Observer<PlannerHeader> expandCollapseObserver;
+
     private Handler handler;
 
     private boolean isAllDayNecessary;
@@ -80,8 +81,8 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
     private boolean initialized;
     private boolean bottomSheetIsSliding;
 
-    private int currentTopElementIndex = -1;
     @StringRes private int currentPartOfDayResource;
+    private int currentTopElementIndex = -1;
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
     private int initImageMargin;
@@ -108,7 +109,7 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
         DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setAddDuration(300);
 
-        adapter = new FlexibleAdapter<>(null, fragment, true);
+        adapter = new PlannerAdapter(null, fragment, true);
         adapter.setDisplayHeadersAtStartUp(true).setStickyHeaders(true);
         linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -362,30 +363,15 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
         }*/
     }
 
-    public void addPlannerItems(List<AbstractFlexibleItem> items) {
+    public void addPlannerItems(List<IFlexible> items) {
         adapter.addItems(TOP_OF_LIST, items);
         containerLayout.setVisibility(View.VISIBLE);
     }
-
-
-    private List<AbstractFlexibleItem> hiddenGeneralItems;
-    private List<AbstractFlexibleItem> hiddenAllDayItems;
-
-    public void addPlannerItems(List<AbstractFlexibleItem> items, List<AbstractFlexibleItem> hiddenGeneralItems, List<AbstractFlexibleItem> hiddenAllDayItems) {
-        this.hiddenGeneralItems = hiddenGeneralItems;
-        this.hiddenAllDayItems = hiddenAllDayItems;
-        adapter.addItems(TOP_OF_LIST, items);
-        containerLayout.setVisibility(View.VISIBLE);
-    }
-
-    private boolean isGeneralHeaderExpanded = false;
-    private boolean isAllDayHeaderExpanded = false;
-    private List<Integer> indexToRemove;
 
     public void onItemClick(int position) {
         Timber.e("click on %s", position);
         IFlexible item = adapter.getItem(position);
-        if (item instanceof PlannerProductItem) {
+        if (!adapter.isHeader(item)) {
             PlannerProductItem productItem = (PlannerProductItem) item;
             BaseActivity activity = getActivity();
             if (activity == null) {
@@ -402,48 +388,16 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
                     sharedItemView,
                     getActivity().getString(R.string.shared_element_transition_name));
         } else {
-            IHeader header = (IHeader) item;
-            if (position == 0) {
-                if (isGeneralHeaderExpanded) {
-                    //adapter.removeItems(indexToRemove);
-                    remove(header);
-                } else {
-                    indexToRemove = new ArrayList<>();
-                    for (AbstractFlexibleItem hiddenItem : hiddenGeneralItems) {
-                        indexToRemove.add(adapter.addItemToSection((ISectionable) hiddenItem, header, new PlannerProductItemComparator()));
-                    }
-                }
-                isGeneralHeaderExpanded = !isGeneralHeaderExpanded;
-            } else {
-                if (isAllDayHeaderExpanded) {
-                    remove(header);
-                } else {
-                    for (AbstractFlexibleItem hiddenItem : hiddenAllDayItems) {
-                        adapter.addItemToSection((ISectionable) hiddenItem, header, new PlannerProductItemComparator());
-                    }
-                }
-                isAllDayHeaderExpanded = !isAllDayHeaderExpanded;
-            }
+            onExpandCollapseNext((PlannerHeader) item);
         }
     }
 
-    public void remove(IHeader iHeader) {
-        List items = adapter.getSectionItems(iHeader);
-        List<Integer> itemsToRemove = new ArrayList<>();
-        for (int i = 0; i < items.size(); i++) {
-            PlannerProductItem plannerProductItem = (PlannerProductItem) items.get(i);
-            if (!plannerProductItem.getPlannerProductModel().isFeatured()) {
-                itemsToRemove.add(adapter.getGlobalPositionOf(plannerProductItem));
-            }
-        }
-        adapter.removeItems(itemsToRemove);
+    public void addItemToSection(ISectionable itemToAdd, IHeader header) {
+        adapter.addItemToSection(itemToAdd, header, new PlannerProductItemComparator());
     }
 
-
-    public void showAllDayLayout() {
-        //isAllDayNecessary = true;
-        //allDayView.setVisibility(View.INVISIBLE);
-        recyclerContainerLayout.setRadius(R.dimen.zero_radius);
+    public void removeItemsFromSection(IHeader header) {
+        adapter.removeItemsFromSection(header);
     }
 
     public void showProgressBar(boolean show) {
@@ -463,21 +417,6 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
             return;
         }
         ActivityUtils.startActivity(activity, ProductDeckMapActivity.getIntent(activity, null));
-    }
-
-    private boolean showAll = true;
-
-    void onAllDayClick() {
-        /*List<Integer> index = hiddenItems.first;
-        List<AbstractFlexibleItem> items = hiddenItems.second;
-        for (int i = 0; i < items.size(); i++) {
-            if (showAll) {
-                adapter.addItem(index.get(i), items.get(i));
-            } else {
-                adapter.removeItems(index);
-            }
-        }
-        showAll = !showAll;*/
     }
 
     public void setShipInvisibleHeight(Pair<Integer, Integer> pair) {
@@ -527,5 +466,18 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
             }
         }
         return R.string.empty_string;
+    }
+
+    // COLLAPSE | EXPAND - OBSERVER
+
+    private void onExpandCollapseNext(PlannerHeader header) {
+        if (expandCollapseObserver == null) {
+            return;
+        }
+        expandCollapseObserver.onNext(header);
+    }
+
+    public void setExpandCollapseObserver(Observer<PlannerHeader> expandCollapseObserver) {
+        this.expandCollapseObserver = expandCollapseObserver;
     }
 }
