@@ -19,7 +19,7 @@ public class ExpandableLinkViewType implements RecyclerViewType {
     }
 
     public String[] getContent() {
-        return content;
+        return content.clone();
     }
 
     @Override
