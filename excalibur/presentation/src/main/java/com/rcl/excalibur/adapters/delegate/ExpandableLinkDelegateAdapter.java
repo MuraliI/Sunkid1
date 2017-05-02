@@ -10,7 +10,7 @@ import com.rcl.excalibur.adapters.base.ExpandableContentDelegateAdapter;
 import com.rcl.excalibur.adapters.delegate.viewholder.ExpandableLinkViewHolder;
 import com.rcl.excalibur.adapters.delegate.viewholder.base.ExpandableContentViewHolder;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
-import com.rcl.excalibur.utils.StringUtils;
+import com.rcl.excalibur.data.utils.StringUtils;
 
 
 public class ExpandableLinkDelegateAdapter<VT extends ExpandableLinkViewType> extends

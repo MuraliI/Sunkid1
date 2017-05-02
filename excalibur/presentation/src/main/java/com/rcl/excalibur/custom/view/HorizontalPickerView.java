@@ -1,6 +1,7 @@
 package com.rcl.excalibur.custom.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,17 +33,30 @@ public class HorizontalPickerView<T> extends FrameLayout {
     private HorizontalPickerViewAdapter<T> horizontalPickerViewAdapter;
 
     private boolean isDeckSelectorShown;
+    private int revealAnimationDuration;
 
     public HorizontalPickerView(@NonNull Context context) {
         super(context);
+        init(context, null, -1);
     }
 
     public HorizontalPickerView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init(context, attrs, -1);
     }
 
     public HorizontalPickerView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context, attrs, defStyleAttr);
+    }
+
+    private void init(Context context, AttributeSet attrs, int defStyleAttr) {
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HorizontalPickerView, defStyleAttr, 0);
+        try {
+            revealAnimationDuration = typedArray.getInt(R.styleable.HorizontalPickerView_revealAnimationDuration, HIDE_ANIMATION_DURATION);
+        } finally {
+            typedArray.recycle();
+        }
     }
 
     @Override
@@ -111,7 +125,7 @@ public class HorizontalPickerView<T> extends FrameLayout {
     @Override
     public void setVisibility(int visibility) {
         isDeckSelectorShown = !(visibility == View.GONE);
-        float translation = isDeckSelectorShown ? ORIGINAL_TRANSLATION_Y : -getHeight();
-        animate().translationY(translation).setDuration(HIDE_ANIMATION_DURATION).start();
+        float translation = isDeckSelectoShown ? ORIGINAL_TRANSLATION_Y : -getHeight();
+        animate().translationY(translation).setDuration(revealAnimationDuration).start();
     }
 }

@@ -22,18 +22,18 @@ public class DeckMapPresenter {
     private static final List<Pair<Integer, Integer>> DECK_IMAGES = new ArrayList<>(12);
 
     static {
-        DECK_IMAGES.add(new Pair<>(1, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(2, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(3, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(4, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(5, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(6, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(7, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(8, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(9, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(10, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(11, R.drawable.map_05_fwd));
-        DECK_IMAGES.add(new Pair<>(12, R.drawable.map_05_fwd));
+        DECK_IMAGES.add(new Pair<>(1, R.drawable.deck1));
+        DECK_IMAGES.add(new Pair<>(2, R.drawable.deck2));
+        DECK_IMAGES.add(new Pair<>(3, R.drawable.deck3));
+        DECK_IMAGES.add(new Pair<>(4, R.drawable.deck4));
+        DECK_IMAGES.add(new Pair<>(5, R.drawable.deck5));
+        DECK_IMAGES.add(new Pair<>(6, R.drawable.deck6));
+        DECK_IMAGES.add(new Pair<>(7, R.drawable.deck7));
+        DECK_IMAGES.add(new Pair<>(8, R.drawable.deck8));
+        DECK_IMAGES.add(new Pair<>(9, R.drawable.deck9));
+        DECK_IMAGES.add(new Pair<>(10, R.drawable.deck10));
+        DECK_IMAGES.add(new Pair<>(11, R.drawable.deck11));
+        DECK_IMAGES.add(new Pair<>(12, R.drawable.deck12));
     }
 
     private GetProductDbUseCase getProductDbUseCase;
@@ -67,12 +67,10 @@ public class DeckMapPresenter {
         view.hideArrowDeckSelector(enableDisable);
     }
 
-    public void onHeaderBackOnClick() {
-        DeckMapActivity activity = view.getActivity();
-        if (activity == null) {
-            return;
+    public void onCloseClicked() {
+        if (view.getActivity() != null) {
+            view.getActivity().finish();
         }
-        ActivityUtils.onBackActivity(activity);
     }
 
     private void onDeckSelected(Pair<Integer, Integer> deck) {
@@ -97,7 +95,7 @@ public class DeckMapPresenter {
 
     private class DeckButtonConsumer extends DefaultPresenterConsumer<Boolean, DeckMapPresenter> {
 
-        public DeckButtonConsumer(DeckMapPresenter presenter) {
+        DeckButtonConsumer(DeckMapPresenter presenter) {
             super(presenter);
         }
 

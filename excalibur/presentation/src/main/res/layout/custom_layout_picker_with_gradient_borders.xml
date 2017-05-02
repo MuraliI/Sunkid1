@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.rcl.excalibur.custom.view.HorizontalPickerView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_deck_selector_color">
+    android:background="@color/bg_deck_selector_color"
+    app:revealAnimationDuration="@integer/deck_selector_openning_duration">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_deck_list"

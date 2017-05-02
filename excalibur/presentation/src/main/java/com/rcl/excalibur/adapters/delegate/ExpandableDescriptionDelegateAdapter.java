@@ -8,7 +8,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.custom.view.ExpandableDescriptionLayout;
-import com.rcl.excalibur.utils.StringUtils;
+import com.rcl.excalibur.data.utils.StringUtils;
 
 
 public class ExpandableDescriptionDelegateAdapter implements
