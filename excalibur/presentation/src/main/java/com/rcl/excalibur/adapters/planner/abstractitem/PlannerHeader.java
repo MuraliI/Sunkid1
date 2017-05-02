@@ -77,6 +77,11 @@ public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHo
     @Override
     public void bindViewHolder(FlexibleAdapter adapter, HeaderViewHolder holder, int position, List payloads) {
         holder.partOfDayText.setText(getTitle());
+        if (isSectionExpanded) {
+            holder.expand();
+        } else {
+            holder.collapse();
+        }
     }
 
     class HeaderViewHolder extends FlexibleViewHolder {

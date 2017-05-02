@@ -333,10 +333,12 @@ public class PlannerPresenter {
         }
 
         header.setSectionExpanded(true);
+        view.updateHeader(header);
     }
 
     private void collapseSection(PlannerHeader header) {
         view.removeItemsFromSection(header);
         header.setSectionExpanded(false);
+        view.updateHeader(header);
     }
 }

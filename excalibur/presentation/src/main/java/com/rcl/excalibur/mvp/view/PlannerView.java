@@ -436,6 +436,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         adapter.notifyItemChanged(0);
     }
 
+    public void updateHeader(IHeader header) {
+        int headerIndex = adapter.getGlobalPositionOf(header);
+        adapter.notifyItemChanged(headerIndex);
+    }
+
     // COLLAPSE | EXPAND - OBSERVER
 
     private void onExpandCollapseNext(PlannerHeader header) {
