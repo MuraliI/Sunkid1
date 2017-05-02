@@ -1,7 +1,8 @@
 package com.rcl.excalibur.mvp.view;
 
 import android.graphics.PointF;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.widget.TextView;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
@@ -17,20 +18,25 @@ import butterknife.OnClick;
 
 public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     private static final int MINIMUM_DPI = 80;
+    private static final int SCREEN_DIVISOR = 2;
 
     @BindView(R.id.image_voyage_map) VoyageMapImageView voyageMapImage;
-    @BindView(R.id.collapsible_tab) LinearLayout voyageMapCollapsible;
+    @BindView(R.id.date_picker_plans_tab) TextView dayPickerText;
+    @BindView(R.id.view_white_voyage_map) View whiteBarView;
 
     public VoyageMapView(VoyageMapActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
     }
 
+    public void init(int width) {
+        whiteBarView.getLayoutParams().width = width / SCREEN_DIVISOR;
+    }
+
     public void initVoyageMapImage(int resource) {
         voyageMapImage.setImage(resource);
         voyageMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_OUTSIDE);
         voyageMapImage.setMinimumDpi(MINIMUM_DPI);
-        voyageMapCollapsible.setAlpha(0);
     }
 
     public void setCruiseCoordinate(float xCoord, float yCoord) {
@@ -45,10 +51,10 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     }
 
     public void setHeader(String day) {
-
+        dayPickerText.setText(day);
     }
 
-    @OnClick(R.id.collapsible_tab)
+    @OnClick(R.id.date_picker_plans_tab)
     public void onDayPickerClick() {
         ActivityUtils.startActivity(getActivity(), DayPickerActivity.getStartIntent(getActivity()));
     }
