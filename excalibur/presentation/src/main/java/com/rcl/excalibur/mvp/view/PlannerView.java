@@ -32,6 +32,7 @@ import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.RoundedImageView;
 import com.rcl.excalibur.utils.comparator.PlannerProductItemComparator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,13 +45,14 @@ import io.reactivex.Observer;
 import timber.log.Timber;
 
 public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
-    private static final int TOP_OF_LIST = 0;
-    private static final int NO_PEEK_HEIGHT = 0;
-    private static final int NO_MARGIN = 0;
     private static final float OFFSET_OVER_95_PERCENT = 0.95f;
     private static final float MAX_SLIDE_OFFSET = 1.0f;
-    private static final int DELAY_MILLIS_SCROLL = 100;
     private static final int DELAY_MILLIS_COLLAPSE = 200;
+    private static final int DELAY_MILLIS_SCROLL = 100;
+    private static final int ADD_DURATION_MILLIS = 200;
+    private static final int NO_PEEK_HEIGHT = 0;
+    private static final int TOP_OF_LIST = 0;
+    private static final int NO_MARGIN = 0;
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     //@BindView(R.id.layout_planner_all_day) View allDayView;
@@ -70,6 +72,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private Animation animationGoIn;
 
     private Observer<PlannerHeader> expandCollapseObserver;
+    private List<Integer> itemsToRemove;
 
     private Handler handler;
 
@@ -100,9 +103,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         peekHeight = resources.getDimensionPixelSize(R.dimen.planner_peek_height);
 
         handler = new Handler();
+        itemsToRemove = new ArrayList<>();
 
         DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
-        itemAnimator.setAddDuration(300);
+        itemAnimator.setAddDuration(ADD_DURATION_MILLIS);
 
         adapter = new PlannerAdapter(null, fragment, true);
         adapter.setDisplayHeadersAtStartUp(true).setStickyHeaders(true);
@@ -356,11 +360,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         }*/
     }
 
-    public void addPlannerItems(List<IFlexible> items) {
-        adapter.addItems(TOP_OF_LIST, items);
-        containerLayout.setVisibility(View.VISIBLE);
-    }
-
     public void onItemClick(int position) {
         Timber.e("click on %s", position);
         IFlexible item = adapter.getItem(position);
@@ -385,13 +384,28 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         }
     }
 
+    public void addPlannerItems(List<IFlexible> items) {
+        adapter.addItems(TOP_OF_LIST, items);
+        containerLayout.setVisibility(View.VISIBLE);
+    }
+
     public void addItemToSection(ISectionable itemToAdd, IHeader header) {
+        itemsToRemove.add(adapter.addItemToSection(itemToAdd, header, new PlannerProductItemComparator()));
+    }
+
+    public void removeItems() {
+        adapter.removeItems(itemsToRemove);
+        itemsToRemove.clear();
+        recyclerView.scrollToPosition(TOP_OF_LIST);
+    }
+
+    /*public void addItemToSection(ISectionable itemToAdd, IHeader header) {
         adapter.addItemToSection(itemToAdd, header, new PlannerProductItemComparator());
     }
 
     public void removeItemsFromSection(IHeader header) {
         adapter.removeItemsFromSection(header);
-    }
+    }*/
 
     public void showProgressBar(boolean show) {
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);

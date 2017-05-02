@@ -34,7 +34,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import eu.davidea.flexibleadapter.items.IFlexible;
-import eu.davidea.flexibleadapter.items.ISectionable;
 import timber.log.Timber;
 
 import static com.rcl.excalibur.model.PlannerProductModel.ALL_DAY_HEADER;
@@ -305,22 +304,32 @@ public class PlannerPresenter {
     }
 
     private static class OnExpandCollapseObserver extends DefaultPresentObserver<PlannerHeader, PlannerPresenter> {
+        private boolean isExpanded = false;
+
         OnExpandCollapseObserver(PlannerPresenter presenter) {
             super(presenter);
         }
 
         @Override
         public void onNext(PlannerHeader header) {
-            PlannerPresenter presenter = getPresenter();
+            /*PlannerPresenter presenter = getPresenter();
             if (header.isSectionExpanded()) {
                 presenter.collapseSection(header);
             } else {
                 presenter.expandSection(header);
+            }*/
+
+            PlannerPresenter presenter = getPresenter();
+            if (isExpanded) {
+                presenter.collapseSections();
+            } else {
+                presenter.expandSections();
             }
+            isExpanded = !isExpanded;
         }
     }
 
-    private void expandSection(PlannerHeader header) {
+    /*private void expandSection(PlannerHeader header) {
         List<IFlexible> itemsToAdd;
         if (header.isAllDayHeader()) {
             itemsToAdd = hiddenAllDayItems;
@@ -334,11 +343,26 @@ public class PlannerPresenter {
 
         header.setSectionExpanded(true);
         view.updateHeader(header);
-    }
+    }*/
 
-    private void collapseSection(PlannerHeader header) {
+    /*private void collapseSection(PlannerHeader header) {
         view.removeItemsFromSection(header);
         header.setSectionExpanded(false);
         view.updateHeader(header);
+    }*/
+
+    private void expandSections() {
+        List<IFlexible> itemsToAdd = new ArrayList<>();
+        itemsToAdd.addAll(hiddenGeneralItems);
+        itemsToAdd.addAll(hiddenAllDayItems);
+
+        for (IFlexible item : itemsToAdd) {
+            PlannerProductItem plannerProductItem = (PlannerProductItem) item;
+            view.addItemToSection(plannerProductItem, plannerProductItem.getHeader());
+        }
+    }
+
+    private void collapseSections() {
+        view.removeItems();
     }
 }
