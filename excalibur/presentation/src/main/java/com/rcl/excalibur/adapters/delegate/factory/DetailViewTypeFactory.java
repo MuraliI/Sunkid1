@@ -28,7 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.rcl.excalibur.utils.PresentationDateUtils.MINUTES_IN_HOUR;
-import static com.rcl.excalibur.utils.StringUtils.getPriceFormatted;
+import static com.rcl.excalibur.data.utils.StringUtils.getPriceFormatted;
 
 public final class DetailViewTypeFactory {
 

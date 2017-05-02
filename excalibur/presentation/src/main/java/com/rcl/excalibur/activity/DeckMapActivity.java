@@ -12,6 +12,7 @@ import android.view.ViewTreeObserver;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.custom.view.DeckMapImageView;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.data.utils.StringUtils;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.mvp.presenter.DeckMapPresenter;
 import com.rcl.excalibur.mvp.view.DeckMapView;
@@ -29,7 +30,7 @@ public class DeckMapActivity extends BaseActivity implements View.OnTouchListene
 
     public static Intent getIntent(final BaseActivity activity, String productItemId) {
         Intent intent = new Intent(activity, DeckMapActivity.class);
-        intent.putExtra(EXTRA_PRODUCT_ITEM_ID, productItemId);
+        intent.putExtra(EXTRA_PRODUCT_ITEM_ID, StringUtils.encodeString(productItemId));
         return intent;
     }
 
@@ -42,7 +43,7 @@ public class DeckMapActivity extends BaseActivity implements View.OnTouchListene
         if (intent == null || !intent.hasExtra(EXTRA_PRODUCT_ITEM_ID)) {
             return;
         }
-        final String productItemId = intent.getStringExtra(EXTRA_PRODUCT_ITEM_ID);
+        final String productItemId = StringUtils.decodeString(intent.getStringExtra(EXTRA_PRODUCT_ITEM_ID));
         presenter = new DeckMapPresenter(new DeckMapView(this),
                 new GetProductDbUseCase(new ProductDataRepository()));
         presenter.init(productItemId);

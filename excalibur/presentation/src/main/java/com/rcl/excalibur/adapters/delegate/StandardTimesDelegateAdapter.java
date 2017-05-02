@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.StandardTimesViewType;
-import com.rcl.excalibur.utils.StringUtils;
+import com.rcl.excalibur.data.utils.StringUtils;
 
 import java.util.List;
 
