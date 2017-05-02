@@ -16,7 +16,7 @@
     <View
         android:id="@+id/view_white_voyage_map"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/triptych_strip_tickness"
         android:layout_gravity="center_horizontal"
         android:background="@color/white" />
 
