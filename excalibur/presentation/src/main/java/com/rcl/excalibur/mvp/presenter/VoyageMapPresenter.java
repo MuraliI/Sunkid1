@@ -74,6 +74,8 @@ public class VoyageMapPresenter {
         if (activity == null) {
             return;
         }
+
+        view.animatePointToCenter();
         String day = getSailingPreferenceUseCase.getDay();
         if (TextUtils.isEmpty(day)) {
             day = activity.getResources().getString(R.string.day_1);
@@ -81,7 +83,7 @@ public class VoyageMapPresenter {
             day = activity.getResources().getString(R.string.day_title) + day;
         }
         //view.setHeader(day);
-        //getShipLocationInfo(day);
+        getShipLocationInfo(day);
     }
 
     public void getShipLocationInfo(String day) {

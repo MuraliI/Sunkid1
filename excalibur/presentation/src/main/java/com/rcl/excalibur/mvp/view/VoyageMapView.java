@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.graphics.PointF;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -97,5 +98,15 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     public void setTextShipLocation(String textShip, String day) {
         dayPickerText.setText(day);
         textShipText.setText(textShip);
+    }
+
+    public void animatePointToCenter() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                voyageMapImage.animatePointToCenter(new PointF(796, 826));
+            }
+        }, 600);
     }
 }

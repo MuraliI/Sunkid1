@@ -7,11 +7,15 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
+
+import timber.log.Timber;
 
 public class DeckMapImageView extends SubsamplingScaleImageView {
     private static final int DELAY_ANIMATION = 250;
@@ -59,6 +63,13 @@ public class DeckMapImageView extends SubsamplingScaleImageView {
                 .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                 .withInterruptible(false)
                 .start();
+    }
+
+    @Override
+    public boolean onTouchEvent(@NonNull MotionEvent event) {
+        Timber.i("Test");
+        return super.onTouchEvent(event);
+
     }
 
     @Override
