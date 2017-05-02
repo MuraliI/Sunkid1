@@ -45,6 +45,8 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
                 (DelegateAdapter<VH, VT>) new ExpandableLinkDelegateAdapter(this));
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_ACCESSIBILITY_VIEW,
                 (DelegateAdapter<VH, VT>) new ExpandableAccessibilityDelegateAdapter(this));
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TIMES,
+                (DelegateAdapter<VH, VT>) new TimesDelegateAdapter());
         addAll(recyclerViewTypes);
     }
 

@@ -19,6 +19,9 @@ public final class DateUtil {
     public static final String HOURLESS_DATE_FORMAT = "yyyyMMdd";
     public static final String DATE_PARSING_ERROR = "Date parsing failed in %s1, parser exception: %s2";
     public static final String TIME_FORMAT = "h:mm a";
+    public static final String DATE_FORMAT_ISO = "yyyyMMdd'T'HHmmss";
+    public static final String HOUR_MINUTE_FORMAT = "HHmm";
+    public static final String DATE_STANDARD_FORMAT = "yyyy/MM/dd";
 
     private DateUtil() {
     }
@@ -47,6 +50,22 @@ public final class DateUtil {
         return dateFormatter.format(date);
     }
 
+    public static String getTime(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)) + String.valueOf(calendar.get(Calendar.MINUTE));
+    }
+
+    public static String formattedDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_STANDARD_FORMAT);
+        return dateFormat.format(date);
+    }
+
+    public static String formattedHourMinute(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat(HOUR_MINUTE_FORMAT);
+        return format.format(date);
+    }
+
     public static SimpleDateFormat getStandardDateParser() {
         return new SimpleDateFormat(DATE_FORMAT, Locale.US);
     }
@@ -55,11 +74,25 @@ public final class DateUtil {
         return new SimpleDateFormat(HOURLESS_DATE_FORMAT, Locale.US);
     }
 
-    public static String getTime(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)) + String.valueOf(calendar.get(Calendar.MINUTE));
+    public static SimpleDateFormat getDateFormatISO() {
+        return new SimpleDateFormat(DATE_FORMAT_ISO, Locale.US);
     }
 
+    public static Date parseDateISO(String dateToTransform) {
+        Date date = null;
+        SimpleDateFormat dateformat = getDateFormatISO();
+        try {
+            date = dateformat.parse(dateToTransform);
+        } catch (ParseException e) {
+            //FIXME Remove when Service data is fixed
+            try {
+                date = dateformat.parse("20170702T000000");
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        }
 
+        return date;
+    }
 }

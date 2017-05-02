@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Product {
+
     private static final int TIME_LENGTH = 4;
     private String productId;
     private ProductCategory productCategory;
@@ -298,5 +299,17 @@ public class Product {
 
     public boolean isGuestServices() {
         return CategoryUtil.isGuestServices(productType.getProductType());
+    }
+
+    public boolean isInventory() {
+        return isReservationRequired && !isScheduable;
+    }
+
+    public boolean isNonInveentory() {
+        return !isReservationRequired && isScheduable;
+    }
+
+    public boolean isWalkUp() {
+        return !isReservationRequired && !isScheduable;
     }
 }
