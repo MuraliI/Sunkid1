@@ -30,7 +30,6 @@ import com.rcl.excalibur.utils.DateUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 
@@ -96,15 +95,18 @@ public class PlannerPresenter {
         headerList.append(ALL_DAY_HEADER, createPlannerHeader(R.string.planner_title_all_day));
     }
 
+    private List<AbstractFlexibleItem> hiddenGeneralItems = new ArrayList<>();
+    private List<AbstractFlexibleItem> hiddenAllDaylItems = new ArrayList<>();
+
     private List<AbstractFlexibleItem> addPlannerItems(final List<PlannerProductModel> plannerProductModels) {
-        List<AbstractFlexibleItem> plannerItems = new ArrayList<>();
-        /*for (PlannerProductModel plannerProductModel : plannerProductModels) {
+        /*List<AbstractFlexibleItem> plannerItems = new ArrayList<>();
+        for (PlannerProductModel plannerProductModel : plannerProductModels) {
             plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getHeaderItBelongs())));
         }*/
 
+        List<AbstractFlexibleItem> plannerItems = new ArrayList<>();
         for (int i = 0; i < plannerProductModels.size(); i++) {
             PlannerProductModel plannerProductModel = plannerProductModels.get(i);
-
             if (!plannerProductModel.isAllDayProduct()) {
                 PlannerProductModel previousPlannerProductModel = i > 0 ? plannerProductModels.get(i - 1) : null;
                 if (previousPlannerProductModel == null
@@ -119,7 +121,26 @@ public class PlannerPresenter {
                 }
             }
 
-            plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getHeaderItBelongs())));
+            // TODO: Delete this if, only for testing
+            if (i <= 5 && i % 2 == 0) {
+                plannerProductModel.setFeatured(true);
+            } else {
+                plannerProductModel.setFeatured(false);
+            }
+
+            PlannerProductItem plannerProductItem = createPlannerItem(plannerProductModel,
+                    headerList.get(plannerProductModel.getHeaderItBelongs()));
+
+            if (!plannerProductModel.isFeatured()) {
+                if (plannerProductModel.isAllDayProduct()) {
+                    hiddenAllDaylItems.add(plannerProductItem);
+                } else {
+                    hiddenGeneralItems.add(plannerProductItem);
+                }
+                continue;
+            }
+
+            plannerItems.add(plannerProductItem);
         }
         return plannerItems;
     }
@@ -161,9 +182,7 @@ public class PlannerPresenter {
     }
 
     private PlannerProductItem createPlannerItem(PlannerProductModel plannerProductModel, PlannerHeader plannerHeader) {
-        // TODO: mock
-        String timeLabel = new Random().nextBoolean() ? null : "10 AM";
-        PlannerProductItem plannerProductItem = new PlannerProductItem(String.format(ITEM_FORMAT, ++lastItemId), timeLabel, plannerHeader);
+        PlannerProductItem plannerProductItem = new PlannerProductItem(String.format(ITEM_FORMAT, ++lastItemId), plannerHeader);
         plannerProductItem.setPlannerProductModel(plannerProductModel);
         return plannerProductItem;
     }
@@ -183,9 +202,9 @@ public class PlannerPresenter {
         SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
         List<AbstractFlexibleItem> visibleItems = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST));
         visibleItems.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST)));
-        //Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems = getHiddenItems(visibleItems);
-        view.addPlannerItems(visibleItems);
-        //view.addPlannerItems(visibleItems, hiddenItems);
+        //Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenGeneralItems = getHiddenItems(visibleItems);
+        //view.addPlannerItems(visibleItems);
+        view.addPlannerItems(visibleItems, hiddenGeneralItems, hiddenAllDaylItems);
 
         getArrivingDisembarkingInfo();
         BaseActivity activity = view.getActivity();
@@ -263,6 +282,4 @@ public class PlannerPresenter {
 
         }
     }
-
-
 }

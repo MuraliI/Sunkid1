@@ -31,7 +31,9 @@ import com.rcl.excalibur.model.PlannerProductModel;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.RoundedImageView;
+import com.rcl.excalibur.utils.comparator.PlannerProductItemComparator;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -40,6 +42,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.flexibleadapter.items.IHeader;
+import eu.davidea.flexibleadapter.items.ISectionable;
+import timber.log.Timber;
 
 public class PlannerView extends FragmentView<PlannerFragment, PlannerProductItem, Void> {
     private static final int TOP_OF_LIST = 0;
@@ -339,7 +345,7 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
             allDayView.startAnimation(slideUpAllDayAnimation);
             allDayView.setVisibility(View.VISIBLE);*/
         } else if (firstHeader != null) {
-            firstHeader.setBackgroundResource(R.drawable.background_planner_header);
+            firstHeader.setBackgroundResource(R.drawable.background_cue_card); //background_planner_header
             firstHeader.startAnimation(slideUpAnimation);
             firstHeader.setVisibility(View.VISIBLE);
             //allDayView.setVisibility(View.GONE);
@@ -362,16 +368,23 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
     }
 
 
-    private Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems;
+    private List<AbstractFlexibleItem> hiddenGeneralItems;
+    private List<AbstractFlexibleItem> hiddenAllDayItems;
 
-    public void addPlannerItems(List<AbstractFlexibleItem> items, Pair<List<Integer>, List<AbstractFlexibleItem>> hiddenItems) {
-        this.hiddenItems = hiddenItems;
+    public void addPlannerItems(List<AbstractFlexibleItem> items, List<AbstractFlexibleItem> hiddenGeneralItems, List<AbstractFlexibleItem> hiddenAllDayItems) {
+        this.hiddenGeneralItems = hiddenGeneralItems;
+        this.hiddenAllDayItems = hiddenAllDayItems;
         adapter.addItems(TOP_OF_LIST, items);
         containerLayout.setVisibility(View.VISIBLE);
     }
 
+    private boolean isGeneralHeaderExpanded = false;
+    private boolean isAllDayHeaderExpanded = false;
+    private List<Integer> indexToRemove;
+
     public void onItemClick(int position) {
-        AbstractFlexibleItem item = adapter.getItem(position);
+        Timber.e("click on %s", position);
+        IFlexible item = adapter.getItem(position);
         if (item instanceof PlannerProductItem) {
             PlannerProductItem productItem = (PlannerProductItem) item;
             BaseActivity activity = getActivity();
@@ -388,8 +401,44 @@ public class PlannerView extends FragmentView<PlannerFragment, PlannerProductIte
                     ProductDetailActivity.getIntent(activity, productItem.getPlannerProductModel().getProductId()),
                     sharedItemView,
                     getActivity().getString(R.string.shared_element_transition_name));
+        } else {
+            IHeader header = (IHeader) item;
+            if (position == 0) {
+                if (isGeneralHeaderExpanded) {
+                    //adapter.removeItems(indexToRemove);
+                    remove(header);
+                } else {
+                    indexToRemove = new ArrayList<>();
+                    for (AbstractFlexibleItem hiddenItem : hiddenGeneralItems) {
+                        indexToRemove.add(adapter.addItemToSection((ISectionable) hiddenItem, header, new PlannerProductItemComparator()));
+                    }
+                }
+                isGeneralHeaderExpanded = !isGeneralHeaderExpanded;
+            } else {
+                if (isAllDayHeaderExpanded) {
+                    remove(header);
+                } else {
+                    for (AbstractFlexibleItem hiddenItem : hiddenAllDayItems) {
+                        adapter.addItemToSection((ISectionable) hiddenItem, header, new PlannerProductItemComparator());
+                    }
+                }
+                isAllDayHeaderExpanded = !isAllDayHeaderExpanded;
+            }
         }
     }
+
+    public void remove(IHeader iHeader) {
+        List items = adapter.getSectionItems(iHeader);
+        List<Integer> itemsToRemove = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+            PlannerProductItem plannerProductItem = (PlannerProductItem) items.get(i);
+            if (!plannerProductItem.getPlannerProductModel().isFeatured()) {
+                itemsToRemove.add(adapter.getGlobalPositionOf(plannerProductItem));
+            }
+        }
+        adapter.removeItems(itemsToRemove);
+    }
+
 
     public void showAllDayLayout() {
         //isAllDayNecessary = true;
