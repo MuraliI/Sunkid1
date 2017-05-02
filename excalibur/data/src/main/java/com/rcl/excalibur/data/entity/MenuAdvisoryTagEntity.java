@@ -16,7 +16,7 @@ public class MenuAdvisoryTagEntity extends Model {
     @Column(name = COLUMN_TITLE)
     private String title;
 
-    @Column(name = COLUMN_MENU)
+    @Column(name = COLUMN_MENU, onDelete = Column.ForeignKeyAction.CASCADE)
     private MenuEntity menuEntity;
 
     public MenuAdvisoryTagEntity() {

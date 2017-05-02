@@ -10,6 +10,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
+import com.rcl.excalibur.domain.interactor.GetMenusUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
@@ -41,6 +42,7 @@ public class TriptychHomePresenter {
     private GetProductsUseCase getProductsUseCase;
     private GetSubCategoriesUseCase getSubCategoriesUseCase;
     private GetSaildDateUseCase getSaildDateUseCase;
+    private GetMenusUseCase getMenusUseCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
 
     public TriptychHomePresenter(
@@ -50,6 +52,7 @@ public class TriptychHomePresenter {
             GetSaildDateUseCase getSaildDateUseCase,
             GetSailingPreferenceUseCase getSailingPreferenceUseCase,
             GetSaildDateDbUseCase getSaildDateDbUseCase,
+            GetMenusUseCase getMenusUseCase,
             SailingInformationModelDataMapper sailingInformationModelDataMapper) {
         this.view = view;
         this.getProductsUseCase = getProductsUseCase;
@@ -57,6 +60,7 @@ public class TriptychHomePresenter {
         this.getSaildDateUseCase = getSaildDateUseCase;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
+        this.getMenusUseCase = getMenusUseCase;
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
     }
 
@@ -72,6 +76,8 @@ public class TriptychHomePresenter {
 
         getSubCategoriesUseCase.execute(null);
         getSaildDateUseCase.execute(null);
+        //TODO this will be call on other place
+        getMenusUseCase.execute(null);
     }
 
     public void getShipLocationInfo() {

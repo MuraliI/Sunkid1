@@ -24,7 +24,7 @@ public class MenuSectionEntity extends Model {
     private String sectionDescription;
     @Column(name = COLUMN_MENU_SECTION_MEDIA)
     private MediaEntity sectionMediaEntity;
-    @Column(name = COLUMN_MENU)
+    @Column(name = COLUMN_MENU, onDelete = Column.ForeignKeyAction.CASCADE)
     private MenuEntity menuEntity;
 
     public MenuSectionEntity() {
