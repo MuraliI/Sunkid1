@@ -61,45 +61,17 @@ public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerar
 
     private SailPort transform(PortResponse portResponse) {
         SailPort sailPort = new SailPort();
-        Calendar arrivalDateTime = getFormatedCalendar(portResponse.getArrivalDateTime());
-        Calendar departureDateTime = getFormatedCalendar(portResponse.getDepartureDateTime());
+        Date arrivalDate = DateUtil.parseDateISO(portResponse.getArrivalDateTime());
+        Date departureDate = DateUtil.parseDateISO(portResponse.getDepartureDateTime());
         sailPort.setPortCode(portResponse.getPortCode());
         sailPort.setPortName(portResponse.getPortName());
         sailPort.setPortType(portResponse.getPortType());
-        sailPort.setDepartureTime(formatedTime(departureDateTime));
-        sailPort.setDepartureDate(formatedDate(departureDateTime));
-        sailPort.setArrivalTime(formatedTime(arrivalDateTime));
-        sailPort.setArrivalDate(formatedDate(arrivalDateTime));
+        sailPort.setDepartureTime(DateUtil.formattedHourMinute(departureDate));
+        sailPort.setDepartureDate(DateUtil.formattedDate(departureDate));
+        sailPort.setArrivalTime(DateUtil.formattedHourMinute(arrivalDate));
+        sailPort.setArrivalDate(DateUtil.formattedDate(arrivalDate));
         return sailPort;
     }
 
-    private Calendar getFormatedCalendar(String dateToTransform) {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
-        SimpleDateFormat dateformat = DateUtil.getDateFormatISO();
-        try {
-            Date date = dateformat.parse(dateToTransform);
-            calendar.setTime(date);
-        } catch (ParseException e) {
-            //Fixme Remove when Service data is fixed
-            try {
-                Date date = dateformat.parse("20170702T000000");
-                calendar.setTime(date);
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            }
-            e.printStackTrace();
-        }
 
-        return calendar;
-    }
-
-    private String formatedDate(Calendar calendar) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(formatDate);
-        return dateFormat.format(calendar.getTime());
-    }
-
-    private String formatedTime(Calendar calendar) {
-        SimpleDateFormat format = new SimpleDateFormat(formatHourMinute);
-        return format.format(calendar.getTime());
-    }
 }
