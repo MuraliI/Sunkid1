@@ -19,9 +19,15 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
     private Paint paint;
     private Bitmap cruise;
     private PointF cruiseCoord;
-    private Matrix shipMatrix;
-    private Matrix localMatrix;
-    private boolean cruiseWasDrawed = false;
+    private long angle;
+
+    public long getAngle() {
+        return angle;
+    }
+
+    public void setAngle(long angle) {
+        this.angle = angle;
+    }
 
     public VoyageMapImageView(Context context, AttributeSet attr) {
         super(context, attr);
@@ -41,7 +47,7 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
         float h = (density / DENSITY_FACTOR) * cruise.getHeight();
         cruise = Bitmap.createScaledBitmap(cruise, (int) w, (int) h, true);
         Matrix matrixRotation = new Matrix();
-        matrixRotation.postRotate(20);
+        matrixRotation.postRotate(getAngle());
         cruise = Bitmap.createBitmap(cruise, 0, 0, cruise.getWidth(), cruise.getHeight(), matrixRotation, true);
     }
 
@@ -53,8 +59,6 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
         this.cruiseCoord = cruiseCoord;
         initialize();
         invalidate();
-        shipMatrix = new Matrix();
-        localMatrix = new Matrix();
     }
 
     public PointF getPin() {
@@ -79,32 +83,5 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
         float left = vCruise.x - (cruise.getWidth() / 2);
         float top = vCruise.y - cruise.getHeight();
         canvas.drawBitmap(cruise, left, top, paint);
-
-        //canvas.save(Canvas.MATRIX_SAVE_FLAG); //Saving the canvas and later restoring it so only this image will be rotated.
-        //canvas.rotate(20);
-        //shipMatrix.setRotate(20f, top, left);
-/*
-        if (shipMatrix.isIdentity()) {
-            try {
-                Field field = this.getClass().getSuperclass().getDeclaredField("matrix");
-                field.setAccessible(true);
-                shipMatrix = new Matrix((Matrix) field.get(this));
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            localMatrix = new Matrix(shipMatrix);
-            localMatrix.postRotate(20);
-            //localMatrix.setRotate(30);
-            //canvas.drawBitmap(cruise, left, top, paint);
-        }
-        if (!localMatrix.isIdentity()) {
-            canvas.drawBitmap(cruise, localMatrix, paint);
-        }
-
-        */
-
-
     }
 }

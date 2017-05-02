@@ -8,8 +8,11 @@ import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import com.appdynamics.eumagent.runtime.Instrumentation;
 
 public class RCLApp extends Application {
+
+    private static final String KEY_REPORTING_APP_DYNAMICS = "AD-AAB-AAD-PKJ";
 
     @Override
     public void onCreate() {
@@ -17,6 +20,7 @@ public class RCLApp extends Application {
         ActiveAndroid.initialize(this);
         this.initCalligraphy();
         AnalyticsUtils.initializeAnalyticsTool(this.getApplicationContext());
+        Instrumentation.start(RCLApp.KEY_REPORTING_APP_DYNAMICS, getApplicationContext());
         SchedulerManager.init(getApplicationContext());
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());

@@ -86,7 +86,7 @@ public class TriptychTabBarLayout extends ViewGroup implements ViewPager.OnPageC
         container.setGravity(Gravity.CENTER_VERTICAL);
         View child = getChildAt(1);
         for (int position = 0; child != null; position++, child = getChildAt(1)) {
-            if (R.id.collapsible_tab == child.getId()) {
+            if (R.id.day_picker_tab == child.getId()) {
                 collapsibleView = child.findViewById(R.id.date_picker_plans_tab);
                 collapsibleSibling = child.findViewById(R.id.image_plans_tab);
             }
