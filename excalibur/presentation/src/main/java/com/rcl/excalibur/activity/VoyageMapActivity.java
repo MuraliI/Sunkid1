@@ -12,8 +12,6 @@ import com.rcl.excalibur.domain.preference.SailingPreferences;
 import com.rcl.excalibur.mvp.presenter.VoyageMapPresenter;
 import com.rcl.excalibur.mvp.view.VoyageMapView;
 
-import butterknife.ButterKnife;
-
 public class VoyageMapActivity extends BaseActivity {
     VoyageMapPresenter presenter;
 
@@ -21,7 +19,6 @@ public class VoyageMapActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voyage_map);
-        ButterKnife.bind(this);
         final SailingPreferences sailingPreferences = new SailingPreferenceImpl(getApplicationContext());
         presenter = new VoyageMapPresenter(new VoyageMapView(this), new GetSailingPreferenceUseCase(sailingPreferences));
         presenter.initTab();

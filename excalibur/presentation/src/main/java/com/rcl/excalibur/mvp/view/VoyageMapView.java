@@ -20,8 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.view.View.GONE;
-
 public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     private static final int MINIMUM_DPI = 80;
     private static final int SCREEN_DIVISOR = 2;
@@ -66,7 +64,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     }
 
     @OnClick(R.id.date_picker_plans_tab)
-    public void onDayPickerClick() {
+    void onDayPickerClick() {
         ActivityUtils.startActivity(getActivity(), DayPickerActivity.getStartIntent(getActivity()));
     }
 
@@ -76,7 +74,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                ship.setVisibility(GONE);
+                ship.setVisibility(View.GONE);
             }
         });
         animator.setDuration(ANIMATOR_DURATION)
