@@ -63,9 +63,15 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addDinningTypeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
-        if (product.getCostType() != null) {
+        List<ProductAdvisement> advisementsDiningType = product.getProductAdvisementsByType(ProductAdvisement.DINING_TYPE);
+        if (CollectionUtils.isEmpty(advisementsDiningType)) {
+            return;
+        }
+        ProductAdvisement advisement = advisementsDiningType.get(0);
+        if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
             addTitleAndDescriptionTypes(recyclerViewTypeList,
-                    resources.getString(R.string.dining_type), product.getCostType().getCostTypeTitle());
+                    resources.getString(R.string.dining_type),
+                    advisement.getAdvisementDescription());
         }
     }
 

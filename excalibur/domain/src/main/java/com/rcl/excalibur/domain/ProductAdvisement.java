@@ -7,6 +7,7 @@ public class ProductAdvisement {
     public static final String ACCESSIBILITY = "access";
     public static final String LEGAL = "legal";
     public static final String CUISINE = "cusine";
+    public static final String DINING_TYPE = "exp";
 
     private String advisementId;
     private String advisementName;
