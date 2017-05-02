@@ -41,8 +41,9 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         final MenuEntity entity = new MenuEntity();
         entity.setDayNumber(input.getDayNumber());
         entity.setMenuName(input.getMenuName());
+        //FIXME error on delete all
         //MenuMedia
-        entity.setMenuMedia(create(input.getMenuMedia()));
+        //entity.setMenuMedia(create(input.getMenuMedia()));
         entity.save();
         //MenuAdvisoryTag
         createMenuAdvisoryTag(entity, input.getMenuAdvisoryTag());
@@ -73,7 +74,8 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
             menuSectionEntity.setSectionName(menuSection.getSectionName());
             menuSectionEntity.setSectionDescription(menuSection.getSectiondescription());
             menuSectionEntity.setMenuEntity(entity);
-            menuSectionEntity.setSectionMediaEntity(create(menuSection.getSectionMedia()));
+            //FIXME error on delete all
+            //menuSectionEntity.setSectionMediaEntity(create(menuSection.getSectionMedia()));
             menuSectionEntity.save();
             createMenuItemEntity(menuSectionEntity, menuSection.getMenuItem());
         }
@@ -89,7 +91,8 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
             menuItemEntity.setMenuItemTitle(menuItem.getMenuItemTitle());
             menuItemEntity.setMenuItemDescription(menuItem.getMenuItemDescription());
             menuItemEntity.setMenuSectionEntity(entity);
-            menuItemEntity.setMediaEntity(create(menuItem.getMenuItemMedia()));
+            //FIXME error on delete all
+            //menuItemEntity.setMediaEntity(create(menuItem.getMenuItemMedia()));
             menuItemEntity.save();
             createMenuItemAdvisoryTag(menuItemEntity, menuItem.getMenuItemAdvisoryTags());
         }
@@ -145,6 +148,18 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
 
     @Override
     public void deleteAll() {
+        //TODO delete only Mediaitem by Menu, MenuSection and MenuItem
+        /*
+        final List<MenuEntity> entities = new Select()
+                .from(MenuEntity.class)
+                .execute();
+        for (MenuEntity menuEntity : entities) {
+            for (MediaValueEntity mediaValues: menuEntity.getMenuMedia().getValues()) {
+                new Delete().from(MediaValueEntity.class).where("Id = ?", mediaValues.getId()).execute();
+
+            }
+            new Delete().from(MediaEntity.class).where("Id = ?", menuEntity.getMenuMedia().getId()).execute();
+        }*/
         new Delete().from(MenuItemAdvisoryTagEntity.class).execute();
         new Delete().from(MenuItemEntity.class).execute();
         new Delete().from(MenuAdvisoryTagEntity.class).execute();
