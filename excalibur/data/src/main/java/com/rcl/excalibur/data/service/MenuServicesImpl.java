@@ -8,10 +8,10 @@ import com.rcl.excalibur.data.service.response.MenuResponse;
 import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.service.MenuServices;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -31,26 +31,30 @@ public class MenuServicesImpl extends BaseDataService<Menu, MenuResponse, Void> 
 
     @Override
     public void getMenu() {
-        Call<GetMenuResponse> call = getMenuApi().getMenus(SAILING_ID, "GIOV");
-        call.enqueue(new Callback<GetMenuResponse>() {
-            @Override
-            public void onResponse(Call<GetMenuResponse> call, Response<GetMenuResponse> response) {
-                if (response.isSuccessful()) {
-                    repository.deleteAll();
-                    List<Menu> menus = getMapper().transform(response.body().getMenu(), null);
-                    for (Menu menu : menus) {
-                        repository.create(menu);
+        new Thread(() -> {
+            Call<GetMenuResponse> call = getMenuApi().getMenus(SAILING_ID, "GIOV");
+            MenuProcessor menuProcessor = new MenuProcessor();
+            try {
+                menuProcessor.onResponse(call.execute());
+            } catch (IOException e) {
+                menuProcessor.onFailure(e);
+            }
+        }).start();
+    }
 
-                    }
-                    //TODO re
-                    repository.getAll();
+    private class MenuProcessor {
+        void onResponse(Response<GetMenuResponse> response) {
+            if (response.body() != null) {
+                List<Menu> menus = getMapper().transform(response.body().getMenu(), null);
+                for (Menu menu : menus) {
+                    repository.create(menu);
+
                 }
             }
+        }
 
-            @Override
-            public void onFailure(Call<GetMenuResponse> call, Throwable t) {
-                Timber.e("Error", t.getMessage());
-            }
-        });
+        void onFailure(Throwable t) {
+            Timber.e("error GetMenuResponse", t.getMessage());
+        }
     }
 }
