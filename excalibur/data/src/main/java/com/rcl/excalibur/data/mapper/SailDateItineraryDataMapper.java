@@ -18,9 +18,6 @@ import java.util.List;
 
 public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerary, DateItineraryResponse, Void> {
 
-    private final String formatHourMinute = "HHmm";
-    private final String formatDate = "yyyy/MM/dd";
-
     @Nullable
     @Override
     public SailDateItinerary transform(DateItineraryResponse itineraryResponse, Void additionalArg) {
