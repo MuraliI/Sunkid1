@@ -188,6 +188,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         calculateItemMargins(MAX_SLIDE_OFFSET);
         showHeadersView();
 
+        setContainerBackground(R.drawable.background_rounded_top_planner_white);
+
         //adapter.showAllHeaders();
     }
 
@@ -201,7 +203,17 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         bottomSheetBehavior.setPeekHeight(peekHeight);
         containerLayout.startAnimation(animationGoIn);
 
+        setContainerBackground(R.drawable.background_rounded_top_planner_transparent);
+
         //adapter.hideAllHeaders();
+    }
+
+    private void setContainerBackground(int backgroundRes) {
+        PlannerFragment fragment = getFragment();
+        if (fragment == null) {
+            return;
+        }
+        recyclerContainerLayout.setBackgroundResource(backgroundRes);
     }
 
     private void calculateItemMargins(float slideOffset) {
