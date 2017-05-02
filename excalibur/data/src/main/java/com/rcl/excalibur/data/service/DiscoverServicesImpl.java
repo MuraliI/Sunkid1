@@ -44,6 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
+import static com.rcl.excalibur.data.service.SailDateServicesImpl.SAIL_DATE;
 import static com.rcl.excalibur.data.utils.ServiceUtil.getDiscoverApi;
 import static com.rcl.excalibur.data.utils.ServiceUtil.isSuccess;
 import static com.rcl.excalibur.domain.ProductType.ACTIVITIES_TYPE;
@@ -55,7 +56,7 @@ import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
 import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
 
 public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse, Void> implements DiscoverServices {
-    private static final String SAILING_ID = "AL20170430";
+    private static final String SAILING_ID = "AL" + SAIL_DATE;
     private static final int MAX_COUNT = 50;
 
     private final ProductRepository productRepository;

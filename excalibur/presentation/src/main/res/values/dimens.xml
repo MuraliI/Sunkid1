@@ -163,6 +163,7 @@
     <dimen name="headline5_text_size">18sp</dimen>
     <dimen name="headline1_text_size">36sp</dimen>
     <dimen name="product_detail_reservation_height">65dp</dimen>
+    <dimen name="dash_subtext_maxwidth">200dp</dimen>
 
     <dimen name="spacing_top_bar_answer_screen">60dp</dimen>
 

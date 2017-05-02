@@ -43,6 +43,11 @@
     <string name="discover_item_detail_experience">Experience</string>
     <string name="discover_item_detail_attire">Attire</string>
     <string name="discover_item_detail_know">Know Before You Go</string>
+    <string name="product_detail_show_more">Show More</string>
+    <string name="title_show_times">Show Times</string>
+    <string name="title_times">Times</string>
+    <string name="times_vary">Times Vary</string>
+
 
     <!-- Font source -->
     <string name="roboto_medium">fonts/Roboto-Medium.ttf</string>
@@ -122,6 +127,7 @@
     <string name="day_1">Day 1</string>
     <string name="guest_should_be">Guests should be</string>
     <string name="mins">%d mins</string>
+    <string name="day_arg">Day %s</string>
     <string name="duration">Duration</string>
     <string name="sessions_from">Sessions from</string>
 
