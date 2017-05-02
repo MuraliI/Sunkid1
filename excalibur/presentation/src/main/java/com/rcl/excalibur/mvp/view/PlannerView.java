@@ -49,7 +49,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private static final float MAX_SLIDE_OFFSET = 1.0f;
     private static final int DELAY_MILLIS_COLLAPSE = 200;
     private static final int DELAY_MILLIS_SCROLL = 100;
-    private static final int ADD_DURATION_MILLIS = 200;
+    private static final int ADD_DURATION_MILLIS = 150;
     private static final int NO_PEEK_HEIGHT = 0;
     private static final int TOP_OF_LIST = 0;
     private static final int NO_MARGIN = 0;
@@ -219,7 +219,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         if (fragment == null) {
             return;
         }
-        recyclerContainerLayout.setBackgroundResource(backgroundRes);
+        recyclerView.setBackgroundResource(backgroundRes);
     }
 
     private void calculateItemMargins(float slideOffset) {
