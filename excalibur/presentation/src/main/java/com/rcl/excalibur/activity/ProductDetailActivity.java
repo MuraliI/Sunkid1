@@ -35,7 +35,7 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
         if (intent == null || !intent.hasExtra(EXTRA_DISCOVER_ITEM_ID)) {
             return;
         }
-        String productId = intent.getExtras().getString(EXTRA_DISCOVER_ITEM_ID);
+        String productId = StringUtils.decodeString(intent.getExtras().getString(EXTRA_DISCOVER_ITEM_ID));
         presenter = new ProductDetailPresenter(new ProductDetailView(this)
                 , new GetProductDbUseCase(new ProductDataRepository())
                 , new GetOfferingsDbUseCase(new OfferingDataRepository()));
