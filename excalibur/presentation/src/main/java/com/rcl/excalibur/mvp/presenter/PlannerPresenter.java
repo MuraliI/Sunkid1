@@ -233,7 +233,7 @@ public class PlannerPresenter {
         }
     }
 
-    private void recyclerOnScroll(int viewVerticalPosition) {
+    private void recyclerOnScroll(int headerVerticalPosition) {
         int topItem = view.getFirstItemPosition();
         if (topItem == 0) {
             topItem++;
@@ -252,7 +252,7 @@ public class PlannerPresenter {
             return;
         }
         int verticalPosition = view.getVerticalLocationOnScreen(itemView);
-        if (verticalPosition < 290) {
+        if (verticalPosition < headerVerticalPosition) {
             PlannerHeader header = productItem.getHeader();
             int newPartOfDay = getPartOfDayResource(productModel);
             header.setTitle(newPartOfDay);

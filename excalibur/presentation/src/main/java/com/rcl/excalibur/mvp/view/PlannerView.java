@@ -81,6 +81,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private boolean initialized;
     private boolean bottomSheetIsSliding;
 
+    private int headerHeight;
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
     private int initImageMargin;
@@ -101,6 +102,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         initVerticalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_vertical_margin);
         initImageMargin = resources.getDimensionPixelSize(R.dimen.margin_small);
         peekHeight = resources.getDimensionPixelSize(R.dimen.planner_peek_height);
+        headerHeight = resources.getDimensionPixelSize(R.dimen.height_planner_header);
 
         handler = new Handler();
         itemsToRemove = new ArrayList<>();
@@ -113,6 +115,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+        DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
+        itemAnimator.setAddDuration(300);
         recyclerView.setItemAnimator(itemAnimator);
         recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
@@ -132,7 +136,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         recyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                onViewNext(0);
+                onViewNext(getVerticalLocationOnScreen(recyclerView) + headerHeight);
             }
         });
     }
