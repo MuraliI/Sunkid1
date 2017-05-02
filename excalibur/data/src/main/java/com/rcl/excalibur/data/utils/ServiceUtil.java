@@ -22,7 +22,6 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 public final class ServiceUtil {
 
     //Fixme refactor this to config
-    private static final String API_KEY = "CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09";
     private static final String SUCCESS = "SUCCESS";
     private static final String API_KEY_PARAM = "apikey";
     private static DiscoverApi discoverApi;
@@ -94,7 +93,7 @@ public final class ServiceUtil {
                     Request original = chain.request();
                     HttpUrl originalHttpUrl = original.url();
                     HttpUrl url = originalHttpUrl.newBuilder()
-                            .addQueryParameter(API_KEY_PARAM, API_KEY)
+                            .addQueryParameter(API_KEY_PARAM, BuildConfig.API_KEY)
                             .build();
                     Request.Builder requestBuilder = original.newBuilder()
                             .url(url);

@@ -20,6 +20,8 @@ public final class DateUtil {
     public static final String DATE_PARSING_ERROR = "Date parsing failed in %s1, parser exception: %s2";
     public static final String TIME_FORMAT = "h:mm a";
     public static final String DATE_FORMAT_ISO = "yyyyMMdd'T'HHmmss";
+    public static final String HOUR_MINUTE_FORMAT = "HHmm";
+    public static final String DATE_STANDARD_FORMAT = "yyyy/MM/dd";
 
     private DateUtil() {
     }
@@ -66,5 +68,11 @@ public final class DateUtil {
         return String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)) + String.valueOf(calendar.get(Calendar.MINUTE));
     }
 
+    public static SimpleDateFormat getHourMinuteFormat() {
+        return new SimpleDateFormat(HOUR_MINUTE_FORMAT);
+    }
 
+    public static SimpleDateFormat getDateStandarFormat() {
+        return new SimpleDateFormat(DATE_STANDARD_FORMAT);
+    }
 }

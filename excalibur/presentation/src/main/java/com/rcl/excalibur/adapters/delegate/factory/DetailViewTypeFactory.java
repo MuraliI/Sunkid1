@@ -273,17 +273,16 @@ public final class DetailViewTypeFactory {
     private static void addTimesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings,
                                        SailDateInfo sailDateInfo, @NonNull Resources res, Product product) {
         String title = res.getString(R.string.title_times);
-        int status = product.getStatus();
         if (product.isEntertainment()) {
             title = res.getString(R.string.title_show_times);
             TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, res, offerings, sailDateInfo);
         }
 
         if (product.isActivities()) {
-            if (status == Product.STATUS_INVENTORY || status == Product.STATUS_NON_INVENTORY) {
+            if (product.isInventory() || product.isNonInveentory()) {
                 TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, res, offerings, sailDateInfo);
             }
-            if (status == Product.STATUS_WALK_UP) {
+            if (product.isWalkUp()) {
                 TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, product.getProductLocation().getLocationOperationHours());
             }
         }

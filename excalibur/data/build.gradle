@@ -4,10 +4,11 @@ apply plugin: 'me.tatarka.retrolambda'
 android {
     defaultPublishConfig "debug"
 
+    def API_KEY = "CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09"
     def globalConfiguration = rootProject.extensions.getByName("ext")
-    def baseUrlCloud = 'http://10.16.6.134:8090/'
-    def apiCommerceUrl = '"' + baseUrlCloud + 'test/search-api/v1/' + '"'
-    def apiNonCommerceUrl = '"' + baseUrlCloud + 'test/v1/' + '"'
+    def BASE_URL_CLOUD = 'http://10.16.6.134:8090/'
+    def API_COMMERCE_URL = '"' + BASE_URL_CLOUD + 'test/search-api/v1/' + '"'
+    def API_NON_COMMERCE_URL = '"' + BASE_URL_CLOUD + 'test/v1/' + '"'
 
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
@@ -24,11 +25,12 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "DISCOVER_API_URL", apiCommerceUrl
+            buildConfigField "String", "API_KEY", API_KEY
+            buildConfigField "String", "DISCOVER_API_URL", API_COMMERCE_URL
             buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
-            buildConfigField "String", "GUEST_API_URL", apiNonCommerceUrl
-            buildConfigField "String", "SAIL_API_URL", apiNonCommerceUrl
-            buildConfigField "String", "SHIP_TIME_API_URL", apiNonCommerceUrl
+            buildConfigField "String", "GUEST_API_URL", API_NON_COMMERCE_URL
+            buildConfigField "String", "SAIL_API_URL", API_NON_COMMERCE_URL
+            buildConfigField "String", "SHIP_TIME_API_URL", API_NON_COMMERCE_URL
         }
         release.initWith(debug)
     }

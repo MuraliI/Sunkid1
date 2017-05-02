@@ -96,12 +96,6 @@ public class TimesViewType implements RecyclerViewType {
             e.printStackTrace();
         }
 
-//        Mock Data to display Module
-//        long dateTimeLong = 1493683201000L;
-//        Date dateTime = new Date(dateTimeLong);
-//        int duration = 5;
-//        int dayCounter = 1;
-
         if (dateTime != null) {
             Calendar sailingDate = Calendar.getInstance();
             sailingDate.setTime(dateTime);
