@@ -28,7 +28,6 @@ public class VoyageMapActivity extends BaseActivity {
                 new GetSailingPreferenceUseCase(sailingPreferences),
                 new GetSaildDateDbUseCase(sailDateDataRepository),
                 new SailingInformationModelDataMapper());
-        presenter.init();
         presenter.initTab();
         Transition transition = getWindow().getSharedElementEnterTransition();
         transition.addListener(new Transition.TransitionListener() {

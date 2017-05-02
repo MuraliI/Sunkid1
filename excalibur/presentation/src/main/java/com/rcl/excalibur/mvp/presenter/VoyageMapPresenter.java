@@ -43,9 +43,12 @@ public class VoyageMapPresenter {
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
     }
 
+    public void initMap() {
+        initVoyageMapImage();
+    }
+
     public void initTab() {
         view.init(getScreenWidth());
-        initVoyageMapImage();
     }
 
     private int getScreenWidth() {
@@ -78,7 +81,7 @@ public class VoyageMapPresenter {
             day = activity.getResources().getString(R.string.day_title) + day;
         }
         //view.setHeader(day);
-        getShipLocationInfo(day);
+        //getShipLocationInfo(day);
     }
 
     public void getShipLocationInfo(String day) {

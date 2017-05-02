@@ -55,12 +55,11 @@
             android:transitionName="@string/shared_element_ship" />
 
     </FrameLayout>
-</LinearLayout>
+
     <TextView
         android:id="@+id/text_ship_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/day_picker_tab"
         android:layout_centerHorizontal="true" />
-
-</RelativeLayout>
+</LinearLayout>
