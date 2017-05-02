@@ -2,9 +2,11 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
 import android.support.v4.util.SparseArrayCompat;
+import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
@@ -33,6 +35,7 @@ import java.util.List;
 import java.util.Random;
 
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import timber.log.Timber;
 
 import static com.rcl.excalibur.model.PlannerProductModel.ALL_DAY_HEADER;
 import static com.rcl.excalibur.model.PlannerProductModel.GENERAL_HEADER;
@@ -61,9 +64,9 @@ public class PlannerPresenter {
 
     private SparseArrayCompat<PlannerHeader> headerList;
 
+    @StringRes private int currentPartOfDayResource;
     private int lastHeaderId = 0;
     private int lastItemId = 0;
-    private String dayPreferences;
 
     public PlannerPresenter(PlannerView view,
                             GetOfferingsDbUseCase useCase,
@@ -195,7 +198,7 @@ public class PlannerPresenter {
     }
 
     public void getArrivingDisembarkingInfo() {
-        dayPreferences = getSailingPreferenceUseCase.getDay();
+        String dayPreferences = getSailingPreferenceUseCase.getDay();
         int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
 
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
@@ -241,6 +244,35 @@ public class PlannerPresenter {
         }
     }
 
+    private void recyclerOnScroll(int viewVerticalPosition) {
+        int topItem = view.getFirstItemPosition();
+        if (topItem == 0) {
+            topItem++;
+        }
+        PlannerProductItem productItem = view.getNextItem(topItem);
+        if (productItem == null) {
+            return;
+        }
+        PlannerProductModel productModel = productItem.getPlannerProductModel();
+        if (productModel == null || productModel.isAllDayProduct()
+                || currentPartOfDayResource == getPartOfDayResource(productModel)) {
+            return;
+        }
+        View itemView = view.getViewItemAt(topItem);
+        if (itemView == null) {
+            return;
+        }
+        int verticalPosition = view.getVerticalLocationOnScreen(itemView);
+        if (verticalPosition < 290) {
+            PlannerHeader header = productItem.getHeader();
+            int newPartOfDay = getPartOfDayResource(productModel);
+            header.setTitle(newPartOfDay);
+            currentPartOfDayResource = newPartOfDay;
+            view.updateHeader();
+        }
+        Timber.d("FromPresenter: LOC" + verticalPosition);
+    }
+
     private PortModel getPortTypeNextDay(List<EventModel> events, int day, PortModel sailPort) {
         int nextDay = day + 1;
         if (nextDay <= events.size()) {
@@ -252,15 +284,33 @@ public class PlannerPresenter {
         return sailPort;
     }
 
-    public static class OnScrolledObserver extends DefaultPresentObserver<PlannerProductItem, PlannerPresenter> {
+    @StringRes
+    private int getPartOfDayResource(@NonNull PlannerProductModel productModel) {
+        Calendar startDate = productModel.getStartDate();
+        if (startDate != null) {
+            int hourOfDay = startDate.get(Calendar.HOUR_OF_DAY);
+            if (hourOfDay >= 6 && hourOfDay < 12) {
+                return R.string.title_morning;
+            } else if (hourOfDay >= 12 && hourOfDay < 17) {
+                return R.string.title_afternoon;
+            } else if (hourOfDay >= 17 && hourOfDay < 23) {
+                return R.string.title_evening;
+            } else {
+                return R.string.title_late_night;
+            }
+        }
+        return R.string.empty_string;
+    }
+
+    public static class OnScrolledObserver extends DefaultPresentObserver<Integer, PlannerPresenter> {
 
         public OnScrolledObserver(PlannerPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(PlannerProductItem value) {
-
+        public void onNext(Integer value) {
+            getPresenter().recyclerOnScroll(value);
         }
     }
 
