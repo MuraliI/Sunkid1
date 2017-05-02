@@ -24,6 +24,7 @@ import java.util.TimeZone;
 public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerary, DateItineraryResponse, Void> {
 
     private final String formatHourMinute = "HHmm";
+    private final String formatDate = "yyyy/MM/dd";
 
     @Nullable
     @Override
@@ -93,7 +94,7 @@ public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerar
     }
 
     private String formatedDate(Calendar calendar) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatDate);
         return dateFormat.format(calendar.getTime());
     }
 
