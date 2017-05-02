@@ -74,7 +74,6 @@ public class SailDateInfoDataMapperTest {
         sailingInfoResponse.setShipCode("AL");
         sailingInfoResponse.setItinerary(dateItineraryResponse);
 
-
     }
 
     @After
@@ -117,7 +116,7 @@ public class SailDateInfoDataMapperTest {
             assertEquals(portResponse.getPortCode(), sailPort.getPortCode());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("hhmm");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
 
             Date arrivalDate = DateUtil.getDateFormatISO().parse(portResponse.getArrivalDateTime());
             assertEquals(dateFormat.format(arrivalDate), sailPort.getArrivalDate());

@@ -93,7 +93,8 @@ public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerar
     }
 
     private String formatedDate(Calendar calendar) {
-        return calendar.get(Calendar.YEAR) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DAY_OF_MONTH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        return dateFormat.format(calendar.getTime());
     }
 
     private String formatedTime(Calendar calendar) {
