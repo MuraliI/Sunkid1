@@ -3,6 +3,7 @@ package com.rcl.excalibur.model;
 
 import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -147,7 +148,10 @@ public class DiscoverItemModel {
     }
 
     public String[] getPriceRange() {
-        return priceRange;
+        if (priceRange == null) {
+            return null;
+        }
+        return priceRange.clone();
     }
 
     public void setPriceRange(String[] priceRange) {
@@ -155,7 +159,10 @@ public class DiscoverItemModel {
     }
 
     public String[] getAccessibility() {
-        return accessibility;
+        if (accessibility == null) {
+            return null;
+        }
+        return accessibility.clone();
     }
 
     public void setAccessibility(String[] accessibility) {
@@ -203,7 +210,24 @@ public class DiscoverItemModel {
     }
 
     public List<String[]> getStandardTimesDaysAndTimes() {
-        return standardTimesDaysAndTimes;
+        if (standardTimesDaysAndTimes == null) {
+            return new ArrayList<>();
+        }
+        int size = standardTimesDaysAndTimes.size();
+        int limit = size / 2;
+        boolean isSymmetric = size % 2 == 0;
+        int left;
+        int right;
+        List<String[]> clone = new ArrayList<>(size);
+        for (left = 0; left < limit; left++) {
+            right = size - left - 1;
+            clone.add(left, standardTimesDaysAndTimes.get(left).clone());
+            clone.add(left + 1, standardTimesDaysAndTimes.get(right).clone());
+        }
+        if (!isSymmetric) {
+            clone.add(left, standardTimesDaysAndTimes.get(left).clone());
+        }
+        return clone;
     }
 
     public void setStandardTimesDaysAndTimes(List<String[]> standardTimesDaysAndTimes) {
