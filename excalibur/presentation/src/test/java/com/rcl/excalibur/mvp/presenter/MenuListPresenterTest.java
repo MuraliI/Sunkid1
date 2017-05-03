@@ -31,14 +31,14 @@ public class MenuListPresenterTest {
 
 
     private final String MENU_NAME = "Dinner";
-    private final String MENU_ITEM_NAME="WILD MUSHROOM SOUP";
-    private final String MENU_ITEM_DESCRIPTION="Scented with white truffle oil, chives";
+    private final String MENU_ITEM_NAME = "WILD MUSHROOM SOUP";
+    private final String MENU_ITEM_DESCRIPTION = "Scented with white truffle oil, chives";
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         menuItemList = new ArrayList<>();
-        menuItem =new MenuItem();
+        menuItem = new MenuItem();
         menuItem.setMenuItemTitle(MENU_ITEM_NAME);
         menuItem.setMenuItemDescription(MENU_ITEM_DESCRIPTION);
         menuItemList.add(menuItem);

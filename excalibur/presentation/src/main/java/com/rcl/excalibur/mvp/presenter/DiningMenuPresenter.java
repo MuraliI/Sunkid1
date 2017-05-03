@@ -1,5 +1,6 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.view.ViewPager;
 
@@ -30,10 +31,9 @@ public class DiningMenuPresenter {
 
     public void onHeaderBackOnClick() {
         final BaseActivity activity = view.getActivity();
-        if (activity == null) {
-            return;
+        if (activity != null) {
+            ActivityUtils.onBackActivity(activity);
         }
-        ActivityUtils.onBackActivity(activity);
     }
 
     public void createFragmentMenu(String venueCode, ViewPager viewPager) {
@@ -54,11 +54,10 @@ public class DiningMenuPresenter {
     }
 
     private void showDialogEmptyMenu() {
-        if (view.getActivity() != null && view.getContext() != null) {
-            String message = view.getContext().getResources().
-                    getString(R.string.menu_empty_dialog_message);
-            String buttonMessage = view.getContext().getResources().
-                    getString(R.string.menu_empty_dialog_button);
+        Context context = view.getContext();
+        if (view.getActivity() != null && context != null) {
+            String message = context.getResources().getString(R.string.menu_empty_dialog_message);
+            String buttonMessage = context.getResources().getString(R.string.menu_empty_dialog_button);
             DialogInterface.OnClickListener listener = (dialog, which) -> view.getActivity().finish();
             AlertDialogUtils.showDialog(view.getActivity(), listener, message, buttonMessage);
         }

@@ -219,5 +219,7 @@
     <dimen name="dining_menu_list_margin">16dp</dimen>
     <dimen name="dining_menu_item_font_size_description">20sp</dimen>
     <dimen name="dining_menu_item_margin_description">10dp</dimen>
+    <dimen name="dining_menu_home_text_size">25sp</dimen>
+    <dimen name="dining_menu_home_margin_end">10dp</dimen>
 
 </resources>

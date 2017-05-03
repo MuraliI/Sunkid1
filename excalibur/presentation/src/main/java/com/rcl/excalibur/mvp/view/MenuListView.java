@@ -28,12 +28,11 @@ public class MenuListView extends FragmentView<MenuListFragment, Void, Void> {
 
     public void init() {
         final Activity activity = getActivity();
-        if (activity == null) {
-            return;
+        if (activity != null) {
+            adapter = new DiningMenuCardAdapter(adapterObserver);
+            recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            recyclerView.setAdapter(adapter);
         }
-        adapter = new DiningMenuCardAdapter(adapterObserver);
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        recyclerView.setAdapter(adapter);
     }
 
     public void addAll(List<MenuItem> menus) {
