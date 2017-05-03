@@ -1,11 +1,17 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Pair;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresenterConsumer;
 import com.rcl.excalibur.mvp.view.DeckMapView;
@@ -15,7 +21,13 @@ import java.util.List;
 
 public class DeckMapPresenter {
 
+    private static final int DEFAULT_DECK_NUMBER = 1;
     private static final String DEFAULT_LATITUDE = "0";
+
+    private Animation fadeOutBack;
+    private Animation fadeOutFront;
+    private Animation fadeInBack;
+    private Animation fadeInFront;
 
     private List<Pair<Integer, Integer>> deckImages;
     private GetProductDbUseCase getProductDbUseCase;
@@ -38,6 +50,7 @@ public class DeckMapPresenter {
             yCoord = Integer.valueOf(productLatitude == null ? DEFAULT_LATITUDE : productLatitude);
         }
         createDeckImagesMap();
+        initAnimations();
         initView();
     }
 
@@ -80,6 +93,38 @@ public class DeckMapPresenter {
         view.openDeckSelector(open);
     }
 
+    private void initAnimations() {
+        Context context = view.getContext();
+        fadeOutBack = AnimationUtils.loadAnimation(context, R.anim.zoom_fade_out_back_venue);
+        fadeOutFront = AnimationUtils.loadAnimation(context, R.anim.zoom_fade_out_front_venue);
+        fadeInBack = AnimationUtils.loadAnimation(context, R.anim.zoom_fade_in_back_venue);
+        fadeInFront = AnimationUtils.loadAnimation(context, R.anim.zoom_fade_in_front_venue);
+    }
+
+    public void setFadeInOutAnimation(Pair<Integer, Integer> deck) {
+        ImageView deckMapBackImage = view.getDeckMapBackImage();
+        ImageView deckMapFrontImage = view.getDeckMapFrontImage();
+
+        Drawable preImage = deckMapFrontImage.getDrawable();
+        String preNumber = view.getDeckSelectorButton().getText();
+
+        int preDeckNumber = preNumber == null ? DEFAULT_DECK_NUMBER
+                : Integer.valueOf(preNumber.split(ConstantsUtil.WHITE_SPACE)[DEFAULT_DECK_NUMBER]);
+        if (preDeckNumber == deck.first) {
+            return;
+        } else if (preDeckNumber < deck.first) {
+            if (preImage != null) {
+                view.setDeckImageDrawable(preImage, deckMapBackImage, deckMapFrontImage);
+            }
+            view.setAnimation(deck, fadeOutBack, fadeOutFront, deckMapFrontImage, deckMapBackImage);
+        } else {
+            if (preImage == null) {
+                view.setDeckImageDrawable(deckMapBackImage.getDrawable(), deckMapFrontImage, deckMapBackImage);
+            }
+            view.setAnimation(deck, fadeInFront, fadeInBack, deckMapBackImage, deckMapFrontImage);
+        }
+    }
+
     private class DeckSelectorObserver extends DefaultPresentObserver<Pair<Integer, Integer>, DeckMapPresenter> {
 
         DeckSelectorObserver(DeckMapPresenter presenter) {
@@ -88,6 +133,7 @@ public class DeckMapPresenter {
 
         @Override
         public void onNext(Pair<Integer, Integer> value) {
+            getPresenter().setFadeInOutAnimation(value);
             getPresenter().onDeckSelected(value);
         }
     }
