@@ -206,10 +206,10 @@
     <dimen name="progress_height_width">30dp</dimen>
 
     <!-- Dining Menu -->
-    <dimen name="dining_menu_item_text_size">23sp</dimen>
+    <dimen name="dining_menu_item_text_size">22sp</dimen>
     <dimen name="dining_menu_title_margin">5dp</dimen>
     <dimen name="dining_menu_list_margin">16dp</dimen>
-    <dimen name="dining_menu_item_font_size_description">22sp</dimen>
+    <dimen name="dining_menu_item_font_size_description">20sp</dimen>
     <dimen name="dining_menu_item_margin_description">10dp</dimen>
 
 </resources>
