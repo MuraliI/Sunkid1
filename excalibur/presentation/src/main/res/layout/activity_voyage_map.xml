@@ -24,14 +24,6 @@
         android:orientation="vertical"
         android:transitionName="@string/shared_element_tab">
 
-        <include
-            android:id="@+id/day_picker_tab"
-            layout="@layout/custom_tabview_triptychtab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/margin_normal" />
-
         <View
             android:id="@+id/view_white_voyage_map"
             android:layout_width="match_parent"
@@ -39,13 +31,13 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/white" />
 
-        <TextView
-            android:id="@+id/text_ship_status"
+        <include
+            android:id="@+id/day_picker_tab"
+            layout="@layout/custom_tabview_triptychtab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Test" />
-
+            android:layout_marginTop="@dimen/margin_normal" />
     </LinearLayout>
 
     <FrameLayout
@@ -62,6 +54,13 @@
             android:transitionName="@string/shared_element_ship" />
 
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/text_ship_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Test" />
 
 
 </RelativeLayout>
