@@ -112,7 +112,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         if (media == null || CollectionUtils.isEmpty(media.getMediaItem())) {
             return null;
         }
-        MediaEntity mediaEntity = new MediaEntity();
+        final MediaEntity mediaEntity = new MediaEntity();
         mediaEntity.save();
         for (MediaItem mediaItem : media.getMediaItem()) {
             final MediaValueEntity mediaValueEntity = new MediaValueEntity();

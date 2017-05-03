@@ -1,5 +1,8 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import android.content.res.Resources;
+
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.domain.MenuItem;
 import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
@@ -18,15 +21,16 @@ public class MenuListPresenter {
         this.getMenuDbUseCase = getMenuDbUseCase;
     }
 
-    public void init(String idTypeMenu) {
+    public void init(String menuName) {
         final BaseActivity activity = view.getActivity();
         if (activity == null) {
             return;
         }
+        Resources resources = activity.getResources();
         view.init();
-        menuItems = getMenuDbUseCase.getAllMenuItemByMenuName(idTypeMenu);
+        menuItems = getMenuDbUseCase.getAllMenuItemByMenuName(menuName);
         if (menuItems == null) {
-            view.showToastAndFinishActivity("Discover Item Not Found");
+            view.showToastAndFinishActivity(resources.getString(R.string.no_menu_items_to_show));
             return;
         }
         view.addAll(menuItems);
