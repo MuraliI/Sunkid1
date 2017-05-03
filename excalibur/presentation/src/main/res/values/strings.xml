@@ -239,7 +239,7 @@
 
     <!-- Dining Menu  -->
     <string name="menu_header_title">Menu</string>
-    <string name="no_menu_items_to_show">There are no menus for this place</string>
-
+    <string name="menu_empty_dialog_message">There are no menus for this place.</string>
+    <string name="menu_empty_dialog_button">OK</string>
 
 </resources>

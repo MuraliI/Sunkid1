@@ -1,7 +1,9 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import android.content.DialogInterface;
 import android.support.v4.view.ViewPager;
 
+import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.DiningMenuPagerAdapter;
 import com.rcl.excalibur.data.repository.MenuDataRepository;
@@ -9,13 +11,12 @@ import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
 import com.rcl.excalibur.fragments.MenuListFragment;
 import com.rcl.excalibur.mvp.view.DiningMenuView;
 import com.rcl.excalibur.utils.ActivityUtils;
+import com.rcl.excalibur.utils.AlertDialogUtils;
 import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import java.util.List;
-
-import timber.log.Timber;
 
 public class DiningMenuPresenter {
 
@@ -45,7 +46,7 @@ public class DiningMenuPresenter {
             addFragmentsToPager(menusName, viewPager);
             AnalyticsUtils.trackEvent(analyticEvent.addKeyValue(AnalyticsConstants.KEY_FILTER_CATEGORY, idTypeMenu));
         } else {
-            Timber.e("Don't find information for menu");
+            showDialogEmptyMenu();
         }
     }
 
@@ -55,5 +56,16 @@ public class DiningMenuPresenter {
             adapter.addFragment(MenuListFragment.newInstance(menuName), menuName);
         }
         viewPager.setAdapter(adapter);
+    }
+
+    private void showDialogEmptyMenu() {
+        if (view.getActivity() != null && view.getContext() != null) {
+            String message = view.getContext().getResources().
+                    getString(R.string.menu_empty_dialog_message);
+            String buttonMessage = view.getContext().getResources().
+                    getString(R.string.menu_empty_dialog_button);
+            DialogInterface.OnClickListener listener = (dialog, which) -> view.getActivity().finish();
+            AlertDialogUtils.showDialog(view.getActivity(), listener, message, buttonMessage);
+        }
     }
 }

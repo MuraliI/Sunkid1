@@ -3,7 +3,6 @@ package com.rcl.excalibur.mvp.view;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.DiningMenuCardAdapter;
@@ -41,12 +40,4 @@ public class MenuListView extends FragmentView<MenuListFragment, Void, Void> {
         adapter.addAll(menus);
     }
 
-    public void showToastAndFinishActivity(String message) {
-        Activity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
-        activity.finish();
-    }
 }
