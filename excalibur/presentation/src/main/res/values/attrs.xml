@@ -32,4 +32,8 @@
     <declare-styleable name="RoundedView">
         <attr name="borderRadius" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="HorizontalPickerView">
+        <attr name="revealAnimationDuration" format="integer" />
+    </declare-styleable>
 </resources>

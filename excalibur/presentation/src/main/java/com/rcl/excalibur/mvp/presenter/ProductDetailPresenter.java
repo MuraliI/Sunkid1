@@ -3,7 +3,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.ProductDeckMapActivity;
+import com.rcl.excalibur.activity.DeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.factory.DetailViewTypeFactory;
@@ -14,6 +14,7 @@ import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
@@ -115,7 +116,7 @@ public class ProductDetailPresenter {
             if (activity == null) {
                 return;
             }
-            ActivityUtils.startActivity(activity, ProductDeckMapActivity.getIntent(activity, productId));
+            ActivityUtils.startActivity(activity, DeckMapActivity.getIntent(activity, productId));
         }
     }
 
