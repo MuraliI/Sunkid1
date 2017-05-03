@@ -1,6 +1,6 @@
 package com.rcl.excalibur.data.mapper;
 
-import com.rcl.excalibur.data.MockMediaitemResponse;
+import com.rcl.excalibur.data.mockobjects.MockMediaitemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
 import com.rcl.excalibur.data.service.response.MenuAdvisoryTagResponse;
 import com.rcl.excalibur.data.service.response.MenuItemAdvisoryTagResponse;
