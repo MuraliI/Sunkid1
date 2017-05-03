@@ -12,7 +12,7 @@ public class PlannerProductModel extends ProductInformationViewType implements C
 
     private static final int MORNING_START_HOUR = 6;
 
-    public static final int STATE_ALL_DAY = 4;
+    private static final int STATE_ALL_DAY = 4;
     public static final int STATE_MORNING = 3;
     public static final int STATE_AFTERNOON = 2;
     public static final int STATE_EVENING = 1;

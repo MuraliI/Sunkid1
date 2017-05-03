@@ -194,7 +194,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         calculateItemMargins(MAX_SLIDE_OFFSET);
         showHeadersView();
 
-        setContainerBackground(R.drawable.background_rounded_top_planner_white);
+        setRecyclerViewBackground(R.drawable.background_rounded_top_planner_white);
 
         //adapter.showAllHeaders();
     }
@@ -209,12 +209,12 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         bottomSheetBehavior.setPeekHeight(peekHeight);
         containerLayout.startAnimation(animationGoIn);
 
-        setContainerBackground(R.drawable.background_rounded_top_planner_transparent);
+        setRecyclerViewBackground(R.drawable.background_rounded_top_planner_transparent);
 
         //adapter.hideAllHeaders();
     }
 
-    private void setContainerBackground(int backgroundRes) {
+    private void setRecyclerViewBackground(int backgroundRes) {
         PlannerFragment fragment = getFragment();
         if (fragment == null) {
             return;
@@ -326,7 +326,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     private void changeSeparatorVisibility(View parent, int visibility) {
         if (parent != null) {
-            View separator = ButterKnife.findById(parent, R.id.layout_planner_item_separator_container);
+            View separator = ButterKnife.findById(parent, R.id.view_planner_separator_line);
             if (separator != null) {
                 separator.setVisibility(visibility);
             }
@@ -396,6 +396,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     }
 
     public void removeItems() {
+        recyclerView.smoothScrollToPosition(TOP_OF_LIST);
         adapter.removeItems(itemsToRemove);
         itemsToRemove.clear();
     }

@@ -1,7 +1,6 @@
 package com.rcl.excalibur.adapters.planner.abstractitem;
 
 
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.custom.view.PriceRangeLayout;
-import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.model.PlannerProductModel;
 import com.squareup.picasso.Picasso;
 
@@ -25,7 +23,6 @@ import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class PlannerProductItem extends AbstractSectionableItem<PlannerProductItem.ViewHolder, PlannerHeader> {
 
-    private int indexToBeAdded;
     private String id;
     private PlannerProductModel plannerProductModel;
 
@@ -100,15 +97,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         holder.productVenue.setText(plannerProductModel.getVenue());
         holder.productCategoryIcon.setImageResource(plannerProductModel.getResourceIdCategoryIcon());
         holder.productDeckAndDirection.setText(plannerProductModel.getLocation());
-        holder.setTime(null); // Passing null instead of plannerProductModel.getStartHourText() to hide the hours
-    }
-
-    public int getIndexToBeAdded() {
-        return indexToBeAdded;
-    }
-
-    public void setIndexToBeAdded(int indexToBeAdded) {
-        this.indexToBeAdded = indexToBeAdded;
+        //holder.setTime(null); // Passing null instead of plannerProductModel.getStartHourText() to hide the hours
     }
 
     public class ViewHolder extends FlexibleViewHolder {
@@ -120,15 +109,15 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         @BindView(R.id.image_itinerary_product_icon) ImageView productCategoryIcon;
         @BindView(R.id.image_itinerary_product_favorite) ImageView productPromoted;
         @BindView(R.id.view_itinerary_product_price_range) PriceRangeLayout priceRange;
-        @BindView(R.id.layout_planner_item_separator_container) View separatorLayout;
-        @BindView(R.id.text_planner_separator_time) TextView timeTextView;
+        /*@BindView(R.id.layout_planner_item_separator_container) View separatorLayout;
+        @BindView(R.id.text_planner_separator_time) TextView timeTextView;*/
 
         public ViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter);
             ButterKnife.bind(this, itemView);
         }
-
-        void setTime(@Nullable String time) {
+        //TODO: This is commented because on ticket CORE-1601 they don't want hours at the moment
+        /*void setTime(@Nullable String time) {
             if (time == null || time.isEmpty()) {
                 hideTime();
             } else {
@@ -140,6 +129,6 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         void hideTime() {
             timeTextView.setText(ConstantsUtil.EMPTY);
             timeTextView.setVisibility(View.GONE);
-        }
+        }*/
     }
 }

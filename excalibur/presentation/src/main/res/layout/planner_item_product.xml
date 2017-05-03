@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <!-- This is commented because on ticket CORE-1601 they don't want hours at the moment -->
+        <!--<RelativeLayout
             android:id="@+id/layout_planner_item_separator_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,14 +38,13 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/text_planner_separator_time"
                 android:background="@color/discover_grey" />
-        </RelativeLayout>
+        </RelativeLayout>-->
 
         <LinearLayout
             android:id="@+id/layout_itinerary_texts_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/layout_planner_item_separator_container"
             android:layout_toStartOf="@+id/image_itinerary_product_picture"
             android:orientation="vertical"
             android:paddingEnd="@dimen/margin_small"
@@ -131,41 +131,18 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignWithParentIfMissing="true"
-            android:layout_below="@+id/layout_planner_item_separator_container"
             android:layout_margin="@dimen/margin_small"
             android:contentDescription="@string/itinerary_accessibility_product_image"
             android:scaleType="centerCrop"
             android:transitionName="@string/shared_element_transition_name"
             tools:src="@drawable/placeholder_list_item" />
 
-        <!--<RelativeLayout
-            android:id="@+id/layout_planner_item_separator_container"
+        <View
+            android:id="@+id/view_planner_separator_line"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/margin_planner_separator"
-            android:layout_marginEnd="@dimen/margin_planner_separator"
-            android:minHeight="@dimen/margin_small"
+            android:layout_alignWithParentIfMissing="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/text_planner_separator_time"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="@dimen/margin_planner_hour_separator_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="10 AM" />
-
-            <View
-                android:id="@+id/view_planner_separator_line"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/text_planner_separator_time"
-                android:layout_alignWithParentIfMissing="true"
-                android:layout_width="@dimen/width_planner_item"
-                android:layout_height="@dimen/itinerary_separator_thickness"
-                android:background="@color/discover_grey" />
-        </RelativeLayout>-->
+            android:layout_height="@dimen/itinerary_separator_thickness"
+            android:background="@color/discover_grey" />
     </RelativeLayout>
 </com.rcl.excalibur.custom.view.RoundedCardView>
