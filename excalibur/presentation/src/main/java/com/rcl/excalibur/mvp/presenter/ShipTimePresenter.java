@@ -6,6 +6,7 @@ import com.rcl.excalibur.data.utils.DateUtil;
 import com.rcl.excalibur.domain.ShipTime;
 import com.rcl.excalibur.domain.interactor.GetShipTimeDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipTimeUseCase;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.ShipTimeView;
 import com.rcl.excalibur.scheduler.SchedulerManager;
 
@@ -62,7 +63,7 @@ public class ShipTimePresenter {
             view.applyType(R.color.transparent, R.color.white);
             return;
         }
-        view.applyType(R.color.bg_color, R.color.white);
+        view.applyType(R.color.bg_toolbar_color, R.color.white);
     }
 
 

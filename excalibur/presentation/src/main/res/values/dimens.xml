@@ -115,6 +115,14 @@
 
     <!-- Deck Map -->
     <dimen name="item_deck_height">110dp</dimen>
+    <dimen name="deck_map_ship_icon_size">30dp</dimen>
+    <dimen name="deck_map_dropdown_size">20dp</dimen>
+    <dimen name="deck_map_cross_icon_size">30dp</dimen>
+    <dimen name="deck_map_deck_number_margin_start">7dp</dimen>
+    <dimen name="deck_map_deck_number_margin_end">2dp</dimen>
+    <dimen name="deck_map_deck_selector_height">70dp</dimen>
+    <dimen name="deck_map_selector_item_width">50dp</dimen>
+
 
     <!-- Login Flow -->
     <dimen name="size_text_big">25sp</dimen>

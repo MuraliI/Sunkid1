@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.ProductDeckMapActivity;
+import com.rcl.excalibur.activity.DeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
@@ -370,7 +370,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         if (activity == null) {
             return;
         }
-        ActivityUtils.startActivity(activity, ProductDeckMapActivity.getIntent(activity, null));
+        ActivityUtils.startActivity(activity, DeckMapActivity.getIntent(activity, null));
     }
 
     public void setShipInvisibleHeight(Pair<Integer, Integer> pair) {

@@ -66,7 +66,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.ProductDeckMapActivity"
+            android:name=".activity.DeckMapActivity"
             android:exported="false"
             android:label="@string/empty_string"
             android:screenOrientation="portrait" />
