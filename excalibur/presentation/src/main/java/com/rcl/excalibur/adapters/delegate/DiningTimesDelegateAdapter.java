@@ -17,7 +17,6 @@ import com.rcl.excalibur.domain.LocationOperationHour;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,25 +37,25 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
         Context context = holder.itemView.getContext();
         holder.textTitle.setText(item.getTitle());
 
-        List<LocationOperationHour> operationHours = item.getProduct().getProductLocation().getLocationOperationHours();
+        if (item.getProduct().getProductLocation() != null
+                && item.getProduct().getProductLocation().getLocationOperationHours() != null) {
+            List<LocationOperationHour> operationHours = item.getProduct().getProductLocation().getLocationOperationHours();
 
-        Map<String, List<LocationOperationHour>> map = new HashMap<>();
-        List<String> listDays = new ArrayList<>();
+            Map<String, List<LocationOperationHour>> map = new HashMap<>();
+            List<String> listDays = new ArrayList<>();
 
-        for (LocationOperationHour operatingHour : operationHours) {
-            if (map.containsKey(operatingHour.getDayNumber())) {
-                map.get(operatingHour.getDayNumber()).add(operatingHour);
-            } else {
-                List<LocationOperationHour> newList = new ArrayList<>();
-                newList.add(operatingHour);
-                listDays.add(operatingHour.getDayNumber());
-                map.put(operatingHour.getDayNumber(), newList);
+            for (LocationOperationHour operatingHour : operationHours) {
+                if (map.containsKey(operatingHour.getDayNumber())) {
+                    map.get(operatingHour.getDayNumber()).add(operatingHour);
+                } else {
+                    List<LocationOperationHour> newList = new ArrayList<>();
+                    newList.add(operatingHour);
+                    map.put(operatingHour.getDayNumber(), newList);
+                    listDays.add(operatingHour.getDayNumber());
+                }
             }
-        }
 
-        Collections.sort(listDays, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
+            Collections.sort(listDays, (o1, o2) -> {
                 try {
                     int dayA = Integer.parseInt(o1);
                     int dayB = Integer.parseInt(o2);
@@ -68,48 +67,41 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                 } catch (Exception ex) {
                     return 0;
                 }
+            });
+
+            for (String day : listDays) {
+                View itemView = LayoutInflater.from(context).inflate(R.layout.item_dining_time, null);
+                TextView dayText = (TextView) itemView.findViewById(R.id.day_number);
+                LinearLayout diningTimesContainer = (LinearLayout) itemView.findViewById(R.id.dining_times_container);
+                dayText.setText(context.getResources().getString(R.string.day_arg, day));
+
+                List<LocationOperationHour> operationHoursByDay = map.get(day);
+
+                for (LocationOperationHour operationHour : operationHoursByDay) {
+                    View itemDiningView = LayoutInflater.from(context).inflate(R.layout.item_dining_text_dash_text, null);
+                    TextView text = (TextView) itemView.findViewById(R.id.text);
+                    TextView subtext = (TextView) itemView.findViewById(R.id.subtext);
+                    LinearLayout showMenu = (LinearLayout) itemView.findViewById(R.id.show_menu_container);
+                    text.setText(operationHour.getTimeOfDay());
+                    subtext.setText(operationHour.getStartTime());
+                    diningTimesContainer.addView(itemDiningView);
+
+                    showMenu.setOnClickListener(v -> Toast.makeText(context, "SHOW MENU ACTION", Toast.LENGTH_LONG).show());
+                }
+                holder.timesContainer.addView(itemView);
             }
-        });
 
-        for (String day : listDays) {
-            View itemView = LayoutInflater.from(context).inflate(R.layout.item_dining_time, null);
-            TextView dayText = (TextView) itemView.findViewById(R.id.day_number);
-            LinearLayout diningTimesContainer = (LinearLayout) itemView.findViewById(R.id.dining_times_container);
-            dayText.setText(context.getResources().getString(R.string.day_arg, day));
-
-            List<LocationOperationHour> operationHoursByDay = map.get(day);
-
-            for (LocationOperationHour operationHour : operationHoursByDay) {
-                View itemDiningView = LayoutInflater.from(context).inflate(R.layout.item_dining_text_dash_text, null);
-                TextView text = (TextView) itemView.findViewById(R.id.text);
-                TextView subtext = (TextView) itemView.findViewById(R.id.subtext);
-                LinearLayout showMenu = (LinearLayout) itemView.findViewById(R.id.show_menu_container);
-                text.setText(operationHour.getTimeOfDay());
-                subtext.setText(operationHour.getStartTime());
-                diningTimesContainer.addView(itemDiningView);
-
-                showMenu.setOnClickListener(v -> {
-                    Toast.makeText(context, "SHOW MENU ACTION", Toast.LENGTH_LONG).show();
-                });
-            }
-
-            holder.timesContainer.addView(itemView);
+            holder.showMoreContainer.setVisibility(listDays.size() > 1 ? View.VISIBLE : View.INVISIBLE);
+            holder.collapseOrExpandContent(true);
         }
-
-        holder.showMoreContainer.setVisibility(listDays.size() > 1 ? View.VISIBLE : View.INVISIBLE);
-        holder.collapseOrExpandContent(true);
     }
 
     public static class DiningTimesViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.text_module_title)
-        TextView textTitle;
-        @BindView(R.id.times_container)
-        LinearLayout timesContainer;
-        @BindView(R.id.show_more_container)
-        LinearLayout showMoreContainer;
-        @BindView(R.id.show_more_arrow)
-        ImageView showMoreArrow;
+        @BindView(R.id.text_module_title) TextView textTitle;
+        @BindView(R.id.times_container) LinearLayout timesContainer;
+        @BindView(R.id.show_more_container) LinearLayout showMoreContainer;
+        @BindView(R.id.show_more_arrow) ImageView showMoreArrow;
 
         private boolean collapsed = true;
 
