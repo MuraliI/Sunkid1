@@ -29,15 +29,13 @@ public class DiningMenuActivity extends BaseActivity {
         setContentView(R.layout.activity_dining_menu);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        if (intent == null || !intent.hasExtra(EXTRA_VENUE_CODE)) {
-            return;
-
+        if (intent != null && intent.hasExtra(EXTRA_VENUE_CODE)) {
+            final String venueCode = intent.getStringExtra(EXTRA_VENUE_CODE);
+            presenter = new DiningMenuPresenter(
+                    new DiningMenuView(this),
+                    new GetMenuDbUseCase(new MenuDataRepository()));
+            presenter.init(venueCode);
         }
-        final String venueCode = intent.getStringExtra(EXTRA_VENUE_CODE);
-        presenter = new DiningMenuPresenter(
-                new DiningMenuView(this),
-                new GetMenuDbUseCase(new MenuDataRepository()));
-        presenter.init(venueCode);
     }
 
     @OnClick(R.id.menu_header_back)

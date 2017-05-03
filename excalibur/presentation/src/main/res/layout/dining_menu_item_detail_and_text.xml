@@ -11,10 +11,10 @@
         style="@style/AppTheme.diningHeadline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:layout_marginBottom="@dimen/dining_menu_title_margin"
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginStart="@dimen/margin_normal"
+        android:gravity="center_vertical"
         tools:text="@string/hardcoded_age_restriction_title" />
 
     <TextView
@@ -25,8 +25,7 @@
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginStart="@dimen/margin_normal"
         android:paddingBottom="@dimen/desc_margin_bottom"
-        tools:text="@string/hardcoded_age_restriction_description"
-        android:layout_marginRight="@dimen/dining_menu_item_margin_description" />
+        tools:text="@string/hardcoded_age_restriction_description" />
 
     <include layout="@layout/separator_product" />
 

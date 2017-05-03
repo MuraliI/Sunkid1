@@ -22,10 +22,9 @@ public class DiningMenuView extends ActivityView<DiningMenuActivity, Void, Void>
 
     public void init(String venueCode) {
         final DiningMenuActivity activity = getActivity();
-        if (activity == null) {
-            return;
+        if (activity != null) {
+            activity.presenter.createFragmentMenu(venueCode, pagerFragment);
+            tabProductMenus.setupWithViewPager(pagerFragment, true);
         }
-        activity.presenter.createFragmentMenu(venueCode, pagerFragment);
-        tabProductMenus.setupWithViewPager(pagerFragment, true);
     }
 }
