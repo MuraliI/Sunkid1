@@ -39,23 +39,27 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
         ButterKnife.bind(this, activity);
     }
 
+    public VoyageMapImageView getVoyageMapImage() {
+        return voyageMapImage;
+    }
+
     public void init(int width) {
         whiteBarView.getLayoutParams().width = width / SCREEN_DIVISOR;
     }
 
-    public void initVoyageMapImage(int resource) {
+    public void initVoyageMapImage(int resource, PointF point) {
         voyageMapImage.setImage(resource);
         voyageMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_INSIDE);
         voyageMapImage.setMinimumDpi(MINIMUM_DPI);
-        voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / 2, new PointF(796, 826));
+        voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / voyageMapImage.SCALE_DIVIDER, point);
         voyageMapImage.setZoomEnabled(false);
     }
 
-    public void setCruiseCoordinate(float xCoord, float yCoord) {
-        if (xCoord == 0 && yCoord == 0) {
+    public void setCruiseCoordinate(PointF point) {
+        if (point.x == 0 && point.y == 0) {
             return;
         }
-        voyageMapImage.setCruiseCoord(new PointF(xCoord, yCoord));
+        voyageMapImage.setCruiseCoord(point);
     }
 
     public void setCruiseAngle(long cruiseAngle) {
@@ -99,5 +103,9 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     public void setTextShipLocation(String textShip, String day) {
         dayPickerText.setText(day);
         textShipText.setText(textShip);
+    }
+
+    public void animatePointToCenter(PointF point, SubsamplingScaleImageView.OnAnimationEventListener event) {
+        voyageMapImage.animatePointToCenter(point, event);
     }
 }
