@@ -13,6 +13,7 @@ import com.rcl.excalibur.domain.SubCategory;
 import com.rcl.excalibur.domain.interactor.GetSubCategoryDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
 import com.rcl.excalibur.model.DiscoverItemModel;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.PlanListView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.analytics.AnalyticEvent;

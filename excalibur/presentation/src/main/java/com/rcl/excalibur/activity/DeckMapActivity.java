@@ -12,20 +12,25 @@ import android.view.ViewTreeObserver;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.custom.view.DeckMapImageView;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.data.utils.StringUtils;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
-import com.rcl.excalibur.mvp.presenter.ProductDeckMapPresenter;
-import com.rcl.excalibur.mvp.view.ProductDeckMapView;
+import com.rcl.excalibur.mvp.presenter.DeckMapPresenter;
+import com.rcl.excalibur.mvp.view.DeckMapView;
 
-public class ProductDeckMapActivity extends BaseActivity implements View.OnTouchListener,
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class DeckMapActivity extends BaseActivity implements View.OnTouchListener,
         ViewTreeObserver.OnGlobalLayoutListener {
     private static final String EXTRA_PRODUCT_ITEM_ID = "EXTRA_PRODUCT_ITEM_ID";
 
-    protected ProductDeckMapPresenter presenter;
+
+    protected DeckMapPresenter presenter;
     private GestureDetector gestureDetector;
 
     public static Intent getIntent(final BaseActivity activity, String productItemId) {
-        Intent intent = new Intent(activity, ProductDeckMapActivity.class);
-        intent.putExtra(EXTRA_PRODUCT_ITEM_ID, productItemId);
+        Intent intent = new Intent(activity, DeckMapActivity.class);
+        intent.putExtra(EXTRA_PRODUCT_ITEM_ID, StringUtils.encodeString(productItemId));
         return intent;
     }
 
@@ -38,15 +43,17 @@ public class ProductDeckMapActivity extends BaseActivity implements View.OnTouch
         if (intent == null || !intent.hasExtra(EXTRA_PRODUCT_ITEM_ID)) {
             return;
         }
-        final String productItemId = intent.getStringExtra(EXTRA_PRODUCT_ITEM_ID);
-        presenter = new ProductDeckMapPresenter(new ProductDeckMapView(this),
+        final String productItemId = StringUtils.decodeString(intent.getStringExtra(EXTRA_PRODUCT_ITEM_ID));
+        presenter = new DeckMapPresenter(new DeckMapView(this),
                 new GetProductDbUseCase(new ProductDataRepository()));
         presenter.init(productItemId);
         initGestureDetector(presenter);
+
+        ButterKnife.bind(this);
     }
 
     // Cannot be passed to View because is very expensive to implement
-    private void initGestureDetector(ProductDeckMapPresenter presenter) {
+    private void initGestureDetector(DeckMapPresenter presenter) {
         gestureDetector = new GestureDetector(this,
                 new GestureDetector.SimpleOnGestureListener() {
                     @Override
@@ -56,6 +63,11 @@ public class ProductDeckMapActivity extends BaseActivity implements View.OnTouch
                     }
                 }
         );
+    }
+
+    @OnClick(R.id.button_close_deck_map)
+    public void onCloseButtonClicked(View view) {
+        presenter.onCloseClicked();
     }
 
     @Override

@@ -44,9 +44,9 @@ public class PricesFromDelegateAdapter implements DelegateAdapter<PricesFromDele
     }
 
     private View getViewPriceDefault(Context context, Map.Entry pair) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.item_price, null);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.item_text_dash_text, null);
         TextView text = (TextView) itemView.findViewById(R.id.text);
-        TextView price = (TextView) itemView.findViewById(R.id.price);
+        TextView price = (TextView) itemView.findViewById(R.id.subtext);
         text.setText((CharSequence) pair.getKey());
         price.setText((CharSequence) pair.getValue());
 

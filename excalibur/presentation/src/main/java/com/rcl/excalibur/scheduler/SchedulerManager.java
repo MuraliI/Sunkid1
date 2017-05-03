@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.scheduler.task.GetShipTimeTask;
 import com.rcl.excalibur.scheduler.task.UpdateTimeTask;
 

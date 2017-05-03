@@ -66,6 +66,10 @@
         <item name="android:textColor">@color/font_color_blue</item>
     </style>
 
+    <style name="AppTheme.Headline5.White" parent="AppTheme.Headline5">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="AppTheme.Headline6" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/proxima_nova_bold</item>
         <item name="android:textColor">@color/font_color_dark_grey</item>
@@ -76,6 +80,18 @@
         <item name="fontPath">@string/proxima_nova_bold</item>
         <item name="android:textColor">@color/font_color_dark_grey</item>
         <item name="android:textSize">@dimen/font_size_headline7</item>
+    </style>
+
+    <style name="AppTheme.DeckPickerButtom" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_semi_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppTheme.DeckPickerItem" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_bold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="AppTheme.PlanTitleText" parent="@android:style/Widget.TextView">

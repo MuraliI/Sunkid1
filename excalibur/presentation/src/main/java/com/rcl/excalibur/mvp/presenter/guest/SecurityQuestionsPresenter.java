@@ -6,7 +6,7 @@ import com.rcl.excalibur.activity.guest.SecurityQuestionsActivity;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.domain.interactor.GetSecurityQuestionsUseCase;
-import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.guest.SecurityQuestionsView;
 
 import java.util.List;

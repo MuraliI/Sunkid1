@@ -10,7 +10,9 @@ import com.rcl.excalibur.data.service.api.SailDateApi;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,6 +22,7 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 public final class ServiceUtil {
 
     private static final String SUCCESS = "SUCCESS";
+    private static final String API_KEY_PARAM = "apikey";
     private static DiscoverApi discoverApi;
     private static GuestApi guestApi;
     private static SailDateApi sailDateApi;
@@ -72,7 +75,7 @@ public final class ServiceUtil {
     public static SailDateApi getSailDateApi() {
         if (sailDateApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(BuildConfig.GUEST_API_URL)
+                    .baseUrl(BuildConfig.SAIL_API_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(getClient())
                     .build();
@@ -84,7 +87,18 @@ public final class ServiceUtil {
     private static OkHttpClient getClient() {
         final OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
                 .readTimeout(BuildConfig.READ_TIMEOUT, TimeUnit.SECONDS)
-                .connectTimeout(BuildConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS);
+                .connectTimeout(BuildConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .addInterceptor(chain -> {
+                    Request original = chain.request();
+                    HttpUrl originalHttpUrl = original.url();
+                    HttpUrl url = originalHttpUrl.newBuilder()
+                            .addQueryParameter(API_KEY_PARAM, BuildConfig.API_KEY)
+                            .build();
+                    Request.Builder requestBuilder = original.newBuilder()
+                            .url(url);
+                    Request request = requestBuilder.build();
+                    return chain.proceed(request);
+                });
 
         if (BuildConfig.DEBUG) {
             //show request log in debug mode
