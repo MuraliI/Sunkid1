@@ -63,7 +63,7 @@ public class ShipTimePresenter {
             view.applyType(R.color.transparent, R.color.white);
             return;
         }
-        view.applyType(R.color.bg_color, R.color.white);
+        view.applyType(R.color.bg_toolbar_color, R.color.white);
     }
 
 
