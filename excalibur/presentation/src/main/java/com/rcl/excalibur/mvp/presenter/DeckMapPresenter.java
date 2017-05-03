@@ -60,7 +60,7 @@ public class DeckMapPresenter {
         view.setAdapterObserver(new DeckSelectorObserver(this));
         view.init(DECK_IMAGES, new DeckButtonConsumer(this));
         view.moveToYPosition(yCoord);
-        view.onDeckSelected(DECK_IMAGES.get(DECK_IMAGES.size() - 1));
+        view.setInitialDeck(DECK_IMAGES.get(DECK_IMAGES.size() - 1));
         view.enableDisableDeckSelector(enableDisable);
         view.hideArrowDeckSelector(enableDisable);
     }

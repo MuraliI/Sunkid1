@@ -1,8 +1,10 @@
 package com.rcl.excalibur.mvp.view;
 
 
+import android.graphics.drawable.Drawable;
 import android.util.Pair;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
@@ -20,7 +22,8 @@ import io.reactivex.functions.Consumer;
 
 public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Integer, Integer>> {
 
-    @BindView(R.id.image_deck_map) ImageView deckMapImage;
+    @BindView(R.id.image_deck_map_back) ImageView deckMapBackImage;
+    @BindView(R.id.image_deck_map_front) ImageView deckMapFrontImage;
     @BindView(R.id.horizontal_deck_selector) HorizontalPickerView<Integer> deckSelectorPicker;
     @BindView(R.id.button_deck_selector) DeckSelectorButton deckSelectorButton;
     @BindView(R.id.scrollView_deck_map) ScrollView deckMapScrollView;
@@ -38,12 +41,7 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
     }
 
     public void moveToYPosition(int y) {
-        deckMapScrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                deckMapScrollView.smoothScrollTo(0, y);
-            }
-        });
+        deckMapScrollView.post(() -> deckMapScrollView.smoothScrollTo(0, y));
     }
 
     public void enableDisableDeckSelector(Boolean enable) {
@@ -54,8 +52,16 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
         deckSelectorArrowImage.setVisibility(hide ? View.VISIBLE : View.INVISIBLE);
     }
 
+    public void setInitialDeck(Pair<Integer, Integer> deck) {
+        deckMapBackImage.setImageResource(deck.second);
+        deckSelectorPicker.setSelectedItem(deck);
+        if (getContext() != null) {
+            deckSelectorButton.setText(getContext().getString(R.string.deck_number, String.valueOf(deck.first)));
+        }
+    }
+
     public void onDeckSelected(Pair<Integer, Integer> deck) {
-        deckMapImage.setImageResource(deck.second);
+        setFadeInOutAnimation(deck);
         deckSelectorPicker.setSelectedItem(deck);
         if (getContext() != null) {
             deckSelectorButton.setText(getContext().getString(R.string.deck_number, String.valueOf(deck.first)));
@@ -64,5 +70,38 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
 
     public void openDeckSelector(Boolean opened) {
         deckSelectorPicker.setVisibility(opened ? View.VISIBLE : View.GONE);
+    }
+
+    public void setFadeInOutAnimation(Pair<Integer, Integer> deck) {
+        DeckMapActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        Drawable preImage = deckMapFrontImage.getDrawable();
+
+        String preNumber = deckSelectorButton.getText();
+        int preDeckNumber = preNumber == null ? 0 : Integer.valueOf(preNumber.split(" ")[1]);
+
+        if (preDeckNumber < deck.first) {
+            if (preImage != null) {
+                deckMapBackImage.setImageDrawable(preImage);
+                deckMapFrontImage.setImageDrawable(null);
+            }
+            deckMapFrontImage.setImageResource(deck.second);
+            deckMapBackImage.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.zoom_fade_out_back_venue));
+            deckMapFrontImage.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.zoom_fade_out_front_venue));
+        } else {
+            if (preImage == null) {
+                Drawable postImage = deckMapBackImage.getDrawable();
+                deckMapFrontImage.setImageDrawable(postImage);
+                deckMapBackImage.setImageDrawable(null);
+            }
+            deckMapBackImage.setImageResource(deck.second);
+            deckMapFrontImage.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.zoom_fade_in_front_venue));
+            deckMapBackImage.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.zoom_fade_in_back_venue));
+        }
+
+
     }
 }
