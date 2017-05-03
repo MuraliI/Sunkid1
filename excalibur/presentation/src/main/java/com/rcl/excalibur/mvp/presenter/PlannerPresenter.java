@@ -63,8 +63,7 @@ public class PlannerPresenter {
     private PlannerModel model;
 
     private SparseArrayCompat<PlannerHeader> headerList;
-    private List<IFlexible> hiddenGeneralItems = new ArrayList<>();
-    private List<IFlexible> hiddenAllDayItems = new ArrayList<>();
+    private List<IFlexible> hiddenItems;
 
     @StringRes private int currentPartOfDayResource;
     private int lastHeaderId = 0;
@@ -94,6 +93,7 @@ public class PlannerPresenter {
         view.setViewObserver(new OnScrolledObserver(this));
         view.setExpandCollapseObserver(new OnExpandCollapseObserver(this));
 
+        hiddenItems = new ArrayList<>();
         createHeaderList();
     }
 
@@ -132,11 +132,7 @@ public class PlannerPresenter {
                     headerList.get(plannerProductModel.getHeaderItBelongs()));
 
             if (!plannerProductModel.isFeatured()) {
-                if (plannerProductModel.isAllDayProduct()) {
-                    hiddenAllDayItems.add(plannerProductItem);
-                } else {
-                    hiddenGeneralItems.add(plannerProductItem);
-                }
+                hiddenItems.add(plannerProductItem);
                 continue;
             }
 
@@ -315,21 +311,16 @@ public class PlannerPresenter {
             PlannerPresenter presenter = getPresenter();
             if (isExpanded) {
                 presenter.collapseSections();
-                presenter.updateHeaders(headers, false);
             } else {
                 presenter.expandSections();
-                presenter.updateHeaders(headers, true);
             }
             isExpanded = !isExpanded;
+            presenter.updateHeaders(headers, isExpanded);
         }
     }
 
     private void expandSections() {
-        List<IFlexible> itemsToAdd = new ArrayList<>();
-        itemsToAdd.addAll(hiddenGeneralItems);
-        itemsToAdd.addAll(hiddenAllDayItems);
-
-        for (IFlexible item : itemsToAdd) {
+        for (IFlexible item : hiddenItems) {
             PlannerProductItem plannerProductItem = (PlannerProductItem) item;
             view.addItemToSection(plannerProductItem, plannerProductItem.getHeader());
         }
