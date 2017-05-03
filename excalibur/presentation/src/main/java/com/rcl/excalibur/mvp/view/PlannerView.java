@@ -331,6 +331,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
                 view.setVisibility(View.VISIBLE);
             }
         }
+        headerViewList.clear();
     }
 
     private void hideView(View view) {
