@@ -12,11 +12,14 @@ public class AlertDialogUtils {
     }
 
     public static void showDialog(BaseActivity activity, DialogInterface.OnClickListener listener,
-                              String message, String buttonMessage) {
-        AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
-        alertDialog.setMessage(message);
-        alertDialog.setCancelable(false);
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, buttonMessage, listener);
-        alertDialog.show();
+                                  String message, String buttonMessage) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
+                .setMessage(message)
+                .setCancelable(true)
+                .setPositiveButton(buttonMessage, listener);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
