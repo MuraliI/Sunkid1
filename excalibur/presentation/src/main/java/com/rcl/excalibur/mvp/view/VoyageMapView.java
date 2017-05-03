@@ -98,6 +98,6 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
 
     public void setTextShipLocation(String textShip, String day) {
         dayPickerText.setText(day);
-        textShipText.setText(textShip);
+        textShipText.setText(textShips);
     }
 }
