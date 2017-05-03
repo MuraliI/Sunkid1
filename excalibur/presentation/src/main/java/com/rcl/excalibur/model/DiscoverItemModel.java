@@ -147,7 +147,7 @@ public class DiscoverItemModel {
     }
 
     public String[] getPriceRange() {
-        return priceRange;
+        return priceRange.clone();
     }
 
     public void setPriceRange(String[] priceRange) {
@@ -155,7 +155,7 @@ public class DiscoverItemModel {
     }
 
     public String[] getAccessibility() {
-        return accessibility;
+        return accessibility.clone();
     }
 
     public void setAccessibility(String[] accessibility) {
