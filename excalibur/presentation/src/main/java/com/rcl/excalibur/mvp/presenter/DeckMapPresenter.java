@@ -140,12 +140,12 @@ public class DeckMapPresenter {
         view.showProductOnPopupLayout(product);
     }
 
-    private void onDeckSelected(Pair<Integer, Integer> deck) {
+    public void onDeckSelected(Pair<Integer, Integer> deck) {
         view.onDeckSelected(deck);
     }
 
-    private void onDeckSelectorButtonClicked(Boolean opened) {
-        view.openDeckSelector(opened);
+    public void onDeckSelectorButtonClicked(Boolean open) {
+        view.openDeckSelector(open);
     }
 
     private class DeckSelectorObserver extends DefaultPresentObserver<Pair<Integer, Integer>, DeckMapPresenter> {
