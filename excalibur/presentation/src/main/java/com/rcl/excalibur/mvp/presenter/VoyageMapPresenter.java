@@ -31,6 +31,7 @@ import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DO
 public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimationEventListener {
     private static final int XCOORDINATE = 796;
     private static final int YCOORDINATE = 826;
+    private static final int CENTER_OFFSET = 100;
 
     private VoyageMapView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
@@ -67,7 +68,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     }
 
     private void initVoyageMapImage() {
-        view.setCruiseCoordinate(new PointF(XCOORDINATE, YCOORDINATE + 100));
+        view.setCruiseCoordinate(new PointF(XCOORDINATE, YCOORDINATE + CENTER_OFFSET));
         view.hideShip();
         view.initVoyageMapImage(R.drawable.voyage_land, new PointF(XCOORDINATE, YCOORDINATE));
     }
