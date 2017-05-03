@@ -51,6 +51,18 @@ public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDa
         return dataMapper.transform(entities, null);
     }
 
+    protected List<O> getBatch(@NonNull String condition, int maxCount, int offset) {
+
+        final List<I> entities = new Select()
+                .from(claz)
+                .where(condition)
+                .limit(maxCount)
+                .offset(offset)
+                .execute();
+
+        return dataMapper.transform(entities, null);
+    }
+
     public O get(@NonNull String column, final String value) {
         final I entity = new Select()
                 .from(claz)

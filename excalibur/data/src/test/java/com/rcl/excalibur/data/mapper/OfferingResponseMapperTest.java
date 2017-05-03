@@ -64,7 +64,7 @@ public class OfferingResponseMapperTest {
 
     @Test
     public void transformOfferingResponseToOfferingTest() {
-        List<Offering> transformedOfferings = mapper.transform(offeringResponseList);
+        List<Offering> transformedOfferings = mapper.transform(offeringResponseList, testProduct);
         assertNotNull(transformedOfferings);
         assertTrue(transformedOfferings.size() > 0);
 

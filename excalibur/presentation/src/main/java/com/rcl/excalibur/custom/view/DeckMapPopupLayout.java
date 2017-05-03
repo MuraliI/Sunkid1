@@ -15,14 +15,14 @@ import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductCategory;
 import com.squareup.picasso.Picasso;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DeckMapPopupLayout extends RelativeLayout {
-    @Bind(R.id.image_product) ImageView productImage;
-    @Bind(R.id.text_title_product) TextView titleProductText;
-    @Bind(R.id.text_type_product) TextView typeProductText;
-    @Bind(R.id.text_type_name) TextView typeNameText;
+    @BindView(R.id.image_product) ImageView productImage;
+    @BindView(R.id.text_title_product) TextView titleProductText;
+    @BindView(R.id.text_type_product) TextView typeProductText;
+    @BindView(R.id.text_type_name) TextView typeNameText;
 
     public DeckMapPopupLayout(Context context) {
         super(context);

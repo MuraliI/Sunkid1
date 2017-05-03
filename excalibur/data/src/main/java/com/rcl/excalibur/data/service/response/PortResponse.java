@@ -6,10 +6,8 @@ public class PortResponse {
     private String portCode;
     private String portName;
     private String portType;
-    private String arrivalDate;
-    private String departureDate;
-    private String arrivalTime;
-    private String departureTime;
+    private String arrivalDateTime;
+    private String departureDateTime;
 
     public String getPortCode() {
         return portCode;
@@ -35,35 +33,19 @@ public class PortResponse {
         this.portType = portType;
     }
 
-    public String getArrivalDate() {
-        return arrivalDate;
+    public String getArrivalDateTime() {
+        return arrivalDateTime;
     }
 
-    public void setArrivalDate(String arrivalDate) {
-        this.arrivalDate = arrivalDate;
+    public void setArrivalDateTime(String arrivalDateTime) {
+        this.arrivalDateTime = arrivalDateTime;
     }
 
-    public String getDepartureDate() {
-        return departureDate;
+    public String getDepartureDateTime() {
+        return departureDateTime;
     }
 
-    public void setDepartureDate(String departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    public String getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(String arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
-
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
+    public void setDepartureDateTime(String departureDateTime) {
+        this.departureDateTime = departureDateTime;
     }
 }

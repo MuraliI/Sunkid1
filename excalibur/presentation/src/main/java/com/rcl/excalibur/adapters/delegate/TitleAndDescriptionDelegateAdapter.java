@@ -9,7 +9,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -31,8 +31,8 @@ public class TitleAndDescriptionDelegateAdapter
 
     class TitleAndDescriptionViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.text_module_title) TextView title;
-        @Bind(R.id.text_module_text) TextView textDescription;
+        @BindView(R.id.text_module_title) TextView title;
+        @BindView(R.id.text_module_text) TextView textDescription;
 
         TitleAndDescriptionViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_item_detail_title_and_text, parent, false));

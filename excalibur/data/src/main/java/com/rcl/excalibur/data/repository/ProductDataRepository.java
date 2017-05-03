@@ -10,11 +10,13 @@ import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
 import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
+import com.rcl.excalibur.data.entity.DeckInfoEntity;
 import com.rcl.excalibur.data.entity.DurationEntity;
 import com.rcl.excalibur.data.entity.LocationEntity;
 import com.rcl.excalibur.data.entity.MediaEntity;
 import com.rcl.excalibur.data.entity.MediaValueEntity;
 import com.rcl.excalibur.data.entity.OfferingEntity;
+import com.rcl.excalibur.data.entity.OperationHourEntity;
 import com.rcl.excalibur.data.entity.PreferenceValueEntity;
 import com.rcl.excalibur.data.entity.PriceEntity;
 import com.rcl.excalibur.data.entity.ProductEntity;
@@ -24,6 +26,8 @@ import com.rcl.excalibur.data.entity.TypeEntity;
 import com.rcl.excalibur.data.mapper.ProductEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.ChildCategory;
+import com.rcl.excalibur.domain.LocationDeckInfo;
+import com.rcl.excalibur.domain.LocationOperationHour;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Offering;
@@ -190,6 +194,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         new Delete().from(PreferenceValueEntity.class).execute();
         new Delete().from(CostTypeEntity.class).execute();
         new Delete().from(DurationEntity.class).execute();
+        new Delete().from(DeckInfoEntity.class).execute();
+        new Delete().from(OperationHourEntity.class).execute();
         new Delete().from(LocationEntity.class).execute();
         new Delete().from(TypeEntity.class).execute();
         new Delete().from(MediaValueEntity.class).execute();
@@ -323,17 +329,48 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             return;
         }
         final LocationEntity locationEntity = new LocationEntity();
-        locationEntity.setType(productLocation.getLocationType());
         locationEntity.setCode(productLocation.getLocationCode());
-        locationEntity.setHoursStart(productLocation.getOperatingHoursStart());
-        locationEntity.setHoursEnd(productLocation.getOperatingHoursEnd());
-        locationEntity.setPort(productLocation.getLocationPort());
-        locationEntity.setDeckNumber(productLocation.getLocationDeckNumber());
-        locationEntity.setDirection(productLocation.getLocationDirection());
-        locationEntity.setVenue(productLocation.getLocationVenue());
+        locationEntity.setTitle(productLocation.getLocationTitle());
+        locationEntity.setType(productLocation.getLocationType());
+        locationEntity.setLatitude(productLocation.getLatitude());
+        locationEntity.setLongitude(productLocation.getLongitude());
         locationEntity.save();
-        entity.setLocation(locationEntity);
 
+        // DeckInfo
+        createDeckInfo(locationEntity, productLocation.getLocationDeckInfo());
+
+        // Operation Hours
+        createOperationHours(locationEntity, productLocation.getLocationOperationHours());
+
+        entity.setLocation(locationEntity);
+    }
+
+    private void createDeckInfo(final LocationEntity entity, final List<LocationDeckInfo> deckInfoList) {
+        if (CollectionUtils.isEmpty(deckInfoList)) {
+            return;
+        }
+        for (LocationDeckInfo locationDeckInfo : deckInfoList) {
+            final DeckInfoEntity deckInfoEntity = new DeckInfoEntity();
+            deckInfoEntity.setDeckNumber(locationDeckInfo.getDeckNumber());
+            deckInfoEntity.setDirection(locationDeckInfo.getDirection());
+            deckInfoEntity.setLocationEntity(entity);
+            deckInfoEntity.save();
+        }
+    }
+
+    private void createOperationHours(final LocationEntity entity, final List<LocationOperationHour> operationHourList) {
+        if (CollectionUtils.isEmpty(operationHourList)) {
+            return;
+        }
+        for (LocationOperationHour locationOperationHour : operationHourList) {
+            final OperationHourEntity operationHourEntity = new OperationHourEntity();
+            operationHourEntity.setDayNumber(locationOperationHour.getDayNumber());
+            operationHourEntity.setTimeOfDay(locationOperationHour.getTimeOfDay());
+            operationHourEntity.setStartTime(locationOperationHour.getStartTime());
+            operationHourEntity.setEndTime(locationOperationHour.getEndTime());
+            operationHourEntity.setLocationEntity(entity);
+            operationHourEntity.save();
+        }
     }
 
     private void create(final ProductEntity entity, final ProductType productType) {
@@ -406,9 +443,21 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     }
 
     @Override
+    public List<Product> getByType(@NonNull final String type, int maxCount, int offset) {
+        final TypeEntity typeEntity = new Select()
+                .from(TypeEntity.class)
+                .where(eq(TypeEntity.COLUMN_TYPE, type))
+                .executeSingle();
+        if (typeEntity == null) {
+            return new ArrayList<>();
+        }
+        String condition = eq(ProductEntity.COLUMN_TYPE, typeEntity.getId());
+        return this.getBatch(condition, maxCount, offset);
+    }
+
+    @Override
     public Product get(String id) {
         return get(ProductEntity.COLUMN_PRODUCT_ID, id);
     }
-
 
 }

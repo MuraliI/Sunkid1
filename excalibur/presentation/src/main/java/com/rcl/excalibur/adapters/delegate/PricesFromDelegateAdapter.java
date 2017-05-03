@@ -14,7 +14,7 @@ import com.rcl.excalibur.adapters.viewtype.PricesFromViewType;
 
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -44,9 +44,9 @@ public class PricesFromDelegateAdapter implements DelegateAdapter<PricesFromDele
     }
 
     private View getViewPriceDefault(Context context, Map.Entry pair) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.item_price, null);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.item_text_dash_text, null);
         TextView text = (TextView) itemView.findViewById(R.id.text);
-        TextView price = (TextView) itemView.findViewById(R.id.price);
+        TextView price = (TextView) itemView.findViewById(R.id.subtext);
         text.setText((CharSequence) pair.getKey());
         price.setText((CharSequence) pair.getValue());
 
@@ -64,12 +64,9 @@ public class PricesFromDelegateAdapter implements DelegateAdapter<PricesFromDele
 
     public static class PricesFromViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.text_module_title)
-        TextView textTitle;
-        @Bind(R.id.text_module_subtitle)
-        TextView textSubtitle;
-        @Bind(R.id.prices_container)
-        LinearLayout pricesContainer;
+        @BindView(R.id.text_module_title) TextView textTitle;
+        @BindView(R.id.text_module_subtitle) TextView textSubtitle;
+        @BindView(R.id.prices_container) LinearLayout pricesContainer;
 
         public PricesFromViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.module_item_detail_prices_from, parent, false));

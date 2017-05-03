@@ -1,8 +1,10 @@
 package com.rcl.excalibur.data.mapper;
 
 import com.rcl.excalibur.data.service.response.ChildCategoryResponse;
+import com.rcl.excalibur.data.service.response.DeckInfoResponse;
 import com.rcl.excalibur.data.service.response.MediaItemResponse;
 import com.rcl.excalibur.data.service.response.MediaResponse;
+import com.rcl.excalibur.data.service.response.OperationHourResponse;
 import com.rcl.excalibur.data.service.response.ProductActivityLevelResponse;
 import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
 import com.rcl.excalibur.data.service.response.ProductCategoryResponse;
@@ -18,6 +20,8 @@ import com.rcl.excalibur.data.service.response.ProductTypeResponse;
 import com.rcl.excalibur.data.service.response.SellingPriceResponse;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.ChildCategory;
+import com.rcl.excalibur.domain.LocationDeckInfo;
+import com.rcl.excalibur.domain.LocationOperationHour;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
 import com.rcl.excalibur.domain.Product;
@@ -63,16 +67,6 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
                 productResponse.setAdvisements(getProductAdvisementResponseAttire());
             }
-
-            // TODO: Hardcoded method to be removed once the service provides this details
-            final ProductLocationResponse productLocationResponse = productResponse.getProductLocation();
-            productLocationResponse.setLocationVenue("Royale Theatre");
-            productLocationResponse.setLocationPort("St. Martin");
-            productLocationResponse.setLocationDirection("AFT");
-            productLocationResponse.setLocationDeckNumber(12);
-            productResponse.setProductLocation(productLocationResponse);
-
-
             product = new Product();
             product.setProductId(productResponse.getProductId());
             product.setProductCode(productResponse.getProductCode());
@@ -265,16 +259,56 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         if (productLocationResponse != null) {
             productLocation = new ProductLocation();
             productLocation.setLocationCode(productLocationResponse.getLocationCode());
-            productLocation.setLocationId(productLocationResponse.getLocationId());
+            productLocation.setLocationTitle(productLocationResponse.getLocationTitle());
             productLocation.setLocationType(productLocationResponse.getLocationType());
-            productLocation.setOperatingHoursEnd(productLocationResponse.getOperatingHoursEnd());
-            productLocation.setOperatingHoursStart(productLocationResponse.getOperatingHoursStart());
-            productLocation.setLocationVenue(productLocationResponse.getLocationVenue());
-            productLocation.setLocationDeckNumber(productLocationResponse.getLocationDeckNumber());
-            productLocation.setLocationPort(productLocationResponse.getLocationPort());
-            productLocation.setLocationDirection(productLocationResponse.getLocationDirection());
+            productLocation.setLatitude(productLocationResponse.getLatitude());
+            productLocation.setLongitude(productLocationResponse.getLongitude());
+            productLocation.setDeckInfo(transformDeckInfo(productLocationResponse.getDeckInfo()));
+            productLocation.setLocationOperationHours(transformOperationHours(productLocationResponse.getLocationOperatingHours()));
         }
         return productLocation;
+    }
+
+    private List<LocationDeckInfo> transformDeckInfo(List<DeckInfoResponse> deckInfoResponseList) {
+        List<LocationDeckInfo> locationDeckInfoList = new ArrayList<>();
+        if (deckInfoResponseList != null && !deckInfoResponseList.isEmpty()) {
+            for (DeckInfoResponse deckInfoResponse : deckInfoResponseList) {
+                locationDeckInfoList.add(transform(deckInfoResponse));
+            }
+        }
+        return locationDeckInfoList;
+    }
+
+    private LocationDeckInfo transform(DeckInfoResponse deckInfoResponse) {
+        LocationDeckInfo locationDeckInfo = null;
+        if (deckInfoResponse != null) {
+            locationDeckInfo = new LocationDeckInfo();
+            locationDeckInfo.setDeckNumber(deckInfoResponse.getDeckNumber());
+            locationDeckInfo.setDirection(deckInfoResponse.getDirection());
+        }
+        return locationDeckInfo;
+    }
+
+    private List<LocationOperationHour> transformOperationHours(List<OperationHourResponse> operationHourResponseList) {
+        List<LocationOperationHour> locationOperationHourList = new ArrayList<>();
+        if (operationHourResponseList != null && !operationHourResponseList.isEmpty()) {
+            for (OperationHourResponse operationHourResponse : operationHourResponseList) {
+                locationOperationHourList.add(transform(operationHourResponse));
+            }
+        }
+        return locationOperationHourList;
+    }
+
+    private LocationOperationHour transform(OperationHourResponse operationHourResponse) {
+        LocationOperationHour operationHour = null;
+        if (operationHourResponse != null) {
+            operationHour = new LocationOperationHour();
+            operationHour.setDayNumber(operationHourResponse.getDayNumber());
+            operationHour.setTimeOfDay(operationHourResponse.getTimeOfDay());
+            operationHour.setStartTime(operationHourResponse.getStartTime());
+            operationHour.setEndTime(operationHourResponse.getEndTime());
+        }
+        return operationHour;
     }
 
     private ProductActivityLevel transform(ProductActivityLevelResponse productActivityLevelResponse) {
@@ -337,6 +371,10 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         }
 
         ProductCategoryResponse productCategoryResponse = productCategoryResponses.get(0);
+
+        if (productCategoryResponse == null) {
+            return new ProductCategory();
+        }
         if (productCategoryResponse == null) {
             //FIXME. Arrive as null from service. Is it possible?
             return null;

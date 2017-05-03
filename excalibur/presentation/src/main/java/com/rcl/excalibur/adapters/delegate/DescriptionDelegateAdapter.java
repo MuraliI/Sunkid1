@@ -8,9 +8,9 @@ import android.widget.TextView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DescriptionViewType;
-import com.rcl.excalibur.utils.StringUtils;
+import com.rcl.excalibur.data.utils.StringUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DescriptionDelegateAdapter
@@ -30,7 +30,7 @@ public class DescriptionDelegateAdapter
 
     class DescriptionViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.text_module_description)
+        @BindView(R.id.text_module_description)
         TextView textDescription;
 
         DescriptionViewHolder(ViewGroup parent) {

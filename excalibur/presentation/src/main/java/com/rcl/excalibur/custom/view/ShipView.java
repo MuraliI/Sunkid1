@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.rcl.excalibur.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
@@ -16,10 +16,10 @@ import io.reactivex.subjects.PublishSubject;
 public class ShipView extends RelativeLayout {
     private static final float SHIP_NEXT_TAB_SCALE = 0.75f;
     private static final float SHIP_ORIGINAL_SCALE = 0.5f;
-    @Bind(R.id.image_ship) View ship;
-    @Bind(R.id.image_cloud_left) View leftCloud;
-    @Bind(R.id.image_cloud_right) View rightCloud;
-    @Bind(R.id.text_ship_status) View shipLabel;
+    @BindView(R.id.image_ship) View ship;
+    @BindView(R.id.image_cloud_left) View leftCloud;
+    @BindView(R.id.image_cloud_right) View rightCloud;
+    @BindView(R.id.text_ship_status) View shipLabel;
     private int selectedPage;
     private float scrollOffset;
     private PublishSubject<Pair<Integer, Integer>> publisherSubject = PublishSubject.create();
