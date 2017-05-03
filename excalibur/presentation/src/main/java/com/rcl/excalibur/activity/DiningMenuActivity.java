@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.data.repository.MenuDataRepository;
+import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
 import com.rcl.excalibur.mvp.presenter.DiningMenuPresenter;
 import com.rcl.excalibur.mvp.view.DiningMenuView;
 
@@ -32,7 +34,9 @@ public class DiningMenuActivity extends BaseActivity {
 
         }
         final String venueCode = intent.getStringExtra(EXTRA_VENUE_CODE);
-        presenter = new DiningMenuPresenter(new DiningMenuView(this));
+        presenter = new DiningMenuPresenter(
+                new DiningMenuView(this),
+                new GetMenuDbUseCase(new MenuDataRepository()));
         presenter.init(venueCode);
     }
 

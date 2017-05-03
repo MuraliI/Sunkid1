@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.DiningMenuPagerAdapter;
-import com.rcl.excalibur.data.repository.MenuDataRepository;
 import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
 import com.rcl.excalibur.fragments.MenuListFragment;
 import com.rcl.excalibur.mvp.view.DiningMenuView;
@@ -18,9 +17,11 @@ import java.util.List;
 public class DiningMenuPresenter {
 
     private final DiningMenuView view;
+    private final GetMenuDbUseCase getMenuDbUseCase;
 
-    public DiningMenuPresenter(DiningMenuView view) {
+    public DiningMenuPresenter(DiningMenuView view, GetMenuDbUseCase getMenuDbUseCase) {
         this.view = view;
+        this.getMenuDbUseCase = getMenuDbUseCase;
     }
 
     public void init(String venueCode) {
@@ -36,7 +37,6 @@ public class DiningMenuPresenter {
     }
 
     public void createFragmentMenu(String venueCode, ViewPager viewPager) {
-        GetMenuDbUseCase getMenuDbUseCase = new GetMenuDbUseCase(new MenuDataRepository());
         List<String> menusName = getMenuDbUseCase.getAllMenuName();
         if (menusName != null && !menusName.isEmpty()) {
             addFragmentsToPager(menusName, viewPager);
