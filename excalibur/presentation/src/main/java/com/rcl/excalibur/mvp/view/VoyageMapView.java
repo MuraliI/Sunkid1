@@ -45,9 +45,10 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
 
     public void initVoyageMapImage(int resource) {
         voyageMapImage.setImage(resource);
-        voyageMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_OUTSIDE);
+        voyageMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_INSIDE);
         voyageMapImage.setMinimumDpi(MINIMUM_DPI);
         voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / 2, new PointF(796, 826));
+        voyageMapImage.setZoomEnabled(false);
     }
 
     public void setCruiseCoordinate(float xCoord, float yCoord) {
