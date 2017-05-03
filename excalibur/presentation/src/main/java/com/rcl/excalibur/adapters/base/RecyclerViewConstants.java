@@ -13,6 +13,7 @@ public final class RecyclerViewConstants {
     public static final int VIEW_TYPE_PRODUCT_BASIC_INFORMATION = 1000008;
     public static final int VIEW_TYPE_DESCRIPTION = 10000009;
     public static final int VIEW_TYPE_ACCESSIBILITY_VIEW = 10000010;
+    public static final int VIEW_TYPE_TIMES = 10000011;
 
     private RecyclerViewConstants() {
     }

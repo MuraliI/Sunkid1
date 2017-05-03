@@ -243,7 +243,7 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             productLocation.setLatitude(productLocationResponse.getLatitude());
             productLocation.setLongitude(productLocationResponse.getLongitude());
             productLocation.setDeckInfo(transformDeckInfo(productLocationResponse.getDeckInfo()));
-            productLocation.setLocationOperationHours(transformOperationHours(productLocationResponse.getLocationOperationHours()));
+            productLocation.setLocationOperationHours(transformOperationHours(productLocationResponse.getLocationOperatingHours()));
         }
         return productLocation;
     }
@@ -350,6 +350,10 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         }
 
         ProductCategoryResponse productCategoryResponse = productCategoryResponses.get(0);
+
+        if (productCategoryResponse == null) {
+            return new ProductCategory();
+        }
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());

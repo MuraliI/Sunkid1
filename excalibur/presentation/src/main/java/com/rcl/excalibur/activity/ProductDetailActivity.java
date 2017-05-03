@@ -7,11 +7,13 @@ import android.support.design.widget.AppBarLayout;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.repository.OfferingDataRepository;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
+import com.rcl.excalibur.data.repository.SailDateDataRepository;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.mvp.presenter.ProductDetailPresenter;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
-import com.rcl.excalibur.utils.IntentExtraUtils;
+import com.rcl.excalibur.data.utils.StringUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,7 +24,7 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
 
     public static Intent getIntent(final BaseActivity activity, String productId) {
         Intent intent = new Intent(activity, ProductDetailActivity.class);
-        intent.putExtra(EXTRA_DISCOVER_ITEM_ID, IntentExtraUtils.encodePutExtraString(productId));
+        intent.putExtra(EXTRA_DISCOVER_ITEM_ID, StringUtils.encodeString(productId));
         return intent;
     }
 
@@ -35,11 +37,12 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
         if (intent == null || !intent.hasExtra(EXTRA_DISCOVER_ITEM_ID)) {
             return;
         }
-        String productId = intent.getExtras().getString(EXTRA_DISCOVER_ITEM_ID);
+        String productId = StringUtils.decodeString(intent.getExtras().getString(EXTRA_DISCOVER_ITEM_ID));
         presenter = new ProductDetailPresenter(new ProductDetailView(this)
                 , new GetProductDbUseCase(new ProductDataRepository())
-                , new GetOfferingsDbUseCase(new OfferingDataRepository()));
-        presenter.init(IntentExtraUtils.decodeGetExtraString(productId));
+                , new GetOfferingsDbUseCase(new OfferingDataRepository())
+                , new GetSaildDateDbUseCase(new SailDateDataRepository()));
+        presenter.init(StringUtils.decodeString(productId));
     }
 
     @OnClick(R.id.back_arrow)
