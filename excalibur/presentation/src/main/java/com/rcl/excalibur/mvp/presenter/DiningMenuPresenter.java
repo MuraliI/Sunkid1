@@ -12,9 +12,6 @@ import com.rcl.excalibur.fragments.MenuListFragment;
 import com.rcl.excalibur.mvp.view.DiningMenuView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.AlertDialogUtils;
-import com.rcl.excalibur.utils.analytics.AnalyticEvent;
-import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
-import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import java.util.List;
 
