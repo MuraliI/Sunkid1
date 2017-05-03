@@ -3,6 +3,7 @@ package com.rcl.excalibur.model;
 
 import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -147,6 +148,9 @@ public class DiscoverItemModel {
     }
 
     public String[] getPriceRange() {
+        if (priceRange == null) {
+            return null;
+        }
         return priceRange.clone();
     }
 
@@ -155,6 +159,9 @@ public class DiscoverItemModel {
     }
 
     public String[] getAccessibility() {
+        if (accessibility == null) {
+            return null;
+        }
         return accessibility.clone();
     }
 
@@ -203,7 +210,12 @@ public class DiscoverItemModel {
     }
 
     public List<String[]> getStandardTimesDaysAndTimes() {
-        return standardTimesDaysAndTimes;
+        if (standardTimesDaysAndTimes == null) {
+            return new ArrayList<>();
+        }
+        List<String[]> clone = new ArrayList<>(standardTimesDaysAndTimes.size());
+        for (String[] item : standardTimesDaysAndTimes) clone.add(item.clone());
+        return clone;
     }
 
     public void setStandardTimesDaysAndTimes(List<String[]> standardTimesDaysAndTimes) {
