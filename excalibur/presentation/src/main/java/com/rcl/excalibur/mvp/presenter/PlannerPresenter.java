@@ -2,8 +2,10 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.util.Pair;
 import android.support.v4.util.SparseArrayCompat;
 import android.view.View;
@@ -29,11 +31,13 @@ import com.rcl.excalibur.mvp.model.PlannerModel;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.PlannerView;
 import com.rcl.excalibur.utils.DateUtils;
+import com.rcl.excalibur.utils.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.flexibleadapter.items.IHeader;
 import timber.log.Timber;
@@ -46,12 +50,17 @@ public class PlannerPresenter {
     static final String DAY_DEFAULT_VALUE = "1";
     private static final String HEADER_FORMAT = "H%s";
     private static final String ITEM_FORMAT = "I%s";
-
-    private static final int HEADER_LIST_SIZE = 4;
-
-    private static final int FIRST_DAY = 1;
     private static final String ARRIVING_DEPARTING_SEPARATOR = "; ";
     private static final String PORT_TYPE_CRUISING = "CRUISING";
+
+    private static final float OFFSET_OVER_95_PERCENT = 0.95f;
+    private static final float MAX_SLIDE_OFFSET = 1.0f;
+
+    private static final int HEADER_LIST_SIZE = 4;
+    private static final int FIRST_DAY = 1;
+    private static final int NO_PEEK_HEIGHT = 0;
+    private static final int DELAY_MILLIS_COLLAPSE = 200;
+    private static final int DELAY_MILLIS_SCROLL = 100;
 
     private PlannerProductModelMapper mapper;
 
@@ -65,6 +74,10 @@ public class PlannerPresenter {
 
     private SparseArrayCompat<PlannerHeader> headerList;
     private List<IFlexible> hiddenItems;
+
+    private Handler handler;
+
+    private boolean isExpanded;
 
     @StringRes private int currentPartOfDayResource;
     private int lastHeaderId = 0;
@@ -93,8 +106,12 @@ public class PlannerPresenter {
         view.initBottomSheetBehavior();
         view.setViewObserver(new OnScrolledObserver(this));
         view.setExpandCollapseObserver(new OnExpandCollapseObserver(this));
+        view.setSlideObserver(new OnBottomSheetSlideObserver(this));
+        view.setStateChangeObserver(new OnBottomSheetStateChange(this));
 
+        handler = new Handler();
         hiddenItems = new ArrayList<>();
+
         createHeaderList();
     }
 
@@ -288,9 +305,9 @@ public class PlannerPresenter {
         return R.string.empty_string;
     }
 
-    public static class OnScrolledObserver extends DefaultPresentObserver<Integer, PlannerPresenter> {
+    private static class OnScrolledObserver extends DefaultPresentObserver<Integer, PlannerPresenter> {
 
-        public OnScrolledObserver(PlannerPresenter presenter) {
+        OnScrolledObserver(PlannerPresenter presenter) {
             super(presenter);
         }
 
@@ -336,5 +353,120 @@ public class PlannerPresenter {
 
     private void collapseSections() {
         view.removeItems();
+    }
+
+    //ON SLIDE OBSERVER
+
+    private static class OnBottomSheetSlideObserver extends DefaultPresentObserver<Float, PlannerPresenter> {
+
+        OnBottomSheetSlideObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Float slideOffset) {
+            getPresenter().onSlide(slideOffset);
+        }
+    }
+
+    private void onSlide(Float slideOffset) {
+        view.setShipArrivingDebarkingAlpha(MAX_SLIDE_OFFSET - slideOffset);
+        if (isExpanded) {
+            return;
+        }
+        calculateItemMargins(slideOffset);
+    }
+
+    private void calculateItemMargins(float slideOffset) {
+        int visibleChildren = view.findLastVisibleItemPosition();
+        for (int i = 0; i <= visibleChildren; i++) {
+            if (view.isIndexAHeader(i)) {
+                continue;
+            }
+
+            View view = this.view.getViewItemAt(i);
+            if (view == null) {
+                return;
+            }
+
+            int verticalMargin = getMargin(slideOffset, this.view.getInitVerticalMargin());
+            int horizontalMargin = getMargin(slideOffset, this.view.getInitHorizontalMargin());
+            this.view.resizeItemView(view, verticalMargin, horizontalMargin);
+
+            int imageMargin = Math.round(slideOffset * this.view.getInitImageMargin());
+            this.view.resizeImage(view, imageMargin);
+
+            RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
+            if (imageView != null) {
+                imageView.setRadius(R.dimen.default_radius);
+            }
+
+            if (slideOffset >= OFFSET_OVER_95_PERCENT) {
+                this.view.changeSeparatorVisibility(view, View.VISIBLE);
+                this.view.setItemViewBackground(view, R.drawable.background_cue_card);
+            } else {
+                this.view.setItemViewBackground(view, R.drawable.background_rounded_cue_card);
+            }
+        }
+    }
+
+    private int getMargin(float slideOffset, int marginValue) {
+        return Math.round((MAX_SLIDE_OFFSET - slideOffset) * marginValue);
+    }
+
+    // ON STATE CHANGE OBSERVER
+
+    private static class OnBottomSheetStateChange extends DefaultPresentObserver<Integer, PlannerPresenter> {
+
+        OnBottomSheetStateChange(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Integer newState) {
+            getPresenter().onStateChange(newState);
+        }
+    }
+
+    private void onStateChange(Integer newState) {
+        switch (newState) {
+            case BottomSheetBehavior.STATE_EXPANDED:
+                if (!isExpanded) {
+                    setBottomSheetExpandedState();
+                }
+                break;
+            case BottomSheetBehavior.STATE_COLLAPSED:
+                if (isExpanded) {
+                    handler.postDelayed(() -> view.scrollToTopOfList(), DELAY_MILLIS_SCROLL);
+                    handler.postDelayed(this::setBottomSheetCollapsingState, DELAY_MILLIS_COLLAPSE);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setBottomSheetExpandedState() {
+        isExpanded = true;
+
+        view.setShipArrivingDebarkingVisibility(View.GONE);
+        view.setBottomSheetPeekHeight(NO_PEEK_HEIGHT);
+
+        calculateItemMargins(MAX_SLIDE_OFFSET);
+
+        view.showHeadersView();
+        view.setRecyclerViewBackground(R.drawable.background_rounded_top_planner_white);
+    }
+
+    private void setBottomSheetCollapsingState() {
+        isExpanded = false;
+
+        view.setShipArrivingDebarkingVisibility(View.VISIBLE);
+        view.resetItemsToInitialState();
+
+        view.setBottomSheetPeekHeight(view.getPeekHeight());
+        view.animateContainerLayout();
+
+        view.setRecyclerViewBackground(R.drawable.background_rounded_top_planner_transparent);
     }
 }

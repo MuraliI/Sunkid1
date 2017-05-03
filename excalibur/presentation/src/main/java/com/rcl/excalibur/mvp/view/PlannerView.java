@@ -1,7 +1,6 @@
 package com.rcl.excalibur.mvp.view;
 
 import android.content.res.Resources;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
@@ -24,7 +23,6 @@ import com.rcl.excalibur.activity.DeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.planner.PlannerAdapter;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
-import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -43,12 +41,7 @@ import eu.davidea.flexibleadapter.items.ISectionable;
 import io.reactivex.Observer;
 
 public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
-    private static final float OFFSET_OVER_95_PERCENT = 0.95f;
-    private static final float MAX_SLIDE_OFFSET = 1.0f;
-    private static final int DELAY_MILLIS_COLLAPSE = 200;
-    private static final int DELAY_MILLIS_SCROLL = 100;
     private static final int ADD_DURATION_MILLIS = 150;
-    private static final int NO_PEEK_HEIGHT = 0;
     private static final int TOP_OF_LIST = 0;
     private static final int NO_MARGIN = 0;
 
@@ -57,7 +50,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     @BindView(R.id.progress_service_call_planner) View progressBar;
     @BindView(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
     @BindView(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
-    @BindView(R.id.layout_planner_recycler_container) TopRoundedFrameLayout recyclerContainerLayout;
 
     private PlannerAdapter adapter;
 
@@ -67,14 +59,14 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private Animation animationGoIn;
 
     private Observer<List<IHeader>> expandCollapseObserver;
+    private Observer<Float> slideObserver;
+    private Observer<Integer> stateChangeObserver;
+
     private List<Integer> itemsToRemove;
     private List<View> headerViewList;
 
     private PlannerProductItemComparator productItemComparator;
 
-    private Handler handler;
-
-    private boolean isExpanded;
     private boolean initialized;
     private boolean bottomSheetIsSliding;
 
@@ -101,7 +93,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         peekHeight = resources.getDimensionPixelSize(R.dimen.planner_peek_height);
         headerHeight = resources.getDimensionPixelSize(R.dimen.height_planner_header);
 
-        handler = new Handler();
         itemsToRemove = new ArrayList<>();
         headerViewList = new ArrayList<>();
         productItemComparator = new PlannerProductItemComparator();
@@ -148,67 +139,19 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
                 new BottomSheetBehavior.BottomSheetCallback() {
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                        switch (newState) {
-                            case BottomSheetBehavior.STATE_EXPANDED:
-                                if (!isExpanded) {
-                                    setBottomSheetExpandedState();
-                                }
-                                break;
-                            case BottomSheetBehavior.STATE_COLLAPSED:
-                                if (isExpanded) {
-                                    handler.postDelayed(() -> recyclerView.scrollToPosition(TOP_OF_LIST), DELAY_MILLIS_SCROLL);
-                                    handler.postDelayed(() -> setBottomSheetCollapsingState(), DELAY_MILLIS_COLLAPSE);
-                                }
-                                break;
-                            default:
-                                break;
-                        }
+                        onStateChangeNext(newState);
                     }
 
                     @Override
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                         bottomSheetIsSliding = true;
-
-                        if (shipArrivingDebarkingLabel != null) {
-                            shipArrivingDebarkingLabel.setAlpha(MAX_SLIDE_OFFSET - slideOffset);
-                        }
-
-                        if (isExpanded) {
-                            return;
-                        }
-                        calculateItemMargins(slideOffset);
+                        onSlideNext(slideOffset);
                     }
                 }
         );
     }
 
-    private void setBottomSheetExpandedState() {
-        isExpanded = true;
-
-        shipArrivingDebarkingLabel.setVisibility(View.GONE);
-
-        bottomSheetBehavior.setPeekHeight(NO_PEEK_HEIGHT);
-        calculateItemMargins(MAX_SLIDE_OFFSET);
-
-        showHeadersView();
-
-        setRecyclerViewBackground(R.drawable.background_rounded_top_planner_white);
-    }
-
-    private void setBottomSheetCollapsingState() {
-        isExpanded = false;
-
-        shipArrivingDebarkingLabel.setVisibility(View.VISIBLE);
-
-        resetItemsToInitialState();
-
-        bottomSheetBehavior.setPeekHeight(peekHeight);
-        containerLayout.startAnimation(animationGoIn);
-
-        setRecyclerViewBackground(R.drawable.background_rounded_top_planner_transparent);
-    }
-
-    private void setRecyclerViewBackground(int backgroundRes) {
+    public void setRecyclerViewBackground(int backgroundRes) {
         PlannerFragment fragment = getFragment();
         if (fragment == null) {
             return;
@@ -216,44 +159,11 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         recyclerView.setBackgroundResource(backgroundRes);
     }
 
-    private void calculateItemMargins(float slideOffset) {
-        int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
-        for (int i = 0; i <= visibleChildren; i++) {
-            if (adapter.isHeader(adapter.getItem(i))) {
-                continue;
-            }
-
-            View view = recyclerView.getLayoutManager().findViewByPosition(i);
-            if (view == null) {
-                return;
-            }
-
-            int verticalMargin = getMargin(slideOffset, initVerticalMargin);
-            int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
-            resizeItemView(view, verticalMargin, horizontalMargin);
-
-            int imageMargin = Math.round(slideOffset * initImageMargin);
-            resizeImage(view, imageMargin);
-
-            RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
-            if (imageView != null) {
-                imageView.setRadius(R.dimen.default_radius);
-            }
-
-            if (slideOffset >= OFFSET_OVER_95_PERCENT) {
-                changeSeparatorVisibility(view, View.VISIBLE);
-                setItemViewBackground(view, R.drawable.background_cue_card);
-            } else {
-                setItemViewBackground(view, R.drawable.background_rounded_cue_card);
-            }
-        }
+    public boolean isIndexAHeader(int index) {
+        return adapter.isHeader(adapter.getItem(index));
     }
 
-    private int getMargin(float slideOffset, int marginValue) {
-        return Math.round((MAX_SLIDE_OFFSET - slideOffset) * marginValue);
-    }
-
-    private void resetItemsToInitialState() {
+    public void resetItemsToInitialState() {
         int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
         for (int i = 0; i <= visibleChildren; i++) {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
@@ -282,7 +192,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         }
     }
 
-    private void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
+    public void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
         if (view != null) {
             ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             marginLayout.setMargins(horizontalMargin, NO_MARGIN, horizontalMargin, verticalMargin);
@@ -293,13 +203,13 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         }
     }
 
-    private void setItemViewBackground(View view, int imageResource) {
+    public void setItemViewBackground(View view, int imageResource) {
         if (view != null) {
             view.setBackgroundResource(imageResource);
         }
     }
 
-    private void resizeImage(View parent, int margin) {
+    public void resizeImage(View parent, int margin) {
         if (parent != null) {
             RoundedImageView image = ButterKnife.findById(parent, R.id.image_itinerary_product_picture);
             if (image != null) {
@@ -313,7 +223,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         }
     }
 
-    private void changeSeparatorVisibility(View parent, int visibility) {
+    public void changeSeparatorVisibility(View parent, int visibility) {
         if (parent != null) {
             View separator = ButterKnife.findById(parent, R.id.view_planner_separator_line);
             if (separator != null) {
@@ -322,7 +232,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         }
     }
 
-    private void showHeadersView() {
+    public void showHeadersView() {
         slideUpAnimation.reset();
 
         for (View view : headerViewList) {
@@ -411,6 +321,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         return linearLayoutManager.findFirstCompletelyVisibleItemPosition();
     }
 
+    public int findLastVisibleItemPosition() {
+        return linearLayoutManager.findLastVisibleItemPosition();
+    }
+
     public View getViewItemAt(int position) {
         return linearLayoutManager.findViewByPosition(position);
     }
@@ -449,5 +363,75 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     public void setExpandCollapseObserver(Observer<List<IHeader>> expandCollapseObserver) {
         this.expandCollapseObserver = expandCollapseObserver;
+    }
+
+    // ON SLIDE OBSERVER
+
+    private void onSlideNext(Float slideOffset) {
+        if (slideObserver == null) {
+            return;
+        }
+        slideObserver.onNext(slideOffset);
+    }
+
+    public void setSlideObserver(Observer<Float> slideObserver) {
+        this.slideObserver = slideObserver;
+    }
+
+    // ON STATE CHANGE OBSERVER
+
+    private void onStateChangeNext(Integer newState) {
+        if (stateChangeObserver == null) {
+            return;
+        }
+        stateChangeObserver.onNext(newState);
+    }
+
+    public void setStateChangeObserver(Observer<Integer> stateChangeObserver) {
+        this.stateChangeObserver = stateChangeObserver;
+    }
+
+    public int getInitImageMargin() {
+        return initImageMargin;
+    }
+
+    public int getInitHorizontalMargin() {
+        return initHorizontalMargin;
+    }
+
+    public int getInitVerticalMargin() {
+        return initVerticalMargin;
+    }
+
+    public int getPeekHeight() {
+        return peekHeight;
+    }
+
+    public void setShipArrivingDebarkingAlpha(float alpha) {
+        if (shipArrivingDebarkingLabel != null) {
+            shipArrivingDebarkingLabel.setAlpha(alpha);
+        }
+    }
+
+    public void setShipArrivingDebarkingVisibility(int visibility) {
+        if (shipArrivingDebarkingLabel != null) {
+            shipArrivingDebarkingLabel.setVisibility(visibility);
+        }
+    }
+
+    public void setBottomSheetPeekHeight(int peekHeight) {
+        if (bottomSheetBehavior != null) {
+            bottomSheetBehavior.setPeekHeight(peekHeight);
+        }
+    }
+
+    public void scrollToTopOfList() {
+        if (recyclerView != null) {
+            recyclerView.scrollToPosition(TOP_OF_LIST);
+        }
+    }
+
+    public void animateContainerLayout() {
+        containerLayout.startAnimation(animationGoIn);
     }
 }
