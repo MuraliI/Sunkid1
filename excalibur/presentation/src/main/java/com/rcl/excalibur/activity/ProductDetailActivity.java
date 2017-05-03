@@ -42,7 +42,7 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
                 , new GetProductDbUseCase(new ProductDataRepository())
                 , new GetOfferingsDbUseCase(new OfferingDataRepository())
                 , new GetSaildDateDbUseCase(new SailDateDataRepository()));
-        presenter.init(StringUtils.decodeString(productId));
+        presenter.init(productId);
     }
 
     @OnClick(R.id.back_arrow)
