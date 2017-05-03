@@ -62,15 +62,12 @@ public class OfferingDataRepository extends BaseDataRepository<Offering, Offerin
     }
 
     @Override
-    public List<Offering> getForDay(Date date) {
+    public List<Offering> getOfferingsForDay(Date date) {
         SimpleDateFormat dateFormat = DateUtil.getHourlessDateParser();
 
         List<OfferingEntity> offerings = new Select()
                 .from(OfferingEntity.class)
-                .innerJoin(ProductEntity.class)
-                .on(DBUtil.on(OfferingEntity.TABLE_NAME, OfferingEntity.COLUMN_PRODUCT, ProductEntity.TABLE_NAME))
                 .where(DBUtil.eq(OfferingEntity.COLUMN_DATE, dateFormat.format(date)))
-                .orderBy(ORDER_BY_TITLE)
                 .execute();
 
         return getMapper().transform(offerings, null);
