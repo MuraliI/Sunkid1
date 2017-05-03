@@ -14,14 +14,12 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
-
         <fragment
             android:id="@+id/ship_time_fragment"
             android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
-            tools:layout="@layout/ship_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            app:type="white"/>
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_header"
