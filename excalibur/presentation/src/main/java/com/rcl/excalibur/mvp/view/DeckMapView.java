@@ -49,7 +49,11 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
     }
 
     public void moveToYPosition(int y) {
-        deckMapScrollView.post(() -> deckMapScrollView.smoothScrollTo(0, y));
+        deckMapScrollView.post(() -> deckMapScrollView.smoothScrollBy(0, y == 0 ? getDeckImageMeasuredHeight() : y));
+    }
+
+    public int getDeckImageMeasuredHeight() {
+        return deckMapBackImage.getMeasuredHeight() / 2;
     }
 
     public void enableDisableDeckSelector(Boolean enable) {
