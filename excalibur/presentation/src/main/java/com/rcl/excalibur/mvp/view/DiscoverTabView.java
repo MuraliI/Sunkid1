@@ -14,22 +14,14 @@ import butterknife.ButterKnife;
 
 public class DiscoverTabView extends FragmentView<DiscoverTabFragment, Void, Void> {
 
-    @BindView(R.id.button_dinning)
-    View dinningButton;
-    @BindView(R.id.button_excursions)
-    View excursionsButton;
-    @BindView(R.id.button_spa)
-    View spaButton;
-    @BindView(R.id.button_shop)
-    View shopButton;
-    @BindView(R.id.button_entertainment)
-    View entertainmentButton;
-    @BindView(R.id.button_activities)
-    View activitiesButton;
-    @BindView(R.id.button_guest_services)
-    View guestButton;
-    @BindView(R.id.progress_service_call_discover)
-    View progressBar;
+    @BindView(R.id.button_dinning) View dinningButton;
+    @BindView(R.id.button_excursions) View excursionsButton;
+    @BindView(R.id.button_spa) View spaButton;
+    @BindView(R.id.button_shop) View shopButton;
+    @BindView(R.id.button_entertainment) View entertainmentButton;
+    @BindView(R.id.button_activities) View activitiesButton;
+    @BindView(R.id.button_guest_services) View guestButton;
+    @BindView(R.id.progress_service_call_discover) View progressBar;
 
     public DiscoverTabView(DiscoverTabFragment fragment) {
         super(fragment);

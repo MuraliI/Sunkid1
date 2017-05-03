@@ -45,5 +45,4 @@ public interface DiscoverApi {
 
     @GET("categories/en/royal-mobile")
     Call<GetSubCategoriesResponse> getSubCategories(@Query("sailingID") String sailingID);
-
 }

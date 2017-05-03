@@ -22,5 +22,4 @@ public interface DiscoverServices {
     void getActivities();
 
     void getSubCategories();
-
 }
