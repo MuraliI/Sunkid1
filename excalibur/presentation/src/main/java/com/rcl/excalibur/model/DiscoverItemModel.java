@@ -213,8 +213,20 @@ public class DiscoverItemModel {
         if (standardTimesDaysAndTimes == null) {
             return new ArrayList<>();
         }
-        List<String[]> clone = new ArrayList<>(standardTimesDaysAndTimes.size());
-        for (String[] item : standardTimesDaysAndTimes) clone.add(item.clone());
+        int size = standardTimesDaysAndTimes.size();
+        int limit = size / 2;
+        boolean isSymmetric = size % 2 == 0;
+        int left;
+        int right;
+        List<String[]> clone = new ArrayList<>(size);
+        for (left = 0; left < limit; left++) {
+            right = size - left - 1;
+            clone.add(left, standardTimesDaysAndTimes.get(left).clone());
+            clone.add(left + 1, standardTimesDaysAndTimes.get(right).clone());
+        }
+        if (!isSymmetric) {
+            clone.add(left, standardTimesDaysAndTimes.get(left).clone());
+        }
         return clone;
     }
 
