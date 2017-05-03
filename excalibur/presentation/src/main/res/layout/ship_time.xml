@@ -3,7 +3,7 @@
     android:id="@+id/ship_time_container"
     android:layout_width="match_parent"
     android:layout_height="@dimen/ship_time_height"
-    android:background="@color/bg_color">
+    android:background="@color/bg_toolbar_color">
 
     <TextView
         android:id="@+id/ship_time_date"
