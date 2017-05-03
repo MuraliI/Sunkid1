@@ -4,6 +4,7 @@ package com.rcl.excalibur.mvp.view;
 import android.graphics.drawable.Drawable;
 import android.util.Pair;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -12,6 +13,7 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.DeckMapActivity;
 import com.rcl.excalibur.custom.view.DeckSelectorButton;
 import com.rcl.excalibur.custom.view.HorizontalPickerView;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
 import java.util.List;
@@ -21,6 +23,12 @@ import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 
 public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Integer, Integer>> {
+
+    private static final int DEFAULT_DECK_NUMBER = 1;
+    private Animation fadeOutBack;
+    private Animation fadeOutFront;
+    private Animation fadeInBack;
+    private Animation fadeInFront;
 
     @BindView(R.id.image_deck_map_back) ImageView deckMapBackImage;
     @BindView(R.id.image_deck_map_front) ImageView deckMapFrontImage;
@@ -73,35 +81,60 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
     }
 
     public void setFadeInOutAnimation(Pair<Integer, Integer> deck) {
-        DeckMapActivity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
+        initAnimations();
 
         Drawable preImage = deckMapFrontImage.getDrawable();
-
         String preNumber = deckSelectorButton.getText();
-        int preDeckNumber = preNumber == null ? 0 : Integer.valueOf(preNumber.split(" ")[1]);
 
-        if (preDeckNumber < deck.first) {
+        int preDeckNumber = preNumber == null ? DEFAULT_DECK_NUMBER
+                : Integer.valueOf(preNumber.split(ConstantsUtil.WHITE_SPACE)[DEFAULT_DECK_NUMBER]);
+        if (preDeckNumber == deck.first) {
+            return;
+        } else if (preDeckNumber < deck.first) {
             if (preImage != null) {
-                deckMapBackImage.setImageDrawable(preImage);
-                deckMapFrontImage.setImageDrawable(null);
+                setDeckImageDrawable(preImage, deckMapBackImage, deckMapFrontImage);
             }
-            deckMapFrontImage.setImageResource(deck.second);
-            deckMapBackImage.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.zoom_fade_out_back_venue));
-            deckMapFrontImage.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.zoom_fade_out_front_venue));
+            setAnimation(deck, fadeOutBack, fadeOutFront, deckMapFrontImage, deckMapBackImage);
         } else {
             if (preImage == null) {
-                Drawable postImage = deckMapBackImage.getDrawable();
-                deckMapFrontImage.setImageDrawable(postImage);
-                deckMapBackImage.setImageDrawable(null);
+                setDeckImageDrawable(deckMapBackImage.getDrawable(), deckMapFrontImage, deckMapBackImage);
             }
-            deckMapBackImage.setImageResource(deck.second);
-            deckMapFrontImage.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.zoom_fade_in_front_venue));
-            deckMapBackImage.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.zoom_fade_in_back_venue));
+            setAnimation(deck, fadeInFront, fadeInBack, deckMapBackImage, deckMapFrontImage);
         }
+    }
 
+    private void initAnimations() {
+        fadeOutBack = AnimationUtils.loadAnimation(getContext(), R.anim.zoom_fade_out_back_venue);
+        fadeOutFront = AnimationUtils.loadAnimation(getContext(), R.anim.zoom_fade_out_front_venue);
+        fadeInBack = AnimationUtils.loadAnimation(getContext(), R.anim.zoom_fade_in_back_venue);
+        fadeInFront = AnimationUtils.loadAnimation(getContext(), R.anim.zoom_fade_in_front_venue);
+    }
 
+    private void setDeckImageDrawable(Drawable preImage, ImageView backView, ImageView frontView) {
+        backView.setImageDrawable(preImage);
+        frontView.setImageDrawable(null);
+    }
+
+    private void setAnimation(Pair<Integer, Integer> deck, Animation fadeOutBack, Animation fadeOutFront,
+                              ImageView frontView, ImageView backView) {
+        frontView.setImageResource(deck.second);
+        backView.startAnimation(fadeOutBack);
+        frontView.startAnimation(fadeOutFront);
+        fadeOutBack.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                backView.setImageDrawable(null);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 }
