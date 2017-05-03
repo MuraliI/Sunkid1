@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.DiningMenuActivity;
+import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
@@ -104,13 +104,11 @@ public class ProductsListPresenter {
         @Override
         public void onNext(Pair<Product, View> value) {
             BaseActivity activity = view.getActivity();
-            if (activity != null) {  //TODO: See detail
-                ActivityUtils.startActivity(activity, DiningMenuActivity.getStartIntent(activity, "GIOV"));
-
-               /* ActivityUtils.startActivityWithSharedElement(activity
+            if (activity != null) {
+                ActivityUtils.startActivityWithSharedElement(activity
                         , ProductDetailActivity.getIntent(activity, value.first.getProductId())
                         , value.second
-                        , activity.getString(R.string.shared_element_transition_name));*/
+                        , activity.getString(R.string.shared_element_transition_name));
             }
         }
     }

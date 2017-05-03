@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.DiningMenuActivity;
+import com.rcl.excalibur.activity.PlanListActivity;
 import com.rcl.excalibur.fragments.DiscoverTabFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -32,9 +32,7 @@ public class DiscoverTabView extends FragmentView<DiscoverTabFragment, Void, Voi
         if (activity == null) {
             return;
         }
-        //TODO this will be call on other place
-        ActivityUtils.startActivity(activity, DiningMenuActivity.getStartIntent(activity, "GIOV"));
-        //ActivityUtils.startActivity(activity, PlanListActivity.getStartIntent(activity, fragmentToShow));
+        ActivityUtils.startActivity(activity, PlanListActivity.getStartIntent(activity, fragmentToShow));
     }
 
     public void init() {
