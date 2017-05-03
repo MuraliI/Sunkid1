@@ -45,9 +45,7 @@ public final class DetailViewTypeFactory {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
-        if (product.isDining()) {
-            addDinningTypeModule(viewTypes, resources, product);
-        }
+        addDinningTypeModule(viewTypes, resources, product);
         addTimeModule(viewTypes, resources, product);
         addPricesModule(viewTypes, offerings, resources, product);
         addCuisineModule(viewTypes, resources, product);
@@ -63,15 +61,17 @@ public final class DetailViewTypeFactory {
     }
 
     private static void addDinningTypeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
-        List<ProductAdvisement> advisementsDiningType = product.getProductAdvisementsByType(ProductAdvisement.DINING_TYPE);
-        if (CollectionUtils.isEmpty(advisementsDiningType)) {
-            return;
-        }
-        ProductAdvisement advisement = advisementsDiningType.get(0);
-        if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
-            addTitleAndDescriptionTypes(recyclerViewTypeList,
-                    resources.getString(R.string.dining_type),
-                    advisement.getAdvisementDescription());
+        if (product.isDining()) {
+            List<ProductAdvisement> advisementsDiningType = product.getProductAdvisementsByType(ProductAdvisement.DINING_TYPE);
+            if (CollectionUtils.isEmpty(advisementsDiningType)) {
+                return;
+            }
+            ProductAdvisement advisement = advisementsDiningType.get(0);
+            if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
+                addTitleAndDescriptionTypes(recyclerViewTypeList,
+                        resources.getString(R.string.dining_type),
+                        advisement.getAdvisementDescription());
+            }
         }
     }
 
