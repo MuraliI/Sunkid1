@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/text_planner_expandable_label"
-        style="@style/AppTheme.PlannerHeaderExpandableText"
+        style="@style/AppTheme.Headline5.Blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

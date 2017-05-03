@@ -139,10 +139,9 @@
 
         <View
             android:id="@+id/view_planner_separator_line"
-            android:layout_alignParentBottom="true"
-            android:layout_alignWithParentIfMissing="true"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itinerary_separator_thickness"
+            android:layout_alignParentBottom="true"
             android:background="@color/discover_grey" />
     </RelativeLayout>
 </com.rcl.excalibur.custom.view.RoundedCardView>

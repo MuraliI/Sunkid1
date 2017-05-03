@@ -42,7 +42,6 @@ import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.flexibleadapter.items.IHeader;
 import eu.davidea.flexibleadapter.items.ISectionable;
 import io.reactivex.Observer;
-import timber.log.Timber;
 
 public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private static final float OFFSET_OVER_95_PERCENT = 0.95f;
@@ -73,6 +72,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     private Observer<List<IHeader>> expandCollapseObserver;
     private List<Integer> itemsToRemove;
+
+    private PlannerProductItemComparator productItemComparator;
 
     private Handler handler;
 
@@ -106,6 +107,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
         handler = new Handler();
         itemsToRemove = new ArrayList<>();
+        productItemComparator = new PlannerProductItemComparator();
 
         DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setAddDuration(ADD_DURATION_MILLIS);
@@ -363,7 +365,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     }
 
     public void onItemClick(int position) {
-        Timber.e("click on %s", position);
         IFlexible item = adapter.getItem(position);
         if (!adapter.isHeader(item)) {
             PlannerProductItem productItem = (PlannerProductItem) item;
@@ -392,7 +393,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     }
 
     public void addItemToSection(ISectionable itemToAdd, IHeader header) {
-        itemsToRemove.add(adapter.addItemToSection(itemToAdd, header, new PlannerProductItemComparator()));
+        itemsToRemove.add(adapter.addItemToSection(itemToAdd, header, productItemComparator));
     }
 
     public void removeItems() {
