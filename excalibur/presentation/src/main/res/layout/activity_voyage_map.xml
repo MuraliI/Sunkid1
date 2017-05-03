@@ -5,11 +5,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_sea">
 
-    <com.rcl.excalibur.custom.view.VoyageMapImageView
-        android:id="@+id/image_voyage_map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <fragment
         android:id="@+id/ship_time_fragment"
         android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
@@ -17,10 +12,16 @@
         android:layout_height="wrap_content"
         tools:layout="@layout/ship_time" />
 
+    <com.rcl.excalibur.custom.view.VoyageMapImageView
+        android:id="@+id/image_voyage_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <LinearLayout
         android:id="@+id/linear_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/ship_time_fragment"
         android:orientation="vertical"
         android:transitionName="@string/shared_element_tab">
 
@@ -59,8 +60,9 @@
         android:id="@+id/text_ship_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/linear_tab"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:text="Test" />
-
 
 </RelativeLayout>
