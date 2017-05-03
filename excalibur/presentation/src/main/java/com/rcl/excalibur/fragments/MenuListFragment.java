@@ -16,12 +16,12 @@ import com.rcl.excalibur.mvp.view.MenuListView;
 public class MenuListFragment extends Fragment {
 
     protected MenuListPresenter presenter;
-    private static final String ARGUMENT_DINING_MENU_ID = "MenuListFragment.ARGUMENT_DINING_MENU_ID";
+    private static final String ARGUMENT_DINING_MENU_NAME = "MenuListFragment.ARGUMENT_DINING_MENU_NAME";
 
-    public static MenuListFragment newInstance(String idTypeMenu) {
+    public static MenuListFragment newInstance(String menuName) {
         final MenuListFragment fragment = new MenuListFragment();
         final Bundle args = new Bundle();
-        args.putString(ARGUMENT_DINING_MENU_ID, idTypeMenu);
+        args.putString(ARGUMENT_DINING_MENU_NAME, menuName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -38,11 +38,11 @@ public class MenuListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final Bundle bundle = getArguments();
-        if (bundle == null || !bundle.containsKey(ARGUMENT_DINING_MENU_ID)) {
+        if (bundle == null || !bundle.containsKey(ARGUMENT_DINING_MENU_NAME)) {
             return;
         }
-        final String idTypeMenu = bundle.getString(ARGUMENT_DINING_MENU_ID);
+        final String menuName = bundle.getString(ARGUMENT_DINING_MENU_NAME);
         presenter = new MenuListPresenter(new MenuListView(this), new GetMenuDbUseCase(new MenuDataRepository()));
-        presenter.init(idTypeMenu);
+        presenter.init(menuName);
     }
 }

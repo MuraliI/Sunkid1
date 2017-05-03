@@ -7,7 +7,6 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.DiningMenuActivity;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -21,12 +20,12 @@ public class DiningMenuView extends ActivityView<DiningMenuActivity, Void, Void>
         ButterKnife.bind(this, activity);
     }
 
-    public void init(String idTypeMenu) {
+    public void init(String venueCode) {
         final DiningMenuActivity activity = getActivity();
         if (activity == null) {
             return;
         }
-        activity.presenter.createFragmentMenu(idTypeMenu, pagerFragment);
+        activity.presenter.createFragmentMenu(venueCode, pagerFragment);
         tabProductMenus.setupWithViewPager(pagerFragment, true);
     }
 }

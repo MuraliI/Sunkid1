@@ -38,13 +38,11 @@ public class DiningMenuPresenter {
         ActivityUtils.onBackActivity(activity);
     }
 
-    public void createFragmentMenu(String idTypeMenu, ViewPager viewPager) {
-        AnalyticEvent analyticEvent = new AnalyticEvent(AnalyticsConstants.KEY_FILTER_DISCOVER);
+    public void createFragmentMenu(String venueCode, ViewPager viewPager) {
         GetMenuDbUseCase getMenuDbUseCase = new GetMenuDbUseCase(new MenuDataRepository());
         List<String> menusName = getMenuDbUseCase.getAllMenuName();
         if (menusName != null && !menusName.isEmpty()) {
             addFragmentsToPager(menusName, viewPager);
-            AnalyticsUtils.trackEvent(analyticEvent.addKeyValue(AnalyticsConstants.KEY_FILTER_CATEGORY, idTypeMenu));
         } else {
             showDialogEmptyMenu();
         }
