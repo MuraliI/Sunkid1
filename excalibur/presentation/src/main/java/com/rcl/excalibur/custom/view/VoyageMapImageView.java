@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.util.AttributeSet;
@@ -47,9 +46,6 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
         float w = (density / DENSITY_FACTOR) * cruise.getWidth();
         float h = (density / DENSITY_FACTOR) * cruise.getHeight();
         cruise = Bitmap.createScaledBitmap(cruise, (int) w, (int) h, true);
-        Matrix matrixRotation = new Matrix();
-        matrixRotation.postRotate(getAngle());
-        cruise = Bitmap.createBitmap(cruise, 0, 0, cruise.getWidth(), cruise.getHeight(), matrixRotation, true);
     }
 
     public void setImage(int resource) {

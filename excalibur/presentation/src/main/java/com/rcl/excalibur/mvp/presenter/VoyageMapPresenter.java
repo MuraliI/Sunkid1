@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.Display;
 
 import com.rcl.excalibur.R;
@@ -74,23 +73,11 @@ public class VoyageMapPresenter {
         if (activity == null) {
             return;
         }
-
-        view.animatePointToCenter();
-        String day = getSailingPreferenceUseCase.getDay();
-        if (TextUtils.isEmpty(day)) {
-            day = activity.getResources().getString(R.string.day_1);
-        } else {
-            day = activity.getResources().getString(R.string.day_title) + day;
-        }
-        //view.setHeader(day);
-        getShipLocationInfo(day);
+        getShipLocationInfo();
     }
 
-    public void getShipLocationInfo(String day) {
-        if (TextUtils.isEmpty(day)) {
-            return;
-        }
-        day = getSailingPreferenceUseCase.getDay();
+    public void getShipLocationInfo() {
+        String day = getSailingPreferenceUseCase.getDay();
         int selectedDay = Integer.valueOf(day == null ? PlannerPresenter.DAY_DEFAULT_VALUE : day);
 
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
