@@ -462,7 +462,6 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/day_information_text_size</item>
         <item name="fontPath">@string/proxima_nova_semi_bold</item>
-        ¡
         <item name="android:translationY">@dimen/translation_y_debarking_time</item>
     </style>
 

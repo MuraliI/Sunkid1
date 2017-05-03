@@ -99,7 +99,7 @@ public class MenuDataMapper extends BaseDataMapper<Menu, MenuResponse, Void> {
 
     private List<MenuItemAdvisoryTag> transformMenuItemAdvisoryTag(List<MenuItemAdvisoryTagResponse> entity) {
 
-        ArrayList<MenuItemAdvisoryTag> items = new ArrayList<>();
+        List<MenuItemAdvisoryTag> items = new ArrayList();
         if (entity == null) {
             return items;
         }
@@ -117,7 +117,7 @@ public class MenuDataMapper extends BaseDataMapper<Menu, MenuResponse, Void> {
 
     private List<MenuAdvisoryTag> transformMenuAdvisoryTag(List<MenuAdvisoryTagResponse> entity) {
 
-        ArrayList<MenuAdvisoryTag> items = new ArrayList<>();
+        List<MenuAdvisoryTag> items = new ArrayList();
         if (entity == null) {
             return items;
         }
@@ -135,7 +135,7 @@ public class MenuDataMapper extends BaseDataMapper<Menu, MenuResponse, Void> {
 
     private List<MenuSection> transformMenuSection(List<MenuSectionResponse> entity) {
 
-        ArrayList<MenuSection> items = new ArrayList<>();
+        List<MenuSection> items = new ArrayList();
         if (entity == null) {
             return items;
         }
@@ -152,7 +152,7 @@ public class MenuDataMapper extends BaseDataMapper<Menu, MenuResponse, Void> {
 
     private List<MenuItem> transformMenuItem(List<MenuItemResponse> entity) {
 
-        ArrayList<MenuItem> items = new ArrayList<>();
+        List<MenuItem> items = new ArrayList();
         if (entity == null) {
             return items;
         }
