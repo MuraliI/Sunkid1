@@ -11,15 +11,23 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class DeckMapPresenterTest {
-    final String productId = "1";
-    DeckMapPresenter presenter;
+
+    private static final boolean DECK_OPENED = true;
+
     @Mock DeckMapView view;
     @Mock GetProductDbUseCase getProductDbUseCase;
     Product product;
+
+    private final String productId = "1";
+    private Product product;
+    private DeckMapPresenter presenter;
+    private Pair<Integer, Integer> deckSelected;
 
     @Before
     public void setUp() throws Exception {
@@ -36,6 +44,8 @@ public class DeckMapPresenterTest {
         productLocation.setLatitude("100");
         product.setProductLocation(productLocation);
 
+        deckSelected = new Pair<>(2, 2);
+
         when(getProductDbUseCase.get(productId)).thenReturn(product);
     }
 
@@ -48,4 +58,15 @@ public class DeckMapPresenterTest {
         verify(view).hideArrowDeckSelector(false);
     }
 
+    @Test
+    public void onDeckSelectedTest() {
+        presenter.onDeckSelected(deckSelected);
+        verify(view).onDeckSelected(any(Pair.class));
+    }
+
+    @Test
+    public void onDeckSelectorButtonClickedTest() {
+        presenter.onDeckSelectorButtonClicked(DECK_OPENED);
+        verify(view).openDeckSelector(DECK_OPENED);
+    }
 }

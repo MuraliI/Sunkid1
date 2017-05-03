@@ -17,23 +17,7 @@ public class DeckMapPresenter {
 
     private static final String DEFAULT_LATITUDE = "0";
 
-    private static final List<Pair<Integer, Integer>> DECK_IMAGES = new ArrayList<>(12);
-
-    static {
-        DECK_IMAGES.add(new Pair<>(1, R.drawable.deck1));
-        DECK_IMAGES.add(new Pair<>(2, R.drawable.deck2));
-        DECK_IMAGES.add(new Pair<>(3, R.drawable.deck3));
-        DECK_IMAGES.add(new Pair<>(4, R.drawable.deck4));
-        DECK_IMAGES.add(new Pair<>(5, R.drawable.deck5));
-        DECK_IMAGES.add(new Pair<>(6, R.drawable.deck6));
-        DECK_IMAGES.add(new Pair<>(7, R.drawable.deck7));
-        DECK_IMAGES.add(new Pair<>(8, R.drawable.deck8));
-        DECK_IMAGES.add(new Pair<>(9, R.drawable.deck9));
-        DECK_IMAGES.add(new Pair<>(10, R.drawable.deck10));
-        DECK_IMAGES.add(new Pair<>(11, R.drawable.deck11));
-        DECK_IMAGES.add(new Pair<>(12, R.drawable.deck12));
-    }
-
+    private List<Pair<Integer, Integer>> deckImages;
     private GetProductDbUseCase getProductDbUseCase;
     private DeckMapView view;
 
@@ -53,14 +37,31 @@ public class DeckMapPresenter {
             String productLatitude = product.getProductLocation().getLatitude();
             yCoord = Integer.valueOf(productLatitude == null ? DEFAULT_LATITUDE : productLatitude);
         }
+        createDeckImagesMap();
         initView();
+    }
+
+    private void createDeckImagesMap() {
+        deckImages = new ArrayList<>(12);
+        deckImages.add(new Pair<>(1, R.drawable.deck1));
+        deckImages.add(new Pair<>(2, R.drawable.deck2));
+        deckImages.add(new Pair<>(3, R.drawable.deck3));
+        deckImages.add(new Pair<>(4, R.drawable.deck4));
+        deckImages.add(new Pair<>(5, R.drawable.deck5));
+        deckImages.add(new Pair<>(6, R.drawable.deck6));
+        deckImages.add(new Pair<>(7, R.drawable.deck7));
+        deckImages.add(new Pair<>(8, R.drawable.deck8));
+        deckImages.add(new Pair<>(9, R.drawable.deck9));
+        deckImages.add(new Pair<>(10, R.drawable.deck10));
+        deckImages.add(new Pair<>(11, R.drawable.deck11));
+        deckImages.add(new Pair<>(12, R.drawable.deck12));
     }
 
     private void initView() {
         view.setAdapterObserver(new DeckSelectorObserver(this));
-        view.init(DECK_IMAGES, new DeckButtonConsumer(this));
+        view.init(deckImages, new DeckButtonConsumer(this));
         view.moveToYPosition(yCoord);
-        view.setInitialDeck(DECK_IMAGES.get(DECK_IMAGES.size() - 1));
+        view.setInitialDeck(deckImages.get(deckImages.size() - 1));
         view.enableDisableDeckSelector(enableDisable);
         view.hideArrowDeckSelector(enableDisable);
     }
@@ -75,8 +76,8 @@ public class DeckMapPresenter {
         view.onDeckSelected(deck);
     }
 
-    private void onDeckSelectorButtonClicked(Boolean opened) {
-        view.openDeckSelector(opened);
+    public void onDeckSelectorButtonClicked(Boolean open) {
+        view.openDeckSelector(open);
     }
 
     private class DeckSelectorObserver extends DefaultPresentObserver<Pair<Integer, Integer>, DeckMapPresenter> {
