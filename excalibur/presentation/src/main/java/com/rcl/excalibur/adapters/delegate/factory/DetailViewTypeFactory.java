@@ -38,13 +38,12 @@ public final class DetailViewTypeFactory {
     private static final int NO_DURATION = 0;
     private static final String NEXT_LINE = "\n";
     private static final String TO_REPLACE = ", ";
-    // TODO: To be removed once the service provides this details
-    private static final String TIME_HARDCODE = "Times may vary";
 
     private DetailViewTypeFactory() {
     }
 
-    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, List<Offering> offerings, SailDateInfo sailDateInfo, Resources resources) {
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, List<Offering> offerings,
+                                                                         SailDateInfo sailDateInfo, Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
@@ -76,13 +75,6 @@ public final class DetailViewTypeFactory {
                         advisement.getAdvisementDescription());
             }
         }
-    }
-
-    private static void addTimeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
-        addTitleAndDescriptionTypes(recyclerViewTypeList,
-                resources.getString(R.string.detail_module_times),
-                // TODO: To be removed once the service provides this details
-                TIME_HARDCODE);
     }
 
     private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
@@ -240,7 +232,7 @@ public final class DetailViewTypeFactory {
     private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings,
                                         @NonNull Resources res, Product product) {
 
-        if (!product.isShopping() && !product.isDining()) {
+        if (!product.isShopping()) {
 
             HashMap<String, String> map = new HashMap<>();
             float adultPrice = -1;
@@ -283,6 +275,13 @@ public final class DetailViewTypeFactory {
                 PricesFromViewType pricesFromViewType = new PricesFromViewType(res.getString(R.string.prices),
                         res.getString(R.string.prices_from), map, product);
                 recyclerViewTypeList.add(pricesFromViewType);
+            }
+
+            if (product.isDining()) {
+                if (product.getCostType() != null) {
+                    String title = res.getString(R.string.prices);
+                    addTitleAndDescriptionTypes(recyclerViewTypeList, title, product.getCostType().getCostTypeTitle());
+                }
             }
         }
     }

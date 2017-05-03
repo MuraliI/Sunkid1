@@ -2,6 +2,7 @@ package com.rcl.excalibur.adapters.delegate;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import android.widget.Toast;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DiningTimesViewType;
+import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.LocationOperationHour;
+import com.rcl.excalibur.domain.ProductAdvisement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +29,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegateAdapter.TimesViewHolder, DiningTimesViewType> {
+
+    private static final String DINING_TYPE_SPECIALTY = "Specialty";
 
     @Override
     public TimesDelegateAdapter.TimesViewHolder onCreateViewHolder(ViewGroup parent) {
@@ -86,7 +91,19 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                     subtext.setText(operationHour.getStartTime());
                     diningTimesContainer.addView(itemDiningView);
 
-                    showMenu.setOnClickListener(v -> Toast.makeText(context, "SHOW MENU ACTION", Toast.LENGTH_LONG).show());
+                    List<ProductAdvisement> advisementsDiningType = item.getProduct().getProductAdvisementsByType(ProductAdvisement.DINING_TYPE);
+                    if (CollectionUtils.isEmpty(advisementsDiningType)) {
+                        return;
+                    }
+                    ProductAdvisement diningType = advisementsDiningType.get(0);
+                    if (diningType != null
+                            && !TextUtils.isEmpty(diningType.getAdvisementDescription())
+                            && diningType.equals(DINING_TYPE_SPECIALTY)) {
+                        showMenu.setVisibility(View.VISIBLE);
+                        showMenu.setOnClickListener(v -> Toast.makeText(context, "SHOW MENU ACTION", Toast.LENGTH_LONG).show());
+                    } else {
+                        showMenu.setVisibility(View.GONE);
+                    }
                 }
                 holder.timesContainer.addView(itemView);
             }
@@ -98,10 +115,14 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
 
     public static class DiningTimesViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.text_module_title) TextView textTitle;
-        @BindView(R.id.times_container) LinearLayout timesContainer;
-        @BindView(R.id.show_more_container) LinearLayout showMoreContainer;
-        @BindView(R.id.show_more_arrow) ImageView showMoreArrow;
+        @BindView(R.id.text_module_title)
+        TextView textTitle;
+        @BindView(R.id.times_container)
+        LinearLayout timesContainer;
+        @BindView(R.id.show_more_container)
+        LinearLayout showMoreContainer;
+        @BindView(R.id.show_more_arrow)
+        ImageView showMoreArrow;
 
         private boolean collapsed = true;
 
