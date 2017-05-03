@@ -8,12 +8,12 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.repository.OfferingDataRepository;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
 import com.rcl.excalibur.data.repository.SailDateDataRepository;
-import com.rcl.excalibur.data.utils.StringUtils;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.mvp.presenter.ProductDetailPresenter;
 import com.rcl.excalibur.mvp.view.ProductDetailView;
+import com.rcl.excalibur.data.utils.StringUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
