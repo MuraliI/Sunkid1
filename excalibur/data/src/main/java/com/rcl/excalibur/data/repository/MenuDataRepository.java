@@ -45,9 +45,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         entity.setMenuName(input.getMenuName());
         entity.setMenuMedia(create(input.getMenuMedia()));
         entity.save();
-        //MenuAdvisoryTag
         createMenuAdvisoryTag(entity, input.getMenuAdvisoryTag());
-        //MenuSections
         createMenuSections(entity, input.getMenuSections());
 
     }

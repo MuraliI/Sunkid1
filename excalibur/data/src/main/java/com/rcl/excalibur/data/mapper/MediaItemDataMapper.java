@@ -16,7 +16,7 @@ public class MediaItemDataMapper extends BaseDataMapper<List<MediaItem>, List<Me
     @Nullable
     @Override
     public List<MediaItem> transform(List<MediaItemResponse> input, Void additionalArg) {
-        ArrayList<MediaItem> items = new ArrayList<>();
+        List<MediaItem> items = new ArrayList();
 
         if (CollectionUtils.isEmpty(input)) {
             return items;
