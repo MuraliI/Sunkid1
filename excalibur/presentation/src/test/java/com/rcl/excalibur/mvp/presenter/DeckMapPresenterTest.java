@@ -2,35 +2,42 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.Pair;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
-import com.rcl.excalibur.mvp.view.ProductDeckMapView;
+import com.rcl.excalibur.mvp.view.DeckMapView;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-public class ProductDeckMapPresenterTest {
-    final String productId = "1";
-    ProductDeckMapPresenter presenter;
-    @Mock ProductDeckMapView view;
+public class DeckMapPresenterTest {
+
+    private static final boolean DECK_OPENED = true;
+
+    @Mock DeckMapView view;
     @Mock GetProductDbUseCase getProductDbUseCase;
     @Mock RectF rectF;
-    Product product;
+    @Mock Pair<Integer, Integer> deckSelected;
+
+    private final String productId = "1";
+    private Product product;
+    private DeckMapPresenter presenter;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new ProductDeckMapPresenter(view, getProductDbUseCase);
+        presenter = new DeckMapPresenter(view, getProductDbUseCase);
 
         product = new Product();
         product.setProductId(productId);
@@ -39,13 +46,14 @@ public class ProductDeckMapPresenterTest {
         product.setProductType(productType);
         product.setProductTitle("Mock Tittle");
 
+        deckSelected = new Pair<>(2, 2);
+
         when(getProductDbUseCase.get(productId)).thenReturn(product);
     }
 
     @Test
     public void initTest() throws Exception {
         presenter.init(productId);
-        verify(view).initDeckImage(R.drawable.map_05_fwd);
         verify(view).setProductCoordinate(196, 526);
         verify(view).initPopupLayout();
     }
@@ -80,8 +88,17 @@ public class ProductDeckMapPresenterTest {
         verify(view).removeTreeObserver();
         verify(view).moveToProductCoordinate(anyFloat(), anyFloat());
         verify(view).showProductOnPopupLayout(product);
-
     }
 
+    @Test
+    public void onDeckSelectedTest() {
+        presenter.onDeckSelected(deckSelected);
+        verify(view).onDeckSelected(any(Pair.class));
+    }
 
+    @Test
+    public void onDeckSelectorButtonClickedTest() {
+        presenter.onDeckSelectorButtonClicked(DECK_OPENED);
+        verify(view).openDeckSelector(DECK_OPENED);
+    }
 }

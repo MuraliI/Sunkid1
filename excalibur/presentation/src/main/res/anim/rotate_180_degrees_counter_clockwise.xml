@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/linear_interpolator"
+    android:fillAfter="true">
+    <rotate
+        android:duration="@integer/deck_selector_openning_duration"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:fromDegrees="@integer/deck_selector_closed_rotation"
+        android:toDegrees="@integer/deck_selector_opened_rotation"/>
+
+</set>
