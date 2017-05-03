@@ -168,7 +168,7 @@ public class PlannerPresenter {
         //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2017);
-        calendar.set(Calendar.DAY_OF_MONTH, 2);
+        calendar.set(Calendar.DAY_OF_MONTH, 7);
         calendar.set(Calendar.MONTH, Calendar.JULY);
 
         SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
