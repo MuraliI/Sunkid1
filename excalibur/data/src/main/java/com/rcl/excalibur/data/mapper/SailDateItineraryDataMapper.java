@@ -7,11 +7,13 @@ import com.rcl.excalibur.data.service.response.DateItineraryResponse;
 import com.rcl.excalibur.data.service.response.PortResponse;
 import com.rcl.excalibur.data.service.response.SailDateEventResponse;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.data.utils.DateUtil;
 import com.rcl.excalibur.domain.SailDateEvent;
 import com.rcl.excalibur.domain.SailDateItinerary;
 import com.rcl.excalibur.domain.SailPort;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerary, DateItineraryResponse, Void> {
@@ -51,13 +53,17 @@ public class SailDateItineraryDataMapper extends BaseDataMapper<SailDateItinerar
 
     private SailPort transform(PortResponse portResponse) {
         SailPort sailPort = new SailPort();
+        Date arrivalDate = DateUtil.parseDateISO(portResponse.getArrivalDateTime());
+        Date departureDate = DateUtil.parseDateISO(portResponse.getDepartureDateTime());
         sailPort.setPortCode(portResponse.getPortCode());
         sailPort.setPortName(portResponse.getPortName());
         sailPort.setPortType(portResponse.getPortType());
-        sailPort.setDepartureTime(portResponse.getDepartureTime());
-        sailPort.setDepartureDate(portResponse.getDepartureDate());
-        sailPort.setArrivalTime(portResponse.getArrivalTime());
-        sailPort.setArrivalDate(portResponse.getArrivalDate());
+        sailPort.setDepartureTime(DateUtil.formattedHourMinute(departureDate));
+        sailPort.setDepartureDate(DateUtil.formattedDate(departureDate));
+        sailPort.setArrivalTime(DateUtil.formattedHourMinute(arrivalDate));
+        sailPort.setArrivalDate(DateUtil.formattedDate(arrivalDate));
         return sailPort;
     }
+
+
 }

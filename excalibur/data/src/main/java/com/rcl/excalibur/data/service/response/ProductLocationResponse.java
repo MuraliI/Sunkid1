@@ -11,7 +11,7 @@ public class ProductLocationResponse {
     private String latitude;
     private String longitude;
     private List<DeckInfoResponse> deckInfo;
-    private List<OperationHourResponse> locationOperationHours;
+    private List<OperationHourResponse> locationOperatingHours;
 
     public String getLocationCode() {
         return locationCode;
@@ -62,11 +62,11 @@ public class ProductLocationResponse {
         this.deckInfo = deckInfo;
     }
 
-    public List<OperationHourResponse> getLocationOperationHours() {
-        return locationOperationHours;
+    public List<OperationHourResponse> getLocationOperatingHours() {
+        return locationOperatingHours;
     }
 
-    public void setLocationOperationHours(List<OperationHourResponse> locationOperationHours) {
-        this.locationOperationHours = locationOperationHours;
+    public void setLocationOperatingHours(List<OperationHourResponse> locationOperatingHours) {
+        this.locationOperatingHours = locationOperatingHours;
     }
 }
