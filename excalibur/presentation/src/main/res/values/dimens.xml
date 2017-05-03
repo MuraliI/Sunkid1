@@ -212,5 +212,6 @@
     <dimen name="translation_y_debarking_time">50dp</dimen>
     <dimen name="product_shiptime_bar_padding">20dp</dimen>
     <dimen name="progress_height_width">30dp</dimen>
+    <dimen name="height_voyage_ship">150dp</dimen>
 
 </resources>

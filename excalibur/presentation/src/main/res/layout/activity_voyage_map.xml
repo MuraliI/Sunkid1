@@ -5,17 +5,18 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_sea">
 
-    <com.rcl.excalibur.custom.view.VoyageMapImageView
-        android:id="@+id/image_voyage_map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <fragment
         android:id="@+id/ship_time_fragment"
         android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/ship_time" />
+
+    <com.rcl.excalibur.custom.view.VoyageMapImageView
+        android:id="@+id/image_voyage_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ship_time_fragment" />
 
     <LinearLayout
         android:id="@+id/linear_tab"
@@ -52,21 +53,14 @@
         android:layout_marginTop="@dimen/margin_small" />
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
-
-        <ImageView
-            android:id="@+id/image_ship_voyage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="@null"
-            android:src="@drawable/ship_big"
-            android:transitionName="@string/shared_element_ship" />
-    </FrameLayout>
+    <ImageView
+        android:id="@+id/image_ship_voyage"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_voyage_ship"
+        android:layout_centerInParent="true"
+        android:contentDescription="@null"
+        android:src="@drawable/ship_big"
+        android:transitionName="@string/shared_element_ship" />
 
     <LinearLayout
         android:layout_width="match_parent"
