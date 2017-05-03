@@ -26,6 +26,7 @@ import com.rcl.excalibur.model.PlannerProductModel;
 import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.mvp.model.PlannerModel;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.PlannerView;
 import com.rcl.excalibur.utils.DateUtils;
 
@@ -122,7 +123,7 @@ public class PlannerPresenter {
             }
 
             // TODO: Delete this if, only for testing
-            if (i <= 5 && i % 2 == 0) {
+            if (i <= 6 && i % 2 == 0) {
                 plannerProductModel.setFeatured(true);
             } else {
                 plannerProductModel.setFeatured(false);
@@ -167,8 +168,8 @@ public class PlannerPresenter {
         //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2017);
-        calendar.set(Calendar.DAY_OF_MONTH, 5);
-        calendar.set(Calendar.MONTH, Calendar.MAY);
+        calendar.set(Calendar.DAY_OF_MONTH, 2);
+        calendar.set(Calendar.MONTH, Calendar.JULY);
 
         SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
         List<IFlexible> visibleItems = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST));
