@@ -5,7 +5,7 @@
         android:duration="500"
         android:fillAfter="true"
         android:fromAlpha="1.0"
-        android:toAlpha="0.0"
+        android:toAlpha="0.2"
         />
     <scale
         android:duration="500"

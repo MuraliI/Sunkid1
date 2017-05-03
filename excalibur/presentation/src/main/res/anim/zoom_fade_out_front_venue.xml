@@ -4,7 +4,7 @@
     <alpha
         android:duration="500"
         android:fillAfter="true"
-        android:fromAlpha="0.7"
+        android:fromAlpha="0.2"
         android:toAlpha="1.0"
         />
     <scale
