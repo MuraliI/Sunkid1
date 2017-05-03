@@ -1,5 +1,7 @@
 package com.rcl.excalibur.mvp.presenter;
 
+import android.util.Pair;
+
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductType;
@@ -22,7 +24,6 @@ public class DeckMapPresenterTest {
 
     @Mock DeckMapView view;
     @Mock GetProductDbUseCase getProductDbUseCase;
-    Product product;
 
     private final String productId = "1";
     private Product product;

@@ -72,7 +72,7 @@ public class DeckMapPresenter {
         }
     }
 
-    private void onDeckSelected(Pair<Integer, Integer> deck) {
+    public void onDeckSelected(Pair<Integer, Integer> deck) {
         view.onDeckSelected(deck);
     }
 
