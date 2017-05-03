@@ -40,10 +40,39 @@ import java.util.List;
 //FIXME this class is violating SRP (Single Responsibility Principle) take out all other transforms add them through composition
 public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductResponse, Void> {
 
+    protected OfferingResponseMapper offeringResponseMapper;
+
+    public ProductResponseDataMapper(OfferingResponseMapper offeringResponseMapper) {
+        this.offeringResponseMapper = offeringResponseMapper;
+    }
+
     @Override
     public Product transform(ProductResponse productResponse, Void additionalArg) {
         Product product = null;
         if (productResponse != null) {
+
+            // TODO: To be removed once the service provides this details
+            productResponse.setUpcharge(2);
+            if (productResponse.getProductReservationInformation() == null) {
+                productResponse.setProductReservationInformation("Please Arrive 15 minutes early, Wear closedtoed shoes");
+            }
+            if (productResponse.getExperience() == null) {
+                productResponse.setExperience("Enjoy the travel!");
+            }
+            List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
+            if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
+                productResponse.setAdvisements(getProductAdvisementResponseAttire());
+            }
+
+            // TODO: Hardcoded method to be removed once the service provides this details
+            final ProductLocationResponse productLocationResponse = productResponse.getProductLocation();
+            productLocationResponse.setLocationVenue("Royale Theatre");
+            productLocationResponse.setLocationPort("St. Martin");
+            productLocationResponse.setLocationDirection("AFT");
+            productLocationResponse.setLocationDeckNumber(12);
+            productResponse.setProductLocation(productLocationResponse);
+
+
             product = new Product();
             product.setProductId(productResponse.getProductId());
             product.setProductCode(productResponse.getProductCode());
@@ -53,13 +82,11 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             product.setProductRank(productResponse.getProductRank());
             product.setReservationRequired(productResponse.isReservationRequired());
             product.setScheduable(productResponse.isScheduable());
-            product.setActivityLevel(transform(productResponse.getActivityLevel()));
             product.setProductLocation(transform(productResponse.getProductLocation()));
             product.setProductDuration(transform(productResponse.getProductDuration()));
             product.setCostType(transform(productResponse.getCostType()));
             product.setStartingFromPrice(transform(productResponse.getStartingFromPrice()));
             product.setAdvisements(transformProductAdvisement(productResponse.getAdvisements()));
-            product.setPreferences(transformProductPreference(productResponse.getPreferences()));
             product.setRestrictions(transformProductRestriction(productResponse.getRestrictions()));
             product.setProductTitle(productResponse.getProductTitle());
             product.setProductShortDescription(productResponse.getProductShortDescription());
@@ -70,6 +97,10 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
             product.setProductUpcharge(productResponse.getUpcharge());
             product.setFeatured(productResponse.isFeatured());
             product.setHighlighted(productResponse.isHighlighted());
+            //Offerings
+            product.setOfferings(offeringResponseMapper.transform(productResponse.getOffering(), product));
+
+
         }
         return product;
     }
@@ -306,7 +337,10 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         }
 
         ProductCategoryResponse productCategoryResponse = productCategoryResponses.get(0);
-
+        if (productCategoryResponse == null) {
+            //FIXME. Arrive as null from service. Is it possible?
+            return null;
+        }
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryDescription(productCategoryResponse.getCategoryDescription());
         productCategory.setCategoryId(productCategoryResponse.getCategoryId());
@@ -338,6 +372,77 @@ public class ProductResponseDataMapper extends BaseDataMapper<Product, ProductRe
         }
 
         return items;
+    }
+
+    // TODO: Hardcoded method to be removed once the service provides this details
+    private List<ProductAdvisementResponse> getProductAdvisementResponseAttire() {
+        List<ProductAdvisementResponse> productAdvisementResponses = new ArrayList<>();
+
+        MediaItemResponse mediaItemResponse = new MediaItemResponse();
+        mediaItemResponse.setMediaType("icon");
+        mediaItemResponse.setMediaRefLink("/royal/shared_assets/icons/advisement_meals_r.png");
+
+        MediaResponse mediaResponse = new MediaResponse();
+        List<MediaItemResponse> mediaItemResponseList = new ArrayList<>();
+        mediaItemResponseList.add(mediaItemResponse);
+        mediaResponse.setMediaItem(mediaItemResponseList);
+
+        ProductAdvisementResponse advisementAttire = new ProductAdvisementResponse();
+        advisementAttire.setAdvisementId(ProductAdvisement.ATTIRE);
+        advisementAttire.setAdvisementDescription("Casual");
+        advisementAttire.setAdvisementTitle("Attire");
+        advisementAttire.setAdvisementName("Attire");
+        advisementAttire.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementAttire);
+
+        ProductAdvisementResponse advisementKnowBeforeYouGo = new ProductAdvisementResponse();
+        advisementKnowBeforeYouGo.setAdvisementId(ProductAdvisement.KNOW_BEFORE_YOU_GO);
+        advisementKnowBeforeYouGo.setAdvisementDescription("Arrive 15 minutes early, Wear closedtoed shoes");
+        advisementKnowBeforeYouGo.setAdvisementTitle("Know Before You Go");
+        advisementKnowBeforeYouGo.setAdvisementName("Know Before You Go");
+        advisementKnowBeforeYouGo.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementKnowBeforeYouGo);
+
+        ProductAdvisementResponse advisementAccessibility = new ProductAdvisementResponse();
+        advisementAccessibility.setAdvisementId(ProductAdvisement.ACCESSIBILITY);
+        advisementAccessibility.setAdvisementDescription("");
+        advisementAccessibility.setAdvisementTitle("Wheelchair Accessible");
+        advisementAccessibility.setAdvisementName("Wheelchair Accessible");
+        advisementAccessibility.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementAccessibility);
+        ProductAdvisementResponse advisementAccessibility2 = new ProductAdvisementResponse();
+        advisementAccessibility2.setAdvisementId(ProductAdvisement.ACCESSIBILITY);
+        advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite "
+                + "but long enough to be meaningful.");
+        advisementAccessibility2.setAdvisementTitle("Closed Caption");
+        advisementAccessibility2.setAdvisementName("Closed Caption");
+        advisementAccessibility2.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementAccessibility2);
+
+
+        ProductAdvisementResponse advisementLegal = new ProductAdvisementResponse();
+        advisementLegal.setAdvisementId(ProductAdvisement.LEGAL);
+        advisementLegal.setAdvisementDescription("This legal information is short enough to comfort you but long enough  to be meaninful.");
+        advisementLegal.setAdvisementTitle("Legal");
+        advisementLegal.setAdvisementName("Legal");
+        advisementLegal.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementLegal);
+
+        ProductAdvisementResponse advisementCuisine = new ProductAdvisementResponse();
+        advisementCuisine.setAdvisementId(ProductAdvisement.CUISINE);
+        advisementCuisine.setAdvisementDescription("Latin American");
+        advisementCuisine.setAdvisementTitle("Cuisine");
+        advisementCuisine.setAdvisementName("Cuisine");
+        advisementCuisine.setAdvisementMedia(mediaResponse);
+
+        productAdvisementResponses.add(advisementCuisine);
+
+        return productAdvisementResponses;
     }
 
 }

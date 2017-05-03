@@ -22,16 +22,19 @@ android {
         buildConfigField "int", "READ_TIMEOUT", "60"
         buildConfigField "int", "CONNECT_TIMEOUT", "60"
 
+        buildConfigField "int", "DOWNLOAD_PRODUCTS_TIME", "1"  //hours
+
+
     }
     buildTypes {
         release {
-            buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.4.8:10100/v1/"'
+            buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.6.134:8090/test/search-api/v1/"'
             buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
             buildConfigField "String", "GUEST_API_URL", '"http://10.16.6.134:8090/v1/"'
             buildConfigField "String", "SHIP_TIME_API_URL", '"http://10.16.6.134:8090/v1/"'
         }
         debug {
-            buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.4.8:10100/v1/"'
+            buildConfigField "String", "DISCOVER_API_URL", '"http://10.16.6.134:8090/test/search-api/v1/"'
             buildConfigField "String", "ITINERARY_API_URL", '"http://demo8197184.mockable.io/"'
             buildConfigField "String", "GUEST_API_URL", '"http://10.16.6.134:8090/v1/"'
             buildConfigField "String", "SHIP_TIME_API_URL", '"http://10.16.6.134:8090/v1/"'

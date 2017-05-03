@@ -17,7 +17,7 @@ public class GetProductsUseCase extends UseCase<Boolean, Void> {
 
     @Override
     void buildUseCaseObservable(DisposableObserver<Boolean> observer, Void aVoid) {
-        discoverServices.getProducts(observer);
+//        discoverServices.getProducts(observer);
     }
 
 }

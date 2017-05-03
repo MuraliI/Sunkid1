@@ -35,8 +35,6 @@ public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDa
             ActiveAndroid.beginTransaction();
             for (O item : inputList) {
                 create(item);
-                //For large data transactions avoid long time DB Locking
-//                ActiveAndroid.getDatabase().yieldIfContendedSafely();
             }
             ActiveAndroid.setTransactionSuccessful();
         } catch (Exception e) {
@@ -59,6 +57,13 @@ public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDa
                 .where(eq(column, value))
                 .executeSingle();
         return dataMapper.transform(entity, null);
+    }
+
+    protected I getEntity(@NonNull String column, final String value) {
+        return new Select()
+                .from(claz)
+                .where(eq(column, value))
+                .executeSingle();
     }
 
     public boolean exists(@NonNull String column, final String value) {

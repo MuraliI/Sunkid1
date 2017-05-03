@@ -13,6 +13,11 @@ public abstract class BaseDataMapper<O, I, T> {
     public abstract O transform(I input, T additionalArg);
 
     @NonNull
+    public List<O> transform(@Nullable Collection<I> collection) {
+        return transform(collection, null);
+    }
+
+    @NonNull
     public List<O> transform(@Nullable Collection<I> collection, T additionalArg) {
         final List<O> list = new ArrayList<>();
         if (collection == null) {

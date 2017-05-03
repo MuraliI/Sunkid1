@@ -47,12 +47,9 @@ public final class DateUtil {
         return dateFormatter.format(date);
     }
 
-    public static SimpleDateFormat getStandardDateParser() {
-        return new SimpleDateFormat(DATE_FORMAT, Locale.US);
-    }
-
-    public static SimpleDateFormat getHourlessDateParser() {
-        return new SimpleDateFormat(HOURLESS_DATE_FORMAT, Locale.US);
+    public static String parseHourless(Date date) {
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(HOURLESS_DATE_FORMAT, Locale.US);
+        return simpleDateFormat.format(date);
     }
 
     public static String getTime(Date date) {

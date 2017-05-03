@@ -17,7 +17,6 @@ import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductRestriction;
@@ -287,15 +286,6 @@ public final class DetailViewTypeFactory {
         ArrayList<String[]> arrayListTimes = new ArrayList<>();
         arrayListTimes.add(new String[]{resources.getString(R.string.day_1), product.getTimeFrame()});
         recyclerViewTypeList.add(new StandardTimesViewType(resources.getString(R.string.operating_hours), arrayListTimes));
-    }
-
-    private void addProductLevel(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, Product product) {
-        final ProductActivityLevel productActivityLevel = product.getActivityLevel();
-        if (productActivityLevel == null) {
-            return;
-        }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
-                productActivityLevel.getActivityLevelTitle());
     }
 
 }
