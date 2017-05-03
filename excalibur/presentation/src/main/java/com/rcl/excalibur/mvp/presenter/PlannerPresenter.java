@@ -99,10 +99,9 @@ public class PlannerPresenter {
 
     private void createHeaderList() {
         headerList = new SparseArrayCompat<>(HEADER_LIST_SIZE);
-        headerList.append(GENERAL_HEADER, createPlannerHeader(R.string.empty_string, false));
+        headerList.append(GENERAL_HEADER, createPlannerHeader(R.string.title_morning, false));
         headerList.append(ALL_DAY_HEADER, createPlannerHeader(R.string.planner_title_all_day, true));
     }
-
 
     private List<IFlexible> addPlannerItems(final List<PlannerProductModel> plannerProductModels) {
         List<IFlexible> plannerItems = new ArrayList<>();
@@ -313,13 +312,6 @@ public class PlannerPresenter {
 
         @Override
         public void onNext(List<IHeader> headers) {
-            /*PlannerPresenter presenter = getPresenter();
-            if (header.isSectionExpanded()) {
-                presenter.collapseSection(header);
-            } else {
-                presenter.expandSection(header);
-            }*/
-
             PlannerPresenter presenter = getPresenter();
             if (isExpanded) {
                 presenter.collapseSections();
@@ -331,28 +323,6 @@ public class PlannerPresenter {
             isExpanded = !isExpanded;
         }
     }
-
-    /*private void expandSection(PlannerHeader header) {
-        List<IFlexible> itemsToAdd;
-        if (header.isAllDayHeader()) {
-            itemsToAdd = hiddenAllDayItems;
-        } else {
-            itemsToAdd = hiddenGeneralItems;
-        }
-
-        for (IFlexible item : itemsToAdd) {
-            view.addItemToSection((ISectionable) item, header);
-        }
-
-        header.setSectionExpanded(true);
-        view.updateHeader(header);
-    }*/
-
-    /*private void collapseSection(PlannerHeader header) {
-        view.removeItemsFromSection(header);
-        header.setSectionExpanded(false);
-        view.updateHeader(header);
-    }*/
 
     private void expandSections() {
         List<IFlexible> itemsToAdd = new ArrayList<>();
