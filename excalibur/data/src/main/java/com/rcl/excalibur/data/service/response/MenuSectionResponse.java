@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-@Generated("net.hexar.json2pojo")
 public class MenuSectionResponse {
 
     private List<MenuItemResponse> menuItem;
