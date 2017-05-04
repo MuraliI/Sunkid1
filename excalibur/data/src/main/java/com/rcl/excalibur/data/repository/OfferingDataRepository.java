@@ -27,7 +27,6 @@ import java.util.List;
 public class OfferingDataRepository extends BaseDataRepository<Offering, OfferingEntity, Void, OfferingDataMapper>
         implements OfferingRepository {
 
-    private static final String ORDER_BY_TITLE = "product.title";
     /*FIXME this can be in the base class, because all of the repositories should have a mapper to create an entry in the database*/
     private OfferingEntityDataMapper entityDataMapper;
 
