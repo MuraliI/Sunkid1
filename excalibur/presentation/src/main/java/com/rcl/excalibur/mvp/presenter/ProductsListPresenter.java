@@ -43,7 +43,7 @@ public class ProductsListPresenter {
     private List<Product> getProductsByCategory(int categoryId, String childCategoryId, int offset, int maxCount, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
         String typeQuery = getType(activity, categoryId);
-        List<Product> allProducts = getProductDbUseCase.getByType(typeQuery, maxCount, offset);
+        List<Product> allProducts = getProductDbUseCase.getByCategory(typeQuery, maxCount, offset);
 
         if (childCategoryId == null) {
             childProducts = allProducts;
