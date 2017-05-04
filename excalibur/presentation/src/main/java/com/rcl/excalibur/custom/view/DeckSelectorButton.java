@@ -60,6 +60,10 @@ public class DeckSelectorButton extends LinearLayout {
         deckNumber.setText(text);
     }
 
+    public String getText() {
+        return deckNumber.getText().toString();
+    }
+
     public void setButtonObserver(Consumer<Boolean> observer) {
         deckSelectorButtonPressedPublisher.subscribe(observer);
     }
