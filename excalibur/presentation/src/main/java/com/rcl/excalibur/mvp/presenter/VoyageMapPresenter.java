@@ -70,7 +70,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private void initVoyageMapImage() {
         view.setCruiseCoordinate(new PointF(XCOORDINATE, YCOORDINATE + CENTER_OFFSET));
         view.hideShip();
-        view.initVoyageMapImage(R.drawable.voyage_land, new PointF(XCOORDINATE, YCOORDINATE));
+        view.initVoyageMapImage(R.drawable.caribbean_map_2_1, new PointF(XCOORDINATE, YCOORDINATE));
     }
 
     public void onResume() {

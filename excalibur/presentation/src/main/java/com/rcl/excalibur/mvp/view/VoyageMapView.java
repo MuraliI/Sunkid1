@@ -51,7 +51,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
         voyageMapImage.setImage(resource);
         voyageMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_INSIDE);
         voyageMapImage.setMinimumDpi(MINIMUM_DPI);
-        voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / voyageMapImage.SCALE_DIVIDER, point);
+        voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / voyageMapImage.SCALE_FACTOR, point);
         voyageMapImage.setZoomEnabled(false);
     }
 

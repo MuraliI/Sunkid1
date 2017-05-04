@@ -15,7 +15,7 @@ import com.rcl.excalibur.R;
 public class VoyageMapImageView extends SubsamplingScaleImageView {
     public static final float DENSITY_FACTOR = 1400f;
     public static final long DELAY_ANIMATION = 600;
-    public static final int SCALE_DIVIDER = 3;
+    public static final int SCALE_FACTOR = 5;
 
     private Paint paint;
     private Bitmap cruise;
@@ -60,7 +60,7 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
     }
 
     public void animatePointToCenter(PointF pointF, OnAnimationEventListener event) {
-        animateScaleAndCenter(getMaxScale() / SCALE_DIVIDER, pointF)
+        animateScaleAndCenter(getMaxScale() / SCALE_FACTOR, pointF)
                 .withDuration(DELAY_ANIMATION)
                 .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                 .withInterruptible(false)
