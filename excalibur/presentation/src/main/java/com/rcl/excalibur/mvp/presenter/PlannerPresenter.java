@@ -40,7 +40,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.flexibleadapter.items.IHeader;
-import timber.log.Timber;
 
 import static com.rcl.excalibur.model.PlannerProductModel.ALL_DAY_HEADER;
 import static com.rcl.excalibur.model.PlannerProductModel.GENERAL_HEADER;
@@ -61,6 +60,10 @@ public class PlannerPresenter {
     private static final int NO_PEEK_HEIGHT = 0;
     private static final int DELAY_MILLIS_COLLAPSE = 200;
     private static final int DELAY_MILLIS_SCROLL = 100;
+    private static final int HOUR_SIX = 6;
+    private static final int HOUR_TWELVE = 12;
+    private static final int HOUR_SEVENTEEN = 17;
+    private static final int HOUR_TWENTY_THREE = 23;
 
     private PlannerProductModelMapper mapper;
 
@@ -77,6 +80,7 @@ public class PlannerPresenter {
 
     private Handler handler;
 
+    private boolean bottomSheetIsSliding;
     private boolean isExpanded;
 
     @StringRes private int currentPartOfDayResource;
@@ -106,6 +110,7 @@ public class PlannerPresenter {
         view.initBottomSheetBehavior();
         view.setViewObserver(new OnScrolledObserver(this));
         view.setExpandCollapseObserver(new OnExpandCollapseObserver(this));
+        view.setAttachedObserver(new OnChildViewAttachedObserver(this));
         view.setSlideObserver(new OnBottomSheetSlideObserver(this));
         view.setStateChangeObserver(new OnBottomSheetStateChange(this));
 
@@ -185,7 +190,7 @@ public class PlannerPresenter {
         //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2017);
-        calendar.set(Calendar.DAY_OF_MONTH, 7);
+        calendar.set(Calendar.DAY_OF_MONTH, 5);
         calendar.set(Calendar.MONTH, Calendar.JULY);
 
         SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
@@ -221,15 +226,19 @@ public class PlannerPresenter {
 
         if (events != null) {
             Pair<String, Integer> stringIntegerPair = getArrivalDisembarkingDescription(events, day);
-            view.setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
+            if (stringIntegerPair != null) {
+                view.setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
+            }
         }
     }
 
     private Pair<String, Integer> getArrivalDisembarkingDescription(List<EventModel> events, int day) {
+        if (view.getActivity() == null) {
+            return null;
+        }
         Resources resources = view.getActivity().getResources();
-        int drawable;
         PortModel sailPort = PortModel.getSailPortByDay(events, day);
-        drawable = R.drawable.ic_excursions;
+        int drawable = R.drawable.ic_excursions;
 
         if (day == FIRST_DAY) {
             return new Pair<>(resources.getString(R.string.departing_at) + model.getTimeFormat(
@@ -265,15 +274,21 @@ public class PlannerPresenter {
         if (itemView == null) {
             return;
         }
+        if (currentPartOfDayResource == 0) {
+            updateHeader(productItem);
+        }
         int verticalPosition = view.getVerticalLocationOnScreen(itemView);
         if (verticalPosition < headerVerticalPosition) {
-            PlannerHeader header = productItem.getHeader();
-            int newPartOfDay = getPartOfDayResource(productModel);
-            header.setTitle(newPartOfDay);
-            currentPartOfDayResource = newPartOfDay;
-            view.updateHeader();
+            updateHeader(productItem);
         }
-        Timber.d("FromPresenter: LOC" + verticalPosition);
+    }
+
+    private void updateHeader(PlannerProductItem productItem) {
+        PlannerHeader header = productItem.getHeader();
+        int newPartOfDay = getPartOfDayResource(productItem.getPlannerProductModel());
+        header.setTitle(newPartOfDay);
+        currentPartOfDayResource = newPartOfDay;
+        view.updateHeader();
     }
 
     private PortModel getPortTypeNextDay(List<EventModel> events, int day, PortModel sailPort) {
@@ -292,11 +307,11 @@ public class PlannerPresenter {
         Calendar startDate = productModel.getStartDate();
         if (startDate != null) {
             int hourOfDay = startDate.get(Calendar.HOUR_OF_DAY);
-            if (hourOfDay >= 6 && hourOfDay < 12) {
+            if (hourOfDay >= HOUR_SIX && hourOfDay < HOUR_TWELVE) {
                 return R.string.title_morning;
-            } else if (hourOfDay >= 12 && hourOfDay < 17) {
+            } else if (hourOfDay >= HOUR_TWELVE && hourOfDay < HOUR_SEVENTEEN) {
                 return R.string.title_afternoon;
-            } else if (hourOfDay >= 17 && hourOfDay < 23) {
+            } else if (hourOfDay >= HOUR_SEVENTEEN && hourOfDay < HOUR_TWENTY_THREE) {
                 return R.string.title_evening;
             } else {
                 return R.string.title_late_night;
@@ -305,35 +320,9 @@ public class PlannerPresenter {
         return R.string.empty_string;
     }
 
-    private static class OnScrolledObserver extends DefaultPresentObserver<Integer, PlannerPresenter> {
-
-        OnScrolledObserver(PlannerPresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(Integer value) {
-            getPresenter().recyclerOnScroll(value);
-        }
-    }
-
-    private static class OnExpandCollapseObserver extends DefaultPresentObserver<List<IHeader>, PlannerPresenter> {
-        private boolean isExpanded = false;
-
-        OnExpandCollapseObserver(PlannerPresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(List<IHeader> headers) {
-            PlannerPresenter presenter = getPresenter();
-            if (isExpanded) {
-                presenter.collapseSections();
-            } else {
-                presenter.expandSections();
-            }
-            isExpanded = !isExpanded;
-            presenter.updateHeaders(headers, isExpanded);
+    private void onChildAttachedToWindow(View itemView) {
+        if (!bottomSheetIsSliding) {
+            this.view.setInitialViewState(itemView);
         }
     }
 
@@ -355,21 +344,26 @@ public class PlannerPresenter {
         view.removeItems();
     }
 
-    //ON SLIDE OBSERVER
-
-    private static class OnBottomSheetSlideObserver extends DefaultPresentObserver<Float, PlannerPresenter> {
-
-        OnBottomSheetSlideObserver(PlannerPresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(Float slideOffset) {
-            getPresenter().onSlide(slideOffset);
+    private void onStateChange(Integer newState) {
+        switch (newState) {
+            case BottomSheetBehavior.STATE_EXPANDED:
+                if (!isExpanded) {
+                    setBottomSheetExpandedState();
+                }
+                break;
+            case BottomSheetBehavior.STATE_COLLAPSED:
+                if (isExpanded) {
+                    handler.postDelayed(() -> view.scrollToTopOfList(), DELAY_MILLIS_SCROLL);
+                    handler.postDelayed(this::setBottomSheetCollapsingState, DELAY_MILLIS_COLLAPSE);
+                }
+                break;
+            default:
+                break;
         }
     }
 
     private void onSlide(Float slideOffset) {
+        bottomSheetIsSliding = true;
         view.setShipArrivingDebarkingAlpha(MAX_SLIDE_OFFSET - slideOffset);
         if (isExpanded) {
             return;
@@ -415,38 +409,6 @@ public class PlannerPresenter {
         return Math.round((MAX_SLIDE_OFFSET - slideOffset) * marginValue);
     }
 
-    // ON STATE CHANGE OBSERVER
-
-    private static class OnBottomSheetStateChange extends DefaultPresentObserver<Integer, PlannerPresenter> {
-
-        OnBottomSheetStateChange(PlannerPresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(Integer newState) {
-            getPresenter().onStateChange(newState);
-        }
-    }
-
-    private void onStateChange(Integer newState) {
-        switch (newState) {
-            case BottomSheetBehavior.STATE_EXPANDED:
-                if (!isExpanded) {
-                    setBottomSheetExpandedState();
-                }
-                break;
-            case BottomSheetBehavior.STATE_COLLAPSED:
-                if (isExpanded) {
-                    handler.postDelayed(() -> view.scrollToTopOfList(), DELAY_MILLIS_SCROLL);
-                    handler.postDelayed(this::setBottomSheetCollapsingState, DELAY_MILLIS_COLLAPSE);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
     private void setBottomSheetExpandedState() {
         isExpanded = true;
 
@@ -470,4 +432,77 @@ public class PlannerPresenter {
 
         view.setRecyclerViewBackground(R.drawable.background_rounded_top_planner_transparent);
     }
+
+    private static class OnScrolledObserver extends DefaultPresentObserver<Integer, PlannerPresenter> {
+
+        OnScrolledObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Integer value) {
+            getPresenter().recyclerOnScroll(value);
+        }
+    }
+
+    private static class OnExpandCollapseObserver extends DefaultPresentObserver<List<IHeader>, PlannerPresenter> {
+        private boolean isExpanded = false;
+
+        OnExpandCollapseObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(List<IHeader> headers) {
+            PlannerPresenter presenter = getPresenter();
+            if (isExpanded) {
+                presenter.collapseSections();
+            } else {
+                presenter.expandSections();
+            }
+            isExpanded = !isExpanded;
+            presenter.updateHeaders(headers, isExpanded);
+        }
+    }
+
+    private static class OnChildViewAttachedObserver extends DefaultPresentObserver<View, PlannerPresenter> {
+
+        OnChildViewAttachedObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(View itemView) {
+            getPresenter().onChildAttachedToWindow(itemView);
+        }
+    }
+
+    //ON SLIDE OBSERVER
+
+    private static class OnBottomSheetSlideObserver extends DefaultPresentObserver<Float, PlannerPresenter> {
+
+        OnBottomSheetSlideObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Float slideOffset) {
+            getPresenter().onSlide(slideOffset);
+        }
+    }
+
+    // ON STATE CHANGE OBSERVER
+
+    private static class OnBottomSheetStateChange extends DefaultPresentObserver<Integer, PlannerPresenter> {
+
+        OnBottomSheetStateChange(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Integer newState) {
+            getPresenter().onStateChange(newState);
+        }
+    }
+
 }

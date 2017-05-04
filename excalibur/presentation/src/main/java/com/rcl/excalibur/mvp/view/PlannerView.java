@@ -58,6 +58,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private Animation slideUpAnimation;
     private Animation animationGoIn;
 
+    private Observer<View> attachedObserver;
     private Observer<List<IHeader>> expandCollapseObserver;
     private Observer<Float> slideObserver;
     private Observer<Integer> stateChangeObserver;
@@ -66,8 +67,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private List<View> headerViewList;
 
     private PlannerProductItemComparator productItemComparator;
-
-    private boolean bottomSheetIsSliding;
 
     private int headerHeight;
     private int initHorizontalMargin = -1;
@@ -108,9 +107,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
-                if (!bottomSheetIsSliding) {
-                    setInitialViewState(view);
-                }
+                onAttachedNext(view);
             }
 
             @Override
@@ -142,7 +139,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
                     @Override
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                        bottomSheetIsSliding = true;
                         onSlideNext(slideOffset);
                     }
                 }
@@ -172,7 +168,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         }
     }
 
-    private void setInitialViewState(View view) {
+    public void setInitialViewState(View view) {
         if (view.findViewById(R.id.layout_planner_header_container) != null) {
             if (!headerViewList.contains(view)) {
                 headerViewList.add(view);
@@ -347,13 +343,22 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         adapter.notifyItemChanged(headerIndex);
     }
 
+    public void setAttachedObserver(Observer<View> attachedObserver) {
+        this.attachedObserver = attachedObserver;
+    }
+
+    private void onAttachedNext(View itemView) {
+        if (attachedObserver != null) {
+            attachedObserver.onNext(itemView);
+        }
+    }
+
     // COLLAPSE | EXPAND - OBSERVER
 
     private void onExpandCollapseNext(List<IHeader> headers) {
-        if (expandCollapseObserver == null) {
-            return;
+        if (expandCollapseObserver != null) {
+            expandCollapseObserver.onNext(headers);
         }
-        expandCollapseObserver.onNext(headers);
     }
 
     public void setExpandCollapseObserver(Observer<List<IHeader>> expandCollapseObserver) {
@@ -363,10 +368,9 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     // ON SLIDE OBSERVER
 
     private void onSlideNext(Float slideOffset) {
-        if (slideObserver == null) {
-            return;
+        if (slideObserver != null) {
+            slideObserver.onNext(slideOffset);
         }
-        slideObserver.onNext(slideOffset);
     }
 
     public void setSlideObserver(Observer<Float> slideObserver) {
