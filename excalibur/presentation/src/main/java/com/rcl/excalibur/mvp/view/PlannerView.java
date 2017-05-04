@@ -22,6 +22,7 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.DeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.planner.PlannerAdapter;
+import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
@@ -55,6 +56,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     private LinearLayoutManager linearLayoutManager;
     private BottomSheetBehavior bottomSheetBehavior;
+
     private Animation slideUpAnimation;
     private Animation animationGoIn;
 
@@ -66,6 +68,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private List<View> headerViewList;
 
     private PlannerProductItemComparator productItemComparator;
+    private PlannerHeader headerTouched;
 
     private boolean initialized;
     private boolean bottomSheetIsSliding;
@@ -269,6 +272,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
                     sharedItemView,
                     getActivity().getString(R.string.shared_element_transition_name));
         } else {
+            headerTouched = (PlannerHeader) item;
             onExpandCollapseNext(adapter.getHeaderItems());
         }
     }
@@ -283,9 +287,15 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     }
 
     public void removeItems() {
-        recyclerView.smoothScrollToPosition(TOP_OF_LIST);
+        scrollToHeaderTouched();
+
         adapter.removeItems(itemsToRemove);
         itemsToRemove.clear();
+    }
+
+    private void scrollToHeaderTouched() {
+        int headerPosition = adapter.getGlobalPositionOf(headerTouched);
+        recyclerView.smoothScrollToPosition(headerPosition);
     }
 
     public void showProgressBar(boolean show) {
@@ -343,13 +353,8 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         return null;
     }
 
-    public void updateHeader() {
-        adapter.notifyItemChanged(0);
-    }
-
     public void updateHeader(IHeader header) {
-        int headerIndex = adapter.getGlobalPositionOf(header);
-        adapter.notifyItemChanged(headerIndex);
+        adapter.updateItem(header, null);
     }
 
     // COLLAPSE | EXPAND - OBSERVER
@@ -365,7 +370,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         this.expandCollapseObserver = expandCollapseObserver;
     }
 
-    // ON SLIDE OBSERVER
+    // SLIDE OBSERVER
 
     private void onSlideNext(Float slideOffset) {
         if (slideObserver == null) {
@@ -378,7 +383,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         this.slideObserver = slideObserver;
     }
 
-    // ON STATE CHANGE OBSERVER
+    // STATE CHANGE OBSERVER
 
     private void onStateChangeNext(Integer newState) {
         if (stateChangeObserver == null) {

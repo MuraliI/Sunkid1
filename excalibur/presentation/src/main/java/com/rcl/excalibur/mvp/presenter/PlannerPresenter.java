@@ -40,7 +40,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.flexibleadapter.items.IHeader;
-import timber.log.Timber;
 
 import static com.rcl.excalibur.model.PlannerProductModel.ALL_DAY_HEADER;
 import static com.rcl.excalibur.model.PlannerProductModel.GENERAL_HEADER;
@@ -250,35 +249,6 @@ public class PlannerPresenter {
         }
     }
 
-    private void recyclerOnScroll(int headerVerticalPosition) {
-        int topItem = view.getFirstItemPosition();
-        if (topItem == 0) {
-            topItem++;
-        }
-        PlannerProductItem productItem = view.getNextItem(topItem);
-        if (productItem == null) {
-            return;
-        }
-        PlannerProductModel productModel = productItem.getPlannerProductModel();
-        if (productModel == null || productModel.isAllDayProduct()
-                || currentPartOfDayResource == getPartOfDayResource(productModel)) {
-            return;
-        }
-        View itemView = view.getViewItemAt(topItem);
-        if (itemView == null) {
-            return;
-        }
-        int verticalPosition = view.getVerticalLocationOnScreen(itemView);
-        if (verticalPosition < headerVerticalPosition) {
-            PlannerHeader header = productItem.getHeader();
-            int newPartOfDay = getPartOfDayResource(productModel);
-            header.setTitle(newPartOfDay);
-            currentPartOfDayResource = newPartOfDay;
-            view.updateHeader();
-        }
-        Timber.d("FromPresenter: LOC" + verticalPosition);
-    }
-
     private PortModel getPortTypeNextDay(List<EventModel> events, int day, PortModel sailPort) {
         int nextDay = day + 1;
         if (nextDay <= events.size()) {
@@ -308,6 +278,8 @@ public class PlannerPresenter {
         return R.string.empty_string;
     }
 
+    // SCROLL OBSERVER
+
     private static class OnScrolledObserver extends DefaultPresentObserver<Integer, PlannerPresenter> {
 
         OnScrolledObserver(PlannerPresenter presenter) {
@@ -319,6 +291,36 @@ public class PlannerPresenter {
             getPresenter().recyclerOnScroll(value);
         }
     }
+
+    private void recyclerOnScroll(int headerVerticalPosition) {
+        int topItem = view.getFirstItemPosition();
+        if (topItem == 0) {
+            topItem++;
+        }
+        PlannerProductItem productItem = view.getNextItem(topItem);
+        if (productItem == null) {
+            return;
+        }
+        PlannerProductModel productModel = productItem.getPlannerProductModel();
+        if (productModel == null || productModel.isAllDayProduct()
+                || currentPartOfDayResource == getPartOfDayResource(productModel)) {
+            return;
+        }
+        View itemView = view.getViewItemAt(topItem);
+        if (itemView == null) {
+            return;
+        }
+        int verticalPosition = view.getVerticalLocationOnScreen(itemView);
+        if (verticalPosition < headerVerticalPosition) {
+            PlannerHeader header = productItem.getHeader();
+            int newPartOfDay = getPartOfDayResource(productModel);
+            header.setTitle(newPartOfDay);
+            currentPartOfDayResource = newPartOfDay;
+            view.updateHeader(header);
+        }
+    }
+
+    // EXPAND | COLLAPSE OBSERVER
 
     private static class OnExpandCollapseObserver extends DefaultPresentObserver<List<IHeader>, PlannerPresenter> {
         private boolean isExpanded = false;
@@ -358,7 +360,7 @@ public class PlannerPresenter {
         view.removeItems();
     }
 
-    //ON SLIDE OBSERVER
+    // SLIDE OBSERVER
 
     private static class OnBottomSheetSlideObserver extends DefaultPresentObserver<Float, PlannerPresenter> {
 
@@ -417,7 +419,7 @@ public class PlannerPresenter {
         return Math.round((MAX_SLIDE_OFFSET - slideOffset) * marginValue);
     }
 
-    // ON STATE CHANGE OBSERVER
+    // STATE CHANGE OBSERVER
 
     private static class OnBottomSheetStateChange extends DefaultPresentObserver<Integer, PlannerPresenter> {
 

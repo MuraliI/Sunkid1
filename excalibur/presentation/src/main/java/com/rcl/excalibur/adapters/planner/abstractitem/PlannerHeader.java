@@ -77,7 +77,7 @@ public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHo
     @Override
     public void bindViewHolder(FlexibleAdapter adapter, HeaderViewHolder holder, int position, List payloads) {
         holder.partOfDayText.setText(getTitle());
-        if (isSectionExpanded) {
+        if (isSectionExpanded()) {
             holder.expand();
         } else {
             holder.collapse();
@@ -93,12 +93,12 @@ public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHo
             ButterKnife.bind(this, itemView);
         }
 
-        public void expand() {
+        void expand() {
             expandableText.setText(R.string.planner_header_see_less);
             expandableText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_chevron_up, 0);
         }
 
-        public void collapse() {
+        void collapse() {
             expandableText.setText(R.string.planner_header_see_all);
             expandableText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_chevron_down, 0);
         }
@@ -113,7 +113,7 @@ public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHo
         isAllDayHeader = allDayHeader;
     }
 
-    public boolean isSectionExpanded() {
+    private boolean isSectionExpanded() {
         return isSectionExpanded;
     }
 
