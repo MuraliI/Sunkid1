@@ -2,7 +2,6 @@ package com.rcl.excalibur.mvp.presenter;
 
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Pair;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -20,11 +19,14 @@ import com.rcl.excalibur.mvp.view.DeckMapView;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class DeckMapPresenter {
 
     private static final int DEFAULT_DECK_NUMBER = 1;
     private static final String DEFAULT_LATITUDE = "0";
     private static final String DEFAULT_DECK = "12";
+    private static final String ERROR = "conversion error";
 
     private Animation fadeOutBack;
     private Animation fadeOutFront;
@@ -35,7 +37,6 @@ public class DeckMapPresenter {
     private GetProductDbUseCase getProductDbUseCase;
     private DeckMapView view;
 
-    private Product product;
     private int yCoord = 0;
     private int deckNumber = 1;
     private boolean enableDisable = true;
@@ -46,18 +47,23 @@ public class DeckMapPresenter {
     }
 
     public void init(String productId) {
-        product = getProductDbUseCase.get(productId);
+        Product product = getProductDbUseCase.get(productId);
         if (product != null) {
             enableDisable = false;
             ProductLocation productLocation = product.getProductLocation();
             if (productLocation != null) {
                 String productLatitude = productLocation.getLatitude();
                 List<LocationDeckInfo> locationDeckInfo = productLocation.getLocationDeckInfo();
-                if (locationDeckInfo.size() > 0) {
+                if (locationDeckInfo != null && locationDeckInfo.size() > 0) {
                     LocationDeckInfo deckInfo = locationDeckInfo.get(0);
                     String productDeckNumber = deckInfo.getDeckNumber();
-                    yCoord = Integer.valueOf(productLatitude == null ? DEFAULT_LATITUDE : productLatitude);
-                    deckNumber = Integer.valueOf(productDeckNumber == null ? DEFAULT_DECK : productDeckNumber);
+
+                    try {
+                        yCoord = Integer.valueOf(productLatitude == null ? DEFAULT_LATITUDE : productLatitude);
+                        deckNumber = Integer.valueOf(productDeckNumber == null ? DEFAULT_DECK : productDeckNumber);
+                    } catch (Exception e) {
+                        Timber.e(ERROR, e);
+                    }
                 }
             }
         }
@@ -114,8 +120,6 @@ public class DeckMapPresenter {
 
     public void setFadeInOutAnimation(Pair<Integer, Integer> deck) {
         initAnimations();
-        Drawable deckMapBackDrawable = view.getDeckMapBackDrawable();
-        Drawable deckMapFrontDrawable = view.getDeckMapFrontDrawable();
         String preNumber = view.getTextDeckSelectorButton();
 
         int preDeckNumber = preNumber == null ? DEFAULT_DECK_NUMBER
@@ -123,14 +127,10 @@ public class DeckMapPresenter {
         if (preDeckNumber == deck.first) {
             return;
         } else if (preDeckNumber < deck.first) {
-            if (deckMapFrontDrawable != null) {
-                view.setDeckBackImageDrawable(deckMapFrontDrawable);
-            }
+            view.setDeckBackImageDrawable();
             view.setAnimation(deck.second, fadeOutBack, fadeOutFront, false);
         } else {
-            if (deckMapFrontDrawable == null) {
-                view.setDeckFrontImageDrawable(deckMapBackDrawable);
-            }
+            view.setDeckFrontImageDrawable();
             view.setAnimation(deck.second, fadeInFront, fadeInBack, true);
         }
     }

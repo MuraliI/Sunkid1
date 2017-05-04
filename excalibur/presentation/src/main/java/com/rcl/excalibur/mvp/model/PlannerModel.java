@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 
+import timber.log.Timber;
+
 public final class PlannerModel {
 
     private static final int DEFAULT_TIME_VALUE = 0;
@@ -18,13 +20,19 @@ public final class PlannerModel {
     private static final String TIME_FORMAT_SEPARATOR = ":";
     private static final String TIME_FORMAT_AM = " AM";
     private static final String TIME_FORMAT_PM = " PM";
+    private static final String ERROR = "conversion error";
 
     public String getTimeFormat(@NonNull String arrivalTime) {
         String time = ConstantsUtil.EMPTY;
         if (arrivalTime == null) {
             return time;
         }
-        int arrivalTimeValue = Integer.valueOf(arrivalTime);
+        int arrivalTimeValue = 0;
+        try {
+            arrivalTimeValue = Integer.valueOf(arrivalTime);
+        } catch (Exception e) {
+            Timber.e(ERROR, e);
+        }
         if (arrivalTimeValue > 0) {
             String timeAmPm;
             String timeHour;
@@ -42,14 +50,16 @@ public final class PlannerModel {
     }
 
     private String getStringTimeData(String arrivalTimeString, int dif, boolean isMinute) {
-        String stringTime;
-        if (isMinute) {
-            stringTime = arrivalTimeString.substring(MIDDLE_TIME_INDEX, END_TIME_INDEX);
-        } else {
-            String subString = arrivalTimeString.substring(BEGIN_TIME_INDEX, MIDDLE_TIME_INDEX);
-            int hour = Integer.valueOf(subString);
-            int subStringValue = (hour == MIDNIGHT_TIME_VALUE || hour == MIDDAY_TIME_VALUE) ? MIDDAY_TIME_VALUE : (hour - dif);
-            stringTime = String.valueOf(subStringValue);
+        String stringTime = ConstantsUtil.EMPTY;
+        if (arrivalTimeString.length() >= END_TIME_INDEX) {
+            if (isMinute) {
+                stringTime = arrivalTimeString.substring(MIDDLE_TIME_INDEX, END_TIME_INDEX);
+            } else {
+                String subString = arrivalTimeString.substring(BEGIN_TIME_INDEX, MIDDLE_TIME_INDEX);
+                int hour = Integer.valueOf(subString);
+                int subStringValue = (hour == MIDNIGHT_TIME_VALUE || hour == MIDDAY_TIME_VALUE) ? MIDDAY_TIME_VALUE : (hour - dif);
+                stringTime = String.valueOf(subStringValue);
+            }
         }
         return stringTime;
     }
