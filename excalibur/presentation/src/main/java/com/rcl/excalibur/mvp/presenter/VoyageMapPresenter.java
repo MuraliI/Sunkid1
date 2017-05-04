@@ -32,7 +32,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         SubsamplingScaleImageView.OnImageEventListener {
     private static final int XCOORDINATE = 796;
     private static final int YCOORDINATE = 826;
-    private static final int CENTER_OFFSET = 100;
+    private static final int CENTER_OFFSET = 120;
 
     private VoyageMapView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;

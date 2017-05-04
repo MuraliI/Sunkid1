@@ -13,7 +13,7 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 
 public class VoyageMapImageView extends SubsamplingScaleImageView {
-    public static final float DENSITY_FACTOR = 1400f;
+    public static final float DENSITY_FACTOR = 1800f;
     public static final long DELAY_ANIMATION = 600;
     public static final int SCALE_FACTOR = 5;
 
