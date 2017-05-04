@@ -12,15 +12,19 @@ import io.reactivex.observers.DisposableObserver;
 public class GetMenusUseCase extends UseCase<List<Menu>, Void> {
 
     private final MenuServices menuServices;
+    private final String venueCode;
 
-    public GetMenusUseCase(MenuServices menuServices) {
+    public GetMenusUseCase(MenuServices menuServices, String venueCode) {
         super();
         this.menuServices = menuServices;
+        this.venueCode = venueCode;
     }
+
+
 
     @Override
     void buildUseCaseObservable(DisposableObserver<List<Menu>> observer, Void aVoid) {
-        menuServices.getMenu(observer);
+        menuServices.getMenu(observer, venueCode);
 
     }
 }

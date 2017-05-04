@@ -17,22 +17,25 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class DiscoverTabPresenterTest {
 
     DiscoverTabPresenter presenter;
-    @Mock DiscoverTabView view;
-    @Mock GetProductsUseCase getProductsUseCase;
-    @Mock GetSaildDateUseCase getSaildDateUseCase;
-    @Mock BaseActivity activity;
+    @Mock
+    DiscoverTabView view;
+    @Mock
+    GetProductsUseCase getProductsUseCase;
+    @Mock
+    GetSaildDateUseCase getSaildDateUseCase;
+    @Mock
+    BaseActivity activity;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new DiscoverTabPresenter(view);//getProductsUseCase, getSaildDateUseCase);
+        //presenter = new DiscoverTabPresenter(view);//getProductsUseCase, getSaildDateUseCase);
 
-        when(view.getActivity()).thenReturn(activity);
+        //when(view.getActivity()).thenReturn(activity);
     }
 
 

@@ -9,5 +9,5 @@ import io.reactivex.observers.DisposableObserver;
 
 public interface MenuServices {
 
-    void getMenu(DisposableObserver<List<Menu>> observer);
+    void getMenu(DisposableObserver<List<Menu>> observer, String venueCode);
 }
