@@ -4,9 +4,10 @@ package com.rcl.excalibur.data.utils;
 import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.api.GuestApi;
+import com.rcl.excalibur.data.service.api.SailDateApi;
+import com.rcl.excalibur.data.service.api.ShipStatsApi;
 import com.rcl.excalibur.data.service.api.ShipTimeApi;
 import com.rcl.excalibur.data.service.response.BaseResponse;
-import com.rcl.excalibur.data.service.api.SailDateApi;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +28,7 @@ public final class ServiceUtil {
     private static GuestApi guestApi;
     private static SailDateApi sailDateApi;
     private static ShipTimeApi shipTimeApi;
+    private static ShipStatsApi shipStatsApi;
 
 
     private ServiceUtil() {
@@ -46,6 +48,18 @@ public final class ServiceUtil {
             shipTimeApi = retrofit.create(ShipTimeApi.class);
         }
         return shipTimeApi;
+    }
+
+    public static ShipStatsApi getShipStatsApi() {
+        if (shipStatsApi == null) {
+            Retrofit retrofit = new Retrofit.Builder().
+                    baseUrl(BuildConfig.SHIP_TIME_API_URL).
+                    addConverterFactory(GsonConverterFactory.create()).
+                    client(getClient())
+                    .build();
+            shipStatsApi = retrofit.create(ShipStatsApi.class);
+        }
+        return shipStatsApi;
     }
 
     public static DiscoverApi getDiscoverApi() {

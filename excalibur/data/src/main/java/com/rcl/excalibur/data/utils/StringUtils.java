@@ -111,7 +111,7 @@ public final class StringUtils {
         try {
             byte[] data = Base64.decode(string, Base64.DEFAULT);
             stringExtra = new String(data, OUTPUT_CHARSET);
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException | IllegalArgumentException e) {
             Timber.e(ERROR_DECODING_STRING, e.getMessage());
         }
         return stringExtra;
