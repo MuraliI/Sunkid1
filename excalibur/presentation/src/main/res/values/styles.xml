@@ -6,8 +6,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
-        <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/long_move</item>
+        <item name="android:windowSharedElementExitTransition">@transition/long_move</item>
     </style>
 
     <style name="AppTheme.Home" parent="Theme.AppCompat.Light.NoActionBar">
