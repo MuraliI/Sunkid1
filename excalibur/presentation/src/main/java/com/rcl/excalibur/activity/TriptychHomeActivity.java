@@ -7,11 +7,12 @@ import android.os.Bundle;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
 import com.rcl.excalibur.data.preference.SailingPreferenceImpl;
+import com.rcl.excalibur.data.repository.ProductDataRepository;
 import com.rcl.excalibur.data.repository.SailDateDataRepository;
 import com.rcl.excalibur.data.repository.SubCategoriesDataRepository;
 import com.rcl.excalibur.data.service.DiscoverServicesImpl;
 import com.rcl.excalibur.data.service.SailDateServicesImpl;
-import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
+import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
@@ -41,7 +42,7 @@ public class TriptychHomeActivity extends BaseActivity {
 
         presenter = new TriptychHomePresenter(
                 new TriptychHomeView(this),
-                new GetProductsUseCase(impl),
+                new GetProductDbUseCase(new ProductDataRepository()),
                 new GetSubCategoriesUseCase(impl),
                 new GetSaildDateUseCase(new SailDateServicesImpl(new SailDateDataRepository())),
                 new GetSailingPreferenceUseCase(sailingPreferences),

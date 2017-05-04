@@ -13,9 +13,9 @@ import com.rcl.excalibur.mvp.view.DiscoverTabView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_GUEST_SERVICES;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_DINING;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ENTERTAINMENT;
+import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_GUEST_SERVICES;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_ROYAL_ACTIVITY;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SHOPPING;
 import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SHOREX;
@@ -24,6 +24,8 @@ import static com.rcl.excalibur.mvp.presenter.PlanListPresenter.POSITION_SPA;
 public class DiscoverTabFragment extends BaseTripTychFragment {
 
     protected DiscoverTabPresenter presenter;
+    //FIXME fix logic of calling service completed
+    private boolean serviceAlreadyCompleted;
 
     public static DiscoverTabFragment newInstance() {
         return new DiscoverTabFragment();
@@ -40,7 +42,7 @@ public class DiscoverTabFragment extends BaseTripTychFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new DiscoverTabPresenter(new DiscoverTabView(this));
+        presenter = new DiscoverTabPresenter(new DiscoverTabView(this), serviceAlreadyCompleted);
     }
 
 
@@ -81,7 +83,11 @@ public class DiscoverTabFragment extends BaseTripTychFragment {
 
     @Override
     public void onServiceCallCompleted(boolean success) {
-        presenter.serviceCallCompleted();
+        if (presenter != null) {
+            presenter.serviceCallCompleted();
+        } else {
+            serviceAlreadyCompleted = true;
+        }
     }
 
     @OnClick(R.id.image_ship_invisible)
