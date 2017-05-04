@@ -32,7 +32,7 @@ public class HorizontalPickerView<T> extends FrameLayout {
     private LinearLayoutManager layoutManager;
     private HorizontalPickerViewAdapter<T> horizontalPickerViewAdapter;
 
-    private boolean isDeckSelectoShown;
+    private boolean isDeckSelectorShown;
     private int revealAnimationDuration;
 
     public HorizontalPickerView(@NonNull Context context) {
@@ -81,7 +81,7 @@ public class HorizontalPickerView<T> extends FrameLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setTranslationY(isDeckSelectoShown ? ORIGINAL_TRANSLATION_Y : -getMeasuredHeight());
+        setTranslationY(isDeckSelectorShown ? ORIGINAL_TRANSLATION_Y : -getMeasuredHeight());
     }
 
     public void setLayoutManager(LinearLayoutManager layoutManager) {
@@ -124,8 +124,8 @@ public class HorizontalPickerView<T> extends FrameLayout {
 
     @Override
     public void setVisibility(int visibility) {
-        isDeckSelectoShown = !(visibility == View.GONE);
-        float translation = isDeckSelectoShown ? ORIGINAL_TRANSLATION_Y : -getHeight();
+        isDeckSelectorShown = !(visibility == View.GONE);
+        float translation = isDeckSelectorShown ? ORIGINAL_TRANSLATION_Y : -getHeight();
         animate().translationY(translation).setDuration(revealAnimationDuration).start();
     }
 }
