@@ -67,6 +67,7 @@ public class DeckMapPresenter {
         deckImages.add(new Pair<>(10, R.drawable.deck10));
         deckImages.add(new Pair<>(11, R.drawable.deck11));
         deckImages.add(new Pair<>(12, R.drawable.deck12));
+        deckImages.add(new Pair<>(13, R.drawable.deck13));
     }
 
     private void initView() {
