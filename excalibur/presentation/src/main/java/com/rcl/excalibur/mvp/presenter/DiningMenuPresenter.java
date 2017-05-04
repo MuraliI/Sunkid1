@@ -44,11 +44,13 @@ public class DiningMenuPresenter {
             @Override
             public void onError(Throwable e) {
                 Timber.d("getMenusUseCase", "onError");
+                view.hideProgressBar();
             }
 
             @Override
             public void onComplete() {
                 Timber.d("getMenusUseCase", "onComplete");
+                view.hideProgressBar();
 
             }
         }, null);
