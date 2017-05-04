@@ -8,21 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.data.repository.MenuDataRepository;
-import com.rcl.excalibur.data.utils.StringUtils;
-import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
+import com.rcl.excalibur.model.MenuSectionModel;
 import com.rcl.excalibur.mvp.presenter.MenuListPresenter;
 import com.rcl.excalibur.mvp.view.MenuListView;
 
 public class MenuListFragment extends Fragment {
 
     protected MenuListPresenter presenter;
-    private static final String ARGUMENT_DINING_MENU_NAME = "MenuListFragment.ARGUMENT_DINING_MENU_NAME";
+    private static final String ARGUMENT_DINING_MENU_SECTION = "MenuListFragment.ARGUMENT_DINING_MENU_SECTION";
 
-    public static MenuListFragment newInstance(String menuName) {
+    public static MenuListFragment newInstance(MenuSectionModel menuName) {
         final MenuListFragment fragment = new MenuListFragment();
         final Bundle args = new Bundle();
-        args.putString(ARGUMENT_DINING_MENU_NAME, StringUtils.encodeString(menuName));
+        args.putParcelable(ARGUMENT_DINING_MENU_SECTION, menuName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,11 +37,11 @@ public class MenuListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final Bundle bundle = getArguments();
-        if (bundle == null || !bundle.containsKey(ARGUMENT_DINING_MENU_NAME)) {
+        if (bundle == null || !bundle.containsKey(ARGUMENT_DINING_MENU_SECTION)) {
             return;
         }
-        final String menuName = bundle.getString(ARGUMENT_DINING_MENU_NAME);
-        presenter = new MenuListPresenter(new MenuListView(this), new GetMenuDbUseCase(new MenuDataRepository()));
-        presenter.init(StringUtils.decodeString(menuName));
+        final MenuSectionModel menuSectionModel = bundle.getParcelable(ARGUMENT_DINING_MENU_SECTION);
+        presenter = new MenuListPresenter(new MenuListView(this));
+        presenter.init(menuSectionModel);
     }
 }

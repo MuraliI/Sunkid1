@@ -9,16 +9,19 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.DiningMenuPagerAdapter;
 import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
 import com.rcl.excalibur.fragments.MenuListFragment;
+import com.rcl.excalibur.model.MenuSectionModel;
 import com.rcl.excalibur.mvp.view.DiningMenuView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.AlertDialogUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiningMenuPresenter {
 
     private final DiningMenuView view;
     private final GetMenuDbUseCase getMenuDbUseCase;
+    private static final int MINIMUM_SECTIONS = 0;
 
     public DiningMenuPresenter(DiningMenuView view, GetMenuDbUseCase getMenuDbUseCase) {
         this.view = view;
@@ -37,18 +40,33 @@ public class DiningMenuPresenter {
     }
 
     public void createFragmentMenu(String venueCode, ViewPager viewPager) {
-        List<String> menusName = getMenuDbUseCase.getAllMenuName();
-        if (menusName != null && !menusName.isEmpty()) {
-            addFragmentsToPager(menusName, viewPager);
+        List<MenuSectionModel> validMenusSections = validMenus(getMenuDbUseCase.getAllMenuName());
+        if (validMenusSections != null && !validMenusSections.isEmpty()) {
+            addFragmentsToPager(validMenusSections, viewPager);
         } else {
             showDialogEmptyMenu();
         }
     }
 
-    private void addFragmentsToPager(List<String> menusName, ViewPager viewPager) {
+    private List<MenuSectionModel> validMenus(List<String> allMenuNames) {
+        List<MenuSectionModel> validMenuSections = new ArrayList<>();
+        for (String menuName : allMenuNames) {
+
+            MenuSectionModel menuSectionModel = new MenuSectionModel();
+            menuSectionModel.setMenuName(menuName);
+            menuSectionModel.setMenuSections(getMenuDbUseCase.getAllMenuItemByMenuName(menuName));
+
+            if (menuSectionModel.getMenuSections().size() > MINIMUM_SECTIONS) {
+                validMenuSections.add(menuSectionModel);
+            }
+        }
+        return validMenuSections;
+    }
+
+    private void addFragmentsToPager(List<MenuSectionModel> menuSections, ViewPager viewPager) {
         DiningMenuPagerAdapter adapter = new DiningMenuPagerAdapter(view.getFragmentManager());
-        for (String menuName : menusName) {
-            adapter.addFragment(MenuListFragment.newInstance(menuName), menuName);
+        for (MenuSectionModel menuSection : menuSections) {
+            adapter.addFragment(MenuListFragment.newInstance(menuSection), menuSection.getMenuName());
         }
         viewPager.setAdapter(adapter);
     }
