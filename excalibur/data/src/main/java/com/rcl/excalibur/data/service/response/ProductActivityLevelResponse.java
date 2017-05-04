@@ -3,6 +3,7 @@ package com.rcl.excalibur.data.service.response;
 
 import com.google.gson.annotations.SerializedName;
 
+@Deprecated
 public class ProductActivityLevelResponse {
     @SerializedName("activityLevelID")
     private String activityLevelId;

@@ -13,7 +13,7 @@ public class MediaValueEntity extends Model {
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_LINK = "link";
 
-    @Column(name = COLUMN_MEDIA)
+    @Column(name = COLUMN_MEDIA, onDelete = Column.ForeignKeyAction.CASCADE)
     private MediaEntity media;
     @Column(name = COLUMN_TYPE)
     private String type;
