@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.repository.MenuDataRepository;
+import com.rcl.excalibur.data.utils.StringUtils;
 import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
 import com.rcl.excalibur.mvp.presenter.MenuListPresenter;
 import com.rcl.excalibur.mvp.view.MenuListView;
@@ -21,7 +22,7 @@ public class MenuListFragment extends Fragment {
     public static MenuListFragment newInstance(String menuName) {
         final MenuListFragment fragment = new MenuListFragment();
         final Bundle args = new Bundle();
-        args.putString(ARGUMENT_DINING_MENU_NAME, menuName);
+        args.putString(ARGUMENT_DINING_MENU_NAME, StringUtils.encodeString(menuName));
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,6 +44,6 @@ public class MenuListFragment extends Fragment {
         }
         final String menuName = bundle.getString(ARGUMENT_DINING_MENU_NAME);
         presenter = new MenuListPresenter(new MenuListView(this), new GetMenuDbUseCase(new MenuDataRepository()));
-        presenter.init(menuName);
+        presenter.init(StringUtils.decodeString(menuName));
     }
 }
