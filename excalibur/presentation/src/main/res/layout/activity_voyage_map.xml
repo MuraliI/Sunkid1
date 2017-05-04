@@ -74,15 +74,16 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="@dimen/margin_small"
         android:layout_marginStart="@dimen/margin_small"
-        android:background="@color/white"
+        android:background="@drawable/background_rounded_top"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/margin_large"
-            android:layout_height="@dimen/margin_large"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/margin_small"
-            android:background="@color/black" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:background="@drawable/arrow_up_gray"
+            android:foregroundGravity="center_vertical" />
     </LinearLayout>
 
 </RelativeLayout>
