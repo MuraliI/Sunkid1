@@ -40,8 +40,7 @@ public class TriptychHomeActivity extends BaseActivity {
         setContentView(R.layout.activity_triptych_home_screen);
         sailingPreferences = new SailingPreferenceImpl(this);
 
-        DiscoverServicesImpl impl = new DiscoverServicesImpl(new ProductDataRepository()
-                , new DiscoverPreferenceImpl(this));
+        DiscoverServicesImpl impl = new DiscoverServicesImpl();
         impl.setSubCategoryRepository(new SubCategoriesDataRepository());
         impl.setSubCategoryResponseDataMapper(new SubCategoryResponseDataMapper());
 

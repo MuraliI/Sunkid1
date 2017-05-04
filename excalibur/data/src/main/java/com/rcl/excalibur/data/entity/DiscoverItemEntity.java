@@ -6,6 +6,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 @Table(name = DiscoverItemEntity.TABLE_NAME)
+@Deprecated
 public class DiscoverItemEntity extends Model {
 
     public static final String TABLE_NAME = "discover_item";
