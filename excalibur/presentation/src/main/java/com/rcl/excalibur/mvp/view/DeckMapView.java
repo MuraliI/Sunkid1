@@ -1,6 +1,7 @@
 package com.rcl.excalibur.mvp.view;
 
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Pair;
 import android.view.View;
@@ -59,44 +60,55 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
     public void setInitialDeck(Pair<Integer, Integer> deck) {
         deckMapBackImage.setImageResource(deck.second);
         deckSelectorPicker.setSelectedItem(deck);
-        if (getContext() != null) {
-            deckSelectorButton.setText(getContext().getString(R.string.deck_number, String.valueOf(deck.first)));
+        Context context = getContext();
+        if (context == null) {
+            return;
         }
+        deckSelectorButton.setText(context.getString(R.string.deck_number, String.valueOf(deck.first)));
     }
 
     public void onDeckSelected(Pair<Integer, Integer> deck) {
         deckSelectorPicker.setSelectedItem(deck);
-        if (getContext() != null) {
-            deckSelectorButton.setText(getContext().getString(R.string.deck_number, String.valueOf(deck.first)));
+        Context context = getContext();
+        if (context == null) {
+            return;
         }
+        deckSelectorButton.setText(context.getString(R.string.deck_number, String.valueOf(deck.first)));
     }
 
-    public ImageView getDeckMapBackImage() {
-        return deckMapBackImage;
+    public Drawable getDeckMapBackDrawable() {
+        return deckMapBackImage.getDrawable();
     }
 
-    public ImageView getDeckMapFrontImage() {
-        return deckMapFrontImage;
+    public Drawable getDeckMapFrontDrawable() {
+        return deckMapFrontImage.getDrawable();
     }
 
-    public DeckSelectorButton getDeckSelectorButton() {
-        return deckSelectorButton;
+    public String getTextDeckSelectorButton() {
+        return deckSelectorButton.getText();
     }
 
     public void openDeckSelector(Boolean opened) {
         deckSelectorPicker.setVisibility(opened ? View.VISIBLE : View.GONE);
     }
 
-    public void setDeckImageDrawable(Drawable preImage, ImageView backView, ImageView frontView) {
-        backView.setImageDrawable(preImage);
-        frontView.setImageDrawable(null);
+    public void setDeckBackImageDrawable(Drawable preImage) {
+        deckMapBackImage.setImageDrawable(preImage);
+        deckMapFrontImage.setImageDrawable(null);
     }
 
-    public void setAnimation(Pair<Integer, Integer> deck, Animation fadeOutBack, Animation fadeOutFront,
-                             ImageView frontView, ImageView backView) {
-        frontView.setImageResource(deck.second);
-        backView.startAnimation(fadeOutBack);
-        frontView.startAnimation(fadeOutFront);
+    public void setDeckFrontImageDrawable(Drawable preImage) {
+        deckMapFrontImage.setImageDrawable(preImage);
+        deckMapBackImage.setImageDrawable(null);
+    }
+
+    public void setAnimation(int resource, Animation fadeOutBack, Animation fadeOutFront, boolean front) {
+        ImageView iFront = front ? deckMapBackImage : deckMapFrontImage;
+        ImageView iBack = front ? deckMapFrontImage : deckMapBackImage;
+
+        iFront.setImageResource(resource);
+        iBack.startAnimation(fadeOutBack);
+        iFront.startAnimation(fadeOutFront);
         fadeOutBack.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -105,7 +117,7 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                backView.setImageDrawable(null);
+                iBack.setImageDrawable(null);
             }
 
             @Override

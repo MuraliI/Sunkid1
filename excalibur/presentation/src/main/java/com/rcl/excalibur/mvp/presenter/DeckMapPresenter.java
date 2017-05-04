@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.util.Pair;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
@@ -102,26 +101,24 @@ public class DeckMapPresenter {
     }
 
     public void setFadeInOutAnimation(Pair<Integer, Integer> deck) {
-        ImageView deckMapBackImage = view.getDeckMapBackImage();
-        ImageView deckMapFrontImage = view.getDeckMapFrontImage();
-
-        Drawable preImage = deckMapFrontImage.getDrawable();
-        String preNumber = view.getDeckSelectorButton().getText();
+        Drawable deckMapBackDrawable = view.getDeckMapBackDrawable();
+        Drawable deckMapFrontDrawable = view.getDeckMapFrontDrawable();
+        String preNumber = view.getTextDeckSelectorButton();
 
         int preDeckNumber = preNumber == null ? DEFAULT_DECK_NUMBER
                 : Integer.valueOf(preNumber.split(ConstantsUtil.WHITE_SPACE)[DEFAULT_DECK_NUMBER]);
         if (preDeckNumber == deck.first) {
             return;
         } else if (preDeckNumber < deck.first) {
-            if (preImage != null) {
-                view.setDeckImageDrawable(preImage, deckMapBackImage, deckMapFrontImage);
+            if (deckMapFrontDrawable != null) {
+                view.setDeckBackImageDrawable(deckMapFrontDrawable);
             }
-            view.setAnimation(deck, fadeOutBack, fadeOutFront, deckMapFrontImage, deckMapBackImage);
+            view.setAnimation(deck.second, fadeOutBack, fadeOutFront, false);
         } else {
-            if (preImage == null) {
-                view.setDeckImageDrawable(deckMapBackImage.getDrawable(), deckMapFrontImage, deckMapBackImage);
+            if (deckMapFrontDrawable == null) {
+                view.setDeckFrontImageDrawable(deckMapBackDrawable);
             }
-            view.setAnimation(deck, fadeInFront, fadeInBack, deckMapBackImage, deckMapFrontImage);
+            view.setAnimation(deck.second, fadeInFront, fadeInBack, true);
         }
     }
 
