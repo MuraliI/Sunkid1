@@ -71,7 +71,7 @@ public class OfferingResponseMapperTest {
         Offering transformedOffering = transformedOfferings.get(0);
         assertNotNull(transformedOffering);
         assertEquals(testOfferingResponse.getOfferingId(), transformedOffering.getId());
-        assertEquals(startDate.getTime(), transformedOffering.getCompleteDate());
+        assertEquals(startDate.getTime(), transformedOffering.getDate());
 
         //Product
         assertEquals(testProduct.getProductId(), transformedOffering.getProduct().getProductId());
