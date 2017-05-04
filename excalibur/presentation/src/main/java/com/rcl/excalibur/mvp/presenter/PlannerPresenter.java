@@ -80,13 +80,15 @@ public class PlannerPresenter {
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
     }
 
-    public void init() {
+    public void init(boolean serviceAlreadyCompleted) {
         view.init();
         view.showProgressBar(true);
         view.initAnimation();
         view.initBottomSheetBehavior();
-
         createHeaderList();
+        if (serviceAlreadyCompleted) {
+            onServiceCallCompleted();
+        }
     }
 
     private void createHeaderList() {
@@ -130,8 +132,8 @@ public class PlannerPresenter {
         //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2017);
-        calendar.set(Calendar.DAY_OF_MONTH, 3);
-        calendar.set(Calendar.MONTH, Calendar.MAY);
+        calendar.set(Calendar.DAY_OF_MONTH, 7);
+        calendar.set(Calendar.MONTH, Calendar.JULY);
         SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
         List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
         if (!items.isEmpty()) {
