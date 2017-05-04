@@ -33,7 +33,7 @@ public class TriptychHomePresenter {
 
     public static final String PORT_TYPE_EMBARK = "EMBARK";
     public static final String PORT_TYPE_DOCKED = "DOCKED";
-    public static final String PORT_TYPE_DEBARK = "DISEMBARK";
+    public static final String PORT_TYPE_DEBARK = "DEBARK";
     public static final String PORT_TYPE_CRUISING = "CRUISING";
 
     private TriptychHomeView view;
