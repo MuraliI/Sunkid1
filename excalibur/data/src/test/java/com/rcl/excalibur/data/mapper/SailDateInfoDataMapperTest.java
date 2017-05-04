@@ -118,11 +118,11 @@ public class SailDateInfoDataMapperTest {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
 
-            Date arrivalDate = DateUtil.getDateFormatISO().parse(portResponse.getArrivalDateTime());
+            Date arrivalDate = DateUtil.parseDateISO(portResponse.getArrivalDateTime());
             assertEquals(dateFormat.format(arrivalDate), sailPort.getArrivalDate());
             assertEquals(timeFormat.format(arrivalDate), sailPort.getArrivalTime());
 
-            Date departureDate = DateUtil.getDateFormatISO().parse(portResponse.getDepartureDateTime());
+            Date departureDate = DateUtil.parseDateISO(portResponse.getDepartureDateTime());
             assertEquals(dateFormat.format(departureDate), sailPort.getDepartureDate());
             assertEquals(timeFormat.format(departureDate), sailPort.getDepartureTime());
         }

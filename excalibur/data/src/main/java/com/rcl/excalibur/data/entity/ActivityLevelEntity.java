@@ -6,6 +6,7 @@ import com.activeandroid.annotation.Table;
 
 
 @Table(name = ActivityLevelEntity.TABLE_NAME)
+@Deprecated
 public class ActivityLevelEntity extends Model {
 
     public static final String TABLE_NAME = "activity_level";

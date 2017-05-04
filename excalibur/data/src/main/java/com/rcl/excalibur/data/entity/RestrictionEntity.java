@@ -53,14 +53,13 @@ public class RestrictionEntity extends Model {
         return new Gson().fromJson(answersJson, String[].class);
     }
 
-    public void setAnswers(List<String> answers) {
-        this.answersJson = new Gson().toJson(answers);
-    }
-
     public void setAnswers(String[] answers) {
         this.answersJson = new Gson().toJson(answers);
     }
 
+    public void setAnswers(List<String> answers) {
+        this.answersJson = new Gson().toJson(answers);
+    }
 
     public String getType() {
         return type;

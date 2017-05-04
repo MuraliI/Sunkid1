@@ -1,12 +1,16 @@
 package com.rcl.excalibur.mvp.presenter;
 
 
-import android.graphics.PointF;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Pair;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
+import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresenterConsumer;
 import com.rcl.excalibur.mvp.view.DeckMapView;
@@ -14,32 +18,23 @@ import com.rcl.excalibur.mvp.view.DeckMapView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.rcl.excalibur.utils.CategoryUtils.ACTIVITIES;
-import static com.rcl.excalibur.utils.CategoryUtils.DINING;
-import static com.rcl.excalibur.utils.CategoryUtils.ENTERTAINMENT;
-import static com.rcl.excalibur.utils.CategoryUtils.SHOREX;
-import static com.rcl.excalibur.utils.CategoryUtils.SPA;
-
 public class DeckMapPresenter {
 
-    private static final int X_1 = 196;
-    private static final int Y_1 = 526;
-    private static final int X_2 = 116;
-    private static final int Y_2 = 841;
-    private static final int X_3 = 192;
-    private static final int Y_3 = 421;
-    private static final int X_4 = 120;
-    private static final int Y_4 = 539;
-    private static final int X_5 = 243;
-    private static final int Y_5 = 558;
+    private static final int DEFAULT_DECK_NUMBER = 1;
+    private static final String DEFAULT_LATITUDE = "0";
+
+    private Animation fadeOutBack;
+    private Animation fadeOutFront;
+    private Animation fadeInBack;
+    private Animation fadeInFront;
 
     private List<Pair<Integer, Integer>> deckImages;
     private GetProductDbUseCase getProductDbUseCase;
     private DeckMapView view;
 
     private Product product;
-    private float xCoord;
-    private float yCoord;
+    private int yCoord;
+    private boolean enableDisable = true;
 
     public DeckMapPresenter(DeckMapView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -49,9 +44,12 @@ public class DeckMapPresenter {
     public void init(String productId) {
         product = getProductDbUseCase.get(productId);
         if (product != null) {
-            setCoordinate(product.getProductType().getProductType());
+            enableDisable = false;
+            String productLatitude = product.getProductLocation().getLatitude();
+            yCoord = Integer.valueOf(productLatitude == null ? DEFAULT_LATITUDE : productLatitude);
         }
         createDeckImagesMap();
+        initAnimations();
         initView();
     }
 
@@ -75,69 +73,15 @@ public class DeckMapPresenter {
         view.setAdapterObserver(new DeckSelectorObserver(this));
         view.init(deckImages, new DeckButtonConsumer(this));
         view.setInitialDeck(deckImages.get(deckImages.size() - 1));
-        view.setProductCoordinate(xCoord, yCoord);
-        view.initPopupLayout();
-    }
-
-    // TODO: In a future we'll get this coordinate from the service
-    private void setCoordinate(String productType) {
-        switch (productType) {
-            case SPA:
-                xCoord = X_1;
-                yCoord = Y_1;
-                break;
-            case ENTERTAINMENT:
-                xCoord = X_2;
-                yCoord = Y_2;
-                break;
-            case ACTIVITIES:
-                xCoord = X_3;
-                yCoord = Y_3;
-                break;
-            case DINING:
-                xCoord = X_4;
-                yCoord = Y_4;
-                break;
-            case SHOREX:
-                xCoord = X_5;
-                yCoord = Y_5;
-                break;
-            default:
-                xCoord = X_1;
-                yCoord = Y_1;
-                break;
-        }
-    }
-
-    public void onTouchDeckMapImage(PointF touchedLocation) {
-        if (view.isDeckMapImageReady() && view.getMarkerArea().contains(touchedLocation.x, touchedLocation.y)) {
-            moveToCoordinateAndShowPopup();
-        }
+        view.moveToYPosition(yCoord);
+        view.enableDisableDeckSelector(enableDisable);
+        view.hideArrowDeckSelector(enableDisable);
     }
 
     public void onCloseClicked() {
         if (view.getActivity() != null) {
             view.getActivity().finish();
         }
-    }
-
-    public void onDismissPopupWindow() {
-        view.dismissPopupWindow();
-    }
-
-    public void onGlobalLayout() {
-        if (view.isDeckMapImageReady()) {
-            view.removeTreeObserver();
-            moveToCoordinateAndShowPopup();
-        }
-    }
-
-    private void moveToCoordinateAndShowPopup() {
-        if (product == null) {
-            return;
-        }
-        view.moveToProductCoordinate(xCoord, yCoord);
-        view.showProductOnPopupLayout(product);
     }
 
     public void onDeckSelected(Pair<Integer, Integer> deck) {
@@ -148,6 +92,36 @@ public class DeckMapPresenter {
         view.openDeckSelector(open);
     }
 
+    private void initAnimations() {
+        Context context = view.getContext();
+        fadeOutBack = AnimationUtils.loadAnimation(context, R.anim.zoom_fade_out_back_venue);
+        fadeOutFront = AnimationUtils.loadAnimation(context, R.anim.zoom_fade_out_front_venue);
+        fadeInBack = AnimationUtils.loadAnimation(context, R.anim.zoom_fade_in_back_venue);
+        fadeInFront = AnimationUtils.loadAnimation(context, R.anim.zoom_fade_in_front_venue);
+    }
+
+    public void setFadeInOutAnimation(Pair<Integer, Integer> deck) {
+        Drawable deckMapBackDrawable = view.getDeckMapBackDrawable();
+        Drawable deckMapFrontDrawable = view.getDeckMapFrontDrawable();
+        String preNumber = view.getTextDeckSelectorButton();
+
+        int preDeckNumber = preNumber == null ? DEFAULT_DECK_NUMBER
+                : Integer.valueOf(preNumber.split(ConstantsUtil.WHITE_SPACE)[DEFAULT_DECK_NUMBER]);
+        if (preDeckNumber == deck.first) {
+            return;
+        } else if (preDeckNumber < deck.first) {
+            if (deckMapFrontDrawable != null) {
+                view.setDeckBackImageDrawable(deckMapFrontDrawable);
+            }
+            view.setAnimation(deck.second, fadeOutBack, fadeOutFront, false);
+        } else {
+            if (deckMapFrontDrawable == null) {
+                view.setDeckFrontImageDrawable(deckMapBackDrawable);
+            }
+            view.setAnimation(deck.second, fadeInFront, fadeInBack, true);
+        }
+    }
+
     private class DeckSelectorObserver extends DefaultPresentObserver<Pair<Integer, Integer>, DeckMapPresenter> {
 
         DeckSelectorObserver(DeckMapPresenter presenter) {
@@ -156,13 +130,14 @@ public class DeckMapPresenter {
 
         @Override
         public void onNext(Pair<Integer, Integer> value) {
+            getPresenter().setFadeInOutAnimation(value);
             getPresenter().onDeckSelected(value);
         }
     }
 
     private class DeckButtonConsumer extends DefaultPresenterConsumer<Boolean, DeckMapPresenter> {
 
-        public DeckButtonConsumer(DeckMapPresenter presenter) {
+        DeckButtonConsumer(DeckMapPresenter presenter) {
             super(presenter);
         }
 

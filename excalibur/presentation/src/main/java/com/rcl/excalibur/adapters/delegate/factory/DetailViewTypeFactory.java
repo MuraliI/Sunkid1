@@ -18,7 +18,6 @@ import com.rcl.excalibur.adapters.viewtype.TitleAndDescriptionViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductType;
@@ -324,15 +323,6 @@ public final class DetailViewTypeFactory {
             return;
         }
         recyclerViewTypeList.add(new ExpandableDescriptionViewType(description));
-    }
-
-    private void addProductLevel(final List<RecyclerViewType> recyclerViewTypeList, @NonNull Resources resources, Product product) {
-        final ProductActivityLevel productActivityLevel = product.getActivityLevel();
-        if (productActivityLevel == null) {
-            return;
-        }
-        addTitleAndDescriptionTypes(recyclerViewTypeList, resources.getString(R.string.activity_level),
-                productActivityLevel.getActivityLevelTitle());
     }
 
 }

@@ -25,6 +25,9 @@ android {
         buildConfigField "int", "READ_TIMEOUT", "60"
         buildConfigField "int", "CONNECT_TIMEOUT", "60"
 
+        buildConfigField "int", "DOWNLOAD_PRODUCTS_TIME", "1"  //hours
+
+
     }
     buildTypes {
         debug {

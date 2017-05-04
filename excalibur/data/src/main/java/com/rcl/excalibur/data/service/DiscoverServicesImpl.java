@@ -1,11 +1,12 @@
 package com.rcl.excalibur.data.service;
 
 
+import android.util.Log;
+
 import com.rcl.excalibur.data.mapper.OfferingResponseMapper;
 import com.rcl.excalibur.data.mapper.PriceResponseMapper;
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
 import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
-import com.rcl.excalibur.data.repository.OfferingDataRepository;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
@@ -13,23 +14,14 @@ import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
 import com.rcl.excalibur.data.service.response.GetSubCategoriesResponse;
-import com.rcl.excalibur.data.service.response.MediaItemResponse;
-import com.rcl.excalibur.data.service.response.MediaResponse;
-import com.rcl.excalibur.data.service.response.ProductAdvisementResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
-import com.rcl.excalibur.data.service.response.ProductRestrictionResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
-import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.ProductAdvisement;
-import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.SubCategory;
-import com.rcl.excalibur.domain.preference.DiscoverPreference;
-import com.rcl.excalibur.domain.repository.OfferingRepository;
-import com.rcl.excalibur.domain.repository.ProductRepository;
 import com.rcl.excalibur.domain.repository.SubCategoryRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
+import com.rcl.excalibur.domain.utils.ProductsInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,35 +36,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-import static com.rcl.excalibur.data.service.SailDateServicesImpl.SAIL_DATE;
 import static com.rcl.excalibur.data.utils.ServiceUtil.getDiscoverApi;
 import static com.rcl.excalibur.data.utils.ServiceUtil.isSuccess;
-import static com.rcl.excalibur.domain.Category.ACTIVITIES_CATEGORY;
-import static com.rcl.excalibur.domain.Category.DINING_CATEGORY;
-import static com.rcl.excalibur.domain.Category.ENTERTAINMENT_CATEGORY;
-import static com.rcl.excalibur.domain.Category.GUEST_SERVICES_CATEGORY;
-import static com.rcl.excalibur.domain.Category.SHOPPING_CATEGORY;
-import static com.rcl.excalibur.domain.Category.SHOREX_CATEGORY;
-import static com.rcl.excalibur.domain.Category.SPA_CATEGORY;
 
 public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse, Void> implements DiscoverServices {
-    private static final String SAILING_ID = "AL" + SAIL_DATE;
+    public static final String SAILING_ID = "AL20170702";
     private static final int MAX_COUNT = 50;
 
-    private final ProductRepository productRepository;
-    private final OfferingRepository offeringRepository;
-    private final OfferingResponseMapper offeringResponseMapper;
     private SubCategoryRepository subCategoryRepository;
     private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
 
-    private DiscoverPreference discoverPreference;
 
-    public DiscoverServicesImpl(ProductRepository productRepository, DiscoverPreference discoverPreference) {
-        super(new ProductResponseDataMapper());
-        this.productRepository = productRepository;
-        this.discoverPreference = discoverPreference;
-        offeringResponseMapper = new OfferingResponseMapper((ProductResponseDataMapper) getMapper(), new PriceResponseMapper());
-        offeringRepository = new OfferingDataRepository();
+    public DiscoverServicesImpl() {
+        super(new ProductResponseDataMapper(new OfferingResponseMapper(new PriceResponseMapper())));
     }
 
 
@@ -240,210 +216,45 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
         });
     }
 
-    @Override
-    public void getProducts(DisposableObserver<Boolean> serviceCallCompletedObserver) {
-        // TODO: This is a provisional implementation, once we have the final response from the serves.
-        // This must be changed to consume all products with pagination support
 
-        if (discoverPreference.isCalledService()) {
-            Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
-                try {
-                    //TODO This is temporal, will be remove before the next sprint
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+    @Override
+    public void getProducts(DisposableObserver<ProductsInfo> observer, String sailingId, String type, int maxCount
+            , int offset) {
+        Observable.create((ObservableOnSubscribe<ProductsInfo>) observableEmitter -> {
+
+            Call<GetProductsResponse> call = getDiscoverApi().getProducts(sailingId, type, maxCount, offset);
+
+            call.enqueue(new Callback<GetProductsResponse>() {
+                @Override
+                public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
+                    if (response == null || !response.isSuccessful() || !isSuccess(response.body())) {
+                        Log.d("DownloadProductsManager", "DownloadProductsManageraaremove CERO : " + type + "  " + 0);
+                        observableEmitter.onNext(new ProductsInfo(type));
+                        return;
+                    }
+                    Log.d("DownloadProductsManager", "DownloadProductsManageraaremove OK : " + type + "  " + response.body()
+                            .getProducts().size());
+                    List<Product> products = getMapper().transform(response.body().getProducts());
+                    observableEmitter.onNext(new ProductsInfo(type, response.body().getSummaryResponse().getTotalHits(), products));
+
                 }
 
-                observableEmitter.onNext(true);
-            }).subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(serviceCallCompletedObserver);
-            return;
+                @Override
+                public void onFailure(Call<GetProductsResponse> call, Throwable t) {
+                    Log.d("DownloadProductsManager", "DownloadProductsManageraaremove FAILED: " + type + "  " + t.getMessage());
+                    observableEmitter.onNext(new ProductsInfo(type));
 
-        }
-        discoverPreference.putCalledService(true);
-        Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
-            offeringRepository.deleteAll();
-            productRepository.deleteAll();
+                }
+            });
 
-            Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING_CATEGORY, MAX_COUNT);
-            Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX_CATEGORY, MAX_COUNT);
-            Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES_CATEGORY, MAX_COUNT);
-            Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_CATEGORY, MAX_COUNT);
-            Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_CATEGORY, MAX_COUNT);
-            Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_CATEGORY, MAX_COUNT);
-            Call<GetProductsResponse> guestServicesCall = getDiscoverApi().getProducts(SAILING_ID, GUEST_SERVICES_CATEGORY, MAX_COUNT);
-
-            ProductProcessor productProcessor = new ProductProcessor();
-
-            try {
-                productProcessor.onResponse(dinningCall.execute());
-                productProcessor.onResponse(shorexCall.execute());
-                productProcessor.onResponse(activitiesCall.execute());
-                productProcessor.onResponse(entertainmentCall.execute());
-                productProcessor.onResponse(spaCall.execute());
-                productProcessor.onResponse(shoppingCall.execute());
-                productProcessor.onResponse(guestServicesCall.execute());
-
-                productProcessor.create();
-            } catch (Exception e) {
-                productProcessor.onFailure(e);
-                observableEmitter.onNext(false);
-            }
-            observableEmitter.onNext(true);
         }).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(serviceCallCompletedObserver);
+                .subscribe(observer);
+
     }
 
     private void logOnFailureError(Throwable t, String category) {
         Timber.e(t, "Error on %s call, message = %s", category, t.getMessage());
     }
 
-    private List<ProductRestrictionResponse> getProductRestrictionResponse() {
-        List<ProductRestrictionResponse> productRestrictionResponses = new ArrayList<>();
-
-        ProductRestrictionResponse ageRestriction = new ProductRestrictionResponse();
-        ageRestriction.setRestrictionId("1");
-        ageRestriction.setRestrictionType(ProductRestriction.AGE);
-        ageRestriction.setRestrictionTitle("Age Restritions");
-        ageRestriction.setRestrictionDisplayText("12+");
-        ageRestriction.setRestrictionDescription("12+");
-
-        productRestrictionResponses.add(ageRestriction);
-
-        ProductRestrictionResponse heigthRestriction = new ProductRestrictionResponse();
-        heigthRestriction.setRestrictionId("2");
-        heigthRestriction.setRestrictionType(ProductRestriction.HEIGHT);
-        heigthRestriction.setRestrictionTitle("Height Restrictions");
-        heigthRestriction.setRestrictionDisplayText("None");
-        heigthRestriction.setRestrictionDescription("None");
-
-        productRestrictionResponses.add(heigthRestriction);
-
-        return productRestrictionResponses;
-    }
-
-
-    // TODO: Hardcoded method to be removed once the service provides this details
-    private List<ProductAdvisementResponse> getProductAdvisementResponseAttire() {
-        List<ProductAdvisementResponse> productAdvisementResponses = new ArrayList<>();
-
-        MediaItemResponse mediaItemResponse = new MediaItemResponse();
-        mediaItemResponse.setMediaType("icon");
-        mediaItemResponse.setMediaRefLink("/royal/shared_assets/icons/advisement_meals_r.png");
-
-        MediaResponse mediaResponse = new MediaResponse();
-        List<MediaItemResponse> mediaItemResponseList = new ArrayList<>();
-        mediaItemResponseList.add(mediaItemResponse);
-        mediaResponse.setMediaItem(mediaItemResponseList);
-
-        ProductAdvisementResponse advisementAttire = new ProductAdvisementResponse();
-        advisementAttire.setAdvisementId(ProductAdvisement.ATTIRE);
-        advisementAttire.setAdvisementDescription("Casual");
-        advisementAttire.setAdvisementTitle("Attire");
-        advisementAttire.setAdvisementName("Attire");
-        advisementAttire.setAdvisementMedia(mediaResponse);
-
-        productAdvisementResponses.add(advisementAttire);
-
-        ProductAdvisementResponse advisementKnowBeforeYouGo = new ProductAdvisementResponse();
-        advisementKnowBeforeYouGo.setAdvisementId(ProductAdvisement.KNOW_BEFORE_YOU_GO);
-        advisementKnowBeforeYouGo.setAdvisementDescription("Arrive 15 minutes early, Wear closedtoed shoes");
-        advisementKnowBeforeYouGo.setAdvisementTitle("Know Before You Go");
-        advisementKnowBeforeYouGo.setAdvisementName("Know Before You Go");
-        advisementKnowBeforeYouGo.setAdvisementMedia(mediaResponse);
-
-        productAdvisementResponses.add(advisementKnowBeforeYouGo);
-
-        ProductAdvisementResponse advisementAccessibility = new ProductAdvisementResponse();
-        advisementAccessibility.setAdvisementId(ProductAdvisement.ACCESSIBILITY);
-        advisementAccessibility.setAdvisementDescription("");
-        advisementAccessibility.setAdvisementTitle("Wheelchair Accessible");
-        advisementAccessibility.setAdvisementName("Wheelchair Accessible");
-        advisementAccessibility.setAdvisementMedia(mediaResponse);
-
-        productAdvisementResponses.add(advisementAccessibility);
-        ProductAdvisementResponse advisementAccessibility2 = new ProductAdvisementResponse();
-        advisementAccessibility2.setAdvisementId(ProductAdvisement.ACCESSIBILITY);
-        advisementAccessibility2.setAdvisementDescription("This description is short enough to whet one's apetite "
-                + "but long enough to be meaningful.");
-        advisementAccessibility2.setAdvisementTitle("Closed Caption");
-        advisementAccessibility2.setAdvisementName("Closed Caption");
-        advisementAccessibility2.setAdvisementMedia(mediaResponse);
-
-        productAdvisementResponses.add(advisementAccessibility2);
-
-
-        ProductAdvisementResponse advisementLegal = new ProductAdvisementResponse();
-        advisementLegal.setAdvisementId(ProductAdvisement.LEGAL);
-        advisementLegal.setAdvisementDescription("This legal information is short enough to comfort you but long enough  to be meaninful.");
-        advisementLegal.setAdvisementTitle("Legal");
-        advisementLegal.setAdvisementName("Legal");
-        advisementLegal.setAdvisementMedia(mediaResponse);
-
-        productAdvisementResponses.add(advisementLegal);
-
-        ProductAdvisementResponse advisementCuisine = new ProductAdvisementResponse();
-        advisementCuisine.setAdvisementId(ProductAdvisement.CUISINE);
-        advisementCuisine.setAdvisementDescription("Latin American");
-        advisementCuisine.setAdvisementTitle("Cuisine");
-        advisementCuisine.setAdvisementName("Cuisine");
-        advisementCuisine.setAdvisementMedia(mediaResponse);
-
-        productAdvisementResponses.add(advisementCuisine);
-
-        return productAdvisementResponses;
-    }
-
-    private class ProductProcessor {
-
-        private List<Product> productList = new ArrayList<>();
-        private List<Offering> offeringList = new ArrayList<>();
-        private String productType;
-
-        void onResponse(Response<GetProductsResponse> response) {
-            mapDataProducts(response, productList, offeringList);
-        }
-
-        void create() {
-            productRepository.create(productList);
-            offeringRepository.create(offeringList);
-        }
-
-        void onResponse(Response<GetProductsResponse> response, String productType) {
-            this.productType = productType;
-            mapDataProducts(response, productList, offeringList);
-            productRepository.create(productList);
-            offeringRepository.create(offeringList);
-        }
-
-        void onFailure(Throwable t) {
-            logOnFailureError(t, productType);
-        }
-
-        private void mapDataProducts(Response<GetProductsResponse> response, List<Product> productList, List<Offering> offeringList) {
-            if (response.isSuccessful()) {
-                GetProductsResponse getProductsResponse = response.body();
-                if (isSuccess(getProductsResponse)) {
-                    for (ProductResponse productResponse : getProductsResponse.getProducts()) {
-                        // TODO: To be removed once the service provides this details
-                        productResponse.setUpcharge(2);
-                        if (productResponse.getProductReservationInformation() == null) {
-                            productResponse.setProductReservationInformation("Please Arrive 15 minutes early, Wear closedtoed shoes");
-                        }
-                        if (productResponse.getExperience() == null) {
-                            productResponse.setExperience("Enjoy the travel!");
-                        }
-                        List<ProductAdvisementResponse> productAdvisementResponseList = productResponse.getAdvisements();
-                        if (productAdvisementResponseList == null || productAdvisementResponseList.isEmpty()) {
-                            productResponse.setAdvisements(getProductAdvisementResponseAttire());
-                        }
-                        offeringList.addAll(offeringResponseMapper.transform(productResponse.getOffering(), productResponse));
-                    }
-                    productList.addAll(getMapper().transform(getProductsResponse.getProducts(), null));
-                }
-            }
-        }
-    }
 }

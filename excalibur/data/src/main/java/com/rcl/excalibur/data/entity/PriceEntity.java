@@ -22,6 +22,10 @@ public class PriceEntity extends Model {
     @Column(name = COLUMN_INFANT_PRICE)
     public String infantPrice;
 
+    public PriceEntity() {
+        super();
+    }
+
     public String getCurrency() {
         return currency;
     }
@@ -30,27 +34,29 @@ public class PriceEntity extends Model {
         this.currency = currency;
     }
 
-    public String getAdultPrice() {
-        return adultPrice;
+    public float getAdultPrice() {
+        return adultPrice != null ? Float.parseFloat(adultPrice) : 0f;
     }
 
-    public void setAdultPrice(String adultPrice) {
-        this.adultPrice = adultPrice;
+    public void setAdultPrice(float adultPrice) {
+        this.adultPrice = String.valueOf(adultPrice);
     }
 
-    public String getChildPrice() {
-        return childPrice;
+    public float getChildPrice() {
+        return childPrice != null ? Float.parseFloat(childPrice) : 0f;
     }
 
-    public void setChildPrice(String childPrice) {
-        this.childPrice = childPrice;
+    public void setChildPrice(float childPrice) {
+        this.childPrice = String.valueOf(childPrice);
     }
 
-    public String getInfantPrice() {
-        return infantPrice;
+    public float getInfantPrice() {
+        return infantPrice != null ? Float.parseFloat(infantPrice) : 0f;
+
     }
 
-    public void setInfantPrice(String infantPrice) {
-        this.infantPrice = infantPrice;
+    public void setInfantPrice(float infantPrice) {
+        this.infantPrice = String.valueOf(infantPrice);
     }
+
 }

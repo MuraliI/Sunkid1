@@ -8,7 +8,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,8 +19,8 @@ public final class StringUtils {
     public static final String REGEX_FULL_NAME = "^[a-zA-Z0-9 - ! # $ % & ' * + - / = ? ^ _ ` { | } ~]*$";
     private static final String EMAILPATTERN = "^[A-Z0-9_%+-]+@[A-Z0-9]+\\.[A-Z]{2,6}$";
     private static final String OUTPUT_CHARSET = "UTF-8";
-    public static final String ERROR_ENCODING_STRING = "error encoding String";
-    public static final String ERROR_DECODING_STRING = "error decoding String";
+    private static final String ERROR_ENCODING_STRING = "error encoding String";
+    private static final String ERROR_DECODING_STRING = "error decoding String";
 
     private StringUtils() {
 
@@ -97,7 +96,7 @@ public final class StringUtils {
             byte[] data = string.getBytes(OUTPUT_CHARSET);
             return Base64.encodeToString(data, Base64.DEFAULT);
 
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             Timber.e(ERROR_ENCODING_STRING, e.getMessage());
         }
         return string;
@@ -111,7 +110,7 @@ public final class StringUtils {
         try {
             byte[] data = Base64.decode(string, Base64.DEFAULT);
             stringExtra = new String(data, OUTPUT_CHARSET);
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             Timber.e(ERROR_DECODING_STRING, e.getMessage());
         }
         return stringExtra;

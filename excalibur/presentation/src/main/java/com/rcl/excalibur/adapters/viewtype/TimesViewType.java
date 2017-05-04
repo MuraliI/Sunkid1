@@ -6,7 +6,6 @@ import android.support.v4.util.Pair;
 import com.google.common.base.Joiner;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
-import com.rcl.excalibur.data.utils.DateUtil;
 import com.rcl.excalibur.domain.LocationOperationHour;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.SailDateInfo;
@@ -23,6 +22,7 @@ import timber.log.Timber;
 
 import static com.rcl.excalibur.adapters.base.RecyclerViewConstants.VIEW_TYPE_TIMES;
 import static com.rcl.excalibur.data.service.SailDateServicesImpl.SAIL_DATE;
+import static com.rcl.excalibur.data.utils.DateUtil.parseHourless;
 
 public class TimesViewType implements RecyclerViewType {
 
@@ -37,30 +37,6 @@ public class TimesViewType implements RecyclerViewType {
         this.times = times;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public List<Pair<String, String>> getTimes() {
-        return times;
-    }
-
-    public void setTimes(List<Pair<String, String>> times) {
-        this.times = times;
-    }
-
-    @Override
-    public int getViewType() {
-        return VIEW_TYPE_TIMES;
-    }
-
-    /**
-     * Display Times Module with Operating Hours.
-     */
     public static void addTimesViewTypes(List<RecyclerViewType> recyclerViewTypes, String title, List<LocationOperationHour> operationHours) {
         List<Pair<String, String>> times = new ArrayList<>();
         for (LocationOperationHour operationHour : operationHours) {
@@ -86,9 +62,6 @@ public class TimesViewType implements RecyclerViewType {
         }
     }
 
-    /**
-     * Display Times Module with Starting Times.
-     */
     public static void addTimesViewTypes(List<RecyclerViewType> recyclerViewTypes, String title,
                                          Resources res, List<Offering> offerings, SailDateInfo sailDateInfo) {
         if (sailDateInfo == null || sailDateInfo.getShipCode() == null) {
@@ -98,7 +71,7 @@ public class TimesViewType implements RecyclerViewType {
         int duration = Integer.parseInt(sailDateInfo.getDuration());
         int dayCounter = 1;
         try {
-            dateTime = DateUtil.getHourlessDateParser().parse(SAIL_DATE);
+            dateTime = parseHourless(SAIL_DATE);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -115,9 +88,9 @@ public class TimesViewType implements RecyclerViewType {
 
             List<Pair<String, String>> times = new ArrayList<>();
             for (Pair<String, Date> day : voyageDays) {
-                String dateFilter = DateUtil.getHourlessDateParser().format(day.second);
+                String dateFilter = parseHourless(day.second);
                 Observable.fromIterable(offerings)
-                        .filter(object -> dateFilter.equals(DateUtil.getHourlessDateParser().format(object.getDate())))
+                        .filter(object -> dateFilter.equals(parseHourless(object.getDate())))
                         .toList()
                         .subscribe(offeringsForDay -> {
                             if (offeringsForDay.size() > 0) {
@@ -140,5 +113,26 @@ public class TimesViewType implements RecyclerViewType {
                 recyclerViewTypes.add(new TimesViewType(title, times));
             }
         }
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public List<Pair<String, String>> getTimes() {
+        return times;
+    }
+
+    public void setTimes(List<Pair<String, String>> times) {
+        this.times = times;
+    }
+
+    @Override
+    public int getViewType() {
+        return VIEW_TYPE_TIMES;
     }
 }

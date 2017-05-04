@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.repository.ShipTimeDataRepository;
+import com.rcl.excalibur.data.service.DownloadProductsService;
 import com.rcl.excalibur.data.service.ShipTimeServicesImpl;
 import com.rcl.excalibur.domain.interactor.GetShipTimeUseCase;
 import com.rcl.excalibur.scheduler.task.GetShipTimeTask;
@@ -16,6 +17,8 @@ import java.util.Date;
 
 import timber.log.Timber;
 
+import static com.rcl.excalibur.data.service.DiscoverServicesImpl.SAILING_ID;
+
 
 public class SchedulerReceiver extends BroadcastReceiver {
     public static final int REQUEST_CODE = 1234;
@@ -24,6 +27,8 @@ public class SchedulerReceiver extends BroadcastReceiver {
     public static final int TASK_UNDEFINED = 0;
     public static final int TASK_GET_SHIP_TIME = 1;
     public static final int TASK_UPDATE_TIME = 2;
+    public static final int TASK_DOWNLOAD_PRODUCTS = 3;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -42,6 +47,12 @@ public class SchedulerReceiver extends BroadcastReceiver {
                     Timber.d("SchedulerReceiver", "onReceive=UpdateTimeTask: " + new Date().toString());
                 }
                 new UpdateTimeTask().execute();
+                return;
+            case TASK_DOWNLOAD_PRODUCTS:
+                if (BuildConfig.DEBUG) {
+                    Timber.d("SchedulerReceiver", "onReceive=DownloadProductsService: " + new Date().toString());
+                }
+                DownloadProductsService.start(context, SAILING_ID);
                 return;
             default:
                 return;
