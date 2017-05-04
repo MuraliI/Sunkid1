@@ -447,10 +447,10 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     }
 
     @Override
-    public List<Product> getByType(@NonNull final String type, int maxCount, int offset) {
+    public List<Product> getByType(@NonNull final String category, int maxCount, int offset) {
         final CategoryEntity categoryEntity = new Select()
                 .from(CategoryEntity.class)
-                .where(eq(CategoryEntity.COLUMN_CATEGORY_ID, type))
+                .where(eq(CategoryEntity.COLUMN_CATEGORY_ID, category))
                 .executeSingle();
         if (categoryEntity == null) {
             return new ArrayList<>();
