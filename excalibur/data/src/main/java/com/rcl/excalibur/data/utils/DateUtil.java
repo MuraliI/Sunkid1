@@ -13,7 +13,7 @@ import java.util.TimeZone;
 import timber.log.Timber;
 
 public final class DateUtil {
-
+    private static final int TIME_LENGTH = 4;
 
     public static final String DATE_FORMAT = "yyyyMMddHHmm";
     public static final String HOURLESS_DATE_FORMAT = "yyyyMMdd";
@@ -30,6 +30,11 @@ public final class DateUtil {
     public static Date parseDateResponse(String dateStr, String timeStr) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.US);
         Date date = null;
+
+        if (timeStr.length() < TIME_LENGTH) {
+            timeStr = 0 + timeStr;
+        }
+
         String str = dateStr + timeStr;
         try {
             date = dateFormatter.parse(str);
