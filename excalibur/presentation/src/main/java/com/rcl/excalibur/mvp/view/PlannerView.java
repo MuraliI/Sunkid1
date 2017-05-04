@@ -67,7 +67,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     private PlannerProductItemComparator productItemComparator;
 
-    private boolean initialized;
     private boolean bottomSheetIsSliding;
 
     private int headerHeight;
@@ -111,7 +110,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
             public void onChildViewAttachedToWindow(View view) {
                 if (!bottomSheetIsSliding) {
                     setInitialViewState(view);
-                    initialized = true;
                 }
             }
 
@@ -169,6 +167,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
             if (view != null) {
                 setInitialViewState(view);
+                //requestLayoutView(view);
             }
         }
     }
@@ -196,10 +195,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         if (view != null) {
             ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             marginLayout.setMargins(horizontalMargin, NO_MARGIN, horizontalMargin, verticalMargin);
-
-            if (initialized) {
-                view.requestLayout();
-            }
         }
     }
 
@@ -215,12 +210,12 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
             if (image != null) {
                 ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) image.getLayoutParams();
                 marginLayout.setMargins(NO_MARGIN, margin, margin, margin);
-
-                if (initialized) {
-                    image.requestLayout();
-                }
             }
         }
+    }
+
+    public void requestLayoutView(@NonNull View view) {
+        view.requestLayout();
     }
 
     public void changeSeparatorVisibility(View parent, int visibility) {

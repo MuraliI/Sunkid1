@@ -185,7 +185,7 @@ public class PlannerPresenter {
         //FIXME this is just mock data that is going to be replaced when we get the actual ship day.
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2017);
-        calendar.set(Calendar.DAY_OF_MONTH, 5);
+        calendar.set(Calendar.DAY_OF_MONTH, 7);
         calendar.set(Calendar.MONTH, Calendar.JULY);
 
         SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
@@ -379,33 +379,34 @@ public class PlannerPresenter {
 
     private void calculateItemMargins(float slideOffset) {
         int visibleChildren = view.findLastVisibleItemPosition();
+        int imageMargin = Math.round(slideOffset * this.view.getInitImageMargin());
+        int verticalMargin = getMargin(slideOffset, this.view.getInitVerticalMargin());
+        int horizontalMargin = getMargin(slideOffset, this.view.getInitHorizontalMargin());
+
         for (int i = 0; i <= visibleChildren; i++) {
             if (view.isIndexAHeader(i)) {
                 continue;
             }
 
-            View view = this.view.getViewItemAt(i);
-            if (view == null) {
+            View itemView = this.view.getViewItemAt(i);
+            if (itemView == null) {
                 return;
             }
 
-            int verticalMargin = getMargin(slideOffset, this.view.getInitVerticalMargin());
-            int horizontalMargin = getMargin(slideOffset, this.view.getInitHorizontalMargin());
-            this.view.resizeItemView(view, verticalMargin, horizontalMargin);
+            this.view.resizeItemView(itemView, verticalMargin, horizontalMargin);
+            this.view.resizeImage(itemView, imageMargin);
+            this.view.requestLayoutView(itemView);
 
-            int imageMargin = Math.round(slideOffset * this.view.getInitImageMargin());
-            this.view.resizeImage(view, imageMargin);
-
-            RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
+            RoundedImageView imageView = ButterKnife.findById(itemView, R.id.image_itinerary_product_picture);
             if (imageView != null) {
                 imageView.setRadius(R.dimen.default_radius);
             }
 
             if (slideOffset >= OFFSET_OVER_95_PERCENT) {
-                this.view.changeSeparatorVisibility(view, View.VISIBLE);
-                this.view.setItemViewBackground(view, R.drawable.background_cue_card);
+                this.view.changeSeparatorVisibility(itemView, View.VISIBLE);
+                this.view.setItemViewBackground(itemView, R.drawable.background_cue_card);
             } else {
-                this.view.setItemViewBackground(view, R.drawable.background_rounded_cue_card);
+                this.view.setItemViewBackground(itemView, R.drawable.background_rounded_cue_card);
             }
         }
     }
