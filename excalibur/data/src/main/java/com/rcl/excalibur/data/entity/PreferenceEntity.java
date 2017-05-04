@@ -8,6 +8,7 @@ import com.activeandroid.annotation.Table;
 import java.util.List;
 
 @Table(name = PreferenceEntity.TABLE_NAME)
+@Deprecated
 public class PreferenceEntity extends Model {
 
     public static final String TABLE_NAME = "preference";

@@ -10,6 +10,9 @@ public class GetProductsResponse extends BaseResponse {
     @SerializedName("product")
     private List<ProductResponse> products;
 
+    @SerializedName("responseSummary")
+    private ResponseSummaryResponse summaryResponse;
+
     public GetProductsResponse() {
     }
 
@@ -19,5 +22,13 @@ public class GetProductsResponse extends BaseResponse {
 
     public void setProducts(List<ProductResponse> products) {
         this.products = products;
+    }
+
+    public ResponseSummaryResponse getSummaryResponse() {
+        return summaryResponse;
+    }
+
+    public void setSummaryResponse(ResponseSummaryResponse summaryResponse) {
+        this.summaryResponse = summaryResponse;
     }
 }
