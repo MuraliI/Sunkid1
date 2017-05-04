@@ -39,8 +39,7 @@ public interface DiscoverApi {
     Call<GetProductsResponse> getProducts(@Query("sailingID") String sailingID
             , @Query("productType") String type
             , @Query("maxCount") int maxCount
-            , @Query("offset") int offset
-            , @Query("apikey") String key);
+            , @Query("offset") int offset);
 
     @GET("activities/en/mobile")
     Call<ActivitiesResponse> getActivities();

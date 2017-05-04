@@ -3,7 +3,6 @@ package com.rcl.excalibur.data.service;
 
 import android.util.Log;
 
-import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.mapper.OfferingResponseMapper;
 import com.rcl.excalibur.data.mapper.PriceResponseMapper;
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
@@ -223,7 +222,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
             , int offset) {
         Observable.create((ObservableOnSubscribe<ProductsInfo>) observableEmitter -> {
 
-            Call<GetProductsResponse> call = getDiscoverApi().getProducts(sailingId, type, maxCount, offset, BuildConfig.API_KEY);
+            Call<GetProductsResponse> call = getDiscoverApi().getProducts(sailingId, type, maxCount, offset);
 
             call.enqueue(new Callback<GetProductsResponse>() {
                 @Override
