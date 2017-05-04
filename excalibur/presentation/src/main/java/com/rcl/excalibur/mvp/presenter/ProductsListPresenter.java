@@ -50,9 +50,10 @@ public class ProductsListPresenter {
         } else {
             for (Product typeProduct : allProducts) {
                 for (ChildCategory childCategory : typeProduct.getProductCategory().getChildCategory()) {
-                    if (childCategoryId.equals(childCategory.getItems().getCategoryId())) {
+                    //FIXME when service category return right category
+//                    if (childCategoryId.equals(childCategory.getItems().getCategoryId())) {
                         childProducts.add(typeProduct);
-                    }
+//                    }
                 }
             }
         }

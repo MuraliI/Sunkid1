@@ -32,10 +32,14 @@ public class TimesViewType implements RecyclerViewType {
     private String title;
     private List<Pair<String, String>> times;
 
-    public TimesViewType(String title, List<Pair<String, String>> times) {
-        this.title = title;
-        this.times = times;
+    @Override
+    public int getViewType() {
+        return VIEW_TYPE_TIMES;
     }
+
+    /**
+     * Display Times Module with Operating Hours.
+     */
 
     public static void addTimesViewTypes(List<RecyclerViewType> recyclerViewTypes, String title, List<LocationOperationHour> operationHours) {
         List<Pair<String, String>> times = new ArrayList<>();
@@ -62,6 +66,9 @@ public class TimesViewType implements RecyclerViewType {
         }
     }
 
+    /**
+     * Display Times Module with Starting Times.
+     */
     public static void addTimesViewTypes(List<RecyclerViewType> recyclerViewTypes, String title,
                                          Resources res, List<Offering> offerings, SailDateInfo sailDateInfo) {
         if (sailDateInfo == null || sailDateInfo.getShipCode() == null) {
@@ -115,6 +122,11 @@ public class TimesViewType implements RecyclerViewType {
         }
     }
 
+    public TimesViewType(String title, List<Pair<String, String>> times) {
+        this.title = title;
+        this.times = times;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -129,10 +141,5 @@ public class TimesViewType implements RecyclerViewType {
 
     public void setTimes(List<Pair<String, String>> times) {
         this.times = times;
-    }
-
-    @Override
-    public int getViewType() {
-        return VIEW_TYPE_TIMES;
     }
 }
