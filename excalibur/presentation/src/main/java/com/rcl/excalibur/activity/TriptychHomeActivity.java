@@ -6,10 +6,8 @@ import android.os.Bundle;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
-import com.rcl.excalibur.data.preference.DiscoverPreferenceImpl;
 import com.rcl.excalibur.data.preference.SailingPreferenceImpl;
 import com.rcl.excalibur.data.repository.MenuDataRepository;
-import com.rcl.excalibur.data.repository.ProductDataRepository;
 import com.rcl.excalibur.data.repository.SailDateDataRepository;
 import com.rcl.excalibur.data.repository.SubCategoriesDataRepository;
 import com.rcl.excalibur.data.service.DiscoverServicesImpl;

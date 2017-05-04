@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import javax.annotation.Generated;
-
 public class MenuSectionResponse {
 
     private List<MenuItemResponse> menuItem;
