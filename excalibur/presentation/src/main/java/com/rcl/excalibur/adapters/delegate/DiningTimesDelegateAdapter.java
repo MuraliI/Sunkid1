@@ -2,7 +2,6 @@ package com.rcl.excalibur.adapters.delegate;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,9 +95,7 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                         return;
                     }
                     ProductAdvisement diningType = advisementsDiningType.get(0);
-                    if (diningType != null
-                            && !TextUtils.isEmpty(diningType.getAdvisementDescription())
-                            && diningType.equals(DINING_TYPE_SPECIALTY)) {
+                    if (diningType != null && diningType.getAdvisementType().equals(DINING_TYPE_SPECIALTY)) {
                         showMenu.setVisibility(View.VISIBLE);
                         showMenu.setOnClickListener(v -> Toast.makeText(context, "SHOW MENU ACTION", Toast.LENGTH_LONG).show());
                     } else {
