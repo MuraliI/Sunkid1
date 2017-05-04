@@ -99,7 +99,7 @@ public class PlannerPresenter {
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
     }
 
-    public void init() {
+    public void init(boolean serviceAlreadyCompleted) {
         view.init();
         view.showProgressBar(true);
         view.initAnimation();
@@ -113,6 +113,9 @@ public class PlannerPresenter {
         hiddenItems = new ArrayList<>();
 
         createHeaderList();
+        if (serviceAlreadyCompleted) {
+            onServiceCallCompleted();
+        }
     }
 
     private void createHeaderList() {
