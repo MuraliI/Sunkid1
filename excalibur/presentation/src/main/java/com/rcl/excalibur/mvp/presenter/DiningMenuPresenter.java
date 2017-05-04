@@ -18,7 +18,6 @@ import com.rcl.excalibur.utils.AlertDialogUtils;
 import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
-import timber.log.Timber;
 
 public class DiningMenuPresenter {
 
@@ -43,14 +42,12 @@ public class DiningMenuPresenter {
             @Override
             public void onError(Throwable e) {
                 showDialogEmptyMenu();
-                Timber.d("getMenusUseCase", "onError");
                 view.hideProgressBar();
             }
 
             @Override
             public void onComplete() {
                 view.init();
-                Timber.d("getMenusUseCase", "onComplete");
                 view.hideProgressBar();
 
             }
