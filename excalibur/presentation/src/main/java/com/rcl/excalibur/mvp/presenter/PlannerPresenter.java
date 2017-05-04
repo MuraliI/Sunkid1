@@ -353,7 +353,7 @@ public class PlannerPresenter {
             itemsToAdd = hiddenGeneralItems;
         }
 
-        //view.scrollToHeader(header);
+        view.scrollToHeader(header);
 
         for (IFlexible item : itemsToAdd) {
             view.addItemToSection((ISectionable) item, header);
@@ -364,7 +364,7 @@ public class PlannerPresenter {
     }
 
     private void collapseSection(PlannerHeader header) {
-        //view.scrollToHeader(header);
+        view.scrollToHeader(header);
 
         view.removeItemsFromSection(header);
         header.setSectionExpanded(false);

@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.view.View;
@@ -24,6 +23,7 @@ import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.planner.PlannerAdapter;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
+import com.rcl.excalibur.custom.view.layoutmanager.PlannerLayoutManager;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -54,7 +54,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     private PlannerAdapter adapter;
 
-    private LinearLayoutManager linearLayoutManager;
+    private PlannerLayoutManager linearLayoutManager;
     private BottomSheetBehavior bottomSheetBehavior;
 
     private Animation slideUpAnimation;
@@ -102,7 +102,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
         adapter = new PlannerAdapter(null, fragment, true);
         adapter.setDisplayHeadersAtStartUp(true).setStickyHeaders(true);
-        linearLayoutManager = new LinearLayoutManager(fragment.getContext());
+        linearLayoutManager = new PlannerLayoutManager(fragment.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(itemAnimator);
@@ -288,7 +288,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     public void scrollToHeader(IHeader header) {
         int headerPosition = adapter.getGlobalPositionOf(header);
-        recyclerView.scrollToPosition(headerPosition);
+        recyclerView.smoothScrollToPosition(headerPosition);
     }
 
     public void showProgressBar(boolean show) {
