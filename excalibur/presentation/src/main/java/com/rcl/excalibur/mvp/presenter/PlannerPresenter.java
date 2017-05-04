@@ -294,10 +294,14 @@ public class PlannerPresenter {
 
     private void updateHeader(PlannerProductItem productItem) {
         PlannerHeader header = productItem.getHeader();
+        updateHeader(header, productItem);
+        view.updateHeader(header);
+    }
+
+    private void updateHeader(PlannerHeader header, PlannerProductItem productItem) {
         int newPartOfDay = getPartOfDayResource(productItem.getPlannerProductModel());
         header.setTitle(newPartOfDay);
         currentPartOfDayResource = newPartOfDay;
-        view.updateHeader(header);
     }
 
     private PortModel getPortTypeNextDay(List<EventModel> events, int day, PortModel sailPort) {
@@ -340,10 +344,7 @@ public class PlannerPresenter {
         if (header.isAllDayHeader()) {
             itemsToAdd = hiddenAllDayItems;
         } else {
-            PlannerProductItem productItem = view.getNextItem(view.getFirstItemPosition());
-            if (productItem != null) {
-                updateHeader(productItem);
-            }
+            updateGeneralHeader(header);
             itemsToAdd = hiddenGeneralItems;
         }
 
@@ -360,7 +361,17 @@ public class PlannerPresenter {
         view.removeItemsFromSection(header);
         header.setSectionExpanded(false);
         view.scrollToHeader(header);
+        if (!header.isAllDayHeader()) {
+            updateGeneralHeader(header);
+        }
         view.updateHeader(header);
+    }
+
+    private void updateGeneralHeader(PlannerHeader header) {
+        PlannerProductItem productItem = view.getNextItem(view.getFirstItemPosition());
+        if (productItem != null) {
+            updateHeader(header, productItem);
+        }
     }
 
     private void onStateChange(Integer newState) {
