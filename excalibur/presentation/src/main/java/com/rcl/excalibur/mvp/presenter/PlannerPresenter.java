@@ -291,7 +291,7 @@ public class PlannerPresenter {
         int newPartOfDay = getPartOfDayResource(productItem.getPlannerProductModel());
         header.setTitle(newPartOfDay);
         currentPartOfDayResource = newPartOfDay;
-        view.updateHeader();
+        view.updateHeader(header);
     }
 
     private PortModel getPortTypeNextDay(List<EventModel> events, int day, PortModel sailPort) {
