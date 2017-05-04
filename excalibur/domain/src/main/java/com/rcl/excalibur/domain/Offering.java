@@ -82,61 +82,6 @@ public class Offering implements Comparable<Offering> {
         return result;
     }
 
-    /*@Override
-    public int compareTo(Offering input) {
-        int result = (int) (this.getCompleteDate().getTime() - input.getCompleteDate().getTime());
-        if (result == 0) {
-            result = this.getProduct().getProductTitle()
-                    .compareToIgnoreCase(input.getProduct().getProductTitle());
-        } else {
-            Calendar calendarActual = Calendar.getInstance();
-            calendarActual.setTimeInMillis(this.getCompleteDate().getTime());
-
-            Calendar calendarInput = Calendar.getInstance();
-            calendarInput.setTimeInMillis(input.getCompleteDate().getTime());
-
-            if (calendarActual.get(Calendar.HOUR) >= MORNING_START_HOUR
-                    && calendarInput.get(Calendar.HOUR) < MORNING_START_HOUR) {
-                return -1;
-            }
-
-            if (calendarActual.get(Calendar.HOUR) < MORNING_START_HOUR
-                    && calendarInput.get(Calendar.HOUR) >= MORNING_START_HOUR) {
-                return 1;
-            }
-
-            if (this.getCompleteDate().getTime() > input.getCompleteDate().getTime()) {
-                result = 1;
-            } else if (this.getCompleteDate().getTime() < input.getCompleteDate().getTime()) {
-                result = -1;
-            }
-        }
-        return result;
-    }*/
-
-    /*@Override
-    public int compareTo(Offering input) {
-        if (input == null) {
-            return 0;
-        } else if (this.getDate().getTime() > input.getCompleteDate().getTime()) {
-            return 1;
-        } else if (this.getDate().getTime() < input.getCompleteDate().getTime()) {
-            return -1;
-        } else {
-            return 0;
-        }
-    }*/
-
-    /*@Override
-    public int compareTo(Offering input) {
-        int result = getDate().compareTo(input.getDate());
-        if (result == 0) {
-            result = getProduct().getProductTitle()
-                    .compareToIgnoreCase(input.getProduct().getProductTitle());
-        }
-        return result;
-    }*/
-
     public int compareByPrice(Offering o2) {
         if (o2 == null) {
             return 0;

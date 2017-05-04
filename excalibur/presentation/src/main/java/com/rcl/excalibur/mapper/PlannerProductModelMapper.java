@@ -71,7 +71,7 @@ public class PlannerProductModelMapper {
 
         for (Offering offering : input) {
             Product product = offering.getProduct();
-            if (false) { // TODO: Replace with !product.isHighlighted() before send PR
+            if (false) { // TODO: Replace with !product.isHighlighted() when service provides the flags
                 continue;
             }
 

@@ -4,19 +4,12 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.adapters.viewtype.ProductInformationViewType;
-import com.rcl.excalibur.utils.PartOfDayUtils;
 
 import java.util.Calendar;
 
 public class PlannerProductModel extends ProductInformationViewType implements Comparable<PlannerProductModel> {
 
     private static final int MORNING_START_HOUR = 6;
-
-    private static final int STATE_ALL_DAY = 4;
-    public static final int STATE_MORNING = 3;
-    public static final int STATE_AFTERNOON = 2;
-    public static final int STATE_EVENING = 1;
-    public static final int STATE_LATE_NIGHT = 0;
 
     public static final int GENERAL_HEADER = 0;
     public static final int ALL_DAY_HEADER = 1;
@@ -29,7 +22,6 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     private boolean isAllDayProduct;
     private boolean isFeatured;
     private boolean isHighlighted;
-    private int indexToBeAdded;
 
     @DrawableRes
     public int getResourceIdCategoryIcon() {
@@ -76,10 +68,6 @@ public class PlannerProductModel extends ProductInformationViewType implements C
         return isAllDayProduct ? ALL_DAY_HEADER : GENERAL_HEADER;
     }
 
-    public int getState() {
-        return isAllDayProduct ? STATE_ALL_DAY : PartOfDayUtils.getPartOfDayState(startDate);
-    }
-
     public boolean isFeatured() {
         return isFeatured;
     }
@@ -103,14 +91,6 @@ public class PlannerProductModel extends ProductInformationViewType implements C
     @Override
     public int getViewType() {
         return 0;
-    }
-
-    public int getIndexToBeAdded() {
-        return indexToBeAdded;
-    }
-
-    public void setIndexToBeAdded(int indexToBeAdded) {
-        this.indexToBeAdded = indexToBeAdded;
     }
 
     public String getStartHourText() {

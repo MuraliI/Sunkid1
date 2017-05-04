@@ -36,12 +36,6 @@
             android:layout_gravity="center"
             android:text="@string/hardcoded_home_status" />
 
-        <!--<include
-            android:id="@+id/layout_planner_all_day"
-            layout="@layout/planner_item_header"
-            android:background="@drawable/background_planner_header"
-            android:visibility="gone" />-->
-
         <com.rcl.excalibur.custom.view.TopRoundedFrameLayout
             android:id="@+id/layout_planner_recycler_container"
             android:layout_width="match_parent"

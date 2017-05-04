@@ -149,7 +149,7 @@ public class PlannerPresenter {
                 }
             }
 
-            // TODO: Delete this if, only for testing
+            // TODO: Delete this when services provides the flag
             if (i <= 6 && i % 2 == 0) {
                 plannerProductModel.setFeatured(true);
             } else {
@@ -242,10 +242,11 @@ public class PlannerPresenter {
     }
 
     private Pair<String, Integer> getArrivalDisembarkingDescription(List<EventModel> events, int day) {
-        if (view.getActivity() == null) {
+        Activity activity = view.getActivity();
+        if (activity == null) {
             return null;
         }
-        Resources resources = view.getActivity().getResources();
+        Resources resources = activity.getResources();
         PortModel sailPort = PortModel.getSailPortByDay(events, day);
         int drawable = R.drawable.ic_excursions;
 
@@ -504,8 +505,6 @@ public class PlannerPresenter {
         }
     }
 
-    //ON SLIDE OBSERVER
-
     private static class OnBottomSheetSlideObserver extends DefaultPresentObserver<Float, PlannerPresenter> {
 
         OnBottomSheetSlideObserver(PlannerPresenter presenter) {
@@ -517,8 +516,6 @@ public class PlannerPresenter {
             getPresenter().onSlide(slideOffset);
         }
     }
-
-    // ON STATE CHANGE OBSERVER
 
     private static class OnBottomSheetStateChange extends DefaultPresentObserver<Integer, PlannerPresenter> {
 

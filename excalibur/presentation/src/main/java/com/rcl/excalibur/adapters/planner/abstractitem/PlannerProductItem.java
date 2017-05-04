@@ -97,6 +97,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         holder.productVenue.setText(plannerProductModel.getVenue());
         holder.productCategoryIcon.setImageResource(plannerProductModel.getResourceIdCategoryIcon());
         holder.productDeckAndDirection.setText(plannerProductModel.getLocation());
+        // TODO: this is in case the PO wants again the hour in the separators
         //holder.setTime(null); // Passing null instead of plannerProductModel.getStartHourText() to hide the hours
     }
 
@@ -109,6 +110,7 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         @BindView(R.id.image_itinerary_product_icon) ImageView productCategoryIcon;
         @BindView(R.id.image_itinerary_product_favorite) ImageView productPromoted;
         @BindView(R.id.view_itinerary_product_price_range) PriceRangeLayout priceRange;
+        //TODO: this is in case the PO wants again the hour in the separators
         /*@BindView(R.id.layout_planner_item_separator_container) View separatorLayout;
         @BindView(R.id.text_planner_separator_time) TextView timeTextView;*/
 
