@@ -71,6 +71,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
 
             @Override
             public void onResponse(Call<GetSubCategoriesResponse> call, Response<GetSubCategoriesResponse> response) {
+                //FIXME implement logic in scheduler to avoid delete & duplicates
 //                subCategoryRepository.deleteAll();
                 mapSubCategories(response, subCategories);
                 subCategoryRepository.create(subCategories);
