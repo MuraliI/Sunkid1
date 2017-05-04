@@ -21,8 +21,8 @@ import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PlannerProductModel;
 import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
-import com.rcl.excalibur.mvp.view.PlannerView;
 import com.rcl.excalibur.mvp.model.PlannerModel;
+import com.rcl.excalibur.mvp.view.PlannerView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -180,18 +180,16 @@ public class PlannerPresenter {
         drawable = R.drawable.ic_excursions;
 
         if (day == FIRST_DAY) {
-            return new Pair<>(resources.getString(R.string.departing_at) + model.getTimeFormat(
-                    Integer.valueOf(sailPort.getDepartureTime())), drawable);
+            return new Pair<>(resources.getString(R.string.departing_at) + model.getTimeFormat(sailPort.getDepartureTime()), drawable);
         } else if (day == events.size()) {
-            return new Pair<>(resources.getString(R.string.arriving_at) + model.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime())),
-                    drawable);
+            return new Pair<>(resources.getString(R.string.arriving_at) + model.getTimeFormat(sailPort.getArrivalTime()), drawable);
         } else if (PORT_TYPE_CRUISING.equals(sailPort.getPortType())) {
             sailPort = getPortTypeNextDay(events, day, sailPort);
             return new Pair<>(resources.getString(R.string.next_port) + sailPort.getPortName(), drawable);
         } else {
-            return new Pair<>(resources.getString(R.string.arriving_at) + model.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime()))
+            return new Pair<>(resources.getString(R.string.arriving_at) + model.getTimeFormat(sailPort.getArrivalTime())
                     + ARRIVING_DEPARTING_SEPARATOR + resources.getString(R.string.departing_at)
-                    + model.getTimeFormat(Integer.valueOf(sailPort.getDepartureTime())), drawable);
+                    + model.getTimeFormat(sailPort.getDepartureTime()), drawable);
         }
     }
 

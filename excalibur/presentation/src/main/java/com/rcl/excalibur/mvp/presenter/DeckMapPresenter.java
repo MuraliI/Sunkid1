@@ -8,7 +8,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.domain.LocationDeckInfo;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
@@ -20,8 +22,9 @@ import java.util.List;
 
 public class DeckMapPresenter {
 
-    private static final int DEFAULT_DECK_NUMBER = 1;
+    private static final int DEFAULT_DECK_NUMBER = 12;
     private static final String DEFAULT_LATITUDE = "0";
+    private static final String DEFAULT_DECK = "12";
 
     private Animation fadeOutBack;
     private Animation fadeOutFront;
@@ -33,7 +36,8 @@ public class DeckMapPresenter {
     private DeckMapView view;
 
     private Product product;
-    private int yCoord;
+    private int yCoord = 0;
+    private int deckNumber = 1;
     private boolean enableDisable = true;
 
     public DeckMapPresenter(DeckMapView view, GetProductDbUseCase getProductDbUseCase) {
@@ -45,8 +49,17 @@ public class DeckMapPresenter {
         product = getProductDbUseCase.get(productId);
         if (product != null) {
             enableDisable = false;
-            String productLatitude = product.getProductLocation().getLatitude();
-            yCoord = Integer.valueOf(productLatitude == null ? DEFAULT_LATITUDE : productLatitude);
+            ProductLocation productLocation = product.getProductLocation();
+            if (productLocation != null) {
+                String productLatitude = productLocation.getLatitude();
+                List<LocationDeckInfo> locationDeckInfo = productLocation.getLocationDeckInfo();
+                if (locationDeckInfo.size() > 0) {
+                    LocationDeckInfo deckInfo = locationDeckInfo.get(0);
+                    String productDeckNumber = deckInfo.getDeckNumber();
+                    yCoord = Integer.valueOf(productLatitude == null ? DEFAULT_LATITUDE : productLatitude);
+                    deckNumber = Integer.valueOf(productDeckNumber == null ? DEFAULT_DECK : productDeckNumber);
+                }
+            }
         }
         createDeckImagesMap();
         initView();
@@ -71,7 +84,7 @@ public class DeckMapPresenter {
     private void initView() {
         view.setAdapterObserver(new DeckSelectorObserver(this));
         view.init(deckImages, new DeckButtonConsumer(this));
-        view.setInitialDeck(deckImages.get(deckImages.size() - 1));
+        view.setInitialDeck(enableDisable ? deckImages.get(deckImages.size() - 1) : deckImages.get(deckNumber - 1));
         view.moveToYPosition(yCoord);
         view.enableDisableDeckSelector(enableDisable);
         view.hideArrowDeckSelector(enableDisable);
