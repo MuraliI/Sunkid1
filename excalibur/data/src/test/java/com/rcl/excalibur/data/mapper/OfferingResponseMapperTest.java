@@ -45,7 +45,7 @@ public class OfferingResponseMapperTest {
         startDate = Calendar.getInstance();
         startDate.setTime(TestUtils.getOfferingSampleDate());
 
-        mapper = new OfferingResponseMapper(productResponseDataMapper, priceResponseMapper);
+        mapper = new OfferingResponseMapper(priceResponseMapper);
         offeringResponseList = new ArrayList<>();
         offeringResponseList.add(testOfferingResponse);
 
@@ -53,7 +53,6 @@ public class OfferingResponseMapperTest {
 
         when(testPrice.getCurrency()).thenReturn(TestUtils.PRICE_CURRENCY);
         when(testPrice.getAdultPrice()).thenReturn(TestUtils.PRICE_ADULT);
-
         when(testOfferingResponse.getOfferingId()).thenReturn(TestUtils.OFFERING_ID);
         when(testOfferingResponse.getOfferingDate()).thenReturn(TestUtils.OFFERING_START_DATE);
         when(testOfferingResponse.getOfferingTime()).thenReturn(TestUtils.OFFERING_START_TIME);
@@ -65,7 +64,7 @@ public class OfferingResponseMapperTest {
 
     @Test
     public void transformOfferingResponseToOfferingTest() {
-        List<Offering> transformedOfferings = mapper.transform(offeringResponseList, testProductResponse);
+        List<Offering> transformedOfferings = mapper.transform(offeringResponseList, testProduct);
         assertNotNull(transformedOfferings);
         assertTrue(transformedOfferings.size() > 0);
 

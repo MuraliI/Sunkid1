@@ -7,11 +7,11 @@ public class Offering implements Comparable<Offering> {
     private static final int MORNING_START_HOUR = 6;
 
     private String id;
-    private String date;
-    private String time;
+    private Date date;
+    private String dateString;
+    private String timeString;
     private SellingPrice price;
     private Product product;
-    private Date completeDate;
 
     public String getId() {
         return id;
@@ -21,28 +21,12 @@ public class Offering implements Comparable<Offering> {
         this.id = id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public Date getCompleteDate() {
-        return completeDate;
-    }
-
-    public void setCompleteDate(Date completeDate) {
-        this.completeDate = completeDate;
     }
 
     public SellingPrice getPrice() {
@@ -61,13 +45,29 @@ public class Offering implements Comparable<Offering> {
         this.product = product;
     }
 
+    public String getDateString() {
+        return dateString;
+    }
+
+    public void setDateString(String dateString) {
+        this.dateString = dateString;
+    }
+
+    public String getTimeString() {
+        return timeString;
+    }
+
+    public void setTimeString(String timeString) {
+        this.timeString = timeString;
+    }
+
     @Override
     public int compareTo(Offering input) {
         Calendar calendarActual = Calendar.getInstance();
-        calendarActual.setTimeInMillis(getCompleteDate().getTime());
+        calendarActual.setTimeInMillis(getDate().getTime());
 
         Calendar calendarInput = Calendar.getInstance();
-        calendarInput.setTimeInMillis(input.getCompleteDate().getTime());
+        calendarInput.setTimeInMillis(input.getDate().getTime());
 
         int result = calendarActual.compareTo(calendarInput);
         if (result == 0) {
@@ -118,9 +118,9 @@ public class Offering implements Comparable<Offering> {
     public int compareTo(Offering input) {
         if (input == null) {
             return 0;
-        } else if (this.getCompleteDate().getTime() > input.getCompleteDate().getTime()) {
+        } else if (this.getDate().getTime() > input.getCompleteDate().getTime()) {
             return 1;
-        } else if (this.getCompleteDate().getTime() < input.getCompleteDate().getTime()) {
+        } else if (this.getDate().getTime() < input.getCompleteDate().getTime()) {
             return -1;
         } else {
             return 0;
@@ -129,7 +129,7 @@ public class Offering implements Comparable<Offering> {
 
     /*@Override
     public int compareTo(Offering input) {
-        int result = getCompleteDate().compareTo(input.getCompleteDate());
+        int result = getDate().compareTo(input.getDate());
         if (result == 0) {
             result = getProduct().getProductTitle()
                     .compareToIgnoreCase(input.getProduct().getProductTitle());

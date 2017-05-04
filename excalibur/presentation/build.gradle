@@ -22,8 +22,8 @@ android {
 
         buildConfigField("String", "PREFIX_IMAGE", '"http://media.royalcaribbean.com/"')
 
-        buildConfigField "int", "UPDATE_TIME", "1"
-        buildConfigField "int", "SHIP_TIME", "15"
+        buildConfigField "int", "UPDATE_TIME", "1"  //mins
+        buildConfigField "int", "SHIP_TIME", "15"   //mins
 
     }
 

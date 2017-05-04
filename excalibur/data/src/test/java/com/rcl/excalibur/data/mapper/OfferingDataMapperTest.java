@@ -78,8 +78,8 @@ public class OfferingDataMapperTest {
         assertNotNull(transformedOffering);
 
         assertEquals(offeringEntity.getOfferingId(), transformedOffering.getId());
-        assertEquals(DateUtil.getStandardDateParser().parse(offeringEntity.getDate() + offeringEntity.getTime())
-                , transformedOffering.getCompleteDate());
+        assertEquals(DateUtil.parseDateResponse(offeringEntity.getDate(), offeringEntity.getTime())
+                , transformedOffering.getDate());
 
         //Product
         assertEquals(product.getProductId(), transformedOffering.getProduct().getProductId());
