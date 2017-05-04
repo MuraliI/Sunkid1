@@ -49,7 +49,6 @@ public class DeckMapPresenter {
             yCoord = Integer.valueOf(productLatitude == null ? DEFAULT_LATITUDE : productLatitude);
         }
         createDeckImagesMap();
-        initAnimations();
         initView();
     }
 
@@ -101,6 +100,7 @@ public class DeckMapPresenter {
     }
 
     public void setFadeInOutAnimation(Pair<Integer, Integer> deck) {
+        initAnimations();
         Drawable deckMapBackDrawable = view.getDeckMapBackDrawable();
         Drawable deckMapFrontDrawable = view.getDeckMapFrontDrawable();
         String preNumber = view.getTextDeckSelectorButton();

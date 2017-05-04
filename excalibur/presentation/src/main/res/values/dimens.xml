@@ -213,4 +213,8 @@
     <dimen name="product_shiptime_bar_padding">20dp</dimen>
     <dimen name="progress_height_width">30dp</dimen>
 
+    <!-- DeckMap-->
+    <dimen name="padding_bottom_deckmap">50dp</dimen>
+    <dimen name="padding_top_deckmap">50dp</dimen>
+
 </resources>

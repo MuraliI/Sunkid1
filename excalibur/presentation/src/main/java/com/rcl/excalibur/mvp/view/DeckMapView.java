@@ -23,6 +23,7 @@ import io.reactivex.functions.Consumer;
 
 public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Integer, Integer>> {
 
+    public static final int SCROLL_CENTER = 0;
     @BindView(R.id.image_deck_map_back) ImageView deckMapBackImage;
     @BindView(R.id.image_deck_map_front) ImageView deckMapFrontImage;
     @BindView(R.id.horizontal_deck_selector) HorizontalPickerView<Integer> deckSelectorPicker;
@@ -42,7 +43,7 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
     }
 
     public void moveToYPosition(int y) {
-        deckMapScrollView.post(() -> deckMapScrollView.smoothScrollBy(0, y == 0 ? getDeckImageMeasuredHeight() : y));
+        deckMapScrollView.post(() -> deckMapScrollView.scrollTo(0, y == 0 ? getDeckImageMeasuredHeight() : y));
     }
 
     public int getDeckImageMeasuredHeight() {
@@ -103,6 +104,7 @@ public class DeckMapView extends ActivityView<DeckMapActivity, Boolean, Pair<Int
     }
 
     public void setAnimation(int resource, Animation fadeOutBack, Animation fadeOutFront, boolean front) {
+        moveToYPosition(SCROLL_CENTER);
         ImageView iFront = front ? deckMapBackImage : deckMapFrontImage;
         ImageView iBack = front ? deckMapFrontImage : deckMapBackImage;
 
