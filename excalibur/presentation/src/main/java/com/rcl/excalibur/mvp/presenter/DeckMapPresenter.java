@@ -22,7 +22,7 @@ import java.util.List;
 
 public class DeckMapPresenter {
 
-    private static final int DEFAULT_DECK_NUMBER = 12;
+    private static final int DEFAULT_DECK_NUMBER = 1;
     private static final String DEFAULT_LATITUDE = "0";
     private static final String DEFAULT_DECK = "12";
 
