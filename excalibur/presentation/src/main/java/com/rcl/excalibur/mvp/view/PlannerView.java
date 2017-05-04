@@ -60,15 +60,13 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private Animation slideUpAnimation;
     private Animation animationGoIn;
 
-    private Observer<List<IHeader>> expandCollapseObserver;
+    private Observer<PlannerHeader> expandCollapseObserver;
     private Observer<Float> slideObserver;
     private Observer<Integer> stateChangeObserver;
 
-    private List<Integer> itemsToRemove;
     private List<View> headerViewList;
 
     private PlannerProductItemComparator productItemComparator;
-    private PlannerHeader headerTouched;
 
     private boolean initialized;
     private boolean bottomSheetIsSliding;
@@ -96,7 +94,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         peekHeight = resources.getDimensionPixelSize(R.dimen.planner_peek_height);
         headerHeight = resources.getDimensionPixelSize(R.dimen.height_planner_header);
 
-        itemsToRemove = new ArrayList<>();
         headerViewList = new ArrayList<>();
         productItemComparator = new PlannerProductItemComparator();
 
@@ -272,8 +269,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
                     sharedItemView,
                     getActivity().getString(R.string.shared_element_transition_name));
         } else {
-            headerTouched = (PlannerHeader) item;
-            onExpandCollapseNext(adapter.getHeaderItems());
+            onExpandCollapseNext((PlannerHeader) item);
         }
     }
 
@@ -283,19 +279,16 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     }
 
     public void addItemToSection(ISectionable itemToAdd, IHeader header) {
-        itemsToRemove.add(adapter.addItemToSection(itemToAdd, header, productItemComparator));
+        adapter.addItemToSection(itemToAdd, header, productItemComparator);
     }
 
-    public void removeItems() {
-        scrollToHeaderTouched();
-
-        adapter.removeItems(itemsToRemove);
-        itemsToRemove.clear();
+    public void removeItemsFromSection(IHeader header) {
+        adapter.removeItemsFromSection(header);
     }
 
-    private void scrollToHeaderTouched() {
-        int headerPosition = adapter.getGlobalPositionOf(headerTouched);
-        recyclerView.smoothScrollToPosition(headerPosition);
+    public void scrollToHeader(IHeader header) {
+        int headerPosition = adapter.getGlobalPositionOf(header);
+        recyclerView.scrollToPosition(headerPosition);
     }
 
     public void showProgressBar(boolean show) {
@@ -359,14 +352,14 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
 
     // COLLAPSE | EXPAND - OBSERVER
 
-    private void onExpandCollapseNext(List<IHeader> headers) {
+    private void onExpandCollapseNext(PlannerHeader header) {
         if (expandCollapseObserver == null) {
             return;
         }
-        expandCollapseObserver.onNext(headers);
+        expandCollapseObserver.onNext(header);
     }
 
-    public void setExpandCollapseObserver(Observer<List<IHeader>> expandCollapseObserver) {
+    public void setExpandCollapseObserver(Observer<PlannerHeader> expandCollapseObserver) {
         this.expandCollapseObserver = expandCollapseObserver;
     }
 
