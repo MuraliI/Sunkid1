@@ -71,7 +71,7 @@ public final class DetailViewTypeFactory {
             if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementTitle())) {
                 addTitleAndDescriptionTypes(recyclerViewTypeList,
                         resources.getString(R.string.dining_type),
-                        advisement.getAdvisementDescription());
+                        advisement.getAdvisementTitle());
             }
         }
     }
