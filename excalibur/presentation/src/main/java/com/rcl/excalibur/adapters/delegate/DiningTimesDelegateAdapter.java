@@ -83,24 +83,22 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
 
                 for (LocationOperationHour operationHour : operationHoursByDay) {
                     View itemDiningView = LayoutInflater.from(context).inflate(R.layout.item_dining_text_dash_text, null);
-                    TextView text = (TextView) itemView.findViewById(R.id.text);
-                    TextView subtext = (TextView) itemView.findViewById(R.id.subtext);
-                    LinearLayout showMenu = (LinearLayout) itemView.findViewById(R.id.show_menu_container);
+                    TextView text = (TextView) itemDiningView.findViewById(R.id.text);
+                    TextView subtext = (TextView) itemDiningView.findViewById(R.id.subtext);
+                    LinearLayout showMenu = (LinearLayout) itemDiningView.findViewById(R.id.show_menu_container);
                     text.setText(operationHour.getTimeOfDay());
                     subtext.setText(operationHour.getStartTime());
-                    diningTimesContainer.addView(itemDiningView);
 
+                    showMenu.setVisibility(View.GONE);
                     List<ProductAdvisement> advisementsDiningType = item.getProduct().getProductAdvisementsByType(ProductAdvisement.DINING_TYPE);
-                    if (CollectionUtils.isEmpty(advisementsDiningType)) {
-                        return;
+                    if (!CollectionUtils.isEmpty(advisementsDiningType)) {
+                        ProductAdvisement diningType = advisementsDiningType.get(0);
+                        if (diningType != null && diningType.getAdvisementTitle().equals(DINING_TYPE_SPECIALTY)) {
+                            showMenu.setVisibility(View.VISIBLE);
+                            showMenu.setOnClickListener(v -> Toast.makeText(context, "SHOW MENU ACTION", Toast.LENGTH_LONG).show());
+                        }
                     }
-                    ProductAdvisement diningType = advisementsDiningType.get(0);
-                    if (diningType != null && diningType.getAdvisementType().equals(DINING_TYPE_SPECIALTY)) {
-                        showMenu.setVisibility(View.VISIBLE);
-                        showMenu.setOnClickListener(v -> Toast.makeText(context, "SHOW MENU ACTION", Toast.LENGTH_LONG).show());
-                    } else {
-                        showMenu.setVisibility(View.GONE);
-                    }
+                    diningTimesContainer.addView(itemDiningView);
                 }
                 holder.timesContainer.addView(itemView);
             }

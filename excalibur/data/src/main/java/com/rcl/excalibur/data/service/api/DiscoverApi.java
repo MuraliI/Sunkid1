@@ -37,7 +37,7 @@ public interface DiscoverApi {
 
     @GET("products/en/royal-mobile")
     Call<GetProductsResponse> getProducts(@Query("sailingID") String sailingID
-            , @Query("productType") String type
+            , @Query("categoryID") String type
             , @Query("maxCount") int maxCount);
 
     @GET("activities/en/mobile")

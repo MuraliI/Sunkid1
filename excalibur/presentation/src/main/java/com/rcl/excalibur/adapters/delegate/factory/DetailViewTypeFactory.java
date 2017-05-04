@@ -69,7 +69,7 @@ public final class DetailViewTypeFactory {
                 return;
             }
             ProductAdvisement advisement = advisementsDiningType.get(0);
-            if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementDescription())) {
+            if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementTitle())) {
                 addTitleAndDescriptionTypes(recyclerViewTypeList,
                         resources.getString(R.string.dining_type),
                         advisement.getAdvisementDescription());
@@ -232,8 +232,14 @@ public final class DetailViewTypeFactory {
     private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings,
                                         @NonNull Resources res, Product product) {
 
-        if (!product.isShopping()) {
+        if (product.isDining()) {
+            if (product.getCostType() != null) {
+                String title = res.getString(R.string.prices);
+                addTitleAndDescriptionTypes(recyclerViewTypeList, title, product.getCostType().getCostTypeTitle());
+            }
+        }
 
+        if (!product.isShopping() && !product.isDining()) {
             HashMap<String, String> map = new HashMap<>();
             float adultPrice = -1;
             float childPrice = -1;
@@ -276,13 +282,6 @@ public final class DetailViewTypeFactory {
                         res.getString(R.string.prices_from), map, product);
                 recyclerViewTypeList.add(pricesFromViewType);
             }
-
-            if (product.isDining()) {
-                if (product.getCostType() != null) {
-                    String title = res.getString(R.string.prices);
-                    addTitleAndDescriptionTypes(recyclerViewTypeList, title, product.getCostType().getCostTypeTitle());
-                }
-            }
         }
     }
 
@@ -312,7 +311,10 @@ public final class DetailViewTypeFactory {
         }
 
         if (product.isDining()) {
-            recyclerViewTypeList.add(new DiningTimesViewType(product, title));
+            if (product.getProductLocation() != null
+                    && product.getProductLocation().getLocationOperationHours() != null) {
+                recyclerViewTypeList.add(new DiningTimesViewType(product, title));
+            }
         }
     }
 

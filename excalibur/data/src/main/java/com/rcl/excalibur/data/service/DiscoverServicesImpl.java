@@ -47,13 +47,13 @@ import timber.log.Timber;
 import static com.rcl.excalibur.data.service.SailDateServicesImpl.SAIL_DATE;
 import static com.rcl.excalibur.data.utils.ServiceUtil.getDiscoverApi;
 import static com.rcl.excalibur.data.utils.ServiceUtil.isSuccess;
-import static com.rcl.excalibur.domain.ProductType.ACTIVITIES_TYPE;
-import static com.rcl.excalibur.domain.ProductType.DINING_TYPE;
-import static com.rcl.excalibur.domain.ProductType.ENTERTAINMENT_TYPE;
-import static com.rcl.excalibur.domain.ProductType.GUEST_SERVICES_TYPE;
-import static com.rcl.excalibur.domain.ProductType.SHOPPING_TYPE;
-import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
-import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
+import static com.rcl.excalibur.domain.Category.ACTIVITIES_CATEGORY;
+import static com.rcl.excalibur.domain.Category.DINING_CATEGORY;
+import static com.rcl.excalibur.domain.Category.ENTERTAINMENT_CATEGORY;
+import static com.rcl.excalibur.domain.Category.GUEST_SERVICES_CATEGORY;
+import static com.rcl.excalibur.domain.Category.SHOPPING_CATEGORY;
+import static com.rcl.excalibur.domain.Category.SHOREX_CATEGORY;
+import static com.rcl.excalibur.domain.Category.SPA_CATEGORY;
 
 public class DiscoverServicesImpl extends BaseDataService<Product, ProductResponse, Void> implements DiscoverServices {
     private static final String SAILING_ID = "AL" + SAIL_DATE;
@@ -266,13 +266,13 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
             offeringRepository.deleteAll();
             productRepository.deleteAll();
 
-            Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING_TYPE, MAX_COUNT);
-            Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX_TYPE, MAX_COUNT);
-            Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES_TYPE, MAX_COUNT);
-            Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_TYPE, MAX_COUNT);
-            Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_TYPE, MAX_COUNT);
-            Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_TYPE, MAX_COUNT);
-            Call<GetProductsResponse> guestServicesCall = getDiscoverApi().getProducts(SAILING_ID, GUEST_SERVICES_TYPE, MAX_COUNT);
+            Call<GetProductsResponse> dinningCall = getDiscoverApi().getProducts(SAILING_ID, DINING_CATEGORY, MAX_COUNT);
+            Call<GetProductsResponse> shorexCall = getDiscoverApi().getProducts(SAILING_ID, SHOREX_CATEGORY, MAX_COUNT);
+            Call<GetProductsResponse> activitiesCall = getDiscoverApi().getProducts(SAILING_ID, ACTIVITIES_CATEGORY, MAX_COUNT);
+            Call<GetProductsResponse> entertainmentCall = getDiscoverApi().getProducts(SAILING_ID, ENTERTAINMENT_CATEGORY, MAX_COUNT);
+            Call<GetProductsResponse> spaCall = getDiscoverApi().getProducts(SAILING_ID, SPA_CATEGORY, MAX_COUNT);
+            Call<GetProductsResponse> shoppingCall = getDiscoverApi().getProducts(SAILING_ID, SHOPPING_CATEGORY, MAX_COUNT);
+            Call<GetProductsResponse> guestServicesCall = getDiscoverApi().getProducts(SAILING_ID, GUEST_SERVICES_CATEGORY, MAX_COUNT);
 
             ProductProcessor productProcessor = new ProductProcessor();
 

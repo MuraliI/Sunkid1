@@ -284,6 +284,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             }
             costTypeEntity.setMedia(mediaEntity);
         }
+        costTypeEntity.save();
         entity.setCostTypeEntity(costTypeEntity);
     }
 
@@ -374,16 +375,19 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         if (category == null) {
             return;
         }
-
-        final CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setCategoryId(category.getCategoryId());
-        categoryEntity.setDescription(category.getCategoryDescription());
-        categoryEntity.setName(category.getCategoryName());
-        categoryEntity.save();
+        CategoryEntity categoryEntity = new Select()
+                .from(CategoryEntity.class)
+                .where(eq(CategoryEntity.COLUMN_CATEGORY_ID, category.getCategoryId()))
+                .executeSingle();
+        if (categoryEntity == null) {
+            categoryEntity = new CategoryEntity();
+            categoryEntity.setName(category.getCategoryName());
+            categoryEntity.setCategoryId(category.getCategoryId());
+            categoryEntity.setDescription(category.getCategoryDescription());
+            categoryEntity.save();
+            createChildCategories(categoryEntity, category.getChildCategory());
+        }
         entity.setCategory(categoryEntity);
-
-        createChildCategories(categoryEntity, category.getChildCategory());
-
     }
 
     private void createChildCategories(final CategoryEntity entity, final List<ChildCategory> categories) {
@@ -421,14 +425,14 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     @Override
     public List<Product> getByType(@NonNull final String type, int maxCount, int offset) {
-        final TypeEntity typeEntity = new Select()
-                .from(TypeEntity.class)
-                .where(eq(TypeEntity.COLUMN_TYPE, type))
+        final CategoryEntity categoryEntity = new Select()
+                .from(CategoryEntity.class)
+                .where(eq(CategoryEntity.COLUMN_CATEGORY_ID, type))
                 .executeSingle();
-        if (typeEntity == null) {
+        if (categoryEntity == null) {
             return new ArrayList<>();
         }
-        String condition = eq(ProductEntity.COLUMN_TYPE, typeEntity.getId());
+        String condition = eq(ProductEntity.COLUMN_CATEGORY, categoryEntity.getId());
         return this.getBatch(condition, maxCount, offset);
     }
 

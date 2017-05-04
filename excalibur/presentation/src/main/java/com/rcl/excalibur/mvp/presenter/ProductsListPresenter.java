@@ -7,6 +7,7 @@ import android.view.View;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
@@ -39,17 +40,17 @@ public class ProductsListPresenter {
         view.init(pair -> showCollectionInView(getProductsByCategory(type, categoryId, pair.first, pair.second, activity), pair.first));
     }
 
-    private List<Product> getProductsByCategory(int type, String categoryId, int offset, int maxCount, BaseActivity activity) {
+    private List<Product> getProductsByCategory(int categoryId, String childCategoryId, int offset, int maxCount, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
-        String typeQuery = getType(activity, type);
+        String typeQuery = getType(activity, categoryId);
         List<Product> allProducts = getProductDbUseCase.getByType(typeQuery, maxCount, offset);
 
-        if (categoryId == null) {
+        if (childCategoryId == null) {
             childProducts = allProducts;
         } else {
             for (Product typeProduct : allProducts) {
                 for (ChildCategory childCategory : typeProduct.getProductCategory().getChildCategory()) {
-                    if (categoryId.equals(childCategory.getItems().getCategoryId())) {
+                    if (childCategoryId.equals(childCategory.getItems().getCategoryId())) {
                         childProducts.add(typeProduct);
                     }
                 }
@@ -70,25 +71,25 @@ public class ProductsListPresenter {
         String categorySelected;
         switch (type) {
             case ProductsListFragment.ROYAL_ACTIVITY:
-                categorySelected = activity.getString(R.string.category_royal_activity);
+                categorySelected = Category.ACTIVITIES_CATEGORY;
                 break;
             case ProductsListFragment.DINING:
-                categorySelected = activity.getString(R.string.category_dining);
+                categorySelected = Category.DINING_CATEGORY;
                 break;
             case ProductsListFragment.SHOPPING:
-                categorySelected = activity.getString(R.string.category_shopping);
+                categorySelected = Category.SHOPPING_CATEGORY;
                 break;
             case ProductsListFragment.SPA:
-                categorySelected = activity.getString(R.string.category_spa);
+                categorySelected = Category.SPA_CATEGORY;
                 break;
             case ProductsListFragment.SHOREX:
-                categorySelected = activity.getString(R.string.category_shorex);
+                categorySelected = Category.SHOREX_CATEGORY;
                 break;
             case ProductsListFragment.ENTERTAINMENT:
-                categorySelected = activity.getString(R.string.category_entertainment);
+                categorySelected = Category.ENTERTAINMENT_CATEGORY;
                 break;
             case ProductsListFragment.GUEST_SERVICES:
-                categorySelected = activity.getString(R.string.category_guest_services);
+                categorySelected = Category.GUEST_SERVICES_CATEGORY;
                 break;
             default:
                 categorySelected = activity.getString(R.string.category_royal_activity);
