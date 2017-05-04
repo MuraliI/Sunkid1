@@ -23,7 +23,6 @@ public class ProductEntity extends Model {
     public static final String COLUMN_RESERVATION_REQUIRED = "reservation_required";
     public static final String COLUMN_RESERVATION_INFORMATION = "reservation_information";
     public static final String COLUMN_SCHEDULABLE = "schedulable";
-    public static final String COLUMN_ACTIVITY_LEVEL = "activity_level";
     public static final String COLUMN_LOCATION = "location";
     public static final String COLUMN_DURATION = "duration";
     public static final String COLUMN_COST_TYPE = "cost_type";
@@ -31,7 +30,6 @@ public class ProductEntity extends Model {
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_SHORT_DESCRIPTION = "short_description";
     public static final String COLUMN_LONG_DESCRIPTION = "long_description";
-    public static final String COLUMN_PREFERENCE = "preference";
     public static final String COLUMN_PRODUCT_MEDIA = "product_media";
     public static final String COLUMN_EXPERIENCE = "experience";
     public static final String COLUMN_IS_FEATURED = "featured";
@@ -57,8 +55,6 @@ public class ProductEntity extends Model {
     public String productReservationInformation;
     @Column(name = COLUMN_SCHEDULABLE)
     public boolean schedulable;
-    @Column(name = COLUMN_ACTIVITY_LEVEL)
-    public ActivityLevelEntity activityLevel;
     @Column(name = COLUMN_LOCATION)
     public LocationEntity location;
     @Column(name = COLUMN_DURATION)
@@ -73,8 +69,6 @@ public class ProductEntity extends Model {
     public String shortDescription;
     @Column(name = COLUMN_LONG_DESCRIPTION)
     public String longDescription;
-    @Column(name = COLUMN_PREFERENCE)
-    public PreferenceEntity preference;
     @Column(name = COLUMN_PRODUCT_MEDIA)
     public MediaEntity productMedia;
     @Column(name = COLUMN_EXPERIENCE)
@@ -171,14 +165,6 @@ public class ProductEntity extends Model {
         this.schedulable = schedulable;
     }
 
-    public ActivityLevelEntity getActivityLevel() {
-        return activityLevel;
-    }
-
-    public void setActivityLevel(ActivityLevelEntity activityLevel) {
-        this.activityLevel = activityLevel;
-    }
-
     public LocationEntity getLocation() {
         return location;
     }
@@ -233,14 +219,6 @@ public class ProductEntity extends Model {
 
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
-    }
-
-    public PreferenceEntity getPreference() {
-        return preference;
-    }
-
-    public void setPreference(PreferenceEntity preference) {
-        this.preference = preference;
     }
 
     public MediaEntity getProductMedia() {

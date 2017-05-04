@@ -102,10 +102,10 @@ public class PlannerProductModelMapper {
         PlannerProductModel model = (PlannerProductModel) productInformationMapper.transform(product);
 
         Calendar startDate = Calendar.getInstance();
-        startDate.setTime(offering.getCompleteDate());
+        startDate.setTime(offering.getDate());
 
         model.setStartDate(startDate);
-        model.setEndDate(calculateEndDate(offering.getCompleteDate(), product.getProductDuration()));
+        model.setEndDate(calculateEndDate(offering.getDate(), product.getProductDuration()));
         model.setOperatingHours(calculateOperatingHours(model.getStartDate(), model.getEndDate()));
         model.setResourceIdCategoryIcon(CategoryUtils.getCategoryIcon(model.getProductType()));
 

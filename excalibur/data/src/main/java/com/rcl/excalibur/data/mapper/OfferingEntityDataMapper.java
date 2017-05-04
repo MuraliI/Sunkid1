@@ -7,7 +7,9 @@ import com.rcl.excalibur.data.entity.OfferingEntity;
 import com.rcl.excalibur.data.entity.ProductEntity;
 import com.rcl.excalibur.domain.Offering;
 
+@Deprecated
 public class OfferingEntityDataMapper extends BaseDataMapper<OfferingEntity, Offering, ProductEntity> {
+
 
     private PriceEntityDataMapper priceEntityDataMapper;
 
@@ -19,11 +21,6 @@ public class OfferingEntityDataMapper extends BaseDataMapper<OfferingEntity, Off
     @Override
     public OfferingEntity transform(Offering input, ProductEntity productEntity) {
         OfferingEntity offeringEntity = new OfferingEntity();
-        offeringEntity.setOfferingId(input.getId());
-        offeringEntity.setProductEntity(productEntity);
-        offeringEntity.setDate(input.getDate());
-        offeringEntity.setTime(input.getTime());
-        offeringEntity.setPrice(priceEntityDataMapper.transform(input.getPrice(), null));
 
         return offeringEntity;
     }

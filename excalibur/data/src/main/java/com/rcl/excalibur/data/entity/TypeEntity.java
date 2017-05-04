@@ -13,13 +13,11 @@ public class TypeEntity extends Model {
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_TYPE = "type";
 
-    //TODO create unique constraints and indexes when services are defined
-    @Column(name = COLUMN_TYPE_ID)
+    @Column(name = COLUMN_TYPE_ID, unique = true, index = true)
     private String typeId;
     @Column(name = COLUMN_NAME)
     private String name;
-    //TODO create unique constraints and indexes when services are defined
-    @Column(name = COLUMN_TYPE)
+    @Column(name = COLUMN_TYPE, unique = true, index = true)
     private String type;
 
     public TypeEntity() {

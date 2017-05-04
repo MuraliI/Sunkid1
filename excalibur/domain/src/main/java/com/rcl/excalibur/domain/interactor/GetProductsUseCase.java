@@ -5,7 +5,7 @@ import com.rcl.excalibur.domain.service.DiscoverServices;
 
 import io.reactivex.observers.DisposableObserver;
 
-
+@Deprecated
 public class GetProductsUseCase extends UseCase<Boolean, Void> {
 
     private final DiscoverServices discoverServices;
@@ -17,7 +17,7 @@ public class GetProductsUseCase extends UseCase<Boolean, Void> {
 
     @Override
     void buildUseCaseObservable(DisposableObserver<Boolean> observer, Void aVoid) {
-        discoverServices.getProducts(observer);
+//        discoverServices.getProducts(observer);
     }
 
 }

@@ -11,10 +11,8 @@ public class ProductResponse {
     private String productId;
     private List<ProductCategoryResponse> productCategory;
     private List<ProductAdvisementResponse> advisements;
-    private List<ProductPreferenceResponse> preferences;
     private List<ProductRestrictionResponse> restrictions;
     private ProductTypeResponse productType;
-    private ProductActivityLevelResponse activityLevel;
     private ProductLocationResponse productLocation;
     private ProductDurationResponse productDuration;
     private ProductCostTypeResponse costType;
@@ -60,14 +58,6 @@ public class ProductResponse {
         this.advisements = advisements;
     }
 
-    public List<ProductPreferenceResponse> getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(List<ProductPreferenceResponse> preferences) {
-        this.preferences = preferences;
-    }
-
     public List<ProductRestrictionResponse> getRestrictions() {
         return restrictions;
     }
@@ -82,14 +72,6 @@ public class ProductResponse {
 
     public void setProductType(ProductTypeResponse productType) {
         this.productType = productType;
-    }
-
-    public ProductActivityLevelResponse getActivityLevel() {
-        return activityLevel;
-    }
-
-    public void setActivityLevel(ProductActivityLevelResponse activityLevel) {
-        this.activityLevel = activityLevel;
     }
 
     public ProductLocationResponse getProductLocation() {

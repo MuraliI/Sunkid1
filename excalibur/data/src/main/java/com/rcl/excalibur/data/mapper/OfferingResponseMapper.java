@@ -4,28 +4,28 @@ package com.rcl.excalibur.data.mapper;
 import android.support.annotation.Nullable;
 
 import com.rcl.excalibur.data.service.response.OfferingResponse;
-import com.rcl.excalibur.data.service.response.ProductResponse;
+import com.rcl.excalibur.data.utils.DateUtil;
 import com.rcl.excalibur.domain.Offering;
+import com.rcl.excalibur.domain.Product;
 
-public class OfferingResponseMapper extends BaseDataMapper<Offering, OfferingResponse, ProductResponse> {
+public class OfferingResponseMapper extends BaseDataMapper<Offering, OfferingResponse, Product> {
 
     private PriceResponseMapper priceResponseMapper;
-    private ProductResponseDataMapper productResponseDataMapper;
 
-    public OfferingResponseMapper(ProductResponseDataMapper productResponseDataMapper, PriceResponseMapper priceResponseMapper) {
+    public OfferingResponseMapper(PriceResponseMapper priceResponseMapper) {
         this.priceResponseMapper = priceResponseMapper;
-        this.productResponseDataMapper = productResponseDataMapper;
     }
 
     @Nullable
     @Override
-    public Offering transform(OfferingResponse offeringResponse, ProductResponse productResponse) {
+    public Offering transform(OfferingResponse response, Product product) {
         Offering offering = new Offering();
-        offering.setId(offeringResponse.getOfferingId());
-        offering.setProduct(productResponseDataMapper.transform(productResponse, null));
-        offering.setPrice(priceResponseMapper.transform(offeringResponse.getOfferingPrice(), null));
-        offering.setDate(offeringResponse.getOfferingDate());
-        offering.setTime(offeringResponse.getOfferingTime());
+        offering.setId(response.getOfferingId());
+        offering.setProduct(product);
+        offering.setPrice(priceResponseMapper.transform(response.getOfferingPrice(), null));
+        offering.setDate(DateUtil.parseDateResponse(response.getOfferingDate(), response.getOfferingTime()));
+        offering.setDateString(response.getOfferingDate());
+        offering.setTimeString(response.getOfferingTime());
         return offering;
     }
 }

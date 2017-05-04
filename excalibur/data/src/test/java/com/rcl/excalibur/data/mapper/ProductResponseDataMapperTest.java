@@ -73,11 +73,15 @@ public class ProductResponseDataMapperTest {
     ProductRestrictionAnswerResponse productRestrictionAnswerResponse;
     ProductRestrictionResponse productRestrictionResponse;
 
+    OfferingResponseMapper offeringResponseMapper;
+    PriceResponseMapper priceResponseMapper;
+
     @Before
     public void setUp() throws Exception {
+        priceResponseMapper = new PriceResponseMapper();
+        offeringResponseMapper = new OfferingResponseMapper(priceResponseMapper);
 
-
-        productResponseDataMapper = new ProductResponseDataMapper();
+        productResponseDataMapper = new ProductResponseDataMapper(offeringResponseMapper);
 
         productResponse1 = new ProductResponse();
         productResponse1.setProductId("100000002814023699");
@@ -154,9 +158,6 @@ public class ProductResponseDataMapperTest {
         productActivityLevelResponse.setActivityLevelId("AL");
         productActivityLevelResponse.setActivityLevelTitle("ActivityLevelTitle");
         productActivityLevelResponse.setActivityLevelMedia(mediaResponse);
-        productResponse1.setActivityLevel(productActivityLevelResponse);
-
-        productResponse2.setActivityLevel(productActivityLevelResponse);
 
         DeckInfoResponse deckInfoResponse = new DeckInfoResponse();
         deckInfoResponse.setDeckNumber("5");
@@ -234,10 +235,6 @@ public class ProductResponseDataMapperTest {
         productPreferenceResponse.setPreferenceName("PreferenceName");
         productPreferenceResponse.setPreferenceType("PreferenceType");
         productPreferenceResponse.setPreferenceValue(Arrays.asList(productPreferenceValueResponse));
-        productResponse1.setPreferences(Arrays.asList(productPreferenceResponse));
-
-        productResponse2.setPreferences(Arrays.asList(productPreferenceResponse));
-
 
         productRestrictionAnswerResponse = new ProductRestrictionAnswerResponse();
         productRestrictionAnswerResponse.setRestrictionAnswerDisplayText("RestrictionAnswerDisplayText");
@@ -308,17 +305,6 @@ public class ProductResponseDataMapperTest {
 
         assertEquals(productResponse1.isScheduable(), product.isScheduable());
 
-        assertEquals(productResponse1.getActivityLevel().getActivityLevelDescription(), product.getActivityLevel().getActivityLevelDescription());
-        assertEquals(productResponse1.getActivityLevel().getActivityLevelId(), product.getActivityLevel().getActivityLevelId());
-        assertEquals(productResponse1.getActivityLevel().getActivityLevelTitle(), product.getActivityLevel().getActivityLevelTitle());
-
-        for (int i = 0; i < productResponse1.getActivityLevel().getActivityLevelMedia().getMediaItem().size(); i++) {
-            MediaItemResponse item = productResponse1.getActivityLevel().getActivityLevelMedia().getMediaItem().get(i);
-            MediaItem itemProduct = product.getActivityLevel().getActivityLevelMedia().getMediaItem().get(i);
-            assertEquals(item.getMediaRefLink(), itemProduct.getMediaRefLink());
-            assertEquals(item.getMediaType(), itemProduct.getMediaType());
-        }
-
         ProductLocationResponse locationResponse = productResponse1.getProductLocation();
         ProductLocation location = product.getProductLocation();
 
@@ -386,17 +372,6 @@ public class ProductResponseDataMapperTest {
                 MediaItem itemProduct = product.getAdvisements().get(i).getAdvisementMedia().getMediaItem().get(j);
                 assertEquals(item.getMediaRefLink(), itemProduct.getMediaRefLink());
                 assertEquals(item.getMediaType(), itemProduct.getMediaType());
-            }
-        }
-
-        for (int i = 0; i < productResponse1.getPreferences().size(); i++) {
-            assertEquals(productResponse1.getPreferences().get(i).getPreferenceId(), product.getPreferences().get(i).getPreferenceId());
-            assertEquals(productResponse1.getPreferences().get(i).getPreferenceName(), product.getPreferences().get(i).getPreferenceName());
-            assertEquals(productResponse1.getPreferences().get(i).getPreferenceType(), product.getPreferences().get(i).getPreferenceType());
-            for (int j = 0; j < productResponse1.getPreferences().get(i).getPreferenceValue().size(); j++) {
-                assertEquals(productResponse1.getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueId(), product.getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueId());
-                assertEquals(productResponse1.getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueCode(), product.getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueCode());
-                assertEquals(productResponse1.getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueName(), product.getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueName());
             }
         }
 
@@ -480,16 +455,6 @@ public class ProductResponseDataMapperTest {
 
             assertEquals(productResponses.get(z).isScheduable(), productList.get(z).isScheduable());
 
-            assertEquals(productResponses.get(z).getActivityLevel().getActivityLevelDescription(), productList.get(z).getActivityLevel().getActivityLevelDescription());
-            assertEquals(productResponses.get(z).getActivityLevel().getActivityLevelId(), productList.get(z).getActivityLevel().getActivityLevelId());
-            assertEquals(productResponses.get(z).getActivityLevel().getActivityLevelTitle(), productList.get(z).getActivityLevel().getActivityLevelTitle());
-            for (int i = 0; i < productResponses.get(z).getActivityLevel().getActivityLevelMedia().getMediaItem().size(); i++) {
-                MediaItemResponse item = productResponses.get(z).getActivityLevel().getActivityLevelMedia().getMediaItem().get(i);
-                MediaItem itemProduct = productList.get(z).getActivityLevel().getActivityLevelMedia().getMediaItem().get(i);
-                assertEquals(item.getMediaRefLink(), itemProduct.getMediaRefLink());
-                assertEquals(item.getMediaType(), itemProduct.getMediaType());
-            }
-
             ProductLocationResponse productLocationResponse = productResponses.get(z).getProductLocation();
             ProductLocation productLocation = productList.get(z).getProductLocation();
 
@@ -555,18 +520,6 @@ public class ProductResponseDataMapperTest {
                     MediaItem itemProduct = productList.get(z).getAdvisements().get(i).getAdvisementMedia().getMediaItem().get(j);
                     assertEquals(item.getMediaRefLink(), itemProduct.getMediaRefLink());
                     assertEquals(item.getMediaType(), itemProduct.getMediaType());
-                }
-            }
-
-            for (int i = 0; i < productResponses.get(z).getPreferences().size(); i++) {
-                assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceId(), productList.get(z).getPreferences().get(i).getPreferenceId());
-                assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceName(), productList.get(z).getPreferences().get(i).getPreferenceName());
-                assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceType(), productList.get(z).getPreferences().get(i).getPreferenceType());
-
-                for (int j = 0; j < productResponses.get(z).getPreferences().get(i).getPreferenceValue().size(); j++) {
-                    assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueId(), productList.get(z).getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueId());
-                    assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueCode(), productList.get(z).getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueCode());
-                    assertEquals(productResponses.get(z).getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueName(), productList.get(z).getPreferences().get(i).getPreferenceValue().get(j).getPreferenceValueName());
                 }
             }
 

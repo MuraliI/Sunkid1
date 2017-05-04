@@ -13,7 +13,7 @@ import java.util.TimeZone;
 import timber.log.Timber;
 
 public final class DateUtil {
-
+    private static final int TIME_LENGTH = 4;
 
     public static final String DATE_FORMAT = "yyyyMMddHHmm";
     public static final String HOURLESS_DATE_FORMAT = "yyyyMMdd";
@@ -30,6 +30,11 @@ public final class DateUtil {
     public static Date parseDateResponse(String dateStr, String timeStr) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.US);
         Date date = null;
+
+        if (timeStr.length() < TIME_LENGTH) {
+            timeStr = 0 + timeStr;
+        }
+
         String str = dateStr + timeStr;
         try {
             date = dateFormatter.parse(str);
@@ -66,21 +71,19 @@ public final class DateUtil {
         return format.format(date);
     }
 
-    public static SimpleDateFormat getStandardDateParser() {
-        return new SimpleDateFormat(DATE_FORMAT, Locale.US);
+    public static String parseHourless(Date date) {
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(HOURLESS_DATE_FORMAT, Locale.US);
+        return simpleDateFormat.format(date);
     }
 
-    public static SimpleDateFormat getHourlessDateParser() {
-        return new SimpleDateFormat(HOURLESS_DATE_FORMAT, Locale.US);
-    }
-
-    public static SimpleDateFormat getDateFormatISO() {
-        return new SimpleDateFormat(DATE_FORMAT_ISO, Locale.US);
+    public static Date parseHourless(String date) throws ParseException {
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(HOURLESS_DATE_FORMAT, Locale.US);
+        return simpleDateFormat.parse(date);
     }
 
     public static Date parseDateISO(String dateToTransform) {
         Date date = null;
-        SimpleDateFormat dateformat = getDateFormatISO();
+        SimpleDateFormat dateformat = new SimpleDateFormat(DATE_FORMAT_ISO, Locale.US);
         try {
             date = dateformat.parse(dateToTransform);
         } catch (ParseException e) {
