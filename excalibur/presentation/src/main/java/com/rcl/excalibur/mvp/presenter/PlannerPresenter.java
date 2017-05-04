@@ -340,6 +340,10 @@ public class PlannerPresenter {
         if (header.isAllDayHeader()) {
             itemsToAdd = hiddenAllDayItems;
         } else {
+            PlannerProductItem productItem = view.getNextItem(view.getFirstItemPosition());
+            if (productItem != null) {
+                updateHeader(productItem);
+            }
             itemsToAdd = hiddenGeneralItems;
         }
 
@@ -350,21 +354,6 @@ public class PlannerPresenter {
         header.setSectionExpanded(true);
         view.scrollToHeader(header);
         view.updateHeader(header);
-    }
-
-    private void updateHeaders(List<IHeader> headers, boolean isExpanded) {
-        for (IHeader header : headers) {
-            PlannerHeader plannerHeader = (PlannerHeader) header;
-            plannerHeader.setSectionExpanded(isExpanded);
-            if (plannerHeader.isAllDayHeader()) {
-                view.updateHeader(header);
-            } else {
-                PlannerProductItem productItem = view.getNextItem(view.getFirstItemPosition());
-                if (productItem != null) {
-                    updateHeader(productItem);
-                }
-            }
-        }
     }
 
     private void collapseSection(PlannerHeader header) {
@@ -475,21 +464,20 @@ public class PlannerPresenter {
         }
     }
 
-    private static class OnExpandCollapseObserver extends DefaultPresentObserver<List<IHeader>, PlannerPresenter> {
-        private boolean isExpanded = false;
+    private static class OnExpandCollapseObserver extends DefaultPresentObserver<PlannerHeader, PlannerPresenter> {
 
         OnExpandCollapseObserver(PlannerPresenter presenter) {
             super(presenter);
         }
 
         @Override
-        public void onNext(List<IHeader> headers) {
+        public void onNext(PlannerHeader header) {
             PlannerPresenter presenter = getPresenter();
             if (header.isSectionExpanded()) {
                 presenter.collapseSection(header);
             } else {
                 presenter.expandSection(header);
-            };
+            }
         }
     }
 
