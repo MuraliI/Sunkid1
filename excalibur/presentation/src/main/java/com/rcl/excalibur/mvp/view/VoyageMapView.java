@@ -47,12 +47,13 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
         whiteBarView.getLayoutParams().width = width / SCREEN_DIVISOR;
     }
 
-    public void initVoyageMapImage(int resource, PointF point) {
+    public void initVoyageMapImage(int resource, PointF point, SubsamplingScaleImageView.OnImageEventListener event) {
         voyageMapImage.setImage(resource);
         voyageMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_INSIDE);
         voyageMapImage.setMinimumDpi(MINIMUM_DPI);
         voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / voyageMapImage.SCALE_FACTOR, point);
         voyageMapImage.setZoomEnabled(false);
+        voyageMapImage.setOnImageEventListener(event);
     }
 
     public void setCruiseCoordinate(PointF point) {
@@ -60,10 +61,6 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
             return;
         }
         voyageMapImage.setCruiseCoord(point);
-    }
-
-    public void setCruiseAngle(long cruiseAngle) {
-        voyageMapImage.setAngle(cruiseAngle);
     }
 
     @OnClick(R.id.date_picker_plans_tab)

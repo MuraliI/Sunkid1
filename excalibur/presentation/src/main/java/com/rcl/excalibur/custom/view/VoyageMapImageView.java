@@ -20,15 +20,6 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
     private Paint paint;
     private Bitmap cruise;
     private PointF cruiseCoord;
-    private long angle;
-
-    public long getAngle() {
-        return angle;
-    }
-
-    public void setAngle(long angle) {
-        this.angle = angle;
-    }
 
     public VoyageMapImageView(Context context, AttributeSet attr) {
         super(context, attr);
@@ -68,9 +59,6 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
                 .start();
     }
 
-    public PointF getPin() {
-        return cruiseCoord;
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {

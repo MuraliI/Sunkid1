@@ -28,7 +28,8 @@ import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_CR
 import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DEBARK;
 import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DOCKED;
 
-public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimationEventListener {
+public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimationEventListener,
+        SubsamplingScaleImageView.OnImageEventListener {
     private static final int XCOORDINATE = 796;
     private static final int YCOORDINATE = 826;
     private static final int CENTER_OFFSET = 100;
@@ -70,7 +71,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private void initVoyageMapImage() {
         view.setCruiseCoordinate(new PointF(XCOORDINATE, YCOORDINATE + CENTER_OFFSET));
         view.hideShip();
-        view.initVoyageMapImage(R.drawable.caribbean_map_2_1, new PointF(XCOORDINATE, YCOORDINATE));
+        view.initVoyageMapImage(R.drawable.caribbean_map_2_1, new PointF(XCOORDINATE, YCOORDINATE), this);
     }
 
     public void onResume() {
@@ -141,6 +142,36 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
 
     @Override
     public void onInterruptedByNewAnim() {
+
+    }
+
+    @Override
+    public void onReady() {
+        view.hideShip();
+    }
+
+    @Override
+    public void onImageLoaded() {
+
+    }
+
+    @Override
+    public void onPreviewLoadError(Exception e) {
+
+    }
+
+    @Override
+    public void onImageLoadError(Exception e) {
+
+    }
+
+    @Override
+    public void onTileLoadError(Exception e) {
+
+    }
+
+    @Override
+    public void onPreviewReleased() {
 
     }
 }
