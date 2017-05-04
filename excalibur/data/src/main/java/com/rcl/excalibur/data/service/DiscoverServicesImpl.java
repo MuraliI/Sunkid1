@@ -71,7 +71,7 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
 
             @Override
             public void onResponse(Call<GetSubCategoriesResponse> call, Response<GetSubCategoriesResponse> response) {
-                subCategoryRepository.deleteAll();
+//                subCategoryRepository.deleteAll();
                 mapSubCategories(response, subCategories);
                 subCategoryRepository.create(subCategories);
             }

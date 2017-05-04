@@ -31,13 +31,13 @@ public class ProductsListPresenter {
         this.getProductDbUseCase = getProductDbUseCase;
     }
 
-    public void init(int type, String categoryId) {
+    public void init(int category, String childCategoryId) {
         final BaseActivity activity = view.getActivity();
         if (activity == null) {
             return;
         }
         view.setAdapterObserver(new AdapterObserver(this));
-        view.init(pair -> showCollectionInView(getProductsByCategory(type, categoryId, pair.first, pair.second, activity), pair.first));
+        view.init(pair -> showCollectionInView(getProductsByCategory(category, childCategoryId, pair.first, pair.second, activity), pair.first));
     }
 
     private List<Product> getProductsByCategory(int categoryId, String childCategoryId, int offset, int maxCount, BaseActivity activity) {
