@@ -338,8 +338,16 @@ public class PlannerPresenter {
 
     private void updateHeaders(List<IHeader> headers, boolean isExpanded) {
         for (IHeader header : headers) {
-            ((PlannerHeader) header).setSectionExpanded(isExpanded);
-            view.updateHeader(header);
+            PlannerHeader plannerHeader = (PlannerHeader) header;
+            plannerHeader.setSectionExpanded(isExpanded);
+            if (plannerHeader.isAllDayHeader()) {
+                view.updateHeader(header);
+            } else {
+                PlannerProductItem productItem = view.getNextItem(view.getFirstItemPosition());
+                if (productItem != null) {
+                    updateHeader(productItem);
+                }
+            }
         }
     }
 
