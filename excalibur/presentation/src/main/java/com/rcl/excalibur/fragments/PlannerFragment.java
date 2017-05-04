@@ -30,6 +30,9 @@ public class PlannerFragment extends BaseTripTychFragment implements FlexibleAda
     private PlannerView plannerView;
     private SailingPreferences sailingPreferences;
 
+    //FIXME fix logic of calling service completed
+    private boolean serviceAlreadyCompleted;
+
     public static PlannerFragment newInstance() {
         return new PlannerFragment();
     }
@@ -54,7 +57,7 @@ public class PlannerFragment extends BaseTripTychFragment implements FlexibleAda
                 new SailingInformationModelDataMapper(),
                 new PlannerModel()
         );
-        presenter.init();
+        presenter.init(serviceAlreadyCompleted);
     }
 
     @Override
@@ -65,7 +68,11 @@ public class PlannerFragment extends BaseTripTychFragment implements FlexibleAda
 
     @Override
     public void onServiceCallCompleted(boolean success) {
-        presenter.onServiceCallCompleted();
+        if (presenter != null) {
+            presenter.onServiceCallCompleted();
+        } else {
+            serviceAlreadyCompleted = true;
+        }
     }
 
     public void onResume() {

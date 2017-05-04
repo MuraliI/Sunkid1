@@ -16,15 +16,18 @@ public class DiscoverTabPresenter {
 
     protected int countBoatOnClick;
 
-    public DiscoverTabPresenter(DiscoverTabView view) {
+    public DiscoverTabPresenter(DiscoverTabView view, boolean serviceAlreadyFinished) {
         this.view = view;
         AnalyticsUtils.trackState(AnalyticsConstants.KEY_DISCOVER);
-        init();
+        init(serviceAlreadyFinished);
     }
 
-    protected void init() {
+    protected void init(boolean serviceAlreadyFinished) {
         view.init();
         view.showLoadingView(true);
+        if (serviceAlreadyFinished) {
+            serviceCallCompleted();
+        }
     }
 
     public void openListScreen(int fragmentToShow) {
