@@ -10,6 +10,11 @@ import com.rcl.excalibur.domain.service.MenuServices;
 
 import java.util.List;
 
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,10 +35,9 @@ public class MenuServicesImpl extends BaseDataService<Menu, MenuResponse, Void> 
 
 
     @Override
-    public void getMenu() {
-        new Thread(() -> {
+    public void getMenu(DisposableObserver<List<Menu>> observer) {
+        Observable<List<Menu>> observable = Observable.create(emitter -> {
             Call<GetMenuResponse> call = getMenuApi().getMenus(SAILING_ID, "GIOV");
-
             call.enqueue(new Callback<GetMenuResponse>() {
                 @Override
                 public void onResponse(Call<GetMenuResponse> call, Response<GetMenuResponse> response) {
@@ -42,18 +46,23 @@ public class MenuServicesImpl extends BaseDataService<Menu, MenuResponse, Void> 
                         repository.deleteAll();
                         for (Menu menu : menus) {
                             repository.create(menu);
-
                         }
-
+                        emitter.onComplete();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<GetMenuResponse> call, Throwable t) {
                     Timber.e("error GetMenuResponse", t.getMessage());
+                    emitter.onError(t);
 
                 }
             });
-        }).start();
+
+        });
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 }

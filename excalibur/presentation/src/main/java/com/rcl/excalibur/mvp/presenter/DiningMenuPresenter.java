@@ -7,7 +7,9 @@ import android.support.v4.view.ViewPager;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.DiningMenuPagerAdapter;
+import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetMenusUseCase;
 import com.rcl.excalibur.fragments.MenuListFragment;
 import com.rcl.excalibur.mvp.view.DiningMenuView;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -15,18 +17,25 @@ import com.rcl.excalibur.utils.AlertDialogUtils;
 
 import java.util.List;
 
+import io.reactivex.observers.DisposableObserver;
+import timber.log.Timber;
+
 public class DiningMenuPresenter {
 
     private final DiningMenuView view;
+    private final GetMenusUseCase getMenusUseCase;
     private final GetMenuDbUseCase getMenuDbUseCase;
 
-    public DiningMenuPresenter(DiningMenuView view, GetMenuDbUseCase getMenuDbUseCase) {
+    public DiningMenuPresenter(DiningMenuView view,
+                               GetMenuDbUseCase getMenuDbUseCase,
+                               GetMenusUseCase getMenusUseCase) {
         this.view = view;
         this.getMenuDbUseCase = getMenuDbUseCase;
+        this.getMenusUseCase = getMenusUseCase;
     }
 
     public void init(String venueCode) {
-        view.init(venueCode);
+        view.init();
     }
 
     public void onHeaderBackOnClick() {
@@ -36,7 +45,28 @@ public class DiningMenuPresenter {
         }
     }
 
-    public void createFragmentMenu(String venueCode, ViewPager viewPager) {
+    public void initFragmentMenu(ViewPager viewPager) {
+        getMenusUseCase.execute(new DisposableObserver<List<Menu>>() {
+            @Override
+            public void onNext(List<Menu> value) {
+            }
+
+            @Override
+            public void onError(Throwable exception) {
+                showDialogEmptyMenu();
+            }
+
+            @Override
+            public void onComplete() {
+                Timber.d("getMenusUseCase", "onComplete");
+                createFragmentMenu(viewPager);
+            }
+
+
+        }, null);
+    }
+
+    public void createFragmentMenu(ViewPager viewPager) {
         List<String> menusName = getMenuDbUseCase.getAllMenuName();
         if (menusName != null && !menusName.isEmpty()) {
             addFragmentsToPager(menusName, viewPager);
@@ -62,4 +92,6 @@ public class DiningMenuPresenter {
             AlertDialogUtils.showDialog(view.getActivity(), listener, message, buttonMessage);
         }
     }
+
+
 }

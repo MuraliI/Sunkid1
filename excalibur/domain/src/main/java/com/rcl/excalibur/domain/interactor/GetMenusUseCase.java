@@ -20,6 +20,7 @@ public class GetMenusUseCase extends UseCase<List<Menu>, Void> {
 
     @Override
     void buildUseCaseObservable(DisposableObserver<List<Menu>> observer, Void aVoid) {
-        menuServices.getMenu();
+        menuServices.getMenu(observer);
+
     }
 }

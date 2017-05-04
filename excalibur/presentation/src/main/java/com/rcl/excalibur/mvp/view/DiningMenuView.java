@@ -20,10 +20,10 @@ public class DiningMenuView extends ActivityView<DiningMenuActivity, Void, Void>
         ButterKnife.bind(this, activity);
     }
 
-    public void init(String venueCode) {
+    public void init() {
         final DiningMenuActivity activity = getActivity();
         if (activity != null) {
-            activity.presenter.createFragmentMenu(venueCode, pagerFragment);
+            activity.presenter.initFragmentMenu(pagerFragment);
             tabProductMenus.setupWithViewPager(pagerFragment, true);
         }
     }

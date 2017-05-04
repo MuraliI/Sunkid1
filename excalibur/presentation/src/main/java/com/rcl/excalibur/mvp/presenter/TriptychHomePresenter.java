@@ -52,7 +52,6 @@ public class TriptychHomePresenter {
             GetSaildDateUseCase getSaildDateUseCase,
             GetSailingPreferenceUseCase getSailingPreferenceUseCase,
             GetSaildDateDbUseCase getSaildDateDbUseCase,
-            GetMenusUseCase getMenusUseCase,
             SailingInformationModelDataMapper sailingInformationModelDataMapper) {
         this.view = view;
         this.getProductsUseCase = getProductsUseCase;
@@ -60,7 +59,6 @@ public class TriptychHomePresenter {
         this.getSaildDateUseCase = getSaildDateUseCase;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
-        this.getMenusUseCase = getMenusUseCase;
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
     }
 
@@ -76,8 +74,6 @@ public class TriptychHomePresenter {
 
         getSubCategoriesUseCase.execute(null);
         getSaildDateUseCase.execute(null);
-        //TODO this will be call on other place
-        getMenusUseCase.execute(null);
     }
 
     public void getShipLocationInfo() {

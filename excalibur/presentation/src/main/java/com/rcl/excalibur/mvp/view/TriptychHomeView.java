@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.activity.DayPickerActivity;
+import com.rcl.excalibur.activity.DiningMenuActivity;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.custom.view.ShipView;
@@ -25,12 +25,17 @@ import butterknife.OnClick;
 
 public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, Void> {
 
-    @BindView(R.id.pager_triptych_pager) ViewPager viewPager;
-    @BindView(R.id.tab_triptych_tablayout) TriptychTabBarLayout tabBarLayout;
-    @BindView(R.id.ship_view) ShipView shipView;
-    @BindView(R.id.text_ship_status) TextView shipLocationLabel;
+    @BindView(R.id.pager_triptych_pager)
+    ViewPager viewPager;
+    @BindView(R.id.tab_triptych_tablayout)
+    TriptychTabBarLayout tabBarLayout;
+    @BindView(R.id.ship_view)
+    ShipView shipView;
+    @BindView(R.id.text_ship_status)
+    TextView shipLocationLabel;
 
-    @BindView(R.id.date_picker_plans_tab) TextView datePickerDayLabel;
+    @BindView(R.id.date_picker_plans_tab)
+    TextView datePickerDayLabel;
 
     public TriptychHomeView(TriptychHomeActivity activity) {
         super(activity);
@@ -57,7 +62,7 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
 
     @OnClick(R.id.date_picker_plans_tab)
     public void showDayPicker() {
-        ActivityUtils.startActivity(getActivity(), DayPickerActivity.getStartIntent(getActivity()));
+        ActivityUtils.startActivity(getActivity(), DiningMenuActivity.getStartIntent(getActivity(), "GIOV"));
     }
 
     public void setTextShipLocation(String textShip, String textDay) {
