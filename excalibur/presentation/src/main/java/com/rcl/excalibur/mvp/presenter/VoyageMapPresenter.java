@@ -3,9 +3,11 @@ package com.rcl.excalibur.mvp.presenter;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.support.annotation.NonNull;
 import android.view.Display;
 
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.VoyageMapActivity;
 import com.rcl.excalibur.domain.SailDateInfo;
@@ -26,7 +28,12 @@ import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_CR
 import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DEBARK;
 import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DOCKED;
 
-public class VoyageMapPresenter {
+public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimationEventListener,
+        SubsamplingScaleImageView.OnImageEventListener {
+    private static final int XCOORDINATE = 796;
+    private static final int YCOORDINATE = 826;
+    private static final int CENTER_OFFSET = 100;
+
     private VoyageMapView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
@@ -62,10 +69,9 @@ public class VoyageMapPresenter {
     }
 
     private void initVoyageMapImage() {
-        view.setCruiseCoordinate(796, 826);
-        view.setCruiseAngle(20);
+        view.setCruiseCoordinate(new PointF(XCOORDINATE, YCOORDINATE + CENTER_OFFSET));
         view.hideShip();
-        view.initVoyageMapImage(R.drawable.voyage_land);
+        view.initVoyageMapImage(R.drawable.caribbean_map_2_1, new PointF(XCOORDINATE, YCOORDINATE), this);
     }
 
     public void onResume() {
@@ -121,6 +127,51 @@ public class VoyageMapPresenter {
     }
 
     public void onBackPressed() {
+        view.animatePointToCenter(new PointF(XCOORDINATE, YCOORDINATE), this);
+    }
+
+    @Override
+    public void onComplete() {
         view.showShipAndFinishWithTransition();
+    }
+
+    @Override
+    public void onInterruptedByUser() {
+
+    }
+
+    @Override
+    public void onInterruptedByNewAnim() {
+
+    }
+
+    @Override
+    public void onReady() {
+        view.hideShip();
+    }
+
+    @Override
+    public void onImageLoaded() {
+
+    }
+
+    @Override
+    public void onPreviewLoadError(Exception e) {
+
+    }
+
+    @Override
+    public void onImageLoadError(Exception e) {
+
+    }
+
+    @Override
+    public void onTileLoadError(Exception e) {
+
+    }
+
+    @Override
+    public void onPreviewReleased() {
+
     }
 }

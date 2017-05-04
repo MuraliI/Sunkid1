@@ -13,21 +13,13 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 
 public class VoyageMapImageView extends SubsamplingScaleImageView {
-    private static final float DENSITY_FACTOR = 1400f;
-    private static final long DELAY_ANIMATION = 600;
+    public static final float DENSITY_FACTOR = 1400f;
+    public static final long DELAY_ANIMATION = 600;
+    public static final int SCALE_FACTOR = 5;
 
     private Paint paint;
     private Bitmap cruise;
     private PointF cruiseCoord;
-    private long angle;
-
-    public long getAngle() {
-        return angle;
-    }
-
-    public void setAngle(long angle) {
-        this.angle = angle;
-    }
 
     public VoyageMapImageView(Context context, AttributeSet attr) {
         super(context, attr);
@@ -58,17 +50,15 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
         invalidate();
     }
 
-    public void animatePointToCenter(PointF pointF) {
-        animateScaleAndCenter(getMaxScale() / 3, pointF)
+    public void animatePointToCenter(PointF pointF, OnAnimationEventListener event) {
+        animateScaleAndCenter(getMaxScale() / SCALE_FACTOR, pointF)
                 .withDuration(DELAY_ANIMATION)
                 .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                 .withInterruptible(false)
+                .withOnAnimationEventListener(event)
                 .start();
     }
 
-    public PointF getPin() {
-        return cruiseCoord;
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {

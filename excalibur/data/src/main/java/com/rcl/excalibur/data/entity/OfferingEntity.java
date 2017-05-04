@@ -15,7 +15,7 @@ public class OfferingEntity extends Model {
     public static final String COLUMN_TIME = "time";
     public static final String COLUMN_PRICE = "price";
 
-    @Column(name = COLUMN_OFFERING_ID)
+    @Column(name = COLUMN_OFFERING_ID, unique = true, index = true)
     public String offeringId;
     @Column(name = COLUMN_PRODUCT)
     public ProductEntity productEntity;

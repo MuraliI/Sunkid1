@@ -27,7 +27,7 @@ public class BasePreferenceImpl {
     }
 
     protected void put(@NonNull String key, String value) {
-        preferences.edit().putString(key, StringUtils.decodeString(value)).commit();
+        preferences.edit().putString(key, StringUtils.encodeString(value)).commit();
     }
 
     protected void put(@NonNull String key, boolean value) {

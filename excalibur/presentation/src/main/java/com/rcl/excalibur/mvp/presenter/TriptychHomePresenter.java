@@ -8,9 +8,12 @@ import android.support.v4.app.Fragment;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
+import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.data.utils.DownloadProductsManager;
+import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
-import com.rcl.excalibur.domain.interactor.GetProductsUseCase;
+import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
@@ -30,7 +33,7 @@ public class TriptychHomePresenter {
 
     public static final String PORT_TYPE_EMBARK = "EMBARK";
     public static final String PORT_TYPE_DOCKED = "DOCKED";
-    public static final String PORT_TYPE_DEBARK = "DISEMBARK";
+    public static final String PORT_TYPE_DEBARK = "DEBARK";
     public static final String PORT_TYPE_CRUISING = "CRUISING";
 
     private TriptychHomeView view;
@@ -38,21 +41,21 @@ public class TriptychHomePresenter {
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
     private String dayPreferences;
 
-    private GetProductsUseCase getProductsUseCase;
+    private GetProductDbUseCase getProductsDbUseCase;
     private GetSubCategoriesUseCase getSubCategoriesUseCase;
     private GetSaildDateUseCase getSaildDateUseCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
 
     public TriptychHomePresenter(
             TriptychHomeView view,
-            GetProductsUseCase getProductsUseCase,
+            GetProductDbUseCase getProductsDbUseCase,
             GetSubCategoriesUseCase getSubCategoriesUseCase,
             GetSaildDateUseCase getSaildDateUseCase,
             GetSailingPreferenceUseCase getSailingPreferenceUseCase,
             GetSaildDateDbUseCase getSaildDateDbUseCase,
             SailingInformationModelDataMapper sailingInformationModelDataMapper) {
         this.view = view;
-        this.getProductsUseCase = getProductsUseCase;
+        this.getProductsDbUseCase = getProductsDbUseCase;
         this.getSubCategoriesUseCase = getSubCategoriesUseCase;
         this.getSaildDateUseCase = getSaildDateUseCase;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
@@ -63,12 +66,21 @@ public class TriptychHomePresenter {
     public void init() {
         view.init();
 
-        getProductsUseCase.execute(new DefaultObserver<Boolean>() {
-            @Override
-            public void onNext(Boolean value) {
-                onServiceCallCompleted(value);
-            }
-        }, null);
+        //FIXME refactor to coordinate with manager when all products were downloaded because we can have just the first batch downloaded
+        //and the logic will execute the service call completed or the manager could have already finished and we wouldn't know if
+        //the observer will get notified.
+        List<Product> products = getProductsDbUseCase.getAll();
+        if (!CollectionUtils.isEmpty(products)) {
+            onServiceCallCompleted(true);
+        } else {
+            DownloadProductsManager.addObserver(new DefaultObserver<Boolean>() {
+                @Override
+                public void onNext(Boolean value) {
+                    onServiceCallCompleted(value);
+                    DownloadProductsManager.removeObserver(this);
+                }
+            });
+        }
 
         getSubCategoriesUseCase.execute(null);
         getSaildDateUseCase.execute(null);

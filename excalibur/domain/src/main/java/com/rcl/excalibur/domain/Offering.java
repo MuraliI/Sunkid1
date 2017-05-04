@@ -5,6 +5,8 @@ import java.util.Date;
 public class Offering implements Comparable<Offering> {
     private String id;
     private Date date;
+    private String dateString;
+    private String timeString;
     private SellingPrice price;
     private Product product;
 
@@ -38,6 +40,22 @@ public class Offering implements Comparable<Offering> {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getDateString() {
+        return dateString;
+    }
+
+    public void setDateString(String dateString) {
+        this.dateString = dateString;
+    }
+
+    public String getTimeString() {
+        return timeString;
+    }
+
+    public void setTimeString(String timeString) {
+        this.timeString = timeString;
     }
 
     @Override

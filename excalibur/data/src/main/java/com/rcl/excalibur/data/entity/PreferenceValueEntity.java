@@ -6,6 +6,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 @Table(name = PreferenceValueEntity.TABLE_NAME)
+@Deprecated
 public class PreferenceValueEntity extends Model {
 
     public static final String TABLE_NAME = "preference_value";
