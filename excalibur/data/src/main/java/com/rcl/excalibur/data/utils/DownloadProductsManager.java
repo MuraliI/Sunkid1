@@ -23,6 +23,7 @@ import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
 
 public class DownloadProductsManager {
     private static final int MAX_ELEMENT = 50;
+    private static List<DisposableObserver<Boolean>> observers = new ArrayList<>();
     private DiscoverServices discoverServices;
     private ProductRepository productRepository;
     private String sailingId;
@@ -34,6 +35,14 @@ public class DownloadProductsManager {
         this.sailingId = sailingId;
         this.productRepository = productRepository;
         init();
+    }
+
+    public static void addObserver(DisposableObserver<Boolean> observer) {
+        observers.add(observer);
+    }
+
+    public static void removeObserver(DisposableObserver<Boolean> observer) {
+        observers.remove(observer);
     }
 
     private void init() {
@@ -62,10 +71,17 @@ public class DownloadProductsManager {
     public void process() {
         final TypeOffset pair = next();
         if (pair == null) {
+            notifyObservers();
             return;
         }
         retrieveElements(pair.type, pair.offset);
         pair.increment(MAX_ELEMENT);
+    }
+
+    private void notifyObservers() {
+        for (DisposableObserver observer : observers) {
+            observer.onNext(true);
+        }
     }
 
     private void retrieveElements(@NonNull String type, int offset) {

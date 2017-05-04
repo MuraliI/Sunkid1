@@ -5,7 +5,7 @@
     <application android:allowBackup="false">
         <service
             android:name=".service.DownloadProductsService"
-            android:exported="false"></service>
+            android:exported="false"/>
     </application>
 
 </manifest>
