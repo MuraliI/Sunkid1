@@ -147,7 +147,7 @@ public class PlannerPresenter {
             }
 
             // TODO: Delete this when services provides the flag correctly
-            if (i <= 3) {
+            if (i <= 2) {
                 plannerProductModel.setFeatured(true);
             } else {
                 plannerProductModel.setFeatured(false);
