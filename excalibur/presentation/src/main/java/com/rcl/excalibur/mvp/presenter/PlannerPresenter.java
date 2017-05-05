@@ -2,8 +2,13 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.util.Pair;
 import android.support.v4.util.SparseArrayCompat;
+import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
@@ -14,6 +19,7 @@ import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
+import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
@@ -21,48 +27,63 @@ import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PlannerProductModel;
 import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
-import com.rcl.excalibur.mvp.view.PlannerView;
 import com.rcl.excalibur.mvp.model.PlannerModel;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
+import com.rcl.excalibur.mvp.view.PlannerView;
+import com.rcl.excalibur.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.flexibleadapter.items.ISectionable;
 
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_AFTERNOON;
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_EVENING;
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_LATE_NIGHT;
-import static com.rcl.excalibur.model.PlannerProductModel.STATE_MORNING;
+import static com.rcl.excalibur.model.PlannerProductModel.ALL_DAY_HEADER;
+import static com.rcl.excalibur.model.PlannerProductModel.GENERAL_HEADER;
 
 public class PlannerPresenter {
 
     static final String DAY_DEFAULT_VALUE = "1";
-    private GetOfferingsDbUseCase useCase;
     private static final String HEADER_FORMAT = "H%s";
     private static final String ITEM_FORMAT = "I%s";
-
-    private static final int HEADER_LIST_SIZE = 4;
-    private static final long DELAY = 5000;
-
-    private static final int FIRST_DAY = 1;
     private static final String ARRIVING_DEPARTING_SEPARATOR = "; ";
     private static final String PORT_TYPE_CRUISING = "CRUISING";
+
+    private static final float MAX_SLIDE_OFFSET = 1.0f;
+
+    private static final int HEADER_LIST_SIZE = 4;
+    private static final int FIRST_DAY = 1;
+    private static final int NO_PEEK_HEIGHT = 0;
+    private static final int DELAY_MILLIS_COLLAPSE = 200;
+    private static final int DELAY_MILLIS_SCROLL = 100;
+    private static final int HOUR_SIX = 6;
+    private static final int HOUR_TWELVE = 12;
+    private static final int HOUR_SEVENTEEN = 17;
+    private static final int HOUR_TWENTY_THREE = 23;
 
     private PlannerProductModelMapper mapper;
 
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
+    private GetOfferingsDbUseCase useCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
 
     private PlannerView view;
     private PlannerModel model;
 
     private SparseArrayCompat<PlannerHeader> headerList;
+    private List<IFlexible> hiddenGeneralItems;
+    private List<IFlexible> hiddenAllDayItems;
 
+    private Handler handler;
+
+    private boolean bottomSheetIsSliding;
+    private boolean isExpanded;
+
+    @StringRes private int currentPartOfDayResource;
     private int lastHeaderId = 0;
     private int lastItemId = 0;
-    private String dayPreferences;
 
     public PlannerPresenter(PlannerView view,
                             GetOfferingsDbUseCase useCase,
@@ -85,6 +106,16 @@ public class PlannerPresenter {
         view.showProgressBar(true);
         view.initAnimation();
         view.initBottomSheetBehavior();
+        view.setViewObserver(new OnScrolledObserver(this));
+        view.setExpandCollapseObserver(new OnExpandCollapseObserver(this));
+        view.setAttachedObserver(new OnChildViewAttachedObserver(this));
+        view.setSlideObserver(new OnBottomSheetSlideObserver(this));
+        view.setStateChangeObserver(new OnBottomSheetStateChange(this));
+
+        handler = new Handler();
+        hiddenGeneralItems = new ArrayList<>();
+        hiddenAllDayItems = new ArrayList<>();
+
         createHeaderList();
         if (serviceAlreadyCompleted) {
             onServiceCallCompleted();
@@ -93,27 +124,60 @@ public class PlannerPresenter {
 
     private void createHeaderList() {
         headerList = new SparseArrayCompat<>(HEADER_LIST_SIZE);
-        headerList.append(STATE_MORNING, createPlannerHeader(R.string.title_morning));
-        headerList.append(STATE_AFTERNOON, createPlannerHeader(R.string.title_afternoon));
-        headerList.append(STATE_EVENING, createPlannerHeader(R.string.title_evening));
-        headerList.append(STATE_LATE_NIGHT, createPlannerHeader(R.string.title_late_night));
+        headerList.append(GENERAL_HEADER, createPlannerHeader(R.string.title_morning, false));
+        headerList.append(ALL_DAY_HEADER, createPlannerHeader(R.string.planner_title_all_day, true));
     }
 
-    private List<AbstractFlexibleItem> addPlannerItems(final List<PlannerProductModel> plannerProductModels) {
-        List<AbstractFlexibleItem> plannerItems = new ArrayList<>();
-        for (PlannerProductModel plannerProductModel : plannerProductModels) {
-            plannerItems.add(createPlannerItem(plannerProductModel, headerList.get(plannerProductModel.getState())));
+    private List<IFlexible> addPlannerItems(final List<PlannerProductModel> plannerProductModels) {
+        List<IFlexible> plannerItems = new ArrayList<>();
+        for (int i = 0; i < plannerProductModels.size(); i++) {
+            PlannerProductModel plannerProductModel = plannerProductModels.get(i);
+            if (!plannerProductModel.isAllDayProduct()) {
+                PlannerProductModel previousPlannerProductModel = i > 0 ? plannerProductModels.get(i - 1) : null;
+                if (previousPlannerProductModel == null
+                        || plannerProductModel.isStartHourDifferent(previousPlannerProductModel)) {
+                    String startHourText = null;
+                    final PlannerFragment fragment = view.getFragment();
+                    if (fragment != null) {
+                        startHourText = DateUtils.getDateHour(
+                                plannerProductModel.getStartDate().getTime(), fragment.getResources());
+                    }
+                    plannerProductModel.setStartHourText(startHourText);
+                }
+            }
+
+            // TODO: Delete this when services provides the flag correctly
+            if (i <= 2) {
+                plannerProductModel.setFeatured(true);
+            } else {
+                plannerProductModel.setFeatured(false);
+            }
+
+            PlannerProductItem plannerProductItem = createPlannerItem(plannerProductModel,
+                    headerList.get(plannerProductModel.getHeaderType()));
+
+            if (!plannerProductModel.isFeatured()) {
+                if (plannerProductModel.isAllDayProduct()) {
+                    hiddenAllDayItems.add(plannerProductItem);
+                } else {
+                    hiddenGeneralItems.add(plannerProductItem);
+                }
+                continue;
+            }
+
+            plannerItems.add(plannerProductItem);
         }
         return plannerItems;
     }
 
-    private PlannerHeader createPlannerHeader(int textRes) {
+    private PlannerHeader createPlannerHeader(@StringRes int textRes, boolean isAllDayHeader) {
         BaseActivity activity = view.getActivity();
         if (activity == null) {
             return null;
         }
         PlannerHeader plannerHeader = new PlannerHeader(String.format(HEADER_FORMAT, ++lastHeaderId));
-        plannerHeader.setTitle(activity.getString(textRes));
+        plannerHeader.setTitle(textRes);
+        plannerHeader.setAllDayHeader(isAllDayHeader);
         return plannerHeader;
     }
 
@@ -134,13 +198,12 @@ public class PlannerPresenter {
         calendar.set(Calendar.YEAR, 2017);
         calendar.set(Calendar.DAY_OF_MONTH, 7);
         calendar.set(Calendar.MONTH, Calendar.JULY);
+
         SparseArrayCompat<List<PlannerProductModel>> plannerProducts = mapper.transform(useCase.getAllForDay(calendar.getTime()));
-        List<AbstractFlexibleItem> items = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST));
-        if (!items.isEmpty()) {
-            view.showAllDayLayout();
-        }
-        items.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST)));
-        view.addPlannerItems(items);
+        List<IFlexible> visibleItems = addPlannerItems(plannerProducts.get(PlannerProductModelMapper.TIMED_PRODUCT_LIST));
+        visibleItems.addAll(addPlannerItems(plannerProducts.get(PlannerProductModelMapper.ALL_DAY_PRODUCT_LIST)));
+        view.addPlannerItems(visibleItems);
+
         getArrivingDisembarkingInfo();
         BaseActivity activity = view.getActivity();
         if (activity != null) {
@@ -149,7 +212,7 @@ public class PlannerPresenter {
     }
 
     public void getArrivingDisembarkingInfo() {
-        dayPreferences = getSailingPreferenceUseCase.getDay();
+        String dayPreferences = getSailingPreferenceUseCase.getDay();
         int selectedDay = Integer.valueOf(dayPreferences == null ? DAY_DEFAULT_VALUE : dayPreferences);
 
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
@@ -169,30 +232,74 @@ public class PlannerPresenter {
 
         if (events != null) {
             Pair<String, Integer> stringIntegerPair = getArrivalDisembarkingDescription(events, day);
-            view.setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
+            if (stringIntegerPair != null) {
+                view.setTextCompoundDrawableDayInfo(stringIntegerPair.first, stringIntegerPair.second);
+            }
         }
     }
 
     private Pair<String, Integer> getArrivalDisembarkingDescription(List<EventModel> events, int day) {
-        Resources resources = view.getActivity().getResources();
-        int drawable;
+        Activity activity = view.getActivity();
+        if (activity == null) {
+            return null;
+        }
+        Resources resources = activity.getResources();
         PortModel sailPort = PortModel.getSailPortByDay(events, day);
-        drawable = R.drawable.ic_excursions;
+        int drawable = R.drawable.ic_excursions;
 
         if (day == FIRST_DAY) {
-            return new Pair<>(resources.getString(R.string.departing_at) + model.getTimeFormat(
-                    Integer.valueOf(sailPort.getDepartureTime())), drawable);
+            return new Pair<>(resources.getString(R.string.departing_at) + model.getTimeFormat(sailPort.getDepartureTime()), drawable);
         } else if (day == events.size()) {
-            return new Pair<>(resources.getString(R.string.arriving_at) + model.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime())),
-                    drawable);
+            return new Pair<>(resources.getString(R.string.arriving_at) + model.getTimeFormat(sailPort.getArrivalTime()), drawable);
         } else if (PORT_TYPE_CRUISING.equals(sailPort.getPortType())) {
             sailPort = getPortTypeNextDay(events, day, sailPort);
             return new Pair<>(resources.getString(R.string.next_port) + sailPort.getPortName(), drawable);
         } else {
-            return new Pair<>(resources.getString(R.string.arriving_at) + model.getTimeFormat(Integer.valueOf(sailPort.getArrivalTime()))
+            return new Pair<>(resources.getString(R.string.arriving_at) + model.getTimeFormat(sailPort.getArrivalTime())
                     + ARRIVING_DEPARTING_SEPARATOR + resources.getString(R.string.departing_at)
-                    + model.getTimeFormat(Integer.valueOf(sailPort.getDepartureTime())), drawable);
+                    + model.getTimeFormat(sailPort.getDepartureTime()), drawable);
         }
+    }
+
+    private void recyclerOnScroll(int headerVerticalPosition) {
+        int topItem = view.getFirstItemPosition();
+        if (topItem == 0) {
+            topItem++;
+        }
+        PlannerProductItem productItem = view.getNextItem(topItem);
+        if (productItem == null) {
+            return;
+        }
+        PlannerProductModel productModel = productItem.getPlannerProductModel();
+        if (productModel == null || productModel.isAllDayProduct()
+                || currentPartOfDayResource == getPartOfDayResource(productModel)) {
+            return;
+        }
+
+        int verticalPosition = view.getVerticalLocationOnScreen(topItem);
+        if (verticalPosition == -1) {
+            return;
+        }
+
+        if (currentPartOfDayResource == 0) {
+            updateHeader(productItem);
+        }
+
+        if (verticalPosition < headerVerticalPosition) {
+            updateHeader(productItem);
+        }
+    }
+
+    private void updateHeader(PlannerProductItem productItem) {
+        PlannerHeader header = productItem.getHeader();
+        updateHeader(header, productItem);
+        view.updateHeader(header);
+    }
+
+    private void updateHeader(PlannerHeader header, PlannerProductItem productItem) {
+        int newPartOfDay = getPartOfDayResource(productItem.getPlannerProductModel());
+        header.setTitle(newPartOfDay);
+        currentPartOfDayResource = newPartOfDay;
     }
 
     private PortModel getPortTypeNextDay(List<EventModel> events, int day, PortModel sailPort) {
@@ -204,5 +311,200 @@ public class PlannerPresenter {
             }
         }
         return sailPort;
+    }
+
+    @StringRes
+    private int getPartOfDayResource(@NonNull PlannerProductModel productModel) {
+        Calendar startDate = productModel.getStartDate();
+        if (startDate != null) {
+            int hourOfDay = startDate.get(Calendar.HOUR_OF_DAY);
+            if (hourOfDay >= HOUR_SIX && hourOfDay < HOUR_TWELVE) {
+                return R.string.title_morning;
+            } else if (hourOfDay >= HOUR_TWELVE && hourOfDay < HOUR_SEVENTEEN) {
+                return R.string.title_afternoon;
+            } else if (hourOfDay >= HOUR_SEVENTEEN && hourOfDay < HOUR_TWENTY_THREE) {
+                return R.string.title_evening;
+            } else {
+                return R.string.title_late_night;
+            }
+        }
+        return R.string.empty_string;
+    }
+
+    private void onChildAttachedToWindow(View itemView) {
+        if (!bottomSheetIsSliding) {
+            this.view.setInitialViewState(itemView);
+        }
+    }
+
+    // FIXME: See if this can be passed to adapter later
+    private void expandSection(PlannerHeader header) {
+        List<IFlexible> itemsToAdd;
+        if (header.isAllDayHeader()) {
+            itemsToAdd = hiddenAllDayItems;
+        } else {
+            updateGeneralHeader(header);
+            itemsToAdd = hiddenGeneralItems;
+        }
+
+        for (IFlexible item : itemsToAdd) {
+            view.addItemToSection((ISectionable) item, header);
+        }
+
+        header.setSectionExpanded(true);
+        view.scrollToHeader(header);
+        view.updateHeader(header);
+    }
+
+    // FIXME: See if this can be passed to adapter later
+    private void collapseSection(PlannerHeader header) {
+        view.removeItemsFromSection(header);
+        header.setSectionExpanded(false);
+        view.scrollToHeader(header);
+        if (!header.isAllDayHeader()) {
+            updateGeneralHeader(header);
+        }
+        view.updateHeader(header);
+    }
+
+    private void updateGeneralHeader(PlannerHeader header) {
+        PlannerProductItem productItem = view.getNextItem(view.getFirstItemPosition());
+        if (productItem != null) {
+            updateHeader(header, productItem);
+        }
+    }
+
+    private void onStateChange(Integer newState) {
+        switch (newState) {
+            case BottomSheetBehavior.STATE_EXPANDED:
+                if (!isExpanded) {
+                    setBottomSheetExpandedState();
+                }
+                break;
+            case BottomSheetBehavior.STATE_COLLAPSED:
+                if (isExpanded) {
+                    handler.postDelayed(() -> view.scrollToTopOfList(), DELAY_MILLIS_SCROLL);
+                    handler.postDelayed(this::setBottomSheetCollapsingState, DELAY_MILLIS_COLLAPSE);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void onSlide(Float slideOffset) {
+        bottomSheetIsSliding = true;
+        view.setShipArrivingDebarkingAlpha(MAX_SLIDE_OFFSET - slideOffset);
+        if (isExpanded) {
+            return;
+        }
+        view.calculateItemMargins(slideOffset, calculateImageMargin(slideOffset), calculateVerticalMargin(slideOffset),
+                calculateHorizontalMargin(slideOffset));
+    }
+
+    private int calculateImageMargin(float slideOffset) {
+        return Math.round(slideOffset * view.getInitImageMargin());
+    }
+
+    private int calculateVerticalMargin(float slideOffset) {
+        return getMargin(slideOffset, view.getInitVerticalMargin());
+    }
+
+    private int calculateHorizontalMargin(float slideOffset) {
+        return getMargin(slideOffset, view.getInitHorizontalMargin());
+    }
+
+    private int getMargin(float slideOffset, int marginValue) {
+        return Math.round((MAX_SLIDE_OFFSET - slideOffset) * marginValue);
+    }
+
+    private void setBottomSheetExpandedState() {
+        isExpanded = true;
+
+        view.setShipArrivingDebarkingVisibility(View.GONE);
+        view.setBottomSheetPeekHeight(NO_PEEK_HEIGHT);
+
+        view.calculateItemMargins(MAX_SLIDE_OFFSET, calculateImageMargin(MAX_SLIDE_OFFSET), calculateVerticalMargin(MAX_SLIDE_OFFSET),
+                calculateHorizontalMargin(MAX_SLIDE_OFFSET));
+
+        view.showHeadersView();
+        view.setRecyclerViewBackground(R.drawable.background_rounded_top_planner_white);
+    }
+
+    private void setBottomSheetCollapsingState() {
+        isExpanded = false;
+
+        view.setShipArrivingDebarkingVisibility(View.VISIBLE);
+        view.resetItemsToInitialState();
+
+        view.setBottomSheetPeekHeight(view.getPeekHeight());
+        view.animateContainerLayout();
+
+        view.setRecyclerViewBackground(R.drawable.background_rounded_top_planner_transparent);
+    }
+
+    private static class OnScrolledObserver extends DefaultPresentObserver<Integer, PlannerPresenter> {
+
+        OnScrolledObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Integer value) {
+            getPresenter().recyclerOnScroll(value);
+        }
+    }
+
+    private static class OnExpandCollapseObserver extends DefaultPresentObserver<PlannerHeader, PlannerPresenter> {
+
+        OnExpandCollapseObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(PlannerHeader header) {
+            PlannerPresenter presenter = getPresenter();
+            if (header.isSectionExpanded()) {
+                presenter.collapseSection(header);
+            } else {
+                presenter.expandSection(header);
+            }
+        }
+    }
+
+    private static class OnChildViewAttachedObserver extends DefaultPresentObserver<View, PlannerPresenter> {
+
+        OnChildViewAttachedObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(View itemView) {
+            getPresenter().onChildAttachedToWindow(itemView);
+        }
+    }
+
+    private static class OnBottomSheetSlideObserver extends DefaultPresentObserver<Float, PlannerPresenter> {
+
+        OnBottomSheetSlideObserver(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Float slideOffset) {
+            getPresenter().onSlide(slideOffset);
+        }
+    }
+
+    private static class OnBottomSheetStateChange extends DefaultPresentObserver<Integer, PlannerPresenter> {
+
+        OnBottomSheetStateChange(PlannerPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(Integer newState) {
+            getPresenter().onStateChange(newState);
+        }
     }
 }

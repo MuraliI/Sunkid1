@@ -16,13 +16,13 @@ import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
 
-import static com.rcl.excalibur.domain.ProductType.ACTIVITIES_TYPE;
-import static com.rcl.excalibur.domain.ProductType.DINING_TYPE;
-import static com.rcl.excalibur.domain.ProductType.ENTERTAINMENT_TYPE;
-import static com.rcl.excalibur.domain.ProductType.GUEST_SERVICES_TYPE;
-import static com.rcl.excalibur.domain.ProductType.SHOPPING_TYPE;
-import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
-import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
+import static com.rcl.excalibur.domain.Category.ACTIVITIES_CATEGORY;
+import static com.rcl.excalibur.domain.Category.DINING_CATEGORY;
+import static com.rcl.excalibur.domain.Category.ENTERTAINMENT_CATEGORY;
+import static com.rcl.excalibur.domain.Category.GUEST_SERVICES_CATEGORY;
+import static com.rcl.excalibur.domain.Category.SHOPPING_CATEGORY;
+import static com.rcl.excalibur.domain.Category.SHOREX_CATEGORY;
+import static com.rcl.excalibur.domain.Category.SPA_CATEGORY;
 
 public class DownloadProductsManager {
     private static final int MAX_ELEMENT = 50;
@@ -66,13 +66,13 @@ public class DownloadProductsManager {
     private void init() {
         actualPositionType = -1;
         pairs = new ArrayList<>();
-        pairs.add(new TypeOffset(SHOREX_TYPE, 0));
-        pairs.add(new TypeOffset(ACTIVITIES_TYPE, 0));
-        pairs.add(new TypeOffset(ENTERTAINMENT_TYPE, 0));
-        pairs.add(new TypeOffset(DINING_TYPE, 0));
-        pairs.add(new TypeOffset(SPA_TYPE, 0));
-        pairs.add(new TypeOffset(SHOPPING_TYPE, 0));
-        pairs.add(new TypeOffset(GUEST_SERVICES_TYPE, 0));
+        pairs.add(new TypeOffset(SHOREX_CATEGORY, 0));
+        pairs.add(new TypeOffset(ACTIVITIES_CATEGORY, 0));
+        pairs.add(new TypeOffset(ENTERTAINMENT_CATEGORY, 0));
+        pairs.add(new TypeOffset(DINING_CATEGORY, 0));
+        pairs.add(new TypeOffset(SPA_CATEGORY, 0));
+        pairs.add(new TypeOffset(SHOPPING_CATEGORY, 0));
+        pairs.add(new TypeOffset(GUEST_SERVICES_CATEGORY, 0));
     }
 
     private TypeOffset next() {

@@ -16,31 +16,31 @@ public class PlannerModelTest {
 
     @Test
     public void tesTimeFormatReturnValueMorning() throws Exception {
-        String timeFormat = model.getTimeFormat(103000);
+        String timeFormat = model.getTimeFormat("1030");
         assertEquals(timeFormat, "10:30 AM");
     }
 
     @Test
     public void tesTimeFormatReturnValueMidday() throws Exception {
-        String timeFormat = model.getTimeFormat(123000);
+        String timeFormat = model.getTimeFormat("1230");
         assertEquals(timeFormat, "12:30 PM");
     }
 
     @Test
     public void tesTimeFormatReturnValueAfternoon() throws Exception {
-        String timeFormat = model.getTimeFormat(143000);
+        String timeFormat = model.getTimeFormat("1430");
         assertEquals(timeFormat, "2:30 PM");
     }
 
     @Test
     public void tesTimeFormatReturnValueMidnight() throws Exception {
-        String timeFormat = model.getTimeFormat(243000);
+        String timeFormat = model.getTimeFormat("2430");
         assertEquals(timeFormat, "12:30 AM");
     }
 
     @Test
     public void tesTimeFormatReturnEmpty() throws Exception {
-        String timeFormat = model.getTimeFormat(0);
+        String timeFormat = model.getTimeFormat("0");
         assertEquals(timeFormat, "");
     }
 }

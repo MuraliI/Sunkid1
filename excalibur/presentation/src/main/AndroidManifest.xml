@@ -54,7 +54,6 @@
             android:name=".activity.guest.SecurityQuestionsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.guest.AnswerQuestionActivity"
             android:exported="false"
@@ -74,6 +73,11 @@
         <activity
             android:name=".activity.DayPickerActivity"
             android:exported="false"
+            android:label="@string/empty_string"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.DiningMenuActivity"
             android:label="@string/empty_string"
             android:screenOrientation="portrait" />
 
@@ -113,7 +117,12 @@
                     com.rcl.excalibur.data.entity.PortEntity,
 		            com.rcl.excalibur.data.entity.ShipTimeEntity,
                     com.rcl.excalibur.data.entity.DeckInfoEntity,
-                    com.rcl.excalibur.data.entity.OperationHourEntity"/>
-        <receiver android:name=".scheduler.SchedulerReceiver" />   
+                    com.rcl.excalibur.data.entity.OperationHourEntity,
+                    com.rcl.excalibur.data.entity.MenuEntity,
+                    com.rcl.excalibur.data.entity.MenuSectionEntity,
+                    com.rcl.excalibur.data.entity.MenuAdvisoryTagEntity,
+                    com.rcl.excalibur.data.entity.MenuItemAdvisoryTagEntity,
+                    com.rcl.excalibur.data.entity.MenuItemEntity"/>
+        <receiver android:name=".scheduler.SchedulerReceiver" />
     </application>
 </manifest>

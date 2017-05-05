@@ -41,12 +41,12 @@ public class PlanListPresenter {
     public static final int POSITION_ENTERTAINMENT = 5;
     public static final int POSITION_GUEST_SERVICES = 6;
 
-    private static final String ID_SHOREX = "shorex";
-    private static final String ID_ACYIVITY = "ACT";
+    private static final String ID_SHOREX = "shoreex";
+    private static final String ID_ACTIVITY = "activities";
     private static final String ID_SHOPPING = "shop";
     private static final String ID_SPA = "spa";
     private static final String ID_DINING = "dining";
-    private static final String ID_ENTRETAINMENT = "ent";
+    private static final String ID_ENTERTAINMENT = "entertainment";
     private static final String ID_GUEST_SERVICES = "guest";
 
     private final PlanListView view;
@@ -91,7 +91,7 @@ public class PlanListPresenter {
             case POSITION_ROYAL_ACTIVITY:
                 type = ROYAL_ACTIVITY;
                 categorySelected = view.getActivity().getString(R.string.royal_activity);
-                idCategory = ID_ACYIVITY;
+                idCategory = ID_ACTIVITY;
                 iconCategory = R.drawable.icon_services_color;
                 break;
             case POSITION_DINING:
@@ -121,7 +121,7 @@ public class PlanListPresenter {
             case POSITION_ENTERTAINMENT:
                 type = ENTERTAINMENT;
                 categorySelected = view.getActivity().getString(R.string.entertainment);
-                idCategory = ID_ENTRETAINMENT;
+                idCategory = ID_ENTERTAINMENT;
                 iconCategory = R.drawable.ic_entertainment_color;
                 break;
             case POSITION_GUEST_SERVICES:

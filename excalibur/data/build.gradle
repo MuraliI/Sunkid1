@@ -6,7 +6,7 @@ android {
     defaultPublishConfig "debug"
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
-    def API_KEY = '"CYNbcRaszWgPArZBHA4Wz4Jv2wK20J09"'
+    def API_KEY = '"13vRHenOdMnGWw64GYwKFavdjRJjITTR"'
     def BASE_URL_CLOUD = 'http://10.16.6.134:8090/'
     def API_COMMERCE_URL = '"' + BASE_URL_CLOUD + 'test/search-api/v1/' + '"'
     def API_NON_COMMERCE_URL = '"' + BASE_URL_CLOUD + 'test/v1/' + '"'
@@ -37,6 +37,8 @@ android {
             buildConfigField "String", "GUEST_API_URL", API_NON_COMMERCE_URL
             buildConfigField "String", "SAIL_API_URL", API_NON_COMMERCE_URL
             buildConfigField "String", "SHIP_TIME_API_URL", API_NON_COMMERCE_URL
+            buildConfigField "String", "MENUS_API_URL", API_COMMERCE_URL
+
         }
         release.initWith(debug)
     }
@@ -82,11 +84,11 @@ dependencies {
             generalDependencies.timber
 
     testCompile testDependencies.junit,
-            testDependencies.assertj,
-            testDependencies.mockito,
-            testDependencies.robolectric,
-            presentationTestDependencies.powermockModuleJunit4,
-            presentationTestDependencies.powermockApiMockitoV
+                testDependencies.assertj,
+                testDependencies.mockito,
+                testDependencies.robolectric,
+                presentationTestDependencies.powermockModuleJunit4,
+                presentationTestDependencies.powermockApiMockitoV
 
     androidTestCompile presentationTestDependencies.mockito,
             presentationTestDependencies.dexmaker,
