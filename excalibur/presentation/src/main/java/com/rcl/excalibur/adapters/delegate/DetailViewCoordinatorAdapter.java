@@ -21,7 +21,7 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
         void onViewExpanded(Integer integer);
     }
 
-    private static final int VIEW_TYPE_COUNT = 7;
+    private static final int VIEW_TYPE_COUNT = 9;
 
     private OnViewExpandedListener listener;
 
@@ -47,6 +47,8 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
                 (DelegateAdapter<VH, VT>) new ExpandableAccessibilityDelegateAdapter(this));
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TIMES,
                 (DelegateAdapter<VH, VT>) new TimesDelegateAdapter());
+        delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DINING_TIMES,
+                (DelegateAdapter<VH, VT>) new DiningTimesDelegateAdapter());
         addAll(recyclerViewTypes);
     }
 

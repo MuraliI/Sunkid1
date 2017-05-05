@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_normal"
+    android:paddingEnd="@dimen/margin_normal"
+    android:paddingStart="@dimen/margin_normal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text"
+            style="@style/AppTheme.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_xsmall"
+            android:layout_weight="@integer/layout_weight_0" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dashline_height"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/margin_xxsmall"
+            android:layout_weight="@integer/layout_weight_1"
+            android:background="@drawable/line_dashed"
+            android:layerType="software" />
+
+        <TextView
+            android:id="@+id/subtext"
+            style="@style/AppTheme.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="@dimen/margin_xsmall"
+            android:layout_weight="@integer/layout_weight_0"
+            android:maxWidth="@dimen/dash_subtext_maxwidth" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/show_menu_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/AppTheme.ProductDetailTitleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_detail_show_menu"
+            android:textColor="@color/font_color_blue" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:src="@drawable/icon_chevron_right" />
+
+    </LinearLayout>
+
+</LinearLayout>

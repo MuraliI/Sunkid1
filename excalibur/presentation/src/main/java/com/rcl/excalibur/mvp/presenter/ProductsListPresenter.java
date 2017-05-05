@@ -7,6 +7,7 @@ import android.view.View;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
@@ -18,6 +19,8 @@ import com.rcl.excalibur.utils.ActivityUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.rcl.excalibur.mvp.view.ProductsListView.START_OFFSET;
+
 
 public class ProductsListPresenter {
     private GetProductDbUseCase getProductDbUseCase;
@@ -28,71 +31,76 @@ public class ProductsListPresenter {
         this.getProductDbUseCase = getProductDbUseCase;
     }
 
-    public void init(int type, String categoryId) {
+    public void init(int category, String childCategoryId) {
         final BaseActivity activity = view.getActivity();
         if (activity == null) {
             return;
         }
         view.setAdapterObserver(new AdapterObserver(this));
-        view.init(pair -> showCollectionInView(getProductsByCategory(type, categoryId, pair.first, pair.second, activity)));
+        view.init(pair -> showCollectionInView(getProductsByCategory(category, childCategoryId, pair.first, pair.second, activity), pair.first));
     }
 
-    private List<Product> getProductsByCategory(int type, String categoryId, int offset, int maxCount, BaseActivity activity) {
+    private List<Product> getProductsByCategory(int categoryId, String childCategoryId, int currentPage, int maxCount, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
-        String typeQuery = getType(activity, type);
-        List<Product> allProducts = getProductDbUseCase.getByType(typeQuery, maxCount, offset);
+        String typeQuery = getType(activity, categoryId);
+        List<Product> allProducts = getProductDbUseCase.getByCategory(typeQuery, maxCount, currentPage * maxCount);
 
-        if (categoryId == null) {
+        if (childCategoryId == null) {
             childProducts = allProducts;
         } else {
             for (Product typeProduct : allProducts) {
                 for (ChildCategory childCategory : typeProduct.getProductCategory().getChildCategory()) {
-                    if (categoryId.equals(childCategory.getItems().getCategoryId())) {
-                        childProducts.add(typeProduct);
-                    }
+                    //FIXME when service category return right category
+//                    if (childCategoryId.equals(childCategory.getItems().getCategoryId())) {
+                    childProducts.add(typeProduct);
+//                    }
                 }
             }
         }
         return childProducts;
     }
 
+    private void showCollectionInView(List<Product> products, int page) {
+        boolean noResult = (products == null || products.size() == 0);
+        if (noResult) {
+            view.noMoreLoad();
+            if (page == START_OFFSET) {
+                view.addAlertNoProducts();
+            }
+        } else if (!noResult) {
+            view.add(products);
+        }
+    }
+
     private String getType(final BaseActivity activity, int type) {
         String categorySelected;
         switch (type) {
             case ProductsListFragment.ROYAL_ACTIVITY:
-                categorySelected = activity.getString(R.string.category_royal_activity);
+                categorySelected = Category.ACTIVITIES_CATEGORY;
                 break;
             case ProductsListFragment.DINING:
-                categorySelected = activity.getString(R.string.category_dining);
+                categorySelected = Category.DINING_CATEGORY;
                 break;
             case ProductsListFragment.SHOPPING:
-                categorySelected = activity.getString(R.string.category_shopping);
+                categorySelected = Category.SHOPPING_CATEGORY;
                 break;
             case ProductsListFragment.SPA:
-                categorySelected = activity.getString(R.string.category_spa);
+                categorySelected = Category.SPA_CATEGORY;
                 break;
             case ProductsListFragment.SHOREX:
-                categorySelected = activity.getString(R.string.category_shorex);
+                categorySelected = Category.SHOREX_CATEGORY;
                 break;
             case ProductsListFragment.ENTERTAINMENT:
-                categorySelected = activity.getString(R.string.category_entertainment);
+                categorySelected = Category.ENTERTAINMENT_CATEGORY;
                 break;
             case ProductsListFragment.GUEST_SERVICES:
-                categorySelected = activity.getString(R.string.category_guest_services);
+                categorySelected = Category.GUEST_SERVICES_CATEGORY;
                 break;
             default:
                 categorySelected = activity.getString(R.string.category_royal_activity);
         }
 
         return categorySelected;
-    }
-
-    private void showCollectionInView(List<Product> products) {
-        if (products == null || products.size() == 0) {
-            view.addAlertNoProducts();
-        } else {
-            view.add(products);
-        }
     }
 
     private class AdapterObserver extends DefaultPresentObserver<Pair<Product, View>, ProductsListPresenter> {
