@@ -37,7 +37,8 @@ public class TimesViewType implements RecyclerViewType {
         this.times = times;
     }
 
-    public static void addTimesViewTypes(List<RecyclerViewType> recyclerViewTypes, String title, List<LocationOperationHour> operationHours) {
+    public static void addTimesViewTypes(List<RecyclerViewType> recyclerViewTypes,
+                                         String title, List<LocationOperationHour> operationHours) {
         List<Pair<String, String>> times = new ArrayList<>();
         for (LocationOperationHour operationHour : operationHours) {
             String dayNumber = operationHour.getDayNumber();

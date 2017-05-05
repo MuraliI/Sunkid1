@@ -42,7 +42,10 @@ public final class DetailViewTypeFactory {
     private DetailViewTypeFactory() {
     }
 
-    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, List<Offering> offerings, SailDateInfo sailDateInfo, Resources resources) {
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product,
+                                                                         List<Offering> offerings,
+                                                                         SailDateInfo sailDateInfo,
+                                                                         Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
