@@ -11,7 +11,6 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.VoyageMapActivity;
 import com.rcl.excalibur.domain.SailDateInfo;
-import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipStatsDbUseCase;
@@ -26,8 +25,11 @@ import com.rcl.excalibur.model.ShipStatsModel;
 import com.rcl.excalibur.model.VoyageMapModel;
 import com.rcl.excalibur.mvp.view.VoyageMapView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.observers.DisposableObserver;
 
 import static com.rcl.excalibur.model.PortModel.PORT_TYPE_EMBARK;
 import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_CRUISING;
@@ -101,23 +103,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         view.setCruiseCoordinate(voyageModel.getMockCoordinate(day.charAt(0), true));
         view.setScaleAndCenter(voyageModel.getMockCoordinate(day.charAt(0), false));
 
-        getShipStatsUseCase.execute(new DefaultObserver<Boolean>() {
-            @Override
-            public void onNext(Boolean value) {
-                List<ShipStatsModel> list = new ArrayList<>();
-                ShipStatsModel model = new ShipStatsModel();
-                model.setName("Mock Data");
-
-                list.add(model);
-                list.add(model);
-                list.add(model);
-                list.add(model);
-                list.add(model);
-                list.add(model);
-
-                view.addAll(list);
-            }
-        }, null);
+        getShipStatsUseCase.execute(new ShipStatsObserver(this), null);
     }
 
     public void onResume() {
@@ -220,5 +206,47 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     @Override
     public void onPreviewReleased() {
 
+    }
+
+
+    private void addListMock() {
+        List<ShipStatsModel> list = new ArrayList<>();
+        ShipStatsModel model = new ShipStatsModel();
+        model.setName("Mock Data");
+
+        list.add(model);
+        list.add(model);
+        list.add(model);
+        list.add(model);
+        list.add(model);
+        list.add(model);
+
+        view.addAll(list);
+    }
+
+
+    private class ShipStatsObserver extends DisposableObserver<Boolean> {
+
+        WeakReference<VoyageMapPresenter> presenterWeakReference;
+
+        ShipStatsObserver(VoyageMapPresenter presenter) {
+            presenterWeakReference = new WeakReference<>(presenter);
+        }
+
+        @Override
+        public void onNext(Boolean value) {
+            if (presenterWeakReference != null)
+                presenterWeakReference.get().addListMock();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
     }
 }
