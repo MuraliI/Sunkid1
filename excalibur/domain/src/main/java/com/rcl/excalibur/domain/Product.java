@@ -266,31 +266,31 @@ public class Product {
     }
 
     public boolean isShopping() {
-        return CategoryUtil.isShopping(productType.getProductType());
+        return CategoryUtil.isShopping(productCategory.getCategoryId());
     }
 
     public boolean isActivities() {
-        return CategoryUtil.isActivities(productType.getProductType());
+        return CategoryUtil.isActivities(productCategory.getCategoryId());
     }
 
     public boolean isShorex() {
-        return CategoryUtil.isShorex(productType.getProductType());
+        return CategoryUtil.isShorex(productCategory.getCategoryId());
     }
 
     public boolean isEntertainment() {
-        return CategoryUtil.isEntertainment(productType.getProductType());
+        return CategoryUtil.isEntertainment(productCategory.getCategoryId());
     }
 
     public boolean isDining() {
-        return CategoryUtil.isDining(productType.getProductType());
+        return CategoryUtil.isDining(productCategory.getCategoryId());
     }
 
     public boolean isSpa() {
-        return CategoryUtil.isSpa(productType.getProductType());
+        return CategoryUtil.isSpa(productCategory.getCategoryId());
     }
 
     public boolean isGuestServices() {
-        return CategoryUtil.isGuestServices(productType.getProductType());
+        return CategoryUtil.isGuestServices(productCategory.getCategoryId());
     }
 
     public boolean isInventory() {

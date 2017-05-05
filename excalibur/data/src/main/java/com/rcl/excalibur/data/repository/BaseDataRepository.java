@@ -78,6 +78,13 @@ public abstract class BaseDataRepository<O, I extends Model, T, M extends BaseDa
                 .executeSingle();
     }
 
+    protected Model getEntity(@NonNull Class<? extends Model> klazz, @NonNull String column, final String value) {
+        return new Select()
+                .from(klazz)
+                .where(eq(column, value))
+                .executeSingle();
+    }
+
     public boolean exists(@NonNull String column, final String value) {
         return new Select()
                 .from(claz)

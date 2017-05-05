@@ -23,12 +23,15 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 public class ProductsListView extends FragmentView<ProductsListFragment, Void, Pair<Product, View>> {
-    @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.alert_no_products) RelativeLayout alertNoProducts;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.alert_no_products)
+    RelativeLayout alertNoProducts;
 
     private ProductsAdapter adapter;
     LoadMoreScrollListener loadMoreScrollListener;
     private PublishSubject<Pair<Integer, Integer>> publisherSubject = PublishSubject.create();
+    public static final int START_OFFSET = 0;
 
     public ProductsListView(ProductsListFragment fragment) {
         super(fragment);
@@ -45,9 +48,8 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
 
-        final int startOffset = 0;
         publisherSubject.subscribe(pairConsumer);
-        loadMoreScrollListener = new LoadMoreScrollListener(recyclerView.getLayoutManager(), startOffset) {
+        loadMoreScrollListener = new LoadMoreScrollListener(recyclerView.getLayoutManager(), START_OFFSET) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 publisherSubject.onNext(new Pair<>(page, LoadMoreScrollListener.MAX_COUNT));
@@ -57,7 +59,7 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
         recyclerView.addOnScrollListener(loadMoreScrollListener);
 
         //First Call
-        publisherSubject.onNext(new Pair<>(startOffset, LoadMoreScrollListener.MAX_COUNT));
+        publisherSubject.onNext(new Pair<>(START_OFFSET, LoadMoreScrollListener.MAX_COUNT));
     }
 
     public void addAll(List<Product> list) {
@@ -70,5 +72,9 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
 
     public void addAlertNoProducts() {
         alertNoProducts.setVisibility(View.VISIBLE);
+    }
+
+    public void noMoreLoad() {
+        recyclerView.removeOnScrollListener(loadMoreScrollListener);
     }
 }

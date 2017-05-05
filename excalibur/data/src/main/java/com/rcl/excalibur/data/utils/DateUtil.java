@@ -13,7 +13,9 @@ import java.util.TimeZone;
 import timber.log.Timber;
 
 public final class DateUtil {
-    private static final int TIME_LENGTH = 4;
+
+    private static final int TIME_SIZE = 4;
+    private static final String ZERO_TIME = "0";
 
     public static final String DATE_FORMAT = "yyyyMMddHHmm";
     public static final String HOURLESS_DATE_FORMAT = "yyyyMMdd";
@@ -31,8 +33,9 @@ public final class DateUtil {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.US);
         Date date = null;
 
-        if (timeStr.length() < TIME_LENGTH) {
-            timeStr = 0 + timeStr;
+        // FIXME: when service return right time format;
+        while (timeStr.length() < TIME_SIZE) {
+            timeStr = ZERO_TIME + timeStr;
         }
 
         String str = dateStr + timeStr;

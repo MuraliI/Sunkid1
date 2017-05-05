@@ -44,6 +44,7 @@
     <string name="discover_item_detail_attire">Attire</string>
     <string name="discover_item_detail_know">Know Before You Go</string>
     <string name="product_detail_show_more">Show More</string>
+    <string name="product_detail_show_menu">Show Menu</string>
     <string name="title_show_times">Show Times</string>
     <string name="title_times">Times</string>
     <string name="times_vary">Times Vary</string>
@@ -162,10 +163,10 @@
     <plurals name="product_min">
         <item quantity="other">%d min</item>
     </plurals>
+    <string name="dining_type">Dinning Type</string>
     <string name="advisement_cuisine">Cuisine</string>
     <string name="accessibility">Accessibility &amp; Other Info</string>
     <string name="detail_module_height">Height Restriction</string>
-
     <string name="guest_name_label">Let\'s start with your name</string>
     <string name="guest_name_hint">First and last name</string>
 

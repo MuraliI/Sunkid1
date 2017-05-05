@@ -24,7 +24,7 @@ public class GetProductDbUseCase extends UseCaseSync<ProductRepository> {
         return getData().getAll(type);
     }
 
-    public List<Product> getByType(String type, int maxCount, int offset) {
-        return getData().getByType(type, maxCount, offset);
+    public List<Product> getByCategory(String category, int maxCount, int offset) {
+        return getData().getByCategory(category, maxCount, offset);
     }
 }
