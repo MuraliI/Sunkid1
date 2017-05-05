@@ -34,7 +34,7 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
     private void initialize() {
         paint = new Paint();
         float density = getResources().getDisplayMetrics().densityDpi;
-        cruise = BitmapFactory.decodeResource(this.getResources(), R.drawable.voyage_cruise);
+        cruise = BitmapFactory.decodeResource(this.getResources(), R.drawable.ship_big);
         float w = (density / DENSITY_FACTOR) * cruise.getWidth();
         float h = (density / DENSITY_FACTOR) * cruise.getHeight();
         cruise = Bitmap.createScaledBitmap(cruise, (int) w, (int) h, true);

@@ -29,11 +29,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TriptychHomeActivity extends BaseActivity {
-    protected TriptychHomePresenter presenter;
-    private SailingPreferences sailingPreferences;
     @BindView(R.id.day_picker_tab) View tabElement;
     @BindView(R.id.image_ship) View shipElement;
     @BindView(R.id.pager_triptych_pager) View pagerElement;
+    private TriptychHomePresenter presenter;
+    private SailingPreferences sailingPreferences;
 
     public static Intent getStartIntent(final BaseActivity activity) {
         return new Intent(activity, TriptychHomeActivity.class);

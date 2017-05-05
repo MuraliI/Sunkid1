@@ -2,6 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.view.Display;
@@ -65,6 +66,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
 
     public void initTab() {
         voyageModel = new VoyageMapModel();
+        setImageDimensions(R.drawable.caribbean_map_2_1);
         view.init(getScreenWidth());
     }
 
@@ -77,6 +79,18 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         Point size = new Point();
         display.getSize(size);
         return size.x;
+    }
+
+    private void setImageDimensions(int resource) {
+        VoyageMapActivity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(activity.getResources(), resource, options);
+        voyageModel.setWidth(options.outWidth);
+        voyageModel.setHeigth(options.outHeight);
     }
 
     private void initVoyageMapImage() {
