@@ -14,7 +14,9 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_deckmap"
+            android:paddingBottom="@dimen/padding_bottom_deckmap">
 
             <ImageView
                 android:id="@+id/image_deck_map_back"

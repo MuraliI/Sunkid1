@@ -2,6 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import android.util.Pair;
 
+import com.rcl.excalibur.domain.LocationDeckInfo;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductLocation;
 import com.rcl.excalibur.domain.ProductType;
@@ -12,6 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -42,6 +46,13 @@ public class DeckMapPresenterTest {
         product.setProductTitle("Mock Tittle");
         ProductLocation productLocation = new ProductLocation();
         productLocation.setLatitude("100");
+
+        LocationDeckInfo locationDeckInfo = new LocationDeckInfo();
+        locationDeckInfo.setDeckNumber("5");
+        List<LocationDeckInfo> locationDeckInfos = new ArrayList<>();
+        locationDeckInfos.add(locationDeckInfo);
+
+        productLocation.setDeckInfo(locationDeckInfos);
         product.setProductLocation(productLocation);
 
         deckSelected = new Pair<>(2, 2);

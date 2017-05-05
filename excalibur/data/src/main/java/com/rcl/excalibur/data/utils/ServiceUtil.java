@@ -4,6 +4,7 @@ package com.rcl.excalibur.data.utils;
 import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.api.GuestApi;
+import com.rcl.excalibur.data.service.api.MenuApi;
 import com.rcl.excalibur.data.service.api.SailDateApi;
 import com.rcl.excalibur.data.service.api.ShipStatsApi;
 import com.rcl.excalibur.data.service.api.ShipTimeApi;
@@ -29,6 +30,7 @@ public final class ServiceUtil {
     private static SailDateApi sailDateApi;
     private static ShipTimeApi shipTimeApi;
     private static ShipStatsApi shipStatsApi;
+    private static MenuApi menuApi;
 
 
     private ServiceUtil() {
@@ -84,6 +86,19 @@ public final class ServiceUtil {
             guestApi = retrofit.create(GuestApi.class);
         }
         return guestApi;
+    }
+
+    public static MenuApi getMenuApi() {
+        if (menuApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BuildConfig.MENUS_API_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(getClient())
+                    .build();
+            menuApi = retrofit.create(MenuApi.class);
+        }
+
+        return menuApi;
     }
 
     public static SailDateApi getSailDateApi() {
