@@ -30,7 +30,7 @@ public class DiscoverTabPresenterTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new DiscoverTabPresenter(view);//getProductsUseCase, getSaildDateUseCase);
+        presenter = new DiscoverTabPresenter(view,true);//getProductsUseCase, getSaildDateUseCase);
 
         when(view.getActivity()).thenReturn(activity);
     }
