@@ -14,8 +14,8 @@ import eu.davidea.flexibleadapter.items.IHeader;
 
 public class PlannerAdapter extends FlexibleAdapter<IFlexible> {
 
-    public PlannerAdapter(@Nullable List<IFlexible> items, @Nullable Object listeners, boolean stableIds) {
-        super(items, listeners, stableIds);
+    public PlannerAdapter(@Nullable List<IFlexible> items, @Nullable OnItemClickListener listener, boolean stableIds) {
+        super(items, listener, stableIds);
     }
 
     public void removeItemsFromSection(IHeader header) {
