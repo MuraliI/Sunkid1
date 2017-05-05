@@ -233,7 +233,7 @@ public final class DetailViewTypeFactory {
 
         if (product.isDining()) {
             if (product.getCostType() != null) {
-                String title = res.getString(R.string.prices);
+                String title = res.getString(R.string.price);
                 addTitleAndDescriptionTypes(recyclerViewTypeList, title, product.getCostType().getCostTypeTitle());
             }
         }

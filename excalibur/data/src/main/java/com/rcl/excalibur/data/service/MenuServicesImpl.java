@@ -24,7 +24,7 @@ import static com.rcl.excalibur.data.utils.ServiceUtil.getMenuApi;
 
 public class MenuServicesImpl extends BaseDataService<Menu, MenuResponse, Void> implements MenuServices {
 
-    private static final String SAILING_ID = "AL20170702";
+    private static final String SAILING_ID = "1492905600000";
     private final MenuDataRepository repository;
 
     public MenuServicesImpl(MenuDataRepository repository) {

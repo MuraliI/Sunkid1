@@ -54,7 +54,7 @@ public class GetOfferingsDbUseCaseTest {
 
         offering = new Offering();
         offering.setId("2");
-//        offering.setCompleteDate(offeringsDate);
+        offering.setDate(offeringsDate);
         offering.setProduct(offeringsForProduct);
         offering.setPrice(price);
 
@@ -78,7 +78,7 @@ public class GetOfferingsDbUseCaseTest {
         assertNotNull(obtainedOffering);
 
         assertEquals(offering.getId(), obtainedOffering.getId());
-//        assertEquals(offering.getCompleteDate(), obtainedOffering.getCompleteDate());
+        assertEquals(offering.getDate(), obtainedOffering.getDate());
         assertEquals(offering.getPrice(), obtainedOffering.getPrice());
         assertEquals(offering.getProduct(), obtainedOffering.getProduct());
     }
@@ -94,7 +94,7 @@ public class GetOfferingsDbUseCaseTest {
         assertNotNull(obtainedOffering);
 
         assertEquals(offering.getId(), obtainedOffering.getId());
-//        assertEquals(offering.getCompleteDate(), obtainedOffering.getCompleteDate());
+        assertEquals(offering.getDate(), obtainedOffering.getDate());
         assertEquals(offering.getPrice(), obtainedOffering.getPrice());
         assertEquals(offering.getProduct(), obtainedOffering.getProduct());
     }
