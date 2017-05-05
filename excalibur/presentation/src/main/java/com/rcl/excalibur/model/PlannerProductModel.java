@@ -64,7 +64,7 @@ public class PlannerProductModel extends ProductInformationViewType implements C
         isAllDayProduct = allDayProduct;
     }
 
-    public int getHeaderItBelongs() {
+    public int getHeaderType() {
         return isAllDayProduct ? ALL_DAY_HEADER : GENERAL_HEADER;
     }
 

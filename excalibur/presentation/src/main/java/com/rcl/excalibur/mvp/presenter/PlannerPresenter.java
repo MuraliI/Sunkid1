@@ -157,7 +157,7 @@ public class PlannerPresenter {
             }
 
             PlannerProductItem plannerProductItem = createPlannerItem(plannerProductModel,
-                    headerList.get(plannerProductModel.getHeaderItBelongs()));
+                    headerList.get(plannerProductModel.getHeaderType()));
 
             if (!plannerProductModel.isFeatured()) {
                 if (plannerProductModel.isAllDayProduct()) {
