@@ -33,10 +33,10 @@ import java.util.List;
 
 public class TriptychHomePresenter {
 
-    private static final String PORT_TYPE_EMBARK = "EMBARK";
-    private static final String PORT_TYPE_DOCKED = "DOCKED";
-    private static final String PORT_TYPE_DEBARK = "DEBARK";
-    private static final String PORT_TYPE_CRUISING = "CRUISING";
+    public static final String PORT_TYPE_EMBARK = "EMBARK";
+    public static final String PORT_TYPE_DOCKED = "DOCKED";
+    public static final String PORT_TYPE_DEBARK = "DEBARK";
+    public static final String PORT_TYPE_CRUISING = "CRUISING";
 
     private TriptychHomeView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
