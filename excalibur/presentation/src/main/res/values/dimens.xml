@@ -190,7 +190,6 @@
     <dimen name="padding_text_no_products_top">10dp</dimen>
     <dimen name="text_size_no_products_top">17sp</dimen>
 
-
     <!-- Cue Card Discovery Tab -->
     <dimen name="item_discovery_margin">10dp</dimen>
     <dimen name="item_discovery_margin_start">20dp</dimen>
@@ -221,5 +220,9 @@
     <dimen name="dining_menu_item_margin_description">10dp</dimen>
     <dimen name="dining_menu_home_text_size">25sp</dimen>
     <dimen name="dining_menu_home_margin_end">10dp</dimen>
+
+    <!-- DeckMap-->
+    <dimen name="padding_bottom_deckmap">50dp</dimen>
+    <dimen name="padding_top_deckmap">50dp</dimen>
 
 </resources>
