@@ -51,6 +51,7 @@ import java.util.List;
 
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
 import static com.rcl.excalibur.data.utils.DBUtil.eqId;
+import static com.rcl.excalibur.data.utils.DBUtil.like;
 
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, Void, ProductEntityDataMapper>
         implements ProductRepository {
@@ -449,9 +450,14 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     }
 
     @Override
+    public List<Product> getByChildCategory(@NonNull final String childCategory, int maxCount, int offset) {
+        String condition = like(ProductEntity.COLUMN_CHILD_CATEGORIES, childCategory);
+        return this.getBatch(condition, maxCount, offset);
+    }
+
+    @Override
     public List<Product> getByCategory(@NonNull final String category, int maxCount, int offset) {
         final CategoryEntity categoryEntity = (CategoryEntity) getEntity(CategoryEntity.class, CategoryEntity.COLUMN_CATEGORY_ID, category);
-        //TODO. Consultar por Child tambien
         if (categoryEntity == null) {
             return new ArrayList<>();
         }

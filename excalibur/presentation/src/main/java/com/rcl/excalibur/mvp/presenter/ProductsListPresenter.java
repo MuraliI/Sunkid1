@@ -42,11 +42,12 @@ public class ProductsListPresenter {
     private List<Product> getProductsByCategory(int categoryId, String childCategoryId, int currentPage, int maxCount, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
         String typeQuery = getType(activity, categoryId);
-        List<Product> allProducts = getProductDbUseCase.getByCategory(typeQuery, maxCount, currentPage * maxCount);
-
+        List<Product> allProducts;
         if (childCategoryId == null) {
+            allProducts = getProductDbUseCase.getByCategory(typeQuery, maxCount, currentPage * maxCount);
             childProducts = allProducts;
         } else {
+            allProducts = getProductDbUseCase.getByChildCategory(childCategoryId, maxCount, currentPage * maxCount);
             for (Product typeProduct : allProducts) {
                 if (typeProduct.getChildCategoriesId().contains(childCategoryId)) {
                     childProducts.add(typeProduct);
