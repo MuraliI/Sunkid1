@@ -406,8 +406,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             categoryEntity.setCategoryId(category.getCategoryId());
             categoryEntity.setDescription(category.getCategoryDescription());
             categoryEntity.save();
+            createChildCategories(categoryEntity, category.getChildCategory());
         }
-//        createChildCategories(categoryEntity, category.getChildCategory());
         entity.setCategory(categoryEntity);
     }
 
