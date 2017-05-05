@@ -53,7 +53,6 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
         loadMoreScrollListener = new LoadMoreScrollListener(recyclerView.getLayoutManager(), START_OFFSET) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                Toast.makeText(activity, "Loading page " + page, Toast.LENGTH_SHORT).show();
                 publisherSubject.onNext(new Pair<>(page, LoadMoreScrollListener.MAX_COUNT));
             }
         };
