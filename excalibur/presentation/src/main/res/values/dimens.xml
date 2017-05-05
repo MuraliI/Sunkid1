@@ -214,4 +214,7 @@
     <dimen name="progress_height_width">30dp</dimen>
     <dimen name="height_voyage_ship">150dp</dimen>
 
+    <!-- Ship Stats-->
+    <dimen name="padding_ship_stats">15dp</dimen>
+
 </resources>

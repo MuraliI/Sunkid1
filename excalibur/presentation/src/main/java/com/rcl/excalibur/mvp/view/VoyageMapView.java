@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.graphics.PointF;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,15 +14,19 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.DayPickerActivity;
 import com.rcl.excalibur.activity.VoyageMapActivity;
+import com.rcl.excalibur.adapters.ShipStatsAdapter;
 import com.rcl.excalibur.custom.view.VoyageMapImageView;
+import com.rcl.excalibur.model.ShipStatsModel;
 import com.rcl.excalibur.mvp.view.base.ActivityView;
 import com.rcl.excalibur.utils.ActivityUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
+public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipStatsModel> {
     private static final int MINIMUM_DPI = 80;
     private static final int SCREEN_DIVISOR = 2;
     private static final String ANIMATOR_PROPERTY = "alpha";
@@ -36,6 +42,9 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     @BindView(R.id.date_picker_plans_tab) TextView dayPickerText;
     @BindView(R.id.text_ship_status) TextView textShipText;
     @BindView(R.id.view_white_voyage_map) View whiteBarView;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+
+    private ShipStatsAdapter adapter;
 
     public VoyageMapView(VoyageMapActivity activity) {
         super(activity);
@@ -76,6 +85,10 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
         voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / voyageMapImage.SCALE_FACTOR, point);
         voyageMapImage.setZoomEnabled(false);
         voyageMapImage.setOnImageEventListener(event);
+
+        adapter = new ShipStatsAdapter(adapterObserver);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setAdapter(adapter);
     }
 
     public void setCruiseCoordinate(PointF point) {
@@ -126,5 +139,9 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
 
     public void animatePointToCenter(PointF point, SubsamplingScaleImageView.OnAnimationEventListener event) {
         voyageMapImage.animatePointToCenter(point, event);
+    }
+
+    public void addAll(List<ShipStatsModel> list) {
+        adapter.addAll(list);
     }
 }

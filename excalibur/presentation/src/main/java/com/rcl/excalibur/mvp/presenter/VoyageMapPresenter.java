@@ -11,16 +11,21 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.VoyageMapActivity;
 import com.rcl.excalibur.domain.SailDateInfo;
+import com.rcl.excalibur.domain.interactor.DefaultObserver;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
+import com.rcl.excalibur.domain.interactor.GetShipStatsDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetShipStatsUseCase;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
+import com.rcl.excalibur.model.ShipStatsModel;
 import com.rcl.excalibur.mvp.view.VoyageMapView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.rcl.excalibur.model.PortModel.PORT_TYPE_EMBARK;
@@ -37,16 +42,22 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private VoyageMapView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
+    private GetShipStatsDbUseCase getShipStatsDbUseCase;
+    private GetShipStatsUseCase getShipStatsUseCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
 
     public VoyageMapPresenter(VoyageMapView view,
                               GetSailingPreferenceUseCase getSailingPreferenceUseCase,
                               GetSaildDateDbUseCase getSaildDateDbUseCase,
-                              SailingInformationModelDataMapper sailingInformationModelDataMapper) {
+                              SailingInformationModelDataMapper sailingInformationModelDataMapper,
+                              GetShipStatsDbUseCase getShipStatsDbUseCase,
+                              GetShipStatsUseCase getShipStatsUseCase) {
         this.view = view;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
+        this.getShipStatsDbUseCase = getShipStatsDbUseCase;
+        this.getShipStatsUseCase = getShipStatsUseCase;
     }
 
     public void initMap() {
@@ -72,6 +83,24 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         view.setCruiseCoordinate(new PointF(XCOORDINATE, YCOORDINATE + CENTER_OFFSET));
         view.hideShip();
         view.initVoyageMapImage(R.drawable.caribbean_map_2_1, new PointF(XCOORDINATE, YCOORDINATE), this);
+
+        getShipStatsUseCase.execute(new DefaultObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean value) {
+                List<ShipStatsModel> list = new ArrayList<>();
+                ShipStatsModel model = new ShipStatsModel();
+                model.setName("Mock Data");
+
+                list.add(model);
+                list.add(model);
+                list.add(model);
+                list.add(model);
+                list.add(model);
+                list.add(model);
+
+                view.addAll(list);
+            }
+        }, null);
     }
 
     public void onResume() {
