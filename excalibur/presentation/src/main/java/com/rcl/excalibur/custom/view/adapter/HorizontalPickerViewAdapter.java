@@ -42,6 +42,8 @@ public class HorizontalPickerViewAdapter<O> extends RecyclerView.Adapter<Horizon
         if (selectedItem == position) {
             holder.itemView.setFocusableInTouchMode(true);
             holder.itemView.requestFocus();
+        } else {
+            holder.itemView.setFocusableInTouchMode(false);
         }
 
         if (observerWeakReference.get() != null) {
@@ -80,7 +82,10 @@ public class HorizontalPickerViewAdapter<O> extends RecyclerView.Adapter<Horizon
         HorizontalDeckPickerViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_deck_selector_textview, parent, false));
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(view -> clickPublisher.onNext(items.get(getAdapterPosition())));
+            itemView.setOnClickListener(view -> {
+                clickPublisher.onNext(items.get(getAdapterPosition()));
+                selectedItem = getAdapterPosition();
+            });
         }
     }
 }
