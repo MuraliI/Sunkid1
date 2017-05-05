@@ -29,7 +29,6 @@ public class MenuListPresenterTest {
     private List<MenuItem> menuItemList;
     private MenuItem menuItem;
 
-
     private final String MENU_NAME = "Dinner";
     private final String MENU_ITEM_NAME = "WILD MUSHROOM SOUP";
     private final String MENU_ITEM_DESCRIPTION = "Scented with white truffle oil, chives";
@@ -53,8 +52,5 @@ public class MenuListPresenterTest {
         verify(view).getActivity();
         presenter.init(MENU_NAME);
         verify(getMenuDbUseCase).getAllMenuItemByMenuName(MENU_NAME);
-        verify(view.getActivity().getResources());
-
     }
-
 }
