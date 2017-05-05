@@ -9,6 +9,7 @@ import com.rcl.excalibur.data.entity.ChildCategoryEntity;
 import com.rcl.excalibur.data.entity.SubCategoryEntity;
 import com.rcl.excalibur.data.mapper.SubCategoryEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.data.utils.DBUtil;
 import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.SubCategory;
 import com.rcl.excalibur.domain.repository.SubCategoryRepository;
@@ -37,7 +38,11 @@ public class SubCategoriesDataRepository extends BaseDataRepository<SubCategory,
 
     @Override
     public void create(@NonNull SubCategory subCategory) {
-        final SubCategoryEntity entity = new SubCategoryEntity();
+        SubCategoryEntity entity = getEntity(SubCategoryEntity.COLUMN_SUB_CATEGORY_ID, subCategory.getCategoryId());
+        if (entity != null) {
+            delete(entity);
+        }
+        entity = new SubCategoryEntity();
         entity.setCategoryId(subCategory.getCategoryId());
         entity.setDescription(subCategory.getCategoryDescription());
         entity.setName(subCategory.getCategoryName());
@@ -48,8 +53,11 @@ public class SubCategoriesDataRepository extends BaseDataRepository<SubCategory,
 
     @Override
     public void deleteAll() {
-        new Delete().from(ChildCategoryEntity.class).execute();
-        new Delete().from(SubCategoryEntity.class).execute();
+    }
+
+    public void delete(SubCategoryEntity entity) {
+//   TODO     new Delete().from(ChildCategoryEntity.class).execute();
+        new Delete().from(SubCategoryEntity.class).where(DBUtil.eqId(entity.getId())).execute();
     }
 
     private void createChildCategories(final SubCategoryEntity entity, final List<ChildCategory> childCategories) {

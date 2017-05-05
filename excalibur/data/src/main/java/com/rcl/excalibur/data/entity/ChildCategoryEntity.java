@@ -14,7 +14,7 @@ public class ChildCategoryEntity extends Model {
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_SUB_CATEGORY = "sub_category";
 
-    @Column(name = COLUMN_CHILD_CATEGORY_ID)
+    @Column(name = COLUMN_CHILD_CATEGORY_ID, unique = true, index = true)
     private String categoryId;
     @Column(name = COLUMN_NAME)
     private String name;

@@ -1,29 +1,22 @@
 package com.rcl.excalibur.data.service;
 
 
-import android.util.Log;
-
 import com.rcl.excalibur.data.mapper.OfferingResponseMapper;
 import com.rcl.excalibur.data.mapper.PriceResponseMapper;
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
-import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
-import com.rcl.excalibur.data.service.response.GetSubCategoriesResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.SubCategory;
-import com.rcl.excalibur.domain.repository.SubCategoryRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
 import com.rcl.excalibur.domain.utils.ProductsInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -43,53 +36,9 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     public static final String SAILING_ID = "AL20170702";
     private static final int MAX_COUNT = 50;
 
-    private SubCategoryRepository subCategoryRepository;
-    private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
-
 
     public DiscoverServicesImpl() {
         super(new ProductResponseDataMapper(new OfferingResponseMapper(new PriceResponseMapper())));
-    }
-
-
-    public void setSubCategoryRepository(SubCategoryRepository subCategoryRepository) {
-        this.subCategoryRepository = subCategoryRepository;
-    }
-
-    public void setSubCategoryResponseDataMapper(SubCategoryResponseDataMapper subCategoryResponseDataMapper) {
-        this.subCategoryResponseDataMapper = subCategoryResponseDataMapper;
-    }
-
-    @Override
-    public void getSubCategories() {
-        List<SubCategory> subCategories = new ArrayList<>();
-
-
-        Call<GetSubCategoriesResponse> subCategoriesCall = getDiscoverApi().getSubCategories(SAILING_ID);
-
-        subCategoriesCall.enqueue(new Callback<GetSubCategoriesResponse>() {
-
-            @Override
-            public void onResponse(Call<GetSubCategoriesResponse> call, Response<GetSubCategoriesResponse> response) {
-                subCategoryRepository.deleteAll();
-                mapSubCategories(response, subCategories);
-                subCategoryRepository.create(subCategories);
-            }
-
-            @Override
-            public void onFailure(Call<GetSubCategoriesResponse> call, Throwable t) {
-                logOnFailureError(t, "");
-            }
-        });
-    }
-
-    private void mapSubCategories(Response<GetSubCategoriesResponse> response, List<SubCategory> subCategories) {
-        if (response.isSuccessful()) {
-            GetSubCategoriesResponse getGetSubCategoriesResponse = response.body();
-            if (isSuccess(getGetSubCategoriesResponse)) {
-                subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory(), null));
-            }
-        }
     }
 
     @Override
@@ -228,12 +177,9 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
                 @Override
                 public void onResponse(Call<GetProductsResponse> call, Response<GetProductsResponse> response) {
                     if (response == null || !response.isSuccessful() || !isSuccess(response.body())) {
-                        Log.d("DownloadProductsManager", "DownloadProductsManageraaremove CERO : " + type + "  " + 0);
                         observableEmitter.onNext(new ProductsInfo(type));
                         return;
                     }
-                    Log.d("DownloadProductsManager", "DownloadProductsManageraaremove OK : " + type + "  " + response.body()
-                            .getProducts().size());
                     List<Product> products = getMapper().transform(response.body().getProducts());
                     observableEmitter.onNext(new ProductsInfo(type, response.body().getSummaryResponse().getTotalHits(), products));
 
@@ -241,7 +187,6 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
 
                 @Override
                 public void onFailure(Call<GetProductsResponse> call, Throwable t) {
-                    Log.d("DownloadProductsManager", "DownloadProductsManageraaremove FAILED: " + type + "  " + t.getMessage());
                     observableEmitter.onNext(new ProductsInfo(type));
 
                 }
