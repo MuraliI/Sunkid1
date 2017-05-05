@@ -41,8 +41,9 @@ public class CategoriesDataRepository extends BaseDataRepository<Category, Categ
         CategoryEntity entity = getEntity(CategoryEntity.COLUMN_CATEGORY_ID, category.getCategoryId());
         if (entity != null) {
             delete(entity);
+        } else {
+            entity = new CategoryEntity();
         }
-        entity = new CategoryEntity();
         entity.setCategoryId(category.getCategoryId());
         entity.setDescription(category.getCategoryDescription());
         entity.setName(category.getCategoryName());
@@ -56,7 +57,7 @@ public class CategoriesDataRepository extends BaseDataRepository<Category, Categ
     }
 
     public void delete(CategoryEntity entity) {
-        new Delete().from(CategoryEntity.class).where(DBUtil.eqId(entity.getId())).execute();
+        new Delete().from(ChildCategoryEntity.class).where(DBUtil.eq(ChildCategoryEntity.COLUMN_CATEGORY, entity.getId())).execute();
     }
 
     private void createChildCategories(final CategoryEntity entity, final List<ChildCategory> childCategories) {
