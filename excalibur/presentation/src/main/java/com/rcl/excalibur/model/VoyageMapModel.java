@@ -3,14 +3,31 @@ package com.rcl.excalibur.model;
 import android.graphics.PointF;
 
 public class VoyageMapModel {
-    private static final int CENTER_OFFSET = 130;
-    private static final int IMAGE_HEIGHT = 1720;
-    private static final int IMAGE_WIDTH = 2522;
+    private static final int CENTER_OFFSET = 135;
+
+    private int width;
+    private int heigth;
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeigth() {
+        return heigth;
+    }
+
+    public void setHeigth(int heigth) {
+        this.heigth = heigth;
+    }
 
     public PointF getMockCoordinate(char c, boolean hasOffset) {
         PointF coordinate = new PointF();
-        int midWidht = IMAGE_WIDTH / 2;
-        int midHeight = IMAGE_HEIGHT / 2;
+        int midWidht = width / 2;
+        int midHeight = heigth / 2;
         int differenceDays = 100;
         switch (c) {
             case '1':
