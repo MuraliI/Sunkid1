@@ -64,14 +64,7 @@ public class DeckMapImageView extends SubsamplingScaleImageView {
                 .withInterruptible(false)
                 .start();
     }
-
-    @Override
-    public boolean onTouchEvent(@NonNull MotionEvent event) {
-        Timber.i("Test");
-        return super.onTouchEvent(event);
-
-    }
-
+    
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);

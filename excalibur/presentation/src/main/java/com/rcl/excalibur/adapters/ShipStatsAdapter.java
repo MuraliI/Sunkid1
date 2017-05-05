@@ -32,15 +32,13 @@ public class ShipStatsAdapter extends BaseAdapter<ShipStatsModel, ShipStatsModel
 
     @Override
     public void onBindViewHolder(ShipStatsViewHolder holder, int position) {
-        holder.shipStatsModel = items.get(position);
         ShipStatsModel shipStatsModel = items.get(position);
         holder.itemName.setText(shipStatsModel.getName());
     }
 
-    static class ShipStatsViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.item_name) TextView itemName;
-
-        ShipStatsModel shipStatsModel;
+    class ShipStatsViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.item_name)
+        TextView itemName;
 
         ShipStatsViewHolder(View itemView) {
             super(itemView);
