@@ -1,6 +1,5 @@
 package com.rcl.excalibur.data.repository;
 
-
 import android.support.annotation.NonNull;
 
 import com.activeandroid.ActiveAndroid;
@@ -8,27 +7,27 @@ import com.activeandroid.query.Delete;
 import com.rcl.excalibur.data.entity.CategoryEntity;
 import com.rcl.excalibur.data.entity.ChildCategoryEntity;
 import com.rcl.excalibur.data.entity.SubCategoryEntity;
-import com.rcl.excalibur.data.mapper.SubCategoryEntityDataMapper;
+import com.rcl.excalibur.data.mapper.CategoryEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.ChildCategory;
-import com.rcl.excalibur.domain.SubCategory;
-import com.rcl.excalibur.domain.repository.SubCategoryRepository;
+import com.rcl.excalibur.domain.repository.CategoryRepository;
 
 import java.util.List;
 
-public class SubCategoriesDataRepository extends BaseDataRepository<SubCategory, SubCategoryEntity, Void, SubCategoryEntityDataMapper>
-        implements SubCategoryRepository {
+public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity, Void, CategoryEntityDataMapper>
+        implements CategoryRepository {
 
-    public SubCategoriesDataRepository() {
-        super(new SubCategoryEntityDataMapper(), SubCategoryEntity.class);
+    public CategoryDataRepository() {
+        super(new CategoryEntityDataMapper(), CategoryEntity.class);
     }
 
     @Override
-    public void create(List<SubCategory> subCategories) {
+    public void create(List<Category> categories) {
         ActiveAndroid.beginTransaction();
         try {
-            for (SubCategory subCategory : subCategories) {
-                create(subCategory);
+            for (Category category : categories) {
+                create(category);
             }
             ActiveAndroid.setTransactionSuccessful();
         } finally {
@@ -37,11 +36,11 @@ public class SubCategoriesDataRepository extends BaseDataRepository<SubCategory,
     }
 
     @Override
-    public void create(@NonNull SubCategory category) {
+    public void create(@NonNull Category category) {
         final CategoryEntity entity = new CategoryEntity();
         entity.setCategoryId(category.getCategoryId());
-        entity.setDescription(category.getCategoryDescription());
-        entity.setName(category.getCategoryName());
+        entity.setDescription(category.getDescription());
+        entity.setName(category.getName());
         entity.save();
 
         createChildCategories(entity, category.getChildCategory());
@@ -69,8 +68,8 @@ public class SubCategoriesDataRepository extends BaseDataRepository<SubCategory,
     }
 
     @Override
-    public SubCategory get(String id) {
-        return get(SubCategoryEntity.COLUMN_SUB_CATEGORY_ID, id);
+    public Category get(String id) {
+        return get(CategoryEntity.COLUMN_CATEGORY_ID, id);
     }
 
 }

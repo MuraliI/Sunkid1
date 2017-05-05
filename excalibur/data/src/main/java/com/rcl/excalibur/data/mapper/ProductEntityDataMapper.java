@@ -4,7 +4,7 @@ package com.rcl.excalibur.data.mapper;
 import com.rcl.excalibur.data.entity.ActivityLevelEntity;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
-import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
+import com.rcl.excalibur.data.entity.ChildCategoryEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
 import com.rcl.excalibur.data.entity.DeckInfoEntity;
 import com.rcl.excalibur.data.entity.DurationEntity;
@@ -338,12 +338,12 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         productCategory.setCategoryDescription(categoryEntity.getDescription());
         productCategory.setCategoryId(categoryEntity.getCategoryId());
         productCategory.setCategoryName(categoryEntity.getName());
-        productCategory.setChildCategory(transformChildCategories(categoryEntity.getChildCategoryProducts()));
+        productCategory.setChildCategory(transformChildCategories(categoryEntity.getChildCategory()));
 
         return productCategory;
     }
 
-    private List<ChildCategory> transformChildCategories(List<ChildCategoryProductEntity> entities) {
+    private List<ChildCategory> transformChildCategories(List<ChildCategoryEntity> entities) {
 
         ArrayList<ChildCategory> childCategories = new ArrayList<>();
 
@@ -351,12 +351,12 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             return childCategories;
         }
 
-        for (ChildCategoryProductEntity childCategoryProductEntity : entities) {
+        for (ChildCategoryEntity childCategoryEntity : entities) {
 
             ChildCategory childCategory = new ChildCategory();
-            childCategory.getItems().setCategoryDescription(childCategoryProductEntity.getDescription());
-            childCategory.getItems().setCategoryId(childCategoryProductEntity.getCategoryId());
-            childCategory.getItems().setCategoryName(childCategoryProductEntity.getName());
+            childCategory.getItems().setCategoryDescription(childCategoryEntity.getDescription());
+            childCategory.getItems().setCategoryId(childCategoryEntity.getChildCategoryId());
+            childCategory.getItems().setCategoryName(childCategoryEntity.getName());
             childCategories.add(childCategory);
         }
 

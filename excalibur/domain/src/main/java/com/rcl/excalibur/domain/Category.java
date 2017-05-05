@@ -14,7 +14,8 @@ public class Category {
 
     private String categoryId;
     private String description;
-    private List<String> tags;
+    private String name;
+    private List<ChildCategory> childCategory;
 
     public Category() {
     }
@@ -35,11 +36,19 @@ public class Category {
         this.description = description;
     }
 
-    public List<String> getTags() {
-        return tags;
+    public String getName() {
+        return name;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<ChildCategory> getChildCategory() {
+        return childCategory;
+    }
+
+    public void setChildCategory(List<ChildCategory> childCategory) {
+        this.childCategory = childCategory;
     }
 }

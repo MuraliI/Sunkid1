@@ -9,6 +9,8 @@ public interface CategoryRepository {
 
     void create(Category category);
 
+    void create(List<Category> categories);
+
     List<Category> getAll();
 
     Category get(String id);

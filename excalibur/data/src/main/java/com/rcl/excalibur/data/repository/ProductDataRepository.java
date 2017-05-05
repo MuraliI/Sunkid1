@@ -8,6 +8,7 @@ import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
+import com.rcl.excalibur.data.entity.ChildCategoryEntity;
 import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
 import com.rcl.excalibur.data.entity.DeckInfoEntity;
@@ -405,8 +406,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             categoryEntity.setCategoryId(category.getCategoryId());
             categoryEntity.setDescription(category.getCategoryDescription());
             categoryEntity.save();
-            createChildCategories(categoryEntity, category.getChildCategory());
         }
+//        createChildCategories(categoryEntity, category.getChildCategory());
         entity.setCategory(categoryEntity);
     }
 
@@ -418,12 +419,12 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
         for (ChildCategory childCategory : categories) {
 
-            final ChildCategoryProductEntity childCategoryProductEntity = new ChildCategoryProductEntity();
-            childCategoryProductEntity.setCategoryId(childCategory.getItems().getCategoryId());
-            childCategoryProductEntity.setDescription(childCategory.getItems().getCategoryDescription());
-            childCategoryProductEntity.setName(childCategory.getItems().getCategoryName());
-            childCategoryProductEntity.setCategory(entity);
-            childCategoryProductEntity.save();
+            final ChildCategoryEntity childCategoryEntity = new ChildCategoryEntity();
+            childCategoryEntity.setChildCategoryId(childCategory.getItems().getCategoryId());
+            childCategoryEntity.setDescription(childCategory.getItems().getCategoryDescription());
+            childCategoryEntity.setName(childCategory.getItems().getCategoryName());
+            childCategoryEntity.setCategory(entity);
+            childCategoryEntity.save();
         }
     }
 

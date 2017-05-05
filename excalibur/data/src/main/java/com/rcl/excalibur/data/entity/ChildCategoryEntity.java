@@ -12,27 +12,27 @@ public class ChildCategoryEntity extends Model {
     public static final String COLUMN_CHILD_CATEGORY_ID = "child_category_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DESCRIPTION = "description";
-    public static final String COLUMN_SUB_CATEGORY = "sub_category";
+    public static final String COLUMN_CATEGORY = "category";
 
     @Column(name = COLUMN_CHILD_CATEGORY_ID)
-    private String categoryId;
+    private String childCategoryId;
     @Column(name = COLUMN_NAME)
     private String name;
     @Column(name = COLUMN_DESCRIPTION)
     private String description;
-    @Column(name = COLUMN_SUB_CATEGORY)
-    private SubCategoryEntity subCategory;
+    @Column(name = COLUMN_CATEGORY)
+    private CategoryEntity category;
 
     public ChildCategoryEntity() {
         super();
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getChildCategoryId() {
+        return childCategoryId;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setChildCategoryId(String childCategoryId) {
+        this.childCategoryId = childCategoryId;
     }
 
     public String getName() {
@@ -51,11 +51,11 @@ public class ChildCategoryEntity extends Model {
         this.description = description;
     }
 
-    public SubCategoryEntity getSubCategory() {
-        return subCategory;
+    public CategoryEntity getCategory() {
+        return category;
     }
 
-    public void setSubCategory(SubCategoryEntity subCategory) {
-        this.subCategory = subCategory;
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 }

@@ -1,35 +1,29 @@
 package com.rcl.excalibur.data.mapper;
 
-
 import android.support.annotation.NonNull;
 
+import com.rcl.excalibur.data.entity.CategoryEntity;
 import com.rcl.excalibur.data.entity.ChildCategoryEntity;
-import com.rcl.excalibur.data.entity.SubCategoryEntity;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.ChildCategory;
-import com.rcl.excalibur.domain.SubCategory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Mapper class used to transform {@link SubCategoryEntity} (in the data layer) to {@link SubCategory} in the
- * domain layer.
- */
-public class SubCategoryEntityDataMapper extends BaseDataMapper<SubCategory, SubCategoryEntity, Void> {
-
+public class CategoryEntityDataMapper extends BaseDataMapper<Category, CategoryEntity, Void> {
 
     @Override
-    public SubCategory transform(@NonNull SubCategoryEntity model, Void additionalArg) {
-        SubCategory subCategory = null;
+    public Category transform(@NonNull CategoryEntity model, Void additionalArg) {
+        Category category = null;
         if (model != null) {
-            subCategory = new SubCategory();
-            subCategory.setCategoryId(model.getCategoryId());
-            subCategory.setCategoryDescription(model.getDescription());
-            subCategory.setCategoryName(model.getName());
-            subCategory.setChildCategory(transformChildCategory(model.getChildCategories()));
+            category = new Category();
+            category.setCategoryId(model.getCategoryId());
+            category.setDescription(model.getDescription());
+            category.setName(model.getName());
+            category.setChildCategory(transformChildCategory(model.getChildCategory()));
         }
-        return subCategory;
+        return category;
     }
 
     private List<ChildCategory> transformChildCategory(List<ChildCategoryEntity> entities) {
@@ -52,5 +46,4 @@ public class SubCategoryEntityDataMapper extends BaseDataMapper<SubCategory, Sub
         }
         return items;
     }
-
 }

@@ -51,6 +51,6 @@ public class SubCategoryEntity extends Model {
     }
 
     public List<ChildCategoryEntity> getChildCategories() {
-        return getMany(ChildCategoryEntity.class, ChildCategoryEntity.COLUMN_SUB_CATEGORY);
+        return getMany(ChildCategoryEntity.class, ChildCategoryEntity.COLUMN_CATEGORY);
     }
 }

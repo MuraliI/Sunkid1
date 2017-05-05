@@ -3,23 +3,23 @@ package com.rcl.excalibur.data.service;
 
 import android.util.Log;
 
+import com.rcl.excalibur.data.mapper.CategoryResponseDataMapper;
 import com.rcl.excalibur.data.mapper.OfferingResponseMapper;
 import com.rcl.excalibur.data.mapper.PriceResponseMapper;
 import com.rcl.excalibur.data.mapper.ProductResponseDataMapper;
-import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
 import com.rcl.excalibur.data.service.response.ActivitiesResponse;
 import com.rcl.excalibur.data.service.response.CategoriesResponse;
 import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
+import com.rcl.excalibur.data.service.response.GetCategoriesResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
-import com.rcl.excalibur.data.service.response.GetSubCategoriesResponse;
 import com.rcl.excalibur.data.service.response.ProductResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
+import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.SubCategory;
-import com.rcl.excalibur.domain.repository.SubCategoryRepository;
+import com.rcl.excalibur.domain.repository.CategoryRepository;
 import com.rcl.excalibur.domain.service.DiscoverServices;
 import com.rcl.excalibur.domain.utils.ProductsInfo;
 
@@ -43,8 +43,8 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     public static final String SAILING_ID = "AL20170702";
     private static final int MAX_COUNT = 50;
 
-    private SubCategoryRepository subCategoryRepository;
-    private SubCategoryResponseDataMapper subCategoryResponseDataMapper;
+    private CategoryRepository categoryRepository;
+    private CategoryResponseDataMapper categoryResponseDataMapper;
 
 
     public DiscoverServicesImpl() {
@@ -52,42 +52,42 @@ public class DiscoverServicesImpl extends BaseDataService<Product, ProductRespon
     }
 
 
-    public void setSubCategoryRepository(SubCategoryRepository subCategoryRepository) {
-        this.subCategoryRepository = subCategoryRepository;
+    public void setCategoryRepository(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
-    public void setSubCategoryResponseDataMapper(SubCategoryResponseDataMapper subCategoryResponseDataMapper) {
-        this.subCategoryResponseDataMapper = subCategoryResponseDataMapper;
+    public void setCategoryResponseDataMapper(CategoryResponseDataMapper categoryResponseDataMapper) {
+        this.categoryResponseDataMapper = categoryResponseDataMapper;
     }
 
     @Override
     public void getSubCategories() {
-        List<SubCategory> subCategories = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
 
 
-        Call<GetSubCategoriesResponse> subCategoriesCall = getDiscoverApi().getSubCategories(SAILING_ID);
+        Call<GetCategoriesResponse> categoriesCall = getDiscoverApi().getCategories(SAILING_ID);
 
-        subCategoriesCall.enqueue(new Callback<GetSubCategoriesResponse>() {
+        categoriesCall.enqueue(new Callback<GetCategoriesResponse>() {
 
             @Override
-            public void onResponse(Call<GetSubCategoriesResponse> call, Response<GetSubCategoriesResponse> response) {
+            public void onResponse(Call<GetCategoriesResponse> call, Response<GetCategoriesResponse> response) {
                 //FIXME implement logic in scheduler to avoid delete & duplicates
-                mapSubCategories(response, subCategories);
-                subCategoryRepository.create(subCategories);
+                mapCategories(response, categories);
+                categoryRepository.create(categories);
             }
 
             @Override
-            public void onFailure(Call<GetSubCategoriesResponse> call, Throwable t) {
+            public void onFailure(Call<GetCategoriesResponse> call, Throwable t) {
                 logOnFailureError(t, "");
             }
         });
     }
 
-    private void mapSubCategories(Response<GetSubCategoriesResponse> response, List<SubCategory> subCategories) {
+    private void mapCategories(Response<GetCategoriesResponse> response, List<Category> categories) {
         if (response.isSuccessful()) {
-            GetSubCategoriesResponse getGetSubCategoriesResponse = response.body();
-            if (isSuccess(getGetSubCategoriesResponse)) {
-                subCategories.addAll(subCategoryResponseDataMapper.transform(getGetSubCategoriesResponse.getCategory(), null));
+            GetCategoriesResponse getGetCategoriesResponse = response.body();
+            if (isSuccess(getGetCategoriesResponse)) {
+                categories.addAll(categoryResponseDataMapper.transform(getGetCategoriesResponse.getCategory(), null));
             }
         }
     }
