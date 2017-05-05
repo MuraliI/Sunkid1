@@ -30,14 +30,15 @@ import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DO
 
 public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimationEventListener,
         SubsamplingScaleImageView.OnImageEventListener {
-    private static final int XCOORDINATE = 796;
-    private static final int YCOORDINATE = 826;
-    private static final int CENTER_OFFSET = 120;
+    private static final int CENTER_OFFSET = 130;
+    private static final int IMAGE_HEIGHT = 1720;
+    private static final int IMAGE_WIDTH = 2522;
 
     private VoyageMapView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
+    private String day;
 
     public VoyageMapPresenter(VoyageMapView view,
                               GetSailingPreferenceUseCase getSailingPreferenceUseCase,
@@ -69,9 +70,11 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     }
 
     private void initVoyageMapImage() {
-        view.setCruiseCoordinate(new PointF(XCOORDINATE, YCOORDINATE + CENTER_OFFSET));
         view.hideShip();
-        view.initVoyageMapImage(R.drawable.caribbean_map_2_1, new PointF(XCOORDINATE, YCOORDINATE), this);
+        view.initVoyageMapImage(R.drawable.caribbean_map_2_1, this);
+        day = getSailingPreferenceUseCase.getDay() == null ? PlannerPresenter.DAY_DEFAULT_VALUE : getSailingPreferenceUseCase.getDay();
+        view.setCruiseCoordinate(getMockCoordinate(day.charAt(0), true));
+        view.setScaleAndCenter(getMockCoordinate(day.charAt(0), false));
     }
 
     public void onResume() {
@@ -79,13 +82,14 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         if (activity == null) {
             return;
         }
-        getShipLocationInfo();
+        day = getSailingPreferenceUseCase.getDay() == null ? PlannerPresenter.DAY_DEFAULT_VALUE : getSailingPreferenceUseCase.getDay();
+        getShipLocationInfo(day);
+        view.setScaleAndCenter(getMockCoordinate(day.charAt(0), false));
+        view.setCruiseCoordinate(getMockCoordinate(day.charAt(0), true));
     }
 
-    public void getShipLocationInfo() {
-        String day = getSailingPreferenceUseCase.getDay();
-        int selectedDay = Integer.valueOf(day == null ? PlannerPresenter.DAY_DEFAULT_VALUE : day);
-
+    public void getShipLocationInfo(String day) {
+        int selectedDay = Integer.valueOf(day);
         SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
         SailingInfoModel sailingInfoModel = sailingInformationModelDataMapper.transform(sailDateInfo);
         ItineraryModel itinerary = sailingInfoModel.getItinerary();
@@ -126,8 +130,50 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         return shipLocation;
     }
 
+    private PointF getMockCoordinate(char c, boolean hasOffset) {
+        PointF coordinate = new PointF();
+        int midWidht = IMAGE_WIDTH / 2;
+        int midHeight = IMAGE_HEIGHT / 2;
+        int differenceDays = 100;
+        switch (c) {
+            case '1':
+                coordinate.set(midWidht - 3 * differenceDays, midHeight);
+                break;
+            case '2':
+                coordinate.set(midWidht - 2 * differenceDays, midHeight);
+                break;
+            case '3':
+                coordinate.set(midWidht - 1 * differenceDays, midHeight);
+                break;
+            case '4':
+                coordinate.set(midWidht, midHeight);
+                break;
+            case '5':
+                coordinate.set(midWidht + 1 * differenceDays, midHeight);
+                break;
+            case '6':
+                coordinate.set(midWidht + 2 * differenceDays, midHeight);
+                break;
+            case '7':
+                coordinate.set(midWidht + 3 * differenceDays, midHeight);
+                break;
+            case '8':
+                coordinate.set(midWidht + 4 * differenceDays, midHeight);
+                break;
+            default:
+                coordinate.set(midWidht, midHeight);
+                break;
+        }
+
+        if (hasOffset) {
+            coordinate.y = coordinate.y + CENTER_OFFSET;
+        }
+
+        return coordinate;
+    }
+
     public void onBackPressed() {
-        view.animatePointToCenter(new PointF(XCOORDINATE, YCOORDINATE), this);
+        view.animatePointToCenter(getMockCoordinate(day.charAt(0), false), this);
     }
 
     @Override

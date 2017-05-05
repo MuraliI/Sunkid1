@@ -28,9 +28,6 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
     private static final float ALPHA_VISIBLE = 1.0f;
     private static final int ANIMATOR_DURATION = 250;
 
-    private int width = 0;
-    private int heigth = 0;
-
     @BindView(R.id.image_ship_voyage) ImageView ship;
     @BindView(R.id.image_voyage_map) VoyageMapImageView voyageMapImage;
     @BindView(R.id.date_picker_plans_tab) TextView dayPickerText;
@@ -42,47 +39,23 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, Void> {
         ButterKnife.bind(this, activity);
     }
 
-    public VoyageMapImageView getVoyageMapImage() {
-        return voyageMapImage;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeigth() {
-        return heigth;
-    }
-
-    public void setHeigth(int heigth) {
-        this.heigth = heigth;
-    }
-
     public void init(int width) {
         whiteBarView.getLayoutParams().width = width / SCREEN_DIVISOR;
     }
 
-    public void initVoyageMapImage(int resource, PointF point, SubsamplingScaleImageView.OnImageEventListener event) {
+    public void initVoyageMapImage(int resource, SubsamplingScaleImageView.OnImageEventListener event) {
         voyageMapImage.setImage(resource);
-        //FIXME: DELETE THIS WHEN THE COORDINATES BEING PROVIDED BY THE SERVICE
-        setWidth(voyageMapImage.getWidth());
-        setHeigth(voyageMapImage.getHeight());
-        voyageMapImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_INSIDE);
         voyageMapImage.setMinimumDpi(MINIMUM_DPI);
-        voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / voyageMapImage.SCALE_FACTOR, point);
         voyageMapImage.setZoomEnabled(false);
         voyageMapImage.setOnImageEventListener(event);
     }
 
     public void setCruiseCoordinate(PointF point) {
-        if (point.x == 0 && point.y == 0) {
-            return;
-        }
         voyageMapImage.setCruiseCoord(point);
+    }
+
+    public void setScaleAndCenter(PointF point) {
+        voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / voyageMapImage.SCALE_FACTOR, point);
     }
 
     @OnClick(R.id.date_picker_plans_tab)
