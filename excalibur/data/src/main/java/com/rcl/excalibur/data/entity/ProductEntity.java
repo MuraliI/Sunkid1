@@ -81,6 +81,10 @@ public class ProductEntity extends Model {
     public boolean isHighlighted;
     @Column(name = COLUMN_CATEGORY)
     public CategoryEntity category;
+
+    /**
+     * This Field represent a serialized JSON of childCategories ID where this product belong
+     */
     @Column(name = COLUMN_CHILD_CATEGORIES)
     public String childCategories;
 

@@ -64,7 +64,6 @@ public final class DBUtil {
 
     public static String eq(String column, boolean value) {
         return String.format("%s = '%s'", column, value);
-
     }
 
     public static String eq(String column) {
