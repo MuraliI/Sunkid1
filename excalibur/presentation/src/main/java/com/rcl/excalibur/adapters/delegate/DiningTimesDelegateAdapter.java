@@ -8,14 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rcl.excalibur.R;
+import com.rcl.excalibur.activity.BaseActivity;
+import com.rcl.excalibur.activity.DiningMenuActivity;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DiningTimesViewType;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.LocationOperationHour;
 import com.rcl.excalibur.domain.ProductAdvisement;
+import com.rcl.excalibur.utils.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +32,11 @@ import butterknife.OnClick;
 public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegateAdapter.TimesViewHolder, DiningTimesViewType> {
 
     private static final String DINING_TYPE_SPECIALTY = "Specialty";
+    private BaseActivity baseActivity;
+
+    public DiningTimesDelegateAdapter(BaseActivity activity) {
+        baseActivity = activity;
+    }
 
     @Override
     public TimesDelegateAdapter.TimesViewHolder onCreateViewHolder(ViewGroup parent) {
@@ -90,12 +97,14 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                     subtext.setText(operationHour.getStartTime());
 
                     showMenu.setVisibility(View.GONE);
-                    List<ProductAdvisement> advisementsDiningType = item.getProduct().getProductAdvisementsByType(ProductAdvisement.DINING_TYPE);
+                    List<ProductAdvisement> advisementsDiningType = item.getProduct()
+                            .getProductAdvisementsByType(ProductAdvisement.DINING_TYPE);
                     if (!CollectionUtils.isEmpty(advisementsDiningType)) {
                         ProductAdvisement diningType = advisementsDiningType.get(0);
                         if (diningType != null && diningType.getAdvisementTitle().equals(DINING_TYPE_SPECIALTY)) {
                             showMenu.setVisibility(View.VISIBLE);
-                            showMenu.setOnClickListener(v -> Toast.makeText(context, "SHOW MENU ACTION", Toast.LENGTH_LONG).show());
+                            showMenu.setOnClickListener(v -> ActivityUtils.startActivity(baseActivity,
+                                    DiningMenuActivity.getStartIntent(baseActivity, "CHOP")));
                         }
                     }
                     diningTimesContainer.addView(itemDiningView);

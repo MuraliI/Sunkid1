@@ -22,7 +22,7 @@ public class DiningMenuActivity extends BaseActivity {
 
     public static Intent getStartIntent(final BaseActivity activity, String venueCode) {
         Intent intent = new Intent(activity, DiningMenuActivity.class);
-        intent.putExtra(DiningMenuActivity.EXTRA_VENUE_CODE, StringUtils.encodeString(venueCode));
+        intent.putExtra(DiningMenuActivity.EXTRA_VENUE_CODE, StringUtils.encodeString("CHOP"));
         return intent;
     }
 

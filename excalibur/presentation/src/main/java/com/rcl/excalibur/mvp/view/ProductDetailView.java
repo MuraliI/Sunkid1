@@ -114,7 +114,8 @@ public class ProductDetailView extends ActivityView<ProductDetailActivity, int[]
             return;
         }
 
-        DetailViewCoordinatorAdapter adapter = new DetailViewCoordinatorAdapter(adapterObserver, viewTypes);
+        DetailViewCoordinatorAdapter adapter = new DetailViewCoordinatorAdapter(adapterObserver,
+                viewTypes, getActivity());
         adapter.setOnViewExpandedListener(position -> planDetailRecycler.smoothScrollToPosition(position));
 
         planDetailRecycler.setAdapter(adapter);
