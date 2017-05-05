@@ -8,7 +8,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -97,7 +96,7 @@ public final class StringUtils {
             byte[] data = string.getBytes(OUTPUT_CHARSET);
             return Base64.encodeToString(data, Base64.DEFAULT);
 
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             Timber.e(ERROR_ENCODING_STRING, e.getMessage());
         }
         return string;

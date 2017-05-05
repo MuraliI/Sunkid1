@@ -18,6 +18,10 @@ import com.rcl.excalibur.domain.preference.SailingPreferences;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.mvp.presenter.VoyageMapPresenter;
 import com.rcl.excalibur.mvp.view.VoyageMapView;
+import com.rcl.excalibur.utils.ActivityUtils;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class VoyageMapActivity extends BaseActivity {
     VoyageMapPresenter presenter;
@@ -26,6 +30,7 @@ public class VoyageMapActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voyage_map);
+        ButterKnife.bind(this);
         final SailingPreferences sailingPreferences = new SailingPreferenceImpl(getApplicationContext());
         final SailDateDataRepository sailDateDataRepository = new SailDateDataRepository();
         presenter = new VoyageMapPresenter(new VoyageMapView(this),
@@ -67,6 +72,16 @@ public class VoyageMapActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         presenter.onBackPressed();
+    }
+
+    @OnClick(R.id.date_picker_plans_tab)
+    void onDayPickerClick() {
+        ActivityUtils.startActivity(this, DayPickerActivity.getStartIntent(this));
+    }
+
+    @OnClick(R.id.bottom_back_view)
+    void onBackClick() {
+        this.onBackPressed();
     }
 
     @Override

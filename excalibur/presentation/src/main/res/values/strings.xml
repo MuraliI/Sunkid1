@@ -244,5 +244,6 @@
     <string name="menu_header_title">Menu</string>
     <string name="menu_empty_dialog_message">There are no menus for this place.</string>
     <string name="menu_empty_dialog_button">OK</string>
+    <string name="deck_discovery_label">"Deck %s"</string>
 
 </resources>

@@ -15,8 +15,6 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 
-import timber.log.Timber;
-
 public class DeckMapImageView extends SubsamplingScaleImageView {
     private static final int DELAY_ANIMATION = 250;
     private static final float DENSITY_FACTOR = 420f;
@@ -67,7 +65,6 @@ public class DeckMapImageView extends SubsamplingScaleImageView {
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
-        Timber.i("Test");
         return super.onTouchEvent(event);
 
     }

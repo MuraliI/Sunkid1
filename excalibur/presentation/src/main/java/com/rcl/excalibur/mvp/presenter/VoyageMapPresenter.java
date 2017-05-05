@@ -3,7 +3,6 @@ package com.rcl.excalibur.mvp.presenter;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Point;
-import android.graphics.PointF;
 import android.support.annotation.NonNull;
 import android.view.Display;
 
@@ -23,6 +22,7 @@ import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.PortModel;
 import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.model.ShipStatsModel;
+import com.rcl.excalibur.model.VoyageMapModel;
 import com.rcl.excalibur.mvp.view.VoyageMapView;
 
 import java.util.ArrayList;
@@ -35,9 +35,6 @@ import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DO
 
 public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimationEventListener,
         SubsamplingScaleImageView.OnImageEventListener {
-    private static final int CENTER_OFFSET = 130;
-    private static final int IMAGE_HEIGHT = 1720;
-    private static final int IMAGE_WIDTH = 2522;
 
     private VoyageMapView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
@@ -46,6 +43,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private GetShipStatsUseCase getShipStatsUseCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
     private String day;
+    private VoyageMapModel voyageModel;
 
     public VoyageMapPresenter(VoyageMapView view,
                               GetSailingPreferenceUseCase getSailingPreferenceUseCase,
@@ -66,6 +64,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     }
 
     public void initTab() {
+        voyageModel = new VoyageMapModel();
         view.init(getScreenWidth());
     }
 
@@ -85,8 +84,8 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         view.initVoyageMapImage(R.drawable.caribbean_map_2_1, this);
         day = getSailingPreferenceUseCase.getDay() == null
                 ? PlannerPresenter.DAY_DEFAULT_VALUE : getSailingPreferenceUseCase.getDay();
-        view.setCruiseCoordinate(getMockCoordinate(day.charAt(0), true));
-        view.setScaleAndCenter(getMockCoordinate(day.charAt(0), false));
+        view.setCruiseCoordinate(voyageModel.getMockCoordinate(day.charAt(0), true));
+        view.setScaleAndCenter(voyageModel.getMockCoordinate(day.charAt(0), false));
 
         getShipStatsUseCase.execute(new DefaultObserver<Boolean>() {
             @Override
@@ -114,8 +113,8 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         }
         day = getSailingPreferenceUseCase.getDay() == null ? PlannerPresenter.DAY_DEFAULT_VALUE : getSailingPreferenceUseCase.getDay();
         getShipLocationInfo(day);
-        view.setScaleAndCenter(getMockCoordinate(day.charAt(0), false));
-        view.setCruiseCoordinate(getMockCoordinate(day.charAt(0), true));
+        view.setScaleAndCenter(voyageModel.getMockCoordinate(day.charAt(0), false));
+        view.setCruiseCoordinate(voyageModel.getMockCoordinate(day.charAt(0), true));
     }
 
     public void getShipLocationInfo(String day) {
@@ -160,50 +159,8 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         return shipLocation;
     }
 
-    private PointF getMockCoordinate(char c, boolean hasOffset) {
-        PointF coordinate = new PointF();
-        int midWidht = IMAGE_WIDTH / 2;
-        int midHeight = IMAGE_HEIGHT / 2;
-        int differenceDays = 100;
-        switch (c) {
-            case '1':
-                coordinate.set(midWidht - 3 * differenceDays, midHeight);
-                break;
-            case '2':
-                coordinate.set(midWidht - 2 * differenceDays, midHeight);
-                break;
-            case '3':
-                coordinate.set(midWidht - 1 * differenceDays, midHeight);
-                break;
-            case '4':
-                coordinate.set(midWidht, midHeight);
-                break;
-            case '5':
-                coordinate.set(midWidht + 1 * differenceDays, midHeight);
-                break;
-            case '6':
-                coordinate.set(midWidht + 2 * differenceDays, midHeight);
-                break;
-            case '7':
-                coordinate.set(midWidht + 3 * differenceDays, midHeight);
-                break;
-            case '8':
-                coordinate.set(midWidht + 4 * differenceDays, midHeight);
-                break;
-            default:
-                coordinate.set(midWidht, midHeight);
-                break;
-        }
-
-        if (hasOffset) {
-            coordinate.y = coordinate.y + CENTER_OFFSET;
-        }
-
-        return coordinate;
-    }
-
     public void onBackPressed() {
-        view.animatePointToCenter(getMockCoordinate(day.charAt(0), false), this);
+        view.animatePointToCenter(voyageModel.getMockCoordinate(day.charAt(0), false), this);
     }
 
     @Override
