@@ -50,9 +50,9 @@ public class ProductsListPresenter {
         } else {
             for (Product typeProduct : allProducts) {
                 for (ChildCategory childCategory : typeProduct.getProductCategory().getChildCategory()) {
-                      //FIXME when service category return right category
+                    //FIXME when service category return right category
 //                    if (childCategoryId.equals(childCategory.getItems().getCategoryId())) {
-                        childProducts.add(typeProduct);
+                    childProducts.add(typeProduct);
 //                    }
                 }
             }
@@ -63,7 +63,7 @@ public class ProductsListPresenter {
     private void showCollectionInView(List<Product> products, int page) {
         if ((products == null || products.size() == 0) && page == START_OFFSET) {
             view.addAlertNoProducts();
-        } else {
+        } else if (products != null && products.size() > 0) {
             view.add(products);
         }
     }

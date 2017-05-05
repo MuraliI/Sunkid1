@@ -15,32 +15,32 @@ public final class CategoryUtil {
     private CategoryUtil() {
     }
 
-    public static boolean isShopping(String productCATEGORY) {
-        return SHOPPING_CATEGORY.equals(productCATEGORY);
+    public static boolean isShopping(String productCategory) {
+        return SHOPPING_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isActivities(String productCATEGORY) {
-        return ACTIVITIES_CATEGORY.equals(productCATEGORY);
+    public static boolean isActivities(String productCategory) {
+        return ACTIVITIES_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isShorex(String productCATEGORY) {
-        return SHOREX_CATEGORY.equals(productCATEGORY);
+    public static boolean isShorex(String productCategory) {
+        return SHOREX_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isEntertainment(String productCATEGORY) {
-        return ENTERTAINMENT_CATEGORY.equals(productCATEGORY);
+    public static boolean isEntertainment(String productCategory) {
+        return ENTERTAINMENT_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isDining(String productCATEGORY) {
-        return DINING_CATEGORY.equals(productCATEGORY);
+    public static boolean isDining(String productCategory) {
+        return DINING_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isSpa(String productCATEGORY) {
-        return SPA_CATEGORY.equals(productCATEGORY);
+    public static boolean isSpa(String productCategory) {
+        return SPA_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isGuestServices(String productCATEGORY) {
-        return GUEST_SERVICES_CATEGORY.equals(productCATEGORY);
+    public static boolean isGuestServices(String productCategory) {
+        return GUEST_SERVICES_CATEGORY.equals(productCategory);
     }
 
 }

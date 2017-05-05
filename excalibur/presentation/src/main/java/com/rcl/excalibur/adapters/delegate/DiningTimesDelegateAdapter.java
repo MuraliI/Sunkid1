@@ -110,14 +110,10 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
 
     public static class DiningTimesViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.text_module_title)
-        TextView textTitle;
-        @BindView(R.id.times_container)
-        LinearLayout timesContainer;
-        @BindView(R.id.show_more_container)
-        LinearLayout showMoreContainer;
-        @BindView(R.id.show_more_arrow)
-        ImageView showMoreArrow;
+        @BindView(R.id.text_module_title) TextView textTitle;
+        @BindView(R.id.times_container) LinearLayout timesContainer;
+        @BindView(R.id.show_more_container) LinearLayout showMoreContainer;
+        @BindView(R.id.show_more_arrow) ImageView showMoreArrow;
 
         private boolean collapsed = true;
 

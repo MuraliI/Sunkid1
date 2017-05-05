@@ -398,10 +398,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         if (category == null) {
             return;
         }
-        CategoryEntity categoryEntity = new Select()
-                .from(CategoryEntity.class)
-                .where(eq(CategoryEntity.COLUMN_CATEGORY_ID, category.getCategoryId()))
-                .executeSingle();
+        CategoryEntity categoryEntity = (CategoryEntity) getEntity(CategoryEntity.class, CategoryEntity.COLUMN_CATEGORY_ID, category.getCategoryId());
         if (categoryEntity == null) {
             categoryEntity = new CategoryEntity();
             categoryEntity.setName(category.getCategoryName());
