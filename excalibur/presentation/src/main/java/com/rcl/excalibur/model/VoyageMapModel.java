@@ -3,7 +3,7 @@ package com.rcl.excalibur.model;
 import android.graphics.PointF;
 
 public class VoyageMapModel {
-    private static final int CENTER_OFFSET = 135;
+    private static final int CENTER_OFFSET = 200;
     private static final int DAYS_DIFFERENCE = 200;
     private int width;
     private int heigth;
