@@ -239,4 +239,10 @@
     <!-- Deck Map -->
     <string name="deck_number">Deck %s</string>
     <string name="accessibility_close_deck_map">close deck map</string>
+
+    <!-- Dining Menu  -->
+    <string name="menu_header_title">Menu</string>
+    <string name="menu_empty_dialog_message">There are no menus for this place.</string>
+    <string name="menu_empty_dialog_button">OK</string>
+
 </resources>
