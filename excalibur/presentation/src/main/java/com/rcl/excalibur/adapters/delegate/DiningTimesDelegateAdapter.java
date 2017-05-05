@@ -103,6 +103,7 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                         ProductAdvisement diningType = advisementsDiningType.get(0);
                         if (diningType != null && diningType.getAdvisementTitle().equals(DINING_TYPE_SPECIALTY)) {
                             showMenu.setVisibility(View.VISIBLE);
+                            //FIXME Remove hardcoded venueCode. This is just for the demo.
                             showMenu.setOnClickListener(v -> ActivityUtils.startActivity(baseActivity,
                                     DiningMenuActivity.getStartIntent(baseActivity, "CHOP")));
                         }
