@@ -94,7 +94,8 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                     TextView subtext = (TextView) itemDiningView.findViewById(R.id.subtext);
                     LinearLayout showMenu = (LinearLayout) itemDiningView.findViewById(R.id.show_menu_container);
                     text.setText(operationHour.getTimeOfDay());
-                    subtext.setText(operationHour.getStartTime());
+                    String fromToHours = operationHour.getStartTime() + " ─ " + operationHour.getEndTime();
+                    subtext.setText(fromToHours);
 
                     showMenu.setVisibility(View.GONE);
                     List<ProductAdvisement> advisementsDiningType = item.getProduct()
