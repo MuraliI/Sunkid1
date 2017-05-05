@@ -59,7 +59,6 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
                 .start();
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);

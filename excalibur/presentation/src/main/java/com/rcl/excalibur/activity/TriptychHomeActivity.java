@@ -33,6 +33,7 @@ public class TriptychHomeActivity extends BaseActivity {
     private SailingPreferences sailingPreferences;
     @BindView(R.id.day_picker_tab) View tabElement;
     @BindView(R.id.image_ship) View shipElement;
+    @BindView(R.id.pager_triptych_pager) View pagerElement;
 
     public static Intent getStartIntent(final BaseActivity activity) {
         return new Intent(activity, TriptychHomeActivity.class);
@@ -74,6 +75,7 @@ public class TriptychHomeActivity extends BaseActivity {
     public void goToVoyageActivity() {
         Pair<View, String> tabPair = Pair.create(tabElement, getString(R.string.shared_element_tab));
         Pair<View, String> shipPair = Pair.create(shipElement, shipElement.getTransitionName());
-        ActivityUtils.startActivityWithSharedElements(this, VoyageMapActivity.getStartIntent(this), tabPair, shipPair);
+        ActivityUtils.startActivityWithSharedElements(this, VoyageMapActivity.getStartIntent(this), tabPair, shipPair,
+                presenter.getPlannerSharedElementPair());
     }
 }

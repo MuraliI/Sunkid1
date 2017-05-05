@@ -3,7 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sea_big">
+    android:background="@drawable/bg_sea">
+
+    <fragment
+        android:id="@+id/ship_time_fragment"
+        android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/ship_time" />
 
     <com.rcl.excalibur.custom.view.VoyageMapImageView
         android:id="@+id/image_voyage_map"
@@ -63,6 +70,7 @@
         android:layout_marginStart="@dimen/margin_small"
         android:background="@drawable/background_rounded_top"
         android:orientation="vertical"
+        android:transitionName="@string/shared_element_planner"
         android:id="@+id/linearLayout">
 
         <ImageView

@@ -238,6 +238,7 @@
     <string name="arriving_departing_separator">"; "</string>
     <string name="shared_element_ship">Ship</string>
     <string name="shared_element_tab">Tab</string>
+    <string name="shared_element_planner">Planner</string>
 
     <!-- Deck Map -->
     <string name="deck_number">Deck %s</string>
