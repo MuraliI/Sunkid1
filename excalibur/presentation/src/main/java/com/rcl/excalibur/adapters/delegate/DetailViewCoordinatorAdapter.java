@@ -4,6 +4,7 @@ package com.rcl.excalibur.adapters.delegate;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.RecyclerView;
 
+import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.base.BaseCoordinatorAdapter;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.base.RecyclerViewConstants;
@@ -26,7 +27,7 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
     private OnViewExpandedListener listener;
 
     @SuppressWarnings("unchecked")
-    public DetailViewCoordinatorAdapter(Observer<String> observer, List<VT> recyclerViewTypes) {
+    public DetailViewCoordinatorAdapter(Observer<String> observer, List<VT> recyclerViewTypes, BaseActivity baseActivity) {
         super(observer);
         //TODO each one will be in charge of adding its own module to the list of modules.
         delegateAdapters = new SparseArrayCompat<>(VIEW_TYPE_COUNT);
@@ -48,7 +49,7 @@ public class DetailViewCoordinatorAdapter<VH extends RecyclerView.ViewHolder, VT
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_TIMES,
                 (DelegateAdapter<VH, VT>) new TimesDelegateAdapter());
         delegateAdapters.append(RecyclerViewConstants.VIEW_TYPE_DINING_TIMES,
-                (DelegateAdapter<VH, VT>) new DiningTimesDelegateAdapter());
+                (DelegateAdapter<VH, VT>) new DiningTimesDelegateAdapter(baseActivity));
         addAll(recyclerViewTypes);
     }
 

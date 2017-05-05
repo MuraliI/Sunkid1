@@ -17,6 +17,7 @@
     <string name="detail_module_times">Times</string>
     <string name="detail_module_promotion">Promotion</string>
     <string name="prices">Prices</string>
+    <string name="price">Price</string>
     <string name="adult">Adult</string>
     <string name="child">Child</string>
     <string name="item_price">$%1$s</string>
@@ -163,7 +164,7 @@
     <plurals name="product_min">
         <item quantity="other">%d min</item>
     </plurals>
-    <string name="dining_type">Dinning Type</string>
+    <string name="dining_type">Dining Type</string>
     <string name="advisement_cuisine">Cuisine</string>
     <string name="accessibility">Accessibility &amp; Other Info</string>
     <string name="detail_module_height">Height Restriction</string>

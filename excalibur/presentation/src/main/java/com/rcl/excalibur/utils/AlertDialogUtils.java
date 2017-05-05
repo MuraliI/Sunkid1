@@ -16,7 +16,7 @@ public class AlertDialogUtils {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity)
                 .setMessage(message)
-                .setCancelable(true)
+                .setCancelable(false)
                 .setPositiveButton(buttonMessage, listener);
 
         AlertDialog dialog = builder.create();
