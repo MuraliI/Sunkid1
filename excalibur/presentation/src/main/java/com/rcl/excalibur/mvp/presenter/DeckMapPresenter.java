@@ -54,7 +54,7 @@ public class DeckMapPresenter {
 
     private int yCoord = 0;
     private int deckNumber = 1;
-    private boolean isEnabled = true;
+    private boolean isDeckSelectorEnabled = true;
 
     public DeckMapPresenter(DeckMapView view, GetProductDbUseCase getProductDbUseCase) {
         this.view = view;
@@ -64,7 +64,7 @@ public class DeckMapPresenter {
     public void init(String productId) {
         Product product = getProductDbUseCase.get(productId);
         if (product != null) {
-            isEnabled = false;
+            isDeckSelectorEnabled = false;
             ProductLocation productLocation = product.getProductLocation();
             if (productLocation != null) {
                 String productLatitude = productLocation.getLatitude();
@@ -106,10 +106,10 @@ public class DeckMapPresenter {
     private void initView() {
         view.setAdapterObserver(new DeckSelectorObserver(this));
         view.init(deckImages, new DeckButtonConsumer(this));
-        view.setInitialDeck(isEnabled ? deckImages.get(deckImages.size() - 1) : deckImages.get(deckNumber - 1));
+        view.setInitialDeck(isDeckSelectorEnabled ? deckImages.get(deckImages.size() - 1) : deckImages.get(deckNumber - 1));
         view.moveToYPosition(yCoord);
-        view.enableDisableDeckSelector(isEnabled);
-        view.hideArrowDeckSelector(isEnabled);
+        view.enableDisableDeckSelector(isDeckSelectorEnabled);
+        view.hideArrowDeckSelector(isDeckSelectorEnabled);
     }
 
     public void onCloseClicked() {
