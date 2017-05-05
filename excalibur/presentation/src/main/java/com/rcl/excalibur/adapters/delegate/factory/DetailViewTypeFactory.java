@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.viewtype.DescriptionViewType;
+import com.rcl.excalibur.adapters.viewtype.DiningTimesViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableAccesibilityViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableDescriptionViewType;
 import com.rcl.excalibur.adapters.viewtype.ExpandableLinkViewType;
@@ -28,27 +29,24 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.rcl.excalibur.utils.PresentationDateUtils.MINUTES_IN_HOUR;
 import static com.rcl.excalibur.data.utils.StringUtils.getPriceFormatted;
+import static com.rcl.excalibur.utils.PresentationDateUtils.MINUTES_IN_HOUR;
 
 public final class DetailViewTypeFactory {
 
     private static final int NO_DURATION = 0;
     private static final String NEXT_LINE = "\n";
     private static final String TO_REPLACE = ", ";
-    // TODO: To be removed once the service provides this details
-    private static final String TIME_HARDCODE = "Times may vary";
 
     private DetailViewTypeFactory() {
     }
 
-    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product,
-                                                                         List<Offering> offerings,
-                                                                         SailDateInfo sailDateInfo,
-                                                                         Resources resources) {
+    public static List<RecyclerViewType> getAdaptersAndViewTypesForModel(Product product, List<Offering> offerings,
+                                                                         SailDateInfo sailDateInfo, Resources resources) {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
+        addDinningTypeModule(viewTypes, resources, product);
         addTimesModule(viewTypes, offerings, sailDateInfo, resources, product);
         addPricesModule(viewTypes, offerings, resources, product);
         addCuisineModule(viewTypes, resources, product);
@@ -63,11 +61,19 @@ public final class DetailViewTypeFactory {
         return viewTypes;
     }
 
-    private static void addTimeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
-        addTitleAndDescriptionTypes(recyclerViewTypeList,
-                resources.getString(R.string.detail_module_times),
-                // TODO: To be removed once the service provides this details
-                TIME_HARDCODE);
+    private static void addDinningTypeModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
+        if (product.isDining()) {
+            List<ProductAdvisement> advisementsDiningType = product.getProductAdvisementsByType(ProductAdvisement.DINING_TYPE);
+            if (CollectionUtils.isEmpty(advisementsDiningType)) {
+                return;
+            }
+            ProductAdvisement advisement = advisementsDiningType.get(0);
+            if (advisement != null && !TextUtils.isEmpty(advisement.getAdvisementTitle())) {
+                addTitleAndDescriptionTypes(recyclerViewTypeList,
+                        resources.getString(R.string.dining_type),
+                        advisement.getAdvisementTitle());
+            }
+        }
     }
 
     private static void addCuisineModule(LinkedList<RecyclerViewType> recyclerViewTypeList, Resources resources, Product product) {
@@ -225,8 +231,14 @@ public final class DetailViewTypeFactory {
     private static void addPricesModule(final List<RecyclerViewType> recyclerViewTypeList, List<Offering> offerings,
                                         @NonNull Resources res, Product product) {
 
-        if (!product.isShopping() && !product.isDining()) {
+        if (product.isDining()) {
+            if (product.getCostType() != null) {
+                String title = res.getString(R.string.prices);
+                addTitleAndDescriptionTypes(recyclerViewTypeList, title, product.getCostType().getCostTypeTitle());
+            }
+        }
 
+        if (!product.isShopping() && !product.isDining()) {
             HashMap<String, String> map = new HashMap<>();
             float adultPrice = -1;
             float childPrice = -1;
@@ -295,6 +307,13 @@ public final class DetailViewTypeFactory {
 
         if (product.isSpa() || product.isGuestServices() || product.isShopping()) {
             TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, product.getProductLocation().getLocationOperationHours());
+        }
+
+        if (product.isDining()) {
+            if (product.getProductLocation() != null
+                    && product.getProductLocation().getLocationOperationHours() != null) {
+                recyclerViewTypeList.add(new DiningTimesViewType(product, title));
+            }
         }
     }
 

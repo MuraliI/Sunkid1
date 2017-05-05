@@ -1,12 +1,15 @@
 package com.rcl.excalibur.mvp.view;
 
 import android.content.res.Resources;
-import android.os.Handler;
+import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.util.Pair;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -19,56 +22,59 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.DeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
+import com.rcl.excalibur.adapters.planner.PlannerAdapter;
 import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
-import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
 import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mvp.view.base.FragmentView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.RoundedImageView;
+import com.rcl.excalibur.utils.comparator.PlannerProductItemComparator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import eu.davidea.flexibleadapter.FlexibleAdapter;
-import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.flexibleadapter.items.IHeader;
+import eu.davidea.flexibleadapter.items.ISectionable;
+import io.reactivex.Observer;
 
-public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
-    private static final int TOP_OF_LIST = 0;
-    private static final int NO_PEEK_HEIGHT = 0;
-    private static final int NO_MARGIN = 0;
+import static butterknife.ButterKnife.findById;
+
+public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private static final float OFFSET_OVER_95_PERCENT = 0.95f;
-    private static final float MAX_SLIDE_OFFSET = 1.0f;
-    private static final int DELAY_MILLIS_SCROLL = 100;
-    private static final int DELAY_MILLIS_COLLAPSE = 200;
+    private static final int ADD_DURATION_MILLIS = 150;
+    private static final int TOP_OF_LIST = 0;
+    private static final int NO_MARGIN = 0;
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.layout_planner_all_day) View allDayView;
     @BindView(R.id.layout_planner_container) LinearLayout containerLayout;
     @BindView(R.id.progress_service_call_planner) View progressBar;
     @BindView(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
     @BindView(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;
-    @BindView(R.id.layout_planner_recycler_container) TopRoundedFrameLayout recyclerContainerLayout;
 
-    private FlexibleAdapter<AbstractFlexibleItem> adapter;
+    private PlannerAdapter adapter;
 
-    private LinearLayout firstHeader;
     private LinearLayoutManager linearLayoutManager;
     private BottomSheetBehavior bottomSheetBehavior;
+
     private Animation slideUpAnimation;
-    private Animation slideUpAllDayAnimation;
     private Animation animationGoIn;
 
-    private Handler handler;
+    private Observer<PlannerHeader> expandCollapseObserver;
+    private Observer<View> attachedObserver;
+    private Observer<Float> slideObserver;
+    private Observer<Integer> stateChangeObserver;
 
-    private boolean isAllDayNecessary;
-    private boolean isExpanded;
-    private boolean initialized;
-    private boolean bottomSheetIsSliding;
+    private List<View> headerViewList;
 
+    private PlannerProductItemComparator productItemComparator;
+
+    private int headerHeight;
     private int initHorizontalMargin = -1;
     private int initVerticalMargin = -1;
     private int initImageMargin;
@@ -89,27 +95,35 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         initVerticalMargin = resources.getDimensionPixelSize(R.dimen.planner_item_init_vertical_margin);
         initImageMargin = resources.getDimensionPixelSize(R.dimen.margin_small);
         peekHeight = resources.getDimensionPixelSize(R.dimen.planner_peek_height);
+        headerHeight = resources.getDimensionPixelSize(R.dimen.height_planner_header);
 
-        handler = new Handler();
+        headerViewList = new ArrayList<>();
+        productItemComparator = new PlannerProductItemComparator();
 
-        adapter = new FlexibleAdapter<>(null, fragment, true);
+        DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
+        itemAnimator.setAddDuration(ADD_DURATION_MILLIS);
+
+        adapter = new PlannerAdapter(null, fragment, true);
         adapter.setDisplayHeadersAtStartUp(true).setStickyHeaders(true);
         linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(itemAnimator);
         recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
-                if (!bottomSheetIsSliding) {
-                    setInitialViewState(view);
-                    resetItemsToInitialState();
-                    initialized = true;
-                }
+                onAttachedNext(view);
             }
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
-                // No op
+                // Do Nothing...
+            }
+        });
+        recyclerView.addOnScrollListener(new OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                onViewNext(getVerticalLocationOnScreen(recyclerView) + headerHeight);
             }
         });
     }
@@ -117,7 +131,6 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     public void initAnimation() {
         animationGoIn = AnimationUtils.loadAnimation(getContext(), R.anim.planner_preview_slide_in);
         slideUpAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.view_slide_up);
-        slideUpAllDayAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.view_slide_up_all_day);
     }
 
     public void initBottomSheetBehavior() {
@@ -126,138 +139,59 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                 new BottomSheetBehavior.BottomSheetCallback() {
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                        switch (newState) {
-                            case BottomSheetBehavior.STATE_EXPANDED:
-                                if (!isExpanded) {
-                                    setBottomSheetExpandedState();
-                                }
-                                break;
-                            case BottomSheetBehavior.STATE_COLLAPSED:
-                                if (isExpanded) {
-                                    handler.postDelayed(() -> recyclerView.scrollToPosition(TOP_OF_LIST), DELAY_MILLIS_SCROLL);
-                                    handler.postDelayed(() -> setBottomSheetCollapsingState(), DELAY_MILLIS_COLLAPSE);
-                                }
-                                break;
-                            default:
-                                break;
-                        }
+                        onStateChangeNext(newState);
                     }
 
                     @Override
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                        bottomSheetIsSliding = true;
-
-                        if (shipArrivingDebarkingLabel != null) {
-                            shipArrivingDebarkingLabel.setAlpha(MAX_SLIDE_OFFSET - slideOffset);
-                        }
-
-                        if (isExpanded) {
-                            return;
-                        }
-                        calculateItemMargins(slideOffset);
+                        onSlideNext(slideOffset);
                     }
                 }
         );
     }
 
-    private void setBottomSheetExpandedState() {
-        isExpanded = true;
-
-        shipArrivingDebarkingLabel.setVisibility(View.GONE);
-
-        bottomSheetBehavior.setPeekHeight(NO_PEEK_HEIGHT);
-        calculateItemMargins(MAX_SLIDE_OFFSET);
-        showHeadersView();
-    }
-
-    private void setBottomSheetCollapsingState() {
-        isExpanded = false;
-
-        shipArrivingDebarkingLabel.setVisibility(View.VISIBLE);
-
-        resetItemsToInitialState();
-
-        bottomSheetBehavior.setPeekHeight(peekHeight);
-        containerLayout.startAnimation(animationGoIn);
-    }
-
-    private void calculateItemMargins(float slideOffset) {
-        int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
-        for (int i = 0; i <= visibleChildren; i++) {
-            if (adapter.getItem(i) instanceof PlannerHeader) {
-                continue;
-            }
-
-            View view = recyclerView.getLayoutManager().findViewByPosition(i);
-            if (view == null) {
-                return;
-            }
-
-            int verticalMargin = getMargin(slideOffset, initVerticalMargin);
-            int horizontalMargin = getMargin(slideOffset, initHorizontalMargin);
-            resizeItemView(view, verticalMargin, horizontalMargin);
-
-            int imageMargin = Math.round(slideOffset * initImageMargin);
-            resizeImage(view, imageMargin);
-
-            RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
-            if (imageView != null) {
-                imageView.setRadius(R.dimen.default_radius);
-            }
-
-            if (slideOffset >= OFFSET_OVER_95_PERCENT) {
-                changeSeparatorVisibility(view, View.VISIBLE);
-                setItemViewBackground(view, R.drawable.background_cue_card);
-            } else {
-                setItemViewBackground(view, R.drawable.background_rounded_cue_card);
-            }
+    public void setRecyclerViewBackground(int backgroundRes) {
+        PlannerFragment fragment = getFragment();
+        if (fragment == null) {
+            return;
         }
+        recyclerView.setBackgroundResource(backgroundRes);
     }
 
-    private int getMargin(float slideOffset, int marginValue) {
-        return (int) ((MAX_SLIDE_OFFSET - slideOffset) * marginValue);
+    private boolean isIndexAHeader(int index) {
+        return adapter.isHeader(adapter.getItem(index));
     }
 
-    private void resetItemsToInitialState() {
+    public void resetItemsToInitialState() {
         int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
         for (int i = 0; i <= visibleChildren; i++) {
             View view = recyclerView.getLayoutManager().findViewByPosition(i);
             if (view != null) {
-                if (adapter.isHeader(adapter.getItem(i))) {
-                    firstHeader = (LinearLayout) view.findViewById(R.id.layout_planner_header_container);
-                    if (firstHeader != null) {
-                        firstHeader.setVisibility(View.INVISIBLE);
-                    }
-                } else {
-                    setInitialViewState(recyclerView.getLayoutManager().findViewByPosition(i));
-                }
+                setInitialViewState(view);
             }
         }
-        hideHeadersView();
     }
 
-    private void setInitialViewState(View view) {
-        // FIXME: improve this
+    public void setInitialViewState(View view) {
         if (view.findViewById(R.id.layout_planner_header_container) != null) {
-            view.setVisibility(View.INVISIBLE);
-        } else {
-            resizeItemView(view, initVerticalMargin, initHorizontalMargin);
-            resizeImage(view, NO_MARGIN);
-            setItemViewBackground(view, R.drawable.background_rounded_cue_card);
-            changeSeparatorVisibility(view, View.GONE);
-            RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
-            imageView.setRadius(R.dimen.zero_radius);
+            if (!headerViewList.contains(view)) {
+                headerViewList.add(view);
+            }
+            hideView(view);
+            return;
         }
+
+        resizeItemView(view, initVerticalMargin, initHorizontalMargin);
+        resizeImage(view, NO_MARGIN);
+        setItemViewBackground(view, R.drawable.background_rounded_cue_card);
+        changeSeparatorVisibility(view, View.GONE);
+        setRoundedImageRadius(view, R.dimen.zero_radius);
     }
 
     private void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
         if (view != null) {
             ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             marginLayout.setMargins(horizontalMargin, NO_MARGIN, horizontalMargin, verticalMargin);
-
-            if (initialized) {
-                view.requestLayout();
-            }
         }
     }
 
@@ -269,63 +203,48 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
 
     private void resizeImage(View parent, int margin) {
         if (parent != null) {
-            RoundedImageView image = ButterKnife.findById(parent, R.id.image_itinerary_product_picture);
+            RoundedImageView image = findById(parent, R.id.image_itinerary_product_picture);
             if (image != null) {
                 ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) image.getLayoutParams();
                 marginLayout.setMargins(NO_MARGIN, margin, margin, margin);
-
-                if (initialized) {
-                    image.requestLayout();
-                }
             }
         }
     }
 
+    private void requestLayoutView(@NonNull View view) {
+        view.requestLayout();
+    }
+
     private void changeSeparatorVisibility(View parent, int visibility) {
         if (parent != null) {
-            View separator = ButterKnife.findById(parent, R.id.view_planner_item_separator);
+            View separator = findById(parent, R.id.view_planner_separator_line);
             if (separator != null) {
                 separator.setVisibility(visibility);
             }
         }
     }
 
-    private void showHeadersView() {
+    public void showHeadersView() {
         slideUpAnimation.reset();
-        if (isAllDayNecessary) {
-            if (firstHeader != null) {
-                firstHeader.setBackgroundResource(R.drawable.background_cue_card);
-                firstHeader.startAnimation(slideUpAnimation);
-                firstHeader.setVisibility(View.VISIBLE);
+
+        for (View view : headerViewList) {
+            if (view != null && view.getVisibility() == View.INVISIBLE) {
+                view.startAnimation(slideUpAnimation);
+                view.setVisibility(View.VISIBLE);
             }
-            allDayView.setBackgroundResource(R.drawable.background_planner_header);
-            allDayView.startAnimation(slideUpAllDayAnimation);
-            allDayView.setVisibility(View.VISIBLE);
-        } else if (firstHeader != null) {
-            firstHeader.setBackgroundResource(R.drawable.background_planner_header);
-            firstHeader.startAnimation(slideUpAnimation);
-            firstHeader.setVisibility(View.VISIBLE);
-            allDayView.setVisibility(View.GONE);
         }
+        headerViewList.clear();
     }
 
-    private void hideHeadersView() {
-        if (firstHeader != null && firstHeader.getVisibility() == View.VISIBLE) {
-            firstHeader.setVisibility(View.INVISIBLE);
+    private void hideView(View view) {
+        if (view != null && view.getVisibility() == View.VISIBLE) {
+            view.setVisibility(View.INVISIBLE);
         }
-        if (isAllDayNecessary && allDayView.getVisibility() == View.VISIBLE) {
-            allDayView.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    public void addPlannerItems(List<AbstractFlexibleItem> items) {
-        adapter.addItems(TOP_OF_LIST, items);
-        containerLayout.setVisibility(View.VISIBLE);
     }
 
     public void onItemClick(int position) {
-        AbstractFlexibleItem item = adapter.getItem(position);
-        if (item instanceof PlannerProductItem) {
+        IFlexible item = adapter.getItem(position);
+        if (!adapter.isHeader(item)) {
             PlannerProductItem productItem = (PlannerProductItem) item;
             BaseActivity activity = getActivity();
             if (activity == null) {
@@ -341,18 +260,27 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
                     ProductDetailActivity.getIntent(activity, productItem.getPlannerProductModel().getProductId()),
                     sharedItemView,
                     getActivity().getString(R.string.shared_element_transition_name));
+        } else {
+            onExpandCollapseNext((PlannerHeader) item);
         }
     }
 
-    public void showAllDayLayout() {
-        isAllDayNecessary = true;
-        allDayView.setVisibility(View.INVISIBLE);
+    public void addPlannerItems(List<IFlexible> items) {
+        adapter.addItems(TOP_OF_LIST, items);
+        containerLayout.setVisibility(View.VISIBLE);
+    }
 
-        final PlannerFragment fragment = getFragment();
-        if (fragment == null) {
-            return;
-        }
-        recyclerContainerLayout.setRadius(R.dimen.zero_radius);
+    public void addItemToSection(ISectionable itemToAdd, IHeader header) {
+        adapter.addItemToSection(itemToAdd, header, productItemComparator);
+    }
+
+    public void removeItemsFromSection(IHeader header) {
+        adapter.removeItemsFromSection(header);
+    }
+
+    public void scrollToHeader(IHeader header) {
+        int headerPosition = adapter.getGlobalPositionOf(header);
+        recyclerView.smoothScrollToPosition(headerPosition);
     }
 
     public void showProgressBar(boolean show) {
@@ -389,5 +317,162 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         if (getActivity() != null) {
             ((TriptychHomeActivity) getActivity()).goToVoyageActivity();
         }
+    }
+
+    public void calculateItemMargins(float slideOffset, int imageMargin, int verticalMargin, int horizontalMargin) {
+        int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
+
+        for (int i = 0; i <= visibleChildren; i++) {
+            if (isIndexAHeader(i)) {
+                continue;
+            }
+
+            View itemView = linearLayoutManager.findViewByPosition(i);
+            if (itemView == null) {
+                return;
+            }
+
+            resizeItemView(itemView, verticalMargin, horizontalMargin);
+            resizeImage(itemView, imageMargin);
+            requestLayoutView(itemView);
+
+            setRoundedImageRadius(itemView, R.dimen.default_radius);
+
+            if (slideOffset >= OFFSET_OVER_95_PERCENT) {
+                changeSeparatorVisibility(itemView, View.VISIBLE);
+                setItemViewBackground(itemView, R.drawable.background_cue_card);
+            } else {
+                setItemViewBackground(itemView, R.drawable.background_rounded_cue_card);
+            }
+        }
+    }
+
+    private void setRoundedImageRadius(View parent, @DimenRes int radius) {
+        RoundedImageView imageView = findById(parent, R.id.image_itinerary_product_picture);
+        if (imageView != null) {
+            imageView.setRadius(radius);
+        }
+    }
+
+    public int getFirstItemPosition() {
+        return linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+    }
+
+    private int getVerticalLocationOnScreen(@NonNull View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        return location[1];
+    }
+
+    public int getVerticalLocationOnScreen(int position) {
+        View view = linearLayoutManager.findViewByPosition(position);
+        int verticalPosition = -1;
+        if (view != null) {
+            verticalPosition = getVerticalLocationOnScreen(view);
+        }
+        return verticalPosition;
+    }
+
+    @Nullable
+    public PlannerProductItem getNextItem(int index) {
+        if (!isIndexAHeader(index)) {
+            return (PlannerProductItem) adapter.getItem(index);
+        }
+        return null;
+    }
+
+    public void updateHeader(IHeader header) {
+        adapter.updateItem(header, null);
+    }
+
+    public void setAttachedObserver(Observer<View> attachedObserver) {
+        this.attachedObserver = attachedObserver;
+    }
+
+    private void onAttachedNext(View itemView) {
+        if (attachedObserver != null) {
+            attachedObserver.onNext(itemView);
+        }
+    }
+
+    // COLLAPSE | EXPAND - OBSERVER
+
+    private void onExpandCollapseNext(PlannerHeader header) {
+        if (expandCollapseObserver != null) {
+            expandCollapseObserver.onNext(header);
+        }
+    }
+
+    public void setExpandCollapseObserver(Observer<PlannerHeader> expandCollapseObserver) {
+        this.expandCollapseObserver = expandCollapseObserver;
+    }
+
+    // SLIDE OBSERVER
+
+    private void onSlideNext(Float slideOffset) {
+        if (slideObserver != null) {
+            slideObserver.onNext(slideOffset);
+        }
+    }
+
+    public void setSlideObserver(Observer<Float> slideObserver) {
+        this.slideObserver = slideObserver;
+    }
+
+    // STATE CHANGE OBSERVER
+
+    private void onStateChangeNext(Integer newState) {
+        if (stateChangeObserver == null) {
+            return;
+        }
+        stateChangeObserver.onNext(newState);
+    }
+
+    public void setStateChangeObserver(Observer<Integer> stateChangeObserver) {
+        this.stateChangeObserver = stateChangeObserver;
+    }
+
+    public int getInitImageMargin() {
+        return initImageMargin;
+    }
+
+    public int getInitHorizontalMargin() {
+        return initHorizontalMargin;
+    }
+
+    public int getInitVerticalMargin() {
+        return initVerticalMargin;
+    }
+
+    public int getPeekHeight() {
+        return peekHeight;
+    }
+
+    public void setShipArrivingDebarkingAlpha(float alpha) {
+        if (shipArrivingDebarkingLabel != null) {
+            shipArrivingDebarkingLabel.setAlpha(alpha);
+        }
+    }
+
+    public void setShipArrivingDebarkingVisibility(int visibility) {
+        if (shipArrivingDebarkingLabel != null) {
+            shipArrivingDebarkingLabel.setVisibility(visibility);
+        }
+    }
+
+    public void setBottomSheetPeekHeight(int peekHeight) {
+        if (bottomSheetBehavior != null) {
+            bottomSheetBehavior.setPeekHeight(peekHeight);
+        }
+    }
+
+    public void scrollToTopOfList() {
+        if (recyclerView != null) {
+            recyclerView.scrollToPosition(TOP_OF_LIST);
+        }
+    }
+
+    public void animateContainerLayout() {
+        containerLayout.startAnimation(animationGoIn);
     }
 }

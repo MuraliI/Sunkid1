@@ -1,12 +1,12 @@
 package com.rcl.excalibur.domain.utils;
 
-import static com.rcl.excalibur.domain.ProductType.ACTIVITIES_TYPE;
-import static com.rcl.excalibur.domain.ProductType.DINING_TYPE;
-import static com.rcl.excalibur.domain.ProductType.ENTERTAINMENT_TYPE;
-import static com.rcl.excalibur.domain.ProductType.GUEST_SERVICES_TYPE;
-import static com.rcl.excalibur.domain.ProductType.SHOPPING_TYPE;
-import static com.rcl.excalibur.domain.ProductType.SHOREX_TYPE;
-import static com.rcl.excalibur.domain.ProductType.SPA_TYPE;
+import static com.rcl.excalibur.domain.Category.ACTIVITIES_CATEGORY;
+import static com.rcl.excalibur.domain.Category.DINING_CATEGORY;
+import static com.rcl.excalibur.domain.Category.ENTERTAINMENT_CATEGORY;
+import static com.rcl.excalibur.domain.Category.GUEST_SERVICES_CATEGORY;
+import static com.rcl.excalibur.domain.Category.SHOPPING_CATEGORY;
+import static com.rcl.excalibur.domain.Category.SHOREX_CATEGORY;
+import static com.rcl.excalibur.domain.Category.SPA_CATEGORY;
 
 public final class CategoryUtil {
 
@@ -15,32 +15,32 @@ public final class CategoryUtil {
     private CategoryUtil() {
     }
 
-    public static boolean isShopping(String productType) {
-        return SHOPPING_TYPE.equals(productType);
+    public static boolean isShopping(String productCategory) {
+        return SHOPPING_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isActivities(String productType) {
-        return ACTIVITIES_TYPE.equals(productType);
+    public static boolean isActivities(String productCategory) {
+        return ACTIVITIES_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isShorex(String productType) {
-        return SHOREX_TYPE.equals(productType);
+    public static boolean isShorex(String productCategory) {
+        return SHOREX_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isEntertainment(String productType) {
-        return ENTERTAINMENT_TYPE.equals(productType);
+    public static boolean isEntertainment(String productCategory) {
+        return ENTERTAINMENT_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isDining(String productType) {
-        return DINING_TYPE.equals(productType);
+    public static boolean isDining(String productCategory) {
+        return DINING_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isSpa(String productType) {
-        return SPA_TYPE.equals(productType);
+    public static boolean isSpa(String productCategory) {
+        return SPA_CATEGORY.equals(productCategory);
     }
 
-    public static boolean isGuestServices(String productType) {
-        return GUEST_SERVICES_TYPE.equals(productType);
+    public static boolean isGuestServices(String productCategory) {
+        return GUEST_SERVICES_CATEGORY.equals(productCategory);
     }
 
 }

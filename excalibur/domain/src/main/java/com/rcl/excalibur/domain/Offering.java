@@ -1,8 +1,11 @@
 package com.rcl.excalibur.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Offering implements Comparable<Offering> {
+    private static final int MORNING_START_HOUR = 6;
+
     private String id;
     private Date date;
     private String dateString;
@@ -59,20 +62,27 @@ public class Offering implements Comparable<Offering> {
     }
 
     @Override
-    public int compareTo(Offering o) {
-        if (o == null) {
-            return 0;
-        } else if (this.getDate().getTime() > o.getDate().getTime()) {
-            return 1;
-        } else if (this.getDate().getTime() < o.getDate().getTime()) {
-            return -1;
-        } else {
-            return 0;
+    public int compareTo(Offering input) {
+        Calendar calendarActual = Calendar.getInstance();
+        calendarActual.setTimeInMillis(getDate().getTime());
+
+        Calendar calendarInput = Calendar.getInstance();
+        calendarInput.setTimeInMillis(input.getDate().getTime());
+
+        int result = calendarActual.compareTo(calendarInput);
+        if (result == 0) {
+            result = getProduct().getProductTitle().compareToIgnoreCase(input.getProduct().getProductTitle());
+        } else if (calendarActual.get(Calendar.HOUR_OF_DAY) >= MORNING_START_HOUR
+                && calendarInput.get(Calendar.HOUR_OF_DAY) < MORNING_START_HOUR) {
+            result = -1;
+        } else if (calendarActual.get(Calendar.HOUR_OF_DAY) < MORNING_START_HOUR
+                && calendarInput.get(Calendar.HOUR_OF_DAY) >= MORNING_START_HOUR) {
+            result = 1;
         }
+        return result;
     }
 
     public int compareByPrice(Offering o2) {
-
         if (o2 == null) {
             return 0;
         }

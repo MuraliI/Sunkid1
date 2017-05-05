@@ -4,6 +4,14 @@ import java.util.List;
 
 public class Category {
 
+    public static final String SHOREX_CATEGORY = "shorex";
+    public static final String ACTIVITIES_CATEGORY = "activities";
+    public static final String ENTERTAINMENT_CATEGORY = "entertainment";
+    public static final String DINING_CATEGORY = "dining";
+    public static final String SPA_CATEGORY = "spa";
+    public static final String SHOPPING_CATEGORY = "shop";
+    public static final String GUEST_SERVICES_CATEGORY = "guest";
+
     private String categoryId;
     private String description;
     private List<String> tags;

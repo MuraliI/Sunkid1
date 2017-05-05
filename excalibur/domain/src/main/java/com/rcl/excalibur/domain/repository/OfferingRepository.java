@@ -10,7 +10,7 @@ import java.util.List;
 public interface OfferingRepository {
     void create(List<Offering> offeringList);
 
-    List<Offering> getForDay(final Date date);
+    List<Offering> getOfferingsForDay(final Date date);
 
     List<Offering> getOfferingsForProduct(final Product product);
 
