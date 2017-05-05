@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.util.AttributeSet;
@@ -13,10 +12,10 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 
-import timber.log.Timber;
-
 public class VoyageMapImageView extends SubsamplingScaleImageView {
-    private static final float DENSITY_FACTOR = 1800f;
+    public static final float DENSITY_FACTOR = 1800f;
+    public static final long DELAY_ANIMATION = 600;
+    public static final int SCALE_FACTOR = 5;
 
     private Paint paint;
     private Bitmap cruise;
@@ -51,9 +50,15 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
         invalidate();
     }
 
-    public PointF getPin() {
-        return cruiseCoord;
+    public void animatePointToCenter(PointF pointF, OnAnimationEventListener event) {
+        animateScaleAndCenter(getMaxScale() / SCALE_FACTOR, pointF)
+                .withDuration(DELAY_ANIMATION)
+                .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
+                .withInterruptible(false)
+                .withOnAnimationEventListener(event)
+                .start();
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -72,14 +77,6 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
 
         float left = vCruise.x - (cruise.getWidth() / 2);
         float top = vCruise.y - cruise.getHeight();
-        //canvas.save(Canvas.MATRIX_SAVE_FLAG); //Saving the canvas and later restoring it so only this image will be rotated.
-        //canvas.rotate(20);
-        Matrix matrix = new Matrix();
-        int offset = 100;
-        matrix.setRotate(20, top - offset, left - offset);
-        canvas.drawBitmap(cruise, matrix, paint);
-        //canvas.drawBitmap(cruise, left, top, paint);
-        Timber.i("Position left (x)" + left + " top(y)" + top);
-        //canvas.restore();
+        canvas.drawBitmap(cruise, left, top, paint);
     }
 }

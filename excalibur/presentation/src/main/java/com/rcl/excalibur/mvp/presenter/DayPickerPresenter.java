@@ -15,6 +15,7 @@ import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
 import com.rcl.excalibur.model.ItineraryModel;
 import com.rcl.excalibur.model.SailingInfoModel;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.DayPickerView;
 import com.rcl.excalibur.utils.DateUtils;
 

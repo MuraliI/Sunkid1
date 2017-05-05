@@ -59,7 +59,7 @@ public class ShipTimePresenterTest {
     @Test
     public void applyType() throws Exception {
         presenter.applyType(TYPE_BLUE);
-        verify(view).applyType(R.color.bg_color, R.color.white);
+        verify(view).applyType(R.color.bg_toolbar_color, R.color.white);
     }
 
 }

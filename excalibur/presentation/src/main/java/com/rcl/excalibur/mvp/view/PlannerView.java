@@ -17,9 +17,9 @@ import android.widget.TextView;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
-import com.rcl.excalibur.activity.ProductDeckMapActivity;
+import com.rcl.excalibur.activity.DeckMapActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
-import com.rcl.excalibur.activity.VoyageMapActivity;
+import com.rcl.excalibur.activity.TriptychHomeActivity;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerHeader;
 import com.rcl.excalibur.adapters.planner.abstractitem.PlannerProductItem;
 import com.rcl.excalibur.custom.view.TopRoundedFrameLayout;
@@ -365,13 +365,13 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
     }
 
     @OnClick(R.id.image_ship_invisible)
-    public void shipOnClick() {
+    void shipOnClick() {
         //Fixme temp onClick on Transparent ImageView
         final BaseActivity activity = getActivity();
         if (activity == null) {
             return;
         }
-        ActivityUtils.startActivity(activity, ProductDeckMapActivity.getIntent(activity, null));
+        ActivityUtils.startActivity(activity, DeckMapActivity.getIntent(activity, null));
     }
 
     public void setShipInvisibleHeight(Pair<Integer, Integer> pair) {
@@ -384,8 +384,10 @@ public class PlannerView extends FragmentView<PlannerFragment, Void, Void> {
         }
     }
 
-    @OnClick(R.id.text_arriving_debarking_time_fixme)
-    public void showVoyageMap() {
-        ActivityUtils.startActivity(getActivity(), VoyageMapActivity.getStartIntent(getActivity()));
+    @OnClick(R.id.text_arriving_debarking_time)
+    void showVoyageMap() {
+        if (getActivity() != null) {
+            ((TriptychHomeActivity) getActivity()).goToVoyageActivity();
+        }
     }
 }

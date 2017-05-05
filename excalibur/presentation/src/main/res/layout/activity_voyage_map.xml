@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/sea_big">
@@ -8,11 +8,75 @@
     <com.rcl.excalibur.custom.view.VoyageMapImageView
         android:id="@+id/image_voyage_map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/ship_time_fragment" />
+
+    <LinearLayout
+        android:id="@+id/linear_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ship_time_fragment"
+        android:orientation="vertical"
+        android:transitionName="@string/shared_element_tab">
+
+        <View
+            android:id="@+id/view_white_voyage_map"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/triptych_strip_tickness"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white" />
+
+        <include
+            android:id="@+id/day_picker_tab"
+            layout="@layout/custom_tabview_triptychtab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_normal" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_ship_status"
+        style="@style/AppTheme.TriptychItemTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_tab"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_small" />
+
+
+    <ImageView
+        android:id="@+id/image_ship_voyage"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_voyage_ship"
+        android:layout_centerInParent="true"
+        android:contentDescription="@null"
+        android:src="@drawable/ship_big"
+        android:transitionName="@string/shared_element_ship" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/plan_list_padding_top_header"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_small"
+        android:background="@drawable/background_rounded_top"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:background="@drawable/arrow_up_gray"
+            android:foregroundGravity="center_vertical" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>

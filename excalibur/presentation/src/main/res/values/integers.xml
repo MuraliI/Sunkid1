@@ -37,4 +37,10 @@
     <integer name="slide_up_all_day_time">200</integer>
     <integer name="cue_card_gradient_angle">90</integer>
 
+    <!-- Deck Map -->
+    <integer name="deck_selector_openning_duration">500</integer>
+    <integer name="deck_selector_closed_rotation">0</integer>
+    <integer name="deck_selector_opened_rotation">-180</integer>
+
+    <integer name="transition_duration">1000</integer>
 </resources>

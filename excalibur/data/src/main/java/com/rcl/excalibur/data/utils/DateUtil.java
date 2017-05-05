@@ -66,21 +66,19 @@ public final class DateUtil {
         return format.format(date);
     }
 
-    public static SimpleDateFormat getStandardDateParser() {
-        return new SimpleDateFormat(DATE_FORMAT, Locale.US);
+    public static String parseHourless(Date date) {
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(HOURLESS_DATE_FORMAT, Locale.US);
+        return simpleDateFormat.format(date);
     }
 
-    public static SimpleDateFormat getHourlessDateParser() {
-        return new SimpleDateFormat(HOURLESS_DATE_FORMAT, Locale.US);
-    }
-
-    public static SimpleDateFormat getDateFormatISO() {
-        return new SimpleDateFormat(DATE_FORMAT_ISO, Locale.US);
+    public static Date parseHourless(String date) throws ParseException {
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(HOURLESS_DATE_FORMAT, Locale.US);
+        return simpleDateFormat.parse(date);
     }
 
     public static Date parseDateISO(String dateToTransform) {
         Date date = null;
-        SimpleDateFormat dateformat = getDateFormatISO();
+        SimpleDateFormat dateformat = new SimpleDateFormat(DATE_FORMAT_ISO, Locale.US);
         try {
             date = dateformat.parse(dateToTransform);
         } catch (ParseException e) {

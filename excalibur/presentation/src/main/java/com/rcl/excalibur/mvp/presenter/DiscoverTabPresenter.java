@@ -2,7 +2,7 @@ package com.rcl.excalibur.mvp.presenter;
 
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.DayPickerActivity;
-import com.rcl.excalibur.activity.ProductDeckMapActivity;
+import com.rcl.excalibur.activity.DeckMapActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
 import com.rcl.excalibur.mvp.view.DiscoverTabView;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -16,15 +16,18 @@ public class DiscoverTabPresenter {
 
     protected int countBoatOnClick;
 
-    public DiscoverTabPresenter(DiscoverTabView view) {
+    public DiscoverTabPresenter(DiscoverTabView view, boolean serviceAlreadyFinished) {
         this.view = view;
         AnalyticsUtils.trackState(AnalyticsConstants.KEY_DISCOVER);
-        init();
+        init(serviceAlreadyFinished);
     }
 
-    protected void init() {
+    protected void init(boolean serviceAlreadyFinished) {
         view.init();
         view.showLoadingView(true);
+        if (serviceAlreadyFinished) {
+            serviceCallCompleted();
+        }
     }
 
     public void openListScreen(int fragmentToShow) {
@@ -60,7 +63,7 @@ public class DiscoverTabPresenter {
         if (activity == null) {
             return;
         }
-        ActivityUtils.startActivity(activity, ProductDeckMapActivity.getIntent(activity, null));
+        ActivityUtils.startActivity(activity, DeckMapActivity.getIntent(activity, null));
     }
 }
 

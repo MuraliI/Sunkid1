@@ -13,9 +13,7 @@ public class Product {
     private String productId;
     private ProductCategory productCategory;
     private List<ProductAdvisement> advisements;
-    private List<ProductPreference> preferences;
     private List<ProductRestriction> restrictions;
-    private ProductActivityLevel activityLevel;
     private ProductLocation productLocation;
     private ProductDuration productDuration;
     private ProductCostType costType;
@@ -35,6 +33,15 @@ public class Product {
     private boolean isScheduable;
     private boolean isFeatured;
     private boolean isHighlighted;
+    private List<Offering> offerings;
+
+    public List<Offering> getOfferings() {
+        return offerings;
+    }
+
+    public void setOfferings(List<Offering> offerings) {
+        this.offerings = offerings;
+    }
 
     public String getProductId() {
         return productId;
@@ -108,14 +115,6 @@ public class Product {
         isScheduable = scheduable;
     }
 
-    public ProductActivityLevel getActivityLevel() {
-        return activityLevel;
-    }
-
-    public void setActivityLevel(ProductActivityLevel activityLevel) {
-        this.activityLevel = activityLevel;
-    }
-
     public ProductLocation getProductLocation() {
         return productLocation;
     }
@@ -156,13 +155,6 @@ public class Product {
         this.advisements = advisements;
     }
 
-    public List<ProductPreference> getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(List<ProductPreference> preferences) {
-        this.preferences = preferences;
-    }
 
     public List<ProductRestriction> getRestrictions() {
         return restrictions;

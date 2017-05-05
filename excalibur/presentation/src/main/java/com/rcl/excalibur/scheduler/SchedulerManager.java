@@ -7,7 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.rcl.excalibur.mvp.presenter.DefaultPresentObserver;
+import com.rcl.excalibur.data.service.DownloadProductsService;
+import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.scheduler.task.GetShipTimeTask;
 import com.rcl.excalibur.scheduler.task.UpdateTimeTask;
 
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.rcl.excalibur.scheduler.SchedulerReceiver.EXTRA_TASK;
+import static com.rcl.excalibur.scheduler.SchedulerReceiver.TASK_DOWNLOAD_PRODUCTS;
 import static com.rcl.excalibur.scheduler.SchedulerReceiver.TASK_GET_SHIP_TIME;
 import static com.rcl.excalibur.scheduler.SchedulerReceiver.TASK_UPDATE_TIME;
 
@@ -79,6 +81,12 @@ public final class SchedulerManager {
                 , currentTimeMillis + UpdateTimeTask.getTime()
                 , UpdateTimeTask.getTime()
                 , createPendingIntent(context, TASK_UPDATE_TIME));
+
+//     Download Products
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP
+                , currentTimeMillis
+                , DownloadProductsService.getTime()
+                , createPendingIntent(context, TASK_DOWNLOAD_PRODUCTS));
 
     }
 

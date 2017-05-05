@@ -3,9 +3,9 @@ package com.rcl.excalibur.data.repository;
 
 import android.support.annotation.NonNull;
 
+import com.activeandroid.Model;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
-import com.rcl.excalibur.data.entity.ActivityLevelEntity;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
 import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
@@ -17,7 +17,6 @@ import com.rcl.excalibur.data.entity.MediaEntity;
 import com.rcl.excalibur.data.entity.MediaValueEntity;
 import com.rcl.excalibur.data.entity.OfferingEntity;
 import com.rcl.excalibur.data.entity.OperationHourEntity;
-import com.rcl.excalibur.data.entity.PreferenceEntity;
 import com.rcl.excalibur.data.entity.PreferenceValueEntity;
 import com.rcl.excalibur.data.entity.PriceEntity;
 import com.rcl.excalibur.data.entity.ProductEntity;
@@ -31,15 +30,13 @@ import com.rcl.excalibur.domain.LocationDeckInfo;
 import com.rcl.excalibur.domain.LocationOperationHour;
 import com.rcl.excalibur.domain.Media;
 import com.rcl.excalibur.domain.MediaItem;
+import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.ProductActivityLevel;
 import com.rcl.excalibur.domain.ProductAdvisement;
 import com.rcl.excalibur.domain.ProductCategory;
 import com.rcl.excalibur.domain.ProductCostType;
 import com.rcl.excalibur.domain.ProductDuration;
 import com.rcl.excalibur.domain.ProductLocation;
-import com.rcl.excalibur.domain.ProductPreference;
-import com.rcl.excalibur.domain.ProductPreferenceValue;
 import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductRestrictionAnswer;
 import com.rcl.excalibur.domain.ProductType;
@@ -50,9 +47,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.rcl.excalibur.data.utils.DBUtil.eq;
+import static com.rcl.excalibur.data.utils.DBUtil.eqId;
 
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, Void, ProductEntityDataMapper>
         implements ProductRepository {
+
 
     public ProductDataRepository() {
         super(new ProductEntityDataMapper(), ProductEntity.class);
@@ -60,10 +59,12 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     @Override
     public void create(@NonNull Product product) {
-        if (exists(ProductEntity.COLUMN_PRODUCT_ID, product.getProductId())) {
-            return;
+        ProductEntity entity = getEntity(ProductEntity.COLUMN_PRODUCT_ID, product.getProductId());
+        if (entity != null) {
+            delete(entity);
         }
-        final ProductEntity entity = new ProductEntity();
+
+        entity = new ProductEntity();
         entity.setProductId(product.getProductId());
         entity.setProductClass(product.getProductClass());
         entity.setTitle(product.getProductTitle());
@@ -86,12 +87,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         create(entity, product.getProductDuration());
         //CostTypeEntity
         create(entity, product.getCostType());
-        //preference
-        createPreferences(entity, product.getPreferences());
         //productMedia
         create(entity, product.getProductMedia());
-        //Activity Level
-        create(entity, product.getActivityLevel());
         //StartingFromPrice
         create(entity, product.getStartingFromPrice());
         //Category
@@ -104,6 +101,84 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
         //Restriction
         createRestriction(entity, product.getRestrictions());
+
+        //Offerings
+        createOfferings(entity, product.getOfferings());
+    }
+
+    private void createOfferings(ProductEntity entity, List<Offering> offerings) {
+        if (CollectionUtils.isEmpty(offerings)) {
+            return;
+        }
+        for (Offering offering : offerings) {
+            if (existsOffering(offering.getId())) {
+                continue;
+            }
+            OfferingEntity offeringEntity = new OfferingEntity();
+            offeringEntity.setOfferingId(offering.getId());
+            offeringEntity.setProductEntity(entity);
+            offeringEntity.setDate(offering.getDateString());
+            offeringEntity.setTime(offering.getTimeString());
+            offeringEntity.setPrice(create(offering.getPrice()));
+
+            offeringEntity.save();
+        }
+    }
+
+    private boolean existsOffering(String id) {
+        return new Select()
+                .from(OfferingEntity.class)
+                .where(eq(OfferingEntity.COLUMN_OFFERING_ID, id))
+                .exists();
+    }
+
+    private PriceEntity create(SellingPrice sellingPrice) {
+        if (sellingPrice == null) {
+            return null;
+        }
+        PriceEntity priceEntity = new PriceEntity();
+        priceEntity.setCurrency(sellingPrice.getCurrency());
+        priceEntity.setAdultPrice(sellingPrice.getAdultPrice());
+        priceEntity.setChildPrice(sellingPrice.getChildPrice());
+        priceEntity.setInfantPrice(sellingPrice.getInfantPrice());
+        priceEntity.save();
+        return priceEntity;
+
+    }
+
+    private void delete(Model model) {
+        if (model != null) {
+            model.delete();
+        }
+    }
+
+    private void delete(@NonNull ProductEntity entity) {
+        List<RestrictionEntity> restrictionEntities = entity.getRestrictions();
+        for (RestrictionEntity restrictionEntity : restrictionEntities) {
+            delete(restrictionEntity.getMedia());
+            restrictionEntity.delete();
+        }
+
+        List<AdvisementEntity> advisementEntities = entity.getAdvisements();
+        for (AdvisementEntity advisementEntity : advisementEntities) {
+            delete(advisementEntity.getMedia());
+            advisementEntity.delete();
+        }
+
+        List<OfferingEntity> offeringEntities = entity.getOfferings();
+        for (OfferingEntity offeringEntity : offeringEntities) {
+            delete(offeringEntity.getPrice());
+            offeringEntity.delete();
+        }
+
+        delete(entity.getStartingFromPrice());
+        delete(entity.getCostType());
+        delete(entity.getDuration());
+        delete(entity.getLocation());
+        delete(entity.getProductMedia());
+
+        new Delete().from(ProductEntity.class).where(eqId(entity.getId())).execute();
+
     }
 
     @Override
@@ -116,9 +191,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         new Delete().from(ProductEntity.class).execute();
         new Delete().from(CategoryEntity.class).execute();
         new Delete().from(StartingFromPriceEntity.class).execute();
-        new Delete().from(ActivityLevelEntity.class).execute();
         new Delete().from(PreferenceValueEntity.class).execute();
-        new Delete().from(PreferenceEntity.class).execute();
         new Delete().from(CostTypeEntity.class).execute();
         new Delete().from(DurationEntity.class).execute();
         new Delete().from(DeckInfoEntity.class).execute();
@@ -140,31 +213,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         startingFromPriceEntity.setInfantPrice(startingFromPrice.getInfantPrice());
         startingFromPriceEntity.save();
         entity.setStartingFromPrice(startingFromPriceEntity);
-    }
-
-    private void create(final ProductEntity entity, final ProductActivityLevel activityLevel) {
-        if (activityLevel == null) {
-            return;
-        }
-        final ActivityLevelEntity activityLevelEntity = new ActivityLevelEntity();
-        activityLevelEntity.setTitle(activityLevel.getActivityLevelTitle());
-        activityLevelEntity.setDescription(activityLevel.getActivityLevelDescription());
-        activityLevelEntity.setActivityLevelId(activityLevel.getActivityLevelId());
-        final Media media = activityLevel.getActivityLevelMedia();
-        if (media != null && !CollectionUtils.isEmpty(media.getMediaItem())) {
-            final MediaEntity mediaEntity = new MediaEntity();
-            mediaEntity.save();
-            for (MediaItem mediaItem : media.getMediaItem()) {
-                final MediaValueEntity mediaValueEntity = new MediaValueEntity();
-                mediaValueEntity.setMedia(mediaEntity);
-                mediaValueEntity.setLink(mediaItem.getMediaRefLink());
-                mediaValueEntity.setType(mediaItem.getMediaType());
-                mediaValueEntity.save();
-            }
-            activityLevelEntity.setMedia(mediaEntity);
-        }
-        activityLevelEntity.save();
-        entity.setActivityLevel(activityLevelEntity);
     }
 
     private void createRestriction(final ProductEntity entity, final List<ProductRestriction> productRestrictions) {
@@ -237,31 +285,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         entity.setProductMedia(mediaEntity);
     }
 
-    private void createPreferences(final ProductEntity entity, final List<ProductPreference> preferences) {
-        if (CollectionUtils.isEmpty(preferences)) {
-            return;
-        }
-        for (ProductPreference productPreference : preferences) {
-            final PreferenceEntity preferenceEntity = new PreferenceEntity();
-            preferenceEntity.setName(productPreference.getPreferenceName());
-            preferenceEntity.setType(productPreference.getPreferenceType());
-            preferenceEntity.setMandatory(productPreference.isMandatoryPreferenceFlag());
-            preferenceEntity.setPreferenceId(productPreference.getPreferenceId());
-            preferenceEntity.save();
-            //Preference Values
-            final List<ProductPreferenceValue> productPreferenceValues = productPreference.getPreferenceValue();
-            if (!CollectionUtils.isEmpty(productPreferenceValues)) {
-                for (ProductPreferenceValue productPreferenceValue : productPreferenceValues) {
-                    final PreferenceValueEntity preferenceValueEntity = new PreferenceValueEntity();
-                    preferenceValueEntity.setName(productPreferenceValue.getPreferenceValueName());
-                    preferenceValueEntity.setCode(productPreferenceValue.getPreferenceValueCode());
-                    preferenceValueEntity.setPreference(preferenceEntity);
-                    preferenceValueEntity.setPreferenceValueId(productPreferenceValue.getPreferenceValueId());
-                }
-            }
-            entity.setPreference(preferenceEntity);
-        }
-    }
 
     private void create(final ProductEntity entity, final ProductCostType productCostType) {
         if (productCostType == null) {
