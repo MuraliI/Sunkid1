@@ -4,7 +4,6 @@ package com.rcl.excalibur.data.mapper;
 import android.support.annotation.Nullable;
 
 import com.rcl.excalibur.data.entity.ShipStatsEntity;
-import com.rcl.excalibur.data.service.response.ShipStatsResponse;
 import com.rcl.excalibur.domain.ShipStatsInfo;
 
 public class ShipStatsEntityDataMapper extends BaseDataMapper<ShipStatsInfo, ShipStatsEntity, Void> {

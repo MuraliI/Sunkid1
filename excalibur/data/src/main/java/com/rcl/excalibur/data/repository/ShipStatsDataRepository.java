@@ -17,7 +17,6 @@ public class ShipStatsDataRepository extends BaseDataRepository<ShipStatsInfo, S
 
     public ShipStatsDataRepository() {
         super(new ShipStatsEntityDataMapper(), ShipStatsEntity.class);
-
     }
 
     @Override

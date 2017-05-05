@@ -7,6 +7,11 @@ import com.rcl.excalibur.domain.ShipStatsInfo;
 import com.rcl.excalibur.domain.repository.ShipStatsRepository;
 import com.rcl.excalibur.domain.service.ShipStatsServices;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Response;
 import timber.log.Timber;
@@ -17,25 +22,25 @@ public class ShipStatsServicesImpl extends BaseDataService<ShipStatsInfo, ShipSt
 
     private ShipStatsRepository repository;
 
-    protected ShipStatsServicesImpl(ShipStatsRepository shipStatsRepository) {
+    public ShipStatsServicesImpl(ShipStatsRepository shipStatsRepository) {
         super(new ShipStatsDataMapper());
         this.repository = shipStatsRepository;
     }
 
     @Override
-    public void getShipStats() {
-        new Thread(() -> {
-
+    public void getShipStats(DisposableObserver<Boolean> serviceCallCompletedObserver) {
+        Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
             Call<ShipStatsResponse> call = getShipStatsApi().getShipStats();
             ShipStatsProcessor shipStatsProcessor = new ShipStatsProcessor();
             try {
                 shipStatsProcessor.onResponse(call.execute());
-
             } catch (Exception e) {
                 shipStatsProcessor.onFailure(e);
             }
-
-        }).start();
+            observableEmitter.onNext(true);
+        }).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(serviceCallCompletedObserver);
     }
 
     private class ShipStatsProcessor {
@@ -43,14 +48,16 @@ public class ShipStatsServicesImpl extends BaseDataService<ShipStatsInfo, ShipSt
         void onResponse(Response<ShipStatsResponse> response) {
             // TODO: add validation succesfull response when webservice integrate
             if (response.body() != null) {
-                repository.deleteAll();
+                if (repository.get() != null)
+                    repository.deleteAll();
+
                 ShipStatsInfo shipStatsInfo = getMapper().transform(response.body(), null);
                 repository.create(shipStatsInfo);
             }
         }
 
         void onFailure(Throwable t) {
-            Timber.e("error SailDateResponse", t.getMessage());
+            Timber.e("error ShipStatsResponse", t.getMessage());
         }
     }
 }
