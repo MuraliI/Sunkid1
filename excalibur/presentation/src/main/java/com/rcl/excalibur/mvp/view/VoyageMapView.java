@@ -76,6 +76,15 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
         ActivityUtils.startActivity(getActivity(), DayPickerActivity.getStartIntent(getActivity()));
     }
 
+    @OnClick(R.id.bottom_back_view)
+    void onBackClick() {
+        VoyageMapActivity activity = getActivity();
+        if (getActivity() == null) {
+            return;
+        }
+        activity.onBackPressed();
+    }
+
     public void hideShip() {
         Animator animator = ObjectAnimator.ofFloat(ship, ANIMATOR_PROPERTY, ALPHA_OFF);
         animator.addListener(new AnimatorListenerAdapter() {

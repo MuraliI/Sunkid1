@@ -63,6 +63,7 @@
         android:transitionName="@string/shared_element_ship" />
 
     <LinearLayout
+        android:id="@+id/bottom_back_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/plan_list_padding_top_header"
         android:layout_alignParentBottom="true"
@@ -70,8 +71,7 @@
         android:layout_marginStart="@dimen/margin_small"
         android:background="@drawable/background_rounded_top"
         android:orientation="vertical"
-        android:transitionName="@string/shared_element_planner"
-        android:id="@+id/linearLayout">
+        android:transitionName="@string/shared_element_planner">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -86,6 +86,6 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout" />
+        android:layout_above="@+id/bottom_back_view" />
 
 </RelativeLayout>
