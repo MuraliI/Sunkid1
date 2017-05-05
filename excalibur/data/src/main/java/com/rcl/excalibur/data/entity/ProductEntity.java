@@ -83,7 +83,7 @@ public class ProductEntity extends Model {
     public CategoryEntity category;
 
     /**
-     * This Field represent a serialized JSON of childCategories ID where this product belong
+     * This Field represent a serialized JSON of childCategories ID where this product belong.
      */
     @Column(name = COLUMN_CHILD_CATEGORIES)
     public String childCategories;
