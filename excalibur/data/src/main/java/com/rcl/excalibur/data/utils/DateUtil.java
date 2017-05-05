@@ -32,10 +32,12 @@ public final class DateUtil {
     public static Date parseDateResponse(String dateStr, String timeStr) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.US);
         Date date = null;
-        //FIXME when service return right time format;
+
+        // FIXME: when service return right time format;
         while (timeStr.length() < TIME_SIZE) {
             timeStr = ZERO_TIME + timeStr;
         }
+
         String str = dateStr + timeStr;
         try {
             date = dateFormatter.parse(str);

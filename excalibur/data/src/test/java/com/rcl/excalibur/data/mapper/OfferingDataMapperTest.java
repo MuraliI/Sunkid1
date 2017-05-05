@@ -38,7 +38,7 @@ public class OfferingDataMapperTest {
     @Mock Product product;
     @Mock SellingPrice sellingPrice;
 
-    List<OfferingEntity> offeringEntities;
+    private List<OfferingEntity> offeringEntities;
 
     private OfferingDataMapper mapper;
 

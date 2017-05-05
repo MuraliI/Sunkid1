@@ -43,7 +43,7 @@
     <style name="AppTheme.Headline2" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/proxima_nova_bold</item>
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">@dimen/size_all_text_h2</item>
     </style>
 
     <style name="AppTheme.Body" parent="@android:style/Widget.TextView">
@@ -227,11 +227,6 @@
     </style>
 
     <!-- Fonts.Planner -->
-    <style name="AppTheme.PlannerHeaderText" parent="@android:style/Widget.TextView">
-        <item name="fontPath">@string/roboto_bold</item>
-        <item name="android:textSize">@dimen/planner_header_title</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
 
     <style name="AppTheme.PlannerHeaderExpandableText" parent="@android:style/Widget.TextView">
         <item name="fontPath">@string/roboto_regular</item>

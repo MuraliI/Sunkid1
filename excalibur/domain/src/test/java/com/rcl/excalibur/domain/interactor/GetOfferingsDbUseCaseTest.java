@@ -61,7 +61,7 @@ public class GetOfferingsDbUseCaseTest {
         List<Offering> offeringList = new ArrayList<>();
         offeringList.add(offering);
 
-        when(offeringRepository.getForDay(offeringsDate)).thenReturn(offeringList);
+        when(offeringRepository.getOfferingsForDay(offeringsDate)).thenReturn(offeringList);
         when(offeringRepository.getOfferingsForProduct(offeringsForProduct)).thenReturn(offeringList);
 
         getOfferingsDbUseCase = new GetOfferingsDbUseCase(offeringRepository);
@@ -70,7 +70,7 @@ public class GetOfferingsDbUseCaseTest {
     @Test
     public void getOfferingsForDayTest() {
         List<Offering> obtainedOfferings = getOfferingsDbUseCase.getAllForDay(offeringsDate);
-        verify(offeringRepository, times(1)).getForDay(offeringsDate);
+        verify(offeringRepository, times(1)).getOfferingsForDay(offeringsDate);
         assertNotNull(obtainedOfferings);
         assertTrue(obtainedOfferings.size() > 0);
 

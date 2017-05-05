@@ -80,4 +80,10 @@ public class FragmentView<T extends Fragment, HV, HA> {
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
+    protected void onViewNext(HV value) {
+        if (viewObserver == null) {
+            return;
+        }
+        viewObserver.onNext(value);
+    }
 }
