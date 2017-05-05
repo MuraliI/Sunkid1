@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.data.repository.ProductDataRepository;
-import com.rcl.excalibur.data.repository.SubCategoriesDataRepository;
+import com.rcl.excalibur.data.repository.CategoriesDataRepository;
 import com.rcl.excalibur.data.utils.DownloadProductsManager;
 
 import static com.rcl.excalibur.data.BuildConfig.DOWNLOAD_PRODUCTS_TIME;
@@ -44,7 +44,7 @@ public class DownloadProductsService extends IntentService {
 
     private void handleDownloadProducts(String sailingId) {
         new DownloadProductsManager(sailingId, new DiscoverServicesImpl(), new ProductDataRepository()
-                , new SubCategoryServicesImpl(), new SubCategoriesDataRepository())
+                , new CategoryServicesImpl(), new CategoriesDataRepository())
                 .process();
     }
 }

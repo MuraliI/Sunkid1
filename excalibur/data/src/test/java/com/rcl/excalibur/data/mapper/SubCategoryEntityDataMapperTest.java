@@ -34,7 +34,7 @@ public class SubCategoryEntityDataMapperTest {
         Mockito.when(childCategoryEntity.getCategoryId()).thenReturn("land");
         Mockito.when(childCategoryEntity.getDescription()).thenReturn("Description Land");
         Mockito.when(childCategoryEntity.getName()).thenReturn("Land");
-        Mockito.when(childCategoryEntity.getSubCategory()).thenReturn(subCategoryEntity);
+//        Mockito.when(childCategoryEntity.getCategory()).thenReturn(subCategoryEntity);
 
         ArrayList<ChildCategoryEntity> items = new ArrayList<>();
         items.add(childCategoryEntity);

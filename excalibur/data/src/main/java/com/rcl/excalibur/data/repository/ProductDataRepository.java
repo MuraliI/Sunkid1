@@ -8,6 +8,7 @@ import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
+import com.rcl.excalibur.data.entity.ChildCategoryEntity;
 import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
 import com.rcl.excalibur.data.entity.DeckInfoEntity;
@@ -25,6 +26,7 @@ import com.rcl.excalibur.data.entity.StartingFromPriceEntity;
 import com.rcl.excalibur.data.entity.TypeEntity;
 import com.rcl.excalibur.data.mapper.ProductEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
+import com.rcl.excalibur.data.utils.DBUtil;
 import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.LocationDeckInfo;
 import com.rcl.excalibur.domain.LocationOperationHour;
@@ -41,6 +43,7 @@ import com.rcl.excalibur.domain.ProductRestriction;
 import com.rcl.excalibur.domain.ProductRestrictionAnswer;
 import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.SellingPrice;
+import com.rcl.excalibur.domain.repository.CategoryRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 
 import java.util.ArrayList;
@@ -52,9 +55,12 @@ import static com.rcl.excalibur.data.utils.DBUtil.eqId;
 public class ProductDataRepository extends BaseDataRepository<Product, ProductEntity, Void, ProductEntityDataMapper>
         implements ProductRepository {
 
+    private CategoryRepository categoryRepository;
 
     public ProductDataRepository() {
         super(new ProductEntityDataMapper(), ProductEntity.class);
+        //TODO move to parameter
+        this.categoryRepository = new CategoriesDataRepository();
     }
 
     @Override
@@ -91,8 +97,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         create(entity, product.getProductMedia());
         //StartingFromPrice
         create(entity, product.getStartingFromPrice());
-        //Category
-        createCategory(entity, product.getProductCategory());
+//        ChildCategories
+        retrieveCategory(entity, product.getProductCategory());
 
         entity.save();
 
@@ -393,38 +399,37 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     }
 
-    private void createCategory(final ProductEntity entity, final ProductCategory category) {
+    private void retrieveCategory(final ProductEntity entity, final ProductCategory category) {
 
+        if (category == null || CollectionUtils.isEmpty(category.getChildCategory())) {
+            return;
+        }
+        final String categoryId = category.getCategoryId();
+        CategoryEntity categoryEntity = (CategoryEntity) getEntity(CategoryEntity.class, CategoryEntity.COLUMN_CATEGORY_ID, categoryId);
         if (category == null) {
             return;
         }
-        CategoryEntity categoryEntity = (CategoryEntity) getEntity(CategoryEntity.class, CategoryEntity.COLUMN_CATEGORY_ID, category.getCategoryId());
-        if (categoryEntity == null) {
-            categoryEntity = new CategoryEntity();
-            categoryEntity.setName(category.getCategoryName());
-            categoryEntity.setCategoryId(category.getCategoryId());
-            categoryEntity.setDescription(category.getCategoryDescription());
-            categoryEntity.save();
-            createChildCategories(categoryEntity, category.getChildCategory());
+        List<ChildCategory> childCategories = category.getChildCategory();
+
+        List<String> ids = new ArrayList<>();
+
+        for (ChildCategory childCategory : childCategories) {
+            ChildCategoryEntity childCategoryEntity = getChildCategoryEntity(categoryEntity, childCategory);
+            if (childCategoryEntity == null) {
+                continue;
+            }
+            ids.add(childCategoryEntity.getCategoryId());
         }
+
         entity.setCategory(categoryEntity);
+        entity.setChildCategories(ids);
     }
 
-    private void createChildCategories(final CategoryEntity entity, final List<ChildCategory> categories) {
-
-        if (CollectionUtils.isEmpty(categories)) {
-            return;
-        }
-
-        for (ChildCategory childCategory : categories) {
-
-            final ChildCategoryProductEntity childCategoryProductEntity = new ChildCategoryProductEntity();
-            childCategoryProductEntity.setCategoryId(childCategory.getItems().getCategoryId());
-            childCategoryProductEntity.setDescription(childCategory.getItems().getCategoryDescription());
-            childCategoryProductEntity.setName(childCategory.getItems().getCategoryName());
-            childCategoryProductEntity.setCategory(entity);
-            childCategoryProductEntity.save();
-        }
+    private ChildCategoryEntity getChildCategoryEntity(CategoryEntity categoryEntity, ChildCategory childCategory) {
+        return new Select().from(ChildCategoryEntity.class)
+                .where(DBUtil.eq(ChildCategoryEntity.COLUMN_CATEGORY, categoryEntity.getId()))
+                .and(eq(ChildCategoryEntity.COLUMN_CHILD_CATEGORY_ID, childCategory.getItems().getCategoryId()))
+                .executeSingle();
     }
 
     @Override
@@ -446,11 +451,13 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
     @Override
     public List<Product> getByCategory(@NonNull final String category, int maxCount, int offset) {
         final CategoryEntity categoryEntity = (CategoryEntity) getEntity(CategoryEntity.class, CategoryEntity.COLUMN_CATEGORY_ID, category);
+        //TODO. Consultar por Child tambien
         if (categoryEntity == null) {
             return new ArrayList<>();
         }
-        String condition = eq(ProductEntity.COLUMN_CATEGORY, categoryEntity.getId());
-        return this.getBatch(condition, maxCount, offset);
+// TODO FIXME       String condition = eq(ProductEntity.COLUMN_CATEGORY, categoryEntity.getId());
+//        return this.getBatch(condition, maxCount, offset);
+        return null;
     }
 
     @Override

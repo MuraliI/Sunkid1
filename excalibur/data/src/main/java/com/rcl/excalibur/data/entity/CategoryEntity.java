@@ -29,8 +29,8 @@ public class CategoryEntity extends Model {
         super();
     }
 
-    public List<ChildCategoryProductEntity> getChildCategoryProducts() {
-        return getMany(ChildCategoryProductEntity.class, ChildCategoryProductEntity.COLUMN_CATEGORY);
+    public List<ChildCategoryEntity> getChildCategoryProducts() {
+        return getMany(ChildCategoryEntity.class, ChildCategoryEntity.COLUMN_CATEGORY);
     }
 
     public String getName() {

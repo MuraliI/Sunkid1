@@ -7,12 +7,21 @@ import java.util.List;
 
 public class CategoryResponse {
 
+    private String categoryName;
     private String categoryDescription;
     @SerializedName("categoryid")
     private String categoryId;
-    private List<String> productTags;
+    private List<ChildCategoryResponse> childCategory;
 
     public CategoryResponse() {
+    }
+
+    public List<ChildCategoryResponse> getChildCategory() {
+        return childCategory;
+    }
+
+    public void setChildCategory(List<ChildCategoryResponse> childCategory) {
+        this.childCategory = childCategory;
     }
 
     public String getCategoryDescription() {
@@ -23,12 +32,12 @@ public class CategoryResponse {
         this.categoryDescription = categoryDescription;
     }
 
-    public List<String> getProductTags() {
-        return productTags;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setProductTags(List<String> productTags) {
-        this.productTags = productTags;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getCategoryId() {

@@ -85,11 +85,11 @@ public class TriptychHomePresenter {
         if (!CollectionUtils.isEmpty(products)) {
             onServiceCallCompleted(true);
         } else {
-            DownloadProductsManager.addProductsObserver(new DefaultObserver<Boolean>() {
+            DownloadProductsManager.addObserver(new DefaultObserver<Boolean>() {
                 @Override
                 public void onNext(Boolean value) {
                     onServiceCallCompleted(value);
-                    DownloadProductsManager.removeProductsObserver(this);
+                    DownloadProductsManager.removeObserver(this);
                 }
             });
         }

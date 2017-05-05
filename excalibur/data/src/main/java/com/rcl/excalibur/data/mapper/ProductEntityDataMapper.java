@@ -4,7 +4,7 @@ package com.rcl.excalibur.data.mapper;
 import com.rcl.excalibur.data.entity.ActivityLevelEntity;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
-import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
+import com.rcl.excalibur.data.entity.ChildCategoryEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
 import com.rcl.excalibur.data.entity.DeckInfoEntity;
 import com.rcl.excalibur.data.entity.DurationEntity;
@@ -343,7 +343,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         return productCategory;
     }
 
-    private List<ChildCategory> transformChildCategories(List<ChildCategoryProductEntity> entities) {
+    private List<ChildCategory> transformChildCategories(List<ChildCategoryEntity> entities) {
 
         ArrayList<ChildCategory> childCategories = new ArrayList<>();
 
@@ -351,7 +351,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             return childCategories;
         }
 
-        for (ChildCategoryProductEntity childCategoryProductEntity : entities) {
+        for (ChildCategoryEntity childCategoryProductEntity : entities) {
 
             ChildCategory childCategory = new ChildCategory();
             childCategory.getItems().setCategoryDescription(childCategoryProductEntity.getDescription());

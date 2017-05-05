@@ -6,11 +6,9 @@ import android.support.v4.view.ViewPager;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.ProductsCategoryAdapter;
-import com.rcl.excalibur.data.repository.SubCategoriesDataRepository;
 import com.rcl.excalibur.data.utils.Preconditions;
 import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.SubCategory;
-import com.rcl.excalibur.domain.interactor.GetSubCategoryDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
@@ -18,11 +16,8 @@ import com.rcl.excalibur.mvp.view.PlanListView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
-import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import java.util.List;
-
-import timber.log.Timber;
 
 import static com.rcl.excalibur.fragments.ProductsListFragment.DINING;
 import static com.rcl.excalibur.fragments.ProductsListFragment.ENTERTAINMENT;
@@ -66,18 +61,6 @@ public class PlanListPresenter {
             return;
         }
         ActivityUtils.onBackActivity(activity);
-    }
-
-    public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, PlanListPresenter> {
-
-        AdapterObserver(PlanListPresenter presenter) {
-            super(presenter);
-        }
-
-        @Override
-        public void onNext(DiscoverItemModel value) {
-            //TODO Invoke Details screen
-        }
     }
 
     public String createFragment(int fragmentToShow, ViewPager viewPager) {
@@ -135,14 +118,15 @@ public class PlanListPresenter {
         }
 
         view.setCategoryIcon(iconCategory);
-        GetSubCategoryDbUseCase getSubCategoryDbUseCase = new GetSubCategoryDbUseCase(new SubCategoriesDataRepository());
-        SubCategory subCategory = getSubCategoryDbUseCase.get(idCategory);
-        if (subCategory != null) {
-            addFragmentsToPager(subCategory, viewPager, type);
-            AnalyticsUtils.trackEvent(analyticEvent.addKeyValue(AnalyticsConstants.KEY_FILTER_CATEGORY, categorySelected));
-        } else {
-            Timber.e("Don't find information for category");
-        }
+//TODO
+//        GetSubCategoryDbUseCase getSubCategoryDbUseCase = new GetSubCategoryDbUseCase(new CategoriesDataRepository());
+//        SubCategory subCategory = getSubCategoryDbUseCase.get(idCategory);
+//        if (subCategory != null) {
+//            addFragmentsToPager(subCategory, viewPager, type);
+//            AnalyticsUtils.trackEvent(analyticEvent.addKeyValue(AnalyticsConstants.KEY_FILTER_CATEGORY, categorySelected));
+//        } else {
+//            Timber.e("Don't find information for category");
+//        }
 
         return categorySelected;
     }
@@ -161,5 +145,17 @@ public class PlanListPresenter {
             }
         }
         viewPager.setAdapter(adapter);
+    }
+
+    public class AdapterObserver extends DefaultPresentObserver<DiscoverItemModel, PlanListPresenter> {
+
+        AdapterObserver(PlanListPresenter presenter) {
+            super(presenter);
+        }
+
+        @Override
+        public void onNext(DiscoverItemModel value) {
+            //TODO Invoke Details screen
+        }
     }
 }

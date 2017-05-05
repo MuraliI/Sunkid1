@@ -4,6 +4,7 @@ package com.rcl.excalibur.data.entity;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class ProductEntity extends Model {
     public static final String COLUMN_IS_FEATURED = "featured";
     public static final String COLUMN_IS_HIGHLIGHTED = "highlighted";
     public static final String COLUMN_CATEGORY = "category";
+    public static final String COLUMN_CHILD_CATEGORIES = "child_categories";
 
 
     @Column(name = COLUMN_PRODUCT_ID, unique = true, index = true)
@@ -79,6 +81,8 @@ public class ProductEntity extends Model {
     public boolean isHighlighted;
     @Column(name = COLUMN_CATEGORY)
     public CategoryEntity category;
+    @Column(name = COLUMN_CHILD_CATEGORIES)
+    public String childCategories;
 
 
     public ProductEntity() {
@@ -263,5 +267,17 @@ public class ProductEntity extends Model {
 
     public void setCategory(CategoryEntity category) {
         this.category = category;
+    }
+
+    public String[] getChildCategories() {
+        return new Gson().fromJson(childCategories, String[].class);
+    }
+
+    public void setChildCategories(String[] childCategories) {
+        this.childCategories = new Gson().toJson(childCategories);
+    }
+
+    public void setChildCategories(List<String> childCategories) {
+        this.childCategories = new Gson().toJson(childCategories);
     }
 }

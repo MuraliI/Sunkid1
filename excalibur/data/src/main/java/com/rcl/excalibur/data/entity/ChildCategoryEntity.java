@@ -12,7 +12,7 @@ public class ChildCategoryEntity extends Model {
     public static final String COLUMN_CHILD_CATEGORY_ID = "child_category_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DESCRIPTION = "description";
-    public static final String COLUMN_SUB_CATEGORY = "sub_category";
+    public static final String COLUMN_CATEGORY = "category";
 
     @Column(name = COLUMN_CHILD_CATEGORY_ID, unique = true, index = true)
     private String categoryId;
@@ -20,8 +20,8 @@ public class ChildCategoryEntity extends Model {
     private String name;
     @Column(name = COLUMN_DESCRIPTION)
     private String description;
-    @Column(name = COLUMN_SUB_CATEGORY)
-    private SubCategoryEntity subCategory;
+    @Column(name = COLUMN_CATEGORY)
+    private CategoryEntity category;
 
     public ChildCategoryEntity() {
         super();
@@ -51,11 +51,11 @@ public class ChildCategoryEntity extends Model {
         this.description = description;
     }
 
-    public SubCategoryEntity getSubCategory() {
-        return subCategory;
+    public CategoryEntity getCategory() {
+        return category;
     }
 
-    public void setSubCategory(SubCategoryEntity subCategory) {
-        this.subCategory = subCategory;
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 }

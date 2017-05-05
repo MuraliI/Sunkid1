@@ -3,12 +3,12 @@ package com.rcl.excalibur.data.utils;
 
 import android.support.annotation.NonNull;
 
+import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.SubCategory;
+import com.rcl.excalibur.domain.repository.CategoryRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
-import com.rcl.excalibur.domain.repository.SubCategoryRepository;
+import com.rcl.excalibur.domain.service.CategoryServices;
 import com.rcl.excalibur.domain.service.DiscoverServices;
-import com.rcl.excalibur.domain.service.SubCategoryServices;
 import com.rcl.excalibur.domain.utils.ProductsInfo;
 
 import java.util.ArrayList;
@@ -26,42 +26,34 @@ import static com.rcl.excalibur.domain.Category.SPA_CATEGORY;
 
 public class DownloadProductsManager {
     private static final int MAX_ELEMENT = 50;
-    private static List<DisposableObserver<Boolean>> productsObservers = new ArrayList<>();
-    private static List<DisposableObserver<Boolean>> subcategoriesObservers = new ArrayList<>();
+    private static List<DisposableObserver<Boolean>> observers = new ArrayList<>();
     private DiscoverServices discoverServices;
     private ProductRepository productRepository;
-    private SubCategoryServices subCategoryServices;
-    private SubCategoryRepository subCategoryRepository;
+    private CategoryServices categoryServices;
+    private CategoryRepository categoryRepository;
 
     private String sailingId;
     private List<TypeOffset> pairs;
     private int actualPositionType;
 
     public DownloadProductsManager(String sailingId, DiscoverServices discoverServices, ProductRepository productRepository
-            , SubCategoryServices subCategoryServices, SubCategoryRepository subCategoryRepository) {
+            , CategoryServices categoryServices, CategoryRepository categoryRepository) {
         this.discoverServices = discoverServices;
         this.sailingId = sailingId;
         this.productRepository = productRepository;
-        this.subCategoryServices = subCategoryServices;
-        this.subCategoryRepository = subCategoryRepository;
+        this.categoryServices = categoryServices;
+        this.categoryRepository = categoryRepository;
         init();
     }
 
-    public static void addProductsObserver(DisposableObserver<Boolean> observer) {
-        productsObservers.add(observer);
+    public static void addObserver(DisposableObserver<Boolean> observer) {
+        observers.add(observer);
     }
 
-    public static void removeProductsObserver(DisposableObserver<Boolean> observer) {
-        productsObservers.remove(observer);
+    public static void removeObserver(DisposableObserver<Boolean> observer) {
+        observers.remove(observer);
     }
 
-    public static void addSubcategoriesObserver(DisposableObserver<Boolean> observer) {
-        subcategoriesObservers.add(observer);
-    }
-
-    public static void removeSubcategoriesObserver(DisposableObserver<Boolean> observer) {
-        subcategoriesObservers.remove(observer);
-    }
 
     private void init() {
         actualPositionType = -1;
@@ -87,17 +79,20 @@ public class DownloadProductsManager {
     }
 
     public void process() {
+        retrieveCategories();
+    }
+
+    private void innerProcess() {
         final TypeOffset pair = next();
         if (pair == null) {
-            notifyObservers(productsObservers);
-            retrieveSubCategories();
+            notifyObservers();
             return;
         }
         retrieveProducts(pair.type, pair.offset);
         pair.increment(MAX_ELEMENT);
     }
 
-    private void notifyObservers(List<DisposableObserver<Boolean>> observers) {
+    private void notifyObservers() {
         for (DisposableObserver observer : observers) {
             observer.onNext(true);
         }
@@ -107,22 +102,22 @@ public class DownloadProductsManager {
         discoverServices.getProducts(new ProductObserver(), sailingId, type, MAX_ELEMENT, offset);
     }
 
-    private void retrieveSubCategories() {
-        subCategoryServices.getSubCategories(new SubCategoriesObserver(), sailingId);
+    private void retrieveCategories() {
+        categoryServices.getCategories(new CategoriesObserver(), sailingId);
     }
 
     private void createOrUpdateProducts(final List<Product> products) {
         if (!CollectionUtils.isEmpty(products)) {
             productRepository.create(products);
         }
-        process();
+        innerProcess();
     }
 
-    private void createOrUpdateSubCategories(final List<SubCategory> subCategories) {
-        if (CollectionUtils.isEmpty(subCategories)) {
+    private void createOrUpdateCategories(final List<Category> categories) {
+        if (CollectionUtils.isEmpty(categories)) {
             return;
         }
-        subCategoryRepository.create(subCategories);
+        categoryRepository.create(categories);
     }
 
     private void removeType(String type) {
@@ -176,12 +171,12 @@ public class DownloadProductsManager {
     }
 
 
-    private class SubCategoriesObserver extends DisposableObserver<List<SubCategory>> {
+    private class CategoriesObserver extends DisposableObserver<List<Category>> {
 
         @Override
-        public void onNext(List<SubCategory> subCategories) {
-            createOrUpdateSubCategories(subCategories);
-            notifyObservers(subcategoriesObservers);
+        public void onNext(List<Category> categories) {
+            createOrUpdateCategories(categories);
+            innerProcess();
         }
 
         @Override
