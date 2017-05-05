@@ -190,7 +190,6 @@
     <dimen name="padding_text_no_products_top">10dp</dimen>
     <dimen name="text_size_no_products_top">17sp</dimen>
 
-
     <!-- Cue Card Discovery Tab -->
     <dimen name="item_discovery_margin">10dp</dimen>
     <dimen name="item_discovery_margin_start">20dp</dimen>
