@@ -66,7 +66,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
 
     public void initTab() {
         voyageModel = new VoyageMapModel();
-        setImageDimensions(R.drawable.caribbean_map_2_1);
+        setImageDimensions(R.drawable.caribbean_map_4);
         view.init(getScreenWidth());
     }
 
