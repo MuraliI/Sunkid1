@@ -112,7 +112,7 @@
     <dimen name="planner_header_expandable">16sp</dimen>
     <dimen name="height_planner_header">58dp</dimen>
     <dimen name="width_planner_item">280dp</dimen>
-    <dimen name="margin_temporal">40dp</dimen>
+    <dimen name="margin_temporal">45dp</dimen>
 
     <dimen name="ship_button_category_size">25dp</dimen>
     <dimen name="ship_button_category_top_margin">10dp</dimen>

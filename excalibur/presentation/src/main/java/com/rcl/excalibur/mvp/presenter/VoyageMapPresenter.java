@@ -95,7 +95,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
 
     private void initVoyageMapImage() {
         view.hideShip();
-        view.initVoyageMapImage(R.drawable.caribbean_map_2_1, this);
+        view.initVoyageMapImage(R.drawable.caribbean_map_4, this);
         day = getSailingPreferenceUseCase.getDay() == null
                 ? PlannerPresenter.DAY_DEFAULT_VALUE : getSailingPreferenceUseCase.getDay();
         view.setCruiseCoordinate(voyageModel.getMockCoordinate(day.charAt(0), true));
