@@ -15,6 +15,7 @@ import timber.log.Timber;
 public final class DateUtil {
 
     private static final int TIME_SIZE = 4;
+    private static final String ZERO_TIME = "0";
 
     public static final String DATE_FORMAT = "yyyyMMddHHmm";
     public static final String HOURLESS_DATE_FORMAT = "yyyyMMdd";
@@ -33,7 +34,7 @@ public final class DateUtil {
         Date date = null;
         //FIXME when service return right time format;
         while (timeStr.length() < TIME_SIZE) {
-            timeStr = "0" + timeStr;
+            timeStr = ZERO_TIME + timeStr;
         }
         String str = dateStr + timeStr;
         try {
