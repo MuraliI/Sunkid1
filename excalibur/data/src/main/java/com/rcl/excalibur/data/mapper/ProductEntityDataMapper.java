@@ -40,6 +40,7 @@ import com.rcl.excalibur.domain.ProductType;
 import com.rcl.excalibur.domain.SellingPrice;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -59,6 +60,10 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         product.setProductType(transform(entity.getType()));
         product.setProductClass(entity.getProductClass());
         product.setProductCategory(transform(entity.getCategory()));
+        String[] childCategories = entity.getChildCategories();
+        product.setChildCategoriesId(childCategories != null
+                ? Arrays.asList(childCategories)
+                : new ArrayList<String>());
         product.setProductRank(entity.getRank());
         product.setProductUpcharge(entity.getUpcharge());
         product.setReservationRequired(entity.isReservationRequired());
@@ -338,7 +343,7 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
         productCategory.setCategoryDescription(categoryEntity.getDescription());
         productCategory.setCategoryId(categoryEntity.getCategoryId());
         productCategory.setCategoryName(categoryEntity.getName());
-        productCategory.setChildCategory(transformChildCategories(categoryEntity.getChildCategoryProducts()));
+        productCategory.setChildCategory(transformChildCategories(categoryEntity.getChildCategory()));
 
         return productCategory;
     }
@@ -351,12 +356,12 @@ public class ProductEntityDataMapper extends BaseDataMapper<Product, ProductEnti
             return childCategories;
         }
 
-        for (ChildCategoryEntity childCategoryProductEntity : entities) {
+        for (ChildCategoryEntity childCategoryEntity : entities) {
 
             ChildCategory childCategory = new ChildCategory();
-            childCategory.getItems().setCategoryDescription(childCategoryProductEntity.getDescription());
-            childCategory.getItems().setCategoryId(childCategoryProductEntity.getCategoryId());
-            childCategory.getItems().setCategoryName(childCategoryProductEntity.getName());
+            childCategory.getItems().setCategoryDescription(childCategoryEntity.getDescription());
+            childCategory.getItems().setCategoryId(childCategoryEntity.getChildCategoryId());
+            childCategory.getItems().setCategoryName(childCategoryEntity.getName());
             childCategories.add(childCategory);
         }
 

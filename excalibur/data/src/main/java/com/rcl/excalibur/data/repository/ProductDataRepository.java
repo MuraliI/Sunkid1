@@ -418,7 +418,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
             if (childCategoryEntity == null) {
                 continue;
             }
-            ids.add(childCategoryEntity.getCategoryId());
+            ids.add(childCategoryEntity.getChildCategoryId());
         }
 
         entity.setCategory(categoryEntity);
@@ -455,9 +455,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         if (categoryEntity == null) {
             return new ArrayList<>();
         }
-// TODO FIXME       String condition = eq(ProductEntity.COLUMN_CATEGORY, categoryEntity.getId());
-//        return this.getBatch(condition, maxCount, offset);
-        return null;
+        String condition = eq(ProductEntity.COLUMN_CATEGORY, categoryEntity.getId());
+        return this.getBatch(condition, maxCount, offset);
     }
 
     @Override

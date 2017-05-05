@@ -6,9 +6,11 @@ import android.support.v4.view.ViewPager;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.ProductsCategoryAdapter;
+import com.rcl.excalibur.data.repository.CategoryDataRepository;
 import com.rcl.excalibur.data.utils.Preconditions;
+import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.ChildCategory;
-import com.rcl.excalibur.domain.SubCategory;
+import com.rcl.excalibur.domain.interactor.GetCategoryDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
 import com.rcl.excalibur.model.DiscoverItemModel;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
@@ -16,8 +18,11 @@ import com.rcl.excalibur.mvp.view.PlanListView;
 import com.rcl.excalibur.utils.ActivityUtils;
 import com.rcl.excalibur.utils.analytics.AnalyticEvent;
 import com.rcl.excalibur.utils.analytics.AnalyticsConstants;
+import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import java.util.List;
+
+import timber.log.Timber;
 
 import static com.rcl.excalibur.fragments.ProductsListFragment.DINING;
 import static com.rcl.excalibur.fragments.ProductsListFragment.ENTERTAINMENT;
@@ -36,7 +41,7 @@ public class PlanListPresenter {
     public static final int POSITION_ENTERTAINMENT = 5;
     public static final int POSITION_GUEST_SERVICES = 6;
 
-    private static final String ID_SHOREX = "shoreex";
+    private static final String ID_SHOREX = "shorex";
     private static final String ID_ACTIVITY = "activities";
     private static final String ID_SHOPPING = "shop";
     private static final String ID_SPA = "spa";
@@ -118,20 +123,19 @@ public class PlanListPresenter {
         }
 
         view.setCategoryIcon(iconCategory);
-//TODO
-//        GetSubCategoryDbUseCase getSubCategoryDbUseCase = new GetSubCategoryDbUseCase(new CategoriesDataRepository());
-//        SubCategory subCategory = getSubCategoryDbUseCase.get(idCategory);
-//        if (subCategory != null) {
-//            addFragmentsToPager(subCategory, viewPager, type);
-//            AnalyticsUtils.trackEvent(analyticEvent.addKeyValue(AnalyticsConstants.KEY_FILTER_CATEGORY, categorySelected));
-//        } else {
-//            Timber.e("Don't find information for category");
-//        }
+        GetCategoryDbUseCase getCategoryDbUseCase = new GetCategoryDbUseCase(new CategoryDataRepository());
+        Category category = getCategoryDbUseCase.get(idCategory);
+        if (category != null) {
+            addFragmentsToPager(category, viewPager, type);
+            AnalyticsUtils.trackEvent(analyticEvent.addKeyValue(AnalyticsConstants.KEY_FILTER_CATEGORY, categorySelected));
+        } else {
+            Timber.e("Don't find information for category");
+        }
 
         return categorySelected;
     }
 
-    private void addFragmentsToPager(SubCategory subCategory, ViewPager viewPager, int type) {
+    private void addFragmentsToPager(Category subCategory, ViewPager viewPager, int type) {
         ProductsCategoryAdapter adapter = new ProductsCategoryAdapter(view.getFragmentManager());
         List<ChildCategory> childCategories = subCategory.getChildCategory();
         if (childCategories.isEmpty()) {

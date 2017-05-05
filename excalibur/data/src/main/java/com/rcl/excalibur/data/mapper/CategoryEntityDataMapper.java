@@ -1,6 +1,5 @@
 package com.rcl.excalibur.data.mapper;
 
-
 import android.support.annotation.NonNull;
 
 import com.rcl.excalibur.data.entity.CategoryEntity;
@@ -12,24 +11,19 @@ import com.rcl.excalibur.domain.ChildCategory;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Mapper class used to transform {@link CategoryEntity} (in the data layer) to {@link Category} in the
- * domain layer.
- */
 public class CategoryEntityDataMapper extends BaseDataMapper<Category, CategoryEntity, Void> {
-
 
     @Override
     public Category transform(@NonNull CategoryEntity model, Void additionalArg) {
-        Category subCategory = null;
+        Category category = null;
         if (model != null) {
-            subCategory = new Category();
-            subCategory.setCategoryId(model.getCategoryId());
-            subCategory.setCategoryDescription(model.getDescription());
-            subCategory.setCategoryName(model.getName());
-            subCategory.setChildCategory(transformChildCategory(model.getChildCategoryProducts()));
+            category = new Category();
+            category.setCategoryId(model.getCategoryId());
+            category.setCategoryDescription(model.getDescription());
+            category.setCategoryName(model.getName());
+            category.setChildCategory(transformChildCategory(model.getChildCategory()));
         }
-        return subCategory;
+        return category;
     }
 
     private List<ChildCategory> transformChildCategory(List<ChildCategoryEntity> entities) {
@@ -44,7 +38,7 @@ public class CategoryEntityDataMapper extends BaseDataMapper<Category, CategoryE
             }
 
             ChildCategory childCategory = new ChildCategory();
-            childCategory.getItems().setCategoryId(childCategoryEntity.getCategoryId());
+            childCategory.getItems().setCategoryId(childCategoryEntity.getChildCategoryId());
             childCategory.getItems().setCategoryName(childCategoryEntity.getName());
             childCategory.getItems().setCategoryDescription(childCategoryEntity.getDescription());
 
@@ -52,5 +46,4 @@ public class CategoryEntityDataMapper extends BaseDataMapper<Category, CategoryE
         }
         return items;
     }
-
 }

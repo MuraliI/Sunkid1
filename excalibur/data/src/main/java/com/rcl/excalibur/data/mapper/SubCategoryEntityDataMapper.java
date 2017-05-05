@@ -44,7 +44,7 @@ public class SubCategoryEntityDataMapper extends BaseDataMapper<SubCategory, Sub
             }
 
             ChildCategory childCategory = new ChildCategory();
-            childCategory.getItems().setCategoryId(childCategoryEntity.getCategoryId());
+            childCategory.getItems().setCategoryId(childCategoryEntity.getChildCategoryId());
             childCategory.getItems().setCategoryName(childCategoryEntity.getName());
             childCategory.getItems().setCategoryDescription(childCategoryEntity.getDescription());
 

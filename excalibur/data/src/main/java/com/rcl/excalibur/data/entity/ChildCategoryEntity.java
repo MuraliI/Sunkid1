@@ -15,24 +15,24 @@ public class ChildCategoryEntity extends Model {
     public static final String COLUMN_CATEGORY = "category";
 
     @Column(name = COLUMN_CHILD_CATEGORY_ID, unique = true, index = true)
-    private String categoryId;
+    private String childCategoryId;
     @Column(name = COLUMN_NAME)
     private String name;
     @Column(name = COLUMN_DESCRIPTION)
     private String description;
-    @Column(name = COLUMN_CATEGORY)
+    @Column(name = COLUMN_CATEGORY, onDelete = Column.ForeignKeyAction.CASCADE)
     private CategoryEntity category;
 
     public ChildCategoryEntity() {
         super();
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getChildCategoryId() {
+        return childCategoryId;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setChildCategoryId(String childCategoryId) {
+        this.childCategoryId = childCategoryId;
     }
 
     public String getName() {
@@ -58,4 +58,5 @@ public class ChildCategoryEntity extends Model {
     public void setCategory(CategoryEntity category) {
         this.category = category;
     }
+
 }

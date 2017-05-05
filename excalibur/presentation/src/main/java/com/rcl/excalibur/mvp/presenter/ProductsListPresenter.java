@@ -8,7 +8,6 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.domain.Category;
-import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.fragments.ProductsListFragment;
@@ -49,11 +48,8 @@ public class ProductsListPresenter {
             childProducts = allProducts;
         } else {
             for (Product typeProduct : allProducts) {
-                for (ChildCategory childCategory : typeProduct.getProductCategory().getChildCategory()) {
-                    //FIXME when service category return right category
-//                    if (childCategoryId.equals(childCategory.getItems().getCategoryId())) {
+                if (typeProduct.getChildCategoriesId().contains(childCategoryId)) {
                     childProducts.add(typeProduct);
-//                    }
                 }
             }
         }

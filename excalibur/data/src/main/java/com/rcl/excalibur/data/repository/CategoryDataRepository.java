@@ -1,25 +1,24 @@
 package com.rcl.excalibur.data.repository;
 
-
 import android.support.annotation.NonNull;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 import com.rcl.excalibur.data.entity.CategoryEntity;
 import com.rcl.excalibur.data.entity.ChildCategoryEntity;
+import com.rcl.excalibur.data.entity.SubCategoryEntity;
 import com.rcl.excalibur.data.mapper.CategoryEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
-import com.rcl.excalibur.data.utils.DBUtil;
 import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.ChildCategory;
 import com.rcl.excalibur.domain.repository.CategoryRepository;
 
 import java.util.List;
 
-public class CategoriesDataRepository extends BaseDataRepository<Category, CategoryEntity, Void, CategoryEntityDataMapper>
+public class CategoryDataRepository extends BaseDataRepository<Category, CategoryEntity, Void, CategoryEntityDataMapper>
         implements CategoryRepository {
 
-    public CategoriesDataRepository() {
+    public CategoryDataRepository() {
         super(new CategoryEntityDataMapper(), CategoryEntity.class);
     }
 
@@ -38,11 +37,7 @@ public class CategoriesDataRepository extends BaseDataRepository<Category, Categ
 
     @Override
     public void create(@NonNull Category category) {
-        CategoryEntity entity = getEntity(CategoryEntity.COLUMN_CATEGORY_ID, category.getCategoryId());
-        if (entity != null) {
-            delete(entity);
-        }
-        entity = new CategoryEntity();
+        final CategoryEntity entity = new CategoryEntity();
         entity.setCategoryId(category.getCategoryId());
         entity.setDescription(category.getCategoryDescription());
         entity.setName(category.getCategoryName());
@@ -53,10 +48,8 @@ public class CategoriesDataRepository extends BaseDataRepository<Category, Categ
 
     @Override
     public void deleteAll() {
-    }
-
-    public void delete(CategoryEntity entity) {
-        new Delete().from(CategoryEntity.class).where(DBUtil.eqId(entity.getId())).execute();
+        new Delete().from(ChildCategoryEntity.class).execute();
+        new Delete().from(SubCategoryEntity.class).execute();
     }
 
     private void createChildCategories(final CategoryEntity entity, final List<ChildCategory> childCategories) {
