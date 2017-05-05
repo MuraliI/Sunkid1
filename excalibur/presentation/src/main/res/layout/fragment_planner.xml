@@ -54,7 +54,8 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never" />
+                android:overScrollMode="never"
+                android:transitionName="@string/shared_element_planner" />
         </com.rcl.excalibur.custom.view.TopRoundedFrameLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
