@@ -31,13 +31,11 @@ import com.rcl.excalibur.mvp.model.PlannerModel;
 import com.rcl.excalibur.mvp.presenter.rx.DefaultPresentObserver;
 import com.rcl.excalibur.mvp.view.PlannerView;
 import com.rcl.excalibur.utils.DateUtils;
-import com.rcl.excalibur.utils.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.flexibleadapter.items.ISectionable;
 
@@ -52,7 +50,6 @@ public class PlannerPresenter {
     private static final String ARRIVING_DEPARTING_SEPARATOR = "; ";
     private static final String PORT_TYPE_CRUISING = "CRUISING";
 
-    private static final float OFFSET_OVER_95_PERCENT = 0.95f;
     private static final float MAX_SLIDE_OFFSET = 1.0f;
 
     private static final int HEADER_LIST_SIZE = 4;
@@ -149,8 +146,8 @@ public class PlannerPresenter {
                 }
             }
 
-            // TODO: Delete this when services provides the flag
-            if (i <= 6 && i % 2 == 0) {
+            // TODO: Delete this when services provides the flag correctly
+            if (i <= 3) {
                 plannerProductModel.setFeatured(true);
             } else {
                 plannerProductModel.setFeatured(false);
@@ -278,14 +275,16 @@ public class PlannerPresenter {
                 || currentPartOfDayResource == getPartOfDayResource(productModel)) {
             return;
         }
-        View itemView = view.getViewItemAt(topItem);
-        if (itemView == null) {
+
+        int verticalPosition = view.getVerticalLocationOnScreen(topItem);
+        if (verticalPosition == -1) {
             return;
         }
+
         if (currentPartOfDayResource == 0) {
             updateHeader(productItem);
         }
-        int verticalPosition = view.getVerticalLocationOnScreen(itemView);
+
         if (verticalPosition < headerVerticalPosition) {
             updateHeader(productItem);
         }
@@ -338,6 +337,7 @@ public class PlannerPresenter {
         }
     }
 
+    // FIXME: See if this can be passed to adapter later
     private void expandSection(PlannerHeader header) {
         List<IFlexible> itemsToAdd;
         if (header.isAllDayHeader()) {
@@ -356,6 +356,7 @@ public class PlannerPresenter {
         view.updateHeader(header);
     }
 
+    // FIXME: See if this can be passed to adapter later
     private void collapseSection(PlannerHeader header) {
         view.removeItemsFromSection(header);
         header.setSectionExpanded(false);
@@ -397,41 +398,20 @@ public class PlannerPresenter {
         if (isExpanded) {
             return;
         }
-        calculateItemMargins(slideOffset);
+        view.calculateItemMargins(slideOffset, calculateImageMargin(slideOffset), calculateVerticalMargin(slideOffset),
+                calculateHorizontalMargin(slideOffset));
     }
 
-    private void calculateItemMargins(float slideOffset) {
-        int visibleChildren = view.findLastVisibleItemPosition();
-        int imageMargin = Math.round(slideOffset * this.view.getInitImageMargin());
-        int verticalMargin = getMargin(slideOffset, this.view.getInitVerticalMargin());
-        int horizontalMargin = getMargin(slideOffset, this.view.getInitHorizontalMargin());
+    private int calculateImageMargin(float slideOffset) {
+        return Math.round(slideOffset * view.getInitImageMargin());
+    }
 
-        for (int i = 0; i <= visibleChildren; i++) {
-            if (view.isIndexAHeader(i)) {
-                continue;
-            }
+    private int calculateVerticalMargin(float slideOffset) {
+        return getMargin(slideOffset, view.getInitVerticalMargin());
+    }
 
-            View itemView = this.view.getViewItemAt(i);
-            if (itemView == null) {
-                return;
-            }
-
-            this.view.resizeItemView(itemView, verticalMargin, horizontalMargin);
-            this.view.resizeImage(itemView, imageMargin);
-            this.view.requestLayoutView(itemView);
-
-            RoundedImageView imageView = ButterKnife.findById(itemView, R.id.image_itinerary_product_picture);
-            if (imageView != null) {
-                imageView.setRadius(R.dimen.default_radius);
-            }
-
-            if (slideOffset >= OFFSET_OVER_95_PERCENT) {
-                this.view.changeSeparatorVisibility(itemView, View.VISIBLE);
-                this.view.setItemViewBackground(itemView, R.drawable.background_cue_card);
-            } else {
-                this.view.setItemViewBackground(itemView, R.drawable.background_rounded_cue_card);
-            }
-        }
+    private int calculateHorizontalMargin(float slideOffset) {
+        return getMargin(slideOffset, view.getInitHorizontalMargin());
     }
 
     private int getMargin(float slideOffset, int marginValue) {
@@ -444,7 +424,8 @@ public class PlannerPresenter {
         view.setShipArrivingDebarkingVisibility(View.GONE);
         view.setBottomSheetPeekHeight(NO_PEEK_HEIGHT);
 
-        calculateItemMargins(MAX_SLIDE_OFFSET);
+        view.calculateItemMargins(MAX_SLIDE_OFFSET, calculateImageMargin(MAX_SLIDE_OFFSET), calculateVerticalMargin(MAX_SLIDE_OFFSET),
+                calculateHorizontalMargin(MAX_SLIDE_OFFSET));
 
         view.showHeadersView();
         view.setRecyclerViewBackground(R.drawable.background_rounded_top_planner_white);
@@ -526,5 +507,4 @@ public class PlannerPresenter {
             getPresenter().onStateChange(newState);
         }
     }
-
 }

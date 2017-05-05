@@ -1,6 +1,7 @@
 package com.rcl.excalibur.mvp.view;
 
 import android.content.res.Resources;
+import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
@@ -41,7 +42,10 @@ import eu.davidea.flexibleadapter.items.IHeader;
 import eu.davidea.flexibleadapter.items.ISectionable;
 import io.reactivex.Observer;
 
+import static butterknife.ButterKnife.findById;
+
 public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
+    private static final float OFFSET_OVER_95_PERCENT = 0.95f;
     private static final int ADD_DURATION_MILLIS = 150;
     private static final int TOP_OF_LIST = 0;
     private static final int NO_MARGIN = 0;
@@ -153,7 +157,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         recyclerView.setBackgroundResource(backgroundRes);
     }
 
-    public boolean isIndexAHeader(int index) {
+    private boolean isIndexAHeader(int index) {
         return adapter.isHeader(adapter.getItem(index));
     }
 
@@ -180,28 +184,25 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         resizeImage(view, NO_MARGIN);
         setItemViewBackground(view, R.drawable.background_rounded_cue_card);
         changeSeparatorVisibility(view, View.GONE);
-        RoundedImageView imageView = ButterKnife.findById(view, R.id.image_itinerary_product_picture);
-        if (imageView != null) {
-            imageView.setRadius(R.dimen.zero_radius);
-        }
+        setRoundedImageRadius(view, R.dimen.zero_radius);
     }
 
-    public void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
+    private void resizeItemView(View view, int verticalMargin, int horizontalMargin) {
         if (view != null) {
             ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             marginLayout.setMargins(horizontalMargin, NO_MARGIN, horizontalMargin, verticalMargin);
         }
     }
 
-    public void setItemViewBackground(View view, int imageResource) {
+    private void setItemViewBackground(View view, int imageResource) {
         if (view != null) {
             view.setBackgroundResource(imageResource);
         }
     }
 
-    public void resizeImage(View parent, int margin) {
+    private void resizeImage(View parent, int margin) {
         if (parent != null) {
-            RoundedImageView image = ButterKnife.findById(parent, R.id.image_itinerary_product_picture);
+            RoundedImageView image = findById(parent, R.id.image_itinerary_product_picture);
             if (image != null) {
                 ViewGroup.MarginLayoutParams marginLayout = (ViewGroup.MarginLayoutParams) image.getLayoutParams();
                 marginLayout.setMargins(NO_MARGIN, margin, margin, margin);
@@ -209,13 +210,13 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         }
     }
 
-    public void requestLayoutView(@NonNull View view) {
+    private void requestLayoutView(@NonNull View view) {
         view.requestLayout();
     }
 
-    public void changeSeparatorVisibility(View parent, int visibility) {
+    private void changeSeparatorVisibility(View parent, int visibility) {
         if (parent != null) {
-            View separator = ButterKnife.findById(parent, R.id.view_planner_separator_line);
+            View separator = findById(parent, R.id.view_planner_separator_line);
             if (separator != null) {
                 separator.setVisibility(visibility);
             }
@@ -310,27 +311,63 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
         }
     }
 
+    public void calculateItemMargins(float slideOffset, int imageMargin, int verticalMargin, int horizontalMargin) {
+        int visibleChildren = linearLayoutManager.findLastVisibleItemPosition();
+
+        for (int i = 0; i <= visibleChildren; i++) {
+            if (isIndexAHeader(i)) {
+                continue;
+            }
+
+            View itemView = linearLayoutManager.findViewByPosition(i);
+            if (itemView == null) {
+                return;
+            }
+
+            resizeItemView(itemView, verticalMargin, horizontalMargin);
+            resizeImage(itemView, imageMargin);
+            requestLayoutView(itemView);
+
+            setRoundedImageRadius(itemView, R.dimen.default_radius);
+
+            if (slideOffset >= OFFSET_OVER_95_PERCENT) {
+                changeSeparatorVisibility(itemView, View.VISIBLE);
+                setItemViewBackground(itemView, R.drawable.background_cue_card);
+            } else {
+                setItemViewBackground(itemView, R.drawable.background_rounded_cue_card);
+            }
+        }
+    }
+
+    private void setRoundedImageRadius(View parent, @DimenRes int radius) {
+        RoundedImageView imageView = findById(parent, R.id.image_itinerary_product_picture);
+        if (imageView != null) {
+            imageView.setRadius(radius);
+        }
+    }
+
     public int getFirstItemPosition() {
         return linearLayoutManager.findFirstCompletelyVisibleItemPosition();
     }
 
-    public int findLastVisibleItemPosition() {
-        return linearLayoutManager.findLastVisibleItemPosition();
-    }
-
-    public View getViewItemAt(int position) {
-        return linearLayoutManager.findViewByPosition(position);
-    }
-
-    public int getVerticalLocationOnScreen(@NonNull View view) {
+    private int getVerticalLocationOnScreen(@NonNull View view) {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[1];
     }
 
+    public int getVerticalLocationOnScreen(int position) {
+        View view = linearLayoutManager.findViewByPosition(position);
+        int verticalPosition = -1;
+        if (view != null) {
+            verticalPosition = getVerticalLocationOnScreen(view);
+        }
+        return verticalPosition;
+    }
+
     @Nullable
     public PlannerProductItem getNextItem(int index) {
-        if (!adapter.isHeader(adapter.getItem(index))) {
+        if (!isIndexAHeader(index)) {
             return (PlannerProductItem) adapter.getItem(index);
         }
         return null;
