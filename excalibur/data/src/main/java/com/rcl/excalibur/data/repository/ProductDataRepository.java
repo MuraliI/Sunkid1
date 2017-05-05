@@ -402,7 +402,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     private void retrieveCategory(final ProductEntity entity, final ProductCategory category) {
 
-        if (category == null || CollectionUtils.isEmpty(category.getChildCategory())) {
+        if (category == null) {
             return;
         }
         final String categoryId = category.getCategoryId();
@@ -413,15 +413,15 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         List<ChildCategory> childCategories = category.getChildCategory();
 
         List<String> ids = new ArrayList<>();
-
-        for (ChildCategory childCategory : childCategories) {
-            ChildCategoryEntity childCategoryEntity = getChildCategoryEntity(categoryEntity, childCategory);
-            if (childCategoryEntity == null) {
-                continue;
+        if (!CollectionUtils.isEmpty(category.getChildCategory())) {
+            for (ChildCategory childCategory : childCategories) {
+                ChildCategoryEntity childCategoryEntity = getChildCategoryEntity(categoryEntity, childCategory);
+                if (childCategoryEntity == null) {
+                    continue;
+                }
+                ids.add(childCategoryEntity.getChildCategoryId());
             }
-            ids.add(childCategoryEntity.getChildCategoryId());
         }
-
         entity.setCategory(categoryEntity);
         entity.setChildCategories(ids);
     }
