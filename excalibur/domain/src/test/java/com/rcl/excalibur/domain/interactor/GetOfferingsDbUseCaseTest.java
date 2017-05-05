@@ -54,14 +54,14 @@ public class GetOfferingsDbUseCaseTest {
 
         offering = new Offering();
         offering.setId("2");
-        offering.setDate(offeringsDate);
+        offering.setCompleteDate(offeringsDate);
         offering.setProduct(offeringsForProduct);
         offering.setPrice(price);
 
         List<Offering> offeringList = new ArrayList<>();
         offeringList.add(offering);
 
-        when(offeringRepository.getForDay(offeringsDate)).thenReturn(offeringList);
+        when(offeringRepository.getOfferingsForDay(offeringsDate)).thenReturn(offeringList);
         when(offeringRepository.getOfferingsForProduct(offeringsForProduct)).thenReturn(offeringList);
 
         getOfferingsDbUseCase = new GetOfferingsDbUseCase(offeringRepository);
@@ -70,7 +70,7 @@ public class GetOfferingsDbUseCaseTest {
     @Test
     public void getOfferingsForDayTest() {
         List<Offering> obtainedOfferings = getOfferingsDbUseCase.getAllForDay(offeringsDate);
-        verify(offeringRepository, times(1)).getForDay(offeringsDate);
+        verify(offeringRepository, times(1)).getOfferingsForDay(offeringsDate);
         assertNotNull(obtainedOfferings);
         assertTrue(obtainedOfferings.size() > 0);
 
@@ -78,7 +78,7 @@ public class GetOfferingsDbUseCaseTest {
         assertNotNull(obtainedOffering);
 
         assertEquals(offering.getId(), obtainedOffering.getId());
-        assertEquals(offering.getDate(), obtainedOffering.getDate());
+        assertEquals(offering.getCompleteDate(), obtainedOffering.getCompleteDate());
         assertEquals(offering.getPrice(), obtainedOffering.getPrice());
         assertEquals(offering.getProduct(), obtainedOffering.getProduct());
     }
@@ -94,7 +94,7 @@ public class GetOfferingsDbUseCaseTest {
         assertNotNull(obtainedOffering);
 
         assertEquals(offering.getId(), obtainedOffering.getId());
-        assertEquals(offering.getDate(), obtainedOffering.getDate());
+        assertEquals(offering.getCompleteDate(), obtainedOffering.getCompleteDate());
         assertEquals(offering.getPrice(), obtainedOffering.getPrice());
         assertEquals(offering.getProduct(), obtainedOffering.getProduct());
     }

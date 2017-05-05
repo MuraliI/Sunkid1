@@ -24,7 +24,6 @@ import eu.davidea.viewholders.FlexibleViewHolder;
 public class PlannerProductItem extends AbstractSectionableItem<PlannerProductItem.ViewHolder, PlannerHeader> {
 
     private String id;
-
     private PlannerProductModel plannerProductModel;
 
     public PlannerProductItem(String id, PlannerHeader header) {
@@ -34,6 +33,9 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
 
     @Override
     public boolean equals(Object inObject) {
+        if (inObject == null) {
+            return false;
+        }
         if (inObject instanceof PlannerProductItem) {
             PlannerProductItem inItem = (PlannerProductItem) inObject;
             return this.id.equals(inItem.id);
@@ -95,6 +97,8 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         holder.productVenue.setText(plannerProductModel.getVenue());
         holder.productCategoryIcon.setImageResource(plannerProductModel.getResourceIdCategoryIcon());
         holder.productDeckAndDirection.setText(plannerProductModel.getLocation());
+        // TODO: this is in case the PO wants again the hour in the separators
+        //holder.setTime(null); // Passing null instead of plannerProductModel.getStartHourText() to hide the hours
     }
 
     public class ViewHolder extends FlexibleViewHolder {
@@ -106,10 +110,27 @@ public class PlannerProductItem extends AbstractSectionableItem<PlannerProductIt
         @BindView(R.id.image_itinerary_product_icon) ImageView productCategoryIcon;
         @BindView(R.id.image_itinerary_product_favorite) ImageView productPromoted;
         @BindView(R.id.view_itinerary_product_price_range) PriceRangeLayout priceRange;
+        //TODO: this is in case the PO wants again the hour in the separators
+        /*@BindView(R.id.layout_planner_item_separator_container) View separatorLayout;
+        @BindView(R.id.text_planner_separator_time) TextView timeTextView;*/
 
         public ViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter);
             ButterKnife.bind(this, itemView);
         }
+        //TODO: This is commented because on ticket CORE-1601 they don't want hours at the moment
+        /*void setTime(@Nullable String time) {
+            if (time == null || time.isEmpty()) {
+                hideTime();
+            } else {
+                timeTextView.setVisibility(View.VISIBLE);
+                timeTextView.setText(time);
+            }
+        }
+
+        void hideTime() {
+            timeTextView.setText(ConstantsUtil.EMPTY);
+            timeTextView.setVisibility(View.GONE);
+        }*/
     }
 }

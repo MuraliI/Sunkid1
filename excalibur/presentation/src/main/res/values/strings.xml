@@ -24,7 +24,7 @@
     <string name="prices_from">Prices from</string>
     <string name="hyphen_with_spaces">" - "</string>
     <string name="price_free">Free</string>
-    <string name="deck_label">Deck 1%s</string>
+    <string name="deck_label">Deck %1$s</string>
 
     <!-- Detail View -->
     <string name="accessibility_hero_image_content_description">Hero image</string>
@@ -133,20 +133,14 @@
     <string name="sessions_from">Sessions from</string>
 
     <!-- Planner -->
-    <string name="title_good_morning">Good Morning!</string>
-    <string name="title_good_afternoon">Good Afternoon!</string>
-    <string name="title_good_evening">Good Evening!</string>
-    <string name="title_good_night">Good Night!</string>
-    <string name="title_hello">Hello</string>
-    <string name="itinerary_product_list_see_all">See all</string>
-    <string name="itinerary_product_list_see_less">See less</string>
+    <string name="planner_header_see_all">See all</string>
+    <string name="planner_header_see_less">See less</string>
     <string name="itinerary_product_view_am">" AM"</string>
     <string name="itinerary_product_view_pm">" PM"</string>
     <string name="itinerary_product_view_colon">:</string>
     <string name="itinerary_product_view_dash">&#8210;</string>
     <string name="itinerary_accessibility_product_image">Item Image</string>
     <string name="itinerary_separator_title_on_going">On going</string>
-    <string name="planner_all_day_item">All day</string>
     <string name="planner_operating_hours">%1$s &#8210; %2$s</string>
     <string name="shared_element_transition_name">hero_image</string>
 
@@ -154,6 +148,7 @@
     <string name="title_afternoon">Afternoon</string>
     <string name="title_evening">Evening</string>
     <string name="title_late_night">Late night</string>
+    <string name="planner_title_all_day">All Day</string>
     <string name="itinerary_list_bottom_title">That\'s all for today</string>
     <string name="itinerary_list_bottom_emergency">Emergencies &amp; Medical</string>
     <string name="itinerary_list_bottom_legal">Privacy &amp; Legal</string>

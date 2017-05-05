@@ -15,7 +15,7 @@ public class GetOfferingsDbUseCase extends UseCaseSync<OfferingRepository> {
     }
 
     public List<Offering> getAllForDay(Date date) {
-        return getData().getForDay(date);
+        return getData().getOfferingsForDay(date);
     }
 
     public List<Offering> getOfferingsForProduct(Product product) {

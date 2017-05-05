@@ -24,8 +24,6 @@ import java.util.List;
 public class OfferingDataRepository extends BaseDataRepository<Offering, OfferingEntity, Void, OfferingDataMapper>
         implements OfferingRepository {
 
-    private static final String ORDER_BY_TITLE = "product.title";
-
     public OfferingDataRepository() {
         super(new OfferingDataMapper(new PriceDataMapper(), new ProductEntityDataMapper()), OfferingEntity.class);
     }
@@ -41,15 +39,10 @@ public class OfferingDataRepository extends BaseDataRepository<Offering, Offerin
     }
 
     @Override
-    public List<Offering> getForDay(Date date) {
-        String dateFormatted = DateUtil.parseHourless(date);
-
+    public List<Offering> getOfferingsForDay(Date date) {
         List<OfferingEntity> offerings = new Select()
                 .from(OfferingEntity.class)
-                .innerJoin(ProductEntity.class)
-                .on(DBUtil.on(OfferingEntity.TABLE_NAME, OfferingEntity.COLUMN_PRODUCT, ProductEntity.TABLE_NAME))
-                .where(DBUtil.eq(OfferingEntity.COLUMN_DATE, dateFormatted))
-                .orderBy(ORDER_BY_TITLE)
+                .where(DBUtil.eq(OfferingEntity.COLUMN_DATE, DateUtil.parseHourless(date)))
                 .execute();
 
         return getMapper().transform(offerings, null);
