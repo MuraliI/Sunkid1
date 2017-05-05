@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.ProductsAdapter;
@@ -23,8 +24,10 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 public class ProductsListView extends FragmentView<ProductsListFragment, Void, Pair<Product, View>> {
-    @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.alert_no_products) RelativeLayout alertNoProducts;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.alert_no_products)
+    RelativeLayout alertNoProducts;
 
     private ProductsAdapter adapter;
     LoadMoreScrollListener loadMoreScrollListener;
@@ -50,6 +53,7 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
         loadMoreScrollListener = new LoadMoreScrollListener(recyclerView.getLayoutManager(), START_OFFSET) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Toast.makeText(activity, "Loading page " + page, Toast.LENGTH_SHORT).show();
                 publisherSubject.onNext(new Pair<>(page, LoadMoreScrollListener.MAX_COUNT));
             }
         };
@@ -70,5 +74,9 @@ public class ProductsListView extends FragmentView<ProductsListFragment, Void, P
 
     public void addAlertNoProducts() {
         alertNoProducts.setVisibility(View.VISIBLE);
+    }
+
+    public void noMoreLoad() {
+        recyclerView.removeOnScrollListener(loadMoreScrollListener);
     }
 }

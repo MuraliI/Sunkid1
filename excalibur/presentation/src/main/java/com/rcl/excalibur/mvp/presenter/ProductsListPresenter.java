@@ -40,10 +40,10 @@ public class ProductsListPresenter {
         view.init(pair -> showCollectionInView(getProductsByCategory(category, childCategoryId, pair.first, pair.second, activity), pair.first));
     }
 
-    private List<Product> getProductsByCategory(int categoryId, String childCategoryId, int offset, int maxCount, BaseActivity activity) {
+    private List<Product> getProductsByCategory(int categoryId, String childCategoryId, int currentPage, int maxCount, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
         String typeQuery = getType(activity, categoryId);
-        List<Product> allProducts = getProductDbUseCase.getByCategory(typeQuery, maxCount, offset);
+        List<Product> allProducts = getProductDbUseCase.getByCategory(typeQuery, maxCount, currentPage * maxCount);
 
         if (childCategoryId == null) {
             childProducts = allProducts;
@@ -61,9 +61,13 @@ public class ProductsListPresenter {
     }
 
     private void showCollectionInView(List<Product> products, int page) {
-        if ((products == null || products.size() == 0) && page == START_OFFSET) {
-            view.addAlertNoProducts();
-        } else if (products != null && products.size() > 0) {
+        boolean noResult = (products == null || products.size() == 0);
+        if (noResult) {
+            view.noMoreLoad();
+            if (page == START_OFFSET) {
+                view.addAlertNoProducts();
+            }
+        } else if (!noResult) {
             view.add(products);
         }
     }
