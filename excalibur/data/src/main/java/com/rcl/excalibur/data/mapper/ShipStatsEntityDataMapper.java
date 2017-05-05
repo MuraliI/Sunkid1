@@ -16,12 +16,6 @@ public class ShipStatsEntityDataMapper extends BaseDataMapper<ShipStatsInfo, Shi
 
         ShipStatsInfo shipStatsInfo = new ShipStatsInfo();
         shipStatsInfo.setShipName(shipStatsEntity.getShipName());
-//        shipStatsInfo.setNextPortName(shipStatsEntity.getNextPortName());
-//        shipStatsInfo.setNextPortArrivalTime(shipStatsEntity.getNextPortArrivalTime());
-//        shipStatsInfo.setLastPortName(shipStatsEntity.getLastPortName());
-//        shipStatsInfo.setLastPortDepartureTime(shipStatsEntity.getLastPortDepartureTime());
-//        shipStatsInfo.setDistanceToTheNextPort(shipStatsEntity.getDistanceToTheNextPort());
-//        shipStatsInfo.setCurrentPortName(shipStatsEntity.getCurrentPortName());
         return shipStatsInfo;
     }
 }
