@@ -62,6 +62,10 @@ public final class DBUtil {
         return String.format("%s = '%s'", column, value);
     }
 
+    public static String eq(String column, boolean value) {
+        return String.format("%s = '%s'", column, value);
+    }
+
     public static String eq(String column) {
         return String.format("%s = ?", column);
     }
@@ -98,8 +102,8 @@ public final class DBUtil {
         return String.format("%s DESC", column);
     }
 
-    public static String eq(String column, boolean value) {
-        return String.format("%s = '%s'", column, value);
-
+    public static String like(String column, String value) {
+        String likeValue = "'%" + value + "%'";
+        return String.format("%s LIKE %s", column, likeValue);
     }
 }

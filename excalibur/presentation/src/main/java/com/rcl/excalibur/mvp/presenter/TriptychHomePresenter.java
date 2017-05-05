@@ -17,7 +17,6 @@ import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
-import com.rcl.excalibur.domain.interactor.GetSubCategoriesUseCase;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.fragments.BaseTripTychFragment;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
@@ -42,25 +41,38 @@ public class TriptychHomePresenter {
     private String dayPreferences;
 
     private GetProductDbUseCase getProductsDbUseCase;
-    private GetSubCategoriesUseCase getSubCategoriesUseCase;
     private GetSaildDateUseCase getSaildDateUseCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
 
     public TriptychHomePresenter(
             TriptychHomeView view,
             GetProductDbUseCase getProductsDbUseCase,
-            GetSubCategoriesUseCase getSubCategoriesUseCase,
             GetSaildDateUseCase getSaildDateUseCase,
             GetSailingPreferenceUseCase getSailingPreferenceUseCase,
             GetSaildDateDbUseCase getSaildDateDbUseCase,
             SailingInformationModelDataMapper sailingInformationModelDataMapper) {
         this.view = view;
         this.getProductsDbUseCase = getProductsDbUseCase;
-        this.getSubCategoriesUseCase = getSubCategoriesUseCase;
         this.getSaildDateUseCase = getSaildDateUseCase;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
+    }
+
+    public static String getShipLocation(List<EventModel> events, int day, Resources resources) {
+        String shipLocation;
+        PortModel sailPort = PortModel.getSailPortByDay(events, day);
+
+        String modelPortType = sailPort.getPortType();
+
+        if (PORT_TYPE_EMBARK.equals(modelPortType) || PORT_TYPE_DOCKED.equals(modelPortType) || PORT_TYPE_DEBARK.equals(modelPortType)) {
+            shipLocation = sailPort.getPortName();
+        } else if (PORT_TYPE_CRUISING.equals(modelPortType)) {
+            shipLocation = resources.getString(R.string.port_type_at_sea);
+        } else {
+            shipLocation = ConstantsUtil.EMPTY;
+        }
+        return shipLocation;
     }
 
     public void init() {
@@ -82,7 +94,6 @@ public class TriptychHomePresenter {
             });
         }
 
-        getSubCategoriesUseCase.execute(null);
         getSaildDateUseCase.execute(null);
     }
 
@@ -122,22 +133,6 @@ public class TriptychHomePresenter {
         } else {
             view.setTextShipLocation(getShipLocation(events, day, resources), resources.getString(R.string.day_number, day));
         }
-    }
-
-    public static String getShipLocation(List<EventModel> events, int day, Resources resources) {
-        String shipLocation;
-        PortModel sailPort = PortModel.getSailPortByDay(events, day);
-
-        String modelPortType = sailPort.getPortType();
-
-        if (PORT_TYPE_EMBARK.equals(modelPortType) || PORT_TYPE_DOCKED.equals(modelPortType) || PORT_TYPE_DEBARK.equals(modelPortType)) {
-            shipLocation = sailPort.getPortName();
-        } else if (PORT_TYPE_CRUISING.equals(modelPortType)) {
-            shipLocation = resources.getString(R.string.port_type_at_sea);
-        } else {
-            shipLocation = ConstantsUtil.EMPTY;
-        }
-        return shipLocation;
     }
 
 }
