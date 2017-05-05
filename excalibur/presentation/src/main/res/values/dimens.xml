@@ -231,5 +231,6 @@
     <!-- DeckMap-->
     <dimen name="padding_bottom_deckmap">50dp</dimen>
     <dimen name="padding_top_deckmap">50dp</dimen>
+    <dimen name="margin_temporal">40dp</dimen>
 
 </resources>
