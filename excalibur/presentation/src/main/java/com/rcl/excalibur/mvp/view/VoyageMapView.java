@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipStatsModel> {
     private static final int MINIMUM_DPI = 80;
     private static final int SCREEN_DIVISOR = 2;
-    private static final String ANIMATOR_PROPERTY = "alpha";
+    private static final String ALPHA_PROPERTY = "alpha";
     private static final float ALPHA_OFF = 0.0f;
     private static final float ALPHA_VISIBLE = 1.0f;
     private static final int ANIMATOR_DURATION = 250;
@@ -69,7 +69,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
     }
 
     public void hideShip() {
-        Animator animator = ObjectAnimator.ofFloat(ship, ANIMATOR_PROPERTY, ALPHA_OFF);
+        Animator animator = ObjectAnimator.ofFloat(ship, ALPHA_PROPERTY, ALPHA_OFF);
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -83,7 +83,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
 
     public void showShipAndFinishWithTransition() {
         ship.setVisibility(View.VISIBLE);
-        Animator animator = ObjectAnimator.ofFloat(ship, ANIMATOR_PROPERTY, ALPHA_VISIBLE);
+        Animator animator = ObjectAnimator.ofFloat(ship, ALPHA_PROPERTY, ALPHA_VISIBLE);
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
