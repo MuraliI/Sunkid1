@@ -45,6 +45,7 @@
     <string name="discover_item_detail_attire">Attire</string>
     <string name="discover_item_detail_know">Know Before You Go</string>
     <string name="product_detail_show_more">Show More</string>
+    <string name="product_detail_show_less">Show Less</string>
     <string name="product_detail_show_menu">Show Menu</string>
     <string name="title_show_times">Show Times</string>
     <string name="title_times">Times</string>
@@ -134,8 +135,8 @@
     <string name="sessions_from">Sessions from</string>
 
     <!-- Planner -->
-    <string name="planner_header_see_all">See all</string>
-    <string name="planner_header_see_less">See less</string>
+    <string name="planner_header_show_more">Show More</string>
+    <string name="planner_header_show_less">Show Less</string>
     <string name="itinerary_product_view_am">" AM"</string>
     <string name="itinerary_product_view_pm">" PM"</string>
     <string name="itinerary_product_view_colon">:</string>

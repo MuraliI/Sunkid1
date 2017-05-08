@@ -19,7 +19,6 @@ import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
-import com.rcl.excalibur.domain.interactor.GetSubCategoriesUseCase;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.fragments.BaseTripTychFragment;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
@@ -44,21 +43,18 @@ public class TriptychHomePresenter {
     private String dayPreferences;
 
     private GetProductDbUseCase getProductsDbUseCase;
-    private GetSubCategoriesUseCase getSubCategoriesUseCase;
     private GetSaildDateUseCase getSaildDateUseCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
 
     public TriptychHomePresenter(
             TriptychHomeView view,
             GetProductDbUseCase getProductsDbUseCase,
-            GetSubCategoriesUseCase getSubCategoriesUseCase,
             GetSaildDateUseCase getSaildDateUseCase,
             GetSailingPreferenceUseCase getSailingPreferenceUseCase,
             GetSaildDateDbUseCase getSaildDateDbUseCase,
             SailingInformationModelDataMapper sailingInformationModelDataMapper) {
         this.view = view;
         this.getProductsDbUseCase = getProductsDbUseCase;
-        this.getSubCategoriesUseCase = getSubCategoriesUseCase;
         this.getSaildDateUseCase = getSaildDateUseCase;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
@@ -84,7 +80,6 @@ public class TriptychHomePresenter {
             });
         }
 
-        getSubCategoriesUseCase.execute(null);
         getSaildDateUseCase.execute(null);
     }
 

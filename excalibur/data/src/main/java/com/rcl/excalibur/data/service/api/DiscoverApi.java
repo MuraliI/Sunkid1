@@ -7,7 +7,7 @@ import com.rcl.excalibur.data.service.response.DiningsResponse;
 import com.rcl.excalibur.data.service.response.EntertainmentsResponse;
 import com.rcl.excalibur.data.service.response.ExcursionResponse;
 import com.rcl.excalibur.data.service.response.GetProductsResponse;
-import com.rcl.excalibur.data.service.response.GetSubCategoriesResponse;
+import com.rcl.excalibur.data.service.response.GetCategoriesResponse;
 import com.rcl.excalibur.data.service.response.PromotionMessagesResponse;
 import com.rcl.excalibur.data.service.response.SpasResponse;
 
@@ -45,5 +45,5 @@ public interface DiscoverApi {
     Call<ActivitiesResponse> getActivities();
 
     @GET("categories/en/royal-mobile")
-    Call<GetSubCategoriesResponse> getSubCategories(@Query("sailingID") String sailingID);
+    Call<GetCategoriesResponse> getCategories(@Query("sailingID") String sailingID);
 }
