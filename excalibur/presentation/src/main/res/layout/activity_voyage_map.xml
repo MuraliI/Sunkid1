@@ -53,7 +53,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_small" />
 
-
     <ImageView
         android:id="@+id/image_ship_voyage"
         android:layout_width="wrap_content"
@@ -62,6 +61,27 @@
         android:contentDescription="@null"
         android:src="@drawable/ship_big"
         android:transitionName="@string/shared_element_ship" />
+
+    <ImageView
+        android:id="@+id/image_cloud_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_tab"
+        android:contentDescription="@null"
+        android:src="@drawable/cloud_01"
+        android:transitionName="@string/shared_element_cloud_left"
+        android:translationX="@dimen/transition_x_cloud_left" />
+
+    <ImageView
+        android:id="@+id/image_cloud_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/linear_tab"
+        android:contentDescription="@null"
+        android:src="@drawable/cloud_02"
+        android:transitionName="@string/shared_element_cloud_right"
+        android:translationX="@dimen/transition_x_cloud_right" />
 
     <LinearLayout
         android:id="@+id/bottom_back_view"
@@ -80,6 +100,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_normal"
             android:background="@drawable/arrow_up_gray"
+            android:contentDescription="@null"
             android:foregroundGravity="center_vertical" />
     </LinearLayout>
 

@@ -237,6 +237,8 @@
     <string name="shared_element_ship">Ship</string>
     <string name="shared_element_tab">Tab</string>
     <string name="shared_element_planner">Planner</string>
+    <string name="shared_element_cloud_left">CloudLeft</string>
+    <string name="shared_element_cloud_right">CloudRight</string>
 
     <!-- Deck Map -->
     <string name="deck_number">Deck %s</string>
