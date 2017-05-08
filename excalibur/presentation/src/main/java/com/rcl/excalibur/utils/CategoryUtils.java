@@ -36,7 +36,8 @@ public final class CategoryUtils {
     public static Integer getCategoryIcon(String productType) {
         Integer resource = iconMap.get(productType);
         if (resource == null) {
-            resource = R.drawable.placeholder_list_item;
+            // TODO: Change by a default icon
+            resource = R.drawable.ic_services_color;
         }
         return resource;
     }
