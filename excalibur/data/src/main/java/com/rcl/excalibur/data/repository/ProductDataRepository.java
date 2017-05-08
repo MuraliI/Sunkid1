@@ -119,34 +119,26 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     private void productLocationDummy(@NonNull Product product) {
         // FIXME: 5/8/2017 remove this method it's only for test because current lat & lang are nulls
-        ProductLocation productLocation;
-        List<LocationDeckInfo> deckInfoList;
-        LocationDeckInfo locationDeckInfo;
         if ("100000002354772481".equals(product.getProductId())) {
-            productLocation = new ProductLocation();
-            productLocation.setLatitude("700");
-            deckInfoList = new ArrayList<>();
-            locationDeckInfo = new LocationDeckInfo();
-            locationDeckInfo.setDeckNumber("3");
-            deckInfoList.add(locationDeckInfo);
-            productLocation.setDeckInfo(deckInfoList);
+            setProductData(product, "700", "3", "Forward");
         } else if ("100000002355015508".equals(product.getProductId())) {
-            productLocation = new ProductLocation();
-            productLocation.setLatitude("2700");
-            deckInfoList = new ArrayList<>();
-            locationDeckInfo = new LocationDeckInfo();
-            locationDeckInfo.setDeckNumber("3");
-            deckInfoList.add(locationDeckInfo);
-            productLocation.setDeckInfo(deckInfoList);
+            setProductData(product, "2700", "3", "Amidships");
         } else if ("100000002354772385".equals(product.getProductId())) {
-            productLocation = new ProductLocation();
-            productLocation.setLatitude("8000");
-            deckInfoList = new ArrayList<>();
-            locationDeckInfo = new LocationDeckInfo();
-            locationDeckInfo.setDeckNumber("4");
-            deckInfoList.add(locationDeckInfo);
-            productLocation.setDeckInfo(deckInfoList);
+            setProductData(product, "8000", "4", "Aft");
         }
+    }
+
+    private void setProductData(@NonNull Product product, String latitude, String deckNumber, String direction) {
+        // FIXME: 5/8/2017 remove this method it's only for test because current lat & lang are nulls
+        ProductLocation productLocation = new ProductLocation();
+        productLocation.setLatitude(latitude);
+        List<LocationDeckInfo> deckInfoList = new ArrayList<>();
+        LocationDeckInfo locationDeckInfo = new LocationDeckInfo();
+        locationDeckInfo.setDeckNumber(deckNumber);
+        locationDeckInfo.setDirection(direction);
+        deckInfoList.add(locationDeckInfo);
+        productLocation.setDeckInfo(deckInfoList);
+        product.setProductLocation(productLocation);
     }
 
     private void createOfferings(ProductEntity entity, List<Offering> offerings) {
