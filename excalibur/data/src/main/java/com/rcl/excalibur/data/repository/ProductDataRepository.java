@@ -91,7 +91,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         create(entity, product.getProductType());
 
         //Location
-        prdocutLocationDummy(product);
+        // FIXME: 5/8/2017 remove this method it's only for test because current lat & lang are nulls
+        productLocationDummy(product);
         create(entity, product.getProductLocation());
         //Duration
         create(entity, product.getProductDuration());
@@ -116,7 +117,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         createOfferings(entity, product.getOfferings());
     }
 
-    private void prdocutLocationDummy(@NonNull Product product) {
+    private void productLocationDummy(@NonNull Product product) {
+        // FIXME: 5/8/2017 remove this method it's only for test because current lat & lang are nulls
         if ("100000002354772481".equals(product.getProductId())) {
             ProductLocation productLocation = product.getProductLocation();
             if (productLocation != null) {
