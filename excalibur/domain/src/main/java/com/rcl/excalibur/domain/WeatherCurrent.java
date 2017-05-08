@@ -1,6 +1,7 @@
 package com.rcl.excalibur.domain;
 
 import java.util.List;
+import java.util.Locale;
 
 public class WeatherCurrent {
 
@@ -111,5 +112,10 @@ public class WeatherCurrent {
 
     public void setWeather(List<Weather> weather) {
         this.weather = weather;
+    }
+
+
+    public String getWeatherStats() {
+        return String.format(Locale.getDefault(), "%.0f/%.0fºF", getMinTemp(), getMaxTemp());
     }
 }

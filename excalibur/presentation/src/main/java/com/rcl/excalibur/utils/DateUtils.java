@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public final class DateUtils {
 
@@ -92,6 +93,23 @@ public final class DateUtils {
                 : resources.getString(R.string.itinerary_product_view_pm));
 
         return builder.toString();
+    }
+
+    public static String getHourday(long milliseconds) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliseconds);
+
+        String hourDay;
+
+        int hour = calendar.get(Calendar.HOUR);
+        int amPm = calendar.get(Calendar.AM_PM);
+
+        if (amPm == Calendar.PM)
+            hourDay = String.format(Locale.getDefault(), "%d %s", hour - AFTERNOON, "PM");
+        else
+            hourDay = String.format(Locale.getDefault(), "%d %s", hour, "AM");
+
+        return hourDay;
     }
 
     public static String getDateTime(Date date, Resources resources) {

@@ -43,9 +43,9 @@ public class ShipStatsDataRepository extends BaseDataRepository<ShipStatsInfo, S
 
     @Override
     public ShipStatsInfo get() {
-        ShipStatsEntity shipStatsEntityList =
+        ShipStatsEntity shipStatsEntity =
                 new Select().from(ShipStatsEntity.class).executeSingle();
-        return getMapper().transform(shipStatsEntityList, null);
+        return getMapper().transform(shipStatsEntity, null);
     }
 
     @Override

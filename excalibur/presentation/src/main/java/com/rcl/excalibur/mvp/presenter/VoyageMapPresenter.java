@@ -27,6 +27,7 @@ import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.model.ShipStatsModel;
 import com.rcl.excalibur.model.VoyageMapModel;
 import com.rcl.excalibur.mvp.view.VoyageMapView;
+import com.rcl.excalibur.utils.DateUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -221,19 +222,19 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         WeatherCurrent weatherCurrent = getWeatherCurrentDbUseCase.get();
 
         ShipStatsModel weather = new ShipStatsModel();
-        weather.setName("70/72ºF");
+        weather.setName(weatherCurrent.getWeatherStats());
         weather.setResource(R.drawable.icon_voyage_sunny);
 
         ShipStatsModel sunrise = new ShipStatsModel();
-        sunrise.setName("3:30 am");
+        sunrise.setName(DateUtils.getHourday(weatherCurrent.getSunrise()));
         sunrise.setResource(R.drawable.icon_voyage_sunrise);
 
         ShipStatsModel sunset = new ShipStatsModel();
-        sunset.setName("6:30 pm");
+        sunset.setName(DateUtils.getHourday(weatherCurrent.getSunset()));
         sunset.setResource(R.drawable.icon_voyage_sunset);
 
         ShipStatsModel speed = new ShipStatsModel();
-        speed.setName("46 kts");
+        speed.setName(shipStatsInfo.getShipLocationStats().getSpeed() + " kts");
         speed.setResource(R.drawable.icon_voyage_speed);
 
         ShipStatsModel compass = new ShipStatsModel();
