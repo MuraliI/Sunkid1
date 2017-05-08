@@ -90,6 +90,12 @@ public class VoyageMapActivity extends BaseActivity {
         presenter.onResume();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
+
     public static Intent getStartIntent(BaseActivity activity) {
         return new Intent(activity, VoyageMapActivity.class);
     }

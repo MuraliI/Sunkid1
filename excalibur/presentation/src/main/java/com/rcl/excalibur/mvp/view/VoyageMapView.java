@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,8 +35,9 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
     private static final float ALPHA_VISIBLE = 1.0f;
     private static final int ANIMATOR_DURATION = 300;
 
+    private VoyageMapImageView voyageMapImage;
     @BindView(R.id.image_ship_voyage) ImageView ship;
-    @BindView(R.id.image_voyage_map) VoyageMapImageView voyageMapImage;
+    @BindView(R.id.image_voyage_map) FrameLayout mapContainer;
     @BindView(R.id.date_picker_plans_tab) TextView dayPickerText;
     @BindView(R.id.text_ship_status) TextView textShipText;
     @BindView(R.id.view_white_voyage_map) View whiteBarView;
@@ -46,18 +48,18 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
     public VoyageMapView(VoyageMapActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
+        voyageMapImage = VoyageMapImageView.getInstance();
+        voyageMapImage.initialize();
+        mapContainer.addView(voyageMapImage);
     }
 
     public void init(int width) {
         whiteBarView.getLayoutParams().width = width / SCREEN_DIVISOR;
     }
 
-    public void initVoyageMapImage(int resource, SubsamplingScaleImageView.OnImageEventListener event) {
-        voyageMapImage.setImage(resource);
+    public void initVoyageMapImage() {
         voyageMapImage.setMinimumDpi(MINIMUM_DPI);
         voyageMapImage.setZoomEnabled(false);
-        voyageMapImage.setOnImageEventListener(event);
-
         adapter = new ShipStatsAdapter(adapterObserver);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
@@ -73,7 +75,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
 
     public void hideShip() {
         Animator shipAnimator = ObjectAnimator.ofFloat(ship, ALPHA_PROPERTY, ALPHA_OFF);
-        Animator mapAnimator = ObjectAnimator.ofFloat(voyageMapImage, ALPHA_PROPERTY, ALPHA_VISIBLE);
+        Animator mapAnimator = ObjectAnimator.ofFloat(mapContainer, ALPHA_PROPERTY, ALPHA_VISIBLE);
         Animator recyclerAnimator = ObjectAnimator.ofFloat(recyclerView, ALPHA_PROPERTY, ALPHA_VISIBLE);
         shipAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -92,7 +94,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
         ship.setVisibility(View.VISIBLE);
         ship.setAlpha(0.0f);
         Animator shipAnimator = ObjectAnimator.ofFloat(ship, ALPHA_PROPERTY, ALPHA_VISIBLE);
-        Animator mapAnimator = ObjectAnimator.ofFloat(voyageMapImage, ALPHA_PROPERTY, ALPHA_OFF);
+        Animator mapAnimator = ObjectAnimator.ofFloat(mapContainer, ALPHA_PROPERTY, ALPHA_OFF);
         shipAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -119,5 +121,9 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
 
     public void addAll(List<ShipStatsModel> list) {
         adapter.addAll(list);
+    }
+
+    public void onDestroy() {
+        mapContainer.removeView(voyageMapImage);
     }
 }

@@ -36,8 +36,7 @@ import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_CR
 import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DEBARK;
 import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DOCKED;
 
-public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimationEventListener,
-        SubsamplingScaleImageView.OnImageEventListener {
+public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimationEventListener {
 
     private VoyageMapView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
@@ -96,12 +95,12 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     }
 
     private void initVoyageMapImage() {
-        view.initVoyageMapImage(R.drawable.caribbean_map_4, this);
+        view.initVoyageMapImage();
         day = getSailingPreferenceUseCase.getDay() == null
                 ? PlannerPresenter.DAY_DEFAULT_VALUE : getSailingPreferenceUseCase.getDay();
         view.setCruiseCoordinate(voyageModel.getMockCoordinate(day.charAt(0), true));
         view.setScaleAndCenter(voyageModel.getMockCoordinate(day.charAt(0), false));
-
+        view.hideShip();
         getShipStatsUseCase.execute(new ShipStatsObserver(this), null);
     }
 
@@ -177,37 +176,6 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
 
     }
 
-    @Override
-    public void onReady() {
-        view.hideShip();
-    }
-
-    @Override
-    public void onImageLoaded() {
-
-    }
-
-    @Override
-    public void onPreviewLoadError(Exception e) {
-
-    }
-
-    @Override
-    public void onImageLoadError(Exception e) {
-
-    }
-
-    @Override
-    public void onTileLoadError(Exception e) {
-
-    }
-
-    @Override
-    public void onPreviewReleased() {
-
-    }
-
-
     private void addListMock() {
         List<ShipStatsModel> list = new ArrayList<>();
         ShipStatsModel model = new ShipStatsModel();
@@ -221,6 +189,10 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         list.add(model);
 
         view.addAll(list);
+    }
+
+    public void onDestroy() {
+        view.onDestroy();
     }
 
 
