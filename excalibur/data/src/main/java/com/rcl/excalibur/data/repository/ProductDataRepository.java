@@ -119,36 +119,33 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
     private void productLocationDummy(@NonNull Product product) {
         // FIXME: 5/8/2017 remove this method it's only for test because current lat & lang are nulls
+        ProductLocation productLocation;
+        List<LocationDeckInfo> deckInfoList;
+        LocationDeckInfo locationDeckInfo;
         if ("100000002354772481".equals(product.getProductId())) {
-            ProductLocation productLocation = product.getProductLocation();
-            if (productLocation != null) {
-                List<LocationDeckInfo> locationDeckInfo = productLocation.getLocationDeckInfo();
-                if (locationDeckInfo != null && locationDeckInfo.size() > 0) {
-                    LocationDeckInfo locationDeckInfo1 = locationDeckInfo.get(0);
-                    locationDeckInfo1.setDeckNumber("3");
-                }
-                productLocation.setLatitude("700");
-            }
+            productLocation = new ProductLocation();
+            productLocation.setLatitude("700");
+            deckInfoList = new ArrayList<>();
+            locationDeckInfo = new LocationDeckInfo();
+            locationDeckInfo.setDeckNumber("3");
+            deckInfoList.add(locationDeckInfo);
+            productLocation.setDeckInfo(deckInfoList);
         } else if ("100000002355015508".equals(product.getProductId())) {
-            ProductLocation productLocation = product.getProductLocation();
-            if (productLocation != null) {
-                List<LocationDeckInfo> locationDeckInfo = productLocation.getLocationDeckInfo();
-                if (locationDeckInfo != null && locationDeckInfo.size() > 0) {
-                    LocationDeckInfo locationDeckInfo1 = locationDeckInfo.get(0);
-                    locationDeckInfo1.setDeckNumber("3");
-                }
-                productLocation.setLatitude("2700");
-            }
+            productLocation = new ProductLocation();
+            productLocation.setLatitude("2700");
+            deckInfoList = new ArrayList<>();
+            locationDeckInfo = new LocationDeckInfo();
+            locationDeckInfo.setDeckNumber("3");
+            deckInfoList.add(locationDeckInfo);
+            productLocation.setDeckInfo(deckInfoList);
         } else if ("100000002354772385".equals(product.getProductId())) {
-            ProductLocation productLocation = product.getProductLocation();
-            if (productLocation != null) {
-                List<LocationDeckInfo> locationDeckInfo = productLocation.getLocationDeckInfo();
-                if (locationDeckInfo != null && locationDeckInfo.size() > 0) {
-                    LocationDeckInfo locationDeckInfo1 = locationDeckInfo.get(0);
-                    locationDeckInfo1.setDeckNumber("4");
-                }
-                productLocation.setLatitude("8000");
-            }
+            productLocation = new ProductLocation();
+            productLocation.setLatitude("8000");
+            deckInfoList = new ArrayList<>();
+            locationDeckInfo = new LocationDeckInfo();
+            locationDeckInfo.setDeckNumber("4");
+            deckInfoList.add(locationDeckInfo);
+            productLocation.setDeckInfo(deckInfoList);
         }
     }
 
