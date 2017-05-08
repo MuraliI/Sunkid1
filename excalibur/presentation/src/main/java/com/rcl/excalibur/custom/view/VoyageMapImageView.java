@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
@@ -16,22 +17,30 @@ public class VoyageMapImageView extends SubsamplingScaleImageView {
     public static final float DENSITY_FACTOR = 1750f;
     public static final long DELAY_ANIMATION = 600;
     public static final int SCALE_FACTOR = 6;
+    private static VoyageMapImageView instance;
 
     private Paint paint;
     private Bitmap cruise;
     private PointF cruiseCoord;
 
+    public static void initWith(@NonNull Context context) {
+        instance = new VoyageMapImageView(context);
+    }
+
+    @NonNull
+    public static VoyageMapImageView getInstance() {
+        return instance;
+    }
+
     public VoyageMapImageView(Context context, AttributeSet attr) {
         super(context, attr);
-        initialize();
     }
 
     public VoyageMapImageView(Context context) {
         super(context, null);
-        initialize();
     }
 
-    private void initialize() {
+    public void initialize() {
         paint = new Paint();
         float density = getResources().getDisplayMetrics().densityDpi;
         cruise = BitmapFactory.decodeResource(this.getResources(), R.drawable.ship_big);
