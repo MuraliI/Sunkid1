@@ -14,6 +14,7 @@ import com.rcl.excalibur.data.repository.SailDateDataRepository;
 import com.rcl.excalibur.data.repository.SubCategoriesDataRepository;
 import com.rcl.excalibur.data.service.DiscoverServicesImpl;
 import com.rcl.excalibur.data.service.SailDateServicesImpl;
+import com.rcl.excalibur.data.service.WeatherInfoServicesImpl;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
@@ -49,6 +50,9 @@ public class TriptychHomeActivity extends BaseActivity {
         DiscoverServicesImpl impl = new DiscoverServicesImpl();
         impl.setSubCategoryRepository(new SubCategoriesDataRepository());
         impl.setSubCategoryResponseDataMapper(new SubCategoryResponseDataMapper());
+
+        WeatherInfoServicesImpl weatherInfoServices = new WeatherInfoServicesImpl();
+        weatherInfoServices.weatherInfo();
 
         presenter = new TriptychHomePresenter(
                 new TriptychHomeView(this),
