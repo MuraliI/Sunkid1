@@ -34,6 +34,15 @@ public class Product {
     private boolean isFeatured;
     private boolean isHighlighted;
     private List<Offering> offerings;
+    private List<String> childCategoriesId;
+
+    public List<String> getChildCategoriesId() {
+        return childCategoriesId;
+    }
+
+    public void setChildCategoriesId(List<String> childCategoriesId) {
+        this.childCategoriesId = childCategoriesId;
+    }
 
     public List<Offering> getOfferings() {
         return offerings;

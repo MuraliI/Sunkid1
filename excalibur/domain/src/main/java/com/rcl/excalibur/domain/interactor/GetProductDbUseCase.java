@@ -27,4 +27,8 @@ public class GetProductDbUseCase extends UseCaseSync<ProductRepository> {
     public List<Product> getByCategory(String category, int maxCount, int offset) {
         return getData().getByCategory(category, maxCount, offset);
     }
+
+    public List<Product> getByChildCategory(String childCategory, int maxCount, int offset) {
+        return getData().getByChildCategory(childCategory, maxCount, offset);
+    }
 }

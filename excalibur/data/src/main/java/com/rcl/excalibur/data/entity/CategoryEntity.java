@@ -16,7 +16,6 @@ public class CategoryEntity extends Model {
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_NAME = "name";
 
-
     @Column(name = COLUMN_CATEGORY_ID)
     public String categoryId;
     @Column(name = COLUMN_DESCRIPTION)
@@ -29,8 +28,8 @@ public class CategoryEntity extends Model {
         super();
     }
 
-    public List<ChildCategoryProductEntity> getChildCategoryProducts() {
-        return getMany(ChildCategoryProductEntity.class, ChildCategoryProductEntity.COLUMN_CATEGORY);
+    public List<ChildCategoryEntity> getChildCategory() {
+        return getMany(ChildCategoryEntity.class, ChildCategoryEntity.COLUMN_CATEGORY);
     }
 
     public String getName() {
