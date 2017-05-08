@@ -7,9 +7,7 @@ import android.support.v4.view.ViewPager;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.adapters.DiningMenuPagerAdapter;
-import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
-import com.rcl.excalibur.domain.interactor.GetMenusUseCase;
 import com.rcl.excalibur.fragments.MenuListFragment;
 import com.rcl.excalibur.mvp.view.DiningMenuView;
 import com.rcl.excalibur.utils.ActivityUtils;
@@ -17,41 +15,24 @@ import com.rcl.excalibur.utils.AlertDialogUtils;
 
 import java.util.List;
 
-import io.reactivex.observers.DisposableObserver;
-
 public class DiningMenuPresenter {
 
     private final DiningMenuView view;
     private final GetMenuDbUseCase getMenuDbUseCase;
-    private final GetMenusUseCase getMenusUseCase;
+    private final String venueCode;
+
 
     public DiningMenuPresenter(DiningMenuView view,
                                GetMenuDbUseCase getMenuDbUseCase,
-                               GetMenusUseCase getMenusUseCase) {
+                               String venueCode) {
         this.view = view;
         this.getMenuDbUseCase = getMenuDbUseCase;
-        this.getMenusUseCase = getMenusUseCase;
+        this.venueCode = venueCode;
     }
 
     public void init() {
-        getMenusUseCase.execute(new DisposableObserver<List<Menu>>() {
-            @Override
-            public void onNext(List<Menu> value) {
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                showDialogEmptyMenu();
-                view.hideProgressBar();
-            }
-
-            @Override
-            public void onComplete() {
-                view.init();
-                view.hideProgressBar();
-
-            }
-        }, null);
+        view.init();
+        view.hideProgressBar();
     }
 
     public void onHeaderBackOnClick() {
@@ -62,7 +43,7 @@ public class DiningMenuPresenter {
     }
 
     public void createFragmentMenu(ViewPager viewPager) {
-        List<String> menusName = getMenuDbUseCase.getAllMenuName();
+        List<String> menusName = getMenuDbUseCase.getAllMenuName(venueCode);
         if (menusName != null && !menusName.isEmpty()) {
             addFragmentsToPager(menusName, viewPager);
         } else {
