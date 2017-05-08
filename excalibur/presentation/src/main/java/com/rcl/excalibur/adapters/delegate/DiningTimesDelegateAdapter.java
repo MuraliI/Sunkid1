@@ -82,7 +82,7 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                     return 0;
                 }
             });
-
+            //FIXME Remove hardcoded venueCode. This is just for the demo.
             String venueCode = "CHOP";
             List<Menu> menus = new GetMenuDbUseCase(new MenuDataRepository()).getAllByVenueCode(venueCode);
             for (String day : listDays) {
@@ -109,9 +109,8 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                             if (!CollectionUtils.isEmpty(advisementsDiningType)) {
                                 ProductAdvisement diningType = advisementsDiningType.get(0);
                                 if (diningType != null && diningType.getAdvisementTitle().equals(DINING_TYPE_SPECIALTY)
-                                        && isSameTimeOfDay(operationHour.getTimeOfDay(), menu.getMenuName())) {
+                                        && operationHour.getTimeOfDay().equals(menu.getMenuName())) {
                                     showMenu.setVisibility(View.VISIBLE);
-                                    //FIXME Remove hardcoded venueCode. This is just for the demo.
                                     showMenu.setOnClickListener(v -> ActivityUtils.startActivity(baseActivity,
                                             DiningMenuActivity.getStartIntent(baseActivity, venueCode)));
                                 }
@@ -129,12 +128,6 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
             holder.showMoreContainer.setVisibility(listDays.size() > 1 ? View.VISIBLE : View.INVISIBLE);
             holder.collapseOrExpandContent(true);
         }
-    }
-    //TODO this method was developed just to use the mock service for the demo
-    private boolean isSameTimeOfDay(String timeOfDay, String menuName) {
-        return "Morning".equals(timeOfDay) && "Breakfast".equals(menuName)
-                || "Afternoon".equals(timeOfDay) && "Lunch".equals(menuName)
-                || "Night".equals(timeOfDay) && "Dinner".equals(menuName);
     }
 
     public static class DiningTimesViewHolder extends RecyclerView.ViewHolder {
