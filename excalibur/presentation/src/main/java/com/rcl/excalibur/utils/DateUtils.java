@@ -95,21 +95,10 @@ public final class DateUtils {
         return builder.toString();
     }
 
-    public static String getHourday(long milliseconds) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(milliseconds);
-
-        String hourDay;
-
-        int hour = calendar.get(Calendar.HOUR);
-        int amPm = calendar.get(Calendar.AM_PM);
-
-        if (amPm == Calendar.PM)
-            hourDay = String.format(Locale.getDefault(), "%d %s", hour - AFTERNOON, "PM");
-        else
-            hourDay = String.format(Locale.getDefault(), "%d %s", hour, "AM");
-
-        return hourDay;
+    public static String getDayHour(long milliseconds) {
+        Date date = new Date(milliseconds);
+        DateFormat formatter = new SimpleDateFormat("HH:mm a", Locale.getDefault());
+        return formatter.format(date);
     }
 
     public static String getDateTime(Date date, Resources resources) {
