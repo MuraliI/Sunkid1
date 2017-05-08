@@ -42,10 +42,11 @@ public class MenuServicesImpl extends BaseDataService<Menu, MenuResponse, Void> 
                 public void onResponse(Call<GetMenuResponse> call, Response<GetMenuResponse> response) {
                     if (response.isSuccessful()) {
                         List<Menu> menus = getMapper().transform(response.body().getMenu(), null);
-                        repository.deleteAll();
+                        repository.deleteAllByVenueCode(venueCode);
                         for (Menu menu : menus) {
-                            repository.create(menu);
+                            repository.create(menu, venueCode);
                         }
+                        emitter.onNext(menus);
                         emitter.onComplete();
                     } else {
                         emitter.onError(null);

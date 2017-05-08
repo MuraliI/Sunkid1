@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/margin_normal">
+        >
 
         <TextView
             android:id="@+id/text_module_title"
@@ -52,7 +52,6 @@
         android:id="@+id/times_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
         android:orientation="vertical" />
 
     <include layout="@layout/separator_product" />

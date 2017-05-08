@@ -34,6 +34,10 @@ public final class CategoryUtils {
 
     @DrawableRes
     public static Integer getCategoryIcon(String productType) {
-        return iconMap.get(productType);
+        Integer resource = iconMap.get(productType);
+        if (resource == null) {
+            resource = R.drawable.placeholder_list_item;
+        }
+        return resource;
     }
 }

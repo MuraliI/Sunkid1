@@ -166,6 +166,7 @@
         <item quantity="other">%d min</item>
     </plurals>
     <string name="dining_type">Dining Type</string>
+    <string name="dining_times">Dining Times</string>
     <string name="advisement_cuisine">Cuisine</string>
     <string name="accessibility">Accessibility &amp; Other Info</string>
     <string name="detail_module_height">Height Restriction</string>
