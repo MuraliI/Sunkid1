@@ -27,6 +27,7 @@ public class WeatherCurrentEntityDataMapper extends BaseDataMapper<WeatherCurren
         weatherCurrent.setPressure(entity.getPressure());
         weatherCurrent.setWindSpeed(entity.getWindSpeed());
         weatherCurrent.setWindDirectionDeg(entity.getWindDirectionDeg());
+        weatherCurrent.setCurrentRainFallPercent(entity.getCurrentRainFallPercent());
 
         List<Weather> weatherList = new ArrayList<>();
         for (WeatherEntity weatherEntity : entity.getWeather()) {

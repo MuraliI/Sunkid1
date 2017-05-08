@@ -12,7 +12,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-import static com.rcl.excalibur.data.utils.ServiceUtil.getMockableApi;
+import static com.rcl.excalibur.data.utils.ServiceUtil.getWeatherApi;
 
 public class WeatherInfoServicesImpl extends BaseDataService<WeatherCurrent, WeatherCurrentResponse, Void> implements WeatherServices {
 
@@ -25,7 +25,7 @@ public class WeatherInfoServicesImpl extends BaseDataService<WeatherCurrent, Wea
 
     @Override
     public void weatherInfo() {
-        Call<WeatherInfoResponse> call = getMockableApi().weatherInfo();
+        Call<WeatherInfoResponse> call = getWeatherApi().weatherInfo();
 
         call.enqueue(new Callback<WeatherInfoResponse>() {
             @Override

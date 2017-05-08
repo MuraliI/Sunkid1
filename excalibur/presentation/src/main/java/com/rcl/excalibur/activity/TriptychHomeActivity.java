@@ -30,14 +30,13 @@ import com.rcl.excalibur.utils.ActivityUtils;
 import java.lang.reflect.Method;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class TriptychHomeActivity extends BaseActivity {
-    @BindView(R.id.day_picker_tab)
-    View tabElement;
-    @BindView(R.id.image_ship)
-    View shipElement;
-    @BindView(R.id.pager_triptych_pager)
-    View pagerElement;
+    @BindView(R.id.day_picker_tab) View tabElement;
+    @BindView(R.id.image_ship) View shipElement;
+    @BindView(R.id.pager_triptych_pager) View pagerElement;
+
     private TriptychHomePresenter presenter;
     private SailingPreferences sailingPreferences;
 
@@ -86,6 +85,7 @@ public class TriptychHomeActivity extends BaseActivity {
     }
 
     public void goToVoyageActivity() {
+        ButterKnife.bind(this);
         Pair<View, String> tabPair = Pair.create(tabElement, getString(R.string.shared_element_tab));
         Pair<View, String> shipPair = Pair.create(shipElement, shipElement.getTransitionName());
         ActivityUtils.startActivityWithSharedElements(this, VoyageMapActivity.getStartIntent(this), tabPair, shipPair,

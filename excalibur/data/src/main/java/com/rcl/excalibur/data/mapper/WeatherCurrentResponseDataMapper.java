@@ -32,6 +32,7 @@ public class WeatherCurrentResponseDataMapper extends BaseDataMapper<WeatherCurr
         weatherCurrent.setPressure(response.getPressure());
         weatherCurrent.setWindSpeed(response.getWindSpeed());
         weatherCurrent.setWindDirectionDeg(response.getWindDirectionDeg());
+        weatherCurrent.setCurrentRainFallPercent(response.getCurrentRainFallPercent());
 
         List<Weather> weatherList = new ArrayList<>();
         for (WeatherResponse weatherResponse : response.getWeather()) {

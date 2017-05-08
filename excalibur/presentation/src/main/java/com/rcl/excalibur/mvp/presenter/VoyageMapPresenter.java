@@ -12,10 +12,12 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.VoyageMapActivity;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.ShipStatsInfo;
+import com.rcl.excalibur.domain.WeatherCurrent;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipStatsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipStatsUseCase;
+import com.rcl.excalibur.domain.interactor.GetWeatherCurrentDbUseCase;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
@@ -46,6 +48,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
     private GetShipStatsDbUseCase getShipStatsDbUseCase;
     private GetShipStatsUseCase getShipStatsUseCase;
+    private GetWeatherCurrentDbUseCase getWeatherCurrentDbUseCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
     private String day;
     private VoyageMapModel voyageModel;
@@ -55,6 +58,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
                               GetSaildDateDbUseCase getSaildDateDbUseCase,
                               SailingInformationModelDataMapper sailingInformationModelDataMapper,
                               GetShipStatsDbUseCase getShipStatsDbUseCase,
+                              GetWeatherCurrentDbUseCase getWeatherCurrentDbUseCase,
                               GetShipStatsUseCase getShipStatsUseCase) {
         this.view = view;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
@@ -62,6 +66,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
         this.getShipStatsDbUseCase = getShipStatsDbUseCase;
         this.getShipStatsUseCase = getShipStatsUseCase;
+        this.getWeatherCurrentDbUseCase = getWeatherCurrentDbUseCase;
     }
 
     public void initMap() {
@@ -213,7 +218,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
 
     private void addListMock() {
         ShipStatsInfo shipStatsInfo = getShipStatsDbUseCase.get();
-
+        WeatherCurrent weatherCurrent = getWeatherCurrentDbUseCase.get();
 
         ShipStatsModel weather = new ShipStatsModel();
         weather.setName("70/72ºF");

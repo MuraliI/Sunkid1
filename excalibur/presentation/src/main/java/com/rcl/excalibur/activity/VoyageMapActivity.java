@@ -9,11 +9,13 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.preference.SailingPreferenceImpl;
 import com.rcl.excalibur.data.repository.SailDateDataRepository;
 import com.rcl.excalibur.data.repository.ShipStatsDataRepository;
+import com.rcl.excalibur.data.repository.WeatherCurrentDataRepository;
 import com.rcl.excalibur.data.service.ShipStatsServicesImpl;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipStatsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipStatsUseCase;
+import com.rcl.excalibur.domain.interactor.GetWeatherCurrentDbUseCase;
 import com.rcl.excalibur.domain.preference.SailingPreferences;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.mvp.presenter.VoyageMapPresenter;
@@ -38,6 +40,7 @@ public class VoyageMapActivity extends BaseActivity {
                 new GetSaildDateDbUseCase(sailDateDataRepository),
                 new SailingInformationModelDataMapper(),
                 new GetShipStatsDbUseCase(new ShipStatsDataRepository()),
+                new GetWeatherCurrentDbUseCase(new WeatherCurrentDataRepository()),
                 new GetShipStatsUseCase(new ShipStatsServicesImpl(new ShipStatsDataRepository())));
         presenter.initTab();
         Transition transition = getWindow().getSharedElementEnterTransition();

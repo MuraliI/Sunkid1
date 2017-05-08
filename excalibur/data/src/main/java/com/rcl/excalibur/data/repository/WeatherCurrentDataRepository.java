@@ -34,6 +34,7 @@ public class WeatherCurrentDataRepository extends BaseDataRepository<WeatherCurr
         entity.setPressure(weatherCurrent.getPressure());
         entity.setWindSpeed(weatherCurrent.getWindSpeed());
         entity.setWindDirectionDeg(weatherCurrent.getWindDirectionDeg());
+        entity.setCurrentRainFallPercent(weatherCurrent.getCurrentRainFallPercent());
 
         //Create Weather List
         createWeatherList(entity, weatherCurrent.getWeather());

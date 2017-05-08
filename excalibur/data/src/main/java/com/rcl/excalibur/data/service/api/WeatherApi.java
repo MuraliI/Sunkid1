@@ -6,8 +6,8 @@ import com.rcl.excalibur.data.service.response.WeatherInfoResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface MockableApi {
+public interface WeatherApi {
 
-    @GET("v1/weatherInfo/latitude/35/longitude/-46/duration/10")
+    @GET("weatherInfo/latitude/35/longitude/-46/duration/10")
     Call<WeatherInfoResponse> weatherInfo();
 }
