@@ -8,6 +8,7 @@ import retrofit2.http.GET;
 
 public interface WeatherApi {
 
+    //FIXME when service is ready to receive data
     @GET("weatherInfo/latitude/35/longitude/-46/duration/10")
     Call<WeatherInfoResponse> weatherInfo();
 }
