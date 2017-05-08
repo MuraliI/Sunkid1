@@ -116,6 +116,6 @@ public class WeatherCurrent {
 
 
     public String getWeatherStats() {
-        return String.format(Locale.getDefault(), "%.0f/%.0fºF", getMinTemp(), getMaxTemp());
+        return String.format(Locale.getDefault(), "%.0f / %.0fºF", getMinTemp(), getMaxTemp());
     }
 }

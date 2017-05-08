@@ -97,7 +97,7 @@ public final class DateUtils {
 
     public static String getDayHour(long milliseconds) {
         Date date = new Date(milliseconds);
-        DateFormat formatter = new SimpleDateFormat("HH:mm a", Locale.getDefault());
+        DateFormat formatter = new SimpleDateFormat("H:mm a", Locale.getDefault());
         return formatter.format(date);
     }
 

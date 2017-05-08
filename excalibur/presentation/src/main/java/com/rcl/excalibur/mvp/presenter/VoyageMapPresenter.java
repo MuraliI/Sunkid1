@@ -28,6 +28,7 @@ import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.model.ShipStatsModel;
 import com.rcl.excalibur.model.VoyageMapModel;
 import com.rcl.excalibur.mvp.view.VoyageMapView;
+import com.rcl.excalibur.utils.CompassUtils;
 import com.rcl.excalibur.utils.DateUtils;
 
 import java.lang.ref.WeakReference;
@@ -238,19 +239,22 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         sunset.setResource(R.drawable.icon_voyage_sunset);
 
         ShipStatsModel speed = new ShipStatsModel();
-        speed.setName(shipStatsInfo.getShipLocationStats().getSpeed() + " kts");
+        speed.setName(shipStatsInfo.getShipLocationStats().getShipSpeed());
         speed.setResource(R.drawable.icon_voyage_speed);
 
         ShipStatsModel compass = new ShipStatsModel();
-        compass.setName("NE");
+        compass.setName(CompassUtils.getCompassByUnit(shipStatsInfo.getShipLocationStats().getHeading()));
         compass.setResource(R.drawable.icon_voyage_compass);
 
+
         ShipStatsModel gangwayUp = new ShipStatsModel();
-        gangwayUp.setName("1:00 am");
+        //FIXME change when services return data for that
+        gangwayUp.setName("3:13 am");
         gangwayUp.setResource(R.drawable.icon_voyage_gangway_up);
 
         ShipStatsModel gangwayDown = new ShipStatsModel();
-        gangwayDown.setName("3:30 am");
+        //FIXME change when services return data for that
+        gangwayDown.setName("3:14 am");
         gangwayDown.setResource(R.drawable.icon_voyage_gangway_down);
 
 
