@@ -8,7 +8,6 @@ import retrofit2.http.GET;
 
 public interface ShipStatsApi {
 
-
     @GET("ships/AL/stats")
     Call<ShipStatsResponse> getShipStats();
 }
