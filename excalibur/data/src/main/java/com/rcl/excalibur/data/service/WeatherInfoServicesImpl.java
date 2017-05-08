@@ -15,7 +15,6 @@ public class WeatherInfoServicesImpl implements WeatherServices {
     public WeatherInfoServicesImpl() {
     }
 
-
     @Override
     public void weatherInfo() {
         Call<WeatherInfoResponse> call = getMockableApi().weatherInfo();

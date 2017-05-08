@@ -1,5 +1,7 @@
 package com.rcl.excalibur.data.service.response;
 
+import java.util.List;
+
 public class WeatherBaseResponse {
 
     private double minTemp;
@@ -8,7 +10,7 @@ public class WeatherBaseResponse {
     private String humidity;
     private String windSpeed;
     private long lastUpdateTime;
-    private WeatherResponse weather;
+    private List<WeatherResponse> weather;
 
     public double getMinTemp() {
         return minTemp;
@@ -58,11 +60,11 @@ public class WeatherBaseResponse {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public WeatherResponse getWeather() {
+    public List<WeatherResponse> getWeather() {
         return weather;
     }
 
-    public void setWeather(WeatherResponse weather) {
+    public void setWeather(List<WeatherResponse> weather) {
         this.weather = weather;
     }
 }

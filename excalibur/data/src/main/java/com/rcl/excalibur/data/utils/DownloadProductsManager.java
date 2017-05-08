@@ -3,8 +3,11 @@ package com.rcl.excalibur.data.utils;
 
 import android.support.annotation.NonNull;
 
+import com.rcl.excalibur.domain.Category;
 import com.rcl.excalibur.domain.Product;
+import com.rcl.excalibur.domain.repository.CategoryRepository;
 import com.rcl.excalibur.domain.repository.ProductRepository;
+import com.rcl.excalibur.domain.service.CategoryServices;
 import com.rcl.excalibur.domain.service.DiscoverServices;
 import com.rcl.excalibur.domain.utils.ProductsInfo;
 
@@ -26,14 +29,20 @@ public class DownloadProductsManager {
     private static List<DisposableObserver<Boolean>> observers = new ArrayList<>();
     private DiscoverServices discoverServices;
     private ProductRepository productRepository;
+    private CategoryServices categoryServices;
+    private CategoryRepository categoryRepository;
+
     private String sailingId;
     private List<TypeOffset> pairs;
     private int actualPositionType;
 
-    public DownloadProductsManager(String sailingId, DiscoverServices discoverServices, ProductRepository productRepository) {
+    public DownloadProductsManager(String sailingId, DiscoverServices discoverServices, ProductRepository productRepository
+            , CategoryServices categoryServices, CategoryRepository categoryRepository) {
         this.discoverServices = discoverServices;
         this.sailingId = sailingId;
         this.productRepository = productRepository;
+        this.categoryServices = categoryServices;
+        this.categoryRepository = categoryRepository;
         init();
     }
 
@@ -44,6 +53,7 @@ public class DownloadProductsManager {
     public static void removeObserver(DisposableObserver<Boolean> observer) {
         observers.remove(observer);
     }
+
 
     private void init() {
         actualPositionType = -1;
@@ -69,12 +79,16 @@ public class DownloadProductsManager {
     }
 
     public void process() {
+        retrieveCategories();
+    }
+
+    private void innerProcess() {
         final TypeOffset pair = next();
         if (pair == null) {
             notifyObservers();
             return;
         }
-        retrieveElements(pair.type, pair.offset);
+        retrieveProducts(pair.type, pair.offset);
         pair.increment(MAX_ELEMENT);
     }
 
@@ -84,17 +98,26 @@ public class DownloadProductsManager {
         }
     }
 
-    private void retrieveElements(@NonNull String type, int offset) {
-        discoverServices.getProducts(new Observer(), sailingId, type, MAX_ELEMENT, offset);
+    private void retrieveProducts(@NonNull String type, int offset) {
+        discoverServices.getProducts(new ProductObserver(), sailingId, type, MAX_ELEMENT, offset);
     }
 
-    private void createOrUpdate(final List<Product> products) {
+    private void retrieveCategories() {
+        categoryServices.getCategories(new CategoriesObserver(), sailingId);
+    }
+
+    private void createOrUpdateProducts(final List<Product> products) {
         if (!CollectionUtils.isEmpty(products)) {
-            long init = System.currentTimeMillis();
             productRepository.create(products);
-            long fin = (System.currentTimeMillis() - init);
         }
-        process();
+        innerProcess();
+    }
+
+    private void createOrUpdateCategories(final List<Category> categories) {
+        if (CollectionUtils.isEmpty(categories)) {
+            return;
+        }
+        categoryRepository.create(categories);
     }
 
     private void removeType(String type) {
@@ -120,7 +143,7 @@ public class DownloadProductsManager {
         }
     }
 
-    private class Observer extends DisposableObserver<ProductsInfo> {
+    private class ProductObserver extends DisposableObserver<ProductsInfo> {
 
         @Override
         public void onNext(ProductsInfo value) {
@@ -133,7 +156,7 @@ public class DownloadProductsManager {
                     removeType(value.getType());
                 }
             }
-            createOrUpdate(products);
+            createOrUpdateProducts(products);
         }
 
         @Override
@@ -146,4 +169,25 @@ public class DownloadProductsManager {
 
         }
     }
+
+
+    private class CategoriesObserver extends DisposableObserver<List<Category>> {
+
+        @Override
+        public void onNext(List<Category> categories) {
+            createOrUpdateCategories(categories);
+            innerProcess();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+    }
+
 }

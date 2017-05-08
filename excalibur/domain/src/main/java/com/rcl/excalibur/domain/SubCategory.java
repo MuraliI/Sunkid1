@@ -3,6 +3,7 @@ package com.rcl.excalibur.domain;
 import java.util.List;
 
 
+@Deprecated
 public class SubCategory {
     private String categoryName;
     private String categoryDescription;

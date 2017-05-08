@@ -17,6 +17,8 @@ public interface ProductRepository {
 
     List<Product> getByCategory(String category, int maxCount, int offset);
 
+    List<Product> getByChildCategory(String childCategory, int maxCount, int offset);
+
     Product get(String id);
 
     void deleteAll();
