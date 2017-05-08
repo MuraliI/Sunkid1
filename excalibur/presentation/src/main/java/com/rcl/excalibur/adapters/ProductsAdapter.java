@@ -2,6 +2,7 @@ package com.rcl.excalibur.adapters;
 
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.domain.Product;
-import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.utils.LocationUtils;
 import com.squareup.picasso.Picasso;
 
@@ -35,11 +35,12 @@ public class ProductsAdapter extends BaseAdapter<Product, Pair<Product, View>, P
     public void onBindViewHolder(DiscoverViewHolder holder, int position) {
         final Product product = items.get(position);
         Context context = holder.imageView.getContext();
+        Resources resources = context.getResources();
         holder.product = product;
 
         holder.titleTextView.setText(product.getProductTitle());
         holder.venueTextView.setText(LocationUtils.getProductVenue(product.getProductLocation()));
-        holder.locationTextView.setText("Deck" + ConstantsUtil.WHITE_SPACE + LocationUtils.getProductLocation(product.getProductLocation()));
+        holder.locationTextView.setText(String.format(resources.getString(R.string.deck_discovery_label), LocationUtils.getProductLocation(product.getProductLocation())));
         Picasso.with(context)
                 .load(BuildConfig.PREFIX_IMAGE + holder.product.getHeroImageRefLink())
                 .placeholder(R.drawable.placeholder_list_item)

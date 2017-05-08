@@ -1,8 +1,12 @@
 package com.rcl.excalibur.mvp.view;
 
+import android.annotation.SuppressLint;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Pair;
+import android.view.View;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
@@ -67,5 +71,19 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
 
     public PagerAdapter getViewAdapter() {
         return viewPager.getAdapter();
+    }
+
+    @Nullable
+    public Pair<View, String> getPlannerSharedElement() {
+        if (getActivity() != null) {
+            @SuppressLint("RestrictedApi") List<Fragment> fragments = getActivity().getSupportFragmentManager().getFragments();
+            for (Fragment fragment : fragments) {
+                if (fragment != null && fragment instanceof PlannerFragment) {
+                    View plannerSharedElement = ((PlannerFragment) fragment).getPlannerSharedElement();
+                    return Pair.create(plannerSharedElement, plannerSharedElement.getTransitionName());
+                }
+            }
+        }
+        return null;
     }
 }

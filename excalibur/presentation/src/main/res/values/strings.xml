@@ -233,6 +233,10 @@
     <string name="next_port">"Next Port: "</string>
     <string name="arriving_at">"Arriving at "</string>
     <string name="departing_at">"Departing at "</string>
+    <string name="arriving_departing_separator">"; "</string>
+    <string name="shared_element_ship">Ship</string>
+    <string name="shared_element_tab">Tab</string>
+    <string name="shared_element_planner">Planner</string>
 
     <!-- Deck Map -->
     <string name="deck_number">Deck %s</string>
@@ -242,5 +246,6 @@
     <string name="menu_header_title">Menu</string>
     <string name="menu_empty_dialog_message">There are no menus for this place.</string>
     <string name="menu_empty_dialog_button">OK</string>
+    <string name="deck_discovery_label">"Deck %s"</string>
 
 </resources>
