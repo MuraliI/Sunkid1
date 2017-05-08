@@ -71,7 +71,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:contentDescription="@null"
-                android:src="@drawable/cloud_01" />
+                android:src="@drawable/cloud_01"
+                android:transitionName="@string/shared_element_cloud_left" />
 
             <ImageView
                 android:id="@+id/image_cloud_right"
@@ -79,7 +80,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:contentDescription="@null"
-                android:src="@drawable/cloud_02" />
+                android:src="@drawable/cloud_02"
+                android:transitionName="@string/shared_element_cloud_right" />
 
         </com.rcl.excalibur.custom.view.ShipView>
 
