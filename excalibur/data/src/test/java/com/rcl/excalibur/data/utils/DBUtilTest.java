@@ -61,4 +61,10 @@ public class DBUtilTest {
         Assert.assertEquals("col DESC", DBUtil.desc("col"));
     }
 
+    @Test
+    public void like() throws Exception {
+        Assert.assertEquals("col LIKE '%aa%'", DBUtil.like("col", "aa"));
+    }
+
+
 }
