@@ -15,6 +15,7 @@ public final class DateUtils {
 
     private static final int AFTERNOON = 12;
     private static final String DATE_FORMAT = "MM/dd/yyyy";
+    private static final String ZERO_MINUTES = "00";
 
     private DateUtils() {
 
@@ -108,7 +109,7 @@ public final class DateUtils {
 
         StringBuilder builder = new StringBuilder();
         if (minutes == 0) {
-            builder.append(hour);
+            builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon)).append(ZERO_MINUTES);
         } else {
             builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon)).append(minutes);
         }
