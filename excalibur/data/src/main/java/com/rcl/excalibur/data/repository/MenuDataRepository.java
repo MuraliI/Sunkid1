@@ -135,9 +135,6 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         final List<MenuEntity> entities = new Select()
                 .from(MenuEntity.class)
                 .execute();
-        if (entities == null) {
-            return new ArrayList<>();
-        }
         return getMapper().transform(entities, null);
     }
 
@@ -148,9 +145,6 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
                 .from(MenuEntity.class)
                 .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
                 .execute();
-        if (entities == null) {
-            return new ArrayList<>();
-        }
         return getMapper().transform(entities, null);
     }
 
@@ -186,9 +180,6 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
                 .from(MenuEntity.class)
                 .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
                 .execute();
-        if (entities == null) {
-            return new ArrayList<>();
-        }
         List<String> menuNames = new ArrayList<>();
         for (MenuEntity menu : entities) {
             menuNames.add(menu.getMenuName());
