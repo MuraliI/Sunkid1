@@ -74,6 +74,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
     public void hideShip() {
         Animator shipAnimator = ObjectAnimator.ofFloat(ship, ALPHA_PROPERTY, ALPHA_OFF);
         Animator mapAnimator = ObjectAnimator.ofFloat(voyageMapImage, ALPHA_PROPERTY, ALPHA_VISIBLE);
+        Animator recyclerAnimator = ObjectAnimator.ofFloat(recyclerView, ALPHA_PROPERTY, ALPHA_VISIBLE);
         shipAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -83,7 +84,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
         });
         AnimatorSet animatorSet = new AnimatorSet().setDuration(ANIMATOR_DURATION);
         animatorSet.setInterpolator(new AccelerateInterpolator());
-        animatorSet.playTogether(shipAnimator, mapAnimator);
+        animatorSet.playTogether(shipAnimator, mapAnimator, recyclerAnimator);
         animatorSet.start();
     }
 
