@@ -5,6 +5,7 @@ import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.ProductDuration;
 import com.rcl.excalibur.domain.ProductType;
+import com.rcl.excalibur.domain.interactor.GetMenusUseCase;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
@@ -38,17 +39,28 @@ public class ProductDetailPresenterTest {
     private static final int STATUS_BAR_HEIGHT = 195;
     private static final int TOOLBAR_HEIGHT = 85;
     ProductDetailPresenter presenter;
-    @Mock ProductDetailView view;
-    @Mock GetProductDbUseCase getProductDbUseCase;
-    @Mock GetOfferingsDbUseCase getOfferingsDbUseCase;
-    @Mock GetSaildDateDbUseCase getSaildDateDbUseCase;
-    @Mock ProductDetailActivity activity;
+    @Mock
+    ProductDetailView view;
+    @Mock
+    GetProductDbUseCase getProductDbUseCase;
+    @Mock
+    GetOfferingsDbUseCase getOfferingsDbUseCase;
+    @Mock
+    GetSaildDateDbUseCase getSaildDateDbUseCase;
+    @Mock
+    GetMenusUseCase getMenusUseCase;
+    @Mock
+    ProductDetailActivity activity;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        presenter = new ProductDetailPresenter(view, getProductDbUseCase, getOfferingsDbUseCase, getSaildDateDbUseCase);
+        presenter = new ProductDetailPresenter(view,
+                getProductDbUseCase,
+                getOfferingsDbUseCase,
+                getSaildDateDbUseCase,
+                getMenusUseCase);
         when(view.getActivity()).thenReturn(activity);
     }
 

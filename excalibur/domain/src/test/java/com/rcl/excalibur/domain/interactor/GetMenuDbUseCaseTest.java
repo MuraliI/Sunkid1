@@ -15,6 +15,8 @@ public class GetMenuDbUseCaseTest {
     GetMenuDbUseCase useCase;
     @Mock MenuRepository repository;
     private final String MENU_NAME = "Dinner";
+    private final String VENUE_CODE = "CHOP";
+
 
     @Before
     public void setUp() throws Exception {
@@ -40,7 +42,7 @@ public class GetMenuDbUseCaseTest {
 
     @Test
     public void get() throws Exception {
-        useCase.getAllMenuName();
-        Mockito.verify(repository).getAllMenuName();
+        useCase.getAllMenuName(VENUE_CODE);
+        Mockito.verify(repository).getAllMenuName(VENUE_CODE);
     }
 }

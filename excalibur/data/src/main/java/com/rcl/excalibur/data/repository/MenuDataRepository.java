@@ -39,8 +39,9 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
     }
 
     @Override
-    public void create(@NonNull Menu input) {
+    public void create(@NonNull Menu input, String venueCode) {
         final MenuEntity entity = new MenuEntity();
+        entity.setVenueCode(venueCode);
         entity.setDayNumber(input.getDayNumber());
         entity.setMenuName(input.getMenuName());
         entity.setMenuMedia(create(input.getMenuMedia()));
@@ -105,6 +106,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         }
 
     }
+
     private MediaEntity create(final Media media) {
 
         if (media == null || CollectionUtils.isEmpty(media.getMediaItem())) {
@@ -122,6 +124,12 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         return mediaEntity;
 
     }
+
+    @Override
+    public void create(@NonNull Menu input) {
+
+    }
+
     @Override
     public List<Menu> getAll() {
         final MenuEntity entity = new Select()
@@ -133,6 +141,22 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
         }
         final List<MenuEntity> entities = new Select()
                 .from(MenuEntity.class)
+                .execute();
+        return getMapper().transform(entities, null);
+    }
+
+    @Override
+    public List<Menu> getAllByVenueCode(String venueCode) {
+        final MenuEntity entity = new Select()
+                .from(MenuEntity.class)
+                .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
+                .executeSingle();
+        if (entity == null) {
+            return new ArrayList<>();
+        }
+        final List<MenuEntity> entities = new Select()
+                .from(MenuEntity.class)
+                .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
                 .execute();
         return getMapper().transform(entities, null);
     }
@@ -164,13 +188,21 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
     }
 
     @Override
-    public List<String> getAllMenuName() {
+    public List<String> getAllMenuName(String venueCode) {
+        final List<MenuEntity> entities = new Select()
+                .from(MenuEntity.class)
+                .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
+                .execute();
+        if (entities == null) {
+            return new ArrayList<>();
+        }
         List<String> menuNames = new ArrayList<>();
-        for (Menu menu : getAll()) {
+        for (MenuEntity menu : entities) {
             menuNames.add(menu.getMenuName());
         }
         return menuNames;
     }
+
 
     @Override
     public void deleteAll() {
@@ -178,6 +210,20 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
                 .from(MenuEntity.class)
                 .execute();
         new Delete().from(MenuEntity.class).execute();
+        for (MenuEntity menuEntity : entities) {
+            new Delete().from(MediaEntity.class).where(DBUtil.eqId(menuEntity.getMenuMedia().getId())).execute();
+        }
+    }
+
+    @Override
+    public void deleteAllByVenueCode(String venueCode) {
+        final List<MenuEntity> entities = new Select()
+                .from(MenuEntity.class)
+                .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
+                .execute();
+        new Delete().from(MenuEntity.class)
+                .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
+                .execute();
         for (MenuEntity menuEntity : entities) {
             new Delete().from(MediaEntity.class).where(DBUtil.eqId(menuEntity.getMenuMedia().getId())).execute();
         }
