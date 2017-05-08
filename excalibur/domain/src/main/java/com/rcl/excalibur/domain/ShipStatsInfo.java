@@ -9,6 +9,8 @@ public class ShipStatsInfo {
     private String currentPortName;
     private String lastPortName;
     private long lastPortDepartureTime;
+    private ShipLocationInfo shipLocation;
+    private ShipLocationStatsInfo shipLocationStats;
 
     public String getShipName() {
         return shipName;
@@ -64,5 +66,21 @@ public class ShipStatsInfo {
 
     public void setLastPortDepartureTime(long lastPortDepartureTime) {
         this.lastPortDepartureTime = lastPortDepartureTime;
+    }
+
+    public ShipLocationInfo getShipLocation() {
+        return shipLocation;
+    }
+
+    public void setShipLocation(ShipLocationInfo shipLocation) {
+        this.shipLocation = shipLocation;
+    }
+
+    public ShipLocationStatsInfo getShipLocationStats() {
+        return shipLocationStats;
+    }
+
+    public void setShipLocationStats(ShipLocationStatsInfo shipLocationStats) {
+        this.shipLocationStats = shipLocationStats;
     }
 }

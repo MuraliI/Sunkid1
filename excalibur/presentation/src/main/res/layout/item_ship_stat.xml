@@ -7,10 +7,11 @@
 
     <ImageView
         android:id="@+id/item_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/size_icon_stats"
+        android:layout_height="@dimen/size_icon_stats"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/icon_voyage_sunrise" />
+        android:adjustViewBounds="true"
+        android:src="@drawable/icon_voyage_sunny" />
 
     <TextView
         android:id="@+id/item_name"

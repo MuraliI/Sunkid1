@@ -122,7 +122,9 @@
 		            com.rcl.excalibur.data.entity.ShipTimeEntity,
                     com.rcl.excalibur.data.entity.DeckInfoEntity,
                     com.rcl.excalibur.data.entity.OperationHourEntity,
-                    com.rcl.excalibur.data.entity.ShipStatsEntity
+                    com.rcl.excalibur.data.entity.ShipStatsEntity,
+                    com.rcl.excalibur.data.entity.ShipLocationEntity,
+                    com.rcl.excalibur.data.entity.ShipLocationStatsEntity,
                     com.rcl.excalibur.data.entity.OperationHourEntity,
                     com.rcl.excalibur.data.entity.MenuEntity,
                     com.rcl.excalibur.data.entity.MenuSectionEntity,

@@ -1,11 +1,14 @@
 package com.rcl.excalibur.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
+import android.widget.Toast;
 
+import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
 import com.rcl.excalibur.data.preference.SailingPreferenceImpl;
@@ -24,6 +27,8 @@ import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
 import com.rcl.excalibur.utils.ActivityUtils;
+
+import java.lang.reflect.Method;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +50,8 @@ public class TriptychHomeActivity extends BaseActivity {
         setContentView(R.layout.activity_triptych_home_screen);
         ButterKnife.bind(this);
         sailingPreferences = new SailingPreferenceImpl(this);
+
+        showDebugDBAddressLogToast(this);
 
         DiscoverServicesImpl impl = new DiscoverServicesImpl();
         impl.setSubCategoryRepository(new SubCategoriesDataRepository());
@@ -70,6 +77,19 @@ public class TriptychHomeActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         presenter.getShipLocationInfo();
+    }
+
+    public static void showDebugDBAddressLogToast(Context context) {
+        if (BuildConfig.DEBUG) {
+            try {
+                Class<?> debugDB = Class.forName("com.amitshekhar.DebugDB");
+                Method getAddressLog = debugDB.getMethod("getAddressLog");
+                Object value = getAddressLog.invoke(null);
+                Toast.makeText(context, (String) value, Toast.LENGTH_LONG).show();
+            } catch (Exception ignore) {
+
+            }
+        }
     }
 
     public void goToVoyageActivity() {

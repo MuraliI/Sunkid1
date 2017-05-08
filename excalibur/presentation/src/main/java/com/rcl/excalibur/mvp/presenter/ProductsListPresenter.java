@@ -37,10 +37,13 @@ public class ProductsListPresenter {
             return;
         }
         view.setAdapterObserver(new AdapterObserver(this));
-        view.init(pair -> showCollectionInView(getProductsByCategory(category, childCategoryId, pair.first, pair.second, activity), pair.first));
+        view.init(pair -> showCollectionInView(getProductsByCategory(category,
+                childCategoryId, pair.first, pair.second, activity), pair.first));
     }
 
-    private List<Product> getProductsByCategory(int categoryId, String childCategoryId, int currentPage, int maxCount, BaseActivity activity) {
+    private List<Product> getProductsByCategory(int categoryId,
+                                                String childCategoryId,
+                                                int currentPage, int maxCount, BaseActivity activity) {
         List<Product> childProducts = new ArrayList<>();
         String typeQuery = getType(activity, categoryId);
         List<Product> allProducts = getProductDbUseCase.getByCategory(typeQuery, maxCount, currentPage * maxCount);

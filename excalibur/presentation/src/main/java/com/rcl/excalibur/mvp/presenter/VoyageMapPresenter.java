@@ -11,6 +11,7 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.VoyageMapActivity;
 import com.rcl.excalibur.domain.SailDateInfo;
+import com.rcl.excalibur.domain.ShipStatsInfo;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipStatsDbUseCase;
@@ -26,6 +27,7 @@ import com.rcl.excalibur.model.VoyageMapModel;
 import com.rcl.excalibur.mvp.view.VoyageMapView;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
@@ -102,7 +104,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         view.setCruiseCoordinate(voyageModel.getMockCoordinate(day.charAt(0), true));
         view.setScaleAndCenter(voyageModel.getMockCoordinate(day.charAt(0), false));
 
-        //getShipStatsUseCase.execute(new ShipStatsObserver(this), null);
+        getShipStatsUseCase.execute(new ShipStatsObserver(this), null);
     }
 
     public void onResume() {
@@ -208,12 +210,53 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     }
 
 
-    private void addListMock(List<ShipStatsModel> list) {
+    private void addListMock() {
+        ShipStatsInfo shipStatsInfo = getShipStatsDbUseCase.get();
+
+
+        ShipStatsModel weather = new ShipStatsModel();
+        weather.setName("70/72ºF");
+        weather.setResource(R.drawable.icon_voyage_sunny);
+
+        ShipStatsModel sunrise = new ShipStatsModel();
+        sunrise.setName("3:30 am");
+        sunrise.setResource(R.drawable.icon_voyage_sunrise);
+
+        ShipStatsModel sunset = new ShipStatsModel();
+        sunset.setName("6:30 pm");
+        sunset.setResource(R.drawable.icon_voyage_sunset);
+
+        ShipStatsModel speed = new ShipStatsModel();
+        speed.setName("46 kts");
+        speed.setResource(R.drawable.icon_voyage_speed);
+
+        ShipStatsModel compass = new ShipStatsModel();
+        compass.setName("NE");
+        compass.setResource(R.drawable.icon_voyage_compass);
+
+        ShipStatsModel gangwayUp = new ShipStatsModel();
+        gangwayUp.setName("1:00 am");
+        gangwayUp.setResource(R.drawable.icon_voyage_gangway_up);
+
+        ShipStatsModel gangwayDown = new ShipStatsModel();
+        gangwayDown.setName("3:30 am");
+        gangwayDown.setResource(R.drawable.icon_voyage_gangway_down);
+
+
+        List<ShipStatsModel> list = new ArrayList<>();
+        list.add(weather);
+        list.add(sunrise);
+        list.add(sunset);
+        list.add(speed);
+        list.add(compass);
+        list.add(gangwayUp);
+        list.add(gangwayDown);
+
         view.addAll(list);
     }
 
 
-    private class ShipStatsObserver extends DisposableObserver<List<ShipStatsModel>> {
+    private class ShipStatsObserver extends DisposableObserver<Boolean> {
 
         WeakReference<VoyageMapPresenter> presenterWeakReference;
 
@@ -222,9 +265,9 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         }
 
         @Override
-        public void onNext(List<ShipStatsModel> list) {
+        public void onNext(Boolean value) {
             if (presenterWeakReference != null)
-                presenterWeakReference.get().addListMock(list);
+                presenterWeakReference.get().addListMock();
         }
 
         @Override

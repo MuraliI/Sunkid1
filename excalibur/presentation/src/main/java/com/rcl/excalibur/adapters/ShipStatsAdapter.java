@@ -4,6 +4,7 @@ package com.rcl.excalibur.adapters;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
@@ -34,11 +35,13 @@ public class ShipStatsAdapter extends BaseAdapter<ShipStatsModel, ShipStatsModel
     public void onBindViewHolder(ShipStatsViewHolder holder, int position) {
         ShipStatsModel shipStatsModel = items.get(position);
         holder.itemName.setText(shipStatsModel.getName());
+        holder.itemImage.setImageResource(shipStatsModel.getResource());
     }
 
     class ShipStatsViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.item_name)
-        TextView itemName;
+        @BindView(R.id.item_name) TextView itemName;
+        @BindView(R.id.item_image) ImageView itemImage;
+
 
         ShipStatsViewHolder(View itemView) {
             super(itemView);

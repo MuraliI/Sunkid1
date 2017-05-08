@@ -40,7 +40,8 @@ public class ProductsAdapter extends BaseAdapter<Product, Pair<Product, View>, P
 
         holder.titleTextView.setText(product.getProductTitle());
         holder.venueTextView.setText(LocationUtils.getProductVenue(product.getProductLocation()));
-        holder.locationTextView.setText(String.format(resources.getString(R.string.deck_discovery_label), LocationUtils.getProductLocation(product.getProductLocation())));
+        holder.locationTextView.setText(String.format(resources.getString(R.string.deck_discovery_label),
+                LocationUtils.getProductLocation(product.getProductLocation())));
         Picasso.with(context)
                 .load(BuildConfig.PREFIX_IMAGE + holder.product.getHeroImageRefLink())
                 .placeholder(R.drawable.placeholder_list_item)

@@ -7,13 +7,15 @@ import com.activeandroid.annotation.Table;
 @Table(name = ShipStatsEntity.TABLE_NAME)
 public class ShipStatsEntity extends Model {
     public static final String TABLE_NAME = "ship_stats";
-    public static final String COLUMN_SHIP_NAME = "ship_name";
-    public static final String COLUMN_NEXT_PORT_NAME = "next_port_name";
-    public static final String COLUMN_NEXT_PORT_ARRIVAL_TIME = "next_port_arrival_time";
-    public static final String COLUMN_DISTANCE_TO_THE_NEXT_PORT = "distance_next_port";
-    public static final String COLUMN_CURRENT_PORT_NAME = "current_port_name";
-    public static final String COLUMN_LAST_PORT_NAME = "last_port_name";
-    public static final String COLUMN_LAST_PORT_DEPARTURE_TIME = "last_port_departure_time";
+    private static final String COLUMN_SHIP_NAME = "ship_name";
+    private static final String COLUMN_NEXT_PORT_NAME = "next_port_name";
+    private static final String COLUMN_NEXT_PORT_ARRIVAL_TIME = "next_port_arrival_time";
+    private static final String COLUMN_DISTANCE_TO_THE_NEXT_PORT = "distance_next_port";
+    private static final String COLUMN_CURRENT_PORT_NAME = "current_port_name";
+    private static final String COLUMN_LAST_PORT_NAME = "last_port_name";
+    private static final String COLUMN_LAST_PORT_DEPARTURE_TIME = "last_port_departure_time";
+    private static final String COLUMN_SHIP_LOCATION = "ship_location";
+    private static final String COLUMN_SHIP_LOCATION_STATS = "ship_location_stats";
 
     @Column(name = COLUMN_SHIP_NAME)
     private String shipName;
@@ -29,6 +31,10 @@ public class ShipStatsEntity extends Model {
     private String lastPortName;
     @Column(name = COLUMN_LAST_PORT_DEPARTURE_TIME)
     private long lastPortDepartureTime;
+    @Column(name = COLUMN_SHIP_LOCATION)
+    private ShipLocationEntity shipLocation;
+    @Column(name = COLUMN_SHIP_LOCATION_STATS)
+    private ShipLocationStatsEntity shipLocationStats;
 
     public ShipStatsEntity() {
         super();
@@ -88,5 +94,21 @@ public class ShipStatsEntity extends Model {
 
     public void setLastPortDepartureTime(long lastPortDepartureTime) {
         this.lastPortDepartureTime = lastPortDepartureTime;
+    }
+
+    public ShipLocationEntity getShipLocation() {
+        return shipLocation;
+    }
+
+    public void setShipLocation(ShipLocationEntity shipLocation) {
+        this.shipLocation = shipLocation;
+    }
+
+    public ShipLocationStatsEntity getShipLocationStats() {
+        return shipLocationStats;
+    }
+
+    public void setShipLocationStats(ShipLocationStatsEntity shipLocationStats) {
+        this.shipLocationStats = shipLocationStats;
     }
 }
