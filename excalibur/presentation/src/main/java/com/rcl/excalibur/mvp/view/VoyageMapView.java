@@ -2,11 +2,14 @@ package com.rcl.excalibur.mvp.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.PointF;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +32,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
     private static final String ALPHA_PROPERTY = "alpha";
     private static final float ALPHA_OFF = 0.0f;
     private static final float ALPHA_VISIBLE = 1.0f;
-    private static final int ANIMATOR_DURATION = 250;
+    private static final int ANIMATOR_DURATION = 300;
 
     @BindView(R.id.image_ship_voyage) ImageView ship;
     @BindView(R.id.image_voyage_map) VoyageMapImageView voyageMapImage;
@@ -65,26 +68,31 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
     }
 
     public void setScaleAndCenter(PointF point) {
-        voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / voyageMapImage.SCALE_FACTOR, point);
+        voyageMapImage.setScaleAndCenter(voyageMapImage.getMaxScale() / VoyageMapImageView.SCALE_FACTOR, point);
     }
 
     public void hideShip() {
-        Animator animator = ObjectAnimator.ofFloat(ship, ALPHA_PROPERTY, ALPHA_OFF);
-        animator.addListener(new AnimatorListenerAdapter() {
+        Animator shipAnimator = ObjectAnimator.ofFloat(ship, ALPHA_PROPERTY, ALPHA_OFF);
+        Animator mapAnimator = ObjectAnimator.ofFloat(voyageMapImage, ALPHA_PROPERTY, ALPHA_VISIBLE);
+        shipAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 ship.setVisibility(View.GONE);
             }
         });
-        animator.setDuration(ANIMATOR_DURATION)
-                .start();
+        AnimatorSet animatorSet = new AnimatorSet().setDuration(ANIMATOR_DURATION);
+        animatorSet.setInterpolator(new AccelerateInterpolator());
+        animatorSet.playTogether(shipAnimator, mapAnimator);
+        animatorSet.start();
     }
 
     public void showShipAndFinishWithTransition() {
         ship.setVisibility(View.VISIBLE);
-        Animator animator = ObjectAnimator.ofFloat(ship, ALPHA_PROPERTY, ALPHA_VISIBLE);
-        animator.addListener(new AnimatorListenerAdapter() {
+        ship.setAlpha(0.0f);
+        Animator shipAnimator = ObjectAnimator.ofFloat(ship, ALPHA_PROPERTY, ALPHA_VISIBLE);
+        Animator mapAnimator = ObjectAnimator.ofFloat(voyageMapImage, ALPHA_PROPERTY, ALPHA_OFF);
+        shipAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
@@ -93,8 +101,10 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
                 }
             }
         });
-        animator.setDuration(ANIMATOR_DURATION)
-                .start();
+        AnimatorSet animatorSet = new AnimatorSet().setDuration(ANIMATOR_DURATION);
+        animatorSet.setInterpolator(new DecelerateInterpolator());
+        animatorSet.playTogether(shipAnimator, mapAnimator);
+        animatorSet.start();
     }
 
     public void setTextShipLocation(String textShip, String day) {
