@@ -108,11 +108,9 @@ public final class DateUtils {
         }
 
         StringBuilder builder = new StringBuilder();
-        if (minutes == 0) {
-            builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon)).append(ZERO_MINUTES);
-        } else {
-            builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon)).append(minutes);
-        }
+        builder.append(hour).append(resources.getString(R.string.itinerary_product_view_colon)).append(minutes == 0
+                ? ZERO_MINUTES
+                : minutes);
 
         builder.append(amPm == Calendar.AM
                 ? resources.getString(R.string.itinerary_product_view_am)
