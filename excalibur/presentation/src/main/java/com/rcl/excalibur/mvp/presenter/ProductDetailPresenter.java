@@ -8,11 +8,9 @@ import com.rcl.excalibur.activity.ProductDetailActivity;
 import com.rcl.excalibur.adapters.base.RecyclerViewType;
 import com.rcl.excalibur.adapters.delegate.factory.DetailViewTypeFactory;
 import com.rcl.excalibur.domain.Media;
-import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.Offering;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.SailDateInfo;
-import com.rcl.excalibur.domain.interactor.GetMenusUseCase;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
@@ -22,8 +20,7 @@ import com.rcl.excalibur.utils.ActivityUtils;
 
 import java.util.List;
 
-import io.reactivex.observers.DisposableObserver;
-import timber.log.Timber;
+
 
 public class ProductDetailPresenter {
     private static final float MULTIPLIER_LOCATION_Y = 0.85f;
@@ -32,7 +29,6 @@ public class ProductDetailPresenter {
     private GetProductDbUseCase getProductDbUseCase;
     private GetOfferingsDbUseCase getOfferingsDbUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
-    private GetMenusUseCase getMenusUseCase;
     private ProductDetailView view;
 
     private Product product;
@@ -40,13 +36,11 @@ public class ProductDetailPresenter {
     public ProductDetailPresenter(ProductDetailView view
             , GetProductDbUseCase getProductDbUseCase
             , GetOfferingsDbUseCase getOfferingsDbUseCase
-            , GetSaildDateDbUseCase getSaildDateDbUseCase
-            , GetMenusUseCase getMenusUseCase) {
+            , GetSaildDateDbUseCase getSaildDateDbUseCase) {
         this.view = view;
         this.getProductDbUseCase = getProductDbUseCase;
         this.getOfferingsDbUseCase = getOfferingsDbUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
-        this.getMenusUseCase = getMenusUseCase;
     }
 
     public void init(String productId) {
@@ -75,35 +69,15 @@ public class ProductDetailPresenter {
         view.setViewObserver(new LocationOnScreenObserver(this));
         view.setAdapterObserver(new FindOnDeckClickObserver(this));
 
-
-        starGetMenus();
+        final List<Offering> offerings = getOfferingsDbUseCase.getOfferingsForProduct(product);
+        final SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
+        final List<RecyclerViewType> viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(product
+                , offerings
+                , sailDateInfo
+                , view.getActivity().getResources());
+        view.render(viewTypes);
     }
 
-    public void starGetMenus() {
-        getMenusUseCase.execute(new DisposableObserver<List<Menu>>() {
-            @Override
-            public void onNext(List<Menu> menus) {
-                Timber.d("getMenusUseCase", "onNext");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Timber.d("getMenusUseCase", "onError");
-            }
-
-            @Override
-            public void onComplete() {
-                final List<Offering> offerings = getOfferingsDbUseCase.getOfferingsForProduct(product);
-                final SailDateInfo sailDateInfo = getSaildDateDbUseCase.get();
-                final List<RecyclerViewType> viewTypes = DetailViewTypeFactory.getAdaptersAndViewTypesForModel(product
-                        , offerings
-                        , sailDateInfo
-                        , view.getActivity().getResources());
-                view.render(viewTypes);
-
-            }
-        }, null);
-    }
 
     public void onBackClicked() {
         ProductDetailActivity activity = view.getActivity();

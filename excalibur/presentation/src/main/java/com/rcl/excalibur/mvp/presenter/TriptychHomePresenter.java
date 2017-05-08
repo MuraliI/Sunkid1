@@ -12,9 +12,11 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.data.utils.DownloadProductsManager;
+import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.DefaultObserver;
+import com.rcl.excalibur.domain.interactor.GetMenusUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
@@ -30,6 +32,8 @@ import com.rcl.excalibur.mvp.view.TriptychHomeView;
 
 import java.util.List;
 
+import io.reactivex.observers.DisposableObserver;
+
 public class TriptychHomePresenter {
 
     public static final String PORT_TYPE_EMBARK = "EMBARK";
@@ -40,6 +44,7 @@ public class TriptychHomePresenter {
     private TriptychHomeView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
+    private GetMenusUseCase getMenusUseCase;
     private String dayPreferences;
 
     private GetProductDbUseCase getProductsDbUseCase;
@@ -52,13 +57,15 @@ public class TriptychHomePresenter {
             GetSaildDateUseCase getSaildDateUseCase,
             GetSailingPreferenceUseCase getSailingPreferenceUseCase,
             GetSaildDateDbUseCase getSaildDateDbUseCase,
-            SailingInformationModelDataMapper sailingInformationModelDataMapper) {
+            SailingInformationModelDataMapper sailingInformationModelDataMapper,
+            GetMenusUseCase getMenusUseCase) {
         this.view = view;
         this.getProductsDbUseCase = getProductsDbUseCase;
         this.getSaildDateUseCase = getSaildDateUseCase;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
+        this.getMenusUseCase = getMenusUseCase;
     }
 
     public void init() {
@@ -79,7 +86,23 @@ public class TriptychHomePresenter {
                 }
             });
         }
+        //TODO remove this and move it to DownloadManager
+        getMenusUseCase.execute(new DisposableObserver<List<Menu>>() {
+            @Override
+            public void onNext(List<Menu> value) {
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        }, null);
         getSaildDateUseCase.execute(null);
     }
 
