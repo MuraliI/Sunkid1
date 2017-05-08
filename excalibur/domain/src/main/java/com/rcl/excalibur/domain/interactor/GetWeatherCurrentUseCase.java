@@ -1,11 +1,12 @@
 package com.rcl.excalibur.domain.interactor;
 
 
+import com.rcl.excalibur.domain.ShipStatsInfo;
 import com.rcl.excalibur.domain.service.WeatherServices;
 
 import io.reactivex.observers.DisposableObserver;
 
-public class GetWeatherCurrentUseCase extends UseCase<Void, Void> {
+public class GetWeatherCurrentUseCase extends UseCase<Void, ShipStatsInfo> {
 
     private final WeatherServices weatherServices;
 
@@ -15,8 +16,8 @@ public class GetWeatherCurrentUseCase extends UseCase<Void, Void> {
     }
 
     @Override
-    void buildUseCaseObservable(DisposableObserver<Void> observer, Void aVoid) {
-        weatherServices.weatherInfo();
+    void buildUseCaseObservable(DisposableObserver<Void> observer, ShipStatsInfo shipStatsInfo) {
+        weatherServices.weatherInfo(shipStatsInfo);
     }
 
 }

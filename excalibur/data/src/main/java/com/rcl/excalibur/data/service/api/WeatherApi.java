@@ -5,10 +5,12 @@ import com.rcl.excalibur.data.service.response.WeatherInfoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface WeatherApi {
 
-    //FIXME when service is ready to receive data
-    @GET("weatherInfo/latitude/35/longitude/-46/duration/10")
-    Call<WeatherInfoResponse> weatherInfo();
+    @GET("weatherInfo/latitude/{latitude}/longitude/{longitude}/duration/{duration}")
+    Call<WeatherInfoResponse> weatherInfo(@Path("latitude") String latitude,
+                                          @Path("longitude") String longitude,
+                                          @Path("duration") String duration);
 }
