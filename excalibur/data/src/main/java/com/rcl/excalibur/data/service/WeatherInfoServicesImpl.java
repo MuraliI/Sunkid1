@@ -9,6 +9,11 @@ import com.rcl.excalibur.domain.WeatherCurrent;
 import com.rcl.excalibur.domain.repository.WeatherCurrentRepository;
 import com.rcl.excalibur.domain.service.WeatherServices;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,29 +33,39 @@ public class WeatherInfoServicesImpl extends BaseDataService<WeatherCurrent, Wea
     }
 
     @Override
-    public void weatherInfo(ShipStatsInfo shipStatsInfo) {
+    public void weatherInfo(ShipStatsInfo shipStatsInfo, DisposableObserver<Boolean> observer) {
 
-        ShipLocationInfo shipLocationInfo = shipStatsInfo.getShipLocation();
-        Call<WeatherInfoResponse> call = getWeatherApi().weatherInfo(String.valueOf(shipLocationInfo.getLatitude()),
-                String.valueOf(shipLocationInfo.getLongitude()), DURATION_HARDCODED);
+        Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
 
-        call.enqueue(new Callback<WeatherInfoResponse>() {
-            @Override
-            public void onResponse(Call<WeatherInfoResponse> call, Response<WeatherInfoResponse> response) {
-                if (!response.isSuccessful()) {
-                    return;
+            ShipLocationInfo shipLocationInfo = shipStatsInfo.getShipLocation();
+            Call<WeatherInfoResponse> call = getWeatherApi().weatherInfo(String.valueOf(shipLocationInfo.getLatitude()),
+                    String.valueOf(shipLocationInfo.getLongitude()), DURATION_HARDCODED);
+
+            call.enqueue(new Callback<WeatherInfoResponse>() {
+                @Override
+                public void onResponse(Call<WeatherInfoResponse> call, Response<WeatherInfoResponse> response) {
+                    if (!response.isSuccessful()) {
+                        return;
+                    }
+
+                    WeatherCurrent weatherCurrent = getMapper().transform(response.body().getCurrent(), null);
+                    repository.deleteAll();
+                    repository.create(weatherCurrent);
+                    observableEmitter.onNext(true);
+                    observableEmitter.onComplete();
                 }
 
-                WeatherCurrent weatherCurrent = getMapper().transform(response.body().getCurrent(), null);
-                repository.deleteAll();
-                repository.create(weatherCurrent);
-            }
+                @Override
+                public void onFailure(Call<WeatherInfoResponse> call, Throwable t) {
+                    Timber.e("Weather error", t.getMessage());
+                    observableEmitter.onError(t);
+                }
+            });
 
-            @Override
-            public void onFailure(Call<WeatherInfoResponse> call, Throwable t) {
-                Timber.e("Weather error", t.getMessage());
-            }
-        });
+
+        }).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
 
 
     }

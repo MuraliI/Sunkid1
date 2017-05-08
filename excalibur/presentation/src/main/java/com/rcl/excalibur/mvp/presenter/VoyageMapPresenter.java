@@ -18,6 +18,7 @@ import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipStatsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipStatsUseCase;
 import com.rcl.excalibur.domain.interactor.GetWeatherCurrentDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetWeatherCurrentUseCase;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
@@ -50,6 +51,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private GetShipStatsDbUseCase getShipStatsDbUseCase;
     private GetShipStatsUseCase getShipStatsUseCase;
     private GetWeatherCurrentDbUseCase getWeatherCurrentDbUseCase;
+    private GetWeatherCurrentUseCase getWeatherCurrentUseCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
     private String day;
     private VoyageMapModel voyageModel;
@@ -59,6 +61,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
                               GetSaildDateDbUseCase getSaildDateDbUseCase,
                               SailingInformationModelDataMapper sailingInformationModelDataMapper,
                               GetShipStatsDbUseCase getShipStatsDbUseCase,
+                              GetWeatherCurrentUseCase getWeatherCurrentUseCase,
                               GetWeatherCurrentDbUseCase getWeatherCurrentDbUseCase,
                               GetShipStatsUseCase getShipStatsUseCase) {
         this.view = view;
@@ -68,6 +71,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         this.getShipStatsDbUseCase = getShipStatsDbUseCase;
         this.getShipStatsUseCase = getShipStatsUseCase;
         this.getWeatherCurrentDbUseCase = getWeatherCurrentDbUseCase;
+        this.getWeatherCurrentUseCase = getWeatherCurrentUseCase;
     }
 
     public void initMap() {
@@ -262,6 +266,28 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         view.addAll(list);
     }
 
+    private void loadShipWeather() {
+        ShipStatsInfo shipStatsInfo = getShipStatsDbUseCase.get();
+        if (shipStatsInfo != null) {
+            getWeatherCurrentUseCase.execute(new DisposableObserver<Boolean>() {
+                @Override
+                public void onNext(Boolean value) {
+                    addListMock();
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            }, shipStatsInfo);
+        }
+    }
+
 
     private class ShipStatsObserver extends DisposableObserver<Boolean> {
 
@@ -274,7 +300,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         @Override
         public void onNext(Boolean value) {
             if (presenterWeakReference != null)
-                presenterWeakReference.get().addListMock();
+                presenterWeakReference.get().loadShipWeather();
         }
 
         @Override
