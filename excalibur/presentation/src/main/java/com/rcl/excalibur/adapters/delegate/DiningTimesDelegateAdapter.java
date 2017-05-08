@@ -109,7 +109,7 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                             if (!CollectionUtils.isEmpty(advisementsDiningType)) {
                                 ProductAdvisement diningType = advisementsDiningType.get(0);
                                 if (diningType != null && diningType.getAdvisementTitle().equals(DINING_TYPE_SPECIALTY)
-                                        && operationHour.getTimeOfDay().equals(menu.getMenuName())) {
+                                        && isSameTimeOfDay(operationHour.getTimeOfDay(), menu.getMenuName())) {
                                     showMenu.setVisibility(View.VISIBLE);
                                     showMenu.setOnClickListener(v -> ActivityUtils.startActivity(baseActivity,
                                             DiningMenuActivity.getStartIntent(baseActivity, venueCode)));
@@ -128,6 +128,14 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
             holder.showMoreContainer.setVisibility(listDays.size() > 1 ? View.VISIBLE : View.INVISIBLE);
             holder.collapseOrExpandContent(true);
         }
+    }
+    //TODO
+    // this method was created to map from the mock servers. Just for the demo.
+    // Will be remove next sprint.
+    private boolean isSameTimeOfDay(String timeOfDay, String menuName) {
+        return "Morning".equals(timeOfDay) && "Breakfast".equals(menuName)
+                || "Afternoon".equals(timeOfDay) && "Lunch".equals(menuName)
+                || "Night".equals(timeOfDay) && "Dinner".equals(menuName);
     }
 
     public static class DiningTimesViewHolder extends RecyclerView.ViewHolder {
