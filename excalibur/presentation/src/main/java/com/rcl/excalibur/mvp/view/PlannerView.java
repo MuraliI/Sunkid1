@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rcl.excalibur.R;
@@ -52,7 +51,7 @@ public class PlannerView extends FragmentView<PlannerFragment, Integer, Void> {
     private static final int NO_MARGIN = 0;
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.layout_planner_container) LinearLayout containerLayout;
+    @BindView(R.id.layout_planner_container) FrameLayout containerLayout;
     @BindView(R.id.progress_service_call_planner) View progressBar;
     @BindView(R.id.image_ship_invisible) FrameLayout imageShipInvisible;
     @BindView(R.id.text_arriving_debarking_time) TextView shipArrivingDebarkingLabel;

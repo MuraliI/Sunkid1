@@ -108,7 +108,7 @@ public class TimesViewType implements RecyclerViewType {
                                 } else {
                                     List<String> hours = new ArrayList<>();
                                     for (Offering offering : offeringsForDay) {
-                                        hours.add(DateUtils.getDateHour(offering.getDate(), res));
+                                        hours.add(DateUtils.getDateTime(offering.getDate(), res));
                                     }
                                     hourStr = Joiner.on(COMMA_SEPARATOR).join(hours);
                                 }

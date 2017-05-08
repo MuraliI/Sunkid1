@@ -14,9 +14,12 @@ import com.rcl.excalibur.activity.BaseActivity;
 import com.rcl.excalibur.activity.DiningMenuActivity;
 import com.rcl.excalibur.adapters.base.DelegateAdapter;
 import com.rcl.excalibur.adapters.viewtype.DiningTimesViewType;
+import com.rcl.excalibur.data.repository.MenuDataRepository;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.LocationOperationHour;
+import com.rcl.excalibur.domain.Menu;
 import com.rcl.excalibur.domain.ProductAdvisement;
+import com.rcl.excalibur.domain.interactor.GetMenuDbUseCase;
 import com.rcl.excalibur.utils.ActivityUtils;
 
 import java.util.ArrayList;
@@ -79,7 +82,9 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                     return 0;
                 }
             });
-
+            //FIXME Remove hardcoded venueCode. This is just for the demo.
+            String venueCode = "CHOP";
+            List<Menu> menus = new GetMenuDbUseCase(new MenuDataRepository()).getAllByVenueCode(venueCode);
             for (String day : listDays) {
                 View itemView = LayoutInflater.from(context).inflate(R.layout.item_dining_time, null);
                 TextView dayText = (TextView) itemView.findViewById(R.id.day_number);
@@ -96,19 +101,25 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                     text.setText(operationHour.getTimeOfDay());
                     String fromToHours = operationHour.getStartTime() + " ─ " + operationHour.getEndTime();
                     subtext.setText(fromToHours);
-
                     showMenu.setVisibility(View.GONE);
-                    List<ProductAdvisement> advisementsDiningType = item.getProduct()
-                            .getProductAdvisementsByType(ProductAdvisement.DINING_TYPE);
-                    if (!CollectionUtils.isEmpty(advisementsDiningType)) {
-                        ProductAdvisement diningType = advisementsDiningType.get(0);
-                        if (diningType != null && diningType.getAdvisementTitle().equals(DINING_TYPE_SPECIALTY)) {
-                            showMenu.setVisibility(View.VISIBLE);
-                            //FIXME Remove hardcoded venueCode. This is just for the demo.
-                            showMenu.setOnClickListener(v -> ActivityUtils.startActivity(baseActivity,
-                                    DiningMenuActivity.getStartIntent(baseActivity, "CHOP")));
+                    for (Menu menu : menus) {
+                        if (menu.getDayNumber().equals(day)) {
+                            List<ProductAdvisement> advisementsDiningType = item.getProduct()
+                                    .getProductAdvisementsByType(ProductAdvisement.DINING_TYPE);
+                            if (!CollectionUtils.isEmpty(advisementsDiningType)) {
+                                ProductAdvisement diningType = advisementsDiningType.get(0);
+                                if (diningType != null && diningType.getAdvisementTitle().equals(DINING_TYPE_SPECIALTY)
+                                        && isSameTimeOfDay(operationHour.getTimeOfDay(), menu.getMenuName())) {
+                                    showMenu.setVisibility(View.VISIBLE);
+                                    showMenu.setOnClickListener(v -> ActivityUtils.startActivity(baseActivity,
+                                            DiningMenuActivity.getStartIntent(baseActivity, venueCode)));
+                                }
+                            }
                         }
+
                     }
+
+
                     diningTimesContainer.addView(itemDiningView);
                 }
                 holder.timesContainer.addView(itemView);
@@ -117,6 +128,14 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
             holder.showMoreContainer.setVisibility(listDays.size() > 1 ? View.VISIBLE : View.INVISIBLE);
             holder.collapseOrExpandContent(true);
         }
+    }
+    //TODO
+    // this method was created to map from the mock servers. Just for the demo.
+    // Will be remove next sprint.
+    private boolean isSameTimeOfDay(String timeOfDay, String menuName) {
+        return "Morning".equals(timeOfDay) && "Breakfast".equals(menuName)
+                || "Afternoon".equals(timeOfDay) && "Lunch".equals(menuName)
+                || "Night".equals(timeOfDay) && "Dinner".equals(menuName);
     }
 
     public static class DiningTimesViewHolder extends RecyclerView.ViewHolder {

@@ -46,8 +46,8 @@ public final class DetailViewTypeFactory {
         LinkedList<RecyclerViewType> viewTypes = new LinkedList<>();
 
         addHeroSectionHeader(product, viewTypes);
-        addDinningTypeModule(viewTypes, resources, product);
         addTimesModule(viewTypes, offerings, sailDateInfo, resources, product);
+        addDinningTypeModule(viewTypes, resources, product);
         addPricesModule(viewTypes, offerings, resources, product);
         addCuisineModule(viewTypes, resources, product);
         addDurationModule(viewTypes, resources, product);
@@ -302,14 +302,17 @@ public final class DetailViewTypeFactory {
         }
 
         if (product.isShorex()) {
+            title = res.getString(R.string.operating_hours);
             addTitleAndDescriptionTypes(recyclerViewTypeList, title, res.getString(R.string.times_vary));
         }
 
         if (product.isSpa() || product.isGuestServices() || product.isShopping()) {
+            title = res.getString(R.string.operating_hours);
             TimesViewType.addTimesViewTypes(recyclerViewTypeList, title, product.getProductLocation().getLocationOperationHours());
         }
 
         if (product.isDining()) {
+            title = res.getString(R.string.dining_times);
             if (product.getProductLocation() != null
                     && product.getProductLocation().getLocationOperationHours() != null) {
                 recyclerViewTypeList.add(new DiningTimesViewType(product, title));

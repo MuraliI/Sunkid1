@@ -3,12 +3,13 @@ package com.rcl.excalibur;
 import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
+import com.appdynamics.eumagent.runtime.Instrumentation;
+import com.rcl.excalibur.custom.view.VoyageMapImageView;
 import com.rcl.excalibur.scheduler.SchedulerManager;
 import com.rcl.excalibur.utils.analytics.AnalyticsUtils;
 
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import com.appdynamics.eumagent.runtime.Instrumentation;
 
 public class RCLApp extends Application {
 
@@ -26,6 +27,8 @@ public class RCLApp extends Application {
             Timber.plant(new Timber.DebugTree());
             Timber.d("RCL Timber is: %s", "ON");
         }
+        VoyageMapImageView.initWith(this);
+        VoyageMapImageView.getInstance().setImage(R.drawable.caribbean_map_4);
     }
 
     private void initCalligraphy() {

@@ -91,6 +91,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         create(entity, product.getProductType());
 
         //Location
+        // FIXME: 5/8/2017 remove this method it's only for test because current lat & lang are nulls
+        productLocationDummy(product);
         create(entity, product.getProductLocation());
         //Duration
         create(entity, product.getProductDuration());
@@ -113,6 +115,30 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
         //Offerings
         createOfferings(entity, product.getOfferings());
+    }
+
+    private void productLocationDummy(@NonNull Product product) {
+        // FIXME: 5/8/2017 remove this method it's only for test because current lat & lang are nulls
+        if ("100000002354772481".equals(product.getProductId())) {
+            setProductData(product, "700", "3", "Forward");
+        } else if ("100000002355015508".equals(product.getProductId())) {
+            setProductData(product, "2700", "3", "Amidships");
+        } else if ("100000002354772385".equals(product.getProductId())) {
+            setProductData(product, "8000", "4", "Aft");
+        }
+    }
+
+    private void setProductData(@NonNull Product product, String latitude, String deckNumber, String direction) {
+        // FIXME: 5/8/2017 remove this method it's only for test because current lat & lang are nulls
+        ProductLocation productLocation = new ProductLocation();
+        productLocation.setLatitude(latitude);
+        List<LocationDeckInfo> deckInfoList = new ArrayList<>();
+        LocationDeckInfo locationDeckInfo = new LocationDeckInfo();
+        locationDeckInfo.setDeckNumber(deckNumber);
+        locationDeckInfo.setDirection(direction);
+        deckInfoList.add(locationDeckInfo);
+        productLocation.setDeckInfo(deckInfoList);
+        product.setProductLocation(productLocation);
     }
 
     private void createOfferings(ProductEntity entity, List<Offering> offerings) {

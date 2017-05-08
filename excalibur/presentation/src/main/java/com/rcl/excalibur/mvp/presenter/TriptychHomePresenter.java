@@ -32,10 +32,10 @@ import java.util.List;
 
 public class TriptychHomePresenter {
 
-    private static final String PORT_TYPE_EMBARK = "EMBARK";
-    private static final String PORT_TYPE_DOCKED = "DOCKED";
-    private static final String PORT_TYPE_DEBARK = "DEBARK";
-    private static final String PORT_TYPE_CRUISING = "CRUISING";
+    public static final String PORT_TYPE_EMBARK = "EMBARK";
+    public static final String PORT_TYPE_DOCKED = "DOCKED";
+    public static final String PORT_TYPE_DEBARK = "DEBARK";
+    public static final String PORT_TYPE_CRUISING = "CRUISING";
 
     private TriptychHomeView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
@@ -59,22 +59,6 @@ public class TriptychHomePresenter {
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
-    }
-
-    public static String getShipLocation(List<EventModel> events, int day, Resources resources) {
-        String shipLocation;
-        PortModel sailPort = PortModel.getSailPortByDay(events, day);
-
-        String modelPortType = sailPort.getPortType();
-
-        if (PORT_TYPE_EMBARK.equals(modelPortType) || PORT_TYPE_DOCKED.equals(modelPortType) || PORT_TYPE_DEBARK.equals(modelPortType)) {
-            shipLocation = sailPort.getPortName();
-        } else if (PORT_TYPE_CRUISING.equals(modelPortType)) {
-            shipLocation = resources.getString(R.string.port_type_at_sea);
-        } else {
-            shipLocation = ConstantsUtil.EMPTY;
-        }
-        return shipLocation;
     }
 
     public void init() {
@@ -137,8 +121,23 @@ public class TriptychHomePresenter {
         }
     }
 
+    public static String getShipLocation(List<EventModel> events, int day, Resources resources) {
+        String shipLocation;
+        PortModel sailPort = PortModel.getSailPortByDay(events, day);
+
+        String modelPortType = sailPort.getPortType();
+
+        if (PORT_TYPE_EMBARK.equals(modelPortType) || PORT_TYPE_DOCKED.equals(modelPortType) || PORT_TYPE_DEBARK.equals(modelPortType)) {
+            shipLocation = sailPort.getPortName();
+        } else if (PORT_TYPE_CRUISING.equals(modelPortType)) {
+            shipLocation = resources.getString(R.string.port_type_at_sea);
+        } else {
+            shipLocation = ConstantsUtil.EMPTY;
+        }
+        return shipLocation;
+    }
+
     public Pair<View, String> getPlannerSharedElementPair() {
         return view.getPlannerSharedElement();
     }
-
 }

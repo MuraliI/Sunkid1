@@ -17,12 +17,16 @@ public class GetMenuDbUseCase extends UseCaseSync<MenuRepository> {
         return getData().getAll();
     }
 
+    public List<Menu> getAllByVenueCode(String venueCode) {
+        return getData().getAllByVenueCode(venueCode);
+    }
+
     public List<MenuItem> getAllMenuItemByMenuName(String nameMenu) {
         return getData().getAllMenuItemByMenuName(nameMenu);
     }
 
-    public List<String> getAllMenuName() {
-        return getData().getAllMenuName();
+    public List<String> getAllMenuName(String venueCode) {
+        return getData().getAllMenuName(venueCode);
     }
 
 }

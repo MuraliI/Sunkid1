@@ -12,11 +12,12 @@
         android:layout_height="wrap_content"
         tools:layout="@layout/ship_time" />
 
-    <com.rcl.excalibur.custom.view.VoyageMapImageView
+    <FrameLayout
         android:id="@+id/image_voyage_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ship_time_fragment" />
+        android:layout_below="@id/ship_time_fragment"
+        android:alpha="0" />
 
     <LinearLayout
         android:id="@+id/linear_tab"
@@ -86,6 +87,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_back_view" />
+        android:layout_above="@+id/bottom_back_view"
+        android:alpha="0" />
 
 </RelativeLayout>
