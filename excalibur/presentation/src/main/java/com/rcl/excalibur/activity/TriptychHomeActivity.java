@@ -1,18 +1,19 @@
 package com.rcl.excalibur.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
+import android.widget.Toast;
 
+import com.rcl.excalibur.BuildConfig;
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.data.mapper.SubCategoryResponseDataMapper;
 import com.rcl.excalibur.data.preference.SailingPreferenceImpl;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
 import com.rcl.excalibur.data.repository.SailDateDataRepository;
-import com.rcl.excalibur.data.repository.SubCategoriesDataRepository;
-import com.rcl.excalibur.data.service.DiscoverServicesImpl;
+import com.rcl.excalibur.data.repository.WeatherCurrentDataRepository;
 import com.rcl.excalibur.data.service.SailDateServicesImpl;
 import com.rcl.excalibur.data.service.WeatherInfoServicesImpl;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
@@ -26,13 +27,17 @@ import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
 import com.rcl.excalibur.mvp.view.TriptychHomeView;
 import com.rcl.excalibur.utils.ActivityUtils;
 
+import java.lang.reflect.Method;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class TriptychHomeActivity extends BaseActivity {
-    @BindView(R.id.day_picker_tab) View tabElement;
-    @BindView(R.id.image_ship) View shipElement;
-    @BindView(R.id.pager_triptych_pager) View pagerElement;
+    @BindView(R.id.day_picker_tab)
+    View tabElement;
+    @BindView(R.id.image_ship)
+    View shipElement;
+    @BindView(R.id.pager_triptych_pager)
+    View pagerElement;
     private TriptychHomePresenter presenter;
     private SailingPreferences sailingPreferences;
 

@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Pair;
+import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.adapters.TriptychPagerAdapter;
@@ -138,6 +140,10 @@ public class TriptychHomePresenter {
         } else {
             view.setTextShipLocation(getShipLocation(events, day, resources), resources.getString(R.string.day_number, day));
         }
+    }
+
+    public Pair<View, String> getPlannerSharedElementPair() {
+        return view.getPlannerSharedElement();
     }
 
 }
