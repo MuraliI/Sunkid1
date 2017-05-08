@@ -94,12 +94,12 @@ public class PlannerHeader extends AbstractHeaderItem<PlannerHeader.HeaderViewHo
         }
 
         void expand() {
-            expandableText.setText(R.string.planner_header_see_less);
+            expandableText.setText(R.string.planner_header_show_less);
             expandableText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_chevron_up, 0);
         }
 
         void collapse() {
-            expandableText.setText(R.string.planner_header_see_all);
+            expandableText.setText(R.string.planner_header_show_more);
             expandableText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_chevron_down, 0);
         }
 

@@ -28,7 +28,7 @@
         android:drawableEnd="@drawable/ic_chevron_down"
         android:drawablePadding="@dimen/margin_xsmall"
         android:gravity="center_vertical"
-        android:text="@string/planner_header_see_all" />
+        android:text="@string/planner_header_show_more" />
 
     <View
         android:id="@+id/view_planner_header_separator"
