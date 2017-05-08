@@ -42,4 +42,5 @@ public class ShipTimeServicesImpl extends BaseDataService<String, String, Void> 
             }
         });
     }
+
 }

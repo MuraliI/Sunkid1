@@ -19,22 +19,14 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="@dimen/ship_time_height" />
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/layout_planner_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:behavior_peekHeight="@dimen/planner_peek_height"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
-
-        <TextView
-            android:id="@+id/text_arriving_debarking_time"
-            style="@style/AppTheme.PlannerItemTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/hardcoded_home_status" />
 
         <com.rcl.excalibur.custom.view.TopRoundedFrameLayout
             android:id="@+id/layout_planner_recycler_container"
@@ -48,7 +40,17 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never" />
+                android:overScrollMode="never"
+                android:transitionName="@string/shared_element_planner" />
         </com.rcl.excalibur.custom.view.TopRoundedFrameLayout>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_arriving_debarking_time"
+            style="@style/AppTheme.PlannerItemTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="@dimen/margin_text_arriving"
+            android:text="@string/hardcoded_home_status" />
+    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

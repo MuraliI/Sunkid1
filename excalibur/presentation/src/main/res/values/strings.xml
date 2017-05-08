@@ -135,8 +135,8 @@
     <string name="sessions_from">Sessions from</string>
 
     <!-- Planner -->
-    <string name="planner_header_see_all">See all</string>
-    <string name="planner_header_see_less">See less</string>
+    <string name="planner_header_show_more">Show More</string>
+    <string name="planner_header_show_less">Show Less</string>
     <string name="itinerary_product_view_am">" AM"</string>
     <string name="itinerary_product_view_pm">" PM"</string>
     <string name="itinerary_product_view_colon">:</string>
@@ -233,6 +233,10 @@
     <string name="next_port">"Next Port: "</string>
     <string name="arriving_at">"Arriving at "</string>
     <string name="departing_at">"Departing at "</string>
+    <string name="arriving_departing_separator">"; "</string>
+    <string name="shared_element_ship">Ship</string>
+    <string name="shared_element_tab">Tab</string>
+    <string name="shared_element_planner">Planner</string>
 
     <!-- Deck Map -->
     <string name="deck_number">Deck %s</string>
@@ -242,5 +246,6 @@
     <string name="menu_header_title">Menu</string>
     <string name="menu_empty_dialog_message">There are no menus for this place.</string>
     <string name="menu_empty_dialog_button">OK</string>
+    <string name="deck_discovery_label">"Deck %s"</string>
 
 </resources>

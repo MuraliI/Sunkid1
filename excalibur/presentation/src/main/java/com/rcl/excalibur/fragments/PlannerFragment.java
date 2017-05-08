@@ -86,4 +86,8 @@ public class PlannerFragment extends BaseTripTychFragment implements FlexibleAda
             plannerView.setShipInvisibleHeight(integerIntegerPair);
         }
     }
+
+    public View getPlannerSharedElement() {
+        return getView().findViewById(R.id.recycler_view);
+    }
 }

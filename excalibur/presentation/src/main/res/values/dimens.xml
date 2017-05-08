@@ -112,6 +112,7 @@
     <dimen name="planner_header_expandable">16sp</dimen>
     <dimen name="height_planner_header">58dp</dimen>
     <dimen name="width_planner_item">280dp</dimen>
+    <dimen name="margin_text_arriving">-30dp</dimen>
 
     <dimen name="ship_button_category_size">25dp</dimen>
     <dimen name="ship_button_category_top_margin">10dp</dimen>
@@ -214,6 +215,10 @@
     <dimen name="translation_y_debarking_time">50dp</dimen>
     <dimen name="product_shiptime_bar_padding">20dp</dimen>
     <dimen name="progress_height_width">30dp</dimen>
+    <dimen name="height_voyage_ship">150dp</dimen>
+
+    <!-- Ship Stats-->
+    <dimen name="padding_ship_stats">15dp</dimen>
 
     <!-- Dining Menu -->
     <dimen name="dining_menu_item_text_size">22sp</dimen>
@@ -227,5 +232,6 @@
     <!-- DeckMap-->
     <dimen name="padding_bottom_deckmap">50dp</dimen>
     <dimen name="padding_top_deckmap">50dp</dimen>
+
 
 </resources>
