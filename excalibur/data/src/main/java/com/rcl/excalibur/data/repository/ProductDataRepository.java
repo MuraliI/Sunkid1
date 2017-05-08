@@ -9,7 +9,6 @@ import com.activeandroid.query.Select;
 import com.rcl.excalibur.data.entity.AdvisementEntity;
 import com.rcl.excalibur.data.entity.CategoryEntity;
 import com.rcl.excalibur.data.entity.ChildCategoryEntity;
-import com.rcl.excalibur.data.entity.ChildCategoryProductEntity;
 import com.rcl.excalibur.data.entity.CostTypeEntity;
 import com.rcl.excalibur.data.entity.DeckInfoEntity;
 import com.rcl.excalibur.data.entity.DurationEntity;
@@ -222,7 +221,6 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         new Delete().from(AdvisementEntity.class).execute();
         new Delete().from(OfferingEntity.class).execute();
         new Delete().from(PriceEntity.class).execute();
-        new Delete().from(ChildCategoryProductEntity.class).execute();
         new Delete().from(ProductEntity.class).execute();
         new Delete().from(CategoryEntity.class).execute();
         new Delete().from(StartingFromPriceEntity.class).execute();

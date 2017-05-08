@@ -1,6 +1,5 @@
 package com.rcl.excalibur.domain.interactor;
 
-import com.rcl.excalibur.domain.Product;
 import com.rcl.excalibur.domain.repository.ProductRepository;
 
 import org.junit.Assert;
@@ -9,10 +8,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
-import java.util.List;
-
-import io.reactivex.observers.TestObserver;
 
 public class GetProductDbUseCaseTest {
 
@@ -43,8 +38,16 @@ public class GetProductDbUseCaseTest {
     }
 
     @Test
-    public void getAllByType() throws Exception {
-        getProductDbUseCase.getAll("type");
-        Mockito.verify(productRepository).getAll("type");
+    public void getByCategory() throws Exception {
+        getProductDbUseCase.getByCategory("type", 1, 0);
+        Mockito.verify(productRepository).getByCategory("type", 1, 0);
     }
+
+    @Test
+    public void getByChildCategory() throws Exception {
+        getProductDbUseCase.getByChildCategory("type", 1, 0);
+        Mockito.verify(productRepository).getByChildCategory("type", 1, 0);
+    }
+
+
 }

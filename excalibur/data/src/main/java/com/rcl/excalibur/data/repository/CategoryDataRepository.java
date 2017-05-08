@@ -6,7 +6,6 @@ import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 import com.rcl.excalibur.data.entity.CategoryEntity;
 import com.rcl.excalibur.data.entity.ChildCategoryEntity;
-import com.rcl.excalibur.data.entity.SubCategoryEntity;
 import com.rcl.excalibur.data.mapper.CategoryEntityDataMapper;
 import com.rcl.excalibur.data.utils.CollectionUtils;
 import com.rcl.excalibur.domain.Category;
@@ -49,7 +48,6 @@ public class CategoryDataRepository extends BaseDataRepository<Category, Categor
     @Override
     public void deleteAll() {
         new Delete().from(ChildCategoryEntity.class).execute();
-        new Delete().from(SubCategoryEntity.class).execute();
     }
 
     private void createChildCategories(final CategoryEntity entity, final List<ChildCategory> childCategories) {
