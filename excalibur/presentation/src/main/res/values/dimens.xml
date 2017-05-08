@@ -234,6 +234,7 @@
     <dimen name="padding_top_deckmap">50dp</dimen>
     <dimen name="transition_x_cloud_right">400dp</dimen>
     <dimen name="transition_x_cloud_left">-400dp</dimen>
+    <dimen name="translation_y_planner_items">380dp</dimen>
 
 
 </resources>

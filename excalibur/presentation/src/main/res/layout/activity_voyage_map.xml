@@ -103,7 +103,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:transitionName="@string/shared_element_planner"
-        android:translationY="380dp">
+        android:translationY="@dimen/translation_y_planner_items">
 
         <FrameLayout
             android:layout_width="match_parent"

@@ -27,6 +27,8 @@ import eu.davidea.flexibleadapter.FlexibleAdapter;
 import io.reactivex.functions.Consumer;
 
 public class PlannerFragment extends BaseTripTychFragment implements FlexibleAdapter.OnItemClickListener, Consumer<Pair<Integer, Integer>> {
+    private static final int FIRST_PRODUCT = 1;
+    private static final int SECOND_PRODUCT = 2;
     private PlannerPresenter presenter;
     private PlannerView plannerView;
     private SailingPreferences sailingPreferences;
@@ -90,8 +92,8 @@ public class PlannerFragment extends BaseTripTychFragment implements FlexibleAda
 
     public Pair<Pair<View, String>, Pair<View, String>> getPlannerSharedElements() {
         View parent = getView().findViewById(R.id.recycler_view);
-        View item = ((RecyclerView) parent).findViewHolderForAdapterPosition(1).itemView;
-        View item2 = ((RecyclerView) parent).findViewHolderForAdapterPosition(2).itemView;
+        View item = ((RecyclerView) parent).findViewHolderForAdapterPosition(FIRST_PRODUCT).itemView;
+        View item2 = ((RecyclerView) parent).findViewHolderForAdapterPosition(SECOND_PRODUCT).itemView;
         return Pair.create(Pair.create(item, getString(R.string.shared_element_first_cart)),
                 Pair.create(item2, getString(R.string.shared_element_second_cart)));
     }
