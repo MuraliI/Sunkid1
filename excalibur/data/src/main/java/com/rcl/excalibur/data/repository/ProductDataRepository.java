@@ -91,6 +91,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         create(entity, product.getProductType());
 
         //Location
+        prdocutLocationDummy(product);
         create(entity, product.getProductLocation());
         //Duration
         create(entity, product.getProductDuration());
@@ -113,6 +114,40 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
 
         //Offerings
         createOfferings(entity, product.getOfferings());
+    }
+
+    private void prdocutLocationDummy(@NonNull Product product) {
+        if ("100000002354772481".equals(product.getProductId())) {
+            ProductLocation productLocation = product.getProductLocation();
+            if (productLocation != null) {
+                List<LocationDeckInfo> locationDeckInfo = productLocation.getLocationDeckInfo();
+                if (locationDeckInfo != null && locationDeckInfo.size() > 0) {
+                    LocationDeckInfo locationDeckInfo1 = locationDeckInfo.get(0);
+                    locationDeckInfo1.setDeckNumber("3");
+                }
+                productLocation.setLatitude("700");
+            }
+        } else if ("100000002355015508".equals(product.getProductId())) {
+            ProductLocation productLocation = product.getProductLocation();
+            if (productLocation != null) {
+                List<LocationDeckInfo> locationDeckInfo = productLocation.getLocationDeckInfo();
+                if (locationDeckInfo != null && locationDeckInfo.size() > 0) {
+                    LocationDeckInfo locationDeckInfo1 = locationDeckInfo.get(0);
+                    locationDeckInfo1.setDeckNumber("3");
+                }
+                productLocation.setLatitude("2700");
+            }
+        } else if ("100000002354772385".equals(product.getProductId())) {
+            ProductLocation productLocation = product.getProductLocation();
+            if (productLocation != null) {
+                List<LocationDeckInfo> locationDeckInfo = productLocation.getLocationDeckInfo();
+                if (locationDeckInfo != null && locationDeckInfo.size() > 0) {
+                    LocationDeckInfo locationDeckInfo1 = locationDeckInfo.get(0);
+                    locationDeckInfo1.setDeckNumber("4");
+                }
+                productLocation.setLatitude("8000");
+            }
+        }
     }
 
     private void createOfferings(ProductEntity entity, List<Offering> offerings) {
