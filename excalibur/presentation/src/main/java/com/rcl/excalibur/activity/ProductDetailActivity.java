@@ -45,6 +45,7 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
                 , new GetProductDbUseCase(new ProductDataRepository())
                 , new GetOfferingsDbUseCase(new OfferingDataRepository())
                 , new GetSaildDateDbUseCase(new SailDateDataRepository())
+                //FIXME Remove hardcoded venueCode. This is just for the demo.
                 , new GetMenusUseCase(new MenuServicesImpl(new MenuDataRepository()), "CHOP"));
         presenter.init(productId);
     }

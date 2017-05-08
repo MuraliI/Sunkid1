@@ -132,32 +132,25 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
 
     @Override
     public List<Menu> getAll() {
-        final MenuEntity entity = new Select()
-                .all()
-                .from(MenuEntity.class)
-                .executeSingle();
-        if (entity == null) {
-            return new ArrayList<>();
-        }
         final List<MenuEntity> entities = new Select()
                 .from(MenuEntity.class)
                 .execute();
+        if (entities == null) {
+            return new ArrayList<>();
+        }
         return getMapper().transform(entities, null);
     }
 
     @Override
     public List<Menu> getAllByVenueCode(String venueCode) {
-        final MenuEntity entity = new Select()
-                .from(MenuEntity.class)
-                .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
-                .executeSingle();
-        if (entity == null) {
-            return new ArrayList<>();
-        }
+
         final List<MenuEntity> entities = new Select()
                 .from(MenuEntity.class)
                 .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
                 .execute();
+        if (entities == null) {
+            return new ArrayList<>();
+        }
         return getMapper().transform(entities, null);
     }
 
@@ -189,7 +182,7 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
 
     @Override
     public List<String> getAllMenuName(String venueCode) {
-        final List<MenuEntity> entities = new Select()
+        final List<MenuEntity> entities = new Select(new String[]{DBUtil.COL_ID, MenuEntity.COLUMN_MENU_NAME})
                 .from(MenuEntity.class)
                 .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
                 .execute();
@@ -221,11 +214,9 @@ public class MenuDataRepository extends BaseDataRepository<Menu, MenuEntity, Voi
                 .from(MenuEntity.class)
                 .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
                 .execute();
-        new Delete().from(MenuEntity.class)
-                .where(eq(MenuEntity.COLUMN_VENUE_CODE, venueCode))
-                .execute();
         for (MenuEntity menuEntity : entities) {
-            new Delete().from(MediaEntity.class).where(DBUtil.eqId(menuEntity.getMenuMedia().getId())).execute();
+            menuEntity.delete();
+            menuEntity.getMenuMedia().delete();
         }
     }
 }
