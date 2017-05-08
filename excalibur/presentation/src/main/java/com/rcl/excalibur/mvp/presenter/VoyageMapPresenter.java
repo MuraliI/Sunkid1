@@ -30,10 +30,11 @@ import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
 
+import static com.rcl.excalibur.model.PortModel.PORT_TYPE_CRUISING;
+import static com.rcl.excalibur.model.PortModel.PORT_TYPE_DEBARK;
+import static com.rcl.excalibur.model.PortModel.PORT_TYPE_DOCKED;
 import static com.rcl.excalibur.model.PortModel.PORT_TYPE_EMBARK;
-import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_CRUISING;
-import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DEBARK;
-import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DOCKED;
+
 
 public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimationEventListener,
         SubsamplingScaleImageView.OnImageEventListener {

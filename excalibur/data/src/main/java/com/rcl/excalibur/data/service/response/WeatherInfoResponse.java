@@ -4,14 +4,14 @@ import java.util.List;
 
 public class WeatherInfoResponse {
 
-    private CurrentWeatherResponse current;
+    private WeatherCurrentResponse current;
     private List<ForecastWeatherResponse> forecast;
 
-    public CurrentWeatherResponse getCurrent() {
+    public WeatherCurrentResponse getCurrent() {
         return current;
     }
 
-    public void setCurrent(CurrentWeatherResponse current) {
+    public void setCurrent(WeatherCurrentResponse current) {
         this.current = current;
     }
 

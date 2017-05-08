@@ -128,7 +128,9 @@
                     com.rcl.excalibur.data.entity.MenuSectionEntity,
                     com.rcl.excalibur.data.entity.MenuAdvisoryTagEntity,
                     com.rcl.excalibur.data.entity.MenuItemAdvisoryTagEntity,
-                    com.rcl.excalibur.data.entity.MenuItemEntity"/>
+                    com.rcl.excalibur.data.entity.MenuItemEntity,
+                    com.rcl.excalibur.data.entity.WeatherEntity,
+                    com.rcl.excalibur.data.entity.WeatherCurrentEntity"/>
                     <receiver android:name=".scheduler.SchedulerReceiver" />
     </application>
 </manifest>

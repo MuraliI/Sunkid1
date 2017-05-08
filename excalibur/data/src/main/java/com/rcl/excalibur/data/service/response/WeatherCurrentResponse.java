@@ -1,11 +1,11 @@
 package com.rcl.excalibur.data.service.response;
 
-public class CurrentWeatherResponse extends WeatherBaseResponse {
+public class WeatherCurrentResponse extends WeatherBaseResponse {
 
     private long sunrise;
     private long sunset;
     private String windDirectionDeg;
-    private String curreRainnFallPercent;
+    private String currentRainFallPercent;
     private String cloudPercent;
 
     public long getSunrise() {
@@ -32,12 +32,12 @@ public class CurrentWeatherResponse extends WeatherBaseResponse {
         this.windDirectionDeg = windDirectionDeg;
     }
 
-    public String getCurreRainnFallPercent() {
-        return curreRainnFallPercent;
+    public String getCurrentRainFallPercent() {
+        return currentRainFallPercent;
     }
 
-    public void setCurreRainnFallPercent(String curreRainnFallPercent) {
-        this.curreRainnFallPercent = curreRainnFallPercent;
+    public void setCurrentRainFallPercent(String currentRainFallPercent) {
+        this.currentRainFallPercent = currentRainFallPercent;
     }
 
     public String getCloudPercent() {

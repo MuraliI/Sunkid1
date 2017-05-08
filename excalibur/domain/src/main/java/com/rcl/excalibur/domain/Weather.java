@@ -1,18 +1,18 @@
-package com.rcl.excalibur.data.service.response;
+package com.rcl.excalibur.domain;
 
-public class WeatherResponse {
+public class Weather {
 
-    private int id;
+    private int weatherId;
     private String shortDescription;
     private String description;
     private String icon;
 
-    public int getId() {
-        return id;
+    public int getWeatherId() {
+        return weatherId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setWeatherId(int weatherId) {
+        this.weatherId = weatherId;
     }
 
     public String getShortDescription() {
