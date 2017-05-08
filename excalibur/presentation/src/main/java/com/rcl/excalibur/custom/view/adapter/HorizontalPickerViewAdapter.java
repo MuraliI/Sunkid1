@@ -41,10 +41,12 @@ public class HorizontalPickerViewAdapter<O> extends RecyclerView.Adapter<Horizon
 
         if (selectedItem == position) {
             holder.itemView.setFocusableInTouchMode(true);
+            holder.itemView.setFocusable(true);
             holder.itemView.requestFocus();
             if (holder.itemView.getOnFocusChangeListener() == null) {
                 holder.itemView.setOnFocusChangeListener((focusedView, hasFocus) -> {
                     focusedView.setFocusableInTouchMode(hasFocus);
+                    focusedView.setFocusable(hasFocus);
                     focusedView.setOnFocusChangeListener(null);
                 });
             }

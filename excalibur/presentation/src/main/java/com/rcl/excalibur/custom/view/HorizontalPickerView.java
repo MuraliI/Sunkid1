@@ -104,9 +104,11 @@ public class HorizontalPickerView<T> extends FrameLayout {
         } else {
             View view = layoutManager.findViewByPosition(position);
             view.setFocusableInTouchMode(true);
+            view.setFocusable(true);
             view.requestFocus();
             view.setOnFocusChangeListener((focusedView, hasFocus) -> {
                 focusedView.setFocusableInTouchMode(hasFocus);
+                focusedView.setFocusable(hasFocus);
                 focusedView.setOnFocusChangeListener(null);
             });
             if (position >= layoutManager.findFirstVisibleItemPosition() && position <= layoutManager.findLastVisibleItemPosition()) {
