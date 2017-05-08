@@ -26,7 +26,6 @@ import com.rcl.excalibur.model.VoyageMapModel;
 import com.rcl.excalibur.mvp.view.VoyageMapView;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
@@ -209,23 +208,12 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     }
 
 
-    private void addListMock() {
-        List<ShipStatsModel> list = new ArrayList<>();
-        ShipStatsModel model = new ShipStatsModel();
-        model.setName("Mock Data");
-
-        list.add(model);
-        list.add(model);
-        list.add(model);
-        list.add(model);
-        list.add(model);
-        list.add(model);
-
+    private void addListMock(List<ShipStatsModel> list) {
         view.addAll(list);
     }
 
 
-    private class ShipStatsObserver extends DisposableObserver<Boolean> {
+    private class ShipStatsObserver extends DisposableObserver<List<ShipStatsModel>> {
 
         WeakReference<VoyageMapPresenter> presenterWeakReference;
 
@@ -234,9 +222,9 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         }
 
         @Override
-        public void onNext(Boolean value) {
+        public void onNext(List<ShipStatsModel> list) {
             if (presenterWeakReference != null)
-                presenterWeakReference.get().addListMock();
+                presenterWeakReference.get().addListMock(list);
         }
 
         @Override

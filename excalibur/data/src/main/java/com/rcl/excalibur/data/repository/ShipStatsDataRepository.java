@@ -23,6 +23,12 @@ public class ShipStatsDataRepository extends BaseDataRepository<ShipStatsInfo, S
     public void create(@NonNull ShipStatsInfo shipStatsInfo) {
         final ShipStatsEntity entity = new ShipStatsEntity();
         entity.setShipName(shipStatsInfo.getShipName());
+        entity.setCurrentPortName(shipStatsInfo.getCurrentPortName());
+        entity.setNextPortName(shipStatsInfo.getNextPortName());
+        entity.setNextPortArrivalTime(shipStatsInfo.getNextPortArrivalTime());
+        entity.setLastPortName(shipStatsInfo.getLastPortName());
+        entity.setLastPortDepartureTime(shipStatsInfo.getLastPortDepartureTime());
+        entity.setDistanceToTheNextPort(shipStatsInfo.getDistanceToTheNextPort());
         entity.save();
     }
 

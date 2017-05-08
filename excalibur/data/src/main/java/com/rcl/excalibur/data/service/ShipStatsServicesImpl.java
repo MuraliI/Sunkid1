@@ -13,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -31,33 +32,29 @@ public class ShipStatsServicesImpl extends BaseDataService<ShipStatsInfo, ShipSt
     public void getShipStats(DisposableObserver<Boolean> serviceCallCompletedObserver) {
         Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
             Call<ShipStatsResponse> call = getShipStatsApi().getShipStats();
-            ShipStatsProcessor shipStatsProcessor = new ShipStatsProcessor();
-            try {
-                shipStatsProcessor.onResponse(call.execute());
-            } catch (Exception e) {
-                shipStatsProcessor.onFailure(e);
-            }
-            observableEmitter.onNext(true);
+            call.enqueue(new Callback<ShipStatsResponse>() {
+                @Override
+                public void onResponse(Call<ShipStatsResponse> call, Response<ShipStatsResponse> response) {
+                    if (response.body() != null) {
+                        if (repository.get() != null)
+                            repository.deleteAll();
+
+                        ShipStatsInfo shipStatsInfo = getMapper().transform(response.body(), null);
+                        repository.create(shipStatsInfo);
+
+                        observableEmitter.onNext(true);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ShipStatsResponse> call, Throwable t) {
+                    Timber.e("error ShipStatsResponse", t.getMessage());
+                    observableEmitter.onNext(false);
+                }
+            });
         }).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serviceCallCompletedObserver);
     }
 
-    private class ShipStatsProcessor {
-
-        void onResponse(Response<ShipStatsResponse> response) {
-            // TODO: add validation succesfull response when webservice integrate
-            if (response.body() != null) {
-                if (repository.get() != null)
-                    repository.deleteAll();
-
-                ShipStatsInfo shipStatsInfo = getMapper().transform(response.body(), null);
-                repository.create(shipStatsInfo);
-            }
-        }
-
-        void onFailure(Throwable t) {
-            Timber.e("error ShipStatsResponse", t.getMessage());
-        }
-    }
 }
