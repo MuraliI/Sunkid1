@@ -39,18 +39,12 @@ public class ProductDetailPresenterTest {
     private static final int STATUS_BAR_HEIGHT = 195;
     private static final int TOOLBAR_HEIGHT = 85;
     ProductDetailPresenter presenter;
-    @Mock
-    ProductDetailView view;
-    @Mock
-    GetProductDbUseCase getProductDbUseCase;
-    @Mock
-    GetOfferingsDbUseCase getOfferingsDbUseCase;
-    @Mock
-    GetSaildDateDbUseCase getSaildDateDbUseCase;
-    @Mock
-    GetMenusUseCase getMenusUseCase;
-    @Mock
-    ProductDetailActivity activity;
+    @Mock ProductDetailView view;
+    @Mock GetProductDbUseCase getProductDbUseCase;
+    @Mock GetOfferingsDbUseCase getOfferingsDbUseCase;
+    @Mock GetSaildDateDbUseCase getSaildDateDbUseCase;
+    @Mock GetMenusUseCase getMenusUseCase;
+    @Mock ProductDetailActivity activity;
 
     @Before
     public void setUp() {
