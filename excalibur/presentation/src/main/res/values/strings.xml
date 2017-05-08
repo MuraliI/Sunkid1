@@ -238,6 +238,10 @@
     <string name="shared_element_ship">Ship</string>
     <string name="shared_element_tab">Tab</string>
     <string name="shared_element_planner">Planner</string>
+    <string name="shared_element_cloud_left">CloudLeft</string>
+    <string name="shared_element_cloud_right">CloudRight</string>
+    <string name="shared_element_first_cart">FirstCard</string>
+    <string name="shared_element_second_cart">SecondCard</string>
 
     <!-- Deck Map -->
     <string name="deck_number">Deck %s</string>
@@ -248,5 +252,6 @@
     <string name="menu_empty_dialog_message">There are no menus for this place.</string>
     <string name="menu_empty_dialog_button">OK</string>
     <string name="deck_discovery_label">"Deck %s"</string>
+    <string name="blurred_text">\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591</string>
 
 </resources>

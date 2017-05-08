@@ -42,6 +42,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
     @BindView(R.id.text_ship_status) TextView textShipText;
     @BindView(R.id.view_white_voyage_map) View whiteBarView;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.bottom_back_view) View backView;
 
     private ShipStatsAdapter adapter;
 
@@ -88,6 +89,7 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
         animatorSet.setInterpolator(new AccelerateInterpolator());
         animatorSet.playTogether(shipAnimator, mapAnimator, recyclerAnimator);
         animatorSet.start();
+        backView.setVisibility(View.VISIBLE);
     }
 
     public void showShipAndFinishWithTransition() {
