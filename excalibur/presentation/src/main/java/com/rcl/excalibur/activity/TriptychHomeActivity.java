@@ -13,14 +13,11 @@ import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.preference.SailingPreferenceImpl;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
 import com.rcl.excalibur.data.repository.SailDateDataRepository;
-import com.rcl.excalibur.data.repository.WeatherCurrentDataRepository;
 import com.rcl.excalibur.data.service.SailDateServicesImpl;
-import com.rcl.excalibur.data.service.WeatherInfoServicesImpl;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
-import com.rcl.excalibur.domain.interactor.GetWeatherCurrentUseCase;
 import com.rcl.excalibur.domain.preference.SailingPreferences;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.mvp.presenter.TriptychHomePresenter;
@@ -33,9 +30,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TriptychHomeActivity extends BaseActivity {
-    @BindView(R.id.day_picker_tab) View tabElement;
-    @BindView(R.id.image_ship) View shipElement;
-    @BindView(R.id.pager_triptych_pager) View pagerElement;
+    @BindView(R.id.day_picker_tab)
+    View tabElement;
+    @BindView(R.id.image_ship)
+    View shipElement;
+    @BindView(R.id.pager_triptych_pager)
+    View pagerElement;
 
     private TriptychHomePresenter presenter;
     private SailingPreferences sailingPreferences;
@@ -55,7 +55,6 @@ public class TriptychHomeActivity extends BaseActivity {
                 new GetSaildDateUseCase(new SailDateServicesImpl(new SailDateDataRepository())),
                 new GetSailingPreferenceUseCase(sailingPreferences),
                 new GetSaildDateDbUseCase(new SailDateDataRepository()),
-                new GetWeatherCurrentUseCase(new WeatherInfoServicesImpl(new WeatherCurrentDataRepository())),
                 new SailingInformationModelDataMapper()
         );
         presenter.init();

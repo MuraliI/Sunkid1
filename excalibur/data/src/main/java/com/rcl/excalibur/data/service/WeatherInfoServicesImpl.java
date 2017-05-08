@@ -3,6 +3,8 @@ package com.rcl.excalibur.data.service;
 import com.rcl.excalibur.data.mapper.WeatherCurrentResponseDataMapper;
 import com.rcl.excalibur.data.service.response.WeatherCurrentResponse;
 import com.rcl.excalibur.data.service.response.WeatherInfoResponse;
+import com.rcl.excalibur.domain.ShipLocationInfo;
+import com.rcl.excalibur.domain.ShipStatsInfo;
 import com.rcl.excalibur.domain.WeatherCurrent;
 import com.rcl.excalibur.domain.repository.WeatherCurrentRepository;
 import com.rcl.excalibur.domain.service.WeatherServices;
@@ -16,6 +18,8 @@ import static com.rcl.excalibur.data.utils.ServiceUtil.getWeatherApi;
 
 public class WeatherInfoServicesImpl extends BaseDataService<WeatherCurrent, WeatherCurrentResponse, Void> implements WeatherServices {
 
+    //FIXME when service return value
+    private static final String DURATION_HARDCODED = "2";
     WeatherCurrentRepository repository;
 
     public WeatherInfoServicesImpl(WeatherCurrentRepository repository) {
@@ -24,8 +28,11 @@ public class WeatherInfoServicesImpl extends BaseDataService<WeatherCurrent, Wea
     }
 
     @Override
-    public void weatherInfo() {
-        Call<WeatherInfoResponse> call = getWeatherApi().weatherInfo();
+    public void weatherInfo(ShipStatsInfo shipStatsInfo) {
+
+        ShipLocationInfo shipLocationInfo = shipStatsInfo.getShipLocation();
+        Call<WeatherInfoResponse> call = getWeatherApi().weatherInfo(String.valueOf(shipLocationInfo.getLatitude()),
+                String.valueOf(shipLocationInfo.getLongitude()), DURATION_HARDCODED);
 
         call.enqueue(new Callback<WeatherInfoResponse>() {
             @Override

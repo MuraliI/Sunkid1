@@ -19,7 +19,6 @@ import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
-import com.rcl.excalibur.domain.interactor.GetWeatherCurrentUseCase;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.fragments.BaseTripTychFragment;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
@@ -41,7 +40,6 @@ public class TriptychHomePresenter {
     private TriptychHomeView view;
     private GetSailingPreferenceUseCase getSailingPreferenceUseCase;
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
-    private GetWeatherCurrentUseCase getWeatherCurrentUseCase;
     private String dayPreferences;
 
     private GetProductDbUseCase getProductsDbUseCase;
@@ -54,7 +52,6 @@ public class TriptychHomePresenter {
             GetSaildDateUseCase getSaildDateUseCase,
             GetSailingPreferenceUseCase getSailingPreferenceUseCase,
             GetSaildDateDbUseCase getSaildDateDbUseCase,
-            GetWeatherCurrentUseCase getWeatherCurrentUseCase,
             SailingInformationModelDataMapper sailingInformationModelDataMapper) {
         this.view = view;
         this.getProductsDbUseCase = getProductsDbUseCase;
@@ -62,7 +59,6 @@ public class TriptychHomePresenter {
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
         this.getSaildDateDbUseCase = getSaildDateDbUseCase;
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
-        this.getWeatherCurrentUseCase = getWeatherCurrentUseCase;
     }
 
     public static String getShipLocation(List<EventModel> events, int day, Resources resources) {
@@ -100,7 +96,6 @@ public class TriptychHomePresenter {
             });
         }
 
-        getWeatherCurrentUseCase.execute(null);
         getSaildDateUseCase.execute(null);
     }
 
