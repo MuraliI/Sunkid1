@@ -12,11 +12,28 @@ public class Category {
     public static final String SHOPPING_CATEGORY = "shop";
     public static final String GUEST_SERVICES_CATEGORY = "guest";
 
+    private String categoryDescription;
     private String categoryId;
-    private String description;
-    private List<String> tags;
+    private String categoryName;
+    private List<ChildCategory> childCategory;
 
     public Category() {
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getCategoryDescription() {
+        return categoryDescription;
+    }
+
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
     }
 
     public String getCategoryId() {
@@ -27,19 +44,11 @@ public class Category {
         this.categoryId = categoryId;
     }
 
-    public String getDescription() {
-        return description;
+    public List<ChildCategory> getChildCategory() {
+        return childCategory;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
+    public void setChildCategory(List<ChildCategory> childCategory) {
+        this.childCategory = childCategory;
     }
 }

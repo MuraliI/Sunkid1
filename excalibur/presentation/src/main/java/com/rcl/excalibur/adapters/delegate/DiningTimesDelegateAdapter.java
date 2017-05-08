@@ -133,14 +133,11 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
 
     public static class DiningTimesViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.text_module_title)
-        TextView textTitle;
-        @BindView(R.id.times_container)
-        LinearLayout timesContainer;
-        @BindView(R.id.show_more_container)
-        LinearLayout showMoreContainer;
-        @BindView(R.id.show_more_arrow)
-        ImageView showMoreArrow;
+        @BindView(R.id.text_module_title) TextView textTitle;
+        @BindView(R.id.times_container) LinearLayout timesContainer;
+        @BindView(R.id.show_more_container) LinearLayout showMoreContainer;
+        @BindView(R.id.show_more_arrow) ImageView showMoreArrow;
+        @BindView(R.id.show_more_text) TextView showMoreText;
 
         private boolean collapsed = true;
 
@@ -156,6 +153,7 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
         }
 
         public void collapseOrExpandContent(boolean collapse) {
+            Context context = textTitle.getContext();
             for (int i = 0; i < timesContainer.getChildCount(); i++) {
                 View v = timesContainer.getChildAt(i);
                 if (i > 0) {
@@ -163,6 +161,7 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                 }
             }
             showMoreArrow.setImageResource(collapsed ? R.drawable.ic_chevron_down : R.drawable.ic_chevron_up);
+            showMoreText.setText(context.getResources().getString(collapsed ? R.string.product_detail_show_more : R.string.product_detail_show_less));
         }
     }
 }

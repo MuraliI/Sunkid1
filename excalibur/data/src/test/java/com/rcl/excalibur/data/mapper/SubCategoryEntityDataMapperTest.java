@@ -31,10 +31,10 @@ public class SubCategoryEntityDataMapperTest {
         Mockito.when(subCategoryEntity.getDescription()).thenReturn("Description Shorex");
         Mockito.when(subCategoryEntity.getName()).thenReturn("Shorex");
 
-        Mockito.when(childCategoryEntity.getCategoryId()).thenReturn("land");
+        Mockito.when(childCategoryEntity.getChildCategoryId()).thenReturn("land");
         Mockito.when(childCategoryEntity.getDescription()).thenReturn("Description Land");
         Mockito.when(childCategoryEntity.getName()).thenReturn("Land");
-        Mockito.when(childCategoryEntity.getSubCategory()).thenReturn(subCategoryEntity);
+//        Mockito.when(childCategoryEntity.getCategory()).thenReturn(subCategoryEntity);
 
         ArrayList<ChildCategoryEntity> items = new ArrayList<>();
         items.add(childCategoryEntity);
@@ -54,7 +54,7 @@ public class SubCategoryEntityDataMapperTest {
         for (int i = 0; i < subCategory.getChildCategory().size(); i++) {
             assertEquals(subCategory.getChildCategory().get(i).getItems().getCategoryDescription(), subCategoryEntity.getChildCategories().get(i).getDescription());
             assertEquals(subCategory.getChildCategory().get(i).getItems().getCategoryName(), subCategoryEntity.getChildCategories().get(i).getName());
-            assertEquals(subCategory.getChildCategory().get(i).getItems().getCategoryId(), subCategoryEntity.getChildCategories().get(i).getCategoryId());
+            assertEquals(subCategory.getChildCategory().get(i).getItems().getCategoryId(), subCategoryEntity.getChildCategories().get(i).getChildCategoryId());
         }
     }
 
