@@ -83,6 +83,8 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         entity.setUpcharge(product.getProductUpcharge());
         entity.setExperience(product.getExperience());
         entity.setProductReservationInformation(product.getProductReservationInformation());
+        entity.setFeatured(product.isFeatured());
+        entity.setHighlighted(product.isHighlighted());
 
         //ProductType
         create(entity, product.getProductType());
@@ -97,7 +99,7 @@ public class ProductDataRepository extends BaseDataRepository<Product, ProductEn
         create(entity, product.getProductMedia());
         //StartingFromPrice
         create(entity, product.getStartingFromPrice());
-//        ChildCategories
+        // ChildCategories
         retrieveCategory(entity, product.getProductCategory());
 
         entity.save();
