@@ -2,12 +2,10 @@ package com.rcl.excalibur.domain.interactor;
 
 import com.rcl.excalibur.domain.service.ShipStatsServices;
 
-import java.util.List;
-
 import io.reactivex.observers.DisposableObserver;
 
 
-public class GetShipStatsUseCase extends UseCase<List<ShipStatsModel>, Void> {
+public class GetShipStatsUseCase extends UseCase<Boolean, Void> {
 
     private final ShipStatsServices shipStatsServices;
 
@@ -18,7 +16,7 @@ public class GetShipStatsUseCase extends UseCase<List<ShipStatsModel>, Void> {
 
 
     @Override
-    void buildUseCaseObservable(DisposableObserver<List<Shipstats>> observer, Void aVoid) {
+    void buildUseCaseObservable(DisposableObserver<Boolean> observer, Void aVoid) {
         shipStatsServices.getShipStats(observer);
     }
 }

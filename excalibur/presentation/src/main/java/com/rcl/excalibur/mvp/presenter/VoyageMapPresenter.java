@@ -102,7 +102,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         view.setCruiseCoordinate(voyageModel.getMockCoordinate(day.charAt(0), true));
         view.setScaleAndCenter(voyageModel.getMockCoordinate(day.charAt(0), false));
 
-        getShipStatsUseCase.execute(new ShipStatsObserver(this), null);
+        //getShipStatsUseCase.execute(new ShipStatsObserver(this), null);
     }
 
     public void onResume() {
