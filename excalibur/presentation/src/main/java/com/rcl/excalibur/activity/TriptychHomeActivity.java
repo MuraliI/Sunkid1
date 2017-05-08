@@ -25,12 +25,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TriptychHomeActivity extends BaseActivity {
-    @BindView(R.id.day_picker_tab)
-    View tabElement;
-    @BindView(R.id.image_ship)
-    View shipElement;
-    @BindView(R.id.pager_triptych_pager)
-    View pagerElement;
+    @BindView(R.id.day_picker_tab) View tabElement;
+    @BindView(R.id.image_ship) View shipElement;
+    @BindView(R.id.pager_triptych_pager) View pagerElement;
 
     private TriptychHomePresenter presenter;
     private SailingPreferences sailingPreferences;
