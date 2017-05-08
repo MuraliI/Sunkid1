@@ -230,11 +230,11 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         weather.setResource(R.drawable.icon_voyage_sunny);
 
         ShipStatsModel sunrise = new ShipStatsModel();
-        sunrise.setName(DateUtils.getHourday(weatherCurrent.getSunrise()));
+        sunrise.setName(DateUtils.getDayHour(weatherCurrent.getSunrise()));
         sunrise.setResource(R.drawable.icon_voyage_sunrise);
 
         ShipStatsModel sunset = new ShipStatsModel();
-        sunset.setName(DateUtils.getHourday(weatherCurrent.getSunset()));
+        sunset.setName(DateUtils.getDayHour(weatherCurrent.getSunset()));
         sunset.setResource(R.drawable.icon_voyage_sunset);
 
         ShipStatsModel speed = new ShipStatsModel();
@@ -269,9 +269,10 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private void loadShipWeather() {
         ShipStatsInfo shipStatsInfo = getShipStatsDbUseCase.get();
         if (shipStatsInfo != null) {
-            getWeatherCurrentUseCase.execute(new DisposableObserver<Boolean>() {
+            getWeatherCurrentUseCase.execute(new DisposableObserver<Void>() {
+
                 @Override
-                public void onNext(Boolean value) {
+                public void onNext(Void value) {
                     addListMock();
                 }
 

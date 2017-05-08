@@ -33,9 +33,9 @@ public class WeatherInfoServicesImpl extends BaseDataService<WeatherCurrent, Wea
     }
 
     @Override
-    public void weatherInfo(ShipStatsInfo shipStatsInfo, DisposableObserver<Boolean> observer) {
+    public void weatherInfo(ShipStatsInfo shipStatsInfo, DisposableObserver<Void> observer) {
 
-        Observable.create((ObservableOnSubscribe<Boolean>) observableEmitter -> {
+        Observable.create((ObservableOnSubscribe<Void>) observable -> {
 
             ShipLocationInfo shipLocationInfo = shipStatsInfo.getShipLocation();
             Call<WeatherInfoResponse> call = getWeatherApi().weatherInfo(String.valueOf(shipLocationInfo.getLatitude()),
@@ -51,14 +51,14 @@ public class WeatherInfoServicesImpl extends BaseDataService<WeatherCurrent, Wea
                     WeatherCurrent weatherCurrent = getMapper().transform(response.body().getCurrent(), null);
                     repository.deleteAll();
                     repository.create(weatherCurrent);
-                    observableEmitter.onNext(true);
-                    observableEmitter.onComplete();
+                    observable.onNext(null);
+                    observable.onComplete();
                 }
 
                 @Override
                 public void onFailure(Call<WeatherInfoResponse> call, Throwable t) {
                     Timber.e("Weather error", t.getMessage());
-                    observableEmitter.onError(t);
+                    observable.onError(t);
                 }
             });
 

@@ -6,7 +6,7 @@ import com.rcl.excalibur.domain.service.WeatherServices;
 
 import io.reactivex.observers.DisposableObserver;
 
-public class GetWeatherCurrentUseCase extends UseCase<Boolean, ShipStatsInfo> {
+public class GetWeatherCurrentUseCase extends UseCase<Void, ShipStatsInfo> {
 
     private final WeatherServices weatherServices;
 
@@ -16,7 +16,7 @@ public class GetWeatherCurrentUseCase extends UseCase<Boolean, ShipStatsInfo> {
     }
 
     @Override
-    void buildUseCaseObservable(DisposableObserver<Boolean> observer, ShipStatsInfo shipStatsInfo) {
+    void buildUseCaseObservable(DisposableObserver<Void> observer, ShipStatsInfo shipStatsInfo) {
         weatherServices.weatherInfo(shipStatsInfo, observer);
     }
 
