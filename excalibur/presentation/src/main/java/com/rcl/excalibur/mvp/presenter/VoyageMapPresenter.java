@@ -244,10 +244,10 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private void loadShipWeather() {
         ShipStatsInfo shipStatsInfo = getShipStatsDbUseCase.get();
         if (shipStatsInfo != null) {
-            getWeatherCurrentUseCase.execute(new DisposableObserver<Void>() {
+            getWeatherCurrentUseCase.execute(new DisposableObserver<Boolean>() {
 
                 @Override
-                public void onNext(Void value) {
+                public void onNext(Boolean value) {
                     addListMock();
                 }
 

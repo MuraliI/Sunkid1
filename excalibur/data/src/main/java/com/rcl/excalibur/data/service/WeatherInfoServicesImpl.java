@@ -33,9 +33,9 @@ public class WeatherInfoServicesImpl extends BaseDataService<WeatherCurrent, Wea
     }
 
     @Override
-    public void weatherInfo(ShipStatsInfo shipStatsInfo, DisposableObserver<Void> observer) {
+    public void weatherInfo(ShipStatsInfo shipStatsInfo, DisposableObserver<Boolean> observer) {
 
-        Observable.create((ObservableOnSubscribe<Void>) observable -> {
+        Observable.create((ObservableOnSubscribe<Boolean>) observable -> {
 
             ShipLocationInfo shipLocationInfo = shipStatsInfo.getShipLocation();
             Call<WeatherInfoResponse> call = getWeatherApi().weatherInfo(String.valueOf(shipLocationInfo.getLatitude()),
@@ -51,7 +51,7 @@ public class WeatherInfoServicesImpl extends BaseDataService<WeatherCurrent, Wea
                     WeatherCurrent weatherCurrent = getMapper().transform(response.body().getCurrent(), null);
                     repository.deleteAll();
                     repository.create(weatherCurrent);
-                    observable.onNext(null);
+                    observable.onNext(true);
                     observable.onComplete();
                 }
 
