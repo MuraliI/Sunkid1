@@ -137,7 +137,7 @@ public class TriptychHomePresenter {
         return shipLocation;
     }
 
-    public Pair<View, String> getPlannerSharedElementPair() {
-        return view.getPlannerSharedElement();
+    public Pair<Pair<View, String>, Pair<View, String>> getPlannerSharedElementPairs() {
+        return view.getPlannerSharedElements();
     }
 }

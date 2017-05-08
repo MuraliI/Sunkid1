@@ -69,7 +69,8 @@ public class TriptychHomeActivity extends BaseActivity {
         Pair<View, String> shipPair = Pair.create(shipElement, shipElement.getTransitionName());
         Pair<View, String> cloudLeftPair = Pair.create(cloudLeftElement, cloudLeftElement.getTransitionName());
         Pair<View, String> cloudRightPair = Pair.create(cloudRightElement, cloudRightElement.getTransitionName());
+        Pair<Pair<View, String>, Pair<View, String>> plannerSharedElementPairs = presenter.getPlannerSharedElementPairs();
         ActivityUtils.startActivityWithSharedElements(this, VoyageMapActivity.getStartIntent(this), tabPair, shipPair,
-                presenter.getPlannerSharedElementPair(), cloudLeftPair, cloudRightPair);
+                plannerSharedElementPairs.first, plannerSharedElementPairs.second, cloudLeftPair, cloudRightPair);
     }
 }

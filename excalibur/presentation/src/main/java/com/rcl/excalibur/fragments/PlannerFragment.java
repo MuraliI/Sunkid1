@@ -3,7 +3,8 @@ package com.rcl.excalibur.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
+import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +88,11 @@ public class PlannerFragment extends BaseTripTychFragment implements FlexibleAda
         }
     }
 
-    public View getPlannerSharedElement() {
-        return getView().findViewById(R.id.recycler_view);
+    public Pair<Pair<View, String>, Pair<View, String>> getPlannerSharedElements() {
+        View parent = getView().findViewById(R.id.recycler_view);
+        View item = ((RecyclerView) parent).findViewHolderForAdapterPosition(1).itemView;
+        View item2 = ((RecyclerView) parent).findViewHolderForAdapterPosition(2).itemView;
+        return Pair.create(Pair.create(item, getString(R.string.shared_element_first_cart)),
+                Pair.create(item2, getString(R.string.shared_element_second_cart)));
     }
 }

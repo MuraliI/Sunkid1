@@ -74,13 +74,12 @@ public class TriptychHomeView extends ActivityView<TriptychHomeActivity, Void, V
     }
 
     @Nullable
-    public Pair<View, String> getPlannerSharedElement() {
+    public Pair<Pair<View, String>, Pair<View, String>> getPlannerSharedElements() {
         if (getActivity() != null) {
             @SuppressLint("RestrictedApi") List<Fragment> fragments = getActivity().getSupportFragmentManager().getFragments();
             for (Fragment fragment : fragments) {
                 if (fragment != null && fragment instanceof PlannerFragment) {
-                    View plannerSharedElement = ((PlannerFragment) fragment).getPlannerSharedElement();
-                    return Pair.create(plannerSharedElement, plannerSharedElement.getTransitionName());
+                    return ((PlannerFragment) fragment).getPlannerSharedElements();
                 }
             }
         }

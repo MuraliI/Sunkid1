@@ -83,25 +83,54 @@
         android:transitionName="@string/shared_element_cloud_right"
         android:translationX="@dimen/transition_x_cloud_right" />
 
-    <LinearLayout
+    <ImageView
         android:id="@+id/bottom_back_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/plan_list_padding_top_header"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="@dimen/margin_small"
         android:layout_marginStart="@dimen/margin_small"
         android:background="@drawable/background_rounded_top"
-        android:orientation="vertical"
-        android:transitionName="@string/shared_element_planner">
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_normal"
+        android:scaleType="center"
+        android:src="@drawable/arrow_up_gray"
+        android:visibility="invisible" />
 
-        <ImageView
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:transitionName="@string/shared_element_planner"
+        android:translationY="380dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:background="@drawable/arrow_up_gray"
-            android:contentDescription="@null"
-            android:foregroundGravity="center_vertical" />
+            android:transitionName="@string/shared_element_first_cart">
+
+            <include
+                layout="@layout/planner_item_product_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/planner_cue_card_height"
+                android:padding="@dimen/margin_small" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:transitionName="@string/shared_element_second_cart">
+
+            <include
+                layout="@layout/planner_item_product_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/planner_cue_card_height"
+                android:padding="@dimen/margin_small" />
+
+        </FrameLayout>
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
