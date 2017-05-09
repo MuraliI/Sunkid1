@@ -40,20 +40,14 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         holder.productId = item.getProductId();
         holder.name.setText(item.getProductName());
 
-        boolean isShorex = CategoryUtil.isShorex(item.getProductType());
-        //TODO: Remove this in sprint 6 when consuming Location
-        isShorex = false;
+        boolean isShorex = CategoryUtil.isShorex(item.getProductType().toLowerCase());
         holder.findOnDeck.setVisibility(isShorex ? View.GONE : View.VISIBLE);
 
-        holder.venue.setVisibility(isShorex ? View.GONE : View.VISIBLE);
         holder.venue.setText(item.getVenue());
 
         holder.deckAndDirection.setVisibility(isShorex ? View.GONE : View.VISIBLE);
-        //TODO: Remove "Deck" and create logic in sprint 6 when consuming Location
-        holder.deckAndDirection.setText("Deck " + item.getLocation());
-
-        holder.port.setVisibility(isShorex ? View.VISIBLE : View.GONE);
-        holder.port.setText(item.getPort());
+        if (item.getLocation().length() > 0)
+            holder.deckAndDirection.setText("Deck " + item.getLocation());
 
         holder.reservationLayout.setVisibility(item.isReservationRequired() ? View.VISIBLE : View.GONE);
 
@@ -73,7 +67,6 @@ public class ProductInformationDelegateAdapter implements DelegateAdapter<Produc
         @BindView(R.id.text_product_detail_name) TextView name;
         @BindView(R.id.text_product_venue) TextView venue;
         @BindView(R.id.text_product_deck_and_direction) TextView deckAndDirection;
-        @BindView(R.id.text_product_port) TextView port;
         @BindView(R.id.layout_reservation) View reservationLayout;
         @BindView(R.id.button_find_on_deck) View findOnDeck;
         @BindView(R.id.price_range_product) PriceRangeLayout priceRange;
