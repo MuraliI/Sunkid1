@@ -2,7 +2,7 @@ package com.rcl.excalibur.data.service.response;
 
 class ForecastWeatherResponse extends WeatherBaseResponse {
 
-    String day;
+    private String day;
 
     public String getDay() {
         return day;

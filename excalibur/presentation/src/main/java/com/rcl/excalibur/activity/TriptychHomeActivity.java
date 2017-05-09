@@ -42,6 +42,7 @@ public class TriptychHomeActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_triptych_home_screen);
+        ButterKnife.bind(this);
         sailingPreferences = new SailingPreferenceImpl(this);
         presenter = new TriptychHomePresenter(
                 new TriptychHomeView(this),
@@ -65,7 +66,6 @@ public class TriptychHomeActivity extends BaseActivity {
     }
 
     public void goToVoyageActivity() {
-        ButterKnife.bind(this);
         Pair<View, String> tabPair = Pair.create(tabElement, getString(R.string.shared_element_tab));
         Pair<View, String> shipPair = Pair.create(shipElement, shipElement.getTransitionName());
         Pair<View, String> cloudLeftPair = Pair.create(cloudLeftElement, cloudLeftElement.getTransitionName());
