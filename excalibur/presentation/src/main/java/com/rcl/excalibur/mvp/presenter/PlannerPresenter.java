@@ -19,7 +19,6 @@ import com.rcl.excalibur.domain.SailDateInfo;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
-import com.rcl.excalibur.fragments.PlannerFragment;
 import com.rcl.excalibur.mapper.PlannerProductModelMapper;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
@@ -137,10 +136,10 @@ public class PlannerPresenter {
                 if (previousPlannerProductModel == null
                         || plannerProductModel.isStartHourDifferent(previousPlannerProductModel)) {
                     String startHourText = null;
-                    final PlannerFragment fragment = view.getFragment();
-                    if (fragment != null) {
+                    final BaseActivity activity = view.getActivity();
+                    if (activity != null) {
                         startHourText = DateUtils.getDateHour(
-                                plannerProductModel.getStartDate().getTime(), fragment.getResources());
+                                plannerProductModel.getStartDate().getTime(), activity.getResources());
                     }
                     plannerProductModel.setStartHourText(startHourText);
                 }
