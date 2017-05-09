@@ -55,6 +55,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
     private String day;
     private VoyageMapModel voyageModel;
+    private Boolean isCurrentSelected = false;
 
     public VoyageMapPresenter(VoyageMapView view,
                               GetSailingPreferenceUseCase getSailingPreferenceUseCase,
@@ -126,6 +127,9 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         getShipLocationInfo(day);
         view.setScaleAndCenter(voyageModel.getMockCoordinate(day.charAt(0), false));
         view.setCruiseCoordinate(voyageModel.getMockCoordinate(day.charAt(0), true));
+
+        if (getWeatherCurrentDbUseCase.get() != null)
+            addListMock();
     }
 
     public void getShipLocationInfo(String day) {
@@ -138,7 +142,10 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         } else {
             List<EventModel> events = itinerary.getEvents();
             addShipLocationValue(events, selectedDay);
+            isCurrentSelected = selectedDay == itinerary.getIndexCurrentDay();
         }
+
+
     }
 
     public void addShipLocationValue(@NonNull List<EventModel> events, int day) {
@@ -234,7 +241,10 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         list.add(gangwayUp);
         list.add(gangwayDown);
 
-        view.addAll(list);
+        if (isCurrentSelected)
+            view.addAll(list);
+        else
+            view.addAll(new ArrayList<>());
     }
 
     public void onDestroy() {
