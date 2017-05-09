@@ -5,13 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 
 import com.rcl.excalibur.R;
-import com.rcl.excalibur.data.repository.MenuDataRepository;
 import com.rcl.excalibur.data.repository.OfferingDataRepository;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
 import com.rcl.excalibur.data.repository.SailDateDataRepository;
-import com.rcl.excalibur.data.service.MenuServicesImpl;
 import com.rcl.excalibur.data.utils.StringUtils;
-import com.rcl.excalibur.domain.interactor.GetMenusUseCase;
 import com.rcl.excalibur.domain.interactor.GetOfferingsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
@@ -44,9 +41,7 @@ public class ProductDetailActivity extends BaseActivity implements AppBarLayout.
         presenter = new ProductDetailPresenter(new ProductDetailView(this)
                 , new GetProductDbUseCase(new ProductDataRepository())
                 , new GetOfferingsDbUseCase(new OfferingDataRepository())
-                , new GetSaildDateDbUseCase(new SailDateDataRepository())
-                //FIXME Remove hardcoded venueCode. This is just for the demo.
-                , new GetMenusUseCase(new MenuServicesImpl(new MenuDataRepository()), "CHOP"));
+                , new GetSaildDateDbUseCase(new SailDateDataRepository()));
         presenter.init(productId);
     }
 

@@ -43,7 +43,6 @@ public class ProductDetailPresenterTest {
     @Mock GetProductDbUseCase getProductDbUseCase;
     @Mock GetOfferingsDbUseCase getOfferingsDbUseCase;
     @Mock GetSaildDateDbUseCase getSaildDateDbUseCase;
-    @Mock GetMenusUseCase getMenusUseCase;
     @Mock ProductDetailActivity activity;
 
     @Before
@@ -53,8 +52,7 @@ public class ProductDetailPresenterTest {
         presenter = new ProductDetailPresenter(view,
                 getProductDbUseCase,
                 getOfferingsDbUseCase,
-                getSaildDateDbUseCase,
-                getMenusUseCase);
+                getSaildDateDbUseCase);
         when(view.getActivity()).thenReturn(activity);
     }
 

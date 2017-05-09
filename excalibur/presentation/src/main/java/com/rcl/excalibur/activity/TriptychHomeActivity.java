@@ -8,9 +8,12 @@ import android.view.View;
 
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.data.preference.SailingPreferenceImpl;
+import com.rcl.excalibur.data.repository.MenuDataRepository;
 import com.rcl.excalibur.data.repository.ProductDataRepository;
 import com.rcl.excalibur.data.repository.SailDateDataRepository;
+import com.rcl.excalibur.data.service.MenuServicesImpl;
 import com.rcl.excalibur.data.service.SailDateServicesImpl;
+import com.rcl.excalibur.domain.interactor.GetMenusUseCase;
 import com.rcl.excalibur.domain.interactor.GetProductDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSaildDateUseCase;
@@ -49,7 +52,9 @@ public class TriptychHomeActivity extends BaseActivity {
                 new GetSaildDateUseCase(new SailDateServicesImpl(new SailDateDataRepository())),
                 new GetSailingPreferenceUseCase(sailingPreferences),
                 new GetSaildDateDbUseCase(new SailDateDataRepository()),
-                new SailingInformationModelDataMapper()
+                new SailingInformationModelDataMapper(),
+                //TODO remove this after sprint. Move it to DownloadManager
+                new GetMenusUseCase(new MenuServicesImpl(new MenuDataRepository()), "CHOP")
         );
         presenter.init();
     }
