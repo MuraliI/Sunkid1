@@ -168,7 +168,8 @@ public class DiningTimesDelegateAdapter implements DelegateAdapter<TimesDelegate
                 }
             }
             showMoreArrow.setImageResource(collapsed ? R.drawable.ic_chevron_down : R.drawable.ic_chevron_up);
-            showMoreText.setText(context.getResources().getString(collapsed ? R.string.product_detail_show_more : R.string.product_detail_show_less));
+            showMoreText.setText(context.getResources().getString(
+                    collapsed ? R.string.product_detail_show_more : R.string.product_detail_show_less));
         }
     }
 }

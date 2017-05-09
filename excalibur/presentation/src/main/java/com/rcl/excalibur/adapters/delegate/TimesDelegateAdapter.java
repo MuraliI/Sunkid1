@@ -77,8 +77,10 @@ public class TimesDelegateAdapter implements DelegateAdapter<TimesDelegateAdapte
                     v.setVisibility(collapse ? View.GONE : View.VISIBLE);
                 }
             }
-            showMoreArrow.setImageResource(collapsed ? R.drawable.ic_chevron_down : R.drawable.ic_chevron_up);
-            showMoreText.setText(context.getResources().getString(collapsed ? R.string.product_detail_show_more : R.string.product_detail_show_less));
+            showMoreArrow.setImageResource(
+                    collapsed ? R.drawable.ic_chevron_down : R.drawable.ic_chevron_up);
+            showMoreText.setText(context.getResources().getString(
+                    collapsed ? R.string.product_detail_show_more : R.string.product_detail_show_less));
         }
     }
 }

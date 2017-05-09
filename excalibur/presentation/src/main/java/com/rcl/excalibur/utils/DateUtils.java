@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public final class DateUtils {
 
@@ -93,6 +94,12 @@ public final class DateUtils {
                 : resources.getString(R.string.itinerary_product_view_pm));
 
         return builder.toString();
+    }
+
+    public static String getDayHour(long milliseconds) {
+        Date date = new Date(milliseconds);
+        DateFormat formatter = new SimpleDateFormat("H:mm a", Locale.getDefault());
+        return formatter.format(date);
     }
 
     public static String getDateTime(Date date, Resources resources) {

@@ -1,6 +1,8 @@
 package com.rcl.excalibur.data.service.response;
 
 
+import java.util.List;
+
 public class ShipStatsResponse {
     private String shipName;
     private String nextPortName;
@@ -9,7 +11,10 @@ public class ShipStatsResponse {
     private String currentPortName;
     private String lastPortName;
     private long lastPortDepartureTime;
-
+    private ShipLocationResponse shipLocation;
+    private ShipLocationStatsResponse shipLocationStats;
+    private List<HistoryLocationResponse> historicalLocations;
+    private List<FutureLocation> futureLocations;
 
     public String getShipName() {
         return shipName;
@@ -65,5 +70,37 @@ public class ShipStatsResponse {
 
     public void setLastPortDepartureTime(long lastPortDepartureTime) {
         this.lastPortDepartureTime = lastPortDepartureTime;
+    }
+
+    public ShipLocationResponse getShipLocation() {
+        return shipLocation;
+    }
+
+    public void setShipLocation(ShipLocationResponse shipLocation) {
+        this.shipLocation = shipLocation;
+    }
+
+    public ShipLocationStatsResponse getShipLocationStats() {
+        return shipLocationStats;
+    }
+
+    public void setShipLocationStats(ShipLocationStatsResponse shipLocationStats) {
+        this.shipLocationStats = shipLocationStats;
+    }
+
+    public List<HistoryLocationResponse> getHistoricalLocations() {
+        return historicalLocations;
+    }
+
+    public void setHistoricalLocations(List<HistoryLocationResponse> historicalLocations) {
+        this.historicalLocations = historicalLocations;
+    }
+
+    public List<FutureLocation> getFutureLocations() {
+        return futureLocations;
+    }
+
+    public void setFutureLocations(List<FutureLocation> futureLocations) {
+        this.futureLocations = futureLocations;
     }
 }

@@ -219,6 +219,12 @@
         <item name="android:textColor">@color/grey</item>
     </style>
 
+    <style name="AppTheme.ShipStatsTextView" parent="@android:style/Widget.TextView">
+        <item name="fontPath">@string/proxima_nova_bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="AppTheme.ProductDetailLocationText" parent="@android:style/Widget.TextView">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/font_detail_title_gray</item>

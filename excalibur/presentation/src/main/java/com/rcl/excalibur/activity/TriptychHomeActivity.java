@@ -33,6 +33,7 @@ public class TriptychHomeActivity extends BaseActivity {
     @BindView(R.id.pager_triptych_pager) View pagerElement;
     @BindView(R.id.image_cloud_left) View cloudLeftElement;
     @BindView(R.id.image_cloud_right) View cloudRightElement;
+
     private TriptychHomePresenter presenter;
     private SailingPreferences sailingPreferences;
 

@@ -11,10 +11,14 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rcl.excalibur.R;
 import com.rcl.excalibur.activity.VoyageMapActivity;
 import com.rcl.excalibur.domain.SailDateInfo;
+import com.rcl.excalibur.domain.ShipStatsInfo;
+import com.rcl.excalibur.domain.WeatherCurrent;
 import com.rcl.excalibur.domain.interactor.GetSaildDateDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetSailingPreferenceUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipStatsDbUseCase;
 import com.rcl.excalibur.domain.interactor.GetShipStatsUseCase;
+import com.rcl.excalibur.domain.interactor.GetWeatherCurrentDbUseCase;
+import com.rcl.excalibur.domain.interactor.GetWeatherCurrentUseCase;
 import com.rcl.excalibur.domain.utils.ConstantsUtil;
 import com.rcl.excalibur.mapper.SailingInformationModelDataMapper;
 import com.rcl.excalibur.model.EventModel;
@@ -24,6 +28,8 @@ import com.rcl.excalibur.model.SailingInfoModel;
 import com.rcl.excalibur.model.ShipStatsModel;
 import com.rcl.excalibur.model.VoyageMapModel;
 import com.rcl.excalibur.mvp.view.VoyageMapView;
+import com.rcl.excalibur.utils.CompassUtils;
+import com.rcl.excalibur.utils.DateUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -31,10 +37,11 @@ import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
 
+import static com.rcl.excalibur.model.PortModel.PORT_TYPE_CRUISING;
+import static com.rcl.excalibur.model.PortModel.PORT_TYPE_DEBARK;
+import static com.rcl.excalibur.model.PortModel.PORT_TYPE_DOCKED;
 import static com.rcl.excalibur.model.PortModel.PORT_TYPE_EMBARK;
-import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_CRUISING;
-import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DEBARK;
-import static com.rcl.excalibur.mvp.presenter.TriptychHomePresenter.PORT_TYPE_DOCKED;
+
 
 public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimationEventListener {
 
@@ -43,6 +50,8 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private GetSaildDateDbUseCase getSaildDateDbUseCase;
     private GetShipStatsDbUseCase getShipStatsDbUseCase;
     private GetShipStatsUseCase getShipStatsUseCase;
+    private GetWeatherCurrentDbUseCase getWeatherCurrentDbUseCase;
+    private GetWeatherCurrentUseCase getWeatherCurrentUseCase;
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
     private String day;
     private VoyageMapModel voyageModel;
@@ -52,6 +61,8 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
                               GetSaildDateDbUseCase getSaildDateDbUseCase,
                               SailingInformationModelDataMapper sailingInformationModelDataMapper,
                               GetShipStatsDbUseCase getShipStatsDbUseCase,
+                              GetWeatherCurrentUseCase getWeatherCurrentUseCase,
+                              GetWeatherCurrentDbUseCase getWeatherCurrentDbUseCase,
                               GetShipStatsUseCase getShipStatsUseCase) {
         this.view = view;
         this.getSailingPreferenceUseCase = getSailingPreferenceUseCase;
@@ -59,6 +70,8 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         this.sailingInformationModelDataMapper = sailingInformationModelDataMapper;
         this.getShipStatsDbUseCase = getShipStatsDbUseCase;
         this.getShipStatsUseCase = getShipStatsUseCase;
+        this.getWeatherCurrentDbUseCase = getWeatherCurrentDbUseCase;
+        this.getWeatherCurrentUseCase = getWeatherCurrentUseCase;
     }
 
     public void initMap() {
@@ -177,22 +190,78 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     }
 
     private void addListMock() {
-        List<ShipStatsModel> list = new ArrayList<>();
-        ShipStatsModel model = new ShipStatsModel();
-        model.setName("Mock Data");
+        ShipStatsInfo shipStatsInfo = getShipStatsDbUseCase.get();
+        WeatherCurrent weatherCurrent = getWeatherCurrentDbUseCase.get();
 
-        list.add(model);
-        list.add(model);
-        list.add(model);
-        list.add(model);
-        list.add(model);
-        list.add(model);
+        ShipStatsModel weather = new ShipStatsModel();
+        weather.setName(weatherCurrent.getWeatherStats());
+        weather.setResource(R.drawable.icon_voyage_sunny);
+
+        ShipStatsModel sunrise = new ShipStatsModel();
+        sunrise.setName(DateUtils.getDayHour(weatherCurrent.getSunrise()));
+        sunrise.setResource(R.drawable.icon_voyage_sunrise);
+
+        ShipStatsModel sunset = new ShipStatsModel();
+        sunset.setName(DateUtils.getDayHour(weatherCurrent.getSunset()));
+        sunset.setResource(R.drawable.icon_voyage_sunset);
+
+        ShipStatsModel speed = new ShipStatsModel();
+        speed.setName(shipStatsInfo.getShipLocationStats().getShipSpeed());
+        speed.setResource(R.drawable.icon_voyage_speed);
+
+        ShipStatsModel compass = new ShipStatsModel();
+        compass.setName(CompassUtils.getCompassByUnit(shipStatsInfo.getShipLocationStats().getHeading()));
+        compass.setResource(R.drawable.icon_voyage_compass);
+
+
+        ShipStatsModel gangwayUp = new ShipStatsModel();
+        //FIXME change when services return data for that
+        gangwayUp.setName("3:13 am");
+        gangwayUp.setResource(R.drawable.icon_voyage_gangway_up);
+
+        ShipStatsModel gangwayDown = new ShipStatsModel();
+        //FIXME change when services return data for that
+        gangwayDown.setName("3:14 am");
+        gangwayDown.setResource(R.drawable.icon_voyage_gangway_down);
+
+
+        List<ShipStatsModel> list = new ArrayList<>();
+        list.add(weather);
+        list.add(sunrise);
+        list.add(sunset);
+        list.add(speed);
+        list.add(compass);
+        list.add(gangwayUp);
+        list.add(gangwayDown);
 
         view.addAll(list);
     }
 
     public void onDestroy() {
         view.onDestroy();
+    }
+
+    private void loadShipWeather() {
+        ShipStatsInfo shipStatsInfo = getShipStatsDbUseCase.get();
+        if (shipStatsInfo != null) {
+            getWeatherCurrentUseCase.execute(new DisposableObserver<Boolean>() {
+
+                @Override
+                public void onNext(Boolean value) {
+                    addListMock();
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            }, shipStatsInfo);
+        }
     }
 
 
@@ -207,7 +276,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         @Override
         public void onNext(Boolean value) {
             if (presenterWeakReference != null)
-                presenterWeakReference.get().addListMock();
+                presenterWeakReference.get().loadShipWeather();
         }
 
         @Override

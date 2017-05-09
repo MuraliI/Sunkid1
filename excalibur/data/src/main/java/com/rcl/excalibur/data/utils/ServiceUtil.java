@@ -5,6 +5,7 @@ import com.rcl.excalibur.data.BuildConfig;
 import com.rcl.excalibur.data.service.api.DiscoverApi;
 import com.rcl.excalibur.data.service.api.GuestApi;
 import com.rcl.excalibur.data.service.api.MenuApi;
+import com.rcl.excalibur.data.service.api.WeatherApi;
 import com.rcl.excalibur.data.service.api.SailDateApi;
 import com.rcl.excalibur.data.service.api.ShipStatsApi;
 import com.rcl.excalibur.data.service.api.ShipTimeApi;
@@ -31,6 +32,7 @@ public final class ServiceUtil {
     private static ShipTimeApi shipTimeApi;
     private static ShipStatsApi shipStatsApi;
     private static MenuApi menuApi;
+    private static WeatherApi mockableApi;
 
 
     private ServiceUtil() {
@@ -111,6 +113,18 @@ public final class ServiceUtil {
             sailDateApi = retrofit.create(SailDateApi.class);
         }
         return sailDateApi;
+    }
+
+    public static WeatherApi getWeatherApi() {
+        if (mockableApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BuildConfig.WEATHER_API_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(getClient())
+                    .build();
+            mockableApi = retrofit.create(WeatherApi.class);
+        }
+        return mockableApi;
     }
 
     private static OkHttpClient getClient() {
