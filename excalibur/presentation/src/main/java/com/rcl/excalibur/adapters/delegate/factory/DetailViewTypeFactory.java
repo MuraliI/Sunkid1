@@ -302,7 +302,6 @@ public final class DetailViewTypeFactory {
         }
 
         if (product.isShorex()) {
-            title = res.getString(R.string.operating_hours);
             addTitleAndDescriptionTypes(recyclerViewTypeList, title, res.getString(R.string.times_vary));
         }
 
