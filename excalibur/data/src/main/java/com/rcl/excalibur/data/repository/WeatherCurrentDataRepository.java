@@ -37,12 +37,12 @@ public class WeatherCurrentDataRepository extends BaseDataRepository<WeatherCurr
         entity.setCurrentRainFallPercent(weatherCurrent.getCurrentRainFallPercent());
 
         //Create Weather List
-        createWeatherList(entity, weatherCurrent.getWeather());
+        create(entity, weatherCurrent.getWeather());
 
         entity.save();
     }
 
-    private void createWeatherList(WeatherCurrentEntity entity, List<Weather> weather) {
+    private void create(WeatherCurrentEntity entity, List<Weather> weather) {
         List<WeatherEntity> weatherList = new ArrayList<>();
         for (Weather weatherResponse : weather) {
             WeatherEntity weatherEntity = new WeatherEntity();

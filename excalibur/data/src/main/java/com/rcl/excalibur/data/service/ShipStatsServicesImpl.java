@@ -36,10 +36,9 @@ public class ShipStatsServicesImpl extends BaseDataService<ShipStatsInfo, ShipSt
                 @Override
                 public void onResponse(Call<ShipStatsResponse> call, Response<ShipStatsResponse> response) {
                     if (response.body() != null) {
-                        if (response.isSuccessful() && repository.get() != null) {
+                        if (repository.get() != null) {
                             repository.deleteAll();
                         }
-
 
                         ShipStatsInfo shipStatsInfo = getMapper().transform(response.body(), null);
                         repository.create(shipStatsInfo);
