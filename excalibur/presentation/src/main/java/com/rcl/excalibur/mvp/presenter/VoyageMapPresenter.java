@@ -241,10 +241,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
             list.add(gangwayUp);
             list.add(gangwayDown);
 
-            if (isCurrentSelected)
-                view.addAll(list);
-            else
-                view.addAll(new ArrayList<>());
+            view.addAll(isCurrentSelected ? list : new ArrayList<>());
         }
     }
 
