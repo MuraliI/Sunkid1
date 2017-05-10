@@ -55,6 +55,7 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
     private SailingInformationModelDataMapper sailingInformationModelDataMapper;
     private String day;
     private VoyageMapModel voyageModel;
+    private Boolean isCurrentSelected = false;
 
     public VoyageMapPresenter(VoyageMapView view,
                               GetSailingPreferenceUseCase getSailingPreferenceUseCase,
@@ -126,6 +127,8 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         getShipLocationInfo(day);
         view.setScaleAndCenter(voyageModel.getMockCoordinate(day.charAt(0), false));
         view.setCruiseCoordinate(voyageModel.getMockCoordinate(day.charAt(0), true));
+
+        addListMock();
     }
 
     public void getShipLocationInfo(String day) {
@@ -138,7 +141,10 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         } else {
             List<EventModel> events = itinerary.getEvents();
             addShipLocationValue(events, selectedDay);
+            isCurrentSelected = selectedDay == itinerary.getIndexCurrentDay();
         }
+
+
     }
 
     public void addShipLocationValue(@NonNull List<EventModel> events, int day) {
@@ -193,48 +199,50 @@ public class VoyageMapPresenter implements SubsamplingScaleImageView.OnAnimation
         ShipStatsInfo shipStatsInfo = getShipStatsDbUseCase.get();
         WeatherCurrent weatherCurrent = getWeatherCurrentDbUseCase.get();
 
-        ShipStatsModel weather = new ShipStatsModel();
-        weather.setName(weatherCurrent.getWeatherStats());
-        weather.setResource(R.drawable.icon_voyage_sunny);
+        if (shipStatsInfo != null && weatherCurrent != null) {
+            ShipStatsModel weather = new ShipStatsModel();
+            weather.setName(weatherCurrent.getWeatherStats());
+            weather.setResource(R.drawable.icon_voyage_sunny);
 
-        ShipStatsModel sunrise = new ShipStatsModel();
-        sunrise.setName(DateUtils.getDayHour(weatherCurrent.getSunrise()));
-        sunrise.setResource(R.drawable.icon_voyage_sunrise);
+            ShipStatsModel sunrise = new ShipStatsModel();
+            sunrise.setName(DateUtils.getDayHour(weatherCurrent.getSunrise()));
+            sunrise.setResource(R.drawable.icon_voyage_sunrise);
 
-        ShipStatsModel sunset = new ShipStatsModel();
-        sunset.setName(DateUtils.getDayHour(weatherCurrent.getSunset()));
-        sunset.setResource(R.drawable.icon_voyage_sunset);
+            ShipStatsModel sunset = new ShipStatsModel();
+            sunset.setName(DateUtils.getDayHour(weatherCurrent.getSunset()));
+            sunset.setResource(R.drawable.icon_voyage_sunset);
 
-        ShipStatsModel speed = new ShipStatsModel();
-        speed.setName(shipStatsInfo.getShipLocationStats().getShipSpeed());
-        speed.setResource(R.drawable.icon_voyage_speed);
+            ShipStatsModel speed = new ShipStatsModel();
+            speed.setName(shipStatsInfo.getShipLocationStats().getShipSpeed());
+            speed.setResource(R.drawable.icon_voyage_speed);
 
-        ShipStatsModel compass = new ShipStatsModel();
-        compass.setName(CompassUtils.getCompassByUnit(shipStatsInfo.getShipLocationStats().getHeading()));
-        compass.setResource(R.drawable.icon_voyage_compass);
-
-
-        ShipStatsModel gangwayUp = new ShipStatsModel();
-        //FIXME change when services return data for that
-        gangwayUp.setName("3:13 am");
-        gangwayUp.setResource(R.drawable.icon_voyage_gangway_up);
-
-        ShipStatsModel gangwayDown = new ShipStatsModel();
-        //FIXME change when services return data for that
-        gangwayDown.setName("3:14 am");
-        gangwayDown.setResource(R.drawable.icon_voyage_gangway_down);
+            ShipStatsModel compass = new ShipStatsModel();
+            compass.setName(CompassUtils.getCompassByUnit(shipStatsInfo.getShipLocationStats().getHeading()));
+            compass.setResource(R.drawable.icon_voyage_compass);
 
 
-        List<ShipStatsModel> list = new ArrayList<>();
-        list.add(weather);
-        list.add(sunrise);
-        list.add(sunset);
-        list.add(speed);
-        list.add(compass);
-        list.add(gangwayUp);
-        list.add(gangwayDown);
+            ShipStatsModel gangwayUp = new ShipStatsModel();
+            //FIXME change when services return data for that
+            gangwayUp.setName("3:13 am");
+            gangwayUp.setResource(R.drawable.icon_voyage_gangway_up);
 
-        view.addAll(list);
+            ShipStatsModel gangwayDown = new ShipStatsModel();
+            //FIXME change when services return data for that
+            gangwayDown.setName("3:14 am");
+            gangwayDown.setResource(R.drawable.icon_voyage_gangway_down);
+
+
+            List<ShipStatsModel> list = new ArrayList<>();
+            list.add(weather);
+            list.add(sunrise);
+            list.add(sunset);
+            list.add(speed);
+            list.add(compass);
+            list.add(gangwayUp);
+            list.add(gangwayDown);
+
+            view.addAll(isCurrentSelected ? list : new ArrayList<>());
+        }
     }
 
     public void onDestroy() {

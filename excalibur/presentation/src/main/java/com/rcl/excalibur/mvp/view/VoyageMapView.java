@@ -56,14 +56,15 @@ public class VoyageMapView extends ActivityView<VoyageMapActivity, Void, ShipSta
 
     public void init(int width) {
         whiteBarView.getLayoutParams().width = width / SCREEN_DIVISOR;
+        adapter = new ShipStatsAdapter(adapterObserver);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setAdapter(adapter);
     }
 
     public void initVoyageMapImage() {
         voyageMapImage.setMinimumDpi(MINIMUM_DPI);
         voyageMapImage.setZoomEnabled(false);
-        adapter = new ShipStatsAdapter(adapterObserver);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(adapter);
+
     }
 
     public void setCruiseCoordinate(PointF point) {
