@@ -5,20 +5,20 @@ import android.text.TextUtils;
 
 import com.rcl.excalibur.activity.guest.EmailActivity;
 import com.rcl.excalibur.activity.guest.NameActivity;
+import com.rcl.excalibur.data.utils.StringUtils;
 import com.rcl.excalibur.domain.interactor.GetGuestPreferencesUseCase;
 import com.rcl.excalibur.mvp.view.guest.NameView;
 import com.rcl.excalibur.utils.ActivityUtils;
-import com.rcl.excalibur.data.utils.StringUtils;
 
 import static com.rcl.excalibur.data.utils.StringUtils.SPLIT_SEPARATOR;
 import static com.rcl.excalibur.data.utils.StringUtils.capitalizeAllWords;
 import static com.rcl.excalibur.data.utils.StringUtils.removeBarreled;
 
 public class NamePresenter {
-    private static final String BRAND = "r";
-    private static final String VERSION = "1.0";
-    private static final int LIMIT_MAX = 50;
-    private boolean canChange = true;
+    protected static final String BRAND = "r";
+    protected static final String VERSION = "1.0";
+    protected static final int LIMIT_MAX = 50;
+    protected boolean canChange = true;
     private NameView view;
     private GetGuestPreferencesUseCase getGuestPreferencesUseCase;
 
