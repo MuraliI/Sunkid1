@@ -52,7 +52,7 @@ public class AnswerQuestionPresenter {
         view.setEnableDone(view.getAnswer().length() > MIN_CHARS);
     }
 
-    private final class CreateAccountServiceObserver extends DefaultPresentObserver<CreateAccountEvent, AnswerQuestionPresenter> {
+    protected final class CreateAccountServiceObserver extends DefaultPresentObserver<CreateAccountEvent, AnswerQuestionPresenter> {
 
         private CreateAccountServiceObserver(AnswerQuestionPresenter presenter) {
             super(presenter);
