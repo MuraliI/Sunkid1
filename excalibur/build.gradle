@@ -8,7 +8,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'me.tatarka:gradle-retrolambda:3.2.3'
-        classpath 'com.appdynamics:appdynamics-gradle-plugin:4.+' //AppDynamics
+        classpath 'com.appdynamics:appdynamics-gradle-plugin:4.3.0.2' //AppDynamics
     }
 }
 
