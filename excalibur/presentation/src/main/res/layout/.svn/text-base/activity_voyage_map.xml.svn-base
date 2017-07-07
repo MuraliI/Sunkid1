@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_sea">
+
+    <fragment
+        android:id="@+id/ship_time_fragment"
+        android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/ship_time" />
+
+    <FrameLayout
+        android:id="@+id/image_voyage_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ship_time_fragment"
+        android:alpha="0" />
+
+    <LinearLayout
+        android:id="@+id/linear_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ship_time_fragment"
+        android:orientation="vertical"
+        android:transitionName="@string/shared_element_tab">
+
+        <View
+            android:id="@+id/view_white_voyage_map"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/triptych_strip_tickness"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white" />
+
+        <include
+            android:id="@+id/day_picker_tab"
+            layout="@layout/custom_tabview_triptychtab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/margin_normal" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_ship_status"
+        style="@style/AppTheme.TriptychItemTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_tab"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/margin_medium" />
+
+    <ImageView
+        android:id="@+id/image_ship_voyage"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_voyage_ship"
+        android:layout_centerInParent="true"
+        android:contentDescription="@null"
+        android:src="@drawable/ship_big"
+        android:transitionName="@string/shared_element_ship" />
+
+    <ImageView
+        android:id="@+id/image_cloud_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_tab"
+        android:contentDescription="@null"
+        android:src="@drawable/cloud_01"
+        android:transitionName="@string/shared_element_cloud_left"
+        android:translationX="@dimen/transition_x_cloud_left" />
+
+    <ImageView
+        android:id="@+id/image_cloud_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/linear_tab"
+        android:contentDescription="@null"
+        android:src="@drawable/cloud_02"
+        android:transitionName="@string/shared_element_cloud_right"
+        android:translationX="@dimen/transition_x_cloud_right" />
+
+    <ImageView
+        android:id="@+id/bottom_back_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_small"
+        android:background="@drawable/background_rounded_top"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_normal"
+        android:scaleType="center"
+        android:src="@drawable/arrow_up_gray"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:transitionName="@string/shared_element_planner"
+        android:translationY="@dimen/translation_y_planner_items">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:transitionName="@string/shared_element_first_cart">
+
+            <include
+                layout="@layout/planner_item_product_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/planner_cue_card_height"
+                android:padding="@dimen/margin_small" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:transitionName="@string/shared_element_second_cart">
+
+            <include
+                layout="@layout/planner_item_product_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/planner_cue_card_height"
+                android:padding="@dimen/margin_small" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_back_view"
+        android:alpha="0" />
+
+</RelativeLayout>

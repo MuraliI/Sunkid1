@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.guest.SecurityQuestionsActivity">
+
+    <fragment
+        android:id="@+id/ship_time_fragment"
+        android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_security_question"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/margin_general"
+        android:paddingStart="@dimen/margin_general"
+        android:paddingTop="@dimen/margin_general">
+
+        <ImageView
+            android:id="@+id/image_back_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:padding="@dimen/margin_small"
+            android:src="@drawable/ic_trending_flat" />
+
+        <TextView
+            android:id="@+id/text_questions_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_questions_title_top"
+            android:gravity="center"
+            android:text="@string/questions_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_questions_title_size" />
+
+        <TextView
+            android:id="@+id/text_questions_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_edit_text"
+            android:gravity="center"
+            android:text="@string/questions_description"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_questions_description_size" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_questions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/padding_recycler_questions_top" />
+
+            <ProgressBar
+                android:id="@+id/progress_questions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorPrimaryDark" />
+
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

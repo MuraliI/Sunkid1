@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+    <!-- FIXME this is a temporary measure to load all the information from the service -->
+    <ProgressBar
+        android:id="@+id/progress_service_call_discover"
+        style="@style/ProgressBarStyle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/discovery_second_row"
+        android:layout_marginBottom="-13dp"
+        android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:id="@+id/discovery_first_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/discovery_second_row"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_small">
+
+        <LinearLayout
+            android:id="@+id/button_dinning"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_margin="@dimen/margin_xsmall"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_dinning" />
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/dining"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_activities"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_margin="@dimen/margin_xsmall"
+            android:layout_toEndOf="@id/button_dinning"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_activities" />
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/royal_activity"
+
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_entertainment"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_margin="@dimen/margin_xsmall"
+            android:layout_toEndOf="@id/button_activities"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_entertainment" />
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/entertainment"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_excursions"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_margin="@dimen/margin_xsmall"
+            android:layout_toEndOf="@+id/button_entertainment"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_excursions" />
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/shorex"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/discovery_second_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_small">
+
+        <LinearLayout
+            android:id="@+id/button_spa"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_margin="@dimen/margin_xsmall"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_spa" />
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/spa"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/button_shop"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_margin="@dimen/margin_xsmall"
+            android:layout_toEndOf="@+id/button_spa"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_shops" />
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/shopping"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_guest_services"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_margin="@dimen/margin_xsmall"
+            android:layout_toEndOf="@+id/button_shop"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/ship_button_category_size"
+                android:layout_height="@dimen/ship_button_category_size"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_services" />
+
+            <TextView
+                style="@style/AppTheme.DiscoverButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxLines="2"
+                android:text="@string/services"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/image_ship_invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/discovery_first_row"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ship_big"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
+</RelativeLayout>
+

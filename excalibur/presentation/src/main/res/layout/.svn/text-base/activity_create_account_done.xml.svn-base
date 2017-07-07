@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_account_done_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_done"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="com.rcl.excalibur.activity.guest.CreateAccountDoneActivity">
+
+    <fragment
+        android:id="@+id/ship_time_fragment"
+        android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/create_done_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/create_account_text_size_title" />
+
+        <TextView
+            android:id="@+id/text_show_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/create_done_sub_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/create_account_text_size_sub_title" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExpandableDescriptionLayout">
+        <attr name="descriptionText" format="string" />
+        <attr name="seeMoreCollapsedButtonText" format="string" />
+        <attr name="seeMoreExpandedButtonText" format="string" />
+        <attr name="collapseLinesCount" format="integer" />
+        <attr name="animationDuration" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="TriptychTabBarLayout">
+        <attr name="stripThickness" format="dimension" />
+        <attr name="stripColor" format="color" />
+        <attr name="tabsPadding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="PriceRangeLayout">
+        <attr name="maxRange" format="integer"/>
+        <attr name="value" format="integer"/>
+        <attr name="onColor" format="color"/>
+        <attr name="offColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShipTimeFragment">
+        <attr name="type" format="enum">
+            <enum name="white" value="1"/>
+            <enum name="blue" value="2"/>
+            <enum name="transparent" value="3"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RoundedView">
+        <attr name="borderRadius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="HorizontalPickerView">
+        <attr name="revealAnimationDuration" format="integer" />
+    </declare-styleable>
+</resources>

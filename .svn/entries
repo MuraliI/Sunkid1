@@ -1,0 +1,67 @@
+8
+
+dir
+4
+file:///C:/Murali/1PSM/RCCL/SVN_Repos/Excallibur_test1
+file:///C:/Murali/1PSM/RCCL/SVN_Repos/Excallibur_test1
+
+
+
+2017-07-07T11:20:26.430853Z
+4
+murali.iyar
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9f7ba36c-3cb3-e541-aaf5-b36bd7ae20fb
+
+.git
+dir
+
+.gitignore
+file
+
+
+
+
+2017-07-07T11:43:07.748000Z
+ea7fa26cd40e21b2dc1ac75dc5742631
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+README.md
+file
+
+
+
+
+2017-07-07T11:43:07.750000Z
+b27676da3d8bad0f2240543b4cec85ff
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+branches
+dir
+
+excalibur
+dir
+
+tags
+dir
+
+trunk
+dir
+

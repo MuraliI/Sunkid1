@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_ship_stats">
+
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="@dimen/size_icon_stats"
+        android:layout_height="@dimen/size_icon_stats"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:src="@drawable/icon_voyage_sunny" />
+
+    <TextView
+        android:id="@+id/item_name"
+        style="@style/AppTheme.ShipStatsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/title_margin" />
+</RelativeLayout>

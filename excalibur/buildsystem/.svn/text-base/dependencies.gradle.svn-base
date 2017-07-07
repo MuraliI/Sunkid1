@@ -1,0 +1,121 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    //Android
+    androidBuildToolsVersion = "25.0.2"
+    androidMinSdkVersion = 21
+    androidTargetSdkVersion = 25
+    androidCompileSdkVersion = 25
+    renderScriptTargetApiVersion = 21
+    rederScriptEnabledFlag = true
+
+    //Libraries
+    butterKnifeVersion = '8.5.1'
+    recyclerViewVersion = '25.0.0'
+    javaxAnnotationVersion = '1.0'
+    gsonVersion = '2.3'
+    activeAndroidVersion = '3.1.0-SNAPSHOT'
+    appSupportVersion = '25.1.0'
+    rxAndroidVersion = '2.0.1'
+    rxJavaVersion = '2.0.2'
+    arrowVersion = '1.0.0'
+    okHttpVersion = '2.5.0'
+    androidAnnotationsVersion = '21.0.3'
+    picassoVersion = "2.5.2"
+    cardViewVersion = "25.1.1"
+    calligraphyVersion = "2.2.0"
+    timberVersion = "4.5.1"
+    designSupportLibraryVersion = "25.1.1"
+    realTimeBlurLibVersion = "1.1.0"
+    appcompatVersion = "25.1.1"
+    retrofitVersion = "2.1.0"
+    retrofitGsonVersion = "2.1.0"
+    subsamplingScaleImageViewVersion = '3.6.0'
+    okHttpLoggingVersion = '3.3.0'
+    flexibleAdapterVersion = '5.0.0-rc1'
+
+    //Testing
+    robolectricVersion = '3.2.2'
+    jUnitVersion = '4.11'
+    assertJVersion = '1.7.1'
+    mockitoVersion = '1.9.0'
+    dexmakerVersion = '1.0'
+    espressoVersion = '2.0'
+    testingSupportLibVersion = '0.1'
+    powermockCoreV = '1.4.12'
+    powermockModuleJunit4V = '1.4.12'
+    powermockApiMockitoV = '1.4.12'
+
+    generalDependencies = [
+            timber: "com.jakewharton.timber:timber:${timberVersion}"
+    ]
+
+    presentationDependencies = [
+            butterKnife     : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            recyclerView    : "com.android.support:recyclerview-v7:${recyclerViewVersion}",
+            activeAndroid   : "com.michaelpardo:activeandroid:${activeAndroidVersion}",
+            appSupport      : "com.android.support:appcompat-v7:${appSupportVersion}",
+            rxAndroid       : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            picasso         : "com.squareup.picasso:picasso:${picassoVersion}",
+            cardView        : "com.android.support:cardview-v7:${cardViewVersion}",
+            calligraphy     : "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
+            supportDesign   : "com.android.support:design:${designSupportLibraryVersion}",
+            realTimeBlurView: "com.github.mmin18:realtimeblurview:${realTimeBlurLibVersion}",
+            appcompat       : "com.android.support:appcompat-v7:${appcompatVersion}",
+            scaleImageView  : "com.davemorrissey.labs:subsampling-scale-image-view:${subsamplingScaleImageViewVersion}",
+            flexibleAdapter : "eu.davidea:flexible-adapter:${flexibleAdapterVersion}",
+            annotationProcessor : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
+    ]
+
+    presentationTestDependencies = [
+            mockito                 : "org.mockito:mockito-core:${mockitoVersion}",
+            junit                   : "junit:junit:${jUnitVersion}",
+            assertj                 : "org.assertj:assertj-core:${assertJVersion}",
+            robolectric             : "org.robolectric:robolectric:${robolectricVersion}",
+            dexmaker                : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
+            dexmakerMockito         : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
+            espresso                : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            testingSupportLib       : "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
+            powermockCore           : "org.powermock:powermock-core:${powermockCoreV}",
+            powermockModuleJunit4   : "org.powermock:powermock-module-junit4:${powermockModuleJunit4V}",
+            powermockApiMockitoV    : "org.powermock:powermock-api-mockito:${powermockApiMockitoV}"
+    ]
+
+    domainDependencies = [
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            rxJava         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            arrow          : "com.fernandocejas:arrow:${arrowVersion}"
+    ]
+
+    domainTestDependencies = [
+            junit      : "junit:junit:${jUnitVersion}",
+            mockito    : "org.mockito:mockito-core:${mockitoVersion}",
+            assertj    : "org.assertj:assertj-core:${assertJVersion}",
+            robolectric: "org.robolectric:robolectric:${robolectricVersion}",
+    ]
+
+    dataDependencies = [
+            okHttp            : "com.squareup.okhttp:okhttp:${okHttpVersion}",
+            gson              : "com.google.code.gson:gson:${gsonVersion}",
+            rxJava            : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid         : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            javaxAnnotation   : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
+            activeAndroid     : "com.michaelpardo:activeandroid:${activeAndroidVersion}",
+            retrofit          : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitGson      : "com.squareup.retrofit2:converter-gson:${retrofitGsonVersion}",
+            okHttpLogging   : "com.squareup.okhttp3:logging-interceptor:${okHttpLoggingVersion}"
+
+    ]
+
+    dataTestDependencies = [
+            junit      : "junit:junit:${jUnitVersion}",
+            assertj    : "org.assertj:assertj-core:${assertJVersion}",
+            mockito    : "org.mockito:mockito-core:${mockitoVersion}",
+            robolectric: "org.robolectric:robolectric:${robolectricVersion}",
+    ]
+}

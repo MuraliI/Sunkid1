@@ -1,0 +1,136 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'adeum' // this line added for AppDynamics
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
+    defaultConfig {
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+
+        applicationId globalConfiguration.getAt("androidApplicationId")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+        versionName globalConfiguration.getAt("androidVersionName")
+        testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
+        testApplicationId globalConfiguration.getAt("testApplicationId")
+        renderscriptTargetApi globalConfiguration.getAt("renderScriptTargetApiVersion")
+        renderscriptSupportModeEnabled globalConfiguration.getAt("rederScriptEnabledFlag")
+
+        buildConfigField("String", "PREFIX_IMAGE", '"http://media.royalcaribbean.com/"')
+
+        buildConfigField "int", "UPDATE_TIME", "1"  //mins
+        buildConfigField "int", "SHIP_TIME", "15"   //mins
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        disable 'InvalidPackage'            //Some libraries have issues with this.
+        disable 'OldTargetApi'              //Lint gives this warning but SDK 20 would be Android L Beta.
+        disable 'IconDensities'             //For testing purpose. This is safe to remove.
+        disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        rci {
+            applicationId 'com.rcl.excalibur.rci'
+            versionName '0.1'
+            dependencies {
+
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    def generalDependencies = rootProject.ext.generalDependencies
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
+    compile project(':domain')
+    compile project(':data')
+
+    compile presentationDependencies.butterKnife,
+            presentationDependencies.annotationProcessor,
+            presentationDependencies.recyclerView,
+            presentationDependencies.activeAndroid,
+            presentationDependencies.appSupport,
+            presentationDependencies.rxAndroid,
+            presentationDependencies.picasso,
+            presentationDependencies.cardView,
+            presentationDependencies.calligraphy,
+            presentationDependencies.appcompat,
+            generalDependencies.timber,
+            presentationDependencies.supportDesign,
+            presentationDependencies.realTimeBlurView,
+            presentationDependencies.scaleImageView,
+            presentationDependencies.flexibleAdapter
+
+    testCompile presentationTestDependencies.junit,
+            presentationTestDependencies.mockito,
+            presentationTestDependencies.assertj,
+            presentationTestDependencies.powermockCore,
+            presentationTestDependencies.powermockModuleJunit4,
+            presentationTestDependencies.powermockApiMockitoV
+
+    androidTestCompile presentationTestDependencies.mockito,
+            presentationTestDependencies.dexmaker,
+            presentationTestDependencies.dexmakerMockito,
+            presentationTestDependencies.espresso,
+            presentationTestDependencies.testingSupportLib
+
+    //Development
+    compile files('libs/adobeMobileLibrary-4.13.4.jar')
+    //AppDynamics
+    compile 'com.appdynamics:appdynamics-runtime:4.3.0.2'
+}
+
+adeum { // this section added for AppDynamics
+    account {
+        name 'RoyalCaribbeanCruisesLtd-a0Q3400000EpgnVEAR'
+        licenseKey '2388469d-799f-44c1-9c2e-d4425ef507ff'
+    }
+
+    proguardMappingFileUpload {
+        failBuildOnUploadFailure true //should build fail if upload fails? Defaults to false.
+        enabled true //enables automatic uploads. Defaults to true.
+    }
+}
+
+apply plugin: 'checkstyle'
+
+task checkstyle(type: Checkstyle) {
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/R.java'
+    exclude '**/BuildConfig.java'
+
+    def configProps = ['proj.module.dir': projectDir.absolutePath]
+    configProperties configProps
+
+    classpath = files()
+}
+
+preBuild.dependsOn('checkstyle')

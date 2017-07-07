@@ -1,0 +1,82 @@
+8
+
+dir
+4
+file:///C:/Murali/1PSM/RCCL/SVN_Repos/Excallibur_test1/excalibur/data
+file:///C:/Murali/1PSM/RCCL/SVN_Repos/Excallibur_test1
+
+
+
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9f7ba36c-3cb3-e541-aaf5-b36bd7ae20fb
+
+.gitignore
+file
+
+
+
+
+2017-07-07T11:42:20.936000Z
+02e6ed7a96b1eb179e9dd86e6677527d
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+build.gradle
+file
+
+
+
+
+2017-07-07T11:42:20.952000Z
+b2b80326e78661ca68bd8e4abc0f122d
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+checkstyle-suppressions.xml
+file
+
+
+
+
+2017-07-07T11:42:20.981000Z
+9655bc92e147da0038576715dffdaec1
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+config
+dir
+
+proguard-rules.pro
+file
+
+
+
+
+2017-07-07T11:42:20.936000Z
+6c5ea690436bbdb49aa41bc7f6dc0be6
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+src
+dir
+

@@ -1,0 +1,85 @@
+8
+
+dir
+4
+file:///C:/Murali/1PSM/RCCL/SVN_Repos/Excallibur_test1/excalibur/presentation/src/main/res
+file:///C:/Murali/1PSM/RCCL/SVN_Repos/Excallibur_test1
+
+
+
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9f7ba36c-3cb3-e541-aaf5-b36bd7ae20fb
+
+anim
+dir
+
+drawable
+dir
+
+drawable-hdpi
+dir
+
+drawable-mdpi
+dir
+
+drawable-nodpi
+dir
+
+drawable-xhdpi
+dir
+
+drawable-xxhdpi
+dir
+
+drawable-xxxhdpi
+dir
+
+layout
+dir
+
+mipmap-hdpi
+dir
+
+mipmap-mdpi
+dir
+
+mipmap-xhdpi
+dir
+
+mipmap-xxhdpi
+dir
+
+mipmap-xxxhdpi
+dir
+
+transition
+dir
+
+values
+dir
+
+values-hdpi
+dir
+
+values-w820dp
+dir
+
+values-xhdpi
+dir
+

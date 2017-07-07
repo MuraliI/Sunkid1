@@ -1,0 +1,163 @@
+8
+
+dir
+4
+file:///C:/Murali/1PSM/RCCL/SVN_Repos/Excallibur_test1/excalibur/presentation/src/main/java/com/rcl/excalibur/adapters
+file:///C:/Murali/1PSM/RCCL/SVN_Repos/Excallibur_test1
+
+
+
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9f7ba36c-3cb3-e541-aaf5-b36bd7ae20fb
+
+BaseAdapter.java
+file
+
+
+
+
+2017-07-07T11:42:49.875000Z
+c7d576b7cb0ef1fecbc358893e10fcc9
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+DiningMenuCardAdapter.java
+file
+
+
+
+
+2017-07-07T11:42:49.920000Z
+55954e1d6b8ff9bb851b5627a9c7a066
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+DiningMenuPagerAdapter.java
+file
+
+
+
+
+2017-07-07T11:42:49.936000Z
+ddbf2689544be7bb1e827e845247030c
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+EventsAdapter.java
+file
+
+
+
+
+2017-07-07T11:42:49.926000Z
+048d96df29ecd8ae7ffa8a72ac159401
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+PlanAdapter.java
+file
+
+
+
+
+2017-07-07T11:42:49.931000Z
+b35a8c12bd8052b913ff28a7f1469289
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+PlanListAdapter.java
+file
+
+
+
+
+2017-07-07T11:42:49.912000Z
+7506959de6d814367a6976db8efd7ad1
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+ProductsAdapter.java
+file
+
+
+
+
+2017-07-07T11:42:49.897000Z
+c45402b8f3f802c030cab16717d4d697
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+ProductsCategoryAdapter.java
+file
+
+
+
+
+2017-07-07T11:42:49.885000Z
+6df09d7d7f7a465f82eeed6f166b2a6f
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+ShipStatsAdapter.java
+file
+
+
+
+
+2017-07-07T11:42:49.890000Z
+1aa1fd18fe74c8470348404d9ae44c3a
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+TriptychPagerAdapter.java
+file
+
+
+
+
+2017-07-07T11:42:49.904000Z
+ba8dcb5afb3a112d6f5ece153b26f46d
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+base
+dir
+
+delegate
+dir
+
+guest
+dir
+
+planner
+dir
+
+viewtype
+dir
+

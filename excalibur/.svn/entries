@@ -1,0 +1,127 @@
+8
+
+dir
+4
+file:///C:/Murali/1PSM/RCCL/SVN_Repos/Excallibur_test1/excalibur
+file:///C:/Murali/1PSM/RCCL/SVN_Repos/Excallibur_test1
+
+
+
+2017-07-07T11:20:26.430853Z
+4
+murali.iyar
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9f7ba36c-3cb3-e541-aaf5-b36bd7ae20fb
+
+RoyalAndroidCodeStyle.xml
+file
+
+
+
+
+2017-07-07T11:42:53.234000Z
+19f66003e605a5c16ecdf4c29d20c015
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+build.gradle
+file
+
+
+
+
+2017-07-07T11:42:53.234000Z
+48cf9c0f965cf92c42f3f0ea2a910297
+2017-07-07T11:20:26.430853Z
+4
+murali.iyar
+
+buildsystem
+dir
+
+data
+dir
+
+domain
+dir
+
+gradle
+dir
+
+gradle.properties
+file
+
+
+
+
+2017-07-07T11:42:53.249000Z
+d39a55ccc937561898d93f80b63c8521
+2017-07-07T11:04:16.237147Z
+3
+murali.iyar
+
+gradlew
+file
+
+
+
+
+2017-07-07T11:42:53.220000Z
+ab3b64d197bb9227a0da6e4cbe1ffd8a
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+
+gradlew.bat
+file
+
+
+
+
+2017-07-07T11:42:53.234000Z
+52cefcab7ee28ccda29555c704c32ea2
+2017-07-07T11:04:16.237147Z
+3
+murali.iyar
+
+presentation
+dir
+
+scn_ADD_FILE.txt
+file
+
+
+
+
+2017-07-07T11:42:53.249000Z
+25573cc4d75a87f8090b663b312a11d4
+2017-07-07T11:04:16.237147Z
+3
+murali.iyar
+
+settings.gradle
+file
+
+
+
+
+2017-07-07T11:42:53.227000Z
+94ee1dc0fe54df5d5f997d6d3259a44d
+2017-07-07T10:58:00.873363Z
+2
+murali.iyar
+

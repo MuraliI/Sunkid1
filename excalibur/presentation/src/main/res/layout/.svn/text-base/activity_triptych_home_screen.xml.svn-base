@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_sea"
+    android:orientation="vertical">
+
+    <fragment
+        android:id="@+id/ship_time_fragment"
+        android:name="com.rcl.excalibur.fragments.ShipTimeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/ship_time" />
+
+    <com.rcl.excalibur.custom.view.TriptychTabBarLayout
+        android:id="@+id/tab_triptych_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:stripColor="@color/white"
+        app:stripThickness="@dimen/triptych_strip_tickness"
+        app:tabsPadding="@dimen/margin_normal">
+
+        <include
+            android:id="@+id/day_picker_tab"
+            layout="@layout/custom_tabview_triptychtab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/icon_map_tab" />
+
+    </com.rcl.excalibur.custom.view.TriptychTabBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.rcl.excalibur.custom.view.ShipView
+            android:id="@+id/ship_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text_ship_status"
+                style="@style/AppTheme.TriptychItemTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/margin_medium"
+                android:gravity="center"
+                tools:text="@string/hardcoded_home_status" />
+
+            <ImageView
+                android:id="@+id/image_ship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_ship_status"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@drawable/ship_big"
+                android:transitionName="@string/shared_element_ship" />
+
+            <ImageView
+                android:id="@+id/image_cloud_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:contentDescription="@null"
+                android:src="@drawable/cloud_01"
+                android:transitionName="@string/shared_element_cloud_left" />
+
+            <ImageView
+                android:id="@+id/image_cloud_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@null"
+                android:src="@drawable/cloud_02"
+                android:transitionName="@string/shared_element_cloud_right" />
+
+        </com.rcl.excalibur.custom.view.ShipView>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager_triptych_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+</LinearLayout>

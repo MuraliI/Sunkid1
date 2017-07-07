@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.rcl.excalibur.custom.view.RoundedCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/planner_cue_card_height"
+    android:background="@drawable/background_cue_card"
+    android:orientation="vertical"
+    app:borderRadius="@dimen/default_radius">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- This is commented because on ticket CORE-1601 they don't want hours at the moment -->
+        <!--<RelativeLayout
+            android:id="@+id/layout_planner_item_separator_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <TextView
+                android:id="@+id/text_planner_separator_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/margin_planner_hour_separator_text"
+                android:visibility="gone"
+                tools:text="10 AM" />
+
+            <View
+                android:id="@+id/view_planner_separator_line"
+                android:layout_width="@dimen/width_planner_item"
+                android:layout_height="@dimen/itinerary_separator_thickness"
+                android:layout_alignParentEnd="true"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/text_planner_separator_time"
+                android:background="@color/discover_grey" />
+        </RelativeLayout>-->
+
+        <LinearLayout
+            android:id="@+id/layout_itinerary_texts_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/image_itinerary_product_picture"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/margin_small"
+            android:paddingStart="@dimen/margin_small"
+            android:paddingTop="@dimen/margin_small">
+
+            <TextView
+                android:id="@+id/text_planner_product_operating_hours"
+                style="@style/AppTheme.ProductDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="7:30 AM - 8:30 AM" />
+
+            <TextView
+                android:id="@+id/text_planner_product_name"
+                style="@style/AppTheme.ProductTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_product_margin"
+                android:layout_marginTop="@dimen/item_product_margin"
+                tools:text="The High Dive" />
+
+            <TextView
+                android:id="@+id/text_planner_product_venue"
+                style="@style/AppTheme.ProductVenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Main Pool," />
+
+            <TextView
+                android:id="@+id/text_itinerary_planner_deck_and_direction"
+                style="@style/AppTheme.ProductVenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Deck 12 AFT" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_below="@+id/layout_itinerary_texts_container"
+            android:layout_toStartOf="@+id/image_itinerary_product_picture"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_small"
+            android:paddingEnd="@dimen/margin_small"
+            android:paddingStart="@dimen/margin_small">
+
+            <ImageView
+                android:id="@+id/image_itinerary_product_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="@dimen/item_product_margin"
+                android:contentDescription="@null"
+                tools:src="@drawable/icon_dining_color" />
+
+            <ImageView
+                android:id="@+id/image_itinerary_product_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="@dimen/item_product_margin"
+                android:layout_marginStart="@dimen/item_product_margin"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_favorite_color" />
+
+            <com.rcl.excalibur.custom.view.PriceRangeLayout
+                android:id="@+id/view_itinerary_product_price_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/item_product_margin"
+                android:visibility="gone"
+                app:maxRange="@integer/planner_product_item_max_range"
+                app:offColor="@color/grey"
+                app:onColor="@color/black" />
+        </LinearLayout>
+
+        <com.rcl.excalibur.utils.RoundedImageView
+            android:id="@+id/image_itinerary_product_picture"
+            android:layout_width="@dimen/item_product_image_width"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_margin="@dimen/margin_small"
+            android:contentDescription="@string/itinerary_accessibility_product_image"
+            android:scaleType="centerCrop"
+            android:transitionName="@string/shared_element_transition_name"
+            tools:src="@drawable/placeholder_list_item" />
+
+        <View
+            android:id="@+id/view_planner_separator_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itinerary_separator_thickness"
+            android:layout_alignParentBottom="true"
+            android:background="@color/discover_grey" />
+    </RelativeLayout>
+</com.rcl.excalibur.custom.view.RoundedCardView>
